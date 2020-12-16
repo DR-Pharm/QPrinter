@@ -16,8 +16,8 @@ public:
     PRT(QWidget *parent = Q_NULLPTR);
 	void createPix(QPixmap *);
 private:
-	int pixWidth = 2970;
-	int pixHeight = 2100;
+	int pixWidth = 2100;
+	int pixHeight = 2970;
     Ui::PRTClass ui; 
 	QString m_sName; 
 	QPrinter *m_prt = nullptr;
