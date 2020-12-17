@@ -20,7 +20,16 @@ private:
 	int pixHeight = 2970;
     Ui::PRTClass ui; 
 	QString m_sName; 
-	QPrinter *m_prt = nullptr;
+	QPrinter *m_prt = nullptr; 
+
+	QList<double> data_One;	
+	double m_dmax;
+	double m_dmin;
+	double m_dsum;
+	double m_dave;
+	double m_dtheory;
+	double m_dminoff;
+	double m_dmaxoff;
 public slots:
 
 	void on_pB_Print_clicked();

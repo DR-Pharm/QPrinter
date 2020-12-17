@@ -42,7 +42,7 @@
    </widget>
    <widget class="QPushButton" name="pB_PrintDirect">
     <property name="enabled">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="geometry">
      <rect>
