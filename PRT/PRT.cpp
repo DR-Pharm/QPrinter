@@ -13,11 +13,11 @@ PRT::PRT(QWidget *parent)
 
 	data_One << 0.369 << 0.321 << 0.332 << 0.311 << 0.399 << 0.334 << 0.321 << 0.346 << 0.389 << 0.333
 		<< 0.333 << 0.333 << 0.333 << 0.333 << 0.333 << 0.369 << 0.321 << 0.332 << 0.311 << 0.399
-		<< 0.334 << 0.321 << 0.346 << 0.389 << 0.333 << 0.333 << 0.333 << 0.333 << 0.333 << 0.333
+		<< 0.334 << 0.321 << 0.346 << 0.389 << 0.333 << 0.323 << 0.333 << 0.333 << 0.333 << 0.333
 		<< 0.333 << 0.369 << 0.321 << 0.332 << 0.311 << 0.399 << 0.334 << 0.321 << 0.346 << 0.389
 		<< 0.333 << 0.333 << 0.333 << 0.333 << 0.333 << 0.333 << 0.333 << 0.369 << 0.321 << 0.332
 		<< 0.311 << 0.399 << 0.334 << 0.321 << 0.346 << 0.389 << 0.333 << 0.333 << 0.333 << 0.333
-		<< 0.333 << 0.333 << 0.333;
+		<< 0.333 << 0.343 << 0.333;
 	m_dmax = data_One.at(0);
 	m_dmin = data_One.at(0);
 	m_dsum = 0;
@@ -135,6 +135,14 @@ void PRT::createPix(QPixmap *pix)
 	lines.append(QLine(QPoint(edgeOffset, (innerHeight - 100) / 2), QPoint(innerWidth, (innerHeight - 100) / 2)));//1/2#分割线
 	lines.append(QLine(QPoint(edgeOffset, innerHeight - 80), QPoint(innerWidth, innerHeight - 80)));//2#操作人签名上侧
 
+	//画坐标系
+	int of = 10;
+	lines.append(QLine(QPoint(200, 600), QPoint(200, (innerHeight - 100) / 2 - 200)));//Y
+	lines.append(QLine(QPoint(200-of, 600+of), QPoint(200, 600)));
+	lines.append(QLine(QPoint(200+of, 600+of), QPoint(200, 600)));
+	lines.append(QLine(QPoint(200, (innerHeight - 100) / 2 - 200), QPoint(innerWidth-150, (innerHeight - 100) / 2 - 200)));//X
+	lines.append(QLine(QPoint(innerWidth - 150 - of, (innerHeight - 100) / 2 - 200 - of), QPoint(innerWidth - 150, (innerHeight - 100) / 2 - 200)));
+	lines.append(QLine(QPoint(innerWidth - 150 - of, (innerHeight - 100) / 2 - 200 + of), QPoint(innerWidth - 150, (innerHeight - 100) / 2 - 200)));
 
 	painter->drawLines(lines);
 	lines.clear();
