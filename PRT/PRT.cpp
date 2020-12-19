@@ -111,46 +111,68 @@ void PRT::createPix(QPixmap *pix)
 	painter->setBrush(QColor(255, 255, 255));
 
 	int edgeOffset = 50;
-	int innerWidth = pixWidth - edgeOffset;
-	int innerHeight = pixHeight - edgeOffset;
+	int innerW = pixWidth - 2*edgeOffset;
+	int innerH = pixHeight - 2 * edgeOffset;
+	int rightW = pixWidth - edgeOffset;
+	int bottomH= pixHeight - edgeOffset;
 
 	QRect rect(0, 0, pixWidth, pixHeight);
-	//整张图设置画刷白底
+	//整张图设置画刷白底	
+	QFont font;
+	font.setPointSize(20);
+	font.setFamily("宋体");
+	font.setItalic(true);
+	painter->setFont(font);
 	painter->fillRect(rect, QColor(255, 255, 255));
 	painter->drawRect(rect);
 	//画数据部分的线条
 	painter->setPen(QPen(QColor(0, 0, 0), 3));
 	QVector<QLine> lines;
-	lines.append(QLine(QPoint(edgeOffset, edgeOffset), QPoint(innerWidth, edgeOffset)));//上边
-	lines.append(QLine(QPoint(innerWidth, edgeOffset), QPoint(innerWidth, innerHeight)));//右边
-	lines.append(QLine(QPoint(edgeOffset, innerHeight), QPoint(innerWidth, innerHeight)));//下边
-	lines.append(QLine(QPoint(edgeOffset, edgeOffset), QPoint(edgeOffset, innerHeight)));//左边
-	lines.append(QLine(QPoint(edgeOffset, 120), QPoint(innerWidth, 120)));//名称下边
-	lines.append(QLine(QPoint(edgeOffset, 180), QPoint(innerWidth, 180)));//产品下边
-	lines.append(QLine(QPoint(edgeOffset, 240), QPoint(innerWidth, 240)));//重量栏目下边
-	lines.append(QLine(QPoint(edgeOffset, 515), QPoint(innerWidth, 515)));//重量明细下边
+	lines.append(QLine(QPoint(edgeOffset, edgeOffset), QPoint(rightW, edgeOffset)));//上边
+	lines.append(QLine(QPoint(rightW, edgeOffset), QPoint(rightW, bottomH)));//右边
+	lines.append(QLine(QPoint(edgeOffset, bottomH), QPoint(rightW, bottomH)));//下边
+	lines.append(QLine(QPoint(edgeOffset, edgeOffset), QPoint(edgeOffset, bottomH)));//左边
+	for (int i=0;i<3;i++)
+	{
+		lines.append(QLine(QPoint(edgeOffset, 120 + i * 60), QPoint(rightW, 120 + i * 60)));
+		//名称下边
+		//产品下边
+		//重量栏目下边
+	}
+	lines.append(QLine(QPoint(edgeOffset, 515), QPoint(rightW, 515)));//重量明细下边
 
 	lines.append(QLine(QPoint(400, 180), QPoint(400, 515)));//重量分析与每粒重量之间
-	lines.append(QLine(QPoint(edgeOffset, (innerHeight - 100)/2-80), QPoint(innerWidth, (innerHeight - 100) / 2 - 80)));//2#操作人签名上侧
-	lines.append(QLine(QPoint(edgeOffset, (innerHeight - 100) / 2), QPoint(innerWidth, (innerHeight - 100) / 2)));//1/2#分割线
-	lines.append(QLine(QPoint(edgeOffset, innerHeight - 80), QPoint(innerWidth, innerHeight - 80)));//2#操作人签名上侧
+	lines.append(QLine(QPoint(edgeOffset, pixHeight/2-80), QPoint(rightW, pixHeight/2 - 80)));//1#操作人签名上侧
+	lines.append(QLine(QPoint(edgeOffset, pixHeight /2), QPoint(rightW, pixHeight / 2)));//1/2#分割线
+	lines.append(QLine(QPoint(edgeOffset, bottomH - 80), QPoint(rightW, bottomH -80)));//2#操作人签名上侧
 
 	//画坐标系
+	painter->drawText(160, pixHeight/2-200, 50, 50, Qt::AlignVCenter, "0");//0
+		//x
+		//y
+
 	int of = 10;
-	lines.append(QLine(QPoint(200, 600), QPoint(200, (innerHeight - 100) / 2 - 200)));//Y
+	lines.append(QLine(QPoint(200, 600), QPoint(200, pixHeight / 2 - 200)));//Y
 	lines.append(QLine(QPoint(200-of, 600+of), QPoint(200, 600)));
 	lines.append(QLine(QPoint(200+of, 600+of), QPoint(200, 600)));
-	lines.append(QLine(QPoint(200, (innerHeight - 100) / 2 - 200), QPoint(innerWidth-150, (innerHeight - 100) / 2 - 200)));//X
-	lines.append(QLine(QPoint(innerWidth - 150 - of, (innerHeight - 100) / 2 - 200 - of), QPoint(innerWidth - 150, (innerHeight - 100) / 2 - 200)));
-	lines.append(QLine(QPoint(innerWidth - 150 - of, (innerHeight - 100) / 2 - 200 + of), QPoint(innerWidth - 150, (innerHeight - 100) / 2 - 200)));
+	lines.append(QLine(QPoint(200, pixHeight / 2 - 200), QPoint(rightW - 150, pixHeight / 2 - 200)));//X
+	lines.append(QLine(QPoint(rightW - 150 - of, pixHeight / 2 - 200 - of), QPoint(rightW - 150, pixHeight / 2 - 200)));
+	lines.append(QLine(QPoint(rightW - 150 - of, pixHeight / 2 - 200 + of), QPoint(rightW - 150, pixHeight / 2 - 200)));
 
 	painter->drawLines(lines);
 	lines.clear();
-	//画每粒重量格
+
 	painter->setPen(QPen(QColor(0, 0, 0), 1));
+	painter->drawText(100, pixHeight / 2 - 300, 150, 50, Qt::AlignVCenter, QString::number(m_dmin, 'f', 3));//MIN
+	lines.append(QLine(QPoint(200, pixHeight / 2 - 275), QPoint(rightW - 250, pixHeight / 2 - 275)));//MIN
+	painter->drawText(100, pixHeight / 2 - 850, 150, 50, Qt::AlignVCenter, QString::number(m_dmax, 'f', 3));//MAX
+	painter->drawText(100, pixHeight / 2 - 300 - (m_dave - m_dmin) / (m_dmax - m_dmin) * 550, 150, 50, Qt::AlignVCenter, QString::number(m_dave, 'f', 3));//AVE
+	painter->drawLines(lines);
+
+	//画每粒重量格
 	for (int i = 1; i < 5; i++)
 	{
-		lines.append(QLine(QPoint(400, 240 + i * 55), QPoint(innerWidth, 240 + i * 55)));
+		lines.append(QLine(QPoint(400, 240 + i * 55), QPoint(rightW, 240 + i * 55)));
 	}
 	for (int i = 1; i < 16; i++)
 	{
@@ -161,18 +183,12 @@ void PRT::createPix(QPixmap *pix)
 
 	painter->setPen(QPen(QColor(0, 0, 0), 3));
 
-	QFont font;
-	font.setPointSize(20);
-	font.setFamily("宋体");
 
-
-	font.setItalic(true);
-	painter->setFont(font);
 	//第一部分
 	painter->drawText(0, 0, pixWidth - 1600, 50, Qt::AlignCenter, QString::fromLocal8Bit("版权所有:Dr.Pharm"));// ui->lE_unit->text());//单位名称
 	//painter->drawText(0, 0, pixWidth+1400, 50, Qt::AlignCenter, "No:");	
 	//painter->drawText(0, 0, pixWidth + 1100, 50, Qt::AlignCenter, QString::fromLocal8Bit("设备型号/编号:"));
-	painter->drawText(50, 50, innerWidth + 1400, 70, Qt::AlignCenter, QString::fromLocal8Bit("设备型号/编号:1#机"));
+	painter->drawText(50, 50, rightW + 1400, 70, Qt::AlignCenter, QString::fromLocal8Bit("设备型号/编号:1#机"));
 	font.setPointSize(30);
 	painter->setFont(font);
 	painter->drawText(0, 0, pixWidth, 170, Qt::AlignCenter, QString::fromLocal8Bit("抽检报告"));// ui->lE_report->text());//报告名称
@@ -186,7 +202,7 @@ void PRT::createPix(QPixmap *pix)
 	//第三部分
 
 	painter->drawText(50, 180, 370, 60, Qt::AlignCenter, QString::fromLocal8Bit("重量分析"));
-	painter->drawText(400, 180, innerWidth - 400, 60, Qt::AlignCenter, QString::fromLocal8Bit("每粒重量(g)"));
+	painter->drawText(400, 180, rightW - 400, 60, Qt::AlignCenter, QString::fromLocal8Bit("每粒重量(g)"));
 	//第四部分
 	painter->drawText(70, 240, 400, 60, Qt::AlignVCenter, QString::fromLocal8Bit("最大值(g):") + QString::number(m_dmax, 'f', 3));
 	painter->drawText(70, 295, 400, 60, Qt::AlignVCenter, QString::fromLocal8Bit("最小值(g):") + QString::number(m_dmin, 'f', 3));
@@ -198,12 +214,12 @@ void PRT::createPix(QPixmap *pix)
 		painter->drawText(400+i%16* 103.125, 240+i/16%5*55, 103.125, 55, Qt::AlignCenter, QString::number(data_One.at(i), 'f', 3));
 	}
 	//第五部分
-	painter->drawText(50, (innerHeight - 100) / 2 - 80, 1900, 80, Qt::AlignCenter, QString::fromLocal8Bit("签字:"));// +ui->lE_code->text());
+	painter->drawText(50, pixHeight/2 - 80, 1900, 80, Qt::AlignCenter, QString::fromLocal8Bit("签字:"));// +ui->lE_code->text());
 
-	painter->drawText(50, (innerHeight - 100) / 2 - 80, 3000, 80, Qt::AlignCenter, QString::fromLocal8Bit("日期:"));// +ui->lE_reportDate->text());
-	painter->drawText(50, innerHeight - 80, 1900, 80, Qt::AlignCenter, QString::fromLocal8Bit("签字:"));// +ui->lE_code->text());
+	painter->drawText(50, pixHeight / 2 - 80, 3000, 80, Qt::AlignCenter, QString::fromLocal8Bit("日期:"));// +ui->lE_reportDate->text());
+	painter->drawText(50, bottomH - 80, 1900, 80, Qt::AlignCenter, QString::fromLocal8Bit("签字:"));// +ui->lE_code->text());
 
-	painter->drawText(50, innerHeight - 80, 3000, 80, Qt::AlignCenter, QString::fromLocal8Bit("日期:"));// +ui->lE_reportDate->text());
+	painter->drawText(50, bottomH - 80, 3000, 80, Qt::AlignCenter, QString::fromLocal8Bit("日期:"));// +ui->lE_reportDate->text());
 
 	painter->end();
 }
