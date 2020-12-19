@@ -17,7 +17,7 @@ PRT::PRT(QWidget *parent)
 		<< 0.333 << 0.369 << 0.321 << 0.332 << 0.311 << 0.399 << 0.334 << 0.321 << 0.346 << 0.389
 		<< 0.333 << 0.333 << 0.333 << 0.333 << 0.333 << 0.333 << 0.333 << 0.369 << 0.321 << 0.332
 		<< 0.311 << 0.399 << 0.334 << 0.321 << 0.346 << 0.389 << 0.333 << 0.333 << 0.333 << 0.333
-		<< 0.333 << 0.343 << 0.333;
+		<< 0.333 << 0.343 << 0.333 << 0.388;
 	m_dmax = data_One.at(0);
 	m_dmin = data_One.at(0);
 	m_dsum = 0;
@@ -163,10 +163,17 @@ void PRT::createPix(QPixmap *pix)
 	lines.clear();
 
 	painter->setPen(QPen(QColor(0, 0, 0), 1));
+	//lines   200,rightW-250 pixHeight/2-825 pixHeight/2-275   250start point
 	painter->drawText(100, pixHeight / 2 - 300, 150, 50, Qt::AlignVCenter, QString::number(m_dmin, 'f', 3));//MIN
-	lines.append(QLine(QPoint(200, pixHeight / 2 - 275), QPoint(rightW - 250, pixHeight / 2 - 275)));//MIN
 	painter->drawText(100, pixHeight / 2 - 850, 150, 50, Qt::AlignVCenter, QString::number(m_dmax, 'f', 3));//MAX
 	painter->drawText(100, pixHeight / 2 - 300 - (m_dave - m_dmin) / (m_dmax - m_dmin) * 550, 150, 50, Qt::AlignVCenter, QString::number(m_dave, 'f', 3));//AVE
+	lines.append(QLine(QPoint(195, pixHeight / 2 - 275), QPoint(rightW - 250, pixHeight / 2 - 275)));//MIN
+	lines.append(QLine(QPoint(195, pixHeight / 2 - 825), QPoint(rightW - 250, pixHeight / 2 - 825)));//MAX
+	lines.append(QLine(QPoint(195, pixHeight / 2 - 275 - (m_dave - m_dmin) / (m_dmax - m_dmin) * 550), QPoint(rightW - 250, pixHeight / 2 - 275 - (m_dave - m_dmin) / (m_dmax - m_dmin) * 550)));//AVE
+	for (int i=0;i<data_One.size()-1;i++)
+	{
+		lines.append(QLine(QPoint(250 + (rightW - 250 - 250) / data_One.size()*i, pixHeight / 2 - 275 - (data_One.at(i) - m_dmin) / (m_dmax - m_dmin) * 550), QPoint(250 + (rightW - 250 - 250) / data_One.size()*(i + 1), pixHeight / 2 - 275 - (data_One.at(i+1) - m_dmin) / (m_dmax - m_dmin) * 550)));
+	}
 	painter->drawLines(lines);
 
 	//画每粒重量格
