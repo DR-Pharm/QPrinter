@@ -19,7 +19,7 @@ PRT::PRT(QWidget *parent)
 		<< 0.333 << 0.333 << 0.333 << 0.333 << 0.333 << 0.333 << 0.333 << 0.369 << 0.321 << 0.332
 		<< 0.311 << 0.399 << 0.334 << 0.321 << 0.346 << 0.389 << 0.333 << 0.333 << 0.333 << 0.333
 		<< 0.333 << 0.343 << 0.333 << 0.319;
-	data_One[1] << 0.220;// << 0.300;// << 0.300;// << 1.0 << 2.0 << 3.5;
+	data_One[1] << 0.220 << 0.300 << 0.300 << 1.0 << 2.0 << 3.5;
 	for (int i = 0; i < 2; i++)
 	{
 		m_dtheory[i] = 0.35;
@@ -257,9 +257,9 @@ void PRT::createPix(QPixmap *pix)
 
 				for (int i = 0; i < data_One[totalMachineCount].size() - 1; i++)
 				{
-					if (m_dmin[totalMachineCount]!=m_dmax[totalMachineCount])
+					if (m_dmin[totalMachineCount] != m_dmax[totalMachineCount])
 					{
-					lines.append(QLine(QPoint(actualLeft + actualWidth * 1.0 / (data_One[totalMachineCount].size() - 1)*i, actualBottom + simpleFun - (data_One[totalMachineCount].at(i) - m_dmin[totalMachineCount])*1.0 / (m_dmax[totalMachineCount] - m_dmin[totalMachineCount]) * actualHight), QPoint(actualLeft + actualWidth * 1.0 / (data_One[totalMachineCount].size() - 1)*(i + 1), actualBottom + simpleFun - (data_One[totalMachineCount].at(i + 1) - m_dmin[totalMachineCount])*1.0 / (m_dmax[totalMachineCount] - m_dmin[totalMachineCount]) * actualHight)));
+						lines.append(QLine(QPoint(actualLeft + actualWidth * 1.0 / (data_One[totalMachineCount].size() - 1)*i, actualBottom + simpleFun - (data_One[totalMachineCount].at(i) - m_dmin[totalMachineCount])*1.0 / (m_dmax[totalMachineCount] - m_dmin[totalMachineCount]) * actualHight), QPoint(actualLeft + actualWidth * 1.0 / (data_One[totalMachineCount].size() - 1)*(i + 1), actualBottom + simpleFun - (data_One[totalMachineCount].at(i + 1) - m_dmin[totalMachineCount])*1.0 / (m_dmax[totalMachineCount] - m_dmin[totalMachineCount]) * actualHight)));
 
 					}
 					else
