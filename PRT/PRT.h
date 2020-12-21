@@ -22,14 +22,14 @@ private:
 	QString m_sName; 
 	QPrinter *m_prt = nullptr; 
 
-	QList<double> data_One;	
-	double m_dmax;
-	double m_dmin;
-	double m_dsum;
-	double m_dave;
-	double m_dtheory;
-	double m_dminoff;
-	double m_dmaxoff;
+	QList<double> data_One[2];	
+	double m_dmax[2];
+	double m_dmin[2];
+	double m_dsum[2];
+	double m_dave[2];
+	double m_dtheory[2];
+	double m_dminoff[2];
+	double m_dmaxoff[2];
 public slots:
 
 	void on_pB_Print_clicked();
