@@ -129,6 +129,7 @@ void PRT::createPix(QPixmap *pix)
 	int rightW = pixWidth - edgeOffset;
 	int bottomH = pixHeight - edgeOffset;
 	int firstLine = 120;//大标题下面
+	int secondLine= firstLine + 60;
 	int weightTop = firstLine + 60;
 	int weightMiddle = firstLine + 2 * 60;
 	int weightRowCount = 8;
@@ -272,11 +273,19 @@ void PRT::createPix(QPixmap *pix)
 				lines.clear();
 			}
 		}
-		painter->setPen(QPen(QColor(0, 0, 0), 1));
-		//画重量结果
-		for (int i = 1; i < 4; i++)
+		painter->setPen(QPen(QColor(0, 0, 0), 1));		
+		
+		//画规格型号
+		for (int i = 0; i < 3; i++)
 		{
-			lines.append(QLine(QPoint(edgeOffset + innerW * 1.0 / 4 * i, betweenweight + 60 + simpleFun), QPoint(edgeOffset + innerW * 1.0 / 4 * i, weightBottom + simpleFun)));
+			lines.append(QLine(QPoint(edgeOffset + innerW * 1.0 / 3 * (i + 1), firstLine+ simpleFun), QPoint(edgeOffset + innerW * 1.0 / 3 * (i + 1),  secondLine+ simpleFun)));
+			lines.append(QLine(QPoint(edgeOffset + 250 + innerW * 1.0 /3 * i, firstLine + simpleFun), QPoint(edgeOffset + 250 + innerW * 1.0 / 3 * i, secondLine + simpleFun)));
+		}
+		//画重量结果
+		for (int i = 0; i < 4; i++)
+		{
+			lines.append(QLine(QPoint(edgeOffset + innerW * 1.0 / 4 * (i+1), betweenweight + 60 + simpleFun), QPoint(edgeOffset + innerW * 1.0 / 4 * (i + 1), weightBottom + simpleFun)));
+			lines.append(QLine(QPoint(edgeOffset +225+ innerW * 1.0 / 4 * i, betweenweight + 60 + simpleFun), QPoint(edgeOffset + 225 + innerW * 1.0 / 4 * i, weightBottom + simpleFun)));
 		}
 		lines.append(QLine(QPoint(edgeOffset, betweenweight + 2 * 60 + simpleFun), QPoint(rightW, betweenweight + 2 * 60 + simpleFun)));//每粒重量下边
 		//画每粒重量格
@@ -313,9 +322,13 @@ void PRT::createPix(QPixmap *pix)
 
 		//第二部分
 
-		painter->drawText(100, 120 + simpleFun, 500, 60, Qt::AlignVCenter, QString::fromLocal8Bit("产品名称:红素片"));// +ui->lE_means->text());
-		painter->drawText(800, 120 + simpleFun, 500, 60, Qt::AlignVCenter, QString::fromLocal8Bit("产品规格:一号片"));// +ui->lE_instrument->text());
-		painter->drawText(1500, 120 + simpleFun, 500, 60, Qt::AlignVCenter, QString::fromLocal8Bit("产品批号:123456789"));// +ui->lE_instrument->text());
+		painter->drawText(edgeOffset, firstLine+ simpleFun, 250, 60, Qt::AlignCenter, QString::fromLocal8Bit("产品名称"));// +ui->lE_means->text());
+		painter->drawText(edgeOffset +250+25, firstLine + simpleFun, innerW * 1.0 / 3-250, 60, Qt::AlignVCenter, QString::fromLocal8Bit("红素片"));// +ui->lE_means->text());
+		
+		painter->drawText(edgeOffset+innerW * 1.0 / 3, firstLine + simpleFun, 250, 60, Qt::AlignCenter, QString::fromLocal8Bit("产品规格"));// +ui->lE_instrument->text());
+		painter->drawText(edgeOffset + innerW * 1.0 / 3+250+25, firstLine + simpleFun, innerW * 1.0 / 3*2 - 250, 60, Qt::AlignVCenter, QString::fromLocal8Bit("一号片"));// +ui->lE_instrument->text());
+		painter->drawText(edgeOffset+innerW * 1.0 / 3*2, firstLine + simpleFun, 250, 60, Qt::AlignCenter, QString::fromLocal8Bit("产品批号"));// +ui->lE_instrument->text());
+		painter->drawText(edgeOffset + innerW * 1.0 / 3 * 2+250+25, firstLine + simpleFun, innerW * 1.0 - 250, 60, Qt::AlignVCenter, QString::fromLocal8Bit("123456789"));// +ui->lE_instrument->text());
 		//第三部分
 
 		painter->drawText(edgeOffset, weightTop + simpleFun, innerW, 60, Qt::AlignCenter, QString::fromLocal8Bit("每粒重量(g)"));
@@ -324,14 +337,22 @@ void PRT::createPix(QPixmap *pix)
 		//lines.append(QLine(QPoint(edgeOffset + innerW * 1.0 / 4 * i, betweenweight + 60 + simpleFun), QPoint(edgeOffset + innerW * 1.0 / 4 * i, weightBottom + simpleFun)));
 		if (data_One[totalMachineCount].size() > 0)
 		{
-			painter->drawText(edgeOffset + 25, betweenweight + 60 + simpleFun, innerW * 1.0 / 4, 60, Qt::AlignVCenter, QString::fromLocal8Bit("次  数(次):") + QString::number(data_One[totalMachineCount].size()));
-			painter->drawText(edgeOffset + 25 + innerW * 1.0 / 4 * 1, betweenweight + 60 + simpleFun, innerW * 1.0 / 4, 60, Qt::AlignVCenter, QString::fromLocal8Bit("总  和 (g):") + QString::number(m_dsum[totalMachineCount], 'f', 3));
-			painter->drawText(edgeOffset + 25 + innerW * 1.0 / 4 * 2, betweenweight + 60 + simpleFun, innerW * 1.0 / 4, 60, Qt::AlignVCenter, QString::fromLocal8Bit("平均值 (g):") + QString::number(m_dave[totalMachineCount], 'f', 4));
-			painter->drawText(edgeOffset + 25 + innerW * 1.0 / 4 * 3, betweenweight + 60 + simpleFun, innerW * 1.0 / 4, 60, Qt::AlignVCenter, QString::fromLocal8Bit("理论值 (g):") + QString::number(m_dtheory[totalMachineCount], 'f', 3));
-			painter->drawText(edgeOffset + 25, betweenweight + 120 + simpleFun, innerW * 1.0 / 4, 60, Qt::AlignVCenter, QString::fromLocal8Bit("最大值 (g):") + QString::number(m_dmax[totalMachineCount], 'f', 3));
-			painter->drawText(edgeOffset + 25 + innerW * 1.0 / 4 * 1, betweenweight + 120 + simpleFun, innerW * 1.0 / 4, 60, Qt::AlignVCenter, QString::fromLocal8Bit("差异值(大):") + QString::number(m_dmaxoff[totalMachineCount], 'f', 2) + "%");
-			painter->drawText(edgeOffset + 25 + innerW * 1.0 / 4 * 2, betweenweight + 120 + simpleFun, innerW * 1.0 / 4, 60, Qt::AlignVCenter, QString::fromLocal8Bit("最小值 (g):") + QString::number(m_dmin[totalMachineCount], 'f', 3));
-			painter->drawText(edgeOffset + 25 + innerW * 1.0 / 4 * 3, betweenweight + 120 + simpleFun, innerW * 1.0 / 4, 60, Qt::AlignVCenter, QString::fromLocal8Bit("差异值(小):") + QString::number(m_dminoff[totalMachineCount], 'f', 2) + "%");
+			painter->drawText(edgeOffset, betweenweight + 60 + simpleFun, 225, 60, Qt::AlignCenter, QString::fromLocal8Bit("次  数(次)"));
+			painter->drawText(edgeOffset + 250, betweenweight + 60 + simpleFun, innerW * 1.0 / 4 - 225, 60, Qt::AlignVCenter, QString::number(data_One[totalMachineCount].size()));
+			painter->drawText(edgeOffset + innerW * 1.0 / 4 * 1, betweenweight + 60 + simpleFun, 225, 60, Qt::AlignCenter, QString::fromLocal8Bit("总  和 (g)"));
+			painter->drawText(edgeOffset + 250 + innerW * 1.0 / 4 * 1, betweenweight + 60 + simpleFun, innerW * 1.0 / 4 - 225, 60, Qt::AlignVCenter, QString::number(m_dsum[totalMachineCount], 'f', 3));
+			painter->drawText(edgeOffset + innerW * 1.0 / 4 * 2, betweenweight + 60 + simpleFun, 225, 60, Qt::AlignCenter, QString::fromLocal8Bit("平均值 (g)"));
+			painter->drawText(edgeOffset + 250 + innerW * 1.0 / 4 * 2, betweenweight + 60 + simpleFun, innerW * 1.0 / 4-225, 60, Qt::AlignVCenter,QString::number(m_dave[totalMachineCount], 'f', 4));
+			painter->drawText(edgeOffset + innerW * 1.0 / 4 * 3, betweenweight + 60 + simpleFun, 225, 60, Qt::AlignCenter, QString::fromLocal8Bit("理论值 (g)"));
+			painter->drawText(edgeOffset + 250 + innerW * 1.0 / 4 * 3, betweenweight + 60 + simpleFun, innerW * 1.0 / 4 - 225, 60, Qt::AlignVCenter, QString::number(m_dtheory[totalMachineCount], 'f', 3));
+			painter->drawText(edgeOffset, betweenweight + 120 + simpleFun, 225, 60, Qt::AlignCenter, QString::fromLocal8Bit("最大值 (g)"));
+			painter->drawText(edgeOffset + 250, betweenweight + 120 + simpleFun, innerW * 1.0 / 4 - 225, 60, Qt::AlignVCenter, QString::number(m_dmax[totalMachineCount], 'f', 3));
+			painter->drawText(edgeOffset+ innerW * 1.0 / 4 * 1, betweenweight + 120 + simpleFun, 225, 60, Qt::AlignCenter, QString::fromLocal8Bit("差异值(大)"));
+			painter->drawText(edgeOffset + 250 + innerW * 1.0 / 4 * 1, betweenweight + 120 + simpleFun, innerW * 1.0 / 4 - 225, 60, Qt::AlignVCenter,QString::number(m_dmaxoff[totalMachineCount], 'f', 2) + "%");
+			painter->drawText(edgeOffset+ innerW * 1.0 / 4 * 2, betweenweight + 120 + simpleFun, 225, 60, Qt::AlignCenter, QString::fromLocal8Bit("最小值 (g)"));
+			painter->drawText(edgeOffset + 250 + innerW * 1.0 / 4 * 2, betweenweight + 120 + simpleFun, innerW * 1.0 / 4 - 225, 60, Qt::AlignVCenter, QString::number(m_dmin[totalMachineCount], 'f', 3));
+			painter->drawText(edgeOffset+ innerW * 1.0 / 4 * 3, betweenweight + 120 + simpleFun, 225, 60, Qt::AlignCenter, QString::fromLocal8Bit("差异值(小)"));
+			painter->drawText(edgeOffset + 250 + innerW * 1.0 / 4 * 3, betweenweight + 120 + simpleFun, innerW * 1.0 / 4 - 225, 60, Qt::AlignVCenter,QString::number(m_dminoff[totalMachineCount], 'f', 2) + "%");
 
 			for (int i = 0; i < data_One[totalMachineCount].size(); i++) {
 				painter->drawText(edgeOffset + i % weightColumnCount * weightColumnAve, weightMiddle + simpleFun + i / weightColumnCount % weightRowCount * weightRowAve, 60, weightRowAve, Qt::AlignCenter, QString::number(i + 1));
