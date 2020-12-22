@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>384</width>
-    <height>309</height>
+    <width>281</width>
+    <height>377</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,23 +16,35 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QComboBox" name="cB_Mode">
-      <property name="styleSheet">
-       <string notr="true">font: 36pt &quot;迷你简菱心&quot;;</string>
+     <widget class="QCheckBox" name="cB_Curve">
+      <property name="font">
+       <font>
+        <family>迷你简菱心</family>
+        <pointsize>36</pointsize>
+       </font>
       </property>
-      <property name="currentIndex">
-       <number>1</number>
+      <property name="text">
+       <string>重量曲线</string>
       </property>
-      <item>
-       <property name="text">
-        <string>重量曲线</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>平均重量</string>
-       </property>
-      </item>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QCheckBox" name="cB_Average">
+      <property name="font">
+       <font>
+        <family>迷你简菱心</family>
+        <pointsize>36</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>平均重量</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
      </widget>
     </item>
     <item>
@@ -72,7 +84,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>384</width>
+     <width>281</width>
      <height>23</height>
     </rect>
    </property>

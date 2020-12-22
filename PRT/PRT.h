@@ -7,7 +7,7 @@
 #include <QPrintPreviewDialog>
 #include <QPrintDialog>
 #include "ui_PRT.h"
-
+#define STYLESHEET "QCheckBox{ background:transparent}QCheckBox::indicator {width: 40px; height: 40px; }QCheckBox::indicator:unchecked{background:url(./240.png)}QCheckBox::indicator:checked{background:url(./140.png)}"
 class PRT : public QMainWindow
 {
     Q_OBJECT

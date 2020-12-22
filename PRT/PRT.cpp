@@ -4,6 +4,8 @@ PRT::PRT(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+	ui.cB_Curve->setStyleSheet(STYLESHEET);
+	ui.cB_Average->setStyleSheet(STYLESHEET);
 	QPrinterInfo info;
 	m_sName = info.defaultPrinterName(); // 默认打印机名字
 	ui.lb_PrinterName->setText(QString::fromLocal8Bit("设备型号：") + m_sName);
@@ -57,11 +59,11 @@ void PRT::on_pB_PrintDirect_clicked()
 
 	QPixmap pix = QPixmap(pixWidth, pixHeight);
 	//这个函数算是画模板的函数吧，毕竟打印时有模板的
-	if (ui.cB_Mode->currentIndex() == 0)
+	/*if (ui.cB_Mode->currentIndex() == 0)
 	{
 		createPixCurve(&pix);
 	}
-	else
+	else*/
 	{
 		createPixAverage(&pix);
 	}
@@ -102,28 +104,35 @@ void PRT::drawPic(QPrinter *printer)
 	printer->setPageSize(QPrinter::A4);
 	printer->setOrientation(QPrinter::Portrait);
 
-	QPixmap pix = QPixmap(pixWidth, pixHeight);
+	QPixmap pix[2];
+	pix[0] = QPixmap(pixWidth, pixHeight);
+	pix[1] = QPixmap(pixWidth, pixHeight);
 	//这个函数算是画模板的函数吧，毕竟打印时有模板的
-	if (ui.cB_Mode->currentIndex()==0)
-	{
-		createPixCurve(&pix);
-	}
-	else
-	{
-		createPixAverage(&pix);
-	}
-	pix.save("c:/pt.bmp");
-	//纵向：Portrait 横向：Landscape
+
+		//纵向：Portrait 横向：Landscape
 	//获取界面的图片
 
 	//painterPixmap.begin(printer);
 	QRect rect = painterPixmap.viewport();
-	float x = rect.width()*1.0 / pix.width();
-	float y = rect.height()*1.0 / pix.height();
+	float x = rect.width()*1.0 / pix[0].width();
+	float y = rect.height()*1.0 / pix[0].height();
 	//设置图像长宽是原图的多少倍
 	painterPixmap.scale(x, y);
-	painterPixmap.drawPixmap(0, 0, pix);
+
+	if (ui.cB_Curve->isChecked())
+	{
+		createPixCurve(&pix[0]);
+	}
+	if (ui.cB_Average->isChecked())
+	{
+		createPixAverage(&pix[1]);
+	}
+	//pix.save("c:/pt.bmp");
+
+	painterPixmap.drawPixmap(0, 0, pix[0]);
 	//painterPixmap.end();
+	printer->newPage();
+	painterPixmap.drawPixmap(0, 0, pix[1]);
 }
 
 void PRT::createPixCurve(QPixmap *pix)
