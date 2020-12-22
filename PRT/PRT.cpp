@@ -128,7 +128,7 @@ void PRT::createPix(QPixmap *pix)
 	int inner50percentH = innerH / 2;
 	int rightW = pixWidth - edgeOffset;
 	int bottomH = pixHeight - edgeOffset;
-	int firstLine = 120;//大标题下面
+	int firstLine = 110;//大标题下面
 	int secondLine= firstLine + 60;
 	int weightTop = firstLine + 60;
 	int weightMiddle = firstLine + 2 * 60;
@@ -161,7 +161,7 @@ void PRT::createPix(QPixmap *pix)
 	QRect rect(0, 0, pixWidth, pixHeight);
 	//整张图设置画刷白底	
 	QFont font;
-	font.setPointSize(20);
+	font.setPointSize(25);
 	font.setFamily("宋体");
 	font.setItalic(true);
 	painter->setFont(font);
@@ -275,6 +275,11 @@ void PRT::createPix(QPixmap *pix)
 		}
 		painter->setPen(QPen(QColor(0, 0, 0), 1));		
 		
+		//画打印机和站号
+	
+		lines.append(QLine(QPoint(edgeOffset + 250, edgeOffset + simpleFun), QPoint(edgeOffset + 250, firstLine + simpleFun)));
+		lines.append(QLine(QPoint(edgeOffset + innerW * 1.0 / 3 * 2, edgeOffset + simpleFun), QPoint(edgeOffset + innerW * 1.0 / 3 * 2, firstLine + simpleFun)));
+			lines.append(QLine(QPoint(edgeOffset + 250 + innerW * 1.0 / 3 * 2, edgeOffset + simpleFun), QPoint(edgeOffset + 250 + innerW * 1.0 / 3 * 2, firstLine + simpleFun)));
 		//画规格型号
 		for (int i = 0; i < 3; i++)
 		{
@@ -310,16 +315,22 @@ void PRT::createPix(QPixmap *pix)
 		//第一部分
 		if (totalMachineCount == 0)
 		{
-			painter->drawText(0, 0 + simpleFun, pixWidth - 1600, 50, Qt::AlignCenter, QString::fromLocal8Bit("版权所有:Dr.Pharm"));// ui->lE_unit->text());//单位名称	
-			font.setPointSize(30);
+			font.setPointSize(20);
 			painter->setFont(font);
-			painter->drawText(0, 0 + simpleFun, pixWidth, 170, Qt::AlignCenter, QString::fromLocal8Bit("抽检报告"));// ui->lE_report->text());//报告名称
+			painter->drawText(100, 0 + simpleFun, innerW, 50, Qt::AlignVCenter, QString::fromLocal8Bit("版权所有:Dr.Pharm"));// ui->lE_unit->text());//单位名称	
+			font.setPointSize(35);
+			font.setBold(true);
+			painter->setFont(font);
+			painter->drawText(0, 0 + simpleFun, pixWidth, 50, Qt::AlignCenter, QString::fromLocal8Bit("抽检报告"));// ui->lE_report->text());//报告名称
 		}
-		font.setPointSize(20);
+		font.setPointSize(25);
+		font.setBold(false);
 		painter->setFont(font);
 		int machnum = totalMachineCount + 1;
-		painter->drawText(50, 50 + simpleFun, rightW + 1400, 70, Qt::AlignCenter, QString::fromLocal8Bit("设备型号/编号:") + QString::number(machnum) + QString::fromLocal8Bit("#机"));
-
+		painter->drawText(edgeOffset, edgeOffset + simpleFun, 250, 70, Qt::AlignCenter, QString::fromLocal8Bit("设备型号"));
+		painter->drawText(edgeOffset+275, edgeOffset + simpleFun, innerW * 1.0 / 2-250, 70, Qt::AlignVCenter, m_sName);
+		painter->drawText(edgeOffset + innerW * 1.0 / 3 * 2, edgeOffset + simpleFun, 250, 70, Qt::AlignCenter, QString::fromLocal8Bit("站号"));
+		painter->drawText(edgeOffset + innerW * 1.0 / 3 * 2 + 275, edgeOffset + simpleFun, edgeOffset + innerW * 1.0 / 3 * 2 - 250, 70, Qt::AlignVCenter, QString::number(machnum) + QString::fromLocal8Bit("#"));
 		//第二部分
 
 		painter->drawText(edgeOffset, firstLine+ simpleFun, 250, 60, Qt::AlignCenter, QString::fromLocal8Bit("产品名称"));// +ui->lE_means->text());
@@ -330,9 +341,12 @@ void PRT::createPix(QPixmap *pix)
 		painter->drawText(edgeOffset+innerW * 1.0 / 3*2, firstLine + simpleFun, 250, 60, Qt::AlignCenter, QString::fromLocal8Bit("产品批号"));// +ui->lE_instrument->text());
 		painter->drawText(edgeOffset + innerW * 1.0 / 3 * 2+250+25, firstLine + simpleFun, innerW * 1.0 - 250, 60, Qt::AlignVCenter, QString::fromLocal8Bit("123456789"));// +ui->lE_instrument->text());
 		//第三部分
-
+		font.setBold(true);
+		painter->setFont(font);
 		painter->drawText(edgeOffset, weightTop + simpleFun, innerW, 60, Qt::AlignCenter, QString::fromLocal8Bit("每粒重量(g)"));
 		painter->drawText(edgeOffset, betweenweight + simpleFun, innerW, 60, Qt::AlignCenter, QString::fromLocal8Bit("重量结果"));
+		font.setBold(false);
+		painter->setFont(font);
 		//第四部分 数据
 		//lines.append(QLine(QPoint(edgeOffset + innerW * 1.0 / 4 * i, betweenweight + 60 + simpleFun), QPoint(edgeOffset + innerW * 1.0 / 4 * i, weightBottom + simpleFun)));
 		if (data_One[totalMachineCount].size() > 0)
