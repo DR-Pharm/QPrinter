@@ -6,64 +6,71 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>400</height>
+    <width>384</width>
+    <height>309</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>PRT</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QLabel" name="lb_PrinterName">
-    <property name="geometry">
-     <rect>
-      <x>160</x>
-      <y>40</y>
-      <width>431</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pB_Print">
-    <property name="geometry">
-     <rect>
-      <x>180</x>
-      <y>140</y>
-      <width>93</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>打印预览</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pB_PrintDirect">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>180</x>
-      <y>180</y>
-      <width>93</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>打印</string>
-    </property>
-   </widget>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QComboBox" name="cB_Mode">
+      <property name="styleSheet">
+       <string notr="true">font: 36pt &quot;迷你简菱心&quot;;</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>重量曲线</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>平均重量</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pB_Print">
+      <property name="styleSheet">
+       <string notr="true">font: 36pt &quot;迷你简菱心&quot;;</string>
+      </property>
+      <property name="text">
+       <string>打印预览</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pB_PrintDirect">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 36pt &quot;迷你简菱心&quot;;</string>
+      </property>
+      <property name="text">
+       <string>打印</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="lb_PrinterName">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>600</width>
-     <height>26</height>
+     <width>384</width>
+     <height>23</height>
     </rect>
    </property>
   </widget>

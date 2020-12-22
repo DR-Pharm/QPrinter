@@ -13,15 +13,16 @@ class PRT : public QMainWindow
     Q_OBJECT
 
 public:
-    PRT(QWidget *parent = Q_NULLPTR);
-	void createPix(QPixmap *);
+	PRT(QWidget *parent = Q_NULLPTR);
+	void createPixCurve(QPixmap *);
+	void createPixAverage(QPixmap *);
 private:
 	int pixWidth = 2100;
 	int pixHeight = 2970;
     Ui::PRTClass ui; 
 	QString m_sName; 
 	QPrinter *m_prt = nullptr; 
-
+	QPainter *painter = nullptr;
 	QList<double> data_One[2];	
 	double m_dmax[2];
 	double m_dmin[2];

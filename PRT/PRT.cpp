@@ -6,11 +6,12 @@ PRT::PRT(QWidget *parent)
 	ui.setupUi(this);
 	QPrinterInfo info;
 	m_sName = info.defaultPrinterName(); // 默认打印机名字
-	ui.lb_PrinterName->setText(QString::fromLocal8Bit("当前连接打印机：") + m_sName);
+	ui.lb_PrinterName->setText(QString::fromLocal8Bit("设备型号：") + m_sName);
 
 	m_prt = new QPrinter();
 	m_prt->setPrinterName(m_sName);
 
+	painter = new QPainter();
 
 	data_One[0] << 0.369 << 0.321 << 0.332 << 0.311 << 0.399 << 0.334 << 0.321 << 0.346 << 0.389 << 0.333
 		<< 0.333 << 0.333 << 0.333 << 0.333 << 0.333 << 0.369 << 0.321 << 0.332 << 0.311 << 0.399
@@ -56,7 +57,14 @@ void PRT::on_pB_PrintDirect_clicked()
 
 	QPixmap pix = QPixmap(pixWidth, pixHeight);
 	//这个函数算是画模板的函数吧，毕竟打印时有模板的
-	createPix(&pix);
+	if (ui.cB_Mode->currentIndex() == 0)
+	{
+		createPixCurve(&pix);
+	}
+	else
+	{
+		createPixAverage(&pix);
+	}
 	pix.save("c:/pt.bmp");
 	//纵向：Portrait 横向：Landscape
 	//获取界面的图片
@@ -96,7 +104,14 @@ void PRT::drawPic(QPrinter *printer)
 
 	QPixmap pix = QPixmap(pixWidth, pixHeight);
 	//这个函数算是画模板的函数吧，毕竟打印时有模板的
-	createPix(&pix);
+	if (ui.cB_Mode->currentIndex()==0)
+	{
+		createPixCurve(&pix);
+	}
+	else
+	{
+		createPixAverage(&pix);
+	}
 	pix.save("c:/pt.bmp");
 	//纵向：Portrait 横向：Landscape
 	//获取界面的图片
@@ -111,9 +126,8 @@ void PRT::drawPic(QPrinter *printer)
 	//painterPixmap.end();
 }
 
-void PRT::createPix(QPixmap *pix)
+void PRT::createPixCurve(QPixmap *pix)
 {
-	QPainter *painter = new QPainter();
 	painter->begin(pix);
 	painter->setRenderHint(QPainter::Antialiasing, true);
 	// 设置画笔颜色、宽度
@@ -383,4 +397,8 @@ void PRT::createPix(QPixmap *pix)
 
 	}
 	painter->end();
+}
+
+void PRT::createPixAverage(QPixmap *)
+{
 }
