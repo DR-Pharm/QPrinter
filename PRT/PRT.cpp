@@ -399,6 +399,113 @@ void PRT::createPixCurve(QPixmap *pix)
 	painter->end();
 }
 
-void PRT::createPixAverage(QPixmap *)
+void PRT::createPixAverage(QPixmap *pix)
 {
+	painter->begin(pix);
+	painter->setRenderHint(QPainter::Antialiasing, true);
+	// 设置画笔颜色、宽度
+	painter->setPen(QPen(QColor(255, 255, 255), 4));
+	// 设置画刷颜色
+	painter->setBrush(QColor(255, 255, 255));
+
+	int edgeOffset = 50;
+	int innerW = pixWidth - 2 * edgeOffset;
+	int inner50percentW = innerW / 2;
+	int innerH = pixHeight - 2 * edgeOffset;
+	int inner50percentH = innerH / 2;
+	int rightW = pixWidth - edgeOffset;
+	int bottomH = pixHeight - edgeOffset+10;
+	int firstLine = 110;//大标题下面
+	int secondLine = firstLine + 60;
+
+	int wthOff = 25;
+	int firstwth = 125;
+	int secondPoint = edgeOffset + firstwth;
+	int secondwth = 400;
+	int thirdPoint = secondPoint + secondwth;
+	int thirdwth = firstwth;
+	int forthPoint = thirdPoint + thirdwth;
+	int forthwth = secondwth;
+	int fifthPoint = forthPoint + forthwth;
+	int fifthwth = 250;
+	float sixthPoint = fifthPoint + fifthwth;
+	float sixthwth = (innerW-firstwth-secondwth-thirdwth-forthwth-fifthwth*2)*1.0/2;
+	float sevenPoint = sixthPoint + sixthwth;
+	float sevenwth = fifthwth;
+	float eightPoint = sevenPoint + sevenwth;
+	float eightWidth = sixthwth;
+
+
+	QRect rect(0, 0, pixWidth, pixHeight);
+	//整张图设置画刷白底	
+	QFont font;
+	font.setPointSize(25);
+	font.setFamily("宋体");
+	font.setItalic(true);
+	painter->setFont(font);
+	painter->fillRect(rect, QColor(255, 255, 255));
+	painter->drawRect(rect);
+	//画数据部分的线条
+	painter->setPen(QPen(QColor(0, 0, 0), 3));
+	QVector<QLine> lines;
+
+	int totalMachineCount = 0;
+	for (; totalMachineCount < 6; totalMachineCount++)
+	{
+		int simpleFun = 480 * totalMachineCount;
+		lines.append(QLine(QPoint(edgeOffset, edgeOffset), QPoint(rightW, edgeOffset)));//上边
+		lines.append(QLine(QPoint(rightW, edgeOffset), QPoint(rightW, bottomH)));//右边
+		lines.append(QLine(QPoint(edgeOffset, bottomH), QPoint(rightW, bottomH)));//下边
+		lines.append(QLine(QPoint(edgeOffset, edgeOffset), QPoint(edgeOffset, bottomH)));//左边
+
+		lines.append(QLine(QPoint(edgeOffset, firstLine + simpleFun), QPoint(rightW, firstLine + simpleFun)));
+		lines.append(QLine(QPoint(edgeOffset, secondLine + simpleFun), QPoint(rightW, secondLine + simpleFun)));
+		lines.append(QLine(QPoint(edgeOffset, secondLine + 360 + simpleFun), QPoint(rightW, secondLine + 360 + simpleFun)));
+
+		painter->drawLines(lines);
+		lines.clear();
+
+		painter->setPen(QPen(QColor(0, 0, 0), 1));
+
+		//画打印机和站号
+
+		lines.append(QLine(QPoint(secondPoint, edgeOffset + simpleFun), QPoint(secondPoint, firstLine + simpleFun)));
+		lines.append(QLine(QPoint(forthPoint, edgeOffset + simpleFun), QPoint(forthPoint, firstLine + simpleFun)));
+		lines.append(QLine(QPoint(sixthPoint, edgeOffset + simpleFun), QPoint(sixthPoint, firstLine + simpleFun)));
+		lines.append(QLine(QPoint(eightPoint, edgeOffset + simpleFun), QPoint(eightPoint, firstLine + simpleFun)));
+		painter->drawLines(lines);
+		lines.clear();
+
+		painter->setPen(QPen(QColor(0, 0, 0), 3));
+		lines.append(QLine(QPoint(thirdPoint, edgeOffset + simpleFun), QPoint(thirdPoint, firstLine + simpleFun)));
+		lines.append(QLine(QPoint(fifthPoint, edgeOffset + simpleFun), QPoint(fifthPoint, firstLine + simpleFun)));
+		lines.append(QLine(QPoint(sevenPoint, edgeOffset + simpleFun), QPoint(sevenPoint, firstLine + simpleFun)));
+
+		painter->drawLines(lines);
+		lines.clear();
+
+		//第一部分
+		if (totalMachineCount == 0)
+		{
+			font.setPointSize(20);
+			painter->setFont(font);
+			painter->drawText(100, 0, innerW, 50, Qt::AlignVCenter, QString::fromLocal8Bit("版权所有:Dr.Pharm"));// ui->lE_unit->text());//单位名称	
+			painter->drawText(50, 0, innerW - 50, 50, Qt::AlignRight | Qt::AlignVCenter, QString::fromLocal8Bit("设备型号:") + m_sName);
+		}
+		font.setPointSize(25);
+		painter->setFont(font);
+
+		//第二部分
+
+		painter->drawText(edgeOffset, secondLine+ simpleFun, 250, 300, Qt::AlignCenter, QString::fromLocal8Bit("签名:"));
+		painter->drawText(edgeOffset, edgeOffset + simpleFun, firstwth, 60, Qt::AlignCenter, QString::fromLocal8Bit("日期"));
+		painter->drawText(secondPoint+25, edgeOffset + simpleFun, secondwth, 60, Qt::AlignVCenter, QString::fromLocal8Bit("2020-12-12 12:12:12"));
+		painter->drawText(thirdPoint, edgeOffset + simpleFun, thirdwth, 60, Qt::AlignCenter, QString::fromLocal8Bit("批号"));
+		painter->drawText(forthPoint + 25, edgeOffset + simpleFun, forthwth, 60, Qt::AlignVCenter, QString::fromLocal8Bit("123456789"));
+		painter->drawText(fifthPoint, edgeOffset + simpleFun, fifthwth, 60, Qt::AlignCenter, QString::fromLocal8Bit("1#站平均重量"));
+		painter->drawText(sixthPoint + 25, edgeOffset + simpleFun, sixthwth, 60, Qt::AlignVCenter, QString::number(m_dave[0],'f',4)+"g");
+		painter->drawText(sevenPoint, edgeOffset + simpleFun, sevenwth, 60, Qt::AlignCenter, QString::fromLocal8Bit("2#站平均重量"));
+		painter->drawText(eightPoint + 25, edgeOffset + simpleFun, eightWidth, 60, Qt::AlignVCenter, QString::number(m_dave[1], 'f', 4) + "g");
+	}
+	painter->end();
 }

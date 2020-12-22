@@ -20,6 +20,9 @@
       <property name="styleSheet">
        <string notr="true">font: 36pt &quot;迷你简菱心&quot;;</string>
       </property>
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
       <item>
        <property name="text">
         <string>重量曲线</string>
