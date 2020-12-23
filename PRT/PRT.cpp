@@ -15,14 +15,29 @@ PRT::PRT(QWidget *parent)
 
 	painter = new QPainter();
 
-	data_One[0] << 0.369 << 0.321 << 0.332 << 0.311 << 0.399 << 0.334 << 0.321 << 0.346 << 0.389 << 0.333
+	int tempInt = 15;
+	data.resize(tempInt);
+	m_iMaxPrint = tempInt/2;
+	ui.label->setText(QString::fromLocal8Bit("最大可打印组数：")+QString::number(m_iMaxPrint));
+
+	AppPath = qApp->applicationDirPath();//exe所在目录
+	QSettings ReadIni(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);	
+	QRegExp regx("[0-9]+$");//正则表达式QRegExp,只允许输入中文、数字、字母、下划线以及空格,[\u4e00 - \u9fa5a - zA - Z0 - 9_] + $
+	ui.lineEdit->setValidator(new QRegExpValidator(regx, this));
+	ui.lineEdit_2->setValidator(new QRegExpValidator(regx, this));
+	ui.lineEdit->setText(QString::number(ReadIni.value("ProgramSetting/PrintCurve", "0").toInt()));
+	ui.lineEdit_2->setText(QString::number(ReadIni.value("ProgramSetting/PrintAve", "0").toInt()));
+
+	data[0] << 0.369 << 0.321 << 0.332 << 0.311 << 0.399 << 0.334 << 0.321 << 0.346 << 0.389 << 0.333
 		<< 0.333 << 0.333 << 0.333 << 0.333 << 0.333 << 0.369 << 0.321 << 0.332 << 0.311 << 0.399
 		<< 0.334 << 0.321 << 0.346 << 0.389 << 0.333 << 0.323 << 0.333 << 0.333 << 0.333 << 0.333
 		<< 0.333 << 0.369 << 0.321 << 0.332 << 0.311 << 0.399 << 0.334 << 0.321 << 0.346 << 0.389
 		<< 0.333 << 0.333 << 0.333 << 0.333 << 0.333 << 0.333 << 0.333 << 0.369 << 0.321 << 0.332
 		<< 0.311 << 0.399 << 0.334 << 0.321 << 0.346 << 0.389 << 0.333 << 0.333 << 0.333 << 0.333
 		<< 0.333 << 0.343 << 0.333 << 0.319;
-	data_One[1] << 0.220 << 0.300 << 0.300 << 1.0 << 2.0 << 3.5;
+	data[1] << 0.220 << 0.300 << 0.300 << 1.0 << 2.0 << 3.5;
+	data_One[0] = data[0];
+	data_One[1] = data[1];
 	for (int i = 0; i < 2; i++)
 	{
 		m_dtheory[i] = 0.35;
@@ -46,10 +61,23 @@ PRT::PRT(QWidget *parent)
 	}
 	//data_One.clear();
 }
+
+void PRT::writeIni()
+{
+	QSettings WriteIni(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+	int no1 = ui.lineEdit->text().toInt();
+	int no2 = ui.lineEdit_2->text().toInt();
+
+	ui.lineEdit->setText(QString::number(no1));
+	ui.lineEdit_2->setText(QString::number(no2));
+
+	WriteIni.setValue("ProgramSetting/PrintCurve", QString::number(no1));
+	WriteIni.setValue("ProgramSetting/PrintAve", QString::number(no2));
+}
 void PRT::on_pB_PrintDirect_clicked()
 {
 	/*直接打印*/
-
+	writeIni();
 	QPainter painterPixmap(m_prt);
 	m_prt->setResolution(QPrinter::HighResolution);
 	////自定义纸张大小，特别重要，不然预览效果极差
@@ -82,6 +110,7 @@ void PRT::on_pB_PrintDirect_clicked()
 }
 void PRT::on_pB_Print_clicked()
 {
+	writeIni();
 	QPrintPreviewDialog preview;// 创建打印预览对话框
 
 	preview.setWindowState(Qt::WindowMaximized);

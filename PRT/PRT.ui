@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>269</width>
+    <width>326</width>
     <height>465</height>
    </rect>
   </property>
@@ -24,7 +24,7 @@
        </font>
       </property>
       <property name="text">
-       <string>最大可打印条数：0</string>
+       <string>最大可打印组数：0</string>
       </property>
      </widget>
     </item>
@@ -54,7 +54,7 @@
          </font>
         </property>
         <property name="text">
-         <string>打印数</string>
+         <string>打印组数</string>
         </property>
        </widget>
       </item>
@@ -95,7 +95,7 @@
          </font>
         </property>
         <property name="text">
-         <string>打印数</string>
+         <string>打印组数</string>
         </property>
        </widget>
       </item>
@@ -147,7 +147,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>269</width>
+     <width>326</width>
      <height>23</height>
     </rect>
    </property>
