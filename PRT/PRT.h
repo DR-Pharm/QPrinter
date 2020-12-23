@@ -8,6 +8,7 @@
 #include <QPrintDialog>
 #include <QSettings>
 #include <QRegExpValidator>
+#include <QMessageBox>
 #include "ui_PRT.h"
 #define STYLESHEET "QCheckBox{ background:transparent}QCheckBox::indicator {width: 40px; height: 40px; }QCheckBox::indicator:unchecked{background:url(./240.png)}QCheckBox::indicator:checked{background:url(./140.png)}"
 class PRT : public QMainWindow
@@ -16,8 +17,10 @@ class PRT : public QMainWindow
 
 public:
 	PRT(QWidget *parent = Q_NULLPTR);
+	int showMsgBox(QString titleStr, QString contentStr, QString button1Str, QString button2Str);
 	void createPixCurve(QPixmap *);
 	void createPixAverage(QPixmap *);
+	void caculateData();
 	void writeIni();
 private:
 	int pixWidth = 2100;
@@ -38,7 +41,8 @@ private:
 	double m_dmaxoff[2];
 
 	int m_iMaxPrint;//maxprintno. group_______no./2=group
-	QString AppPath;
+	QString AppPath; 
+	int m_iDataNum;
 public slots:
 
 	void on_pB_Print_clicked();

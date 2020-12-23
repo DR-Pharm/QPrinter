@@ -15,9 +15,9 @@ PRT::PRT(QWidget *parent)
 
 	painter = new QPainter();
 
-	int tempInt = 15;
-	data.resize(tempInt);
-	m_iMaxPrint = tempInt/2;
+	m_iDataNum = 2;
+	data.resize(m_iDataNum);
+	m_iMaxPrint = m_iDataNum /2;
 	ui.label->setText(QString::fromLocal8Bit("最大可打印组数：")+QString::number(m_iMaxPrint));
 
 	AppPath = qApp->applicationDirPath();//exe所在目录
@@ -36,8 +36,32 @@ PRT::PRT(QWidget *parent)
 		<< 0.311 << 0.399 << 0.334 << 0.321 << 0.346 << 0.389 << 0.333 << 0.333 << 0.333 << 0.333
 		<< 0.333 << 0.343 << 0.333 << 0.319;
 	data[1] << 0.220 << 0.300 << 0.300 << 1.0 << 2.0 << 3.5;
-	data_One[0] = data[0];
-	data_One[1] = data[1];
+	
+	//data_One.clear();
+}
+int PRT::showMsgBox(QString titleStr, QString contentStr, QString button1Str,QString button2Str)
+{
+	QMessageBox msg(QMessageBox::Information, titleStr, contentStr, QMessageBox::Yes|QMessageBox::No);
+	msg.setWindowIcon(QIcon("./ico/dr.ico"));
+	return msg.exec();
+	//  QMessageBox::NoIcon
+	//	QMessageBox::Question
+	//	QMessageBox::Information
+	//	QMessageBox::Warning
+	//	QMessageBox::Critical
+}
+void PRT::caculateData()
+{
+
+
+	if (m_iDataNum % 2 == 1)
+	{
+	}
+	else
+	{
+		data_One[0] = data[0];
+		data_One[1] = data[1];
+	}
 	for (int i = 0; i < 2; i++)
 	{
 		m_dtheory[i] = 0.35;
@@ -59,9 +83,8 @@ PRT::PRT(QWidget *parent)
 			m_dmaxoff[i] = (m_dmax[i] - m_dtheory[i]) / m_dtheory[i] * 100;
 		}
 	}
-	//data_One.clear();
-}
 
+}
 void PRT::writeIni()
 {
 	QSettings WriteIni(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
@@ -76,8 +99,9 @@ void PRT::writeIni()
 }
 void PRT::on_pB_PrintDirect_clicked()
 {
-	/*直接打印*/
-	writeIni();
+	/*直接打印*/	
+	writeIni(); 
+	caculateData();
 	QPainter painterPixmap(m_prt);
 	m_prt->setResolution(QPrinter::HighResolution);
 	////自定义纸张大小，特别重要，不然预览效果极差
@@ -110,7 +134,12 @@ void PRT::on_pB_PrintDirect_clicked()
 }
 void PRT::on_pB_Print_clicked()
 {
-	writeIni();
+	writeIni(); 	
+	if (m_iDataNum == 0 || m_iDataNum == 2)
+	{
+		if (QMessageBox::No == showMsgBox("1", "2", "3", "4"))return;
+	}
+	caculateData();
 	QPrintPreviewDialog preview;// 创建打印预览对话框
 
 	preview.setWindowState(Qt::WindowMaximized);
