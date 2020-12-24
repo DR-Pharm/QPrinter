@@ -4,6 +4,8 @@ PRT::PRT(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+	setWindowFlags(windowFlags()&~Qt::WindowMinMaxButtonsHint | Qt::WindowMinimizeButtonHint);
+	setWindowIcon(QIcon("./ico/dr.ico"));
 	ui.cB_Curve->setStyleSheet(STYLESHEET);
 	ui.cB_Average->setStyleSheet(STYLESHEET);
 	QPrinterInfo info;
@@ -24,8 +26,10 @@ PRT::PRT(QWidget *parent)
 	QRegExp regx("[0-9]+$");//正则表达式QRegExp,只允许输入中文、数字、字母、下划线以及空格,[\u4e00 - \u9fa5a - zA - Z0 - 9_] + $
 	ui.lineEdit->setValidator(new QRegExpValidator(regx, this));
 	ui.lineEdit_2->setValidator(new QRegExpValidator(regx, this));
-	ui.lineEdit->setText(QString::number(ReadIni.value("ProgramSetting/PrintCurve", "0").toInt()));
-	ui.lineEdit_2->setText(QString::number(ReadIni.value("ProgramSetting/PrintAve", "0").toInt()));
+	ui.lineEdit->setText(QString::number(ReadIni.value("ProgramSetting/PrintCurveCount", "0").toInt()));
+	ui.lineEdit_2->setText(QString::number(ReadIni.value("ProgramSetting/PrintAveCount", "0").toInt()));
+	ui.cB_Curve->setChecked(ReadIni.value("ProgramSetting/PrintCurve", "0").toBool());
+	ui.cB_Average->setChecked(ReadIni.value("ProgramSetting/PrintAve", "0").toBool());
 	ui.checkBox->setChecked(ReadIni.value("ProgramSetting/PrintCurveAllOrNot", "0").toBool());
 	ui.checkBox_2->setChecked(ReadIni.value("ProgramSetting/PrintAveAllOrNot", "0").toBool());
 
@@ -52,6 +56,50 @@ int PRT::showMsgBox(const char* titleStr, const char* contentStr, const char* bu
 	//	QMessageBox::Information
 	//	QMessageBox::Warning
 	//	QMessageBox::Critical
+}
+void PRT::on_cB_Curve_toggled(bool checked)
+{
+	ui.label_2->setVisible(checked);
+
+		if (!ui.checkBox->isChecked())
+		{
+			ui.lineEdit->setVisible(checked);
+		}
+
+	ui.checkBox->setVisible(checked);
+	QSettings WriteIni(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+	WriteIni.setValue("ProgramSetting/PrintCurve", QString::number(checked));	
+	if (!checked && !ui.cB_Average->isChecked())
+	{
+		ui.pB_Print->setEnabled(false);
+		ui.pB_PrintDirect->setEnabled(false);
+	}
+	else
+	{
+		ui.pB_Print->setEnabled(true);
+		ui.pB_PrintDirect->setEnabled(true);
+	}
+}
+void PRT::on_cB_Average_toggled(bool checked)
+{
+	ui.label_3->setVisible(checked);		
+	if (!ui.checkBox_2->isChecked())
+	{
+		ui.lineEdit_2->setVisible(checked);
+	}
+	ui.checkBox_2->setVisible(checked);
+	QSettings WriteIni(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+	WriteIni.setValue("ProgramSetting/PrintAve", QString::number(checked));
+	if (!checked&& !ui.cB_Curve->isChecked())
+	{
+		ui.pB_Print->setEnabled(false);
+		ui.pB_PrintDirect->setEnabled(false);
+	}
+	else
+	{
+		ui.pB_Print->setEnabled(true);
+		ui.pB_PrintDirect->setEnabled(true);
+	}
 }
 void PRT::on_checkBox_toggled(bool checked)
 {
@@ -109,8 +157,8 @@ void PRT::writeIni()
 	ui.lineEdit->setText(QString::number(no1));
 	ui.lineEdit_2->setText(QString::number(no2));
 
-	WriteIni.setValue("ProgramSetting/PrintCurve", QString::number(no1));
-	WriteIni.setValue("ProgramSetting/PrintAve", QString::number(no2));
+	WriteIni.setValue("ProgramSetting/PrintCurveCount", QString::number(no1));
+	WriteIni.setValue("ProgramSetting/PrintAveCount", QString::number(no2));
 }
 void PRT::on_pB_PrintDirect_clicked()
 {

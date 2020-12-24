@@ -24,7 +24,7 @@
        </font>
       </property>
       <property name="text">
-       <string>最大可打印组数：0</string>
+       <string>最大可打印数：0</string>
       </property>
      </widget>
     </item>

@@ -50,4 +50,6 @@ public slots:
 	void drawPic(QPrinter * pt);
 	void on_checkBox_toggled(bool checked);
 	void on_checkBox_2_toggled(bool checked);
+	void on_cB_Curve_toggled(bool checked);
+	void on_cB_Average_toggled(bool checked);
 };
