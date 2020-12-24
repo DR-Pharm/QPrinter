@@ -17,8 +17,7 @@ PRT::PRT(QWidget *parent)
 
 	m_iDataNum = 2;
 	data.resize(m_iDataNum);
-	m_iMaxPrint = m_iDataNum /2;
-	ui.label->setText(QString::fromLocal8Bit("最大可打印组数：")+QString::number(m_iMaxPrint));
+	ui.label->setText(QString::fromLocal8Bit("最大可打印数：")+QString::number(m_iDataNum) + QString::fromLocal8Bit("\n1#:") + QString::number(m_iDataNum-m_iDataNum/2)+QString::fromLocal8Bit("，2#站:") +QString::number(m_iDataNum / 2));
 
 	AppPath = qApp->applicationDirPath();//exe所在目录
 	QSettings ReadIni(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);	
@@ -39,9 +38,11 @@ PRT::PRT(QWidget *parent)
 	
 	//data_One.clear();
 }
-int PRT::showMsgBox(QString titleStr, QString contentStr, QString button1Str,QString button2Str)
+int PRT::showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str)
 {
-	QMessageBox msg(QMessageBox::Information, titleStr, contentStr, QMessageBox::Yes|QMessageBox::No);
+	QMessageBox msg(QMessageBox::Information, QString::fromLocal8Bit(titleStr), QString::fromLocal8Bit(contentStr), QMessageBox::Yes|QMessageBox::No);
+	msg.setButtonText(QMessageBox::Yes, QString::fromLocal8Bit(button1Str));
+	msg.setButtonText(QMessageBox::No, QString::fromLocal8Bit(button2Str));
 	msg.setWindowIcon(QIcon("./ico/dr.ico"));
 	return msg.exec();
 	//  QMessageBox::NoIcon
@@ -137,7 +138,7 @@ void PRT::on_pB_Print_clicked()
 	writeIni(); 	
 	if (m_iDataNum == 0 || m_iDataNum == 2)
 	{
-		if (QMessageBox::No == showMsgBox("1", "2", "3", "4"))return;
+		if (QMessageBox::No == showMsgBox("提示", "无可打印数据,是否打印空表？", "打印", "取消"))return;
 	}
 	caculateData();
 	QPrintPreviewDialog preview;// 创建打印预览对话框
@@ -162,9 +163,8 @@ void PRT::drawPic(QPrinter *printer)
 	printer->setPageSize(QPrinter::A4);
 	printer->setOrientation(QPrinter::Portrait);
 
-	QPixmap pix[2];
-	pix[0] = QPixmap(pixWidth, pixHeight);
-	pix[1] = QPixmap(pixWidth, pixHeight);
+	QPixmap pix;
+	pix= QPixmap(pixWidth, pixHeight);
 	//这个函数算是画模板的函数吧，毕竟打印时有模板的
 
 		//纵向：Portrait 横向：Landscape
@@ -172,25 +172,25 @@ void PRT::drawPic(QPrinter *printer)
 
 	//painterPixmap.begin(printer);
 	QRect rect = painterPixmap.viewport();
-	float x = rect.width()*1.0 / pix[0].width();
-	float y = rect.height()*1.0 / pix[0].height();
+	float x = rect.width()*1.0 / pix.width();
+	float y = rect.height()*1.0 / pix.height();
 	//设置图像长宽是原图的多少倍
 	painterPixmap.scale(x, y);
 
 	if (ui.cB_Curve->isChecked())
 	{
-		createPixCurve(&pix[0]);
+		createPixCurve(&pix);
 	}
 	if (ui.cB_Average->isChecked())
 	{
-		createPixAverage(&pix[1]);
+		createPixAverage(&pix);
 	}
 	//pix.save("c:/pt.bmp");
 
-	painterPixmap.drawPixmap(0, 0, pix[0]);
+	painterPixmap.drawPixmap(0, 0, pix);
 	//painterPixmap.end();
 	printer->newPage();
-	painterPixmap.drawPixmap(0, 0, pix[1]);
+	painterPixmap.drawPixmap(0, 0, pix);
 }
 
 void PRT::createPixCurve(QPixmap *pix)
