@@ -24,7 +24,7 @@ void PRT::initPrinter()
 }
 void PRT::initData()
 {
-	m_iDataNum = 3;
+	m_iDataNum = 5;
 	data.resize(m_iDataNum);
 	ui.label->setText(QString::fromLocal8Bit("最大可打印数：") + QString::number(m_iDataNum) + QString::fromLocal8Bit("\n1#站:") + QString::number(m_iDataNum - m_iDataNum / 2) + QString::fromLocal8Bit("，2#站:") + QString::number(m_iDataNum / 2));
 
@@ -36,8 +36,9 @@ void PRT::initData()
 		<< 0.311 << 0.399 << 0.334 << 0.321 << 0.346 << 0.389 << 0.333 << 0.333 << 0.333 << 0.333
 		<< 0.333 << 0.343 << 0.333 << 0.319;
 	data[1] << 0.220 << 0.300 << 0.300 << 1.0 << 2.0 << 3.5;
-	data[2] << 3.220 << 2.300 << 5.300 << 1.034 << 7.024 << 3.512;
-
+	data[2] << 3.220 << 2.300 << 5.300 << 1.034 << 7.024 << 3.512; 
+	data[3] << 0.220;
+	data[4] << 3.220 << 1.4;
 
 }
 void PRT::initUI()
@@ -318,7 +319,32 @@ void PRT::drawPic(QPrinter *printer)
 		/*pix.save("c:/pt.bmp");*/
 
 		painterPixmap.drawPixmap(0, 0, pix[pageValue++]);
-		if (pageValue<page1)
+		if (pageValue< pages)
+		{
+			printer->newPage();
+		}
+	}	
+	int tempPage = 0;
+	for (int i = 0; i < page2; i++)
+	{
+		int tempInt = data.size() - m_iPrintCurveCount + tempPage * 12 + 1;
+		if (tempInt == data.size())
+		{
+			caculateData(data, data.size() - m_iPrintCurveCount + tempPage * 12, 1);
+		}
+		else
+		{
+			caculateData(data, data.size() - m_iPrintCurveCount + tempPage * 12, 2);
+		}
+
+		if (ui.cB_Average->isChecked())
+		{
+			createPixAverage(&pix[pageValue]);
+		}
+
+		painterPixmap.drawPixmap(0, 0, pix[pageValue++]);
+		tempPage++;
+		if (pageValue < pages)
 		{
 			printer->newPage();
 		}
