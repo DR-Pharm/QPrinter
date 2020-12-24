@@ -26,6 +26,8 @@ PRT::PRT(QWidget *parent)
 	ui.lineEdit_2->setValidator(new QRegExpValidator(regx, this));
 	ui.lineEdit->setText(QString::number(ReadIni.value("ProgramSetting/PrintCurve", "0").toInt()));
 	ui.lineEdit_2->setText(QString::number(ReadIni.value("ProgramSetting/PrintAve", "0").toInt()));
+	ui.checkBox->setChecked(ReadIni.value("ProgramSetting/PrintCurveAllOrNot", "0").toBool());
+	ui.checkBox_2->setChecked(ReadIni.value("ProgramSetting/PrintAveAllOrNot", "0").toBool());
 
 	data[0] << 0.369 << 0.321 << 0.332 << 0.311 << 0.399 << 0.334 << 0.321 << 0.346 << 0.389 << 0.333
 		<< 0.333 << 0.333 << 0.333 << 0.333 << 0.333 << 0.369 << 0.321 << 0.332 << 0.311 << 0.399
@@ -50,6 +52,18 @@ int PRT::showMsgBox(const char* titleStr, const char* contentStr, const char* bu
 	//	QMessageBox::Information
 	//	QMessageBox::Warning
 	//	QMessageBox::Critical
+}
+void PRT::on_checkBox_toggled(bool checked)
+{
+	ui.lineEdit->setVisible(!checked);
+	QSettings WriteIni(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+	WriteIni.setValue("ProgramSetting/PrintCurveAllOrNot", QString::number(checked));
+}
+void PRT::on_checkBox_2_toggled(bool checked)
+{
+	ui.lineEdit_2->setVisible(!checked);	
+	QSettings WriteIni(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+	WriteIni.setValue("ProgramSetting/PrintAveAllOrNot", QString::number(checked));
 }
 void PRT::caculateData()
 {

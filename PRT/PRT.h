@@ -48,4 +48,6 @@ public slots:
 	void on_pB_Print_clicked();
 	void on_pB_PrintDirect_clicked();
 	void drawPic(QPrinter * pt);
+	void on_checkBox_toggled(bool checked);
+	void on_checkBox_2_toggled(bool checked);
 };
