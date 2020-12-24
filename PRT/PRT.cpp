@@ -6,32 +6,27 @@ PRT::PRT(QWidget *parent)
 	ui.setupUi(this);
 	setWindowFlags(windowFlags()&~Qt::WindowMinMaxButtonsHint | Qt::WindowMinimizeButtonHint);
 	setWindowIcon(QIcon("./ico/dr.ico"));
-	ui.cB_Curve->setStyleSheet(STYLESHEET);
-	ui.cB_Average->setStyleSheet(STYLESHEET);
+
+	initPrinter();
+	initData();
+	AppPath = qApp->applicationDirPath();//exe所在目录
+	initUI();
+}
+void PRT::initPrinter()
+{
 	QPrinterInfo info;
 	m_sName = info.defaultPrinterName(); // 默认打印机名字
 	ui.lb_PrinterName->setText(QString::fromLocal8Bit("设备型号：") + m_sName);
 
 	m_prt = new QPrinter();
 	m_prt->setPrinterName(m_sName);
-
 	painter = new QPainter();
-
+}
+void PRT::initData()
+{
 	m_iDataNum = 2;
 	data.resize(m_iDataNum);
-	ui.label->setText(QString::fromLocal8Bit("最大可打印数：")+QString::number(m_iDataNum) + QString::fromLocal8Bit("\n1#站:") + QString::number(m_iDataNum-m_iDataNum/2)+QString::fromLocal8Bit("，2#站:") +QString::number(m_iDataNum / 2));
-
-	AppPath = qApp->applicationDirPath();//exe所在目录
-	QSettings ReadIni(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);	
-	QRegExp regx("[0-9]+$");//正则表达式QRegExp,只允许输入中文、数字、字母、下划线以及空格,[\u4e00 - \u9fa5a - zA - Z0 - 9_] + $
-	ui.lineEdit->setValidator(new QRegExpValidator(regx, this));
-	ui.lineEdit_2->setValidator(new QRegExpValidator(regx, this));
-	ui.lineEdit->setText(QString::number(ReadIni.value("ProgramSetting/PrintCurveCount", "0").toInt()));
-	ui.lineEdit_2->setText(QString::number(ReadIni.value("ProgramSetting/PrintAveCount", "0").toInt()));
-	ui.cB_Curve->setChecked(ReadIni.value("ProgramSetting/PrintCurve", "0").toBool());
-	ui.cB_Average->setChecked(ReadIni.value("ProgramSetting/PrintAve", "0").toBool());
-	ui.checkBox->setChecked(ReadIni.value("ProgramSetting/PrintCurveAllOrNot", "0").toBool());
-	ui.checkBox_2->setChecked(ReadIni.value("ProgramSetting/PrintAveAllOrNot", "0").toBool());
+	ui.label->setText(QString::fromLocal8Bit("最大可打印数：") + QString::number(m_iDataNum) + QString::fromLocal8Bit("\n1#站:") + QString::number(m_iDataNum - m_iDataNum / 2) + QString::fromLocal8Bit("，2#站:") + QString::number(m_iDataNum / 2));
 
 	data[0] << 0.369 << 0.321 << 0.332 << 0.311 << 0.399 << 0.334 << 0.321 << 0.346 << 0.389 << 0.333
 		<< 0.333 << 0.333 << 0.333 << 0.333 << 0.333 << 0.369 << 0.321 << 0.332 << 0.311 << 0.399
@@ -41,8 +36,24 @@ PRT::PRT(QWidget *parent)
 		<< 0.311 << 0.399 << 0.334 << 0.321 << 0.346 << 0.389 << 0.333 << 0.333 << 0.333 << 0.333
 		<< 0.333 << 0.343 << 0.333 << 0.319;
 	data[1] << 0.220 << 0.300 << 0.300 << 1.0 << 2.0 << 3.5;
-	
-	//data_One.clear();
+
+
+}
+void PRT::initUI()
+{
+	ui.cB_Curve->setStyleSheet(STYLESHEET);
+	ui.cB_Average->setStyleSheet(STYLESHEET);
+
+	QSettings ReadIni(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+	QRegExp regx("[0-9]+$");//正则表达式QRegExp,只允许输入中文、数字、字母、下划线以及空格,[\u4e00 - \u9fa5a - zA - Z0 - 9_] + $
+	ui.lineEdit->setValidator(new QRegExpValidator(regx, this));
+	ui.lineEdit_2->setValidator(new QRegExpValidator(regx, this));
+	ui.lineEdit->setText(QString::number(ReadIni.value("ProgramSetting/PrintCurveCount", "0").toInt()));
+	ui.lineEdit_2->setText(QString::number(ReadIni.value("ProgramSetting/PrintAveCount", "0").toInt()));
+	ui.cB_Curve->setChecked(ReadIni.value("ProgramSetting/PrintCurve", "0").toBool());
+	ui.cB_Average->setChecked(ReadIni.value("ProgramSetting/PrintAve", "0").toBool());
+	ui.checkBox->setChecked(ReadIni.value("ProgramSetting/PrintCurveAllOrNot", "0").toBool());
+	ui.checkBox_2->setChecked(ReadIni.value("ProgramSetting/PrintAveAllOrNot", "0").toBool());
 }
 int PRT::showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str)
 {
@@ -198,7 +209,7 @@ void PRT::on_pB_PrintDirect_clicked()
 void PRT::on_pB_Print_clicked()
 {
 	writeIni(); 	
-	if (m_iDataNum == 0 || m_iDataNum == 2)
+	if (m_iDataNum == 0)
 	{
 		if (QMessageBox::No == showMsgBox("提示", "无可打印数据,是否打印空表？", "打印", "取消"))return;
 	}
@@ -232,7 +243,6 @@ void PRT::drawPic(QPrinter *printer)
 		//纵向：Portrait 横向：Landscape
 	//获取界面的图片
 
-	//painterPixmap.begin(printer);
 	QRect rect = painterPixmap.viewport();
 	float x = rect.width()*1.0 / pix.width();
 	float y = rect.height()*1.0 / pix.height();
@@ -243,16 +253,15 @@ void PRT::drawPic(QPrinter *printer)
 	{
 		createPixCurve(&pix);
 	}
-	if (ui.cB_Average->isChecked())
+	/*if (ui.cB_Average->isChecked())
 	{
 		createPixAverage(&pix);
-	}
-	//pix.save("c:/pt.bmp");
+	}*/
+	/*pix.save("c:/pt.bmp");*/
 
 	painterPixmap.drawPixmap(0, 0, pix);
-	//painterPixmap.end();
-	printer->newPage();
-	painterPixmap.drawPixmap(0, 0, pix);
+	/*printer->newPage();
+	painterPixmap.drawPixmap(0, 0, pix);*/
 }
 
 void PRT::createPixCurve(QPixmap *pix)

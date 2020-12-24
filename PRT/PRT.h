@@ -17,6 +17,9 @@ class PRT : public QMainWindow
 
 public:
 	PRT(QWidget *parent = Q_NULLPTR);
+	void initPrinter();
+	void initData();
+	void initUI();
 	int showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str);
 	void createPixCurve(QPixmap *);
 	void createPixAverage(QPixmap *);
