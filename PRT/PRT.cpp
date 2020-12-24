@@ -17,7 +17,7 @@ PRT::PRT(QWidget *parent)
 
 	m_iDataNum = 2;
 	data.resize(m_iDataNum);
-	ui.label->setText(QString::fromLocal8Bit("最大可打印数：")+QString::number(m_iDataNum) + QString::fromLocal8Bit("\n1#:") + QString::number(m_iDataNum-m_iDataNum/2)+QString::fromLocal8Bit("，2#站:") +QString::number(m_iDataNum / 2));
+	ui.label->setText(QString::fromLocal8Bit("最大可打印数：")+QString::number(m_iDataNum) + QString::fromLocal8Bit("\n1#站:") + QString::number(m_iDataNum-m_iDataNum/2)+QString::fromLocal8Bit("，2#站:") +QString::number(m_iDataNum / 2));
 
 	AppPath = qApp->applicationDirPath();//exe所在目录
 	QSettings ReadIni(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);	
