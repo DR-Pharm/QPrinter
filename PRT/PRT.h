@@ -23,8 +23,9 @@ public:
 	int showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str);
 	void createPixCurve(QPixmap *);
 	void createPixAverage(QPixmap *);
-	void caculateData();
+	void caculateData(QVector<QVector<float>> transData, int ivalue, int half); //0 1 2
 	void writeIni();
+	bool caculateCount();
 private:
 	int pixWidth = 2100;
 	int pixHeight = 2970;
@@ -43,9 +44,13 @@ private:
 	double m_dminoff[2];
 	double m_dmaxoff[2];
 
-	int m_iMaxPrint;//maxprintno. group_______no./2=group
-	QString AppPath; 
-	int m_iDataNum;
+	QString AppPath;
+	int m_iDataNum;//数据存储数量0135...1#     2468...2#
+	int m_iPrintCurveCount;
+	int m_iPrintAveCount;
+
+	int num1_Le;
+	int num2_Le_2;
 public slots:
 
 	void on_pB_Print_clicked();
