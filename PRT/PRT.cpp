@@ -36,7 +36,7 @@ void PRT::initData()
 		<< 0.311 << 0.399 << 0.334 << 0.321 << 0.346 << 0.389 << 0.333 << 0.333 << 0.333 << 0.333
 		<< 0.333 << 0.343 << 0.333 << 0.319;
 	data[1] << 0.220 << 0.300 << 0.300 << 1.0 << 2.0 << 3.5;
-	data[2] << 3.220 << 2.300 << 5.300 << 1.034 << 7.024 << 3.512; 
+	data[2] << 3.220 << 2.300 << 5.300 << 1.034 << 7.024 << 3.512;
 	data[3] << 0.220;
 	data[4] << 3.220 << 1.4;
 
@@ -278,12 +278,29 @@ void PRT::drawPic(QPrinter *printer)
 	printer->setPageSize(QPrinter::A4);
 	printer->setOrientation(QPrinter::Portrait);
 
-	int page1 = m_iPrintCurveCount / 2 < 1 ? 1 : m_iPrintCurveCount / 2 + (m_iPrintCurveCount % 2 == 0 ? 0 : 1);
-	int page2 = m_iPrintAveCount / 12 < 1 ? 1 : m_iPrintAveCount / 12 + (m_iPrintAveCount % 12 == 0 ? 0 : 1);
+	int page1;
+	if (m_iPrintCurveCount == 0)
+	{
+		page1 = 0;
+	}
+	else
+	{
+		page1 = m_iPrintCurveCount / 2 < 1 ? 1 : m_iPrintCurveCount / 2 + (m_iPrintCurveCount % 2 == 0 ? 0 : 1);
+	}
+
+	int page2;
+	if (m_iPrintAveCount == 0)
+	{
+		page2 = 0;
+	}
+	else
+	{
+		page2 = m_iPrintAveCount / 12 < 1 ? 1 : m_iPrintAveCount / 12 + (m_iPrintAveCount % 12 == 0 ? 0 : 1);
+	}
 	int pages = page1 + page2;
 	QVector<QPixmap> pix;
 	pix.resize(pages);
-	for (int i=0;i<pix.size();i++)
+	for (int i = 0; i < pix.size(); i++)
 	{
 		pix[i] = QPixmap(pixWidth, pixHeight);
 	}
@@ -299,76 +316,84 @@ void PRT::drawPic(QPrinter *printer)
 	painterPixmap.scale(x, y);
 
 	int pageValue = 0;
-	for (int i = 0; i < page1; i++)
+	if (page1 > 0)
 	{
-		int tempInt = data.size() - m_iPrintCurveCount + pageValue * 2 + 1;
-		if (tempInt == data.size())
+		for (int i = 0; i < page1; i++)
 		{
-			caculateData(data, data.size() - m_iPrintCurveCount + pageValue * 2, 1);
-		}
-		else
-		{
-			caculateData(data, data.size() - m_iPrintCurveCount + pageValue * 2, 2);
-		}
-		if (ui.cB_Curve->isChecked())
-		{
-			createPixCurve(&pix[pageValue]);
-		}
-		/*if (ui.cB_Average->isChecked())
-		{
-			createPixAverage(&pix);
-		}*/
-		/*pix.save("c:/pt.bmp");*/
-
-		painterPixmap.drawPixmap(0, 0, pix[pageValue++]);
-		if (pageValue< pages)
-		{
-			printer->newPage();
-		}
-	}	
-	for (int i = 0; i < page2; i++)
-	{
-		totalMachineCount = 0;
-		painter->begin(&pix[pageValue]);
-		painter->setRenderHint(QPainter::Antialiasing, true);
-		// 设置画笔颜色、宽度
-		painter->setPen(QPen(QColor(255, 255, 255), 4));
-		// 设置画刷颜色
-		painter->setBrush(QColor(255, 255, 255));	
-		QRect rect(0, 0, pixWidth, pixHeight);
-		//整张图设置画刷白底	
-		
-		painter->fillRect(rect, QColor(255, 255, 255));
-		painter->drawRect(rect);
-		int tempRow = 0;
-		for (; totalMachineCount < 6; totalMachineCount++)
-		{
-			int tempInt = data.size() - m_iPrintAveCount + tempRow * 2 + 1;
-			if (tempInt > data.size())
+			int tempInt = data.size() - m_iPrintCurveCount + pageValue * 2 + 1;
+			if (tempInt == data.size())
 			{
-				break;
-			}
-			else if (tempInt == data.size())
-			{
-				caculateData(data, data.size() - m_iPrintAveCount + tempRow * 2, 1);
+				caculateData(data, data.size() - m_iPrintCurveCount + pageValue * 2, 1);
 			}
 			else
 			{
-				caculateData(data, data.size() - m_iPrintAveCount + tempRow * 2, 2);
+				caculateData(data, data.size() - m_iPrintCurveCount + pageValue * 2, 2);
 			}
-
-			if (ui.cB_Average->isChecked())
+			if (ui.cB_Curve->isChecked())
 			{
-				createPixAverage(&pix[pageValue]);
+				createPixCurve(&pix[pageValue]);
 			}
-			tempRow++;
+			/*if (ui.cB_Average->isChecked())
+			{
+				createPixAverage(&pix);
+			}*/
+			/*pix.save("c:/pt.bmp");*/
+
+			painterPixmap.drawPixmap(0, 0, pix[pageValue++]);
+			if (pageValue < pages)
+			{
+				printer->newPage();
+			}
 		}
-		painter->end();
-		painterPixmap.drawPixmap(0, 0, pix[pageValue++]);
-		if (pageValue < pages)
+
+	}
+	if (page2 > 0)
+	{
+		for (int i = 0; i < page2; i++)
 		{
-			printer->newPage();
+			totalMachineCount = 0;
+			painter->begin(&pix[pageValue]);
+			painter->setRenderHint(QPainter::Antialiasing, true);
+			// 设置画笔颜色、宽度
+			painter->setPen(QPen(QColor(255, 255, 255), 4));
+			// 设置画刷颜色
+			painter->setBrush(QColor(255, 255, 255));
+			QRect rect(0, 0, pixWidth, pixHeight);
+			//整张图设置画刷白底	
+
+			painter->fillRect(rect, QColor(255, 255, 255));
+			painter->drawRect(rect);
+			int tempRow = 0;
+			for (; totalMachineCount < 6; totalMachineCount++)
+			{
+				int tempInt = data.size() - m_iPrintAveCount + tempRow * 2 + 1;
+				if (tempInt > data.size())
+				{
+					break;
+				}
+				else if (tempInt == data.size())
+				{
+					caculateData(data, data.size() - m_iPrintAveCount + tempRow * 2, 1);
+				}
+				else
+				{
+					caculateData(data, data.size() - m_iPrintAveCount + tempRow * 2, 2);
+				}
+
+				if (ui.cB_Average->isChecked())
+				{
+					createPixAverage(&pix[pageValue]);
+				}
+				tempRow++;
+			}
+			painter->end();
+			painterPixmap.drawPixmap(0, 0, pix[pageValue++]);
+			if (pageValue < pages)
+			{
+				printer->newPage();
+			}
 		}
+
 	}
 	/*painterPixmap.drawPixmap(0, 0, pix);*/
 }
@@ -648,7 +673,7 @@ void PRT::createPixCurve(QPixmap *pix)
 
 void PRT::createPixAverage(QPixmap *pix)
 {
-	
+
 	QFont font;
 	font.setPointSize(25);
 	font.setFamily("宋体");
@@ -689,65 +714,65 @@ void PRT::createPixAverage(QPixmap *pix)
 	QVector<QLine> lines;
 
 
-		int simpleFun = 480 * totalMachineCount;
-		lines.append(QLine(QPoint(edgeOffset, edgeOffset), QPoint(rightW, edgeOffset)));//上边
-		lines.append(QLine(QPoint(rightW, edgeOffset), QPoint(rightW, bottomH)));//右边
-		lines.append(QLine(QPoint(edgeOffset, bottomH), QPoint(rightW, bottomH)));//下边
-		lines.append(QLine(QPoint(edgeOffset, edgeOffset), QPoint(edgeOffset, bottomH)));//左边
+	int simpleFun = 480 * totalMachineCount;
+	lines.append(QLine(QPoint(edgeOffset, edgeOffset), QPoint(rightW, edgeOffset)));//上边
+	lines.append(QLine(QPoint(rightW, edgeOffset), QPoint(rightW, bottomH)));//右边
+	lines.append(QLine(QPoint(edgeOffset, bottomH), QPoint(rightW, bottomH)));//下边
+	lines.append(QLine(QPoint(edgeOffset, edgeOffset), QPoint(edgeOffset, bottomH)));//左边
 
-		lines.append(QLine(QPoint(edgeOffset, firstLine + simpleFun), QPoint(rightW, firstLine + simpleFun)));
-		lines.append(QLine(QPoint(edgeOffset, secondLine + simpleFun), QPoint(rightW, secondLine + simpleFun)));
-		lines.append(QLine(QPoint(edgeOffset, secondLine + 360 + simpleFun), QPoint(rightW, secondLine + 360 + simpleFun)));
+	lines.append(QLine(QPoint(edgeOffset, firstLine + simpleFun), QPoint(rightW, firstLine + simpleFun)));
+	lines.append(QLine(QPoint(edgeOffset, secondLine + simpleFun), QPoint(rightW, secondLine + simpleFun)));
+	lines.append(QLine(QPoint(edgeOffset, secondLine + 360 + simpleFun), QPoint(rightW, secondLine + 360 + simpleFun)));
 
-		painter->drawLines(lines);
-		lines.clear();
+	painter->drawLines(lines);
+	lines.clear();
 
-		painter->setPen(QPen(QColor(0, 0, 0), 1));
+	painter->setPen(QPen(QColor(0, 0, 0), 1));
 
-		//画打印机和站号
+	//画打印机和站号
 
-		lines.append(QLine(QPoint(secondPoint, edgeOffset + simpleFun), QPoint(secondPoint, firstLine + simpleFun)));
-		lines.append(QLine(QPoint(forthPoint, edgeOffset + simpleFun), QPoint(forthPoint, firstLine + simpleFun)));
-		lines.append(QLine(QPoint(sixthPoint, edgeOffset + simpleFun), QPoint(sixthPoint, firstLine + simpleFun)));
-		lines.append(QLine(QPoint(eightPoint, edgeOffset + simpleFun), QPoint(eightPoint, firstLine + simpleFun)));
-		painter->drawLines(lines);
-		lines.clear();
+	lines.append(QLine(QPoint(secondPoint, edgeOffset + simpleFun), QPoint(secondPoint, firstLine + simpleFun)));
+	lines.append(QLine(QPoint(forthPoint, edgeOffset + simpleFun), QPoint(forthPoint, firstLine + simpleFun)));
+	lines.append(QLine(QPoint(sixthPoint, edgeOffset + simpleFun), QPoint(sixthPoint, firstLine + simpleFun)));
+	lines.append(QLine(QPoint(eightPoint, edgeOffset + simpleFun), QPoint(eightPoint, firstLine + simpleFun)));
+	painter->drawLines(lines);
+	lines.clear();
 
-		painter->setPen(QPen(QColor(0, 0, 0), 3));
-		lines.append(QLine(QPoint(thirdPoint, edgeOffset + simpleFun), QPoint(thirdPoint, firstLine + simpleFun)));
-		lines.append(QLine(QPoint(fifthPoint, edgeOffset + simpleFun), QPoint(fifthPoint, firstLine + simpleFun)));
-		lines.append(QLine(QPoint(sevenPoint, edgeOffset + simpleFun), QPoint(sevenPoint, firstLine + simpleFun)));
+	painter->setPen(QPen(QColor(0, 0, 0), 3));
+	lines.append(QLine(QPoint(thirdPoint, edgeOffset + simpleFun), QPoint(thirdPoint, firstLine + simpleFun)));
+	lines.append(QLine(QPoint(fifthPoint, edgeOffset + simpleFun), QPoint(fifthPoint, firstLine + simpleFun)));
+	lines.append(QLine(QPoint(sevenPoint, edgeOffset + simpleFun), QPoint(sevenPoint, firstLine + simpleFun)));
 
-		painter->drawLines(lines);
-		lines.clear();
+	painter->drawLines(lines);
+	lines.clear();
 
-		//第一部分
-		if (totalMachineCount == 0)
-		{
-			font.setPointSize(20);
-			painter->setFont(font);
-			painter->drawText(100, 0, innerW, 50, Qt::AlignVCenter, QString::fromLocal8Bit("版权所有:Dr.Pharm"));// ui->lE_unit->text());//单位名称	
-			painter->drawText(50, 0, innerW - 50, 50, Qt::AlignRight | Qt::AlignVCenter, QString::fromLocal8Bit("设备型号:") + m_sName);
-		}
-		font.setPointSize(25);
+	//第一部分
+	if (totalMachineCount == 0)
+	{
+		font.setPointSize(20);
 		painter->setFont(font);
+		painter->drawText(100, 0, innerW, 50, Qt::AlignVCenter, QString::fromLocal8Bit("版权所有:Dr.Pharm"));// ui->lE_unit->text());//单位名称	
+		painter->drawText(50, 0, innerW - 50, 50, Qt::AlignRight | Qt::AlignVCenter, QString::fromLocal8Bit("设备型号:") + m_sName);
+	}
+	font.setPointSize(25);
+	painter->setFont(font);
 
-		//第二部分
+	//第二部分
 
-		painter->drawText(edgeOffset, secondLine + simpleFun, 250, 300, Qt::AlignCenter, QString::fromLocal8Bit("签名:"));
-		painter->drawText(edgeOffset, edgeOffset + simpleFun, firstwth, 60, Qt::AlignCenter, QString::fromLocal8Bit("日期"));
-		painter->drawText(secondPoint + 25, edgeOffset + simpleFun, secondwth, 60, Qt::AlignVCenter, QString::fromLocal8Bit("2020-12-12 12:12:12"));
-		painter->drawText(thirdPoint, edgeOffset + simpleFun, thirdwth, 60, Qt::AlignCenter, QString::fromLocal8Bit("批号"));
-		painter->drawText(forthPoint + 25, edgeOffset + simpleFun, forthwth, 60, Qt::AlignVCenter, QString::fromLocal8Bit("123456789"));
-		painter->drawText(fifthPoint, edgeOffset + simpleFun, fifthwth, 60, Qt::AlignCenter, QString::fromLocal8Bit("1#站平均重量"));
-		painter->drawText(sixthPoint + 25, edgeOffset + simpleFun, sixthwth, 60, Qt::AlignVCenter, QString::number(m_dave[0], 'f', 4) + "g");
-		painter->drawText(sevenPoint, edgeOffset + simpleFun, sevenwth, 60, Qt::AlignCenter, QString::fromLocal8Bit("2#站平均重量"));
-		if (data_One[1].size()==0)
-		{
-			painter->drawText(eightPoint + 25, edgeOffset + simpleFun, eightWidth, 60, Qt::AlignVCenter, "-");
-		}
-		else
-		{ 
+	painter->drawText(edgeOffset, secondLine + simpleFun, 250, 300, Qt::AlignCenter, QString::fromLocal8Bit("签名:"));
+	painter->drawText(edgeOffset, edgeOffset + simpleFun, firstwth, 60, Qt::AlignCenter, QString::fromLocal8Bit("日期"));
+	painter->drawText(secondPoint + 25, edgeOffset + simpleFun, secondwth, 60, Qt::AlignVCenter, QString::fromLocal8Bit("2020-12-12 12:12:12"));
+	painter->drawText(thirdPoint, edgeOffset + simpleFun, thirdwth, 60, Qt::AlignCenter, QString::fromLocal8Bit("批号"));
+	painter->drawText(forthPoint + 25, edgeOffset + simpleFun, forthwth, 60, Qt::AlignVCenter, QString::fromLocal8Bit("123456789"));
+	painter->drawText(fifthPoint, edgeOffset + simpleFun, fifthwth, 60, Qt::AlignCenter, QString::fromLocal8Bit("1#站平均重量"));
+	painter->drawText(sixthPoint + 25, edgeOffset + simpleFun, sixthwth, 60, Qt::AlignVCenter, QString::number(m_dave[0], 'f', 4) + "g");
+	painter->drawText(sevenPoint, edgeOffset + simpleFun, sevenwth, 60, Qt::AlignCenter, QString::fromLocal8Bit("2#站平均重量"));
+	if (data_One[1].size() == 0)
+	{
+		painter->drawText(eightPoint + 25, edgeOffset + simpleFun, eightWidth, 60, Qt::AlignVCenter, "-");
+	}
+	else
+	{
 		painter->drawText(eightPoint + 25, edgeOffset + simpleFun, eightWidth, 60, Qt::AlignVCenter, QString::number(m_dave[1], 'f', 4) + "g");
-		}
+	}
 }
