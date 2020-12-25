@@ -50,7 +50,8 @@ private:
 	int m_iPrintAveCount;
 
 	int num1_Le;
-	int num2_Le_2;
+	int num2_Le_2; 
+	int totalMachineCount;
 public slots:
 
 	void on_pB_Print_clicked();

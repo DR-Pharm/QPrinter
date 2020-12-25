@@ -59,9 +59,9 @@ void PRT::initUI()
 }
 int PRT::showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str)
 {
-	QMessageBox msg(QMessageBox::Information, QString::fromLocal8Bit(titleStr), QString::fromLocal8Bit(contentStr), QMessageBox::Yes | QMessageBox::No);
+	QMessageBox msg(QMessageBox::Information, QString::fromLocal8Bit(titleStr), QString::fromLocal8Bit(contentStr), QMessageBox::Yes/* | QMessageBox::No*/);
 	msg.setButtonText(QMessageBox::Yes, QString::fromLocal8Bit(button1Str));
-	msg.setButtonText(QMessageBox::No, QString::fromLocal8Bit(button2Str));
+	//msg.setButtonText(QMessageBox::No, QString::fromLocal8Bit(button2Str));
 	msg.setWindowIcon(QIcon("./ico/dr.ico"));
 	return msg.exec();
 	//  QMessageBox::NoIcon
@@ -206,11 +206,13 @@ bool PRT::caculateCount()
 
 	if (m_iDataNum == 0)
 	{
-		if (QMessageBox::No == showMsgBox("提示", "无可打印数据,是否打印空表？", "打印", "取消"))return false;
+		showMsgBox("提示", "无可打印数据!", "我知道了", "取消");
+		return false;
 	}
 	if (m_iPrintCurveCount == 0 && m_iPrintAveCount == 0)
 	{
-		if (QMessageBox::No == showMsgBox("提示", "打印数设置均为0,是否打印空表？", "打印", "取消"))return false;
+		showMsgBox("提示", "打印数设置均为0!", "我知道了", "取消");
+		return false;
 	}
 	return true;
 }
@@ -324,26 +326,45 @@ void PRT::drawPic(QPrinter *printer)
 			printer->newPage();
 		}
 	}	
-	int tempPage = 0;
 	for (int i = 0; i < page2; i++)
 	{
-		int tempInt = data.size() - m_iPrintCurveCount + tempPage * 12 + 1;
-		if (tempInt == data.size())
+		totalMachineCount = 0;
+		painter->begin(&pix[pageValue]);
+		painter->setRenderHint(QPainter::Antialiasing, true);
+		// 设置画笔颜色、宽度
+		painter->setPen(QPen(QColor(255, 255, 255), 4));
+		// 设置画刷颜色
+		painter->setBrush(QColor(255, 255, 255));	
+		QRect rect(0, 0, pixWidth, pixHeight);
+		//整张图设置画刷白底	
+		
+		painter->fillRect(rect, QColor(255, 255, 255));
+		painter->drawRect(rect);
+		int tempRow = 0;
+		for (; totalMachineCount < 6; totalMachineCount++)
 		{
-			caculateData(data, data.size() - m_iPrintCurveCount + tempPage * 12, 1);
-		}
-		else
-		{
-			caculateData(data, data.size() - m_iPrintCurveCount + tempPage * 12, 2);
-		}
+			int tempInt = data.size() - m_iPrintAveCount + tempRow * 2 + 1;
+			if (tempInt > data.size())
+			{
+				break;
+			}
+			else if (tempInt == data.size())
+			{
+				caculateData(data, data.size() - m_iPrintAveCount + tempRow * 2, 1);
+			}
+			else
+			{
+				caculateData(data, data.size() - m_iPrintAveCount + tempRow * 2, 2);
+			}
 
-		if (ui.cB_Average->isChecked())
-		{
-			createPixAverage(&pix[pageValue]);
+			if (ui.cB_Average->isChecked())
+			{
+				createPixAverage(&pix[pageValue]);
+			}
+			tempRow++;
 		}
-
+		painter->end();
 		painterPixmap.drawPixmap(0, 0, pix[pageValue++]);
-		tempPage++;
 		if (pageValue < pages)
 		{
 			printer->newPage();
@@ -627,12 +648,12 @@ void PRT::createPixCurve(QPixmap *pix)
 
 void PRT::createPixAverage(QPixmap *pix)
 {
-	painter->begin(pix);
-	painter->setRenderHint(QPainter::Antialiasing, true);
-	// 设置画笔颜色、宽度
-	painter->setPen(QPen(QColor(255, 255, 255), 4));
-	// 设置画刷颜色
-	painter->setBrush(QColor(255, 255, 255));
+	
+	QFont font;
+	font.setPointSize(25);
+	font.setFamily("宋体");
+	font.setItalic(true);
+	painter->setFont(font);
 
 	int edgeOffset = 50;
 	int innerW = pixWidth - 2 * edgeOffset;
@@ -662,22 +683,12 @@ void PRT::createPixAverage(QPixmap *pix)
 	float eightWidth = sixthwth;
 
 
-	QRect rect(0, 0, pixWidth, pixHeight);
-	//整张图设置画刷白底	
-	QFont font;
-	font.setPointSize(25);
-	font.setFamily("宋体");
-	font.setItalic(true);
-	painter->setFont(font);
-	painter->fillRect(rect, QColor(255, 255, 255));
-	painter->drawRect(rect);
+
 	//画数据部分的线条
 	painter->setPen(QPen(QColor(0, 0, 0), 3));
 	QVector<QLine> lines;
 
-	int totalMachineCount = 0;
-	for (; totalMachineCount < 1; totalMachineCount++)
-	{
+
 		int simpleFun = 480 * totalMachineCount;
 		lines.append(QLine(QPoint(edgeOffset, edgeOffset), QPoint(rightW, edgeOffset)));//上边
 		lines.append(QLine(QPoint(rightW, edgeOffset), QPoint(rightW, bottomH)));//右边
@@ -731,7 +742,12 @@ void PRT::createPixAverage(QPixmap *pix)
 		painter->drawText(fifthPoint, edgeOffset + simpleFun, fifthwth, 60, Qt::AlignCenter, QString::fromLocal8Bit("1#站平均重量"));
 		painter->drawText(sixthPoint + 25, edgeOffset + simpleFun, sixthwth, 60, Qt::AlignVCenter, QString::number(m_dave[0], 'f', 4) + "g");
 		painter->drawText(sevenPoint, edgeOffset + simpleFun, sevenwth, 60, Qt::AlignCenter, QString::fromLocal8Bit("2#站平均重量"));
+		if (data_One[1].size()==0)
+		{
+			painter->drawText(eightPoint + 25, edgeOffset + simpleFun, eightWidth, 60, Qt::AlignVCenter, "-");
+		}
+		else
+		{ 
 		painter->drawText(eightPoint + 25, edgeOffset + simpleFun, eightWidth, 60, Qt::AlignVCenter, QString::number(m_dave[1], 'f', 4) + "g");
-	}
-	painter->end();
+		}
 }
