@@ -252,9 +252,6 @@ void PRT::drawPic(QPrinter *printer)
 	//printer->setPrinterName(m_sName);
 	printer->setPageSize(QPrinter::A4);
 	printer->setOrientation(QPrinter::Portrait);
-
-	printer->setOutputFormat(QPrinter::NativeFormat);
-
 	//printer->setPrintRange(QPrinter::PageRange);//2
 	//printer->setPrintRange(QPrinter::AllPages);//0
 	int prtMode = printer->printRange();
@@ -308,19 +305,7 @@ void PRT::drawPic(QPrinter *printer)
 
 		//纵向：Portrait 横向：Landscape
 	//获取界面的图片
-
-	/*QRect rect = painterPixmap.viewport();
-	float x = rect.width()*1.0 / pix[0].width();
-	float y = rect.height()*1.0 / pix[0].height();*/
-	//设置图像长宽是原图的多少倍
-	QRect rect = painterPixmap.viewport();
-	QSize size = pix[0].size();
-	size.scale(rect.size(), Qt::KeepAspectRatio);
-	painterPixmap.setViewport(rect.x(), rect.y(),
-		size.width(), size.height());
-//	painterPixmap.setWindow(image.rect());
-	//painterPixmap.drawImage(0, 0, image);
-	//painterPixmap.scale(x, y);
+	painterPixmap.setWindow(-100, -50, pix[0].width() + 150, pix[0].height() + 50);
 
 	int pageValue = 0;
 	if (page1 > 0)
@@ -346,7 +331,6 @@ void PRT::drawPic(QPrinter *printer)
 			}*/
 			/*pix.save("c:/pt.bmp");*/
 
-			painterPixmap.setWindow(pix[pageValue].rect());
 			if (allornot==1||(allornot==0&&pageValue>=firstPg&&pageValue<=endPg))
 			{
 			painterPixmap.drawPixmap(0, 0, pix[pageValue]);
@@ -403,7 +387,6 @@ void PRT::drawPic(QPrinter *printer)
 				tempRow++;
 			}
 			painter->end();
-			painterPixmap.setWindow(pix[pageValue].rect());
 			if (allornot == 1 || (allornot == 0 && pageValue >= firstPg && pageValue <= endPg))
 			{
 				painterPixmap.drawPixmap(0, 0, pix[pageValue]);
@@ -472,7 +455,7 @@ void PRT::createPixCurve(QPixmap *pix)
 	QRect rect(0, 0, pixWidth, pixHeight);
 	//整张图设置画刷白底	
 	QFont font;
-	font.setPointSize(25);
+	font.setPointSize(23);
 	font.setFamily("宋体");
 	font.setItalic(true);
 	painter->setFont(font);
@@ -535,15 +518,15 @@ void PRT::createPixCurve(QPixmap *pix)
 			}
 			else
 			{
-				painter->drawText(100, actualBottom - 25 + simpleFun, 150, 50, Qt::AlignVCenter, QString::number(m_dmin[totalMachineCount], 'f', 3));//MIN
-				painter->drawText(100, actualTop - 25 + simpleFun, 150, 50, Qt::AlignVCenter, QString::number(m_dmax[totalMachineCount], 'f', 3));//MAX
-				painter->drawText(80, actualBottom - 25 + simpleFun - (m_dave[totalMachineCount] - m_dmin[totalMachineCount]) / (m_dmax[totalMachineCount] - m_dmin[totalMachineCount]) * YActualLength, 150, 50, Qt::AlignVCenter, QString::number(m_dave[totalMachineCount], 'f', 4));//AVE			
+				painter->drawText(90, actualBottom - 25 + simpleFun, 150, 50, Qt::AlignVCenter, QString::number(m_dmin[totalMachineCount], 'f', 3));//MIN
+				painter->drawText(90, actualTop - 25 + simpleFun, 150, 50, Qt::AlignVCenter, QString::number(m_dmax[totalMachineCount], 'f', 3));//MAX
+				painter->drawText(70, actualBottom - 25 + simpleFun - (m_dave[totalMachineCount] - m_dmin[totalMachineCount]) / (m_dmax[totalMachineCount] - m_dmin[totalMachineCount]) * YActualLength, 150, 50, Qt::AlignVCenter, QString::number(m_dave[totalMachineCount], 'f', 4));//AVE			
 				lines.append(QLine(QPoint(basePointX - 5, actualBottom + simpleFun), QPoint(dotLineRight, basePointY - 50 + simpleFun)));//MIN
 				lines.append(QLine(QPoint(basePointX - 5, actualTop + simpleFun), QPoint(dotLineRight, actualTop + simpleFun)));//MAX
 				lines.append(QLine(QPoint(basePointX - 5, actualBottom + simpleFun - (m_dave[totalMachineCount] - m_dmin[totalMachineCount]) / (m_dmax[totalMachineCount] - m_dmin[totalMachineCount]) * YActualLength), QPoint(dotLineRight, actualBottom + simpleFun - (m_dave[totalMachineCount] - m_dmin[totalMachineCount]) / (m_dmax[totalMachineCount] - m_dmin[totalMachineCount]) * YActualLength)));//AVE
 			}
 			painter->drawText(100, YTop - 50 + simpleFun, 150, 50, Qt::AlignVCenter, QString::fromLocal8Bit("重量(g)"));//重量
-			painter->drawText(XRight, basePointY + simpleFun, 150, 50, Qt::AlignVCenter, QString::fromLocal8Bit("次数(次)"));//粒数
+			painter->drawText(XRight, basePointY + simpleFun, 150, 50, Qt::AlignVCenter, QString::fromLocal8Bit("次数"));//粒数
 
 
 			if (data_One[totalMachineCount].size() > 1)
@@ -634,7 +617,7 @@ void PRT::createPixCurve(QPixmap *pix)
 			painter->setFont(font);
 			painter->drawText(0, 0 + simpleFun, pixWidth, 50, Qt::AlignCenter, QString::fromLocal8Bit("抽检报告"));// ui->lE_report->text());//报告名称
 		}
-		font.setPointSize(25);
+		font.setPointSize(23);
 		font.setBold(false);
 		painter->setFont(font);
 		int machnum = totalMachineCount + 1;
@@ -662,7 +645,7 @@ void PRT::createPixCurve(QPixmap *pix)
 		//lines.append(QLine(QPoint(edgeOffset + innerW * 1.0 / 4 * i, betweenweight + 60 + simpleFun), QPoint(edgeOffset + innerW * 1.0 / 4 * i, weightBottom + simpleFun)));
 		if (data_One[totalMachineCount].size() > 0)
 		{
-			painter->drawText(edgeOffset, betweenweight + 60 + simpleFun, 225, 60, Qt::AlignCenter, QString::fromLocal8Bit("次  数(次)"));
+			painter->drawText(edgeOffset, betweenweight + 60 + simpleFun, 225, 60, Qt::AlignCenter, QString::fromLocal8Bit("次  数"));
 			painter->drawText(edgeOffset + 250, betweenweight + 60 + simpleFun, innerW * 1.0 / 4 - 225, 60, Qt::AlignVCenter, QString::number(data_One[totalMachineCount].size()));
 			painter->drawText(edgeOffset + innerW * 1.0 / 4 * 1, betweenweight + 60 + simpleFun, 225, 60, Qt::AlignCenter, QString::fromLocal8Bit("总  和 (g)"));
 			painter->drawText(edgeOffset + 250 + innerW * 1.0 / 4 * 1, betweenweight + 60 + simpleFun, innerW * 1.0 / 4 - 225, 60, Qt::AlignVCenter, QString::number(m_dsum[totalMachineCount], 'f', 3));
@@ -700,7 +683,7 @@ void PRT::createPixAverage(QPixmap *pix)
 {
 
 	QFont font;
-	font.setPointSize(25);
+	font.setPointSize(23);
 	font.setFamily("宋体");
 	font.setItalic(true);
 	painter->setFont(font);
@@ -779,7 +762,7 @@ void PRT::createPixAverage(QPixmap *pix)
 		painter->drawText(100, 0, innerW, 50, Qt::AlignVCenter, QString::fromLocal8Bit("版权所有:Dr.Pharm"));// ui->lE_unit->text());//单位名称	
 		painter->drawText(50, 0, innerW - 50, 50, Qt::AlignRight | Qt::AlignVCenter, QString::fromLocal8Bit("设备型号:") + m_sName);
 	}
-	font.setPointSize(25);
+	font.setPointSize(23);
 	painter->setFont(font);
 
 	//第二部分
