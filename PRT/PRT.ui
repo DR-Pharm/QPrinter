@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>273</width>
-    <height>420</height>
+    <width>289</width>
+    <height>460</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -160,7 +160,7 @@
     <item>
      <widget class="QPushButton" name="pB_PrintDirect">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="styleSheet">
        <string notr="true">font: 36pt &quot;迷你简菱心&quot;;</string>

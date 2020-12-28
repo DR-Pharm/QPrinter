@@ -5,6 +5,7 @@
 #include <QPrinterInfo>
 #include <QPainter>
 #include <QPrintPreviewDialog>
+#include <QPageSetupDialog>
 #include <QPrintDialog>
 #include <QSettings>
 #include <QRegExpValidator>

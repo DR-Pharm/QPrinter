@@ -218,10 +218,18 @@ bool PRT::caculateCount()
 }
 void PRT::on_pB_PrintDirect_clicked()
 {
+
 	/*直接打印*/
 	writeIni();
+
+	if (!caculateCount())return;
+
 	//caculateData();
 	QPainter painterPixmap(m_prt);
+	drawPic(m_prt);
+
+	return;
+
 	m_prt->setResolution(QPrinter::HighResolution);
 	////自定义纸张大小，特别重要，不然预览效果极差
 	//printer->setPrinterName(m_sName);
@@ -270,7 +278,7 @@ void PRT::on_pB_Print_clicked()
 }
 void PRT::drawPic(QPrinter *printer)
 {
-	QPainter painterPixmap(printer);
+	QPainter painterPixmap;
 	//QPrinter *printer = new QPrinter(QPrinter::HighResolution);
 	printer->setResolution(QPrinter::HighResolution);
 	////自定义纸张大小，特别重要，不然预览效果极差
@@ -278,6 +286,31 @@ void PRT::drawPic(QPrinter *printer)
 	printer->setPageSize(QPrinter::A4);
 	printer->setOrientation(QPrinter::Portrait);
 
+	printer->setOutputFormat(QPrinter::NativeFormat);
+
+	//printer->setPrintRange(QPrinter::PageRange);//2
+	//printer->setPrintRange(QPrinter::AllPages);//0
+	int prtMode = printer->printRange();
+	int firstPg = printer->fromPage();
+	int endPg = printer->toPage();
+	int allornot;
+	if (prtMode==0)
+	{
+		allornot = 1;
+	}
+	else
+	{
+		if (firstPg == 0 && endPg == 0)
+		{
+			printer->setFromTo(1, 1);
+			firstPg = 1;
+			endPg = 1;
+		}
+		firstPg -= 1;
+		endPg -= 1;
+		allornot = 0;
+	}
+	painterPixmap.begin(printer);
 	int page1;
 	if (m_iPrintCurveCount == 0)
 	{
@@ -309,11 +342,18 @@ void PRT::drawPic(QPrinter *printer)
 		//纵向：Portrait 横向：Landscape
 	//获取界面的图片
 
-	QRect rect = painterPixmap.viewport();
+	/*QRect rect = painterPixmap.viewport();
 	float x = rect.width()*1.0 / pix[0].width();
-	float y = rect.height()*1.0 / pix[0].height();
+	float y = rect.height()*1.0 / pix[0].height();*/
 	//设置图像长宽是原图的多少倍
-	painterPixmap.scale(x, y);
+	QRect rect = painterPixmap.viewport();
+	QSize size = pix[0].size();
+	size.scale(rect.size(), Qt::KeepAspectRatio);
+	painterPixmap.setViewport(rect.x(), rect.y(),
+		size.width(), size.height());
+//	painterPixmap.setWindow(image.rect());
+	//painterPixmap.drawImage(0, 0, image);
+	//painterPixmap.scale(x, y);
 
 	int pageValue = 0;
 	if (page1 > 0)
@@ -339,11 +379,20 @@ void PRT::drawPic(QPrinter *printer)
 			}*/
 			/*pix.save("c:/pt.bmp");*/
 
-			painterPixmap.drawPixmap(0, 0, pix[pageValue++]);
-			if (pageValue < pages)
+			painterPixmap.setWindow(pix[pageValue].rect());
+			if (allornot==1||(allornot==0&&pageValue>=firstPg&&pageValue<=endPg))
 			{
-				printer->newPage();
+			painterPixmap.drawPixmap(0, 0, pix[pageValue]);
+			if (pageValue+1 < pages)
+			{
+				if((allornot == 0 && pageValue < endPg)|| allornot == 1)
+				{
+					printer->newPage();
+				}
 			}
+
+			}
+			pageValue++;
 		}
 
 	}
@@ -387,15 +436,24 @@ void PRT::drawPic(QPrinter *printer)
 				tempRow++;
 			}
 			painter->end();
-			painterPixmap.drawPixmap(0, 0, pix[pageValue++]);
-			if (pageValue < pages)
+			painterPixmap.setWindow(pix[pageValue].rect());
+			if (allornot == 1 || (allornot == 0 && pageValue >= firstPg && pageValue <= endPg))
 			{
-				printer->newPage();
+				painterPixmap.drawPixmap(0, 0, pix[pageValue]);
+				if (pageValue+1 < pages)
+				{
+					if ((allornot == 0 && pageValue < endPg) || allornot == 1)
+					{
+						printer->newPage();
+					}
+				}
 			}
+			pageValue++;
 		}
 
 	}
 	/*painterPixmap.drawPixmap(0, 0, pix);*/
+	painterPixmap.end();
 }
 
 void PRT::createPixCurve(QPixmap *pix)
