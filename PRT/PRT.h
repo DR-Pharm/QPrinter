@@ -53,6 +53,8 @@ private:
 	int num1_Le;
 	int num2_Le_2; 
 	int totalMachineCount;
+
+	QPainter painterPixmap;
 public slots:
 
 	void on_pB_Print_clicked();

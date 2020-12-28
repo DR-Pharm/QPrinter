@@ -218,46 +218,13 @@ bool PRT::caculateCount()
 }
 void PRT::on_pB_PrintDirect_clicked()
 {
-
 	/*直接打印*/
 	writeIni();
 
 	if (!caculateCount())return;
 
-	//caculateData();
-	QPainter painterPixmap(m_prt);
 	drawPic(m_prt);
 
-	return;
-
-	m_prt->setResolution(QPrinter::HighResolution);
-	////自定义纸张大小，特别重要，不然预览效果极差
-	//printer->setPrinterName(m_sName);
-	m_prt->setPageSize(QPrinter::A4);
-	m_prt->setOrientation(QPrinter::Portrait);
-
-	QPixmap pix = QPixmap(pixWidth, pixHeight);
-	//这个函数算是画模板的函数吧，毕竟打印时有模板的
-	/*if (ui.cB_Mode->currentIndex() == 0)
-	{
-		createPixCurve(&pix);
-	}
-	else*/
-	{
-		createPixAverage(&pix);
-	}
-	pix.save("c:/pt.bmp");
-	//纵向：Portrait 横向：Landscape
-	//获取界面的图片
-
-	painterPixmap.begin(m_prt);
-	QRect rect = painterPixmap.viewport();
-	float x = rect.width()*1.0 / pix.width();
-	float y = rect.height()*1.0 / pix.height();
-	//设置图像长宽是原图的多少倍
-	painterPixmap.scale(x, y);
-	painterPixmap.drawPixmap(0, 0, pix);
-	painterPixmap.end();
 }
 void PRT::on_pB_Print_clicked()
 {
@@ -278,7 +245,7 @@ void PRT::on_pB_Print_clicked()
 }
 void PRT::drawPic(QPrinter *printer)
 {
-	QPainter painterPixmap;
+	
 	//QPrinter *printer = new QPrinter(QPrinter::HighResolution);
 	printer->setResolution(QPrinter::HighResolution);
 	////自定义纸张大小，特别重要，不然预览效果极差
