@@ -11,13 +11,19 @@
 #include <QRegExpValidator>
 #include <QMessageBox>
 #include "ui_PRT.h"
+
+#include "Dongle.h"
+#pragma comment(lib,"Dongle.lib")
+
 #define STYLESHEET "QCheckBox{ background:transparent}QCheckBox::indicator {width: 40px; height: 40px; }QCheckBox::indicator:unchecked{background:url(./240.png)}QCheckBox::indicator:checked{background:url(./140.png)}"
 class PRT : public QMainWindow
 {
     Q_OBJECT
 
 public:
-	PRT(QWidget *parent = Q_NULLPTR);
+	PRT(QWidget *parent = Q_NULLPTR); 
+	~PRT();
+	void initDog();
 	void initPrinter();
 	void initData();
 	void initUI();
@@ -55,6 +61,11 @@ private:
 	int totalMachineCount;
 
 	QPainter painterPixmap;
+
+	//dog
+	Dongle *m_dong = nullptr;
+	QStringList *lst = nullptr;
+	bool m_bFlagWriteDongleFinally = false;
 public slots:
 
 	void on_pB_Print_clicked();
@@ -64,4 +75,5 @@ public slots:
 	void on_checkBox_2_toggled(bool checked);
 	void on_cB_Curve_toggled(bool checked);
 	void on_cB_Average_toggled(bool checked);
+	void closes(int index);
 };

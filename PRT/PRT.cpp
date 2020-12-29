@@ -4,6 +4,7 @@ PRT::PRT(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+	initDog();
 	setWindowFlags(windowFlags()&~Qt::WindowMinMaxButtonsHint | Qt::WindowMinimizeButtonHint);
 	setWindowIcon(QIcon("./ico/dr.ico"));
 
@@ -11,6 +12,89 @@ PRT::PRT(QWidget *parent)
 	initData();
 	AppPath = qApp->applicationDirPath();//exe所在目录
 	initUI();
+}
+PRT::~PRT()
+{
+	if (!m_bFlagWriteDongleFinally)//如果过程中狗有错误就不写入了，否则最后写一次时间
+	{
+		m_dong->setTimeData();
+	}
+	delete m_dong;
+	m_dong = nullptr;
+	delete lst;
+	lst = nullptr;
+}
+void PRT::closes(int index)
+{
+	if (index == 0)
+	{
+		showMsgBox("提示", "未找到加密狗!", "我知道了", "取消");
+		//QMessageBox::about(nullptr, "0", "can not FIND dongle!");
+		m_bFlagWriteDongleFinally = true;
+		close();
+	}
+	else if (index == 1)
+	{
+		showMsgBox("提示", "加密狗打开失败!", "我知道了", "取消");
+		//QMessageBox::about(nullptr, "1", "can not OPEN dongle!");
+		m_bFlagWriteDongleFinally = true;
+		close();
+	}
+	else if (index == 2)
+	{
+		showMsgBox("提示", "加密狗验证失败!", "我知道了", "取消");
+		//QMessageBox::about(nullptr, "2", "can not VERIFY dongle!");
+		m_bFlagWriteDongleFinally = true;
+		close();
+	}
+	else if (index == 3)
+	{
+		showMsgBox("提示", "加密狗读取失败!", "我知道了", "取消");
+		//QMessageBox::about(nullptr, "3", "can not READ dongle!");
+		m_bFlagWriteDongleFinally = true;
+		close();
+	}
+	else if (index == 4)
+	{
+		showMsgBox("提示", "加密狗写入失败!", "我知道了", "取消");
+		//QMessageBox::about(nullptr, "4", "can not WRITE dongle!");
+		m_bFlagWriteDongleFinally = true;
+		close();
+	}
+	else if (index == 10)
+	{
+		showMsgBox("提示", "系统时间被非法修改!", "我知道了", "取消");
+		//QMessageBox::about(nullptr, "10", "system time be changed ILLEGALLY!");
+		m_bFlagWriteDongleFinally = true;
+		close();
+	}
+	else if (index == 11)
+	{
+		showMsgBox("提示", "加密狗授权已过期!", "我知道了", "取消");
+		//QMessageBox::about(nullptr, "11", "the dongle is RUN OUT!");
+		m_bFlagWriteDongleFinally = true;
+		close();
+	}
+	else
+	{
+		m_bFlagWriteDongleFinally = false;
+	}
+}
+void PRT::initDog()
+{
+	m_dong = new Dongle();
+	connect(m_dong->get_m_RockeyARM(), SIGNAL(DONGLEERRORCODE(int)), this, SLOT(closes(int)));
+
+	if (m_dong->initDongle())
+	{
+		m_dong->threadRun();
+		lst = (QStringList *)(m_dong->CameraQstringListInDongle());
+
+	}
+	else
+	{
+		exit(-1);
+	}
 }
 void PRT::initPrinter()
 {
