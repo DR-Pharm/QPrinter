@@ -541,6 +541,14 @@ void PRT::createPixCurve(QPixmap *pix)
 			{
 				painter->drawText(actualLeft + actualWidth / 2 - 25, basePointY + simpleFun, 50, 50, Qt::AlignCenter, "1");//1
 				lines.append(QLine(QPoint(actualLeft + actualWidth / 2, basePointY + 5 + simpleFun), QPoint(actualLeft + actualWidth / 2, dotLineUp + simpleFun)));//1111111111
+
+				painter->setPen(QPen(QColor(0, 0, 0), 6));
+				for (int i = 0; i < data_One[totalMachineCount].size(); i++)
+				{
+					painter->drawPoint(actualLeft + actualWidth / 2, actualTop + actualHight / 2 + simpleFun);
+				}
+				painter->setPen(QPen(QColor(0, 0, 0), 1, Qt::DashLine));
+
 			}
 
 			painter->drawLines(lines);
@@ -556,14 +564,18 @@ void PRT::createPixCurve(QPixmap *pix)
 					if (m_dmin[totalMachineCount] != m_dmax[totalMachineCount])
 					{
 						lines.append(QLine(QPoint(actualLeft + actualWidth * 1.0 / (data_One[totalMachineCount].size() - 1)*i, actualBottom + simpleFun - (data_One[totalMachineCount].at(i) - m_dmin[totalMachineCount])*1.0 / (m_dmax[totalMachineCount] - m_dmin[totalMachineCount]) * actualHight), QPoint(actualLeft + actualWidth * 1.0 / (data_One[totalMachineCount].size() - 1)*(i + 1), actualBottom + simpleFun - (data_One[totalMachineCount].at(i + 1) - m_dmin[totalMachineCount])*1.0 / (m_dmax[totalMachineCount] - m_dmin[totalMachineCount]) * actualHight)));
-
 					}
 					else
 					{
 						lines.append(QLine(QPoint(actualLeft, actualTop + actualHight / 2 + simpleFun), QPoint(actualRight, actualTop + actualHight / 2 + simpleFun)));
 					}
 				}
-
+				painter->setPen(QPen(QColor(0, 0, 0), 6));
+				for (int i = 0; i < data_One[totalMachineCount].size(); i++)
+				{
+					painter->drawPoint(actualLeft + actualWidth * 1.0 / (data_One[totalMachineCount].size() - 1)*i, actualBottom + simpleFun - (data_One[totalMachineCount].at(i) - m_dmin[totalMachineCount])*1.0 / (m_dmax[totalMachineCount] - m_dmin[totalMachineCount]) * actualHight);
+				}
+				painter->setPen(QPen(QColor(0, 0, 0), 2));
 				painter->drawLines(lines);
 				lines.clear();
 			}
