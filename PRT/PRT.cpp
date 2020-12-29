@@ -245,7 +245,8 @@ void PRT::on_pB_Print_clicked()
 }
 void PRT::drawPic(QPrinter *printer)
 {
-	
+	m_sName = printer->printerName();
+	ui.lb_PrinterName->setText(QString::fromLocal8Bit("设备型号：") + m_sName);
 	//QPrinter *printer = new QPrinter(QPrinter::HighResolution);
 	printer->setResolution(QPrinter::HighResolution);
 	////自定义纸张大小，特别重要，不然预览效果极差
