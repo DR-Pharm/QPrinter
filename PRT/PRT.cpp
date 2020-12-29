@@ -192,6 +192,10 @@ bool PRT::caculateCount()
 		}
 
 	}
+	else
+	{
+		m_iPrintCurveCount = 0;
+	}
 	if (ui.cB_Average->isChecked())
 	{
 		if (ui.checkBox_2->isChecked())
@@ -203,7 +207,10 @@ bool PRT::caculateCount()
 			m_iPrintAveCount = num2_Le_2 <= m_iDataNum ? num2_Le_2 : m_iDataNum;
 		}
 	}
-
+	else
+	{
+		m_iPrintAveCount = 0;
+	}
 	if (m_iDataNum == 0)
 	{
 		showMsgBox("提示", "无可打印数据!", "我知道了", "取消");

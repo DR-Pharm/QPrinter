@@ -47,8 +47,8 @@ private:
 
 	QString AppPath;
 	int m_iDataNum;//数据存储数量0135...1#     2468...2#
-	int m_iPrintCurveCount;
-	int m_iPrintAveCount;
+	int m_iPrintCurveCount=0;
+	int m_iPrintAveCount=0;
 
 	int num1_Le;
 	int num2_Le_2; 
