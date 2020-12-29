@@ -514,7 +514,7 @@ void PRT::createPixCurve(QPixmap *pix)
 
 			if (m_dmin[totalMachineCount] == m_dmax[totalMachineCount])//min==max
 			{
-				painter->drawText(100, actualTop + actualHight / 2 - 25 + simpleFun, 150, 50, Qt::AlignVCenter, QString::number(m_dmax[totalMachineCount], 'f', 3));//only one
+				painter->drawText(90, actualTop + actualHight / 2 - 25 + simpleFun, 150, 50, Qt::AlignVCenter, QString::number(m_dmax[totalMachineCount], 'f', 3));//only one
 				lines.append(QLine(QPoint(basePointX - 5, actualTop + actualHight / 2 + simpleFun), QPoint(dotLineRight, actualTop + actualHight / 2 + simpleFun)));//only one
 			}
 			else
