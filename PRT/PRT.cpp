@@ -14,7 +14,7 @@ PRT::PRT(QWidget *parent)
 	initData();
 	AppPath = qApp->applicationDirPath();//exeËùÔÚÄ¿Â¼
 	initUI();
-
+	initPLC();
 }
 PRT::~PRT()
 {
@@ -26,6 +26,23 @@ PRT::~PRT()
 	m_dong = nullptr;
 	delete lst;
 	lst = nullptr;
+}
+void PRT::initPLC()
+{
+	m_pPlclib = new QtPLCControl();//dll
+	lib_PLCThread = new QThread();
+	m_pPlclib->moveToThread(lib_PLCThread);
+	lib_PLCThread->start();
+	bool b = connect(this, SIGNAL(STARTCONNECTPLC()), m_pPlclib, SLOT(ConnectPlc()));
+
+	emit STARTCONNECTPLC();
+
+	dlg = (QDialog *)(m_pPlclib->QtCreateDialog(1));
+	//b = connect(this, SIGNAL(GRABING(bool)), dlg, SLOT(DisableLe(bool)));
+	//b = connect(dlg, SIGNAL(DATAOUT(int, int, float)), this, SLOT(DATAIN(int, int, float)));
+	//b = connect(this, SIGNAL(SETIMGRESULT(int)), dlg, SLOT(setImgResult(int)));
+	dlg->setParent(ui.widget);
+	dlg->move(0, 0);
 }
 void PRT::on_pB_Exit_clicked()
 {

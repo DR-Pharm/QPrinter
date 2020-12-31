@@ -33,9 +33,9 @@
     <property name="geometry">
      <rect>
       <x>950</x>
-      <y>310</y>
+      <y>106</y>
       <width>321</width>
-      <height>477</height>
+      <height>521</height>
      </rect>
     </property>
     <property name="title">
@@ -202,14 +202,24 @@
    <widget class="QPushButton" name="pB_Exit">
     <property name="geometry">
      <rect>
-      <x>1160</x>
-      <y>20</y>
+      <x>800</x>
+      <y>720</y>
       <width>93</width>
       <height>28</height>
      </rect>
     </property>
     <property name="text">
      <string>退出</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>50</y>
+      <width>831</width>
+      <height>641</height>
+     </rect>
     </property>
    </widget>
   </widget>

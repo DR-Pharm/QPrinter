@@ -15,14 +15,18 @@
 #include "Dongle.h"
 #pragma comment(lib,"Dongle.lib")
 
+#include "QtPLCControl.h"
+
 #define STYLESHEET "QCheckBox{ background:transparent}QCheckBox::indicator {width: 40px; height: 40px; }QCheckBox::indicator:unchecked{background:url(./240.png)}QCheckBox::indicator:checked{background:url(./140.png)}"
 class PRT : public QMainWindow
 {
     Q_OBJECT
-
+signals:
+	void STARTCONNECTPLC();
 public:
 	PRT(QWidget *parent = Q_NULLPTR); 
 	~PRT();
+	void initPLC();
 	void initDog();
 	void initPrinter();
 	void initData();
@@ -66,6 +70,10 @@ private:
 	Dongle *m_dong = nullptr;
 	QStringList *lst = nullptr;
 	bool m_bFlagWriteDongleFinally = false;
+
+	QtPLCControl *m_pPlclib = nullptr;//dll
+	QThread *lib_PLCThread = nullptr;
+	QDialog *dlg = nullptr;
 public slots:
 
 	void on_pB_Print_clicked();
