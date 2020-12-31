@@ -5,7 +5,9 @@ PRT::PRT(QWidget *parent)
 {
 	ui.setupUi(this);
 	initDog();
-	setWindowFlags(windowFlags()&~Qt::WindowMinMaxButtonsHint | Qt::WindowMinimizeButtonHint);
+	//setWindowFlags(windowFlags()&~Qt::WindowMinMaxButtonsHint | Qt::WindowMinimizeButtonHint);
+
+	setWindowFlags(Qt::FramelessWindowHint);//нч╠ъ©Р  
 	setWindowIcon(QIcon("./ico/dr.ico"));
 
 	initPrinter();
@@ -23,6 +25,10 @@ PRT::~PRT()
 	m_dong = nullptr;
 	delete lst;
 	lst = nullptr;
+}
+void PRT::on_pB_Exit_clicked()
+{
+	close();
 }
 void PRT::closes(int index)
 {
