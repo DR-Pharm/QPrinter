@@ -333,9 +333,9 @@ void PRT::on_pB_Print_clicked()
 	preview.setWindowIcon(QIcon("./ico/dr.ico"));
 	//preview.setModal(Qt::WindowModal);
 	preview.setMinimumWidth(1262);
-	preview.setMinimumHeight(762);	
+	preview.setMinimumHeight(755);	
 	preview.setMaximumWidth(1262);
-	preview.setMaximumHeight(762);
+	preview.setMaximumHeight(755);
 	/*
 	 * QPrintPreviewDialog类提供了一个打印预览对话框，里面功能比较全，
 	 * paintRequested(QPrinter *printer)是系统提供的，
