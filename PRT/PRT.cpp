@@ -14,6 +14,7 @@ PRT::PRT(QWidget *parent)
 	initData();
 	AppPath = qApp->applicationDirPath();//exe所在目录
 	initUI();
+
 }
 PRT::~PRT()
 {
@@ -329,8 +330,12 @@ void PRT::on_pB_Print_clicked()
 	if (!caculateCount())return;
 
 	QPrintPreviewDialog preview;// 创建打印预览对话框
-
-	preview.setWindowState(Qt::WindowMaximized);
+	preview.setWindowIcon(QIcon("./ico/dr.ico"));
+	//preview.setModal(Qt::WindowModal);
+	preview.setMinimumWidth(1262);
+	preview.setMinimumHeight(762);	
+	preview.setMaximumWidth(1262);
+	preview.setMaximumHeight(762);
 	/*
 	 * QPrintPreviewDialog类提供了一个打印预览对话框，里面功能比较全，
 	 * paintRequested(QPrinter *printer)是系统提供的，
@@ -343,6 +348,7 @@ void PRT::on_pB_Print_clicked()
 void PRT::drawPic(QPrinter *printer)
 {
 	m_sName = printer->printerName();
+	
 	ui.lb_PrinterName->setText(QString::fromLocal8Bit("设备型号：") + m_sName);
 	//QPrinter *printer = new QPrinter(QPrinter::HighResolution);
 	printer->setResolution(QPrinter::HighResolution);
