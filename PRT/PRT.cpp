@@ -47,7 +47,10 @@ void PRT::initPLC()
 }
 void PRT::on_pB_Exit_clicked()
 {
-	close();
+	if (QMessageBox::Yes==showMsgBox2("退出确认", "是否确认退出该系统?", "确认", "取消"))
+	{
+		close();
+	}
 }
 void PRT::closes(int index)
 {
@@ -171,6 +174,20 @@ int PRT::showMsgBox(const char* titleStr, const char* contentStr, const char* bu
 	QMessageBox msg(QMessageBox::Information, QString::fromLocal8Bit(titleStr), QString::fromLocal8Bit(contentStr), QMessageBox::Yes/* | QMessageBox::No*/);
 	msg.setButtonText(QMessageBox::Yes, QString::fromLocal8Bit(button1Str));
 	//msg.setButtonText(QMessageBox::No, QString::fromLocal8Bit(button2Str));
+	msg.setWindowIcon(QIcon("./ico/dr.ico"));
+	return msg.exec();
+	//  QMessageBox::NoIcon
+	//	QMessageBox::Question
+	//	QMessageBox::Information
+	//	QMessageBox::Warning
+	//	QMessageBox::Critical
+}
+
+int PRT::showMsgBox2(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str)
+{
+	QMessageBox msg(QMessageBox::Question, QString::fromLocal8Bit(titleStr), QString::fromLocal8Bit(contentStr), QMessageBox::Yes | QMessageBox::No);
+	msg.setButtonText(QMessageBox::Yes, QString::fromLocal8Bit(button1Str));
+	msg.setButtonText(QMessageBox::No, QString::fromLocal8Bit(button2Str));
 	msg.setWindowIcon(QIcon("./ico/dr.ico"));
 	return msg.exec();
 	//  QMessageBox::NoIcon

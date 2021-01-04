@@ -32,6 +32,7 @@ public:
 	void initData();
 	void initUI();
 	int showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str);
+	int showMsgBox2(const char * titleStr, const char * contentStr, const char * button1Str, const char * button2Str);
 	void createPixCurve(QPixmap *);
 	void createPixAverage(QPixmap *);
 	bool deleteDir(const QString& path);//eg£ºdeleteDir(AppPath + "/DefaultModel");
