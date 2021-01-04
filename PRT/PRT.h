@@ -34,6 +34,7 @@ public:
 	int showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str);
 	void createPixCurve(QPixmap *);
 	void createPixAverage(QPixmap *);
+	bool deleteDir(const QString& path);//eg£ºdeleteDir(AppPath + "/DefaultModel");
 	void caculateData(QVector<QVector<float>> transData, int ivalue, int half); //0 1 2
 	void writeIni();
 	bool caculateCount();

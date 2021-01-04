@@ -15,6 +15,7 @@ PRT::PRT(QWidget *parent)
 	AppPath = qApp->applicationDirPath();//exe所在目录
 	initUI();
 	initPLC();
+	deleteDir("C:\\Users\\33741\\Documents\\PDF files");
 }
 PRT::~PRT()
 {
@@ -916,4 +917,26 @@ void PRT::createPixAverage(QPixmap *pix)
 	{
 		painter->drawText(eightPoint + 25, edgeOffset + simpleFun, eightWidth, 60, Qt::AlignVCenter, QString::number(m_dave[1], 'f', 4) + "g");
 	}
+}
+
+bool PRT::deleteDir(const QString& path)//eg：deleteDir(AppPath + "/DefaultModel");//删除文件夹/目录功能
+{
+	if (path.isEmpty()) {
+		return false;
+	}
+	QDir dir(path);
+	if (!dir.exists()) {
+		return true;
+	}
+	dir.setFilter(QDir::AllEntries | QDir::NoDotAndDotDot); //设置过滤
+	QFileInfoList fileList = dir.entryInfoList(); // 获取所有的文件信息
+	foreach(QFileInfo file, fileList) { //遍历文件信息
+		if (file.isFile()) { // 是文件，删除
+			file.dir().remove(file.fileName());
+		}
+		else { // 递归删除
+			deleteDir(file.absoluteFilePath());
+		}
+	}
+	return dir.rmpath(dir.absolutePath()); // 删除文件夹
 }
