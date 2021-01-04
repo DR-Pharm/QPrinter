@@ -38,8 +38,7 @@ public slots:
 	//void savePLCParaInPLCTxt(int);//将combobox修改的phototimes写入txt
 	void on_pb_cmdParaSave_clicked();//保存PLC参数到本机plc.txt
 	void on_pb_cmdParaLoad_clicked();//将本机plc.txt内PLC参数写入到PLC
-	void MoveOut();//键盘弹出
-	void MoveOutWhenWrite();
+
 	//确定修改后键盘隐藏
 	void on_pB_changeIPPort_clicked();
 	void on_pB_ContinueKickOK_clicked();//保存连剔

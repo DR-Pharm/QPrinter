@@ -88,37 +88,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	//指示灯部分
 
 	//model部分的信号与槽↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
-	//键盘部分信号与槽↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-	//两个键盘👇👇👇👇
-	//1st
-	QList<QAbstractButton*> buttonsList = ((Ui::QtPLCDialogClass*)ui)->buttonGroup_Keyboard->buttons();
-	if (buttonsList.isEmpty()) {
-		qDebug() << "isEmpty";
-		return;
-	}
-	foreach(QAbstractButton * button, buttonsList)
-	{
-		((QPushButton*)button)->move(670, 10);//前12个按钮
-		//((QPushButton*)button)->FocusManager.IsFocusScope = "False";//不获取焦点
-		((QPushButton*)button)->setFocusPolicy(Qt::NoFocus);
-		//不接受焦点针对某些控件-用户鼠标和键盘不能对控件进行任何操作，对于pushbutton不存在
-// 		((Ui::QtPLCDialogClass*)ui)->lineEdit->setFocusPolicy(Qt::NoFocus);
-// 
-// 		Qt::TabFocus             //可以通过通过Tab键接受焦点
-// 			Qt::ClickFocus           //可以通过单击接受焦点
-// 			Qt::StrongFocus          //TabFocus | ClickFocus | 0x8
-// 			Qt::WheelFocus           //可以通过使用鼠标滚轮接受焦点
-// 			Qt::NoFocus              //不接受焦点。
-
-	}
-	((Ui::QtPLCDialogClass*)ui)->pushButton_13->setText("");
-	((Ui::QtPLCDialogClass*)ui)->pushButton_13->setFocusPolicy(Qt::NoFocus);
-	((Ui::QtPLCDialogClass*)ui)->pushButton_12->setIcon(QIcon(AppPath + "/ico/dr_keyboard.ico"));//文件copy到了exe所在目录
-	((Ui::QtPLCDialogClass*)ui)->pushButton_12->setText("");//文件copy到了exe所在目录
-
-
-	connect(((Ui::QtPLCDialogClass*)ui)->pushButton_13, SIGNAL(clicked()), this, SLOT(MoveOut()));
-	connectBtnGroup();
+	
 
 	QList<UserLE*> UserLEList = ((Ui::QtPLCDialogClass*)ui)->tabWidget_PLC->findChildren<UserLE*>();
 	for (int i = 0; i < UserLEList.size(); i++)
@@ -155,11 +125,6 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 		}
 	});
 
-	connect(((Ui::QtPLCDialogClass*)ui)->pB_Model_Exit3, &QPushButton::clicked, [=]() {
-		if (QMessageBox::Yes == showMsgBox(QMessageBox::Question, "退出确认", "<img src = './ico/question.png'/>\t确认退出系统设置页面吗？", "确认", "取消"))
-		{
-			emit CLOSESIGNAL();
-		}});
 
 }
 
@@ -192,7 +157,6 @@ QtPLCDialogClass::~QtPLCDialogClass()
 //确定修改后键盘隐藏
 void QtPLCDialogClass::on_pB_changeIPPort_clicked()
 {
-	MoveOutWhenWrite();
 }
 
 
@@ -245,13 +209,11 @@ void QtPLCDialogClass::on_pB_ContinueKickOK_clicked()//保存连剔
 	//levelOut = new WindowOut;
 	//levelOut->getString(QString::fromLocal8Bit("恭喜，连剔设置成功！"), 2000);
 	//levelOut->show();
-	MoveOutWhenWrite();//键盘移开
 
 }
 void QtPLCDialogClass::on_pB_ContinueKickCancel_clicked()//取消连剔
 {
 	initContinueKick();
-	MoveOutWhenWrite();//键盘移开
 }
 /////////////////////////////////////////////////////////////////////
 
@@ -323,334 +285,7 @@ void QtPLCDialogClass::on_pb_cmdParaLoad_clicked()//
 	m_socket->Communicate_PLC(&typ, nullptr);//运行
 }
 
-void QtPLCDialogClass::MoveOut()
-{
-	int i = 2;//first x
-	int x = 670;// last x
-	int y = 10;
-	int j = 55;//增量
-	int delay = 600;
-	int delay_1 = 300;
 
-	if (((Ui::QtPLCDialogClass*)ui)->pushButton_13->text() == "")
-	{
-		QPropertyAnimation* animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_1, "pos");
-		animation->setDuration(delay);
-		animation->setStartValue(QPoint(x, y));
-		animation->setEndValue(QPoint(i, y));
-		animation->setEasingCurve(QEasingCurve::OutBack);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_2, "pos");
-		animation->setDuration(delay);
-		animation->setStartValue(QPoint(x, y));
-		animation->setEndValue(QPoint(i, y));
-		animation->setEasingCurve(QEasingCurve::OutBack);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_3, "pos");
-		animation->setDuration(delay);
-		animation->setStartValue(QPoint(x, y));
-		animation->setEndValue(QPoint(i, y));
-		animation->setEasingCurve(QEasingCurve::OutBack);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_4, "pos");
-		animation->setDuration(delay);
-		animation->setStartValue(QPoint(x, y));
-		animation->setEndValue(QPoint(i, y));
-		animation->setEasingCurve(QEasingCurve::OutBack);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_5, "pos");
-		animation->setDuration(delay);
-		animation->setStartValue(QPoint(x, y));
-		animation->setEndValue(QPoint(i, y));
-		animation->setEasingCurve(QEasingCurve::OutBack);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_6, "pos");
-		animation->setDuration(delay);
-		animation->setStartValue(QPoint(x, y));
-		animation->setEndValue(QPoint(i, y));
-		animation->setEasingCurve(QEasingCurve::OutBack);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_7, "pos");
-		animation->setDuration(delay);
-		animation->setStartValue(QPoint(x, y));
-		animation->setEndValue(QPoint(i, y));
-		animation->setEasingCurve(QEasingCurve::OutBack);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_8, "pos");
-		animation->setDuration(delay);
-		animation->setStartValue(QPoint(x, y));
-		animation->setEndValue(QPoint(i, y));
-		animation->setEasingCurve(QEasingCurve::OutBack);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_9, "pos");
-		animation->setDuration(delay);
-		animation->setStartValue(QPoint(x, y));
-		animation->setEndValue(QPoint(i, y));
-		animation->setEasingCurve(QEasingCurve::OutBack);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_10, "pos");
-		animation->setDuration(delay);
-		animation->setStartValue(QPoint(x, y));
-		animation->setEndValue(QPoint(i, y));
-		animation->setEasingCurve(QEasingCurve::OutBack);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_11, "pos");
-		animation->setDuration(delay);
-		animation->setStartValue(QPoint(x, y));
-		animation->setEndValue(QPoint(i, y));
-		animation->setEasingCurve(QEasingCurve::OutBack);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_14, "pos");
-		animation->setDuration(delay);
-		animation->setStartValue(QPoint(x, y + 30));
-		animation->setEndValue(QPoint(i, y + 30));
-		animation->setEasingCurve(QEasingCurve::OutBack);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_12, "pos");
-		animation->setDuration(delay);
-		animation->setStartValue(QPoint(x, y));
-		animation->setEndValue(QPoint(i, y));
-		animation->setEasingCurve(QEasingCurve::OutBack);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-
-		((Ui::QtPLCDialogClass*)ui)->pushButton_13->setText(">>");
-		((Ui::QtPLCDialogClass*)ui)->pushButton_12->setIcon(QIcon(""));//文件copy到了exe所在目录
-		((Ui::QtPLCDialogClass*)ui)->pushButton_12->setText(QString::fromLocal8Bit("删"));//文件copy到了exe所在目录
-	}
-	else if (((QPushButton*)sender()) == ((Ui::QtPLCDialogClass*)ui)->pushButton_13)
-	{
-		QPropertyAnimation* animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_1, "pos");
-		animation->setDuration(delay_1);
-		animation->setStartValue(QPoint(i, y));
-		animation->setEndValue(QPoint(x, y));
-		animation->setEasingCurve(QEasingCurve::Linear);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_2, "pos");
-		animation->setDuration(delay_1);
-		animation->setStartValue(QPoint(i, y));
-		animation->setEndValue(QPoint(x, y));
-		animation->setEasingCurve(QEasingCurve::Linear);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_3, "pos");
-		animation->setDuration(delay_1);
-		animation->setStartValue(QPoint(i, y));
-		animation->setEndValue(QPoint(x, y));
-		animation->setEasingCurve(QEasingCurve::Linear);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_4, "pos");
-		animation->setDuration(delay_1);
-		animation->setStartValue(QPoint(i, y));
-		animation->setEndValue(QPoint(x, y));
-		animation->setEasingCurve(QEasingCurve::Linear);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_5, "pos");
-		animation->setDuration(delay_1);
-		animation->setStartValue(QPoint(i, y));
-		animation->setEndValue(QPoint(x, y));
-		animation->setEasingCurve(QEasingCurve::Linear);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_6, "pos");
-		animation->setDuration(delay_1);
-		animation->setStartValue(QPoint(i, y));
-		animation->setEndValue(QPoint(x, y));
-		animation->setEasingCurve(QEasingCurve::Linear);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_7, "pos");
-		animation->setDuration(delay_1);
-		animation->setStartValue(QPoint(i, y));
-		animation->setEndValue(QPoint(x, y));
-		animation->setEasingCurve(QEasingCurve::Linear);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_8, "pos");
-		animation->setDuration(delay_1);
-		animation->setStartValue(QPoint(i, y));
-		animation->setEndValue(QPoint(x, y));
-		animation->setEasingCurve(QEasingCurve::Linear);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_9, "pos");
-		animation->setDuration(delay_1);
-		animation->setStartValue(QPoint(i, y));
-		animation->setEndValue(QPoint(x, y));
-		animation->setEasingCurve(QEasingCurve::Linear);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_10, "pos");
-		animation->setDuration(delay_1);
-		animation->setStartValue(QPoint(i, y));
-		animation->setEndValue(QPoint(x, y));
-		animation->setEasingCurve(QEasingCurve::Linear);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_11, "pos");
-		animation->setDuration(delay_1);
-		animation->setStartValue(QPoint(i, y));
-		animation->setEndValue(QPoint(x, y));
-		animation->setEasingCurve(QEasingCurve::Linear);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_14, "pos");
-		animation->setDuration(delay_1);
-		animation->setStartValue(QPoint(i, y + 30));
-		animation->setEndValue(QPoint(x, y + 30));
-		animation->setEasingCurve(QEasingCurve::Linear);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_12, "pos");
-		animation->setDuration(delay_1);
-		animation->setStartValue(QPoint(i, y));
-		animation->setEndValue(QPoint(x, y));
-		animation->setEasingCurve(QEasingCurve::Linear);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-
-		((Ui::QtPLCDialogClass*)ui)->pushButton_13->setText("");
-		((Ui::QtPLCDialogClass*)ui)->pushButton_12->setIcon(QIcon(AppPath + "/ico/dr_keyboard.ico"));//文件copy到了exe所在目录
-		((Ui::QtPLCDialogClass*)ui)->pushButton_12->setText("");//文件copy到了exe所在目录
-	}
-}
-
-
-void QtPLCDialogClass::MoveOutWhenWrite()
-{
-	int i = 2;//first x
-	int x = 670;// last x
-	int y = 10;
-	int j = 55;//增量
-	int delay = 600;
-	int delay_1 = 300;
-
-	if (((Ui::QtPLCDialogClass*)ui)->pushButton_13->text() == ">>")
-	{
-		QPropertyAnimation* animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_1, "pos");
-		animation->setDuration(delay_1);
-		animation->setStartValue(QPoint(i, y));
-		animation->setEndValue(QPoint(x, y));
-		animation->setEasingCurve(QEasingCurve::Linear);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_2, "pos");
-		animation->setDuration(delay_1);
-		animation->setStartValue(QPoint(i, y));
-		animation->setEndValue(QPoint(x, y));
-		animation->setEasingCurve(QEasingCurve::Linear);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_3, "pos");
-		animation->setDuration(delay_1);
-		animation->setStartValue(QPoint(i, y));
-		animation->setEndValue(QPoint(x, y));
-		animation->setEasingCurve(QEasingCurve::Linear);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_4, "pos");
-		animation->setDuration(delay_1);
-		animation->setStartValue(QPoint(i, y));
-		animation->setEndValue(QPoint(x, y));
-		animation->setEasingCurve(QEasingCurve::Linear);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_5, "pos");
-		animation->setDuration(delay_1);
-		animation->setStartValue(QPoint(i, y));
-		animation->setEndValue(QPoint(x, y));
-		animation->setEasingCurve(QEasingCurve::Linear);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_6, "pos");
-		animation->setDuration(delay_1);
-		animation->setStartValue(QPoint(i, y));
-		animation->setEndValue(QPoint(x, y));
-		animation->setEasingCurve(QEasingCurve::Linear);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_7, "pos");
-		animation->setDuration(delay_1);
-		animation->setStartValue(QPoint(i, y));
-		animation->setEndValue(QPoint(x, y));
-		animation->setEasingCurve(QEasingCurve::Linear);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_8, "pos");
-		animation->setDuration(delay_1);
-		animation->setStartValue(QPoint(i, y));
-		animation->setEndValue(QPoint(x, y));
-		animation->setEasingCurve(QEasingCurve::Linear);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_9, "pos");
-		animation->setDuration(delay_1);
-		animation->setStartValue(QPoint(i, y));
-		animation->setEndValue(QPoint(x, y));
-		animation->setEasingCurve(QEasingCurve::Linear);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_10, "pos");
-		animation->setDuration(delay_1);
-		animation->setStartValue(QPoint(i, y));
-		animation->setEndValue(QPoint(x, y));
-		animation->setEasingCurve(QEasingCurve::Linear);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_11, "pos");
-		animation->setDuration(delay_1);
-		animation->setStartValue(QPoint(i, y));
-		animation->setEndValue(QPoint(x, y));
-		animation->setEasingCurve(QEasingCurve::Linear);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_14, "pos");
-		animation->setDuration(delay_1);
-		animation->setStartValue(QPoint(i, y + 30));
-		animation->setEndValue(QPoint(x, y + 30));
-		animation->setEasingCurve(QEasingCurve::Linear);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-		i += j;
-		animation = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pushButton_12, "pos");
-		animation->setDuration(delay_1);
-		animation->setStartValue(QPoint(i, y));
-		animation->setEndValue(QPoint(x, y));
-		animation->setEasingCurve(QEasingCurve::Linear);
-		animation->start(QAbstractAnimation::DeleteWhenStopped);
-
-		((Ui::QtPLCDialogClass*)ui)->pushButton_13->setText("");
-		((Ui::QtPLCDialogClass*)ui)->pushButton_12->setIcon(QIcon(AppPath + "/ico/dr_keyboard.ico"));//文件copy到了exe所在目录
-		((Ui::QtPLCDialogClass*)ui)->pushButton_12->setText("");//文件copy到了exe所在目录
-	}
-}
 
 void QtPLCDialogClass::onDebugMode(bool b)
 {
@@ -947,9 +582,6 @@ void QtPLCDialogClass::onSendPLCCommand(bool b)
 			blockSignals(false);
 		}
 	}
-	MoveOutWhenWrite();
-
-
 }
 //获取pc数据
 DataFromPC_typ QtPLCDialogClass::getPCData()
@@ -1999,27 +1631,6 @@ void QtPLCDialogClass::SetSocket(QtSocket_Class *sc)
 	//	m_socket->set_message_handler(&message_handler, this);//全局
 }
 
-void QtPLCDialogClass::connectBtnGroup()//键盘弹出
-{
-	connect(((Ui::QtPLCDialogClass*)ui)->buttonGroup_Keyboard, QOverload<QAbstractButton*>::of(&QButtonGroup::buttonClicked),
-		[=](QAbstractButton* button) {
-		if (button->objectName() == "pushButton_1") { keybd_event(0x31, 0, 0, 0); keybd_event(0x31, 0, KEYEVENTF_KEYUP, 0); }
-		if (button->objectName() == "pushButton_2") { keybd_event(0x32, 0, 0, 0); keybd_event(0x32, 0, KEYEVENTF_KEYUP, 0); }
-		if (button->objectName() == "pushButton_3") { keybd_event(0x33, 0, 0, 0); keybd_event(0x33, 0, KEYEVENTF_KEYUP, 0); }
-		if (button->objectName() == "pushButton_4") { keybd_event(0x34, 0, 0, 0); keybd_event(0x34, 0, KEYEVENTF_KEYUP, 0); }
-		if (button->objectName() == "pushButton_5") { keybd_event(0x35, 0, 0, 0); keybd_event(0x35, 0, KEYEVENTF_KEYUP, 0); }
-		if (button->objectName() == "pushButton_6") { keybd_event(0x36, 0, 0, 0); keybd_event(0x36, 0, KEYEVENTF_KEYUP, 0); }
-		if (button->objectName() == "pushButton_7") { keybd_event(0x37, 0, 0, 0); keybd_event(0x37, 0, KEYEVENTF_KEYUP, 0); }
-		if (button->objectName() == "pushButton_8") { keybd_event(0x38, 0, 0, 0); keybd_event(0x38, 0, KEYEVENTF_KEYUP, 0); }
-		if (button->objectName() == "pushButton_9") { keybd_event(0x39, 0, 0, 0); keybd_event(0x39, 0, KEYEVENTF_KEYUP, 0); }
-		if (button->objectName() == "pushButton_10") { keybd_event(0x30, 0, 0, 0); keybd_event(0x30, 0, KEYEVENTF_KEYUP, 0); }
-		if (button->objectName() == "pushButton_11") { keybd_event(0xBE, 0, 0, 0); keybd_event(0xBE, 0, KEYEVENTF_KEYUP, 0); }
-		if (button->objectName() == "pushButton_14") { keybd_event(0x6D, 0, 0, 0); keybd_event(0x6D, 0, KEYEVENTF_KEYUP, 0); }
-		if (button->objectName() == "pushButton_12") { keybd_event(0x08, 0, 0, 0); keybd_event(0x08, 0, KEYEVENTF_KEYUP, 0); }
-
-	});
-
-}
 
 void QtPLCDialogClass::setm_iCameraTotal(int index)
 {
