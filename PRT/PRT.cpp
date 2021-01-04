@@ -15,7 +15,7 @@ PRT::PRT(QWidget *parent)
 	AppPath = qApp->applicationDirPath();//exe所在目录
 	initUI();
 	initPLC();
-	deleteDir("C:\\Users\\33741\\Documents\\PDF files");
+	//deleteDir("C:\\Users\\Administrator\\Documents\\PDF files");//不同电脑不同的位置
 }
 PRT::~PRT()
 {
