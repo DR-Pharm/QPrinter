@@ -366,6 +366,7 @@ void PRT::on_pB_Print_clicked()
 
 	QPrintPreviewDialog preview;// 创建打印预览对话框
 	preview.setWindowIcon(QIcon("./ico/dr.ico"));
+	preview.setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowCloseButtonHint);
 	//preview.setModal(Qt::WindowModal);
 	preview.setMinimumWidth(1262);
 	preview.setMinimumHeight(755);	
