@@ -421,38 +421,38 @@ bool QtSocket_Class::clean(bool b)
 	memset(m_Dmsg_FromPC, 0, sizeof(DataFromPC_typ));
 	memcpy(m_Dmsg_ToPC, _ToPC, sizeof(DataToPC_typ));//主界面用
 	m_Dmsg_FromPC->Telegram_typ = 2;
-	if (b)
-	{
-		m_fRejectTime = _ToPC->Machine_Para.RejectTime;
-	}
-	m_Dmsg_FromPC->Machine_Para.FeedAxisHomeOffset = _ToPC->Machine_Para.FeedAxisHomeOffset;
-	m_Dmsg_FromPC->Machine_Para.ClipPhase1 = _ToPC->Machine_Para.ClipPhase1;
-	m_Dmsg_FromPC->Machine_Para.ClipPhase2 = _ToPC->Machine_Para.ClipPhase2;
-	m_Dmsg_FromPC->Machine_Para.UpPhase1 = _ToPC->Machine_Para.UpPhase1;
-	m_Dmsg_FromPC->Machine_Para.UpPhase2 = _ToPC->Machine_Para.UpPhase2;
-	m_Dmsg_FromPC->Machine_Para.DropPhase1 = _ToPC->Machine_Para.DropPhase1;
-	m_Dmsg_FromPC->Machine_Para.DropPhase2 = _ToPC->Machine_Para.DropPhase2;
-	m_Dmsg_FromPC->Machine_Para.tClip1 = _ToPC->Machine_Para.tClip1;
-	m_Dmsg_FromPC->Machine_Para.tClip2 = _ToPC->Machine_Para.tClip2;
-	m_Dmsg_FromPC->Machine_Para.tUp1 = _ToPC->Machine_Para.tUp1;
-	m_Dmsg_FromPC->Machine_Para.tUp2 = _ToPC->Machine_Para.tUp2;
-	m_Dmsg_FromPC->Machine_Para.tDrop1 = _ToPC->Machine_Para.tDrop1;
-	m_Dmsg_FromPC->Machine_Para.tDrop2 = _ToPC->Machine_Para.tDrop2;
-	m_Dmsg_FromPC->Machine_Para.FeedLength = _ToPC->Machine_Para.FeedLength;
-	m_Dmsg_FromPC->Machine_Para.FlashTime = _ToPC->Machine_Para.FlashTime;
-	m_Dmsg_FromPC->Machine_Para.PhotoTime = _ToPC->Machine_Para.PhotoTime;
-	m_Dmsg_FromPC->Machine_Para.RejectTime = _ToPC->Machine_Para.RejectTime;
-	m_Dmsg_FromPC->Machine_Para.PhotoDelay = _ToPC->Machine_Para.PhotoDelay;
-	m_Dmsg_FromPC->Machine_Para.PhotoPhase = _ToPC->Machine_Para.PhotoPhase;
-	m_Dmsg_FromPC->Machine_Para.RejectPhase = _ToPC->Machine_Para.RejectPhase;
-	m_Dmsg_FromPC->Machine_Para.PhotoTimes = _ToPC->Machine_Para.PhotoTimes;
-	m_Dmsg_FromPC->Machine_Para.RotateSpeed = _ToPC->Machine_Para.RotateSpeed;
-	m_Dmsg_FromPC->Machine_Para.DisableForceReject = _ToPC->Machine_Para.DisableForceReject;		//关闭强制剔废,1:关闭
-	m_Dmsg_FromPC->Machine_Para.CapCheckAlarmTime = _ToPC->Machine_Para.CapCheckAlarmTime;		//胶囊检测报警时间，单位ms
-	m_Dmsg_FromPC->Machine_Para.RejectFallingTime = _ToPC->Machine_Para.RejectFallingTime;		//剔废胶囊下落时间，单位ms
-	m_Dmsg_FromPC->Machine_Para.PhotoInterval = _ToPC->Machine_Para.PhotoInterval;
+	//if (b)
+	//{
+	//	m_fRejectTime = _ToPC->Machine_Para.RejectTime;
+	//}
+	//m_Dmsg_FromPC->Machine_Para.FeedAxisHomeOffset = _ToPC->Machine_Para.FeedAxisHomeOffset;
+	//m_Dmsg_FromPC->Machine_Para.ClipPhase1 = _ToPC->Machine_Para.ClipPhase1;
+	//m_Dmsg_FromPC->Machine_Para.ClipPhase2 = _ToPC->Machine_Para.ClipPhase2;
+	//m_Dmsg_FromPC->Machine_Para.UpPhase1 = _ToPC->Machine_Para.UpPhase1;
+	//m_Dmsg_FromPC->Machine_Para.UpPhase2 = _ToPC->Machine_Para.UpPhase2;
+	//m_Dmsg_FromPC->Machine_Para.DropPhase1 = _ToPC->Machine_Para.DropPhase1;
+	//m_Dmsg_FromPC->Machine_Para.DropPhase2 = _ToPC->Machine_Para.DropPhase2;
+	//m_Dmsg_FromPC->Machine_Para.tClip1 = _ToPC->Machine_Para.tClip1;
+	//m_Dmsg_FromPC->Machine_Para.tClip2 = _ToPC->Machine_Para.tClip2;
+	//m_Dmsg_FromPC->Machine_Para.tUp1 = _ToPC->Machine_Para.tUp1;
+	//m_Dmsg_FromPC->Machine_Para.tUp2 = _ToPC->Machine_Para.tUp2;
+	//m_Dmsg_FromPC->Machine_Para.tDrop1 = _ToPC->Machine_Para.tDrop1;
+	//m_Dmsg_FromPC->Machine_Para.tDrop2 = _ToPC->Machine_Para.tDrop2;
+	//m_Dmsg_FromPC->Machine_Para.FeedLength = _ToPC->Machine_Para.FeedLength;
+	//m_Dmsg_FromPC->Machine_Para.FlashTime = _ToPC->Machine_Para.FlashTime;
+	//m_Dmsg_FromPC->Machine_Para.PhotoTime = _ToPC->Machine_Para.PhotoTime;
+	//m_Dmsg_FromPC->Machine_Para.RejectTime = _ToPC->Machine_Para.RejectTime;
+	//m_Dmsg_FromPC->Machine_Para.PhotoDelay = _ToPC->Machine_Para.PhotoDelay;
+	//m_Dmsg_FromPC->Machine_Para.PhotoPhase = _ToPC->Machine_Para.PhotoPhase;
+	//m_Dmsg_FromPC->Machine_Para.RejectPhase = _ToPC->Machine_Para.RejectPhase;
+	//m_Dmsg_FromPC->Machine_Para.PhotoTimes = _ToPC->Machine_Para.PhotoTimes;
+	//m_Dmsg_FromPC->Machine_Para.RotateSpeed = _ToPC->Machine_Para.RotateSpeed;
+	//m_Dmsg_FromPC->Machine_Para.DisableForceReject = _ToPC->Machine_Para.DisableForceReject;		//关闭强制剔废,1:关闭
+	//m_Dmsg_FromPC->Machine_Para.CapCheckAlarmTime = _ToPC->Machine_Para.CapCheckAlarmTime;		//胶囊检测报警时间，单位ms
+	//m_Dmsg_FromPC->Machine_Para.RejectFallingTime = _ToPC->Machine_Para.RejectFallingTime;		//剔废胶囊下落时间，单位ms
+	//m_Dmsg_FromPC->Machine_Para.PhotoInterval = _ToPC->Machine_Para.PhotoInterval;
 
-	m_Dmsg_FromPC->Machine_Para.RejectTime = b ? 5000 : m_fRejectTime;
+	//m_Dmsg_FromPC->Machine_Para.RejectTime = b ? 5000 : m_fRejectTime;
 	Communicate_PLC(m_Dmsg_FromPC, m_Dmsg_ToPC);
 
 	m_Dmsg_FromPC->Telegram_typ = 1;

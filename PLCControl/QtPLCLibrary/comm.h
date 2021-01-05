@@ -16,9 +16,36 @@
 #ifndef _COMM_H_
 #define	_COMM_H_
 
-#define		NUM_OF_CHANNEL				30
-#define		NUM_OF_FLASH				3
+#define			MAX_PULSE_SERVO		2
+typedef struct
+{
+	unsigned int		second;
+	unsigned int		minute;
+	unsigned int		hour;
+	unsigned int		day;
+	unsigned int		month;
+	unsigned int		year;
+	unsigned int		weekday;	/*0:Sunday--6:Saturday*/
+}DateTimeStructTyp;
 
+typedef struct
+{
+	unsigned int		GroupNo;
+	unsigned int		GroupIndex;
+	float				GroupAvg;			//组平均重量,g
+	float				GroupMax;
+	float				GroupMin;
+	float				GroupMaxRatio;
+	float				GroupMinRatio;
+	float				GroupWeightDelta;
+	unsigned int		Tag;				//表格标记
+}Displaytyp;
+
+typedef struct
+{
+	float		Weight[20];
+	float		Avg;
+}DisplayWeightTyp;
 //input
 typedef struct
 {
@@ -59,45 +86,19 @@ typedef	struct
 
 typedef struct
 {
-	int		FeedAxisHomeOffset;		//送进轴寻参偏移,单位0.01度
-	
-	int		ClipPhase1;				//夹紧气缸动作相位,单位0.01度
-	int		ClipPhase2;				//夹紧气缸释放相位,单位0.01度
-	int		UpPhase1;				//抬升气缸动作相位,单位0.01度
-	int		UpPhase2;				//抬升气缸释放相位,单位0.01度
-	int		DropPhase1;				//落料气缸动作相位,单位0.01度
-	int		DropPhase2;				//落料气缸释放相位,单位0.01度
-	
-	float		tClip1;					//夹紧气缸动作延迟,单位ms
-	float		tClip2;					//夹紧气缸释放延迟,单位ms
-	float		tUp1;					//抬升气缸动作延迟,单位ms
-	float		tUp2;					//抬升气缸释放延迟,单位ms
-	float		tDrop1;					//落料气缸动作延迟,单位ms
-	float		tDrop2;					//抬升气缸释放延迟,单位ms
-	
-	int		FeedLength;				//送进长度，单位0.01mm
-	
-	float		FlashTime;				//闪光时间,单位ms
-	float		PhotoTime;				//拍照时间,单位ms
-	float		RejectTime;				//剔废阀动作时间,单位ms
-	
-	float		PhotoDelay;				//闪光后多久开始拍照,单位ms
-	int		PhotoPhase;				//闪光加拍照相位,单位0.01度	
-	int		RejectPhase;			//剔废相位,单位0.01度
-	
-	int		PhotoTimes;				//每周期照相次数,1-10
-	
-	float		RotateSpeed;			//最高速度对应旋转速度, RPM
-	int		DisableForceReject;		//关闭强制剔废,1:关闭
+	unsigned int		enable;
 
-	int		CapCheckAlarmTime;		//胶囊检测报警时间，单位ms
+	float		s_trg_stop[MAX_PULSE_SERVO];				//停止位置
+	float		FeedTimeOut;								//下料超时时间,单位s
+	float		CapPickInterval;							//自动取料周期,单位s
+	float		CapBackInterval;							//成品返还周期,单位s
 
-	int		RejectFallingTime;		//剔废胶囊下落时间，单位ms
+	float		TireDelay;									//去皮延迟启动时间,单位s
+	float		ReadDelay;									//读数延迟启动时间,单位s
+	float		TireWaitTime;								//去皮等待时间,单位s
+	int			StopSignalDelay;							//连续几次超重或超轻后输出停机信号
 
-
-	float	PhotoInterval;			//拍照间隔角度，针对转囊，单位:度,范围1-360度。
-
-	int Reserve[16]; //预留空间
+	int			Reserve[16];								//预留空间
 }Comm_Machine_Para_typ;
 
 typedef struct
@@ -138,7 +139,7 @@ typedef struct
 	unsigned int		RejectTelCount;			//接收到剔废报文的计数器
 	unsigned int		RejectTelRecivedPhase;	//接收到剔废报文的相位
 	unsigned int		ServoState[2];			//伺服状态
-	unsigned int		RejectCounter[NUM_OF_CHANNEL]; //通道剔废计数 useless for me
+	unsigned int		RejectCounter[6]; //通道剔废计数 useless for me
 	int Reserve[32]; //预留空间
 }Comm_Status_typ;
 
@@ -153,8 +154,8 @@ typedef struct
 	unsigned char		cmdResetCounter;					//复位计数变量, 1:复位
 	unsigned char		cmdParaSave;						//参数保存命令, 1:保存
 	unsigned char		cmdParaLoad;						//参数读取命令, 1:读取
-	unsigned char		cmdTestKick[NUM_OF_CHANNEL];		//手动剔废, 1:Push, 2:Back
-	unsigned char		cmdTestFlash[NUM_OF_FLASH];			//手动闪光, 1:闪光,自动复位
+	unsigned char		cmdTestKick[6];		//手动剔废, 1:Push, 2:Back
+	unsigned char		cmdTestFlash[6];			//手动闪光, 1:闪光,自动复位
 	unsigned char		cmdTestValveUp;						//手动升降气缸, 1:Push, 2:Back
 	unsigned char		cmdTestValveClip;					//手动夹紧气缸, 1:Push, 2:Back
 	unsigned char		cmdTestValveDrop;					//手动落囊气缸, 1:Push, 2:Back

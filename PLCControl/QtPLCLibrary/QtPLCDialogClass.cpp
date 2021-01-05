@@ -207,12 +207,6 @@ void QtPLCDialogClass::on_pb_cmdParaSave_clicked()//加一个按钮保存
 	DataFromPC_typ typ;
 	typ = getPCData();
 
-	if (((Ui::QtPLCDialogClass*)ui)->lE_FeedAxisHomeOffset->text() != QString::number(m_data->Machine_Para.FeedAxisHomeOffset / 100.0, 'f', 2) || ((Ui::QtPLCDialogClass*)ui)->lE_FeedLength->text() != QString::number(m_data->Machine_Para.FeedLength / 100.0, 'f', 2))
-	{
-		typ.Telegram_typ = 1;
-		typ.Machine_Cmd.cmdHome = 1;
-		m_socket->Communicate_PLC(&typ, nullptr);//cmd
-	}
 	typ.Telegram_typ = 2;
 	m_socket->Communicate_PLC(&typ, nullptr);//系统
 
@@ -440,32 +434,15 @@ DataFromPC_typ QtPLCDialogClass::getPCData()
 	//tmp.Telegram_typ = ((Ui::QtPLCDialogClass*)ui)->lE_Telegram_typ->text().toInt();
 
 	//系统参数
-	tmp.Machine_Para.FeedAxisHomeOffset = QString::number(((Ui::QtPLCDialogClass*)ui)->lE_FeedAxisHomeOffset->text().toFloat() * 100).toInt();//qstring-float-qstring-int
-	tmp.Machine_Para.ClipPhase1 = QString::number(((Ui::QtPLCDialogClass*)ui)->lE_ClipPhase1->text().toFloat() * 100).toInt();
-	tmp.Machine_Para.ClipPhase2 = QString::number(((Ui::QtPLCDialogClass*)ui)->lE_ClipPhase2->text().toFloat() * 100).toInt();
-	tmp.Machine_Para.UpPhase1 = QString::number(((Ui::QtPLCDialogClass*)ui)->lE_UpPhase1->text().toFloat() * 100).toInt();
-	tmp.Machine_Para.UpPhase2 = QString::number(((Ui::QtPLCDialogClass*)ui)->lE_UpPhase2->text().toFloat() * 100).toInt();
-	tmp.Machine_Para.DropPhase1 = QString::number(((Ui::QtPLCDialogClass*)ui)->lE_DropPhase1->text().toFloat() * 100).toInt();
-	tmp.Machine_Para.DropPhase2 = QString::number(((Ui::QtPLCDialogClass*)ui)->lE_DropPhase2->text().toFloat() * 100).toInt();
-	tmp.Machine_Para.tClip1 = ((Ui::QtPLCDialogClass*)ui)->lE_tClip1->text().toFloat();
-	tmp.Machine_Para.tClip2 = ((Ui::QtPLCDialogClass*)ui)->lE_tClip2->text().toFloat();
-	tmp.Machine_Para.tUp1 = ((Ui::QtPLCDialogClass*)ui)->lE_tUp1->text().toFloat();
-	tmp.Machine_Para.tUp2 = ((Ui::QtPLCDialogClass*)ui)->lE_tUp2->text().toFloat();
-	tmp.Machine_Para.tDrop1 = ((Ui::QtPLCDialogClass*)ui)->lE_tDrop1->text().toFloat();
-	tmp.Machine_Para.tDrop2 = ((Ui::QtPLCDialogClass*)ui)->lE_tDrop2->text().toFloat();
-	tmp.Machine_Para.FeedLength = QString::number(((Ui::QtPLCDialogClass*)ui)->lE_FeedLength->text().toFloat() * 100).toInt();
-	tmp.Machine_Para.FlashTime = ((Ui::QtPLCDialogClass*)ui)->lE_FlashTime->text().toFloat();
-	tmp.Machine_Para.PhotoTime = ((Ui::QtPLCDialogClass*)ui)->lE_PhotoTime->text().toFloat();
-	tmp.Machine_Para.RejectTime = ((Ui::QtPLCDialogClass*)ui)->lE_RejectTime->text().toFloat();
-	tmp.Machine_Para.PhotoDelay = ((Ui::QtPLCDialogClass*)ui)->lE_PhotoDelay->text().toFloat();
-	tmp.Machine_Para.PhotoPhase = QString::number(((Ui::QtPLCDialogClass*)ui)->lE_PhotoPhase->text().toFloat() * 100).toInt();
-	tmp.Machine_Para.RejectPhase = QString::number(((Ui::QtPLCDialogClass*)ui)->lE_RejectPhase->text().toFloat() * 100).toInt();
-	tmp.Machine_Para.PhotoTimes = ((Ui::QtPLCDialogClass*)ui)->lE_PhotoTimes->text().toInt();
-	tmp.Machine_Para.RotateSpeed = ((Ui::QtPLCDialogClass*)ui)->lE_RotateSpeed->text().toFloat();
-	tmp.Machine_Para.DisableForceReject = ((Ui::QtPLCDialogClass*)ui)->lE_DisableForceReject->text().toInt();		//关闭强制剔废,1:关闭
-	tmp.Machine_Para.CapCheckAlarmTime = ((Ui::QtPLCDialogClass*)ui)->lE_CapCheckAlarmTime->text().toInt();		//胶囊检测报警时间，单位ms
-	tmp.Machine_Para.RejectFallingTime = ((Ui::QtPLCDialogClass*)ui)->lE_RejectFallingTime->text().toInt();		//剔废胶囊下落时间，单位ms
-	tmp.Machine_Para.PhotoInterval = ((Ui::QtPLCDialogClass*)ui)->lE_PhotoInterval->text().toFloat();
+
+	tmp.Machine_Para.CapBackInterval = QString::number(((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->text().toFloat() * 100).toInt();
+	tmp.Machine_Para.TireWaitTime = QString::number(((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->text().toFloat() * 100).toInt();
+	tmp.Machine_Para.TireDelay = QString::number(((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->text().toFloat() * 100).toInt();
+	tmp.Machine_Para.ReadDelay = QString::number(((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->text().toFloat() * 100).toInt();
+	tmp.Machine_Para.FeedTimeOut = ((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->text().toFloat();
+	tmp.Machine_Para.CapPickInterval = ((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->text().toFloat();
+	tmp.Machine_Para.StopSignalDelay = ((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->text().toFloat();
+
 	//运行数据
 	tmp.Run_Para.RunSpeed = ((Ui::QtPLCDialogClass*)ui)->lE_RunSpeed->text().toInt();
 ///	tmp.Run_Para.SysPhase = ((Ui::QtPLCDialogClass*)ui)->lE_SysPhase->text().toInt();
@@ -587,109 +564,34 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	((Ui::QtPLCDialogClass*)ui)->lE_HomeOK->setText(QString::number(m_data->Status.HomeOK));
 
 	//系统参数
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_FeedAxisHomeOffset->hasFocus())
+
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_FeedAxisHomeOffset->setText(QString::number(m_data->Machine_Para.FeedAxisHomeOffset / 100.0, 'f', 2));//显示到小数点后两位
+		((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->setText(QString::number(m_data->Machine_Para.CapBackInterval / 100.0, 'f', 2));
 	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_ClipPhase1->hasFocus())
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_ClipPhase1->setText(QString::number(m_data->Machine_Para.ClipPhase1 / 100.0, 'f', 2));
+		((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->setText(QString::number(m_data->Machine_Para.TireWaitTime / 100.0, 'f', 2));
 	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_ClipPhase2->hasFocus())
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_ClipPhase2->setText(QString::number(m_data->Machine_Para.ClipPhase2 / 100.0, 'f', 2));
+		((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->setText(QString::number(m_data->Machine_Para.TireDelay / 100.0, 'f', 2));
 	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_UpPhase1->hasFocus())
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_UpPhase1->setText(QString::number(m_data->Machine_Para.UpPhase1 / 100.0, 'f', 2));
+		((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->setText(QString::number(m_data->Machine_Para.ReadDelay / 100.0, 'f', 2));
 	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_UpPhase2->hasFocus())
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_UpPhase2->setText(QString::number(m_data->Machine_Para.UpPhase2 / 100.0, 'f', 2));
+		((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->setText(QString::number(m_data->Machine_Para.FeedTimeOut));
 	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_DropPhase1->hasFocus())
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_DropPhase1->setText(QString::number(m_data->Machine_Para.DropPhase1 / 100.0, 'f', 2));
+		((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->setText(QString::number(m_data->Machine_Para.CapPickInterval));
 	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_DropPhase2->hasFocus())
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_DropPhase2->setText(QString::number(m_data->Machine_Para.DropPhase2 / 100.0, 'f', 2));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_tClip1->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_tClip1->setText(QString::number(m_data->Machine_Para.tClip1));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_tClip2->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_tClip2->setText(QString::number(m_data->Machine_Para.tClip2));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_tUp1->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_tUp1->setText(QString::number(m_data->Machine_Para.tUp1));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_tUp2->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_tUp2->setText(QString::number(m_data->Machine_Para.tUp2));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_tDrop1->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_tDrop1->setText(QString::number(m_data->Machine_Para.tDrop1));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_tDrop2->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_tDrop2->setText(QString::number(m_data->Machine_Para.tDrop2));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_FeedLength->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_FeedLength->setText(QString::number(m_data->Machine_Para.FeedLength / 100.0, 'f', 2));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_FlashTime->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_FlashTime->setText(QString::number(m_data->Machine_Para.FlashTime));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_PhotoTime->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_PhotoTime->setText(QString::number(m_data->Machine_Para.PhotoTime));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_RejectTime->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_RejectTime->setText(QString::number(m_data->Machine_Para.RejectTime));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_PhotoDelay->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_PhotoDelay->setText(QString::number(m_data->Machine_Para.PhotoDelay));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_PhotoPhase->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_PhotoPhase->setText(QString::number(m_data->Machine_Para.PhotoPhase / 100.0, 'f', 2));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_RejectPhase->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_RejectPhase->setText(QString::number(m_data->Machine_Para.RejectPhase / 100.0, 'f', 2));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_PhotoTimes->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_PhotoTimes->setText(QString::number(m_data->Machine_Para.PhotoTimes));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_RotateSpeed->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_RotateSpeed->setText(QString::number(m_data->Machine_Para.RotateSpeed));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_DisableForceReject->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_DisableForceReject->setText(QString::number(m_data->Machine_Para.DisableForceReject));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_CapCheckAlarmTime->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_CapCheckAlarmTime->setText(QString::number(m_data->Machine_Para.CapCheckAlarmTime));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_RejectFallingTime->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_RejectFallingTime->setText(QString::number(m_data->Machine_Para.RejectFallingTime));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_PhotoInterval->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_PhotoInterval->setText(QString::number(m_data->Machine_Para.PhotoInterval));
+		((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->setText(QString::number(m_data->Machine_Para.StopSignalDelay));
 	}
 
 	//输入点
