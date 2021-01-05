@@ -35,226 +35,118 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab_5">
     <attribute name="title">
      <string>PLC输入</string>
     </attribute>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_40">
-         <property name="text">
-          <string>急停</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
-          <widget class="QLabel" name="lb_00">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="pixmap">
-            <pixmap>C:/Users/33741/Desktop/QtConsoleApplication1/QtClassLibrary1/ico/redLed.png</pixmap>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="lb_01">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="pixmap">
-            <pixmap>C:/Users/33741/Desktop/QtConsoleApplication1/QtClassLibrary1/ico/redGreen.png</pixmap>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_11">
-         <property name="text">
-          <string>往复轴正限位</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <item>
-          <widget class="QLabel" name="lb_11">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="pixmap">
-            <pixmap>C:/Users/33741/Desktop/QtConsoleApplication1/QtClassLibrary1/ico/redGreen.png</pixmap>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="lb_10">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="pixmap">
-            <pixmap>C:/Users/33741/Desktop/QtConsoleApplication1/QtClassLibrary1/ico/redLed.png</pixmap>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_41">
-         <property name="text">
-          <string>往复轴负限位</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
-         <item>
-          <widget class="QLabel" name="lb_21">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="pixmap">
-            <pixmap>C:/Users/33741/Desktop/QtConsoleApplication1/QtClassLibrary1/ico/redGreen.png</pixmap>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="lb_20">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="pixmap">
-            <pixmap>C:/Users/33741/Desktop/QtConsoleApplication1/QtClassLibrary1/ico/redLed.png</pixmap>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_42">
-         <property name="text">
-          <string>往复轴零点</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <layout class="QHBoxLayout" name="horizontalLayout_13">
-         <item>
-          <widget class="QLabel" name="lb_30">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="pixmap">
-            <pixmap>C:/Users/33741/Desktop/QtConsoleApplication1/QtClassLibrary1/ico/redLed.png</pixmap>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="lb_31">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="pixmap">
-            <pixmap>C:/Users/33741/Desktop/QtConsoleApplication1/QtClassLibrary1/ico/redGreen.png</pixmap>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_89">
-         <property name="text">
-          <string>压力检测</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <layout class="QHBoxLayout" name="horizontalLayout_14">
-         <item>
-          <widget class="QLabel" name="lb_40">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="pixmap">
-            <pixmap>C:/Users/33741/Desktop/QtConsoleApplication1/QtClassLibrary1/ico/redLed.png</pixmap>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="lb_41">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="pixmap">
-            <pixmap>C:/Users/33741/Desktop/QtConsoleApplication1/QtClassLibrary1/ico/redGreen.png</pixmap>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_11">
-       <item>
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>系统相位</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="lE_SysPhase">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pb_cmdJog">
-         <property name="minimumSize">
-          <size>
-           <width>127</width>
-           <height>44</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>127</width>
-           <height>44</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>点动</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
+    <widget class="QLabel" name="label_40">
+     <property name="geometry">
+      <rect>
+       <x>22</x>
+       <y>82</y>
+       <width>210</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>210</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>210</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>胶囊下落检测</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lb_00">
+     <property name="geometry">
+      <rect>
+       <x>239</x>
+       <y>82</y>
+       <width>32</width>
+       <height>32</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>1231231</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap>C:/Users/33741/Desktop/QtConsoleApplication1/QtClassLibrary1/ico/redLed.png</pixmap>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_11">
+     <property name="geometry">
+      <rect>
+       <x>22</x>
+       <y>165</y>
+       <width>210</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>210</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>210</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>摆臂位置检测</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lb_10">
+     <property name="geometry">
+      <rect>
+       <x>239</x>
+       <y>165</y>
+       <width>32</width>
+       <height>32</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>2323432</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap>C:/Users/33741/Desktop/QtConsoleApplication1/QtClassLibrary1/ico/redLed.png</pixmap>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="tab_PLC_Control">
     <attribute name="title">

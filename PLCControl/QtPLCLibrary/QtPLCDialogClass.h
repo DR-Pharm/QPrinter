@@ -1,6 +1,6 @@
 #pragma once
 
-
+#include <QLabel>
 #include "PLCRelayHead.h"
 #include "QtSocket_Class.h"
 namespace spd = spdlog;
@@ -34,6 +34,9 @@ private:
 	DataToPC_typ *m_data = nullptr;
 
 	QPushButton* obj = nullptr;//pushbutton le;
+
+	QLabel *lb_01=nullptr;
+	QLabel *lb_11=nullptr;
 public slots:
 	//void savePLCParaInPLCTxt(int);//将combobox修改的phototimes写入txt
 	void on_pb_cmdParaSave_clicked();//保存PLC参数到本机plc.txt

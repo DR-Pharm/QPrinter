@@ -15,12 +15,8 @@
 //input
 typedef struct
 {
-	bool		EStop;						//急停
-	bool		AxisFeedPosEnd;				//往复轴正限位
-	bool		AxisFeedNegEnd;				//往复轴负限位
-	bool		AxisFeedHome;				//往复轴零点
-	bool		AirPressChk;				//压力检测，常闭
-	bool		CapCheck;					//胶囊检测，常开
+	bool		FeedTrigger;			//胶囊下落检测
+	bool		SwingTrigger;			//摆臂位置检测
 }Input_typ;
 
 

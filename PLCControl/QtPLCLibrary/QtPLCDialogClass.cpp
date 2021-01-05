@@ -42,7 +42,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdStart, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));
 	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdStop, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));
 	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdEStop, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));
-	connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdJog, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));
+///	connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdJog, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));
 	//	connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdErrorAck, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//报警复位, 1:复位
 	//	connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdResetCounter, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//复位计数变量, 1:复位
 		//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdParaSave, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//参数保存命令, 1:保存
@@ -75,16 +75,16 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	memset(m_data, 0, sizeof(DataToPC_typ));//主界面用
 	//指示灯部分
 
-	((Ui::QtPLCDialogClass*)ui)->lb_00->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
-	((Ui::QtPLCDialogClass*)ui)->lb_01->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
+	((Ui::QtPLCDialogClass*)ui)->lb_00->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));	
+	QLabel *lb_01 = new QLabel(((Ui::QtPLCDialogClass*)ui)->tabWidget_PLC->widget(0));
+	lb_01->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
+	lb_01->move(((Ui::QtPLCDialogClass*)ui)->lb_00->pos());
+	((Ui::QtPLCDialogClass*)ui)->lb_00->raise();
 	((Ui::QtPLCDialogClass*)ui)->lb_10->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
-	((Ui::QtPLCDialogClass*)ui)->lb_11->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
-	((Ui::QtPLCDialogClass*)ui)->lb_20->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
-	((Ui::QtPLCDialogClass*)ui)->lb_21->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
-	((Ui::QtPLCDialogClass*)ui)->lb_30->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
-	((Ui::QtPLCDialogClass*)ui)->lb_31->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
-	((Ui::QtPLCDialogClass*)ui)->lb_40->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
-	((Ui::QtPLCDialogClass*)ui)->lb_41->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
+	QLabel *lb_11 = new QLabel(((Ui::QtPLCDialogClass*)ui)->tabWidget_PLC->widget(0));
+	lb_11->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
+	lb_11->move(((Ui::QtPLCDialogClass*)ui)->lb_10->pos());
+	((Ui::QtPLCDialogClass*)ui)->lb_10->raise();
 	//指示灯部分
 
 	//model部分的信号与槽↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
@@ -621,7 +621,7 @@ DataFromPC_typ QtPLCDialogClass::getPCData()
 	tmp.Machine_Para.PhotoInterval = ((Ui::QtPLCDialogClass*)ui)->lE_PhotoInterval->text().toFloat();
 	//运行数据
 	tmp.Run_Para.RunSpeed = ((Ui::QtPLCDialogClass*)ui)->lE_RunSpeed->text().toInt();
-	tmp.Run_Para.SysPhase = ((Ui::QtPLCDialogClass*)ui)->lE_SysPhase->text().toInt();
+///	tmp.Run_Para.SysPhase = ((Ui::QtPLCDialogClass*)ui)->lE_SysPhase->text().toInt();
 	tmp.Run_Para.enPhoto = ((Ui::QtPLCDialogClass*)ui)->pB_enPhoto->isChecked() ? 1 : 0;
 	tmp.Run_Para.enReject = ((Ui::QtPLCDialogClass*)ui)->pB_enReject->isChecked() ? 1 : 0;
 	tmp.Run_Para.enFeed = ((Ui::QtPLCDialogClass*)ui)->pB_enFeed->isChecked() ? 1 : 0;
@@ -635,7 +635,7 @@ DataFromPC_typ QtPLCDialogClass::getPCData()
 	tmp.Machine_Cmd.cmdStart = 0;							//启动,1:启动运行
 	tmp.Machine_Cmd.cmdStop = 0;							//停止,停在0相位,1:停止
 	tmp.Machine_Cmd.cmdEStop = 0;							//紧急停止(立即停止), 1:停止
-	tmp.Machine_Cmd.cmdJog = ((Ui::QtPLCDialogClass*)ui)->pb_cmdJog->isChecked() ? 1 : 0;							//点动运行, 1,启动,2,停止
+	///tmp.Machine_Cmd.cmdJog = ((Ui::QtPLCDialogClass*)ui)->pb_cmdJog->isChecked() ? 1 : 0;							//点动运行, 1,启动,2,停止
 	tmp.Machine_Cmd.cmdErrorAck = 0;						//报警复位, 1:复位
 	tmp.Machine_Cmd.cmdResetCounter = 0;					//复位计数变量, 1:复位
 	//tmp.Machine_Cmd.cmdParaSave = ((Ui::QtPLCDialogClass*)ui)->pb_cmdParaSave->isChecked() ? 1 : 0;						//参数保存命令, 1:保存
@@ -706,7 +706,7 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_RunSpeed->setText(QString::number(m_data->ActData.RunSpeed));
 	}
-	((Ui::QtPLCDialogClass*)ui)->lE_SysPhase->setText(QString::number(m_data->ActData.SysPhase / 100.0, 'f', 2));
+///	((Ui::QtPLCDialogClass*)ui)->lE_SysPhase->setText(QString::number(m_data->ActData.SysPhase / 100.0, 'f', 2));
 	if (m_data->ActData.enPhoto == 1)
 	{
 		((Ui::QtPLCDialogClass*)ui)->pB_enPhoto->blockSignals(true);
@@ -890,16 +890,8 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	}
 
 	//输入点
-	//((Ui::QtPLCDialogClass*)ui)->lE_EStop->setText(m_data->Inputs.EStop ? "1" : "0");
-	((Ui::QtPLCDialogClass*)ui)->lb_00->setVisible(m_data->Inputs.EStop ? true : false);
-	//((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedPosEnd->setText(m_data->Inputs.AxisFeedPosEnd ? "1" : "0");
-	((Ui::QtPLCDialogClass*)ui)->lb_10->setVisible(m_data->Inputs.AxisFeedPosEnd ? false : true);
-	//((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedNegEnd->setText(m_data->Inputs.AxisFeedNegEnd ? "1" : "0");
-	((Ui::QtPLCDialogClass*)ui)->lb_20->setVisible(m_data->Inputs.AxisFeedNegEnd ? false : true);
-	//((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedHome->setText(m_data->Inputs.AxisFeedHome ? "1" : "0");
-	((Ui::QtPLCDialogClass*)ui)->lb_30->setVisible(m_data->Inputs.AxisFeedHome ? false : true);
-	//((Ui::QtPLCDialogClass*)ui)->lE_AirPressChk->setText(m_data->Inputs.AirPressChk ? "1" : "0");
-	((Ui::QtPLCDialogClass*)ui)->lb_40->setVisible(m_data->Inputs.AirPressChk ? false : true);
+	((Ui::QtPLCDialogClass*)ui)->lb_00->setVisible(m_data->Inputs.FeedTrigger ? true : false);
+	((Ui::QtPLCDialogClass*)ui)->lb_10->setVisible(m_data->Inputs.SwingTrigger ? false : true);
 
 	//输出点
 	//((Ui::QtPLCDialogClass*)ui)->lE_Inveter->setText(m_data->Outputs.Inveter ? "1" : "0");	
