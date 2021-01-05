@@ -82,35 +82,8 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	}
 
 	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
-	g_ipAddress = configIniRead.value("ProgramSetting/IpAddress", "127.0.0.1").toString();
+	g_ipAddress = configIniRead.value("ProgramSetting/IpAddress", "10.86.50.210").toString();
 	g_port = configIniRead.value("ProgramSetting/Port", 5000).toInt();
-	((Ui::QtPLCDialogClass*)ui)->lE_IP->setText(g_ipAddress);
-	((Ui::QtPLCDialogClass*)ui)->lE_Port->setText(QString::number(g_port));
-	connect(((Ui::QtPLCDialogClass*)ui)->lE_IP, &QLineEdit::editingFinished, [=]() {
-		if (g_ipAddress != ((Ui::QtPLCDialogClass*)ui)->lE_IP->text())
-		{
-			QSettings Dir(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);//找到文件
-			Dir.setValue("ProgramSetting/IpAddress", ((Ui::QtPLCDialogClass*)ui)->lE_IP->text());//写当前模板
-			//levelOut = new WindowOut;
-			//levelOut->getString(QString::fromLocal8Bit("恭喜，IP地址设置成功，重新登入系统后生效！"), 2000);
-			//levelOut->show();
-			g_ipAddress = ((Ui::QtPLCDialogClass*)ui)->lE_IP->text();
-		}
-
-	});
-	connect(((Ui::QtPLCDialogClass*)ui)->lE_Port, &QLineEdit::editingFinished, [=]() {
-		if (g_port != ((Ui::QtPLCDialogClass*)ui)->lE_Port->text().toInt())
-		{
-			QSettings Dir(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);//找到文件
-			Dir.setValue("ProgramSetting/Port", ((Ui::QtPLCDialogClass*)ui)->lE_Port->text());//写当前模板
-			//levelOut = new WindowOut;
-			//levelOut->getString(QString::fromLocal8Bit("恭喜，通讯端口设置成功，重新登入系统后生效！"), 2000);
-			//levelOut->show();
-			g_port = ((Ui::QtPLCDialogClass*)ui)->lE_Port->text().toInt();
-		}
-	});
-
-
 }
 
 QtPLCDialogClass::~QtPLCDialogClass()
