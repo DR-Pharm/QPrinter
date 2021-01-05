@@ -103,16 +103,31 @@ typedef struct
 
 typedef struct
 {
-	int		RunSpeed;				//运行速度
-	int		SysPhase;				//当前系统相位
-	int		enPhoto;				//拍照使能 0:停止拍照, 1:开始拍照
-	int		enReject;				//剔废使能, 0:停止剔废, 1:开始剔废
-	int		enFeed;					//料斗使能
-	int		enRotate;				//转囊使能
-	unsigned int		CheckCount;				//检测计数
-	unsigned int		RejectCount;			//剔废计数
-	unsigned int		ForceRejectCount;		//强制剔废计数	
-	int Reserve[16]; //预留空间
+	int				SysOveride;				//系统速度，0-10000对应0-100%
+	int				PassCount;				//通过计数
+	int				RejectCount;			//剔废计数
+	int				ProdCount;				//称重计数
+	unsigned int	TOCount;				//过重计数
+	unsigned int	TUCount;				//过轻计数
+	float			TOverload;				//超重重量,单位g
+	float			TUnderload;				//超轻重量,单位g
+	float			InterOverLoad;			//内控线，上限,单位g
+	float			InterUnderLoad;			//内控线，下限,单位g
+	float			TDemand;				//期望重量,单位g			
+	int				TireMode;				//0:每组去皮重,1:每次称重去皮重
+	int				GroupSet;				//每组测试胶囊数量
+	float			TestInterval;			//测试间隔时间,单位s
+	char			BatchName[40];			//批号字符串
+	unsigned int	GroupNo;				//当前组号
+	int				Language;				//当前语言，0：中文，1：英文
+	float			UserAnalogoutput;		//用户模拟量输入
+	float			Adjustvalue;			//自动调整系数
+	unsigned int	DeltaInput;				//装量调整偏差值
+	int				usertime;				//用户定义打印时间间隔(分钟)
+	float			Rsd;					//相对标准偏差值
+	int				cmdAutoPrint;			//自动打印，1:自动，0：手动
+
+	int				Reserve[16];			//预留空间
 }Comm_Run_Para_typ;
 
 typedef struct
@@ -207,11 +222,11 @@ typedef struct DataToPC_typ
 	Output_typ					Outputs;			//输出点 	
 	bool operator==(const DataToPC_typ &data)
 	{
-		if (Status.HomeOK != data.Status.HomeOK)return false;
-		if (Telegram_typ!= data.Telegram_typ)return false; 
-		if (Status.AlarmStatus != data.Status.AlarmStatus)return false;
-		if (ActData.CheckCount != data.ActData.CheckCount)return false;
-		if (ActData.RunSpeed != data.ActData.RunSpeed)return false;
+		//if (Status.HomeOK != data.Status.HomeOK)return false;
+		//if (Telegram_typ!= data.Telegram_typ)return false; 
+		//if (Status.AlarmStatus != data.Status.AlarmStatus)return false;
+		//if (ActData.CheckCount != data.ActData.CheckCount)return false;
+		//if (ActData.RunSpeed != data.ActData.RunSpeed)return false;
 		return true;
 	}
 }DataToPC_typ;

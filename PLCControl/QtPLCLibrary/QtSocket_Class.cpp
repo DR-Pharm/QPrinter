@@ -554,11 +554,11 @@ bool QtSocket_Class::RunSpeed(int index, DataToPC_typ* data)//data no use
 	memcpy(m_Dmsg_ToPC, _ToPC, sizeof(DataToPC_typ));//主界面用
 #ifdef INSPECTION_360
 	m_Dmsg_FromPC->Telegram_typ = 4;
-	m_Dmsg_FromPC->Run_Para.RunSpeed = index;
-	m_Dmsg_FromPC->Run_Para.enFeed = _ToPC->ActData.enFeed;
-	m_Dmsg_FromPC->Run_Para.enPhoto = _ToPC->ActData.enPhoto;
-	m_Dmsg_FromPC->Run_Para.enReject = _ToPC->ActData.enReject;
-	m_Dmsg_FromPC->Run_Para.enRotate = _ToPC->ActData.enRotate;
+	//m_Dmsg_FromPC->Run_Para.RunSpeed = index;
+	//m_Dmsg_FromPC->Run_Para.enFeed = _ToPC->ActData.enFeed;
+	//m_Dmsg_FromPC->Run_Para.enPhoto = _ToPC->ActData.enPhoto;
+	//m_Dmsg_FromPC->Run_Para.enReject = _ToPC->ActData.enReject;
+	//m_Dmsg_FromPC->Run_Para.enRotate = _ToPC->ActData.enRotate;
 #endif // INSPECTION_360
 
 	if (Communicate_PLC(m_Dmsg_FromPC, m_Dmsg_ToPC))
@@ -575,7 +575,7 @@ bool QtSocket_Class::EnReject(DataToPC_typ* data)
 	memcpy(m_Dmsg_ToPC, &data, sizeof(DataToPC_typ));//主界面用
 
 	m_Dmsg_FromPC->Telegram_typ = 4;
-	m_Dmsg_FromPC->Run_Para.enReject = 1;
+	//m_Dmsg_FromPC->Run_Para.enReject = 1;
 	if (Communicate_PLC(m_Dmsg_FromPC, m_Dmsg_ToPC))
 	{
 		return true;

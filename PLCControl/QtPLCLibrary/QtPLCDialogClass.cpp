@@ -285,22 +285,22 @@ void QtPLCDialogClass::onSendPLCCommand(bool b)
 			if (objname == "pB_enPhoto" || objname == "pB_enReject" || objname == "pB_enFeed" || objname == "pB_enRotate")
 			{
 				typ.Telegram_typ = 4;//运行报文
-				if (objname == "pB_enPhoto")
-				{
-					typ.Run_Para.enPhoto = 1;
-				}
-				if (objname == "pB_enReject")
-				{
-					typ.Run_Para.enReject = 1;
-				}
-				if (objname == "pB_enFeed")
-				{
-					typ.Run_Para.enFeed = 1;
-				}
-				if (objname == "pB_enRotate")
-				{
-					typ.Run_Para.enRotate = 1;
-				}
+				//if (objname == "pB_enPhoto")
+				//{
+				//	typ.Run_Para.enPhoto = 1;
+				//}
+				//if (objname == "pB_enReject")
+				//{
+				//	typ.Run_Para.enReject = 1;
+				//}
+				//if (objname == "pB_enFeed")
+				//{
+				//	typ.Run_Para.enFeed = 1;
+				//}
+				//if (objname == "pB_enRotate")
+				//{
+				//	typ.Run_Para.enRotate = 1;
+				//}
 				//////////obj->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
 				m_socket->Communicate_PLC(&typ, nullptr);//此处只发送，不接收
 			}
@@ -349,7 +349,7 @@ void QtPLCDialogClass::onSendPLCCommand(bool b)
 			if (objname == "pB_enPhoto" || objname == "pB_enReject" || objname == "pB_enFeed" || objname == "pB_enRotate")
 			{
 				typ.Telegram_typ = 4;//运行报文
-				if (objname == "pB_enPhoto")
+				/*if (objname == "pB_enPhoto")
 				{
 					typ.Run_Para.enPhoto = 0;
 				}
@@ -364,7 +364,7 @@ void QtPLCDialogClass::onSendPLCCommand(bool b)
 				if (objname == "pB_enRotate")
 				{
 					typ.Run_Para.enRotate = 0;
-				}
+				}*/
 				obj->setStyleSheet("font-size:20pt");
 				m_socket->Communicate_PLC(&typ, nullptr);//此处只发送，不接收
 			}
@@ -444,15 +444,15 @@ DataFromPC_typ QtPLCDialogClass::getPCData()
 	tmp.Machine_Para.StopSignalDelay = ((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->text().toFloat();
 
 	//运行数据
-	tmp.Run_Para.RunSpeed = ((Ui::QtPLCDialogClass*)ui)->lE_RunSpeed->text().toInt();
-///	tmp.Run_Para.SysPhase = ((Ui::QtPLCDialogClass*)ui)->lE_SysPhase->text().toInt();
-	tmp.Run_Para.enPhoto = ((Ui::QtPLCDialogClass*)ui)->pB_enPhoto->isChecked() ? 1 : 0;
-	tmp.Run_Para.enReject = ((Ui::QtPLCDialogClass*)ui)->pB_enReject->isChecked() ? 1 : 0;
-	tmp.Run_Para.enFeed = ((Ui::QtPLCDialogClass*)ui)->pB_enFeed->isChecked() ? 1 : 0;
-	tmp.Run_Para.enRotate = ((Ui::QtPLCDialogClass*)ui)->pB_enRotate->isChecked() ? 1 : 0;
-	tmp.Run_Para.CheckCount = m_data->ActData.CheckCount;
-	tmp.Run_Para.RejectCount = m_data->ActData.RejectCount;
-	tmp.Run_Para.ForceRejectCount = m_data->ActData.ForceRejectCount;
+//	tmp.Run_Para.RunSpeed = ((Ui::QtPLCDialogClass*)ui)->lE_RunSpeed->text().toInt();
+/////	tmp.Run_Para.SysPhase = ((Ui::QtPLCDialogClass*)ui)->lE_SysPhase->text().toInt();
+//	tmp.Run_Para.enPhoto = ((Ui::QtPLCDialogClass*)ui)->pB_enPhoto->isChecked() ? 1 : 0;
+//	tmp.Run_Para.enReject = ((Ui::QtPLCDialogClass*)ui)->pB_enReject->isChecked() ? 1 : 0;
+//	tmp.Run_Para.enFeed = ((Ui::QtPLCDialogClass*)ui)->pB_enFeed->isChecked() ? 1 : 0;
+//	tmp.Run_Para.enRotate = ((Ui::QtPLCDialogClass*)ui)->pB_enRotate->isChecked() ? 1 : 0;
+//	tmp.Run_Para.CheckCount = m_data->ActData.CheckCount;
+//	tmp.Run_Para.RejectCount = m_data->ActData.RejectCount;
+//	tmp.Run_Para.ForceRejectCount = m_data->ActData.ForceRejectCount;
 
 	//命令
 
@@ -482,12 +482,12 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	//((Ui::QtPLCDialogClass*)ui)->lE_Telegram_typ->setText(QString::number(m_data->Telegram_typ));
 
 	//运行数据
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_RunSpeed->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_RunSpeed->setText(QString::number(m_data->ActData.RunSpeed));
-	}
+	//if (!((Ui::QtPLCDialogClass*)ui)->lE_RunSpeed->hasFocus())
+	//{
+	//	((Ui::QtPLCDialogClass*)ui)->lE_RunSpeed->setText(QString::number(m_data->ActData.RunSpeed));
+	//}
 ///	((Ui::QtPLCDialogClass*)ui)->lE_SysPhase->setText(QString::number(m_data->ActData.SysPhase / 100.0, 'f', 2));
-	if (m_data->ActData.enPhoto == 1)
+	/*if (m_data->ActData.enPhoto == 1)
 	{
 		((Ui::QtPLCDialogClass*)ui)->pB_enPhoto->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pB_enPhoto->setChecked(true);
@@ -553,7 +553,7 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 
 	//((Ui::QtPLCDialogClass*)ui)->lE_CheckCount->setText(QString::number(m_data->ActData.CheckCount));
 	//((Ui::QtPLCDialogClass*)ui)->lE_RejectCount->setText(QString::number(m_data->ActData.RejectCount));
-	//((Ui::QtPLCDialogClass*)ui)->lE_ForceRejectCount->setText(QString::number(m_data->ActData.ForceRejectCount));
+	//((Ui::QtPLCDialogClass*)ui)->lE_ForceRejectCount->setText(QString::number(m_data->ActData.ForceRejectCount));*/
 
 	//系统状态
 	((Ui::QtPLCDialogClass*)ui)->lE_AlarmStatus->setText(QString::number(m_data->Status.AlarmStatus));
