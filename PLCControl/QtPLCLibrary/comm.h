@@ -1,6 +1,13 @@
 /**********************************************************/
 /* 通讯数据 */
 /**********************************************************/
+//unsigned int == UDINT 4个字节
+//int == DINT 4个字节 和long一样是4个字节 
+//float == REAL 4个字节 double和longlong是8个字节
+//unsigned char = USINT 8位 1个字节
+//char[40] == STRING[40] 8位 1个字节是1个字符占位
+//bool == BOOL 1位
+//short == INT 2个字节
 
 #define SET_BIT(_X,_pos)		{_X|=(1l<<(_pos));}
 #define GET_BIT(_X,_pos)		((bool)((((long)(_X)&(1l<<(_pos)))!=0))
@@ -23,20 +30,20 @@ typedef struct
 //output
 typedef	struct
 {	
-	bool		Inveter;					//变频器启停
-	bool		ClipValve;					//夹紧阀
-	bool		UpValve;					//升降阀
-	bool		DropValve;					//落囊阀
-	
-	bool		LampRed;					//红灯
-	bool		LampYellow;					//黄灯
-	bool		LampGreen;					//绿灯
-	bool		Buzzer;						//蜂鸣器
-	bool		Photo;						//拍照
-	
-	bool		Flash[NUM_OF_FLASH];		//光源
-	bool		Reject[NUM_OF_CHANNEL];		//剔废
-	
+	bool		Reject;					//排废电磁铁
+	bool		ChannelSwith;			//胶囊通道切换
+	bool		Vaccum;					//真空发生器
+	bool		CapGet;					//取料电磁铁
+	bool		CapGetValve;			//取料电磁阀
+	bool		CapBackValve;			//回料电磁阀
+	bool		AlarmOut;				//报警蜂鸣器
+	bool		StopSignal;				//停机信号
+	bool		AlarmSignal;			//报警输出
+	bool        YellowAlarmout;			//黄灯报警
+	bool		Baffle;					//挡板
+	short		Analogoutput;			//模拟量输出 ///// 下面这三个没用
+	bool		Photo;					//拍照
+	bool		Flash;					//闪光	
 }Output_typ;
 
 

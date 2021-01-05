@@ -49,8 +49,6 @@ public slots:
 
 	//void onStartStore(bool);
 	void onSendPLCCommand(bool);
-	void onDebugMode(bool);//气缸一直动
-	void updateCyclinderSituation();
 	DataFromPC_typ getPCData();//PC数值发送给PLC
 	void getPLCData(void*, int, int, int, int);
 public:

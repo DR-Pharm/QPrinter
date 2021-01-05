@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>981</width>
+    <width>1146</width>
     <height>829</height>
    </rect>
   </property>
@@ -24,9 +24,21 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>848</width>
-     <height>721</height>
+     <width>849</width>
+     <height>725</height>
     </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>849</width>
+     <height>725</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>849</width>
+     <height>725</height>
+    </size>
    </property>
    <property name="styleSheet">
     <string notr="true">font: 20pt &quot;幼圆&quot;;</string>
@@ -35,7 +47,7 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="tab_5">
     <attribute name="title">
@@ -152,1338 +164,314 @@
     <attribute name="title">
      <string>PLC输出</string>
     </attribute>
-    <layout class="QVBoxLayout" name="verticalLayout_6">
-     <item>
-      <widget class="QTabWidget" name="tabWidget_control">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="tabShape">
-        <enum>QTabWidget::Rounded</enum>
-       </property>
-       <property name="currentIndex">
-        <number>1</number>
-       </property>
-       <widget class="QWidget" name="tab_9">
-        <attribute name="title">
-         <string>功能输出</string>
-        </attribute>
-        <layout class="QVBoxLayout" name="verticalLayout_7">
-         <item>
-          <layout class="QGridLayout" name="gridLayout_4">
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_99">
-             <property name="minimumSize">
-              <size>
-               <width>100</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>75</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>塔灯：</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <layout class="QHBoxLayout" name="horizontalLayout_6">
-             <item>
-              <widget class="QPushButton" name="pb_cmdTestFlash0">
-               <property name="minimumSize">
-                <size>
-                 <width>150</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>127</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>闪光1</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pb_cmdTestFlash1">
-               <property name="minimumSize">
-                <size>
-                 <width>150</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>127</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>闪光2</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pb_cmdTestFlash2">
-               <property name="minimumSize">
-                <size>
-                 <width>150</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>127</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>闪光3</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item row="4" column="1">
-            <layout class="QHBoxLayout" name="horizontalLayout_10">
-             <item>
-              <widget class="QPushButton" name="pb_cmdTestInverter">
-               <property name="minimumSize">
-                <size>
-                 <width>150</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>127</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>漏斗</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pb_cmdRotateCtl">
-               <property name="minimumSize">
-                <size>
-                 <width>150</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>127</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>转囊启停</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item row="1" column="1">
-            <layout class="QHBoxLayout" name="horizontalLayout_7">
-             <item>
-              <widget class="QPushButton" name="pb_cmdTestPhoto">
-               <property name="minimumSize">
-                <size>
-                 <width>150</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>127</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>拍照</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pb_cmdTestFlashPhoto">
-               <property name="minimumSize">
-                <size>
-                 <width>150</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>127</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>闪光拍照</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pb_cmdTestCapPhoto">
-               <property name="minimumSize">
-                <size>
-                 <width>150</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>127</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>胶囊拍照</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_95">
-             <property name="minimumSize">
-              <size>
-               <width>100</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>75</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>光源：</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <layout class="QHBoxLayout" name="horizontalLayout_8">
-             <item>
-              <widget class="QPushButton" name="pb_cmdTestValveUp">
-               <property name="minimumSize">
-                <size>
-                 <width>150</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>127</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>升降</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pb_cmdTestValveClip">
-               <property name="minimumSize">
-                <size>
-                 <width>150</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>127</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>伸缩</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pb_cmdTestValveDrop">
-               <property name="minimumSize">
-                <size>
-                 <width>150</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>127</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>落囊</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_97">
-             <property name="minimumSize">
-              <size>
-               <width>100</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>75</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>气缸：</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="label_98">
-             <property name="minimumSize">
-              <size>
-               <width>100</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>75</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>电机：</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_96">
-             <property name="minimumSize">
-              <size>
-               <width>100</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>75</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>相机：</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <layout class="QHBoxLayout" name="horizontalLayout_9">
-             <item>
-              <widget class="QPushButton" name="pb_cmdTestLampRead">
-               <property name="minimumSize">
-                <size>
-                 <width>150</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>127</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>红灯</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pb_cmdTestLampYellow">
-               <property name="minimumSize">
-                <size>
-                 <width>150</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>127</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>黄灯</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pb_cmdTestLampGreen">
-               <property name="minimumSize">
-                <size>
-                 <width>150</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>127</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>绿灯</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pb_cmdTestBuzzer">
-               <property name="minimumSize">
-                <size>
-                 <width>150</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>127</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>蜂鸣器</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="tab_6">
-        <attribute name="title">
-         <string>剔废输出</string>
-        </attribute>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <item>
-          <layout class="QGridLayout" name="gridLayout_8">
-           <item row="0" column="4">
-            <widget class="QPushButton" name="pb_cmdTestKick2">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>3</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QPushButton" name="pb_cmdTestKick5">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>6</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="QPushButton" name="pb_cmdTestKick1">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>2</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="8">
-            <widget class="QPushButton" name="pb_cmdTestKick14">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>15</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QPushButton" name="pb_cmdTestKick0">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>1</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="5">
-            <spacer name="horizontalSpacer_13">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Fixed</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>10</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="0" column="6">
-            <widget class="QPushButton" name="pb_cmdTestKick3">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>4</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="4">
-            <widget class="QPushButton" name="pb_cmdTestKick22">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>23</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QPushButton" name="pb_cmdTestKick6">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>7</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="4">
-            <widget class="QPushButton" name="pb_cmdTestKick12">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>13</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="4">
-            <widget class="QPushButton" name="pb_cmdTestKick27">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>28</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="8">
-            <widget class="QPushButton" name="pb_cmdTestKick9">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>10</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <widget class="QPushButton" name="pb_cmdTestKick25">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>26</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="2">
-            <widget class="QPushButton" name="pb_cmdTestKick21">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>22</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="8">
-            <widget class="QPushButton" name="pb_cmdTestKick29">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>30</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="8">
-            <widget class="QPushButton" name="pb_cmdTestKick4">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>5</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="6">
-            <widget class="QPushButton" name="pb_cmdTestKick23">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>24</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="2">
-            <widget class="QPushButton" name="pb_cmdTestKick16">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>17</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="8">
-            <widget class="QPushButton" name="pb_cmdTestKick19">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>20</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="4">
-            <widget class="QPushButton" name="pb_cmdTestKick17">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>18</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="6">
-            <widget class="QPushButton" name="pb_cmdTestKick18">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>19</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="6">
-            <widget class="QPushButton" name="pb_cmdTestKick8">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>9</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="2">
-            <widget class="QPushButton" name="pb_cmdTestKick26">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>27</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QPushButton" name="pb_cmdTestKick10">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>11</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="4">
-            <widget class="QPushButton" name="pb_cmdTestKick7">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>8</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <spacer name="horizontalSpacer_11">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Fixed</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>10</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="2" column="6">
-            <widget class="QPushButton" name="pb_cmdTestKick13">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>14</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="6">
-            <widget class="QPushButton" name="pb_cmdTestKick28">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>29</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="2">
-            <widget class="QPushButton" name="pb_cmdTestKick11">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>12</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="3">
-            <spacer name="horizontalSpacer_12">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Fixed</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>10</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="3" column="0">
-            <widget class="QPushButton" name="pb_cmdTestKick15">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>16</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QPushButton" name="pb_cmdTestKick20">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>21</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="8">
-            <widget class="QPushButton" name="pb_cmdTestKick24">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>25</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="7">
-            <spacer name="horizontalSpacer_14">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Fixed</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>10</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout">
-           <item>
-            <widget class="QPushButton" name="pb_cmdTestKick30">
-             <property name="minimumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>全部</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="cB_debugMode">
-             <property name="text">
-              <string>调试模式</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </widget>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QPushButton" name="pb_cmdCapGetValve">
+     <property name="geometry">
+      <rect>
+       <x>11</x>
+       <y>609</y>
+       <width>250</width>
+       <height>44</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>250</width>
+       <height>44</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>127</width>
+       <height>44</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>取料电磁阀</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pb_cmdYellowAlarmout">
+     <property name="geometry">
+      <rect>
+       <x>11</x>
+       <y>550</y>
+       <width>250</width>
+       <height>44</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>250</width>
+       <height>44</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>127</width>
+       <height>44</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>黄灯报警</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pb_cmdAlarmOut">
+     <property name="geometry">
+      <rect>
+       <x>11</x>
+       <y>491</y>
+       <width>250</width>
+       <height>44</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>250</width>
+       <height>44</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>127</width>
+       <height>44</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>报警蜂鸣器</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pb_cmdReject">
+     <property name="geometry">
+      <rect>
+       <x>11</x>
+       <y>432</y>
+       <width>250</width>
+       <height>44</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>250</width>
+       <height>44</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>127</width>
+       <height>44</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>排废电磁铁</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pb_cmdBaffle">
+     <property name="geometry">
+      <rect>
+       <x>11</x>
+       <y>373</y>
+       <width>250</width>
+       <height>44</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>250</width>
+       <height>44</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>127</width>
+       <height>44</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>挡    板</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pb_cmdChannelSwith">
+     <property name="geometry">
+      <rect>
+       <x>11</x>
+       <y>314</y>
+       <width>250</width>
+       <height>44</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>250</width>
+       <height>44</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>127</width>
+       <height>44</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>胶囊通道切换</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pb_cmdCapBackValve">
+     <property name="geometry">
+      <rect>
+       <x>11</x>
+       <y>255</y>
+       <width>250</width>
+       <height>44</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>250</width>
+       <height>44</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>127</width>
+       <height>44</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>回料电磁阀</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pb_cmdStopSignal">
+     <property name="geometry">
+      <rect>
+       <x>11</x>
+       <y>196</y>
+       <width>250</width>
+       <height>44</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>250</width>
+       <height>44</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>127</width>
+       <height>44</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>停机信号</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pb_cmdAlarmSignal">
+     <property name="geometry">
+      <rect>
+       <x>11</x>
+       <y>137</y>
+       <width>250</width>
+       <height>44</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>250</width>
+       <height>44</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>127</width>
+       <height>44</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>报警输出</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pb_cmdCapGet">
+     <property name="geometry">
+      <rect>
+       <x>11</x>
+       <y>78</y>
+       <width>250</width>
+       <height>44</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>250</width>
+       <height>44</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>127</width>
+       <height>44</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>取料电磁铁</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pb_cmdVaccum">
+     <property name="geometry">
+      <rect>
+       <x>11</x>
+       <y>19</y>
+       <width>250</width>
+       <height>44</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>250</width>
+       <height>44</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>127</width>
+       <height>44</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>真空发生器</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="tab_8">
     <attribute name="title">

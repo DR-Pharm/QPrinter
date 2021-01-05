@@ -23,21 +23,8 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	ui = new Ui::QtPLCDialogClass();
 	((Ui::QtPLCDialogClass*)ui)->setupUi(this);
 
-	for (int i = 0; i < 31; i++)//增加一个全部
-	{
-		QString objname = "pb_cmdTestKick";
-		objname = objname + QString::number(i);
-		QPushButton* btn = findChild<QPushButton*>(objname); //返回this中一个名为objname的QPushButton孩子，即使按钮不是父亲的直接孩子：30个剔废按钮
-		if (btn != nullptr)
-		{
-			connect(btn, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));//30个剔废按钮checked
-			connect(btn, SIGNAL(toggled(bool)), this, SLOT(onDebugMode(bool)));//30个剔废按钮checked
-		}
 
-	}
 
-	cyclinderTimer = new QTimer;
-	connect(cyclinderTimer, &QTimer::timeout, this, &QtPLCDialogClass::updateCyclinderSituation);
 	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdHome, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));
 	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdStart, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));
 	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdStop, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));
@@ -47,29 +34,27 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	//	connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdResetCounter, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//复位计数变量, 1:复位
 		//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdParaSave, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//参数保存命令, 1:保存
 		//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdParaLoad, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//参数读取命令, 1:读取
-	connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash0, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));			//手动闪光, 1:闪光,自动复位
-	connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash1, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));
-	connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash2, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));
+	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash0, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));			//手动闪光, 1:闪光,自动复位
+	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash1, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));
+	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash2, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));
 
-	connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveUp, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//手动升降气缸, 1:Push, 2:Back
-	connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveClip, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//手动夹紧气缸, 1:Push, 2:Back
-	connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveDrop, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//手动落囊气缸, 1:Push, 2:Back
-	connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestInverter, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//手动胶囊料斗启动, 1:Start, 2:Stop
-	connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampRead, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//手动红灯输出, 1:输出 , 2: 复位
-	connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampYellow, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//手动黄灯输出, 1:输出 , 2: 复位
-	connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampGreen, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//手动绿灯输出, 1:输出 , 2: 复位
-	connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestBuzzer, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//手动蜂鸣器输出, 1:输出 , 2: 复位
-	connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestPhoto, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//手动拍照, 1:输出 , 2: 复位
-	connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlashPhoto, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//手动闪光加拍照, 1:启动
-	connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestCapPhoto, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//手动胶囊拍照
-	connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdRotateCtl, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//手动转囊启停  报文是1
+	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveUp, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//手动升降气缸, 1:Push, 2:Back
+	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveClip, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//手动夹紧气缸, 1:Push, 2:Back
+	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveDrop, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//手动落囊气缸, 1:Push, 2:Back
+	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestInverter, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//手动胶囊料斗启动, 1:Start, 2:Stop
+	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampRead, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//手动红灯输出, 1:输出 , 2: 复位
+	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampYellow, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//手动黄灯输出, 1:输出 , 2: 复位
+	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampGreen, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//手动绿灯输出, 1:输出 , 2: 复位
+	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestBuzzer, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//手动蜂鸣器输出, 1:输出 , 2: 复位
+	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestPhoto, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//手动拍照, 1:输出 , 2: 复位
+	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlashPhoto, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//手动闪光加拍照, 1:启动
+	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestCapPhoto, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//手动胶囊拍照
+	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdRotateCtl, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//手动转囊启停  报文是1
 
 	connect(((Ui::QtPLCDialogClass*)ui)->pB_enPhoto, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//拍照使能
 	connect(((Ui::QtPLCDialogClass*)ui)->pB_enReject, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//剔废使能  报文是4
 	connect(((Ui::QtPLCDialogClass*)ui)->pB_enFeed, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//料斗使能  报文是4
 	connect(((Ui::QtPLCDialogClass*)ui)->pB_enRotate, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//转囊使能  报文是4
-
-	initContinueKick();//连剔开关、数量初始化
 
 	m_data = new DataToPC_typ;
 	memset(m_data, 0, sizeof(DataToPC_typ));//主界面用
@@ -285,98 +270,6 @@ void QtPLCDialogClass::on_pb_cmdParaLoad_clicked()//
 	m_socket->Communicate_PLC(&typ, nullptr);//运行
 }
 
-
-
-void QtPLCDialogClass::onDebugMode(bool b)
-{
-	if (((Ui::QtPLCDialogClass*)ui)->cB_debugMode->isChecked())
-	{
-		((Ui::QtPLCDialogClass*)ui)->cB_debugMode->setEnabled(false);
-		if (m_objname == ""&& b)
-			cyclinderTimer->start(2000);
-
-		obj = qobject_cast<QPushButton*>(sender());//判断是哪个按钮触发了槽函数	obj->setFocus();
-		m_tempname = m_objname;
-		m_objname = obj->objectName();//获取触发者objectname	
-
-		/////////////////////////先动作一次
-		DataFromPC_typ typ;
-		typ.Dummy = 0;//占空
-		typ.Telegram_typ = 1;//命令报文
-		int index_cmdkick = m_objname.mid(14).toInt();//从0开始，14位之后的字符转为int，0-29
-		if (30 > index_cmdkick)
-		{
-			typ.Machine_Cmd.cmdTestKick[index_cmdkick] = 1;//结构体数据赋值
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick30->setStyleSheet("");
-			blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick30->setChecked(false);
-			blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick30->setStyleSheet("background: rgb(0,255,0)");
-			for (int i = 0; i < 30; i++)
-			{
-				typ.Machine_Cmd.cmdTestKick[i] = 1;//结构体数据赋值
-			}
-		}
-		m_socket->Communicate_PLC(&typ, nullptr);//此处只发送，不接收
-
-		if (m_tempname == m_objname)
-		{
-			cyclinderTimer->stop();
-			m_objname = "";
-			((Ui::QtPLCDialogClass*)ui)->cB_debugMode->setEnabled(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick30->setStyleSheet("");
-			blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick30->setChecked(false);
-			blockSignals(false);
-		}
-	}
-
-}
-
-void QtPLCDialogClass::updateCyclinderSituation()
-{
-	DataFromPC_typ typ;
-	typ.Dummy = 0;//占空
-	typ.Telegram_typ = 1;//命令报文
-	int index_cmdkick = m_objname.mid(14).toInt();//从0开始，14位之后的字符转为int，0-29
-
-	if (m_currentSituationOfCyclinder)
-	{
-		if (30 > index_cmdkick)
-		{
-			typ.Machine_Cmd.cmdTestKick[index_cmdkick] = 1;//结构体数据赋值
-		}
-		else
-		{
-			for (int i = 0; i < 30; i++)
-			{
-				typ.Machine_Cmd.cmdTestKick[i] = 1;//结构体数据赋值
-			}
-		}
-		m_currentSituationOfCyclinder = false;
-	}
-	else
-	{
-		if (30 > index_cmdkick)
-		{
-			typ.Machine_Cmd.cmdTestKick[index_cmdkick] = 0;//结构体数据赋值
-		}
-		else
-		{
-			for (int i = 0; i < 30; i++)
-			{
-				typ.Machine_Cmd.cmdTestKick[i] = 0;//结构体数据赋值
-			}
-		}
-		m_currentSituationOfCyclinder = true;
-	}
-
-	m_socket->Communicate_PLC(&typ, nullptr);//此处只发送，不接收
-}
-
 void QtPLCDialogClass::onSendPLCCommand(bool b)
 {
 	obj = qobject_cast<QPushButton*>(sender());//判断是哪个按钮触发了槽函数
@@ -419,26 +312,7 @@ void QtPLCDialogClass::onSendPLCCommand(bool b)
 			}
 
 			else {
-				if (objname.contains("pb_cmdTestKick"))
-				{
-					if (!((Ui::QtPLCDialogClass*)ui)->cB_debugMode->isChecked())
-					{
-						cyclinderTimer->stop();
-						m_objname = "";
-						int index_cmdkick = objname.mid(14).toInt();//从0开始，14位之后的字符转为int，0-29
-						if (30 > index_cmdkick)
-						{
-							typ.Machine_Cmd.cmdTestKick[index_cmdkick] = 1;//结构体数据赋值
-						}
-						else
-						{
-							for (int i = 0; i < 30; i++)
-							{
-								typ.Machine_Cmd.cmdTestKick[i] = 1;//结构体数据赋值
-							}
-						}
-					}
-				}
+
 				if (objname == "pb_cmdHome") typ.Machine_Cmd.cmdHome = 1;//结构体数据赋值
 				if (objname == "pb_cmdStart") typ.Machine_Cmd.cmdStart = 1;
 				if (objname == "pb_cmdStop") typ.Machine_Cmd.cmdStop = 1;
@@ -501,26 +375,6 @@ void QtPLCDialogClass::onSendPLCCommand(bool b)
 				m_socket->Communicate_PLC(&typ, nullptr);//此处只发送，不接收
 			}
 			else {
-				if (objname.contains("pb_cmdTestKick"))
-				{
-					if (!((Ui::QtPLCDialogClass*)ui)->cB_debugMode->isChecked())
-					{
-						cyclinderTimer->stop();
-						m_objname = "";
-						int index_cmdkick = objname.mid(14).toInt();//从0开始，14位之后的字符转为int，0-29	
-						if (30 > index_cmdkick)
-						{
-							typ.Machine_Cmd.cmdTestKick[index_cmdkick] = 0;//结构体数据赋值
-						}
-						else
-						{
-							for (int i = 0; i < 30; i++)
-							{
-								typ.Machine_Cmd.cmdTestKick[i] = 0;//结构体数据赋值
-							}
-						}
-					}
-				}
 				if (objname == "pb_cmdHome")typ.Machine_Cmd.cmdHome = 0;
 				if (objname == "pb_cmdStart") typ.Machine_Cmd.cmdStart = 0;
 				if (objname == "pb_cmdStop") typ.Machine_Cmd.cmdStop = 0;
@@ -574,13 +428,6 @@ void QtPLCDialogClass::onSendPLCCommand(bool b)
 		{
 			obj->setChecked(false);
 		}
-
-		if (!((Ui::QtPLCDialogClass*)ui)->cB_debugMode->isChecked())
-		{
-			blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick30->setChecked(false);
-			blockSignals(false);
-		}
 	}
 }
 //获取pc数据
@@ -631,64 +478,20 @@ DataFromPC_typ QtPLCDialogClass::getPCData()
 	tmp.Run_Para.ForceRejectCount = m_data->ActData.ForceRejectCount;
 
 	//命令
-	//tmp.Machine_Cmd.cmdHome = ((Ui::QtPLCDialogClass*)ui)->pb_cmdHome->isChecked() ? 1 : 0;//寻参,1:寻参启动
-	tmp.Machine_Cmd.cmdStart = 0;							//启动,1:启动运行
-	tmp.Machine_Cmd.cmdStop = 0;							//停止,停在0相位,1:停止
-	tmp.Machine_Cmd.cmdEStop = 0;							//紧急停止(立即停止), 1:停止
-	///tmp.Machine_Cmd.cmdJog = ((Ui::QtPLCDialogClass*)ui)->pb_cmdJog->isChecked() ? 1 : 0;							//点动运行, 1,启动,2,停止
-	tmp.Machine_Cmd.cmdErrorAck = 0;						//报警复位, 1:复位
-	tmp.Machine_Cmd.cmdResetCounter = 0;					//复位计数变量, 1:复位
+
 	//tmp.Machine_Cmd.cmdParaSave = ((Ui::QtPLCDialogClass*)ui)->pb_cmdParaSave->isChecked() ? 1 : 0;						//参数保存命令, 1:保存
 	//tmp.Machine_Cmd.cmdParaLoad = ((Ui::QtPLCDialogClass*)ui)->pb_cmdParaLoad->isChecked() ? 1 : 0;						//参数读取命令, 1:读取
-	tmp.Machine_Cmd.cmdTestKick[0] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick0->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestKick[1] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick1->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestKick[2] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick2->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestKick[3] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick3->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back	
-	tmp.Machine_Cmd.cmdTestKick[4] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick4->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestKick[5] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick5->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestKick[6] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick6->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestKick[7] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick7->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestKick[8] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick8->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestKick[9] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick9->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestKick[10] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick10->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestKick[11] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick11->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestKick[12] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick12->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestKick[13] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick13->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back	
-	tmp.Machine_Cmd.cmdTestKick[14] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick14->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestKick[15] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick15->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestKick[16] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick16->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestKick[17] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick17->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestKick[18] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick18->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestKick[19] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick19->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestKick[20] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick20->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestKick[21] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick21->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestKick[22] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick22->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestKick[23] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick23->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back	
-	tmp.Machine_Cmd.cmdTestKick[24] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick24->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestKick[25] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick25->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestKick[26] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick26->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestKick[27] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick27->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestKick[28] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick28->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestKick[29] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick29->isChecked() ? 1 : 2;		//手动剔废, 1:Push, 2:Back
-
-	tmp.Machine_Cmd.cmdTestFlash[0] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash0->isChecked() ? 1 : 0;			//手动闪光, 1:闪光,自动复位
-	tmp.Machine_Cmd.cmdTestFlash[1] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash1->isChecked() ? 1 : 0;			//手动闪光, 1:闪光,自动复位
-	tmp.Machine_Cmd.cmdTestFlash[2] = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash2->isChecked() ? 1 : 0;			//手动闪光, 1:闪光,自动复位
-
-	tmp.Machine_Cmd.cmdTestValveUp = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveUp->isChecked() ? 1 : 2;						//手动升降气缸, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestValveClip = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveClip->isChecked() ? 1 : 2;					//手动夹紧气缸, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestValveDrop = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveDrop->isChecked() ? 1 : 2;					//手动落囊气缸, 1:Push, 2:Back
-	tmp.Machine_Cmd.cmdTestInverter = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestInverter->isChecked() ? 1 : 0;					//手动胶囊料斗启动, 1:Start, 2:Stop
-	tmp.Machine_Cmd.cmdTestLampRead = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampRead->isChecked() ? 1 : 2;					//手动红灯输出, 1:输出 , 2: 复位
-	tmp.Machine_Cmd.cmdTestLampYellow = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampYellow->isChecked() ? 1 : 2;					//手动黄灯输出, 1:输出 , 2: 复位
-	tmp.Machine_Cmd.cmdTestLampGreen = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampGreen->isChecked() ? 1 : 2;					//手动绿灯输出, 1:输出 , 2: 复位
-	tmp.Machine_Cmd.cmdTestBuzzer = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestBuzzer->isChecked() ? 1 : 2;						//手动蜂鸣器输出, 1:输出 , 2: 复位
-	tmp.Machine_Cmd.cmdTestPhoto = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestPhoto->isChecked() ? 1 : 2;						//手动拍照, 1:输出 , 2: 复位
-	tmp.Machine_Cmd.cmdTestFlashPhoto = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlashPhoto->isChecked() ? 1 : 0;					//手动闪光加拍照, 1:启动
-	tmp.Machine_Cmd.cmdTestCapPhoto = ((Ui::QtPLCDialogClass*)ui)->pb_cmdTestCapPhoto->isChecked() ? 1 : 0;					//手动胶囊拍照
-	tmp.Machine_Cmd.cmdRotateCtl = ((Ui::QtPLCDialogClass*)ui)->pb_cmdRotateCtl->isChecked() ? 1 : 0;						//手动转囊启停
-	tmp.Machine_Cmd.cmdSetAlarm = 0;								//手动触发报警号，不等于零触发。范围1-99
-
+/*	tmp.Machine_Cmd.Reject = ((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->isChecked() ? 1 : 0;			
+	tmp.Machine_Cmd.ChannelSwith = ((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->isChecked() ? 1 : 0;
+	tmp.Machine_Cmd.Vaccum = ((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->isChecked() ? 1 : 0;			
+	tmp.Machine_Cmd.CapGet = ((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->isChecked() ? 1 : 0;			
+	tmp.Machine_Cmd.CapGetValve = ((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->isChecked() ? 1 : 0;
+	tmp.Machine_Cmd.CapBackValve = ((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValve->isChecked() ? 1 : 0;
+	tmp.Machine_Cmd.AlarmOut = ((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->isChecked() ? 1 : 0;		
+	tmp.Machine_Cmd.StopSignal = ((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->isChecked() ? 1 : 0;	
+	tmp.Machine_Cmd.AlarmSignal = ((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->isChecked() ? 1 : 0;
+	tmp.Machine_Cmd.YellowAlarmout = ((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->isChecked() ? 1 : 0;	
+	tmp.Machine_Cmd.Baffle = ((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->isChecked() ? 1 : 0;	*/		
 	//照相处理结果和按钮在上面⬆⬆⬆⬆⬆⬆
 
 	return tmp;
@@ -895,639 +698,170 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 
 	//输出点
 	//((Ui::QtPLCDialogClass*)ui)->lE_Inveter->setText(m_data->Outputs.Inveter ? "1" : "0");	
-	if (m_data->Outputs.Inveter)
+	if (m_data->Outputs.Reject)
 	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestInverter->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestInverter->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestInverter->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestInverter->blockSignals(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->setChecked(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->blockSignals(false);
 	}
 	else
 	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestInverter->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestInverter->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestInverter->setStyleSheet("font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestInverter->blockSignals(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->setChecked(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->setStyleSheet("font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->blockSignals(false);
 	}
 	//((Ui::QtPLCDialogClass*)ui)->lE_ClipValve->setText(m_data->Outputs.ClipValve ? "1" : "0");
-	if (m_data->Outputs.ClipValve)
+	if (m_data->Outputs.ChannelSwith)
 	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveClip->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveClip->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveClip->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveClip->blockSignals(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->setChecked(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->blockSignals(false);
 	}
 	else
 	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveClip->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveClip->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveClip->setStyleSheet("font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveClip->blockSignals(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->setChecked(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->setStyleSheet("font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->blockSignals(false);
 	}
 	//((Ui::QtPLCDialogClass*)ui)->lE_UpValve->setText(m_data->Outputs.UpValve ? "1" : "0");
-	if (m_data->Outputs.UpValve)
+	if (m_data->Outputs.Vaccum)
 	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveUp->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveUp->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveUp->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveUp->blockSignals(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->setChecked(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->blockSignals(false);
 	}
 	else
 	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveUp->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveUp->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveUp->setStyleSheet("font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveUp->blockSignals(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->setChecked(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->setStyleSheet("font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->blockSignals(false);
 	}
 	//((Ui::QtPLCDialogClass*)ui)->lE_DropValve->setText(m_data->Outputs.DropValve ? "1" : "0");
-	if (m_data->Outputs.DropValve)
+	if (m_data->Outputs.CapGet)
 	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveDrop->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveDrop->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveDrop->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveDrop->blockSignals(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->setChecked(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->blockSignals(false);
 	}
 	else
 	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveDrop->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveDrop->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveDrop->setStyleSheet("font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveDrop->blockSignals(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->setChecked(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->setStyleSheet("font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->blockSignals(false);
 	}
 	//((Ui::QtPLCDialogClass*)ui)->lE_LampRed->setText(m_data->Outputs.LampRed ? "1" : "0");
-	if (m_data->Outputs.LampRed)
+	if (m_data->Outputs.CapGetValve)
 	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampRead->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampRead->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampRead->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampRead->blockSignals(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->setChecked(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->blockSignals(false);
 	}
 	else
 	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampRead->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampRead->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampRead->setStyleSheet("font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampRead->blockSignals(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->setChecked(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->setStyleSheet("font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->blockSignals(false);
 	}
 	//((Ui::QtPLCDialogClass*)ui)->lE_LampYellow->setText(m_data->Outputs.LampYellow ? "1" : "0");
-	if (m_data->Outputs.LampYellow)
+	if (m_data->Outputs.CapBackValve)
 	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampYellow->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampYellow->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampYellow->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampYellow->blockSignals(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValve->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValve->setChecked(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValve->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValve->blockSignals(false);
 	}
 	else
 	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampYellow->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampYellow->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampYellow->setStyleSheet("font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampYellow->blockSignals(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValve->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValve->setChecked(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValve->setStyleSheet("font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValve->blockSignals(false);
 	}
 	//((Ui::QtPLCDialogClass*)ui)->lE_LampGreen->setText(m_data->Outputs.LampGreen ? "1" : "0");
-	if (m_data->Outputs.LampGreen)
+	if (m_data->Outputs.AlarmOut)
 	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampGreen->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampGreen->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampGreen->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampGreen->blockSignals(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->setChecked(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->blockSignals(false);
 	}
 	else
 	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampGreen->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampGreen->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampGreen->setStyleSheet("font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampGreen->blockSignals(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->setChecked(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->setStyleSheet("font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->blockSignals(false);
 	}
 	//((Ui::QtPLCDialogClass*)ui)->lE_Buzzer->setText(m_data->Outputs.Buzzer ? "1" : "0");
-	if (m_data->Outputs.Buzzer)
+	if (m_data->Outputs.StopSignal)
 	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestBuzzer->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestBuzzer->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestBuzzer->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestBuzzer->blockSignals(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->setChecked(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->blockSignals(false);
 	}
 	else
 	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestBuzzer->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestBuzzer->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestBuzzer->setStyleSheet("font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestBuzzer->blockSignals(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->setChecked(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->setStyleSheet("font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->blockSignals(false);
 	}
 	//((Ui::QtPLCDialogClass*)ui)->lE_Photo->setText(m_data->Outputs.Photo ? "1" : "0");
-	if (m_data->Outputs.Photo)
+	if (m_data->Outputs.AlarmSignal)
 	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestPhoto->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestPhoto->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestPhoto->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestPhoto->blockSignals(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->setChecked(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->blockSignals(false);
 	}
 	else
 	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestPhoto->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestPhoto->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestPhoto->setStyleSheet("font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestPhoto->blockSignals(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->setChecked(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->setStyleSheet("font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->blockSignals(false);
 	}
 
 	//((Ui::QtPLCDialogClass*)ui)->lE_Flash0->setText(m_data->Outputs.Flash[0] ? "1" : "0");
-	if (m_data->Outputs.Flash[0])
+	if (m_data->Outputs.YellowAlarmout)
 	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash0->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash0->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash0->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash0->blockSignals(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->setChecked(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->blockSignals(false);
 	}
 	else
 	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash0->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash0->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash0->setStyleSheet("font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash0->blockSignals(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->setChecked(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->setStyleSheet("font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->blockSignals(false);
 	}
 	//((Ui::QtPLCDialogClass*)ui)->lE_Flash1->setText(m_data->Outputs.Flash[1] ? "1" : "0");
-	if (m_data->Outputs.Flash[1])
+	if (m_data->Outputs.Baffle)
 	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash1->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash1->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash1->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash1->blockSignals(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->setChecked(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->setStyleSheet("background: rgb(0,255,0);font-size:20pt");			   
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->blockSignals(false);
 	}
 	else
 	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash1->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash1->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash1->setStyleSheet("font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash1->blockSignals(false);
-	}
-	//((Ui::QtPLCDialogClass*)ui)->lE_Flash2->setText(m_data->Outputs.Flash[2] ? "1" : "0");	
-	if (m_data->Outputs.Flash[2])
-	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash2->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash2->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash2->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash2->blockSignals(false);
-	}
-	else
-	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash2->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash2->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash2->setStyleSheet("font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash2->blockSignals(false);
-	}
-
-	/*((Ui::QtPLCDialogClass*)ui)->lE_Reject0->setText(m_data->Outputs.Reject[0] ? "1" : "0");*/
-	//if (!((Ui::QtPLCDialogClass*)ui)->cB_debugMode->isChecked())
-	{
-		if (m_data->Outputs.Reject[0])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick0->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick0->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick0->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick0->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick0->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick0->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick0->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick0->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject1->setText(m_data->Outputs.Reject[1] ? "1" : "0");	
-		if (m_data->Outputs.Reject[1])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick1->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick1->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick1->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick1->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick1->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick1->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick1->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick1->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject2->setText(m_data->Outputs.Reject[2] ? "1" : "0");
-		if (m_data->Outputs.Reject[2])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick2->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick2->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick2->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick2->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick2->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick2->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick2->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick2->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject3->setText(m_data->Outputs.Reject[3] ? "1" : "0");
-		if (m_data->Outputs.Reject[3])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick3->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick3->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick3->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick3->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick3->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick3->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick3->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick3->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject4->setText(m_data->Outputs.Reject[4] ? "1" : "0");
-		if (m_data->Outputs.Reject[4])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick4->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick4->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick4->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick4->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick4->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick4->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick4->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick4->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject5->setText(m_data->Outputs.Reject[5] ? "1" : "0");
-		if (m_data->Outputs.Reject[5])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick5->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick5->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick5->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick5->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick5->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick5->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick5->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick5->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject6->setText(m_data->Outputs.Reject[6] ? "1" : "0");
-		if (m_data->Outputs.Reject[6])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick6->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick6->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick6->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick6->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick6->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick6->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick6->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick6->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject7->setText(m_data->Outputs.Reject[7] ? "1" : "0");
-		if (m_data->Outputs.Reject[7])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick7->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick7->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick7->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick7->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick7->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick7->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick7->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick7->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject8->setText(m_data->Outputs.Reject[8] ? "1" : "0");
-		if (m_data->Outputs.Reject[8])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick8->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick8->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick8->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick8->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick8->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick8->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick8->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick8->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject9->setText(m_data->Outputs.Reject[9] ? "1" : "0");
-		if (m_data->Outputs.Reject[9])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick9->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick9->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick9->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick9->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick9->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick9->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick9->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick9->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject10->setText(m_data->Outputs.Reject[10] ? "1" : "0");
-		if (m_data->Outputs.Reject[10])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick10->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick10->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick10->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick10->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick10->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick10->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick10->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick10->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject11->setText(m_data->Outputs.Reject[11] ? "1" : "0");
-		if (m_data->Outputs.Reject[11])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick11->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick11->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick11->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick11->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick11->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick11->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick11->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick11->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject12->setText(m_data->Outputs.Reject[12] ? "1" : "0");
-		if (m_data->Outputs.Reject[12])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick12->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick12->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick12->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick12->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick12->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick12->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick12->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick12->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject13->setText(m_data->Outputs.Reject[13] ? "1" : "0");
-		if (m_data->Outputs.Reject[13])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick13->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick13->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick13->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick13->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick13->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick13->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick13->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick13->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject14->setText(m_data->Outputs.Reject[14] ? "1" : "0");
-		if (m_data->Outputs.Reject[14])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick14->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick14->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick14->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick14->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick14->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick14->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick14->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick14->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject15->setText(m_data->Outputs.Reject[15] ? "1" : "0");
-		if (m_data->Outputs.Reject[15])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick15->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick15->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick15->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick15->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick15->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick15->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick15->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick15->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject16->setText(m_data->Outputs.Reject[16] ? "1" : "0");
-		if (m_data->Outputs.Reject[16])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick16->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick16->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick16->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick16->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick16->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick16->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick16->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick16->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject17->setText(m_data->Outputs.Reject[17] ? "1" : "0");
-		if (m_data->Outputs.Reject[17])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick17->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick17->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick17->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick17->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick17->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick17->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick17->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick17->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject18->setText(m_data->Outputs.Reject[18] ? "1" : "0");
-		if (m_data->Outputs.Reject[18])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick18->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick18->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick18->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick18->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick18->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick18->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick18->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick18->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject19->setText(m_data->Outputs.Reject[19] ? "1" : "0");
-		if (m_data->Outputs.Reject[19])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick19->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick19->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick19->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick19->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick19->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick19->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick19->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick19->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject20->setText(m_data->Outputs.Reject[20] ? "1" : "0");
-		if (m_data->Outputs.Reject[20])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick20->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick20->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick20->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick20->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick20->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick20->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick20->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick20->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject21->setText(m_data->Outputs.Reject[21] ? "1" : "0");
-		if (m_data->Outputs.Reject[21])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick21->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick21->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick21->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick21->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick21->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick21->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick21->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick21->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject22->setText(m_data->Outputs.Reject[22] ? "1" : "0");
-		if (m_data->Outputs.Reject[22])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick22->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick22->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick22->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick22->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick22->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick22->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick22->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick22->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject23->setText(m_data->Outputs.Reject[23] ? "1" : "0");
-		if (m_data->Outputs.Reject[23])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick23->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick23->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick23->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick23->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick23->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick23->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick23->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick23->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject24->setText(m_data->Outputs.Reject[24] ? "1" : "0");
-		if (m_data->Outputs.Reject[24])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick24->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick24->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick24->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick24->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick24->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick24->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick24->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick24->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject25->setText(m_data->Outputs.Reject[25] ? "1" : "0");
-		if (m_data->Outputs.Reject[25])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick25->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick25->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick25->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick25->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick25->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick25->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick25->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick25->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject26->setText(m_data->Outputs.Reject[26] ? "1" : "0");
-		if (m_data->Outputs.Reject[26])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick26->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick26->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick26->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick26->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick26->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick26->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick26->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick26->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject27->setText(m_data->Outputs.Reject[27] ? "1" : "0");
-		if (m_data->Outputs.Reject[27])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick27->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick27->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick27->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick27->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick27->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick27->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick27->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick27->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject28->setText(m_data->Outputs.Reject[28] ? "1" : "0");
-		if (m_data->Outputs.Reject[28])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick28->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick28->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick28->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick28->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick28->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick28->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick28->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick28->blockSignals(false);
-		}
-		//((Ui::QtPLCDialogClass*)ui)->lE_Reject29->setText(m_data->Outputs.Reject[29] ? "1" : "0");
-		if (m_data->Outputs.Reject[29])
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick29->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick29->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick29->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick29->blockSignals(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick29->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick29->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick29->setStyleSheet("font-size:20pt");
-			((Ui::QtPLCDialogClass*)ui)->pb_cmdTestKick29->blockSignals(false);
-		}
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->setChecked(false);
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->setStyleSheet("font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->blockSignals(false);
 	}
 }
 
