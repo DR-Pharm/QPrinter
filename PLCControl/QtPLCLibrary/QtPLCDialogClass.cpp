@@ -187,7 +187,6 @@ void QtPLCDialogClass::onSendPLCCommand(bool b)
 	{
 		typ = getPCData();
 	}
-	typ.Dummy = 0;//占空
 	typ.Telegram_typ = 1;//命令报文
 	if (obj != nullptr)
 	{
@@ -342,7 +341,6 @@ DataFromPC_typ QtPLCDialogClass::getPCData()
 
 	DataFromPC_typ tmp;
 	memset(&tmp, 0, sizeof(DataFromPC_typ));//将新char所指向的前size字节的内存单元用一个0替换，初始化内存。下同
-	tmp.Dummy = 0;
 	//tmp.Telegram_typ = ((Ui::QtPLCDialogClass*)ui)->lE_Telegram_typ->text().toInt();
 
 	//系统参数

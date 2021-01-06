@@ -170,6 +170,12 @@ typedef struct
 }Comm_Status_typ;
 
 typedef struct
+{//照相处理结果
+	unsigned int	OK;								//0:合格，1：不合格
+	int				Reserve[16];					//预留空间
+}Comm_Result_typ;
+
+typedef struct
 {
 	DateTimeStructTyp		DateTimeSet;		//设定日期时间目标
 	unsigned char		cmdChangeDT;					//修改日期时间,1:执行，自动复位
@@ -210,20 +216,16 @@ typedef struct
 	unsigned char		Reserve[32];					//预留空间
 }Comm_Machine_Cmd_typ;
 
-typedef struct
-{//照相处理结果
-	unsigned int	OK;								//0:合格，1：不合格
-	int				Reserve[16];					//预留空间
-}Comm_Result_typ;
+
 
 typedef struct DataFromPC_typ
 {
-	unsigned int						Dummy;				//占空
-	unsigned int						Telegram_typ;		//报文类型，0:心跳报文,1:命令报文,2:参数报文,3:结果报文,4,运行参数,100:应答
-	Comm_Machine_Para_typ		Machine_Para;		//系统参数 2
-	Comm_Run_Para_typ			Run_Para;			//运行参数 4
-	Comm_Machine_Cmd_typ		Machine_Cmd;		//命令 1
-	Comm_Result_typ				PhotoResult;		//拍照处理结果 3
+	unsigned int				Telegram_typ;		//报文类型，0:心跳报文,1:命令报文,2:参数报文,3:结果报文,4,运行参数,100:应答
+	Comm_Machine_Para_typ		Machine_Para;		//系统参数
+	Comm_Run_Para_typ			Run_Para;			//运行参数
+	Comm_Machine_Cmd_typ		Machine_Cmd;		//命令
+	Comm_Result_typ				PhotoResult;		//拍照处理结果
+	int							Reserve[16];		//预留空间
 	DataFromPC_typ()
 	{
 		memset(this, 0, sizeof(DataFromPC_typ));
@@ -234,20 +236,22 @@ typedef struct DataFromPC_typ
 
 typedef struct DataToPC_typ
 {
-	unsigned int						Telegram_typ;		//报文类型，0:心跳报文,1:命令报文,2:参数报文,3:结果报文,100:应答
+	unsigned int				Telegram_typ;		//报文类型，0:心跳报文,1:命令报文,2:参数报文,3:结果报文,100:应答
 	Comm_Run_Para_typ			ActData;			//运行数据
-	Comm_Status_typ				Status;				//系统状态	
+	Comm_Status_typ				Status;				//系统状态
 	Comm_Machine_Para_typ		Machine_Para;		//系统参数
 	Input_typ					Inputs;				//输入点 
-	Output_typ					Outputs;			//输出点 	
+	Output_typ					Outputs;			//输出点 
+
+	int							Reserve[16];		//预留空间	
 	bool operator==(const DataToPC_typ &data)
 	{
-		//if (Status.HomeOK != data.Status.HomeOK)return false;
-		//if (Telegram_typ!= data.Telegram_typ)return false; 
-		//if (Status.AlarmStatus != data.Status.AlarmStatus)return false;
-		//if (ActData.CheckCount != data.ActData.CheckCount)return false;
-		//if (ActData.RunSpeed != data.ActData.RunSpeed)return false;
-		return true;
+		/*if (Status.HomeOK != data.Status.HomeOK)return false;
+		if (Telegram_typ!= data.Telegram_typ)return false;
+		if (Status.AlarmStatus != data.Status.AlarmStatus)return false;
+		if (ActData.CheckCount != data.ActData.CheckCount)return false;
+		if (ActData.RunSpeed != data.ActData.RunSpeed)return false;
+		return true;*/
 	}
 }DataToPC_typ;
 

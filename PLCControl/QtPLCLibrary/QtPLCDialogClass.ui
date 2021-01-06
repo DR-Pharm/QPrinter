@@ -1296,29 +1296,22 @@
       <rect>
        <x>20</x>
        <y>10</y>
-       <width>329</width>
-       <height>231</height>
+       <width>801</width>
+       <height>81</height>
       </rect>
      </property>
      <property name="title">
       <string>报警</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_3">
-      <item row="0" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
        <widget class="QLabel" name="label_20">
         <property name="text">
          <string>报警状态</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>报警位</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
+      <item>
        <widget class="QLineEdit" name="lE_AlarmStatus">
         <property name="enabled">
          <bool>false</bool>
@@ -1337,7 +1330,27 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>报警位</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QLineEdit" name="lE_Alarm16">
         <property name="enabled">
          <bool>false</bool>
@@ -1357,6 +1370,19 @@
        </widget>
       </item>
      </layout>
+    </widget>
+    <widget class="QLabel" name="label_18">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>150</y>
+       <width>54</width>
+       <height>12</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
     </widget>
    </widget>
    <widget class="QWidget" name="tab_2">
