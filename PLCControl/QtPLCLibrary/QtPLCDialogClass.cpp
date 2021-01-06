@@ -100,13 +100,6 @@ void QtPLCDialogClass::on_pB_SetUp_toggled(bool checked)
 }
 
 
-
-//确定修改后键盘隐藏
-void QtPLCDialogClass::on_pB_changeIPPort_clicked()
-{
-}
-
-
 //continueKick
 void QtPLCDialogClass::initContinueKick()
 {
@@ -120,49 +113,6 @@ void QtPLCDialogClass::initContinueKick()
 	((Ui::QtPLCDialogClass*)ui)->lE_ContinueKickAlarmCount->setValidator(new QRegExpValidator(regx, this));
 	((Ui::QtPLCDialogClass*)ui)->lE_ContinueKickStopCount->setValidator(new QRegExpValidator(regx, this));
 }
-
-
-void QtPLCDialogClass::on_pB_ContinueKickOK_clicked()//保存连剔
-{
-	int alarmCount = ((Ui::QtPLCDialogClass*)ui)->lE_ContinueKickAlarmCount->text().toInt();//为了去掉头部的0
-	int stopCount = ((Ui::QtPLCDialogClass*)ui)->lE_ContinueKickStopCount->text().toInt();
-
-	((Ui::QtPLCDialogClass*)ui)->lE_ContinueKickAlarmCount->setText(QString::number(alarmCount));//连剔报警数量
-	((Ui::QtPLCDialogClass*)ui)->lE_ContinueKickStopCount->setText(QString::number(stopCount));//连剔停机数量
-
-	if (alarmCount < 1 || stopCount < 1)
-	{
-		//levelOut = new WindowOut;
-		//levelOut->getString(QString::fromLocal8Bit("设置胶囊数不能小于1！"), 2000);
-		//levelOut->show();
-		initContinueKick();
-		return;
-	}
-	else if (alarmCount > stopCount)
-	{
-		//levelOut = new WindowOut;
-		//levelOut->getString(QString::fromLocal8Bit("报警胶囊数不能大于停机胶囊数！"), 2000);
-		//levelOut->show();
-		initContinueKick();
-		return;
-	}
-	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);//读取ini文件
-	configIniRead.setValue("ProgramSetting/ContinueKickAlarm", ((Ui::QtPLCDialogClass*)ui)->cB_ContinueKickAlarm->currentIndex());
-	configIniRead.setValue("ProgramSetting/ContinueKickAlarmCount", alarmCount);
-	configIniRead.setValue("ProgramSetting/ContinueKickStop", ((Ui::QtPLCDialogClass*)ui)->cB_ContinueKickStop->currentIndex());
-	configIniRead.setValue("ProgramSetting/ContinueKickStopCount", stopCount);
-
-
-	//levelOut = new WindowOut;
-	//levelOut->getString(QString::fromLocal8Bit("恭喜，连剔设置成功！"), 2000);
-	//levelOut->show();
-
-}
-void QtPLCDialogClass::on_pB_ContinueKickCancel_clicked()//取消连剔
-{
-	initContinueKick();
-}
-/////////////////////////////////////////////////////////////////////
 
 void QtPLCDialogClass::on_pb_cmdParaSave_clicked()//加一个按钮保存
 {
@@ -269,7 +219,7 @@ void QtPLCDialogClass::onSendPLCCommand(bool b)
 
 			else {
 
-				if (objname == "pb_cmdHome") typ.Machine_Cmd.cmdHome = 1;//结构体数据赋值
+				/*if (objname == "pb_cmdHome") typ.Machine_Cmd.cmdHome = 1;//结构体数据赋值
 				if (objname == "pb_cmdStart") typ.Machine_Cmd.cmdStart = 1;
 				if (objname == "pb_cmdStop") typ.Machine_Cmd.cmdStop = 1;
 				if (objname == "pb_cmdEStop")
@@ -303,7 +253,7 @@ void QtPLCDialogClass::onSendPLCCommand(bool b)
 				if (objname == "pb_cmdTestCapPhoto") typ.Machine_Cmd.cmdTestCapPhoto = 1;				//手动胶囊拍照
 				if (objname == "pb_cmdRotateCtl") typ.Machine_Cmd.cmdRotateCtl = 1;						//手动转囊启停
 
-				/////////////////obj->setStyleSheet("background: rgb(0,255,0)");
+				/////////////////obj->setStyleSheet("background: rgb(0,255,0)");*/
 			}
 		}
 		if (!b)
@@ -331,7 +281,7 @@ void QtPLCDialogClass::onSendPLCCommand(bool b)
 				m_socket->Communicate_PLC(&typ, nullptr);//此处只发送，不接收
 			}
 			else {
-				if (objname == "pb_cmdHome")typ.Machine_Cmd.cmdHome = 0;
+				/*if (objname == "pb_cmdHome")typ.Machine_Cmd.cmdHome = 0;
 				if (objname == "pb_cmdStart") typ.Machine_Cmd.cmdStart = 0;
 				if (objname == "pb_cmdStop") typ.Machine_Cmd.cmdStop = 0;
 				if (objname == "pb_cmdEStop")
@@ -344,7 +294,7 @@ void QtPLCDialogClass::onSendPLCCommand(bool b)
 					typ.Machine_Cmd.cmdJog = 0; //非点动按钮
 					obj->setText(QString::fromLocal8Bit("点动"));
 				}
-				if (objname == "pb_cmdErrorAck") typ.Machine_Cmd.cmdErrorAck = 0;					//报警复位, 1:复位
+				/*if (objname == "pb_cmdErrorAck") typ.Machine_Cmd.cmdErrorAck = 0;					//报警复位, 1:复位
 				if (objname == "pb_cmdResetCounter") typ.Machine_Cmd.cmdResetCounter = 0;				//复位计数变量, 1:复位
 				//if (objname == "pb_cmdParaSave") typ.Machine_Cmd.cmdParaSave = 0;						//参数保存命令, 1:保存
 				//if (objname == "pb_cmdParaLoad") typ.Machine_Cmd.cmdParaLoad = 0;						//参数读取命令, 1:读取
@@ -364,7 +314,7 @@ void QtPLCDialogClass::onSendPLCCommand(bool b)
 				if (objname == "pb_cmdTestFlashPhoto") typ.Machine_Cmd.cmdTestFlashPhoto = 0;					//手动闪光加拍照, 1:启动
 				if (objname == "pb_cmdTestCapPhoto") typ.Machine_Cmd.cmdTestCapPhoto = 0;				//手动胶囊拍照
 				if (objname == "pb_cmdRotateCtl") typ.Machine_Cmd.cmdRotateCtl = 2;						//手动转囊启停
-				obj->setStyleSheet("");
+				obj->setStyleSheet("");*/
 			}
 		}
 		if (objname != "pb_StWritePLC")//写入debug两次发送/旨在上面发送一次
@@ -520,10 +470,10 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	//系统状态
 	((Ui::QtPLCDialogClass*)ui)->lE_AlarmStatus->setText(QString::number(m_data->Status.AlarmStatus));
 	((Ui::QtPLCDialogClass*)ui)->lE_Alarm16->setText((char*)(m_data->Status.Alarm));
-	((Ui::QtPLCDialogClass*)ui)->lE_ServoErrorNum0->setText(QString::number(m_data->Status.ServoErrorNum[0]));
-	((Ui::QtPLCDialogClass*)ui)->lE_ServoErrorNum1->setText(QString::number(m_data->Status.ServoErrorNum[1]));
-	((Ui::QtPLCDialogClass*)ui)->lE_SysPhase_1->setText(QString::number(m_data->Status.SysPhase / 100.0, 'f', 2));
-	((Ui::QtPLCDialogClass*)ui)->lE_HomeOK->setText(QString::number(m_data->Status.HomeOK));
+	//((Ui::QtPLCDialogClass*)ui)->lE_ServoErrorNum0->setText(QString::number(m_data->Status.ServoErrorNum[0]));
+	//((Ui::QtPLCDialogClass*)ui)->lE_ServoErrorNum1->setText(QString::number(m_data->Status.ServoErrorNum[1]));
+	//((Ui::QtPLCDialogClass*)ui)->lE_SysPhase_1->setText(QString::number(m_data->Status.SysPhase / 100.0, 'f', 2));
+	//((Ui::QtPLCDialogClass*)ui)->lE_HomeOK->setText(QString::number(m_data->Status.HomeOK));
 
 	//系统参数
 
@@ -729,14 +679,6 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	}
 }
 
-
-// MESSAGE_HANDLER QtPLCDialogClass::ShowFunc(void* context, DataToPC_typ)
-// {
-// 	return MESSAGE_HANDLER();
-// }
-
-
-
 int QtPLCDialogClass::showMsgBox(QMessageBox::Icon icon, const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str)//全是中文
 {
 	if (QString::fromLocal8Bit(button2Str) == "")
@@ -821,7 +763,3 @@ void QtPLCDialogClass::SetSocket(QtSocket_Class *sc)
 	//	m_socket->set_message_handler(&message_handler, this);//全局
 }
 
-
-void QtPLCDialogClass::setm_iCameraTotal(int index)
-{
-}

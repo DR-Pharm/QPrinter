@@ -128,7 +128,7 @@ void PRT::initPrinter()
 {
 	QPrinterInfo info;
 	m_sName = info.defaultPrinterName(); // 默认打印机名字
-	ui.lb_PrinterName->setText(QString::fromLocal8Bit("设备型号：") + m_sName);
+	ui.lb_PrinterName->setText(QString::fromLocal8Bit("设备型号：\n") + m_sName);
 
 	m_prt = new QPrinter();
 	m_prt->setPrinterName(m_sName);
@@ -138,7 +138,7 @@ void PRT::initData()
 {
 	m_iDataNum = 5;
 	data.resize(m_iDataNum);
-	ui.label->setText(QString::fromLocal8Bit("最大可打印数：") + QString::number(m_iDataNum) + QString::fromLocal8Bit("\n1#站:") + QString::number(m_iDataNum - m_iDataNum / 2) + QString::fromLocal8Bit("，2#站:") + QString::number(m_iDataNum / 2));
+	ui.label->setText(QString::fromLocal8Bit("最大可打印数：") + QString::number(m_iDataNum) + QString::fromLocal8Bit("\n1#站:") + QString::number(m_iDataNum - m_iDataNum / 2) + QString::fromLocal8Bit("\n2#站:") + QString::number(m_iDataNum / 2));
 
 	data[0] << 0.369 << 0.321 << 0.332 << 0.311 << 0.399 << 0.334 << 0.321 << 0.346 << 0.389 << 0.333
 		<< 0.333 << 0.333 << 0.333 << 0.333 << 0.333 << 0.369 << 0.321 << 0.332 << 0.311 << 0.399
@@ -385,13 +385,18 @@ void PRT::drawPic(QPrinter *printer)
 {
 	m_sName = printer->printerName();
 	
-	ui.lb_PrinterName->setText(QString::fromLocal8Bit("设备型号：") + m_sName);
+	ui.lb_PrinterName->setText(QString::fromLocal8Bit("设备型号：\n") + m_sName);
 	//QPrinter *printer = new QPrinter(QPrinter::HighResolution);
 	printer->setResolution(QPrinter::HighResolution);
 	////自定义纸张大小，特别重要，不然预览效果极差
 	//printer->setPrinterName(m_sName);
 	printer->setPageSize(QPrinter::A4);
 	printer->setOrientation(QPrinter::Portrait);
+	QPagedPaintDevice::Margins marg;
+	marg.left = -2.5;
+	marg.top = 2.5;
+	printer->setMargins(marg);
+	printer->setFullPage(true);
 	//printer->setPrintRange(QPrinter::PageRange);//2
 	//printer->setPrintRange(QPrinter::AllPages);//0
 	int prtMode = printer->printRange();
@@ -445,7 +450,7 @@ void PRT::drawPic(QPrinter *printer)
 
 		//纵向：Portrait 横向：Landscape
 	//获取界面的图片
-	painterPixmap.setWindow(-100, -50, pix[0].width() + 150, pix[0].height() + 50);
+	painterPixmap.setWindow(0,0, pix[0].width(), pix[0].height());
 
 	int pageValue = 0;
 	if (page1 > 0)
@@ -469,7 +474,7 @@ void PRT::drawPic(QPrinter *printer)
 			{
 				createPixAverage(&pix);
 			}*/
-			/*pix.save("c:/pt.bmp");*/
+			//pix[0].save("c:/pt.bmp");
 
 			if (allornot==1||(allornot==0&&pageValue>=firstPg&&pageValue<=endPg))
 			{
@@ -543,6 +548,8 @@ void PRT::drawPic(QPrinter *printer)
 
 	}
 	/*painterPixmap.drawPixmap(0, 0, pix);*/
+
+	pix[0].save("c:/pt.bmp");
 	painterPixmap.end();
 }
 

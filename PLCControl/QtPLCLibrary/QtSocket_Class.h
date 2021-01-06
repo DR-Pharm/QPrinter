@@ -34,10 +34,6 @@ private:
 
 	float m_fRejectTime;
 public:
-
-	bool slotCb_flash(bool);
-	bool slotFeed(bool b);
-	bool slotRotateAndFlash(bool b);
 	bool slotStartWork(bool b);
 	int Getm_bconnected();//是否连上PLC 1连上 2没有
 	bool initialization(); //初始化
@@ -52,7 +48,6 @@ public:
 	bool StartWork(); //开始任务
 	bool StopWork(); //停止
 	bool InitWork();
-	bool clean(bool b);//clean axle & raise reject
 	//初始化任务
 	bool syncData();
 	bool AlarmReset();

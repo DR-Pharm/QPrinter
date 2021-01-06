@@ -42,21 +42,10 @@ public slots:
 	void on_pb_cmdParaSave_clicked();//保存PLC参数到本机plc.txt
 	void on_pb_cmdParaLoad_clicked();//将本机plc.txt内PLC参数写入到PLC
 
-	//确定修改后键盘隐藏
-	void on_pB_changeIPPort_clicked();
-	void on_pB_ContinueKickOK_clicked();//保存连剔
-	void on_pB_ContinueKickCancel_clicked();//取消连剔
-
-	//void onStartStore(bool);
 	void onSendPLCCommand(bool);
 	DataFromPC_typ getPCData();//PC数值发送给PLC
 	void getPLCData(void*, int, int, int, int);
 	void on_pB_SetUp_toggled(bool checked);
-public:
-	//MESSAGE_HANDLER ShowFunc(void* context, DataToPC_typ);
-	void connectBtnGroup();
-	void setm_iCameraTotal(int index);
-
 
 };
 

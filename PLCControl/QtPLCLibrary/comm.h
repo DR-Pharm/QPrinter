@@ -132,68 +132,88 @@ typedef struct
 
 typedef struct
 {
-	unsigned int		AlarmStatus;			//报警状态,0:无报警，1:Warning, 2,Fatal Error
-	unsigned char		Alarm[16];				//报警位0-99，每一位对应一个报警,Alarm[0].0 ---- Alarm[13].3
-	
-	unsigned int		ServoErrorNum[2];		//伺服报警代码
-	unsigned int		SysPhase;				//系统相位
-	unsigned int		HomeOK;					//寻参成功
+	int				Finished;				//本组结束
+	int				GroupIndex;				//本组序号
+	float			Weight;					//本次重量
 
-	unsigned int		CommStep;				//通讯状态
-	unsigned int		NoDataCounter;			//无数据计数
-	unsigned int		SendCounter;			//发送报文计数
-	unsigned int		RecvCounter;			//接收报文计数
-	unsigned int		RecvTelLength;			//接收报文长度
+	//plc相关
+	DateTimeStructTyp	PLCTimeNow;				//PLC当前时间
+	int					UsbPrintOk;				//打印机连接正常,0:未连接，1：已连接
+	int					UsbOk;					//U盘连接正常,0:未连接，1：已连接
 
-	unsigned int		CommStep2;				//通讯状态2
-	unsigned int		NoDataCounter2;			//无数据计数2
-	unsigned int		SendCounter2;			//发送报文计数2
-	unsigned int		RecvCounter2;			//接收报文计数2
-	unsigned int		RecvTelLength2;			//接收报文长度2
+	//Scale Data
+	float				ScaleResult;			//天平当前读数，单位g
+	int					ScaleStableState;		//天平当前稳定状态,0:非常稳定,1:稳定,2:不稳定,3:非常不稳定
 
-	unsigned int		RejectTelCount;			//接收到剔废报文的计数器
-	unsigned int		RejectTelRecivedPhase;	//接收到剔废报文的相位
-	unsigned int		ServoState[2];			//伺服状态
-	unsigned int		RejectCounter[6]; //通道剔废计数 useless for me
-	int Reserve[32]; //预留空间
+	//Group Data
+	Displaytyp			CapDataDisp;			//组数据
+
+	//ActData
+	Comm_Run_Para_typ	ActData;				//当前运行参数
+
+	//AxisStatus
+	int				AxisFeedStep;			//下料电机状态机步骤
+	int				AxisFeedErrorNo;		//下料电机错误代码
+	int				AxisFeedRelMovDistance;	//下料电机相对运动距离，单位unit
+
+	int				AxisSwingStep;			//旋转电机状态机步骤
+	int				AxisSwingErrorNo;		//旋转电机错误代码
+	int				AxisSwingRelMovDistance;//旋转电机相对运动距离，单位unit
+
+	//MainCtrl etc
+	int				MachineStep;			//系统运行状态机步骤
+	float			TimeInterval;			//测量实际间隔时间
+
+	int				AlarmStatus;			//0:无报警，1：一般报警，2：严重报警
+	unsigned char	Alarm[16];				//报警位0-99，每一位对应一个报警,Alarm[0].0 ---- Alarm[13].3
+	int				Reserve[31];			//预留空间
 }Comm_Status_typ;
 
 typedef struct
 {
-	unsigned char		cmdHome;							//寻参,1:寻参启动
-	unsigned char		cmdStart;							//启动,1:启动运行
-	unsigned char		cmdStop;							//停止,停在0相位,1:停止
-	unsigned char		cmdEStop;							//紧急停止(立即停止), 1:停止
-	unsigned char		cmdJog;								//点动运行, 1,启动,0,停止
-	unsigned char		cmdErrorAck;						//报警复位, 1:复位
-	unsigned char		cmdResetCounter;					//复位计数变量, 1:复位
-	unsigned char		cmdParaSave;						//参数保存命令, 1:保存
-	unsigned char		cmdParaLoad;						//参数读取命令, 1:读取
-	unsigned char		cmdTestKick[6];		//手动剔废, 1:Push, 2:Back
-	unsigned char		cmdTestFlash[6];			//手动闪光, 1:闪光,自动复位
-	unsigned char		cmdTestValveUp;						//手动升降气缸, 1:Push, 2:Back
-	unsigned char		cmdTestValveClip;					//手动夹紧气缸, 1:Push, 2:Back
-	unsigned char		cmdTestValveDrop;					//手动落囊气缸, 1:Push, 2:Back
-	unsigned char		cmdTestInverter;					//手动胶囊料斗启动, 1:Start, 2:Stop
-	unsigned char		cmdTestLampRead;					//手动红灯输出, 1:输出 , 2: 复位
-	unsigned char		cmdTestLampYellow;					//手动黄灯输出, 1:输出 , 2: 复位
-	unsigned char		cmdTestLampGreen;					//手动绿灯输出, 1:输出 , 2: 复位
-	unsigned char		cmdTestBuzzer;						//手动蜂鸣器输出, 1:输出 , 2: 复位
-	unsigned char		cmdTestPhoto;						//手动拍照, 1:输出 , 2: 复位
-	unsigned char		cmdTestFlashPhoto;					//手动闪光加拍照, 1:启动
-	unsigned char		cmdTestCapPhoto;					//手动胶囊拍照
-	unsigned char		cmdRotateCtl;						//手动转囊启停
-	unsigned char		cmdSetAlarm;								//手动触发报警号，不等于零触发。范围1-99
+	DateTimeStructTyp		DateTimeSet;		//设定日期时间目标
+	unsigned char		cmdChangeDT;					//修改日期时间,1:执行，自动复位
 
-	unsigned char Reserve[32]; //预留空间
+	unsigned char		cmdScaleRead;					//秤读数命令,1:执行，自动复位
+	unsigned char		cmdScaleTire;					//秤清零,1:执行，自动复位
+	unsigned char		cmdScaleSetStable;				//设定秤稳定状态,1:执行，自动复位
+	unsigned char		paraScaleSetStable;				//稳定状态设定目标，0:非常稳定,1:稳定,2:不稳定,3:非常不稳定
+
+	unsigned char		cmdScaleCalibExt;				//秤外部校正,1:执行，自动复位
+	unsigned char		cmdAxisFeedJogPos;				//下料正转点动，1:执行，0:停止
+	unsigned char		cmdAxisFeedJogNeg;				//下料反转点动，1:执行，0:停止
+	unsigned char		cmdAxisFeedRelMov;				//下料相对运动启动，1:执行，自动复位
+	unsigned char		cmdAxisFeedPosMov;				//下料正向连续运动启动，1:执行，自动复位
+	unsigned char		cmdAxisFeedStopMov;				//下料停止运动，1:执行，自动复位
+
+	unsigned char		cmdAxisSwingJogPos;				//旋转正转点动，1:执行，0:停止
+	unsigned char		cmdAxisSwingJogNeg;				//旋转反转点动，1:执行，0:停止
+	unsigned char		cmdAxisSwingRelMov;				//旋转相对运动启动，1:执行，自动复位
+	unsigned char		cmdAxisSwingPosMov;				//旋转正向连续运动启动，1:执行，自动复位
+	unsigned char		cmdAxisSwingStopMov;			//旋转停止运动，1:执行，自动复位
+
+	unsigned char		cmdFeedSingle;					//单粒下料，1:执行，自动复位
+	unsigned char		cmdFeedSingleStop;				//单粒下料停止，1:执行，自动复位
+
+	unsigned char		cmdSwing;						//旋转单工位,1:执行，自动复位
+	unsigned char		cmdStart;						//启动称重，1:执行，自动复位
+	unsigned char		cmdEStop;						//急停，1:执行，自动复位
+	unsigned char		cmdStop;						//停止,1:执行，自动复位
+	unsigned char		cmdInit;						//初始化，1:执行，自动复位
+	unsigned char		cmdAlarmReset;					//报警复位,1:执行，自动复位
+	unsigned char		cmdCounterZero;					//计数器清零,1:执行，自动复位
+	unsigned char		cmdPrintStart;					//启动打印,1:执行，自动复位
+	unsigned char		cmdPrintStartE;					//启动英文打印，1:执行，自动复位
+	unsigned char		cmdCapClean;					//清空胶囊，1:执行，自动复位
+	unsigned char		cmdAlogtest;					//模拟量输出测试,1:执行，自动复位
+
+	unsigned char		Reserve[32];					//预留空间
 }Comm_Machine_Cmd_typ;
 
 typedef struct
 {//照相处理结果
-	unsigned char		Alarm[4];				//4bytes=32bits,每一位对应一个通道,0:通过,1:剔废
-	unsigned int		id;						//结果id
-
-	int Reserve[16]; //预留空间
+	unsigned int	OK;								//0:合格，1：不合格
+	int				Reserve[16];					//预留空间
 }Comm_Result_typ;
 
 typedef struct DataFromPC_typ

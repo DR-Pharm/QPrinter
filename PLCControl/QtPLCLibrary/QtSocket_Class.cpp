@@ -97,67 +97,8 @@ bool QtSocket_Class::Communicate_PLC(DataFromPC_typ* m_Dmsg_FromPC, DataToPC_typ
 	return false;
 }
 
-bool QtSocket_Class::slotCb_flash(bool b)
-{
-#ifndef INSPECTION_EDGE
-	memset(m_Dmsg_FromPC, 0, sizeof(DataFromPC_typ));
-	memset(m_Dmsg_ToPC, 0, sizeof(DataToPC_typ));
-	m_Dmsg_FromPC->Telegram_typ = 1;
-
-	if (b)
-	{
-		m_Dmsg_FromPC->Machine_Cmd.cmdTestFlash[0] = 1;
-		m_Dmsg_FromPC->Machine_Cmd.cmdTestFlash[1] = 1;
-		m_Dmsg_FromPC->Machine_Cmd.cmdTestFlash[2] = 1;
-	}
-	else
-	{
-		m_Dmsg_FromPC->Machine_Cmd.cmdTestFlash[0] = 0;
-		m_Dmsg_FromPC->Machine_Cmd.cmdTestFlash[1] = 0;
-		m_Dmsg_FromPC->Machine_Cmd.cmdTestFlash[2] = 0;
-	}
-	if (Communicate_PLC(m_Dmsg_FromPC, m_Dmsg_ToPC))
-	{
-		return true;
-	}
-#endif
-	return false;
-}
-
-bool QtSocket_Class::slotRotateAndFlash(bool b)
-{
-#ifdef INSPECTION_360
-	memset(m_Dmsg_FromPC, 0, sizeof(DataFromPC_typ));
-	memset(m_Dmsg_ToPC, 0, sizeof(DataToPC_typ));
-	m_Dmsg_FromPC->Telegram_typ = 1;
-	if (b)
-	{
-		m_Dmsg_FromPC->Machine_Cmd.cmdTestFlash[0] = 1;
-		m_Dmsg_FromPC->Machine_Cmd.cmdTestFlash[1] = 1;
-		m_Dmsg_FromPC->Machine_Cmd.cmdTestFlash[2] = 1;
-		m_Dmsg_FromPC->Machine_Cmd.cmdRotateCtl = 1;
-	}
-	else
-	{
-		m_Dmsg_FromPC->Machine_Cmd.cmdTestFlash[0] = 0;
-		m_Dmsg_FromPC->Machine_Cmd.cmdTestFlash[1] = 0;
-		m_Dmsg_FromPC->Machine_Cmd.cmdTestFlash[2] = 0;
-		m_Dmsg_FromPC->Machine_Cmd.cmdRotateCtl = 2;
-	}
-	if (Communicate_PLC(m_Dmsg_FromPC, m_Dmsg_ToPC))
-	{
-		return true;
-	}
-#endif
-	return false;
-}
-bool QtSocket_Class::slotFeed(bool b)
-{
-	return 1;
-}
 bool QtSocket_Class::slotStartWork(bool b)
 {
-#ifndef INSPECTION_EDGE
 	memset(m_Dmsg_FromPC, 0, sizeof(DataFromPC_typ));
 	memset(m_Dmsg_ToPC, 0, sizeof(DataToPC_typ));
 	m_Dmsg_FromPC->Telegram_typ = 1;
@@ -173,7 +114,6 @@ bool QtSocket_Class::slotStartWork(bool b)
 	{
 		return true;
 	}
-#endif
 	return false;
 }
 int QtSocket_Class::Getm_bconnected()
@@ -275,7 +215,7 @@ bool QtSocket_Class::ResetError()
 	memset(m_Dmsg_FromPC, 0, sizeof(DataFromPC_typ));
 	memset(m_Dmsg_ToPC, 0, sizeof(DataToPC_typ));
 	m_Dmsg_FromPC->Telegram_typ = 1;
-	m_Dmsg_FromPC->Machine_Cmd.cmdErrorAck = true;
+	//m_Dmsg_FromPC->Machine_Cmd.cmdErrorAck = true;
 	if (Communicate_PLC(m_Dmsg_FromPC, m_Dmsg_ToPC))
 	{
 		return true;
@@ -298,7 +238,7 @@ bool QtSocket_Class::SetResult(int counter, unsigned int alarm[2])
 	m_Dmsg_FromPC->PhotoResult.PhotoCnt[0] = counter;
 #endif
 	//phototimes!=0时↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-#ifdef INSPECTION_360
+#ifdef INSPECTION_361
 	m_Dmsg_FromPC->PhotoResult.Alarm[0] = alarm[0]; //0b00000101;
 	m_Dmsg_FromPC->PhotoResult.Alarm[1] = alarm[1]; //0b00001001;
 	m_Dmsg_FromPC->PhotoResult.Alarm[2] = alarm[2]; //0b00010001;
@@ -348,7 +288,7 @@ void QtSocket_Class::programsetCloseEvent()
 	m_Dmsg_FromPC->Machine_Cmd.cmdSetAlarm = 0;								//手动触发报警号，不等于零触发。范围1-99
 	m_Dmsg_FromPC->Machine_Cmd.cmdPhotoCntZero = 0;
 #endif
-#ifdef INSPECTION_360
+#ifdef INSPECTION_361
 	m_Dmsg_FromPC->Machine_Cmd.cmdHome = 0;							//寻参,1:寻参启动
 	m_Dmsg_FromPC->Machine_Cmd.cmdStart = 0;							//启动,1:启动运行
 	m_Dmsg_FromPC->Machine_Cmd.cmdStop = 0;							//停止,停在0相位,1:停止
@@ -415,60 +355,6 @@ bool QtSocket_Class::StopWork()
 	return false;
 }
 
-bool QtSocket_Class::clean(bool b)
-{
-#ifdef INSPECTION_360	
-	memset(m_Dmsg_FromPC, 0, sizeof(DataFromPC_typ));
-	memcpy(m_Dmsg_ToPC, _ToPC, sizeof(DataToPC_typ));//主界面用
-	m_Dmsg_FromPC->Telegram_typ = 2;
-	//if (b)
-	//{
-	//	m_fRejectTime = _ToPC->Machine_Para.RejectTime;
-	//}
-	//m_Dmsg_FromPC->Machine_Para.FeedAxisHomeOffset = _ToPC->Machine_Para.FeedAxisHomeOffset;
-	//m_Dmsg_FromPC->Machine_Para.ClipPhase1 = _ToPC->Machine_Para.ClipPhase1;
-	//m_Dmsg_FromPC->Machine_Para.ClipPhase2 = _ToPC->Machine_Para.ClipPhase2;
-	//m_Dmsg_FromPC->Machine_Para.UpPhase1 = _ToPC->Machine_Para.UpPhase1;
-	//m_Dmsg_FromPC->Machine_Para.UpPhase2 = _ToPC->Machine_Para.UpPhase2;
-	//m_Dmsg_FromPC->Machine_Para.DropPhase1 = _ToPC->Machine_Para.DropPhase1;
-	//m_Dmsg_FromPC->Machine_Para.DropPhase2 = _ToPC->Machine_Para.DropPhase2;
-	//m_Dmsg_FromPC->Machine_Para.tClip1 = _ToPC->Machine_Para.tClip1;
-	//m_Dmsg_FromPC->Machine_Para.tClip2 = _ToPC->Machine_Para.tClip2;
-	//m_Dmsg_FromPC->Machine_Para.tUp1 = _ToPC->Machine_Para.tUp1;
-	//m_Dmsg_FromPC->Machine_Para.tUp2 = _ToPC->Machine_Para.tUp2;
-	//m_Dmsg_FromPC->Machine_Para.tDrop1 = _ToPC->Machine_Para.tDrop1;
-	//m_Dmsg_FromPC->Machine_Para.tDrop2 = _ToPC->Machine_Para.tDrop2;
-	//m_Dmsg_FromPC->Machine_Para.FeedLength = _ToPC->Machine_Para.FeedLength;
-	//m_Dmsg_FromPC->Machine_Para.FlashTime = _ToPC->Machine_Para.FlashTime;
-	//m_Dmsg_FromPC->Machine_Para.PhotoTime = _ToPC->Machine_Para.PhotoTime;
-	//m_Dmsg_FromPC->Machine_Para.RejectTime = _ToPC->Machine_Para.RejectTime;
-	//m_Dmsg_FromPC->Machine_Para.PhotoDelay = _ToPC->Machine_Para.PhotoDelay;
-	//m_Dmsg_FromPC->Machine_Para.PhotoPhase = _ToPC->Machine_Para.PhotoPhase;
-	//m_Dmsg_FromPC->Machine_Para.RejectPhase = _ToPC->Machine_Para.RejectPhase;
-	//m_Dmsg_FromPC->Machine_Para.PhotoTimes = _ToPC->Machine_Para.PhotoTimes;
-	//m_Dmsg_FromPC->Machine_Para.RotateSpeed = _ToPC->Machine_Para.RotateSpeed;
-	//m_Dmsg_FromPC->Machine_Para.DisableForceReject = _ToPC->Machine_Para.DisableForceReject;		//关闭强制剔废,1:关闭
-	//m_Dmsg_FromPC->Machine_Para.CapCheckAlarmTime = _ToPC->Machine_Para.CapCheckAlarmTime;		//胶囊检测报警时间，单位ms
-	//m_Dmsg_FromPC->Machine_Para.RejectFallingTime = _ToPC->Machine_Para.RejectFallingTime;		//剔废胶囊下落时间，单位ms
-	//m_Dmsg_FromPC->Machine_Para.PhotoInterval = _ToPC->Machine_Para.PhotoInterval;
-
-	//m_Dmsg_FromPC->Machine_Para.RejectTime = b ? 5000 : m_fRejectTime;
-	Communicate_PLC(m_Dmsg_FromPC, m_Dmsg_ToPC);
-
-	m_Dmsg_FromPC->Telegram_typ = 1;
-	m_Dmsg_FromPC->Machine_Cmd.cmdRotateCtl = b ? 1 : 2;
-	m_Dmsg_FromPC->Machine_Cmd.cmdTestValveUp = b ? 2 : 1;
-	for (int i = 0; i < 30; i++)
-	{
-		m_Dmsg_FromPC->Machine_Cmd.cmdTestKick[i] = b;//结构体数据赋值
-	}
-	if (Communicate_PLC(m_Dmsg_FromPC, m_Dmsg_ToPC))
-	{
-		return true;
-	}
-#endif
-	return false;
-}
 bool QtSocket_Class::syncData()//单面同步计数
 {
 #ifdef INSPECTION_1
@@ -490,7 +376,7 @@ bool QtSocket_Class::AlarmReset()
 	memset(m_Dmsg_FromPC, 0, sizeof(DataFromPC_typ));
 	memset(m_Dmsg_ToPC, 0, sizeof(DataToPC_typ));
 	m_Dmsg_FromPC->Telegram_typ = 1;
-	m_Dmsg_FromPC->Machine_Cmd.cmdErrorAck = 1;
+	//m_Dmsg_FromPC->Machine_Cmd.cmdErrorAck = 1;
 	if (Communicate_PLC(m_Dmsg_FromPC, m_Dmsg_ToPC))
 	{
 		return true;
@@ -504,7 +390,7 @@ bool QtSocket_Class::CountReset()
 	memset(m_Dmsg_FromPC, 0, sizeof(DataFromPC_typ));
 	memset(m_Dmsg_ToPC, 0, sizeof(DataToPC_typ));
 	m_Dmsg_FromPC->Telegram_typ = 1;
-	m_Dmsg_FromPC->Machine_Cmd.cmdResetCounter = 1;
+	//m_Dmsg_FromPC->Machine_Cmd.cmdResetCounter = 1;
 #ifdef INSPECTION_1
 	m_Dmsg_FromPC->Machine_Cmd.cmdPhotoCntZero = 1;
 #endif
@@ -591,7 +477,7 @@ bool QtSocket_Class::GoHome()
 
 	m_Dmsg_FromPC->Telegram_typ = 1;
 #ifdef INSPECTION_360
-	m_Dmsg_FromPC->Machine_Cmd.cmdHome = 1;
+	//m_Dmsg_FromPC->Machine_Cmd.cmdHome = 1;
 #endif // INSPECTION_360
 	if (Communicate_PLC(m_Dmsg_FromPC, m_Dmsg_ToPC))
 	{
@@ -645,7 +531,7 @@ void QtSocket_Class::onReadAllData()
 #endif // INSPECTION_1
 #ifdef INSPECTION_360
 	MachineType = 360;
-	home = _ToPC->Status.HomeOK;
+	//home = _ToPC->Status.HomeOK;
 #endif // INSPECTION_1
 	emit signal_FROMPLC((void*)_ToPC, MachineType, home, ContinueKickIsOpen, ContinueKickIsNormal);
 

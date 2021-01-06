@@ -13,7 +13,6 @@ QtPLCControl::QtPLCControl()
 void* QtPLCControl::QtCreateDialog(int index)
 {
 	dlg = new QtPLCDialogClass();
-	((QtPLCDialogClass*)dlg)->setm_iCameraTotal(index);
 	((QtPLCDialogClass*)dlg)->SetSocket(((QtSocket_Class*)m_socket));
 	return dlg;
 }
@@ -28,14 +27,6 @@ void QtPLCControl::ProgramSetCloseEvent()
 }
 /////NewUI_Demo¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý
 
-
-void QtPLCControl::clean(bool b)
-{
-	if (m_socket != nullptr)
-	{
-		((QtSocket_Class*)m_socket)->clean(b);
-	}
-}
 
 void QtPLCControl::syncData()
 {
@@ -175,26 +166,7 @@ bool QtPLCControl::SetResult(int counter, unsigned int alarm[2])
 	return ((QtSocket_Class*)m_socket)->SetResult(counter,&alarm[0]);
 }
 
-void QtPLCControl::setCb_flash(bool b)
-{
-	if (nullptr != m_socket)
-	{
-
-		((QtSocket_Class*)m_socket)->slotCb_flash(b);
-	}
-}void QtPLCControl::setRotateAndFlash(bool b)
-{
-	if (nullptr != m_socket)
-	{
-		((QtSocket_Class*)m_socket)->slotRotateAndFlash(b);
-	}
-}void QtPLCControl::setFeed(bool b)
-{
-	if (nullptr != m_socket)
-	{
-		((QtSocket_Class*)m_socket)->slotFeed(b);
-	}
-}void QtPLCControl::setStartWork(bool b)
+void QtPLCControl::setStartWork(bool b)
 {
 	if (nullptr != m_socket)
 	{

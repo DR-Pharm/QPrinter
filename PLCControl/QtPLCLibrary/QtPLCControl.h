@@ -31,7 +31,6 @@ public:
 	QtPLCControl();
 	void* QtCreateDialog(int);
 	void ProgramSetCloseEvent();
-	void clean(bool);//clean axle & raise reject
 	void syncData();
 	void AlarmReset();
 	void CountReset();
@@ -54,8 +53,5 @@ public slots:
 	bool ConnectPlc();
 	void connectIN_AND_OUT(void*, int, int, int, int);
 	void reportSocketError();
-	void setCb_flash(bool);
-	void setRotateAndFlash(bool b);
-	void setFeed(bool b);
 	void setStartWork(bool b);
 };
