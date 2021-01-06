@@ -15,7 +15,6 @@ PRT::PRT(QWidget *parent)
 	AppPath = qApp->applicationDirPath();//exe所在目录
 	initUI();
 	initPLC();
-	//deleteDir("C:\\Users\\Administrator\\Documents\\PDF files");//不同电脑不同的位置
 }
 PRT::~PRT()
 {
@@ -48,13 +47,7 @@ void PRT::initPLC()
 	dlg->setParent(ui.widget);
 	dlg->move(0, 0);
 }
-void PRT::on_pB_Exit_clicked()
-{
-	if (QMessageBox::Yes==showMsgBox2("退出确认", "是否确认退出该系统?", "确认", "取消"))
-	{
-		close();
-	}
-}
+
 void PRT::closes(int index)
 {
 	if (index == 0)
@@ -948,24 +941,37 @@ void PRT::createPixAverage(QPixmap *pix)
 	}
 }
 
-bool PRT::deleteDir(const QString& path)//eg：deleteDir(AppPath + "/DefaultModel");//删除文件夹/目录功能
+#pragma	region//close & minimum
+void PRT::mousePressEvent(QMouseEvent* p)
 {
-	if (path.isEmpty()) {
-		return false;
+	if (p->button() == Qt::LeftButton) {       // 如果是鼠标左键按下
+		m_offset = p->globalPos() - pos();    // 获取指针位置和窗口位置的差值
 	}
-	QDir dir(path);
-	if (!dir.exists()) {
-		return true;
-	}
-	dir.setFilter(QDir::AllEntries | QDir::NoDotAndDotDot); //设置过滤
-	QFileInfoList fileList = dir.entryInfoList(); // 获取所有的文件信息
-	foreach(QFileInfo file, fileList) { //遍历文件信息
-		if (file.isFile()) { // 是文件，删除
-			file.dir().remove(file.fileName());
-		}
-		else { // 递归删除
-			deleteDir(file.absoluteFilePath());
-		}
-	}
-	return dir.rmpath(dir.absolutePath()); // 删除文件夹
 }
+void PRT::mouseMoveEvent(QMouseEvent * event)
+{
+	if (event->buttons() & Qt::LeftButton) {      // 这里必须使用buttons()
+		QPoint temp;
+		temp = event->globalPos() - m_offset;// 使用鼠标指针当前的位置减去差值，就得到了窗口应该移动的位置
+		if (temp.y() > 750)
+		{
+			showMinimized();
+			showWindowOut(QString::fromLocal8Bit("系统界面已最小化至任务栏"));
+		}
+		if (temp.x() > 1250)
+		{
+			if (QMessageBox::Yes == showMsgBox2("退出确认", "是否确认退出该系统?", "确认", "取消"))
+			{
+				close();
+			}
+		}
+	}
+}
+void PRT::showWindowOut(QString str)
+{
+	levelOut = new WindowOut;
+	levelOut->setWindowCount(0);
+	levelOut->getString(str, 2000);
+	levelOut->show();
+}
+#pragma endregion

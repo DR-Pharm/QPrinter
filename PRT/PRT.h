@@ -10,8 +10,12 @@
 #include <QSettings>
 #include <QRegExpValidator>
 #include <QMessageBox>
+#include <QMouseEvent>
+#include <QDir>
+#include <QFileInfoList>
 #include "ui_PRT.h"
 
+#include "WindowOut.h"
 #include "Dongle.h"
 #pragma comment(lib,"Dongle.lib")
 
@@ -23,6 +27,9 @@ class PRT : public QMainWindow
     Q_OBJECT
 signals:
 	void STARTCONNECTPLC();
+protected:
+	void mousePressEvent(QMouseEvent *event);
+	void mouseMoveEvent(QMouseEvent *event);
 public:
 	PRT(QWidget *parent = Q_NULLPTR); 
 	~PRT();
@@ -35,11 +42,14 @@ public:
 	int showMsgBox2(const char * titleStr, const char * contentStr, const char * button1Str, const char * button2Str);
 	void createPixCurve(QPixmap *);
 	void createPixAverage(QPixmap *);
-	bool deleteDir(const QString& path);//eg：deleteDir(AppPath + "/DefaultModel");
 	void caculateData(QVector<QVector<float>> transData, int ivalue, int half); //0 1 2
 	void writeIni();
 	bool caculateCount();
+	void showWindowOut(QString str);
 private:
+	QPoint m_offset;
+	WindowOut *levelOut;//show默认为非模态modal，如果是局部变量会闪现消失
+
 	int pixWidth = 2100;
 	int pixHeight = 2970;
     Ui::PRTClass ui; 
@@ -76,8 +86,8 @@ private:
 	QtPLCControl *m_pPlclib = nullptr;//dll
 	QThread *lib_PLCThread = nullptr;
 	QDialog *dlg = nullptr;
-public slots:
 
+public slots:
 	void on_pB_Print_clicked();
 	void on_pB_PrintDirect_clicked();
 	void drawPic(QPrinter * pt);
@@ -86,5 +96,4 @@ public slots:
 	void on_cB_Curve_toggled(bool checked);
 	void on_cB_Average_toggled(bool checked);
 	void closes(int index);
-	void on_pB_Exit_clicked();
 };

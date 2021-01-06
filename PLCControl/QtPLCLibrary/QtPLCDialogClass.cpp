@@ -25,10 +25,10 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	((Ui::QtPLCDialogClass*)ui)->frame->move(0, 0);
 
 
-	connect(((Ui::QtPLCDialogClass*)ui)->pB_enPhoto, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//拍照使能
-	connect(((Ui::QtPLCDialogClass*)ui)->pB_enReject, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//剔废使能  报文是4
-	connect(((Ui::QtPLCDialogClass*)ui)->pB_enFeed, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//料斗使能  报文是4
-	connect(((Ui::QtPLCDialogClass*)ui)->pB_enRotate, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//转囊使能  报文是4
+	//connect(((Ui::QtPLCDialogClass*)ui)->pB_enPhoto, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//拍照使能
+	//connect(((Ui::QtPLCDialogClass*)ui)->pB_enReject, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//剔废使能  报文是4
+	//connect(((Ui::QtPLCDialogClass*)ui)->pB_enFeed, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//料斗使能  报文是4
+	//connect(((Ui::QtPLCDialogClass*)ui)->pB_enRotate, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//转囊使能  报文是4
 
 	m_data = new DataToPC_typ;
 	memset(m_data, 0, sizeof(DataToPC_typ));//主界面用
@@ -82,36 +82,46 @@ QtPLCDialogClass::~QtPLCDialogClass()
 	}
 }
 
-void QtPLCDialogClass::on_pB_SetUp_toggled(bool checked)
+void QtPLCDialogClass::on_pB_SetUp_toggled(bool checked)//设置
 {
-	QFont startFont(QString::fromLocal8Bit("迷你简菱心"), 24);
+	QFont startFont(QString::fromLocal8Bit("迷你简菱心"), 36);
 	if (checked)
 	{
 		((Ui::QtPLCDialogClass*)ui)->frame->setVisible(false);
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setStyleSheet("background: rgb(0,255,0)");
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setFont(startFont);
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(false);
 	}	
 	else
 	{
 		((Ui::QtPLCDialogClass*)ui)->frame->setVisible(true);
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setStyleSheet("");
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setFont(startFont);
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(true);
 	}
 }
-
-
-//continueKick
-void QtPLCDialogClass::initContinueKick()
+void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 {
-	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);//读取ini文件
-	((Ui::QtPLCDialogClass*)ui)->cB_ContinueKickAlarm->setCurrentIndex(configIniRead.value("ProgramSetting/ContinueKickAlarm", 0).toInt());//连剔报警开关
-	((Ui::QtPLCDialogClass*)ui)->lE_ContinueKickAlarmCount->setText(configIniRead.value("ProgramSetting/ContinueKickAlarmCount", 50).toString());//连剔报警数量
-	((Ui::QtPLCDialogClass*)ui)->cB_ContinueKickStop->setCurrentIndex(configIniRead.value("ProgramSetting/ContinueKickStop", 0).toInt());//连剔停机开关
-	((Ui::QtPLCDialogClass*)ui)->lE_ContinueKickStopCount->setText(configIniRead.value("ProgramSetting/ContinueKickStopCount", 60).toString());//连剔停机数量
-
-	QRegExp regx("[0-9]+$");//正则表达式QRegExp,只允许输入中文、数字、字母、下划线以及空格,[\u4e00 - \u9fa5a - zA - Z0 - 9_] + $
-	((Ui::QtPLCDialogClass*)ui)->lE_ContinueKickAlarmCount->setValidator(new QRegExpValidator(regx, this));
-	((Ui::QtPLCDialogClass*)ui)->lE_ContinueKickStopCount->setValidator(new QRegExpValidator(regx, this));
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	QFont startFont(QString::fromLocal8Bit("迷你简菱心"), 36);
+	if (checked)
+	{
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setStyleSheet("background: rgb(0,255,0)");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setFont(startFont);
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setText(QString::fromLocal8Bit("停 止"));
+		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(false);
+		typ.Machine_Cmd.cmdStart = 1;
+	}
+	else
+	{
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setStyleSheet("");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setFont(startFont);
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setText(QString::fromLocal8Bit("启 动"));
+		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(true);
+		typ.Machine_Cmd.cmdStop = 1;
+	}
+	m_socket->Communicate_PLC(&typ, nullptr);
 }
 
 void QtPLCDialogClass::on_pb_cmdParaSave_clicked()//加一个按钮保存

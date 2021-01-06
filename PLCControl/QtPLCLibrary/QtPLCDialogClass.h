@@ -47,6 +47,8 @@ public slots:
 	void getPLCData(void*, int, int, int, int);
 	void on_pB_SetUp_toggled(bool checked);
 
+	void on_pB_cmdStart_toggled(bool checked);
+
 };
 
 #pragma once
