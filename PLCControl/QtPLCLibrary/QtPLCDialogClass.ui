@@ -59,122 +59,11 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>0</number>
    </property>
-   <widget class="QWidget" name="tab_5">
-    <attribute name="title">
-     <string>PLC输入</string>
-    </attribute>
-    <widget class="QLabel" name="label_40">
-     <property name="geometry">
-      <rect>
-       <x>22</x>
-       <y>82</y>
-       <width>210</width>
-       <height>33</height>
-      </rect>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>210</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>210</width>
-       <height>16777215</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>胶囊下落检测</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lb_00">
-     <property name="geometry">
-      <rect>
-       <x>239</x>
-       <y>82</y>
-       <width>32</width>
-       <height>32</height>
-      </rect>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>1231231</width>
-       <height>16777215</height>
-      </size>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="pixmap">
-      <pixmap>C:/Users/33741/Desktop/QtConsoleApplication1/QtClassLibrary1/ico/redLed.png</pixmap>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_11">
-     <property name="geometry">
-      <rect>
-       <x>22</x>
-       <y>165</y>
-       <width>210</width>
-       <height>33</height>
-      </rect>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>210</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>210</width>
-       <height>16777215</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>摆臂位置检测</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lb_10">
-     <property name="geometry">
-      <rect>
-       <x>239</x>
-       <y>165</y>
-       <width>32</width>
-       <height>32</height>
-      </rect>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>2323432</width>
-       <height>16777215</height>
-      </size>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="pixmap">
-      <pixmap>C:/Users/33741/Desktop/QtConsoleApplication1/QtClassLibrary1/ico/redLed.png</pixmap>
-     </property>
-    </widget>
-   </widget>
    <widget class="QWidget" name="tab_PLC_Control">
     <attribute name="title">
-     <string>PLC输出</string>
+     <string>PLC监控</string>
     </attribute>
     <widget class="QTabWidget" name="tabWidget">
      <property name="geometry">
@@ -198,254 +87,432 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
-       <string>数字量输出</string>
+       <string>DIDO</string>
       </attribute>
-      <layout class="QGridLayout" name="gridLayout_6">
-       <item row="0" column="0">
-        <widget class="QPushButton" name="pb_cmdVaccum">
-         <property name="minimumSize">
+      <layout class="QVBoxLayout" name="verticalLayout_7">
+       <item>
+        <spacer name="verticalSpacer_10">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
           <size>
-           <width>250</width>
-           <height>44</height>
+           <width>20</width>
+           <height>40</height>
           </size>
          </property>
-         <property name="maximumSize">
-          <size>
-           <width>127</width>
-           <height>44</height>
-          </size>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>DI</string>
          </property>
-         <property name="text">
-          <string>真空发生器</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <spacer name="horizontalSpacer_7">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_40">
+            <property name="minimumSize">
+             <size>
+              <width>210</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>210</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>胶囊下落检测</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lb_00">
+            <property name="minimumSize">
+             <size>
+              <width>32</width>
+              <height>32</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>32</width>
+              <height>32</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="pixmap">
+             <pixmap>C:/Users/33741/Desktop/QtConsoleApplication1/QtClassLibrary1/ico/redLed.png</pixmap>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_9">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_11">
+            <property name="minimumSize">
+             <size>
+              <width>210</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>210</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>摆臂位置检测</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lb_10">
+            <property name="minimumSize">
+             <size>
+              <width>32</width>
+              <height>32</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>32</width>
+              <height>32</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="pixmap">
+             <pixmap>C:/Users/33741/Desktop/QtConsoleApplication1/QtClassLibrary1/ico/redLed.png</pixmap>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_8">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
         </widget>
        </item>
-       <item row="0" column="1">
-        <widget class="QPushButton" name="pb_cmdBaffle">
-         <property name="minimumSize">
+       <item>
+        <spacer name="verticalSpacer_11">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
           <size>
-           <width>250</width>
-           <height>44</height>
+           <width>20</width>
+           <height>40</height>
           </size>
          </property>
-         <property name="maximumSize">
-          <size>
-           <width>127</width>
-           <height>44</height>
-          </size>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_7">
+         <property name="title">
+          <string>DO</string>
          </property>
-         <property name="text">
-          <string>挡    板</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
+         <layout class="QGridLayout" name="gridLayout_6">
+          <item row="0" column="0">
+           <widget class="QPushButton" name="pb_cmdVaccum">
+            <property name="minimumSize">
+             <size>
+              <width>250</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>127</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>真空发生器</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QPushButton" name="pb_cmdBaffle">
+            <property name="minimumSize">
+             <size>
+              <width>250</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>127</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>挡    板</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QPushButton" name="pb_cmdReject">
+            <property name="minimumSize">
+             <size>
+              <width>250</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>127</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>排废电磁铁</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QPushButton" name="pb_cmdCapGet">
+            <property name="minimumSize">
+             <size>
+              <width>250</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>127</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>取料电磁铁</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="pb_cmdCapGetValve">
+            <property name="minimumSize">
+             <size>
+              <width>250</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>127</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>取料电磁阀</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QPushButton" name="pb_cmdStopSignal">
+            <property name="minimumSize">
+             <size>
+              <width>250</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>127</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>停机信号</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QPushButton" name="pb_cmdChannelSwith">
+            <property name="minimumSize">
+             <size>
+              <width>250</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>127</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>胶囊通道切换</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QPushButton" name="pb_cmdCapBackValve">
+            <property name="minimumSize">
+             <size>
+              <width>250</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>127</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>回料电磁阀</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QPushButton" name="pb_cmdYellowAlarmout">
+            <property name="minimumSize">
+             <size>
+              <width>250</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>127</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>黄灯报警</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QPushButton" name="pb_cmdAlarmSignal">
+            <property name="minimumSize">
+             <size>
+              <width>250</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>127</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>报警输出</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QPushButton" name="pb_cmdAlarmOut">
+            <property name="minimumSize">
+             <size>
+              <width>250</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>127</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>报警蜂鸣器</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="QPushButton" name="pb_cmdCapGet">
-         <property name="minimumSize">
+       <item>
+        <spacer name="verticalSpacer_9">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
           <size>
-           <width>250</width>
-           <height>44</height>
+           <width>20</width>
+           <height>40</height>
           </size>
          </property>
-         <property name="maximumSize">
-          <size>
-           <width>127</width>
-           <height>44</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>取料电磁铁</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QPushButton" name="pb_cmdReject">
-         <property name="minimumSize">
-          <size>
-           <width>250</width>
-           <height>44</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>127</width>
-           <height>44</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>排废电磁铁</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QPushButton" name="pb_cmdAlarmSignal">
-         <property name="minimumSize">
-          <size>
-           <width>250</width>
-           <height>44</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>127</width>
-           <height>44</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>报警输出</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QPushButton" name="pb_cmdCapGetValve">
-         <property name="minimumSize">
-          <size>
-           <width>250</width>
-           <height>44</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>127</width>
-           <height>44</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>取料电磁阀</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QPushButton" name="pb_cmdStopSignal">
-         <property name="minimumSize">
-          <size>
-           <width>250</width>
-           <height>44</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>127</width>
-           <height>44</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>停机信号</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QPushButton" name="pb_cmdAlarmOut">
-         <property name="minimumSize">
-          <size>
-           <width>250</width>
-           <height>44</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>127</width>
-           <height>44</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>报警蜂鸣器</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QPushButton" name="pb_cmdCapBackValve">
-         <property name="minimumSize">
-          <size>
-           <width>250</width>
-           <height>44</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>127</width>
-           <height>44</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>回料电磁阀</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QPushButton" name="pb_cmdYellowAlarmout">
-         <property name="minimumSize">
-          <size>
-           <width>250</width>
-           <height>44</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>127</width>
-           <height>44</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>黄灯报警</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QPushButton" name="pb_cmdChannelSwith">
-         <property name="minimumSize">
-          <size>
-           <width>250</width>
-           <height>44</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>127</width>
-           <height>44</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>胶囊通道切换</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
+        </spacer>
        </item>
       </layout>
      </widget>
@@ -587,6 +654,9 @@
         <widget class="QGroupBox" name="groupBox_5">
          <property name="title">
           <string>秤</string>
+         </property>
+         <property name="flat">
+          <bool>false</bool>
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
           <item row="0" column="2" colspan="2">
@@ -783,7 +853,10 @@
         <enum>QFrame::Box</enum>
        </property>
        <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
+        <enum>QFrame::Sunken</enum>
+       </property>
+       <property name="lineWidth">
+        <number>2</number>
        </property>
        <layout class="QGridLayout" name="gridLayout_5">
         <item row="0" column="0">
@@ -1396,12 +1469,9 @@
     <attribute name="title">
      <string>运行状态</string>
     </attribute>
-    <layout class="QVBoxLayout" name="verticalLayout_3">
+    <layout class="QVBoxLayout" name="verticalLayout_4">
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_6"/>
-     </item>
-     <item>
-      <spacer name="verticalSpacer_8">
+      <spacer name="verticalSpacer_6">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
@@ -1419,6 +1489,12 @@
         <widget class="QGroupBox" name="groupBox_4">
          <property name="title">
           <string>下料电机</string>
+         </property>
+         <property name="flat">
+          <bool>false</bool>
+         </property>
+         <property name="checkable">
+          <bool>false</bool>
          </property>
          <layout class="QGridLayout" name="gridLayout_3">
           <item row="0" column="0">
@@ -1605,7 +1681,7 @@
       </layout>
      </item>
      <item>
-      <spacer name="verticalSpacer_6">
+      <spacer name="verticalSpacer_8">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
@@ -1618,163 +1694,178 @@
       </spacer>
      </item>
      <item>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="3">
-        <widget class="QLineEdit" name="lE_AlarmStatus">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>150</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>300</width>
-           <height>16777215</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QLabel" name="label_33">
-         <property name="text">
-          <string>测量实际间隔时间</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="3">
-        <widget class="QLineEdit" name="lE_AlarmStatus_4">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>150</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>300</width>
-           <height>16777215</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLabel" name="label_29">
-         <property name="text">
-          <string>系统运行状态机步骤</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <spacer name="horizontalSpacer_5">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="3" column="3">
-        <widget class="QLineEdit" name="lE_Alarm16_6">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>150</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>300</width>
-           <height>16777215</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <spacer name="horizontalSpacer_3">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLabel" name="label_20">
-         <property name="text">
-          <string>报警状态</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="3">
-        <widget class="QLineEdit" name="lE_Alarm16">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>150</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>300</width>
-           <height>16777215</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>报警位</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="4">
-        <spacer name="horizontalSpacer_6">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
+      <widget class="QFrame" name="frame_2">
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Sunken</enum>
+       </property>
+       <property name="lineWidth">
+        <number>2</number>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="1" column="1">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>报警位</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="3">
+           <widget class="QLineEdit" name="lE_AlarmStatus_4">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>150</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>300</width>
+              <height>16777215</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="4">
+           <spacer name="horizontalSpacer_6">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="1" column="0">
+           <spacer name="horizontalSpacer_5">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="1" column="2">
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="1" column="3">
+           <widget class="QLineEdit" name="lE_Alarm16">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>150</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>300</width>
+              <height>16777215</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QLineEdit" name="lE_AlarmStatus">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>150</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>300</width>
+              <height>16777215</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLabel" name="label_33">
+            <property name="text">
+             <string>测量实际间隔时间</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLabel" name="label_29">
+            <property name="text">
+             <string>系统运行状态机步骤</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="3">
+           <widget class="QLineEdit" name="lE_Alarm16_6">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>150</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>300</width>
+              <height>16777215</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLabel" name="label_20">
+            <property name="text">
+             <string>报警状态</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
      </item>
      <item>
       <spacer name="verticalSpacer_7">
@@ -1788,9 +1879,6 @@
         </size>
        </property>
       </spacer>
-     </item>
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout_4"/>
      </item>
     </layout>
    </widget>
@@ -1851,10 +1939,13 @@
     </font>
    </property>
    <property name="frameShape">
-    <enum>QFrame::StyledPanel</enum>
+    <enum>QFrame::Box</enum>
    </property>
    <property name="frameShadow">
     <enum>QFrame::Sunken</enum>
+   </property>
+   <property name="lineWidth">
+    <number>2</number>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_5">
     <item>
@@ -1906,7 +1997,7 @@
          </font>
         </property>
         <property name="text">
-         <string>设 置</string>
+         <string>设  置</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -1957,7 +2048,7 @@
          </font>
         </property>
         <property name="text">
-         <string>计数器清零</string>
+         <string>计数清零</string>
         </property>
        </widget>
       </item>
@@ -1973,26 +2064,34 @@
       </property>
       <property name="minimumSize">
        <size>
-        <width>170</width>
+        <width>250</width>
         <height>80</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>170</width>
+        <width>250</width>
         <height>16777215</height>
        </size>
       </property>
       <property name="font">
        <font>
-        <pointsize>36</pointsize>
+        <family>迷你简菱心</family>
+        <pointsize>60</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
        </font>
       </property>
       <property name="layoutDirection">
        <enum>Qt::RightToLeft</enum>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(200, 200, 100);
+font: 60pt &quot;迷你简菱心&quot;;</string>
+      </property>
       <property name="text">
-       <string>启 动</string>
+       <string>启动</string>
       </property>
       <property name="checkable">
        <bool>true</bool>
@@ -2007,29 +2106,32 @@
      <x>880</x>
      <y>0</y>
      <width>847</width>
-     <height>531</height>
+     <height>528</height>
     </rect>
    </property>
    <property name="minimumSize">
     <size>
      <width>847</width>
-     <height>531</height>
+     <height>528</height>
     </size>
    </property>
    <property name="maximumSize">
     <size>
      <width>847</width>
-     <height>531</height>
+     <height>528</height>
     </size>
    </property>
    <property name="autoFillBackground">
     <bool>true</bool>
    </property>
    <property name="frameShape">
-    <enum>QFrame::StyledPanel</enum>
+    <enum>QFrame::Box</enum>
    </property>
    <property name="frameShadow">
-    <enum>QFrame::Plain</enum>
+    <enum>QFrame::Sunken</enum>
+   </property>
+   <property name="lineWidth">
+    <number>2</number>
    </property>
    <layout class="QGridLayout" name="gridLayout_13">
     <item row="6" column="1">

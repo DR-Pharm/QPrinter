@@ -18,9 +18,10 @@ signals:
 public:
 	QtPLCDialogClass(QDialog *parent = Q_NULLPTR);
 	~QtPLCDialogClass();
-	void initContinueKick();//连剔4个widgets
+	void initFont();
 	int showMsgBox(QMessageBox::Icon icon, const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str);//全是中文
 	void SetSocket(QtSocket_Class*);
+	void setStyleCommand(QPushButton*,QString,QFont,QString);
 private:
 	void* ui;
 	bool m_currentSituationOfCyclinder = true;
@@ -37,6 +38,10 @@ private:
 
 	QLabel *lb_01=nullptr;
 	QLabel *lb_11=nullptr;
+
+	QFont setupFont;
+	QFont startFont;
+
 public slots:
 	//void savePLCParaInPLCTxt(int);//将combobox修改的phototimes写入txt
 	void on_pb_cmdParaSave_clicked();//保存PLC参数到本机plc.txt
@@ -48,6 +53,7 @@ public slots:
 	void on_pB_SetUp_toggled(bool checked);
 
 	void on_pB_cmdStart_toggled(bool checked);
+
 
 };
 

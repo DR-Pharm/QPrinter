@@ -24,6 +24,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	((Ui::QtPLCDialogClass*)ui)->setupUi(this);
 	((Ui::QtPLCDialogClass*)ui)->frame->move(0, 0);
 
+	initFont();
 
 	//connect(((Ui::QtPLCDialogClass*)ui)->pB_enPhoto, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//拍照使能
 	//connect(((Ui::QtPLCDialogClass*)ui)->pB_enReject, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//剔废使能  报文是4
@@ -35,15 +36,16 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	//指示灯部分
 
 	((Ui::QtPLCDialogClass*)ui)->lb_00->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));	
-	QLabel *lb_01 = new QLabel(((Ui::QtPLCDialogClass*)ui)->tabWidget_PLC->widget(0));
+	lb_01 = new QLabel(((Ui::QtPLCDialogClass*)ui)->tabWidget->widget(0));
 	lb_01->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
-	lb_01->move(((Ui::QtPLCDialogClass*)ui)->lb_00->pos());
-	((Ui::QtPLCDialogClass*)ui)->lb_00->raise();
+	lb_01->move(321+9, 37+38);
+	lb_01->setVisible(false);
+
 	((Ui::QtPLCDialogClass*)ui)->lb_10->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
-	QLabel *lb_11 = new QLabel(((Ui::QtPLCDialogClass*)ui)->tabWidget_PLC->widget(0));
+	lb_11 = new QLabel(((Ui::QtPLCDialogClass*)ui)->tabWidget->widget(0));
 	lb_11->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
-	lb_11->move(((Ui::QtPLCDialogClass*)ui)->lb_10->pos());
-	((Ui::QtPLCDialogClass*)ui)->lb_10->raise();
+	lb_11->move(670 + 9, 37 + 38);
+	lb_11->setVisible(false);
 	//指示灯部分
 
 	//model部分的信号与槽↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
@@ -82,21 +84,28 @@ QtPLCDialogClass::~QtPLCDialogClass()
 	}
 }
 
+void QtPLCDialogClass::initFont()
+{
+	setupFont.setFamily(QString::fromLocal8Bit("迷你简菱心"));
+	setupFont.setPointSize(36);
+	startFont.setFamily(QString::fromLocal8Bit("迷你简菱心"));
+	startFont.setPointSize(60); 
+}
+
 void QtPLCDialogClass::on_pB_SetUp_toggled(bool checked)//设置
 {
-	QFont startFont(QString::fromLocal8Bit("迷你简菱心"), 36);
 	if (checked)
 	{
 		((Ui::QtPLCDialogClass*)ui)->frame->setVisible(false);
-		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setStyleSheet("background: rgb(0,255,0)");
-		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setFont(startFont);
+		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_SetUp, "background: rgb(0,255,0)", setupFont, "");
+		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart, "", startFont, QString::fromLocal8Bit("启动"));
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(false);
 	}	
 	else
 	{
 		((Ui::QtPLCDialogClass*)ui)->frame->setVisible(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setStyleSheet("");
-		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setFont(startFont);
+		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_SetUp, "", setupFont, "");
+		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart, "background: rgb(200,200,100)", startFont, QString::fromLocal8Bit("启动"));
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(true);
 	}
 }
@@ -104,26 +113,30 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 {
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
-	QFont startFont(QString::fromLocal8Bit("迷你简菱心"), 36);
 	if (checked)
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setStyleSheet("background: rgb(0,255,0)");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setFont(startFont);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setText(QString::fromLocal8Bit("停 止"));
+		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart, "background: rgb(0,255,0)",startFont,QString::fromLocal8Bit("停止"));
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(false);
 		typ.Machine_Cmd.cmdStart = 1;
 	}
 	else
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setStyleSheet("");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setFont(startFont);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setText(QString::fromLocal8Bit("启 动"));
+		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart,"background: rgb(200,200,100)",startFont,QString::fromLocal8Bit("启动"));
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(true);
 		typ.Machine_Cmd.cmdStop = 1;
 	}
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
 
+void QtPLCDialogClass::setStyleCommand(QPushButton*btn, QString bg, QFont ft, QString tt)
+{
+	btn->setStyleSheet(bg);
+	btn->setFont(ft);
+	if (tt!="")
+	{
+		btn->setText(tt);
+	}
+}
 void QtPLCDialogClass::on_pb_cmdParaSave_clicked()//加一个按钮保存
 {
 	DataFromPC_typ typ;
@@ -515,9 +528,10 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	}
 
 	//输入点
-	((Ui::QtPLCDialogClass*)ui)->lb_00->setVisible(m_data->Inputs.FeedTrigger ? true : false);
+	lb_01->setVisible(m_data->Inputs.FeedTrigger ? true : false);
+	((Ui::QtPLCDialogClass*)ui)->lb_00->setVisible(m_data->Inputs.FeedTrigger ? false : true);
+	lb_11->setVisible(m_data->Inputs.SwingTrigger ? true : false);
 	((Ui::QtPLCDialogClass*)ui)->lb_10->setVisible(m_data->Inputs.SwingTrigger ? false : true);
-
 	//输出点
 	//((Ui::QtPLCDialogClass*)ui)->lE_Inveter->setText(m_data->Outputs.Inveter ? "1" : "0");	
 	if (m_data->Outputs.Reject)
@@ -770,4 +784,6 @@ void QtPLCDialogClass::SetSocket(QtSocket_Class *sc)
 
 	//	m_socket->set_message_handler(&message_handler, this);//全局
 }
+
+
 
