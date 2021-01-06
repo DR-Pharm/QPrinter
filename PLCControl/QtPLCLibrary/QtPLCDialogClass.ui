@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1146</width>
-    <height>829</height>
+    <width>1740</width>
+    <height>855</height>
    </rect>
   </property>
   <property name="font">
@@ -186,7 +186,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -777,7 +777,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab_7">
       <attribute name="title">
@@ -1911,6 +1911,242 @@
        <string>清空胶囊</string>
       </property>
      </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="QPushButton" name="pB_SetUp">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>80</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>设置</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QFrame" name="frame">
+   <property name="geometry">
+    <rect>
+     <x>880</x>
+     <y>0</y>
+     <width>847</width>
+     <height>531</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>847</width>
+     <height>531</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>847</width>
+     <height>531</height>
+    </size>
+   </property>
+   <property name="autoFillBackground">
+    <bool>true</bool>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Plain</enum>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_13">
+    <item row="6" column="1">
+     <widget class="QLineEdit" name="lineEdit_14"/>
+    </item>
+    <item row="7" column="0">
+     <widget class="QLabel" name="label_54">
+      <property name="text">
+       <string>超轻重量(g)</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="3">
+     <widget class="QLabel" name="label_50">
+      <property name="text">
+       <string>检测间隔(s)</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="QLabel" name="label_12">
+      <property name="text">
+       <string>内控下限</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_17">
+      <property name="text">
+       <string>剔废计数</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_10">
+      <property name="text">
+       <string>通过计数</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="3">
+     <widget class="QLabel" name="label_79">
+      <property name="text">
+       <string>当前组号</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_39">
+      <property name="text">
+       <string>称重计数</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="3">
+     <widget class="QLabel" name="label_13">
+      <property name="text">
+       <string>内控上限</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="4">
+     <widget class="QComboBox" name="comboBox_2">
+      <item>
+       <property name="text">
+        <string>每组去皮</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>每次去皮</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QLineEdit" name="lineEdit_11"/>
+    </item>
+    <item row="6" column="4">
+     <widget class="QLineEdit" name="lineEdit_19"/>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="lineEdit_4"/>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="lineEdit_12"/>
+    </item>
+    <item row="1" column="4">
+     <widget class="QLineEdit" name="lineEdit_2"/>
+    </item>
+    <item row="2" column="4">
+     <widget class="QLineEdit" name="lineEdit_13"/>
+    </item>
+    <item row="4" column="1">
+     <widget class="QLineEdit" name="lineEdit_10"/>
+    </item>
+    <item row="2" column="3">
+     <widget class="QLabel" name="label_14">
+      <property name="text">
+       <string>期望重量(g)</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="4">
+     <widget class="QLineEdit" name="lineEdit_15"/>
+    </item>
+    <item row="6" column="3">
+     <widget class="QLabel" name="label_78">
+      <property name="text">
+       <string>批号</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_49">
+      <property name="text">
+       <string>过重计数</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_9">
+      <property name="text">
+       <string>系统速度(rpm)</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="4">
+     <widget class="QLineEdit" name="lineEdit_3"/>
+    </item>
+    <item row="7" column="4">
+     <widget class="QLineEdit" name="lineEdit_33"/>
+    </item>
+    <item row="5" column="4">
+     <widget class="QLineEdit" name="lineEdit_17"/>
+    </item>
+    <item row="6" column="0">
+     <widget class="QLabel" name="label_53">
+      <property name="text">
+       <string>超重重量(g)</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="3">
+     <widget class="QLabel" name="label_52">
+      <property name="text">
+       <string>每组检测数</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="1">
+     <widget class="QLineEdit" name="lineEdit_18"/>
+    </item>
+    <item row="3" column="3">
+     <widget class="QLabel" name="label_51">
+      <property name="text">
+       <string>去皮模式</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="lineEdit"/>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="lineEdit_9"/>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="label_48">
+      <property name="text">
+       <string>过轻计数</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="2">
+     <spacer name="horizontalSpacer_4">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
     </item>
    </layout>
   </widget>

@@ -22,34 +22,8 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 {
 	ui = new Ui::QtPLCDialogClass();
 	((Ui::QtPLCDialogClass*)ui)->setupUi(this);
+	((Ui::QtPLCDialogClass*)ui)->frame->move(0, 0);
 
-
-
-	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdHome, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));
-	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdStart, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));
-	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdStop, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));
-	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdEStop, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));
-///	connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdJog, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));
-	//	connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdErrorAck, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//报警复位, 1:复位
-	//	connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdResetCounter, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//复位计数变量, 1:复位
-		//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdParaSave, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//参数保存命令, 1:保存
-		//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdParaLoad, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//参数读取命令, 1:读取
-	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash0, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));			//手动闪光, 1:闪光,自动复位
-	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash1, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));
-	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlash2, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));
-
-	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveUp, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//手动升降气缸, 1:Push, 2:Back
-	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveClip, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//手动夹紧气缸, 1:Push, 2:Back
-	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestValveDrop, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//手动落囊气缸, 1:Push, 2:Back
-	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestInverter, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//手动胶囊料斗启动, 1:Start, 2:Stop
-	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampRead, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//手动红灯输出, 1:输出 , 2: 复位
-	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampYellow, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//手动黄灯输出, 1:输出 , 2: 复位
-	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestLampGreen, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//手动绿灯输出, 1:输出 , 2: 复位
-	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestBuzzer, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//手动蜂鸣器输出, 1:输出 , 2: 复位
-	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestPhoto, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//手动拍照, 1:输出 , 2: 复位
-	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestFlashPhoto, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//手动闪光加拍照, 1:启动
-	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdTestCapPhoto, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//手动胶囊拍照
-	//connect(((Ui::QtPLCDialogClass*)ui)->pb_cmdRotateCtl, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//手动转囊启停  报文是1
 
 	connect(((Ui::QtPLCDialogClass*)ui)->pB_enPhoto, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//拍照使能
 	connect(((Ui::QtPLCDialogClass*)ui)->pB_enReject, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//剔废使能  报文是4
@@ -108,7 +82,22 @@ QtPLCDialogClass::~QtPLCDialogClass()
 	}
 }
 
-
+void QtPLCDialogClass::on_pB_SetUp_toggled(bool checked)
+{
+	QFont startFont(QString::fromLocal8Bit("迷你简菱心"), 24);
+	if (checked)
+	{
+		((Ui::QtPLCDialogClass*)ui)->frame->setVisible(false);
+		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setStyleSheet("background: rgb(0,255,0)");
+		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setFont(startFont);
+	}	
+	else
+	{
+		((Ui::QtPLCDialogClass*)ui)->frame->setVisible(true);
+		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setStyleSheet("");
+		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setFont(startFont);
+	}
+}
 
 
 

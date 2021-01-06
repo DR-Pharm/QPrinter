@@ -51,10 +51,13 @@ public slots:
 	void onSendPLCCommand(bool);
 	DataFromPC_typ getPCData();//PC数值发送给PLC
 	void getPLCData(void*, int, int, int, int);
+	void on_pB_SetUp_toggled(bool checked);
 public:
 	//MESSAGE_HANDLER ShowFunc(void* context, DataToPC_typ);
 	void connectBtnGroup();
 	void setm_iCameraTotal(int index);
+
+
 };
 
 #pragma once
