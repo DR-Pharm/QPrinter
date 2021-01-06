@@ -19,14 +19,17 @@ PRT::PRT(QWidget *parent)
 }
 PRT::~PRT()
 {
-	if (!m_bFlagWriteDongleFinally)//如果过程中狗有错误就不写入了，否则最后写一次时间
+	if (m_dong!=nullptr)
 	{
-		m_dong->setTimeData();
+		if (!m_bFlagWriteDongleFinally)//如果过程中狗有错误就不写入了，否则最后写一次时间
+		{
+			m_dong->setTimeData();
+		}
+		delete m_dong;
+		m_dong = nullptr;
+		delete lst;
+		lst = nullptr;
 	}
-	delete m_dong;
-	m_dong = nullptr;
-	delete lst;
-	lst = nullptr;
 }
 void PRT::initPLC()
 {
@@ -110,6 +113,7 @@ void PRT::closes(int index)
 }
 void PRT::initDog()
 {
+	return;
 	m_dong = new Dongle();
 	connect(m_dong->get_m_RockeyARM(), SIGNAL(DONGLEERRORCODE(int)), this, SLOT(closes(int)));
 
