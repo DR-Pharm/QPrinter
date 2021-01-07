@@ -56,7 +56,8 @@ typedef struct
 
 //output
 typedef	struct
-{	
+{
+	short		Analogoutput;			//模拟量输出 ///// 这个没用
 	bool		Reject;					//排废电磁铁
 	bool		ChannelSwith;			//胶囊通道切换
 	bool		Vaccum;					//真空发生器
@@ -68,9 +69,8 @@ typedef	struct
 	bool		AlarmSignal;			//报警输出
 	bool        YellowAlarmout;			//黄灯报警
 	bool		Baffle;					//挡板
-	short		Analogoutput;			//模拟量输出 ///// 下面这三个没用
-	bool		Photo;					//拍照
-	bool		Flash;					//闪光	
+	bool		Photo;					//拍照   ///// 这个没用
+	bool		Flash;					//闪光	///// 这个没用
 }Output_typ;
 
 
@@ -123,8 +123,6 @@ typedef struct
 	float			UserAnalogoutput;		//用户模拟量输入
 	float			Adjustvalue;			//自动调整系数
 	unsigned int	DeltaInput;				//装量调整偏差值
-	int				usertime;				//用户定义打印时间间隔(分钟)
-	float			Rsd;					//相对标准偏差值
 	int				cmdAutoPrint;			//自动打印，1:自动，0：手动
 
 	int				Reserve[16];			//预留空间
@@ -148,9 +146,6 @@ typedef struct
 	//Group Data
 	Displaytyp			CapDataDisp;			//组数据
 
-	//ActData
-	Comm_Run_Para_typ	ActData;				//当前运行参数
-
 	//AxisStatus
 	int				AxisFeedStep;			//下料电机状态机步骤
 	int				AxisFeedErrorNo;		//下料电机错误代码
@@ -166,6 +161,11 @@ typedef struct
 
 	int				AlarmStatus;			//0:无报警，1：一般报警，2：严重报警
 	unsigned char	Alarm[16];				//报警位0-99，每一位对应一个报警,Alarm[0].0 ---- Alarm[13].3
+
+
+	int				usertime;				//用户定义打印时间间隔(分钟)
+	float			Rsd;					//相对标准偏差值
+
 	int				Reserve[31];			//预留空间
 }Comm_Status_typ;
 
@@ -250,8 +250,8 @@ typedef struct DataToPC_typ
 		if (Telegram_typ!= data.Telegram_typ)return false;
 		if (Status.AlarmStatus != data.Status.AlarmStatus)return false;
 		if (ActData.CheckCount != data.ActData.CheckCount)return false;
-		if (ActData.RunSpeed != data.ActData.RunSpeed)return false;
-		return true;*/
+		if (ActData.RunSpeed != data.ActData.RunSpeed)return false;*/
+		return true;
 	}
 }DataToPC_typ;
 
