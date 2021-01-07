@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
+#include <QDebug>
 #include <QPrinter>
 #include <QPrinterInfo>
 #include <QPainter>
@@ -12,11 +13,13 @@
 #include <QMessageBox>
 #include <QMouseEvent>
 #include <QDir>
+#include <QMovie>
 #include <QFileInfoList>
 #include "ui_PRT.h"
-
+#include "DrawPicture.h"
 #include "WindowOut.h"
 #include "Dongle.h"
+#include "QWaiting.h"
 #pragma comment(lib,"Dongle.lib")
 
 #include "QtPLCControl.h"
@@ -26,46 +29,39 @@ class PRT : public QMainWindow
 {
     Q_OBJECT
 signals:
-	void STARTCONNECTPLC();
+	void STARTCONNECTPLC(); 
 protected:
 	void mousePressEvent(QMouseEvent *event);
 	void mouseMoveEvent(QMouseEvent *event);
 public:
-	PRT(QWidget *parent = Q_NULLPTR); 
+	PRT(QWidget *parent = Q_NULLPTR);
+
+	void initMovie();
+
 	~PRT();
 	void initPLC();
 	void initDog();
-	void initPrinter();
 	void initData();
 	void initUI();
 	int showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str);
 	int showMsgBox2(const char * titleStr, const char * contentStr, const char * button1Str, const char * button2Str);
-	void createPixCurve(QPixmap *);
-	void createPixAverage(QPixmap *);
-	void caculateData(QVector<QVector<float>> transData, int ivalue, int half); //0 1 2
 	void writeIni();
 	bool caculateCount();
 	void showWindowOut(QString str);
+	void initPrinter();	
+	bool eventFilter(QObject*, QEvent*);
+
 private:
-	QPoint m_offset;
+	bool m_bAltKeyPressed = false;
+	QWaiting *wt;
 	WindowOut *levelOut;//show默认为非模态modal，如果是局部变量会闪现消失
 
-	int pixWidth = 2100;
-	int pixHeight = 2970;
-    Ui::PRTClass ui; 
-	QString m_sName; 
-	QPrinter *m_prt = nullptr; 
-	QPainter *painter = nullptr;
+	Ui::PRTClass ui;
+
+	QPoint m_offset;
 	//QList<double> data_One[2];	
 	QVector<QVector<float>>data;
-	QVector<float> data_One[2];
-	double m_dmax[2];
-	double m_dmin[2];
-	double m_dsum[2];
-	double m_dave[2];
-	double m_dtheory[2];
-	double m_dminoff[2];
-	double m_dmaxoff[2];
+
 
 	QString AppPath;
 	int m_iDataNum;//数据存储数量0135...1#     2468...2#
@@ -74,10 +70,9 @@ private:
 
 	int num1_Le;
 	int num2_Le_2; 
-	int totalMachineCount;
 
-	QPainter painterPixmap;
-
+	DrawPicture *m_drawpicture = nullptr;
+	QThread *m_drawThread = nullptr;
 	//dog
 	Dongle *m_dong = nullptr;
 	QStringList *lst = nullptr;
@@ -87,13 +82,16 @@ private:
 	QThread *lib_PLCThread = nullptr;
 	QDialog *dlg = nullptr;
 
+	QString m_sName;
+	QPrinter *m_prt = nullptr;
 public slots:
 	void on_pB_Print_clicked();
 	void on_pB_PrintDirect_clicked();
-	void drawPic(QPrinter * pt);
 	void on_checkBox_toggled(bool checked);
 	void on_checkBox_2_toggled(bool checked);
 	void on_cB_Curve_toggled(bool checked);
 	void on_cB_Average_toggled(bool checked);
 	void closes(int index);
+	void showPrintName(QString str);
+	void toDraw(QPrinter * p);
 };

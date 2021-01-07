@@ -51,11 +51,6 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	//model部分的信号与槽↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 	
 
-	QList<UserLE*> UserLEList = ((Ui::QtPLCDialogClass*)ui)->tabWidget_PLC->findChildren<UserLE*>();
-	for (int i = 0; i < UserLEList.size(); i++)
-	{
-		connect(UserLEList[i], SIGNAL(POPUPKEYBOARD()), this, SLOT(MoveOut()));
-	}
 
 	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
 	g_ipAddress = configIniRead.value("ProgramSetting/IpAddress", "10.86.50.210").toString();
