@@ -352,8 +352,10 @@ void PRT::on_pB_PrintDirect_clicked()
 	writeIni();
 
 	if (!caculateCount())return;
-
-	drawPic(m_prt);
+	if (QMessageBox::Yes ==showMsgBox2("打印确认", "确认打印报告?", "确认", "取消"))
+	{
+		drawPic(m_prt);
+	}
 
 }
 void PRT::on_pB_Print_clicked()

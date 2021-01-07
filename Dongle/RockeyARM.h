@@ -7,7 +7,11 @@
 #include <malloc.h>
 
 #include "../../Lib/Dongle_API.h"
-#pragma comment(lib, "../../LIB/Dongle_s.lib")
+#ifdef _WIN64 
+#pragma comment(lib, "../../LIB/x64/Dongle_s.lib")
+#else
+#pragma comment(lib, "../../LIB/x86/Dongle_s.lib")
+#endif
 
 #include "Debug/uic/ui_RockeyARM.h"
 
