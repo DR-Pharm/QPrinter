@@ -131,7 +131,6 @@ void PRT::closes(int index)
 }
 void PRT::initDog()
 {
-	return;
 	m_dong = new Dongle();
 	connect(m_dong->get_m_RockeyARM(), SIGNAL(DONGLEERRORCODE(int)), this, SLOT(closes(int)));
 
@@ -185,7 +184,7 @@ void PRT::initUI()
 }
 int PRT::showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str)
 {
-	if (button2Str=="")
+	if (QString::fromLocal8Bit(button2Str) =="")
 	{
 		QMessageBox msg(QMessageBox::Information, QString::fromLocal8Bit(titleStr), QString::fromLocal8Bit(contentStr), QMessageBox::Yes);		
 		msg.setButtonText(QMessageBox::Yes, QString::fromLocal8Bit(button1Str));
