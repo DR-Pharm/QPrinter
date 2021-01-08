@@ -43,7 +43,6 @@ public:
 	void initData();
 	void initUI();
 	int showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str);
-	int showMsgBox2(const char * titleStr, const char * contentStr, const char * button1Str, const char * button2Str);
 	void writeIni();
 	bool caculateCount();
 	void showWindowOut(QString str);

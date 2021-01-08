@@ -70,7 +70,7 @@ void PRT::closes(int index)
 {
 	if (index == 0)
 	{
-		showMsgBox("提示", "未找到加密狗!", "我知道了", "取消");
+		showMsgBox("提示", "未找到加密狗!", "我知道了", "");
 		//QMessageBox::about(nullptr, "0", "can not FIND dongle!");
 		m_bFlagWriteDongleFinally = true;
 		m_bCloseSignal = true;
@@ -78,7 +78,7 @@ void PRT::closes(int index)
 	}
 	else if (index == 1)
 	{
-		showMsgBox("提示", "加密狗打开失败!", "我知道了", "取消");
+		showMsgBox("提示", "加密狗打开失败!", "我知道了", "");
 		//QMessageBox::about(nullptr, "1", "can not OPEN dongle!");
 		m_bFlagWriteDongleFinally = true;
 		m_bCloseSignal = true;
@@ -86,7 +86,7 @@ void PRT::closes(int index)
 	}
 	else if (index == 2)
 	{
-		showMsgBox("提示", "加密狗验证失败!", "我知道了", "取消");
+		showMsgBox("提示", "加密狗验证失败!", "我知道了", "");
 		//QMessageBox::about(nullptr, "2", "can not VERIFY dongle!");
 		m_bFlagWriteDongleFinally = true;
 		m_bCloseSignal = true;
@@ -94,7 +94,7 @@ void PRT::closes(int index)
 	}
 	else if (index == 3)
 	{
-		showMsgBox("提示", "加密狗读取失败!", "我知道了", "取消");
+		showMsgBox("提示", "加密狗读取失败!", "我知道了", "");
 		//QMessageBox::about(nullptr, "3", "can not READ dongle!");
 		m_bFlagWriteDongleFinally = true;
 		m_bCloseSignal = true;
@@ -102,7 +102,7 @@ void PRT::closes(int index)
 	}
 	else if (index == 4)
 	{
-		showMsgBox("提示", "加密狗写入失败!", "我知道了", "取消");
+		showMsgBox("提示", "加密狗写入失败!", "我知道了", "");
 		//QMessageBox::about(nullptr, "4", "can not WRITE dongle!");
 		m_bFlagWriteDongleFinally = true;
 		m_bCloseSignal = true;
@@ -110,7 +110,7 @@ void PRT::closes(int index)
 	}
 	else if (index == 10)
 	{
-		showMsgBox("提示", "系统时间被非法修改!", "我知道了", "取消");
+		showMsgBox("提示", "系统时间被非法修改!", "我知道了", "");
 		//QMessageBox::about(nullptr, "10", "system time be changed ILLEGALLY!");
 		m_bFlagWriteDongleFinally = true;
 		m_bCloseSignal = true;
@@ -118,7 +118,7 @@ void PRT::closes(int index)
 	}
 	else if (index == 11)
 	{
-		showMsgBox("提示", "加密狗授权已过期!", "我知道了", "取消");
+		showMsgBox("提示", "加密狗授权已过期!", "我知道了", "");
 		//QMessageBox::about(nullptr, "11", "the dongle is RUN OUT!");
 		m_bFlagWriteDongleFinally = true;
 		m_bCloseSignal = true;
@@ -185,11 +185,22 @@ void PRT::initUI()
 }
 int PRT::showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str)
 {
-	QMessageBox msg(QMessageBox::Information, QString::fromLocal8Bit(titleStr), QString::fromLocal8Bit(contentStr), QMessageBox::Yes/* | QMessageBox::No*/);
-	msg.setButtonText(QMessageBox::Yes, QString::fromLocal8Bit(button1Str));
-	//msg.setButtonText(QMessageBox::No, QString::fromLocal8Bit(button2Str));
-	msg.setWindowIcon(QIcon("./ico/dr.ico"));
-	return msg.exec();
+	if (button2Str=="")
+	{
+		QMessageBox msg(QMessageBox::Information, QString::fromLocal8Bit(titleStr), QString::fromLocal8Bit(contentStr), QMessageBox::Yes);		
+		msg.setButtonText(QMessageBox::Yes, QString::fromLocal8Bit(button1Str));
+		msg.setWindowIcon(QIcon("./ico/dr.ico"));
+		return msg.exec();
+	}
+	else
+	{
+		QMessageBox msg(QMessageBox::Information, QString::fromLocal8Bit(titleStr), QString::fromLocal8Bit(contentStr), QMessageBox::Yes | QMessageBox::No);
+		msg.setButtonText(QMessageBox::No, QString::fromLocal8Bit(button2Str));
+		msg.setButtonText(QMessageBox::Yes, QString::fromLocal8Bit(button1Str));
+		msg.setWindowIcon(QIcon("./ico/dr.ico"));
+		return msg.exec();
+	}
+
 	//  QMessageBox::NoIcon
 	//	QMessageBox::Question
 	//	QMessageBox::Information
@@ -197,19 +208,6 @@ int PRT::showMsgBox(const char* titleStr, const char* contentStr, const char* bu
 	//	QMessageBox::Critical
 }
 
-int PRT::showMsgBox2(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str)
-{
-	QMessageBox msg(QMessageBox::Question, QString::fromLocal8Bit(titleStr), QString::fromLocal8Bit(contentStr), QMessageBox::Yes | QMessageBox::No);
-	msg.setButtonText(QMessageBox::Yes, QString::fromLocal8Bit(button1Str));
-	msg.setButtonText(QMessageBox::No, QString::fromLocal8Bit(button2Str));
-	msg.setWindowIcon(QIcon("./ico/dr.ico"));
-	return msg.exec();
-	//  QMessageBox::NoIcon
-	//	QMessageBox::Question
-	//	QMessageBox::Information
-	//	QMessageBox::Warning
-	//	QMessageBox::Critical
-}
 void PRT::on_cB_Curve_toggled(bool checked)
 {
 	m_drawpicture->setCurveChecked(checked);
@@ -314,12 +312,12 @@ bool PRT::caculateCount()
 	}
 	if (m_iDataNum == 0)
 	{
-		showMsgBox("提示", "无可打印数据!", "我知道了", "取消");
+		showMsgBox("提示", "无可打印数据!", "我知道了", "");
 		return false;
 	}
 	if (m_iPrintCurveCount == 0 && m_iPrintAveCount == 0)
 	{
-		showMsgBox("提示", "打印数设置均为0!", "我知道了", "取消");
+		showMsgBox("提示", "打印数设置均为0!", "我知道了", "");
 		return false;
 	}
 	return true;
@@ -330,7 +328,7 @@ void PRT::on_pB_PrintDirect_clicked()
 	writeIni();
 
 	if (!caculateCount())return;
-	if (QMessageBox::Yes ==showMsgBox2("打印确认", "确认打印报告?", "确认", "取消"))
+	if (QMessageBox::Yes ==showMsgBox("打印确认", "确认打印报告?", "确认", "取消"))
 	{
 		m_drawpicture->setData(data, m_iPrintCurveCount, m_iPrintAveCount);
 		wt->show();
@@ -412,7 +410,7 @@ void PRT::mouseMoveEvent(QMouseEvent * event)
 		}
 		if (temp.x() > 1250)
 		{
-			if (QMessageBox::Yes == showMsgBox2("退出确认", "是否确认退出该系统?", "确认", "取消"))
+			if (QMessageBox::Yes == showMsgBox("退出确认", "是否确认退出该系统?", "确认", "取消"))
 			{
 				m_bCloseSignal = true;
 				close();
