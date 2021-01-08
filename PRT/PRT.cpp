@@ -151,7 +151,6 @@ void PRT::initData()
 {
 	m_iDataNum = 50;
 	data.resize(m_iDataNum);
-	ui.label->setText(QString::fromLocal8Bit("最大可打印数：") + QString::number(m_iDataNum) + QString::fromLocal8Bit("\n1#站:") + QString::number(m_iDataNum - m_iDataNum / 2) + QString::fromLocal8Bit("\n2#站:") + QString::number(m_iDataNum / 2));
 
 	for (int i=0;i<50;i++)
 	{
@@ -181,6 +180,16 @@ void PRT::initUI()
 	ui.cB_Average->setChecked(ReadIni.value("ProgramSetting/PrintAve", "0").toBool());
 	ui.checkBox->setChecked(ReadIni.value("ProgramSetting/PrintCurveAllOrNot", "0").toBool());
 	ui.checkBox_2->setChecked(ReadIni.value("ProgramSetting/PrintAveAllOrNot", "0").toBool());
+	m_iPrintMode = ReadIni.value("ProgramSetting/PrintMode", "0").toInt();
+	ui.cB_PrintMode->setCurrentIndex(m_iPrintMode);
+	if (m_iPrintMode ==0)
+	{
+		ui.label->setText(QString::fromLocal8Bit("最大可打印数：") + QString::number(m_iDataNum) + QString::fromLocal8Bit("\n1#站: ") + QString::number(m_iDataNum - m_iDataNum / 2) + QString::fromLocal8Bit("\n2#站: ") + QString::number(m_iDataNum / 2));
+	}
+	else
+	{
+		ui.label->setText(QString::fromLocal8Bit("曲线图表:每1组数据打印\n均值图表:每6组数据打印"));
+	}
 }
 int PRT::showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str)
 {
@@ -373,6 +382,20 @@ void PRT::toDraw(QPrinter *p)
 	m_drawpicture->drawPic(p);
 	wt->close();
 	wt->setTxt(QString::fromLocal8Bit("打印正在进行,请稍等..."));
+}
+void PRT::on_cB_PrintMode_currentIndexChanged(int index)
+{
+	if (index==0)
+	{
+		ui.label->setText(QString::fromLocal8Bit("最大可打印数：") + QString::number(m_iDataNum) + QString::fromLocal8Bit("\n1#站: ") + QString::number(m_iDataNum - m_iDataNum / 2) + QString::fromLocal8Bit("\n2#站: ") + QString::number(m_iDataNum / 2));
+	}
+	else
+	{
+		ui.label->setText(QString::fromLocal8Bit("曲线图表:每1组数据打印\n均值图表:每6组数据打印"));
+	}
+	QSettings WriteIni(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+	WriteIni.setValue("ProgramSetting/PrintMode", QString::number(ui.cB_PrintMode->currentIndex()));
+	m_iPrintMode = index;
 }
 #pragma	region//close & minimum
 void PRT::mousePressEvent(QMouseEvent* p)

@@ -131,6 +131,39 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QLabel" name="label_4">
+            <property name="font">
+             <font>
+              <family>宋体</family>
+              <pointsize>20</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>打印模式:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="cB_PrintMode">
+            <item>
+             <property name="text">
+              <string>手动</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>自动</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
          <widget class="QLabel" name="label">
           <property name="font">
            <font>
@@ -169,7 +202,7 @@
            </font>
           </property>
           <property name="text">
-           <string>重量曲线</string>
+           <string>曲线图表</string>
           </property>
           <property name="checked">
            <bool>true</bool>
@@ -246,7 +279,7 @@
            </font>
           </property>
           <property name="text">
-           <string>平均重量</string>
+           <string>均值图表</string>
           </property>
           <property name="checked">
            <bool>true</bool>

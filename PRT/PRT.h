@@ -88,6 +88,7 @@ private:
 	QPrinter *m_prt = nullptr;
 
 	bool m_bCloseSignal = false;
+	int m_iPrintMode;
 public slots:
 	void on_pB_Print_clicked();
 	void on_pB_PrintDirect_clicked();
@@ -97,5 +98,6 @@ public slots:
 	void on_cB_Average_toggled(bool checked);
 	void closes(int index);
 	void showPrintName(QString str);
-	void toDraw(QPrinter * p);
+	void toDraw(QPrinter * p); 
+	void on_cB_PrintMode_currentIndexChanged(int index);
 };
