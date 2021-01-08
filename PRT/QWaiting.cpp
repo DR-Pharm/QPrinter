@@ -13,7 +13,7 @@ QWaiting::QWaiting(QWidget *parent)
 	ui.label->setStyleSheet("background-color: transparent;");
 	ui.label->setMovie(m_movie);
 	ui.label->setScaledContents(true);
-	m_movie->start(); 
+	m_movie->start();
 	installEventFilter(this);
 }
 

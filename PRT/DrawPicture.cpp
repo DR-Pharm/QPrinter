@@ -5,7 +5,6 @@ DrawPicture::DrawPicture(QObject *parent)
 {
 	painter = new QPainter();
 }
-
 DrawPicture::~DrawPicture()
 {
 }
@@ -113,7 +112,7 @@ void DrawPicture::drawPic(QPrinter *printer)
 			if (allornot == 1 || (allornot == 0 && pageValue >= firstPg && pageValue <= endPg))
 			{
 				QCoreApplication::processEvents();
-				painterPixmap.drawPixmap(0, 0, pix[pageValue]); 
+				painterPixmap.drawPixmap(0, 0, pix[pageValue]);
 				if (pageValue + 1 < pages)
 				{
 					if ((allornot == 0 && pageValue < endPg) || allornot == 1)
@@ -580,7 +579,6 @@ void DrawPicture::createPixAverage(QPixmap *pix)
 		painter->drawText(eightPoint + 25, edgeOffset + simpleFun, eightWidth, 60, Qt::AlignVCenter, QString::number(m_dave[1], 'f', 4) + "g");
 	}
 }
-
 
 void DrawPicture::caculateData(QVector<QVector<float>> transData, int ivalue, int half)//0 1 2
 {

@@ -19,21 +19,6 @@ PRT::PRT(QWidget *parent)
 	installEventFilter(this);
 
 }
-
-void PRT::initPrinter()
-{
-	m_drawpicture = new DrawPicture(nullptr);
-	connect(m_drawpicture, SIGNAL(TOUI(QString)), this, SLOT(showPrintName(QString)));
-	QPrinterInfo info;
-	QString ptName = info.defaultPrinterName(); // 默认打印机名字		
-	showPrintName(QString::fromLocal8Bit("默认设备型号：\n") + ptName);
-	m_prt = new QPrinter();
-	m_prt->setPrinterName(ptName);
-}
-void PRT::showPrintName(QString str)
-{
-	ui.lb_PrinterName->setText(str);
-}
 PRT::~PRT()
 {
 	if (m_dong!=nullptr)
@@ -48,6 +33,8 @@ PRT::~PRT()
 		lst = nullptr;
 	}
 }
+
+#pragma region PLC
 void PRT::initPLC()
 {
 	m_pPlclib = new QtPLCControl();//dll
@@ -65,7 +52,25 @@ void PRT::initPLC()
 	dlg->setParent(ui.widget);
 	dlg->move(0, 0);
 }
+#pragma endregion
 
+#pragma region dongle
+void PRT::initDog()
+{
+	m_dong = new Dongle();
+	connect(m_dong->get_m_RockeyARM(), SIGNAL(DONGLEERRORCODE(int)), this, SLOT(closes(int)));
+
+	if (m_dong->initDongle())
+	{
+		m_dong->threadRun();
+		lst = (QStringList *)(m_dong->CameraQstringListInDongle());
+
+	}
+	else
+	{
+		exit(-1);
+	}
+}
 void PRT::closes(int index)
 {
 	if (index == 0)
@@ -129,23 +134,9 @@ void PRT::closes(int index)
 		m_bFlagWriteDongleFinally = false;
 	}
 }
-void PRT::initDog()
-{
-	m_dong = new Dongle();
-	connect(m_dong->get_m_RockeyARM(), SIGNAL(DONGLEERRORCODE(int)), this, SLOT(closes(int)));
+#pragma endregion
 
-	if (m_dong->initDongle())
-	{
-		m_dong->threadRun();
-		lst = (QStringList *)(m_dong->CameraQstringListInDongle());
-
-	}
-	else
-	{
-		exit(-1);
-	}
-}
-
+#pragma region data caculate
 void PRT::initData()
 {
 	m_iDataNum = 50;
@@ -164,6 +155,54 @@ void PRT::initData()
 
 
 }
+bool PRT::caculateCount()
+{
+	if (ui.cB_Curve->isChecked())
+	{
+		if (ui.checkBox->isChecked())
+		{
+			m_iPrintCurveCount = m_iDataNum;
+		}
+		else
+		{
+			m_iPrintCurveCount = num1_Le <= m_iDataNum ? num1_Le : m_iDataNum;
+		}
+
+	}
+	else
+	{
+		m_iPrintCurveCount = 0;
+	}
+	if (ui.cB_Average->isChecked())
+	{
+		if (ui.checkBox_2->isChecked())
+		{
+			m_iPrintAveCount = m_iDataNum;
+		}
+		else
+		{
+			m_iPrintAveCount = num2_Le_2 <= m_iDataNum ? num2_Le_2 : m_iDataNum;
+		}
+	}
+	else
+	{
+		m_iPrintAveCount = 0;
+	}
+	if (m_iDataNum == 0)
+	{
+		showMsgBox("提示", "无可打印数据!", "我知道了", "");
+		return false;
+	}
+	if (m_iPrintCurveCount == 0 && m_iPrintAveCount == 0)
+	{
+		showMsgBox("提示", "打印数设置均为0!", "我知道了", "");
+		return false;
+	}
+	return true;
+}
+#pragma endregion
+
+#pragma region ui
 void PRT::initUI()
 {
 	ui.cB_Curve->setStyleSheet(STYLESHEET);
@@ -182,11 +221,134 @@ void PRT::initUI()
 	ui.cB_PrintMode->setCurrentIndex(m_iPrintMode);
 	judgeLabelText(m_iPrintMode);
 }
+void PRT::judgeLabelText(int index)
+{
+	if (index == 0)
+	{
+		ui.label->setText(QString::fromLocal8Bit("最大可打印数：") + QString::number(m_iDataNum) + QString::fromLocal8Bit("\n1#站: ") + QString::number(m_iDataNum - m_iDataNum / 2) + QString::fromLocal8Bit("\n2#站: ") + QString::number(m_iDataNum / 2));
+	}
+	else
+	{
+		ui.label->setText(QString::fromLocal8Bit("曲线图表:打印2组数据\n均值图表:打印12组数据"));
+	}
+
+}
+void PRT::writeIni()
+{
+	num1_Le = ui.lineEdit->text().toInt();
+	num2_Le_2 = ui.lineEdit_2->text().toInt();
+
+	ui.lineEdit->setText(QString::number(num1_Le));
+	ui.lineEdit_2->setText(QString::number(num2_Le_2));
+
+	RWini->setValue("ProgramSetting/PrintCurveCount", QString::number(num1_Le));
+	RWini->setValue("ProgramSetting/PrintAveCount", QString::number(num2_Le_2));
+}
+#pragma endregion
+
+#pragma region printer
+void PRT::initPrinter()
+{
+	m_drawpicture = new DrawPicture(nullptr);
+	connect(m_drawpicture, SIGNAL(TOUI(QString)), this, SLOT(showPrintName(QString)));
+	QPrinterInfo info;
+	QString ptName = info.defaultPrinterName(); // 默认打印机名字		
+	showPrintName(QString::fromLocal8Bit("默认设备型号：\n") + ptName);
+	m_prt = new QPrinter();
+	m_prt->setPrinterName(ptName);
+}
+void PRT::showPrintName(QString str)
+{
+	ui.lb_PrinterName->setText(str);
+}
+void PRT::toDraw(QPrinter *p)
+{
+	//	dlg.setWindowOpacity(0.8);
+		//dlg.setWindowFlags(Qt::FramelessWindowHint);//设置为对话框风格，并且去掉边框
+		//dlg.setWindowModality(Qt::WindowModal);//设置为模式对话框，同时在构造该对话框时要设置父窗口
+	wt->show();
+	m_drawpicture->drawPic(p);
+	wt->close();
+	wt->setTxt(QString::fromLocal8Bit("打印正在进行,请稍等..."));
+}
+#pragma endregion
+
+#pragma	region//events
+void PRT::mousePressEvent(QMouseEvent* p)
+{
+	if (p->button() == Qt::LeftButton) {       // 如果是鼠标左键按下
+		m_offset = p->globalPos() - pos();    // 获取指针位置和窗口位置的差值
+	}
+}
+void PRT::mouseMoveEvent(QMouseEvent * event)
+{
+	if (event->buttons() & Qt::LeftButton) {      // 这里必须使用buttons()
+		QPoint temp;
+		temp = event->globalPos() - m_offset;// 使用鼠标指针当前的位置减去差值，就得到了窗口应该移动的位置
+		if (temp.y() > 750)
+		{
+			showMinimized();
+			showWindowOut(QString::fromLocal8Bit("系统界面已最小化至任务栏"));
+		}
+		if (temp.x() > 1250)
+		{
+			if (QMessageBox::Yes == showMsgBox("退出确认", "是否确认退出该系统?", "确认", "取消"))
+			{
+				m_bCloseSignal = true;
+				close();
+			}
+		}
+	}
+}
+void PRT::closeEvent(QCloseEvent *event)
+{
+	if (!m_bCloseSignal)
+	{
+		event->ignore();
+	}
+}
+bool PRT::eventFilter(QObject* obj, QEvent* event)
+{
+	if (obj == this)
+	{
+		switch (event->type())
+		{
+		case QKeyEvent::KeyPress:
+		{
+			int key_type = static_cast<QKeyEvent*>(event)->key();
+			if (key_type == Qt::Key_Alt)
+				m_bAltKeyPressed = true;
+			break;
+		}
+		case QEvent::KeyRelease:
+		{
+			int key_type = static_cast<QKeyEvent*>(event)->key();
+			if (key_type == Qt::Key_Alt)
+				m_bAltKeyPressed = false;
+			break;
+		}
+		case QEvent::Close:
+		{
+			if (m_bAltKeyPressed)
+			{//屏蔽ALT+F4
+				event->ignore();
+				return true;
+				break;
+			}
+		}
+		default:break;
+		}
+	}
+	return QObject::eventFilter(obj, event);
+}
+#pragma endregion
+
+#pragma region popup window
 int PRT::showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str)
 {
-	if (QString::fromLocal8Bit(button2Str) =="")
+	if (QString::fromLocal8Bit(button2Str) == "")
 	{
-		QMessageBox msg(QMessageBox::Information, QString::fromLocal8Bit(titleStr), QString::fromLocal8Bit(contentStr), QMessageBox::Yes);		
+		QMessageBox msg(QMessageBox::Information, QString::fromLocal8Bit(titleStr), QString::fromLocal8Bit(contentStr), QMessageBox::Yes);
 		msg.setButtonText(QMessageBox::Yes, QString::fromLocal8Bit(button1Str));
 		msg.setWindowIcon(QIcon("./ico/dr.ico"));
 		return msg.exec();
@@ -206,7 +368,16 @@ int PRT::showMsgBox(const char* titleStr, const char* contentStr, const char* bu
 	//	QMessageBox::Warning
 	//	QMessageBox::Critical
 }
+void PRT::showWindowOut(QString str)
+{
+	levelOut = new WindowOut;
+	levelOut->setWindowCount(0);
+	levelOut->getString(str, 2000);
+	levelOut->show();
+}
+#pragma endregion
 
+#pragma	region//ui slots
 void PRT::on_cB_Curve_toggled(bool checked)
 {
 	m_drawpicture->setCurveChecked(checked);
@@ -265,69 +436,13 @@ void PRT::on_checkBox_2_toggled(bool checked)
 	QSettings WriteIni(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
 	WriteIni.setValue("ProgramSetting/PrintAveAllOrNot", QString::number(checked));
 }
-void PRT::writeIni()
-{
-	num1_Le = ui.lineEdit->text().toInt();
-	num2_Le_2 = ui.lineEdit_2->text().toInt();
-
-	ui.lineEdit->setText(QString::number(num1_Le));
-	ui.lineEdit_2->setText(QString::number(num2_Le_2));
-
-	RWini->setValue("ProgramSetting/PrintCurveCount", QString::number(num1_Le));
-	RWini->setValue("ProgramSetting/PrintAveCount", QString::number(num2_Le_2));
-}
-bool PRT::caculateCount()
-{
-	if (ui.cB_Curve->isChecked())
-	{
-		if (ui.checkBox->isChecked())
-		{
-			m_iPrintCurveCount = m_iDataNum;
-		}
-		else
-		{
-			m_iPrintCurveCount = num1_Le <= m_iDataNum ? num1_Le : m_iDataNum;
-		}
-
-	}
-	else
-	{
-		m_iPrintCurveCount = 0;
-	}
-	if (ui.cB_Average->isChecked())
-	{
-		if (ui.checkBox_2->isChecked())
-		{
-			m_iPrintAveCount = m_iDataNum;
-		}
-		else
-		{
-			m_iPrintAveCount = num2_Le_2 <= m_iDataNum ? num2_Le_2 : m_iDataNum;
-		}
-	}
-	else
-	{
-		m_iPrintAveCount = 0;
-	}
-	if (m_iDataNum == 0)
-	{
-		showMsgBox("提示", "无可打印数据!", "我知道了", "");
-		return false;
-	}
-	if (m_iPrintCurveCount == 0 && m_iPrintAveCount == 0)
-	{
-		showMsgBox("提示", "打印数设置均为0!", "我知道了", "");
-		return false;
-	}
-	return true;
-}
 void PRT::on_pB_PrintDirect_clicked()
 {
 	/*直接打印*/
 	writeIni();
 
 	if (!caculateCount())return;
-	if (QMessageBox::Yes ==showMsgBox("打印确认", "确认打印报告?", "确认", "取消"))
+	if (QMessageBox::Yes == showMsgBox("打印确认", "确认打印报告?", "确认", "取消"))
 	{
 		m_drawpicture->setData(data, m_iPrintCurveCount, m_iPrintAveCount);
 		wt->show();
@@ -347,7 +462,7 @@ void PRT::on_pB_Print_clicked()
 	preview.setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowCloseButtonHint);
 	//preview.setModal(Qt::WindowModal);
 	preview.setMinimumWidth(1262);
-	preview.setMinimumHeight(755);	
+	preview.setMinimumHeight(755);
 	preview.setMaximumWidth(1262);
 	preview.setMaximumHeight(755);
 	/*
@@ -361,112 +476,10 @@ void PRT::on_pB_Print_clicked()
 	connect(&preview, SIGNAL(paintRequested(QPrinter*)), this, SLOT(toDraw(QPrinter*)));
 	preview.exec();
 }
-void PRT::toDraw(QPrinter *p)
-{
-//	dlg.setWindowOpacity(0.8);
-	//dlg.setWindowFlags(Qt::FramelessWindowHint);//设置为对话框风格，并且去掉边框
-	//dlg.setWindowModality(Qt::WindowModal);//设置为模式对话框，同时在构造该对话框时要设置父窗口
-	wt->show(); 
-	m_drawpicture->drawPic(p);
-	wt->close();
-	wt->setTxt(QString::fromLocal8Bit("打印正在进行,请稍等..."));
-}
 void PRT::on_cB_PrintMode_currentIndexChanged(int index)
 {
 	judgeLabelText(index);
 	RWini->setValue("ProgramSetting/PrintMode", QString::number(ui.cB_PrintMode->currentIndex()));
 	m_iPrintMode = index;
 }
-
-void PRT::judgeLabelText(int index)
-{
-	if (index == 0)
-	{
-		ui.label->setText(QString::fromLocal8Bit("最大可打印数：") + QString::number(m_iDataNum) + QString::fromLocal8Bit("\n1#站: ") + QString::number(m_iDataNum - m_iDataNum / 2) + QString::fromLocal8Bit("\n2#站: ") + QString::number(m_iDataNum / 2));
-	}
-	else
-	{
-		ui.label->setText(QString::fromLocal8Bit("曲线图表:打印2组数据\n均值图表:打印12组数据"));
-	}
-
-}
-#pragma	region//close & minimum events
-void PRT::mousePressEvent(QMouseEvent* p)
-{
-	if (p->button() == Qt::LeftButton) {       // 如果是鼠标左键按下
-		m_offset = p->globalPos() - pos();    // 获取指针位置和窗口位置的差值
-	}
-}
-void PRT::mouseMoveEvent(QMouseEvent * event)
-{
-	if (event->buttons() & Qt::LeftButton) {      // 这里必须使用buttons()
-		QPoint temp;
-		temp = event->globalPos() - m_offset;// 使用鼠标指针当前的位置减去差值，就得到了窗口应该移动的位置
-		if (temp.y() > 750)
-		{
-			showMinimized();
-			showWindowOut(QString::fromLocal8Bit("系统界面已最小化至任务栏"));
-		}
-		if (temp.x() > 1250)
-		{
-			if (QMessageBox::Yes == showMsgBox("退出确认", "是否确认退出该系统?", "确认", "取消"))
-			{
-				m_bCloseSignal = true;
-				close();
-			}
-		}
-	}
-}
-
-void PRT::closeEvent(QCloseEvent *event)
-{
-	if (!m_bCloseSignal)
-	{
-		event->ignore();
-	}
-}
-bool PRT::eventFilter(QObject* obj, QEvent* event)
-{
-	if (obj == this)
-	{
-		switch (event->type())
-		{
-		case QKeyEvent::KeyPress:
-		{
-			int key_type = static_cast<QKeyEvent*>(event)->key();
-			if (key_type == Qt::Key_Alt)
-				m_bAltKeyPressed = true;
-			break;
-		}
-		case QEvent::KeyRelease:
-		{
-			int key_type = static_cast<QKeyEvent*>(event)->key();
-			if (key_type == Qt::Key_Alt)
-				m_bAltKeyPressed = false;
-			break;
-		}
-		case QEvent::Close:
-		{
-			if (m_bAltKeyPressed)
-			{//屏蔽ALT+F4
-				event->ignore();
-				return true;
-				break;
-			}
-		}
-		default:break;
-		}
-	}
-	return QObject::eventFilter(obj, event);
-}
-
 #pragma endregion
-
-void PRT::showWindowOut(QString str)
-{
-	levelOut = new WindowOut;
-	levelOut->setWindowCount(0);
-	levelOut->getString(str, 2000);
-	levelOut->show();
-}
-
