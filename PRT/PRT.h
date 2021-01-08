@@ -75,8 +75,10 @@ private:
 	QtPLCControl *m_pPlclib = nullptr;//dll
 	QThread *lib_PLCThread = nullptr;
 	QDialog *dlg = nullptr;
+	QTimer *tm_ReConnect = nullptr;
 	//printer
 	DrawPicture *m_drawpicture = nullptr;
+	QThread *m_drawpictureThread = nullptr;
 	int m_iPrintMode;
 	QString m_sName;
 	QPrinter *m_prt = nullptr;
@@ -102,4 +104,7 @@ public slots:
 	void on_cB_Curve_toggled(bool checked);
 	void on_cB_Average_toggled(bool checked);
 	void on_cB_PrintMode_currentIndexChanged(int index);
+	void SuccessConnect();
+	void ErrorConnect();
+	void EmitReconnect();
 };

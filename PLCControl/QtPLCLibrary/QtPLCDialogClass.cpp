@@ -1,21 +1,9 @@
 ﻿#include "QtPLCDialogClass.h"
 #include "ui_QtPLCDialogClass.h"
-
 #include <QPropertyAnimation>
 #include <QFont>
 #include <QBitmap>
 #include <QPainter>
-
-std::shared_ptr<spd::logger> SYS_logger;
-std::shared_ptr<spd::logger> OPS_logger;//操作
-//extern Socket_CPP* m_socket;
-QString g_ipAddress;
-int g_port;
-
-void message_handler(void* context, DataToPC_typ data)
-{
-	((QtPLCDialogClass*)context)->emit SHOWEVERYPLCVALUE(data);
-}
 
 QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	: QDialog(parent)
@@ -23,22 +11,16 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	ui = new Ui::QtPLCDialogClass();
 	((Ui::QtPLCDialogClass*)ui)->setupUi(this);
 	((Ui::QtPLCDialogClass*)ui)->frame->move(0, 0);
-
 	initFont();
-
-	//connect(((Ui::QtPLCDialogClass*)ui)->pB_enPhoto, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));					//拍照使能
-	//connect(((Ui::QtPLCDialogClass*)ui)->pB_enReject, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//剔废使能  报文是4
-	//connect(((Ui::QtPLCDialogClass*)ui)->pB_enFeed, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//料斗使能  报文是4
-	//connect(((Ui::QtPLCDialogClass*)ui)->pB_enRotate, SIGNAL(toggled(bool)), this, SLOT(onSendPLCCommand(bool)));						//转囊使能  报文是4
 
 	m_data = new DataToPC_typ;
 	memset(m_data, 0, sizeof(DataToPC_typ));//主界面用
-	//指示灯部分
 
-	((Ui::QtPLCDialogClass*)ui)->lb_00->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));	
+	//指示灯部分
+	((Ui::QtPLCDialogClass*)ui)->lb_00->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
 	lb_01 = new QLabel(((Ui::QtPLCDialogClass*)ui)->tabWidget->widget(0));
 	lb_01->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
-	lb_01->move(321+9, 37+38);
+	lb_01->move(321 + 9, 37 + 38);
 	lb_01->setVisible(false);
 
 	((Ui::QtPLCDialogClass*)ui)->lb_10->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
@@ -46,17 +28,11 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	lb_11->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
 	lb_11->move(670 + 9, 37 + 38);
 	lb_11->setVisible(false);
-	//指示灯部分
 
-	//model部分的信号与槽↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
-	
-
-
-	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
-	g_ipAddress = configIniRead.value("ProgramSetting/IpAddress", "10.86.50.210").toString();
-	g_port = configIniRead.value("ProgramSetting/Port", 5000).toInt();
+	QString LogInfo;
+	LogInfo.sprintf("%p", QThread::currentThread());
+	qDebug() << "PLC DLG" << "threadID : " << LogInfo;
 }
-
 QtPLCDialogClass::~QtPLCDialogClass()
 {
 	if (m_socket != nullptr)
@@ -79,121 +55,26 @@ QtPLCDialogClass::~QtPLCDialogClass()
 	}
 }
 
+#pragma region ui stylesheet
 void QtPLCDialogClass::initFont()
 {
 	setupFont.setFamily(QString::fromLocal8Bit("迷你简菱心"));
 	setupFont.setPointSize(36);
 	startFont.setFamily(QString::fromLocal8Bit("迷你简菱心"));
-	startFont.setPointSize(60); 
+	startFont.setPointSize(60);
 }
-
-void QtPLCDialogClass::on_pB_SetUp_toggled(bool checked)//设置
-{
-	if (checked)
-	{
-		((Ui::QtPLCDialogClass*)ui)->frame->setVisible(false);
-		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_SetUp, "background: rgb(0,255,0)", setupFont, "");
-		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart, "", startFont, QString::fromLocal8Bit("启动"));
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(false);
-	}	
-	else
-	{
-		((Ui::QtPLCDialogClass*)ui)->frame->setVisible(true);
-		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_SetUp, "", setupFont, "");
-		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart, "background: rgb(200,200,100)", startFont, QString::fromLocal8Bit("启动"));
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(true);
-	}
-}
-void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
-{
-	DataFromPC_typ typ;
-	typ.Telegram_typ = 1;
-	if (checked)
-	{
-		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart, "background: rgb(0,255,0)",startFont,QString::fromLocal8Bit("停止"));
-		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(false);
-		typ.Machine_Cmd.cmdStart = 1;
-	}
-	else
-	{
-		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart,"background: rgb(200,200,100)",startFont,QString::fromLocal8Bit("启动"));
-		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(true);
-		typ.Machine_Cmd.cmdStop = 1;
-	}
-	m_socket->Communicate_PLC(&typ, nullptr);
-}
-
 void QtPLCDialogClass::setStyleCommand(QPushButton*btn, QString bg, QFont ft, QString tt)
 {
 	btn->setStyleSheet(bg);
 	btn->setFont(ft);
-	if (tt!="")
+	if (tt != "")
 	{
 		btn->setText(tt);
 	}
 }
-void QtPLCDialogClass::on_pb_cmdParaSave_clicked()//加一个按钮保存
-{
-	DataFromPC_typ typ;
-	typ = getPCData();
+#pragma endregion
 
-	typ.Telegram_typ = 2;
-	m_socket->Communicate_PLC(&typ, nullptr);//系统
-
-	typ.Telegram_typ = 4;
-	m_socket->Communicate_PLC(&typ, nullptr);//运行
-
-
-
-	char* plcParam = new char[sizeof(DataFromPC_typ) + 1];
-	memset(plcParam, 0, sizeof(DataFromPC_typ) + 1); //1实验用
-	memcpy(plcParam, &typ, sizeof(DataFromPC_typ));
-	int a = strlen(plcParam);//字符串的长度
-
-	QString plcParamPath = AppPath + "/ModelFile/plc.txt";
-
-	QFile f(plcParamPath);
-	f.resize(0);
-	if (!f.open(QIODevice::WriteOnly | QIODevice::Text))
-	{
-		showMsgBox(QMessageBox::Question, "错误提示", "<img src = './ico/critical.png'/>\t参数文件写入错误，请重试", "我知道了", "");
-		return;
-	}
-	f.write(plcParam, sizeof(DataFromPC_typ));
-	f.close();
-	emit GETSTRING(QString::fromLocal8Bit("恭喜，参数文件保存成功！"));
-}
-
-void QtPLCDialogClass::on_pb_cmdParaLoad_clicked()//
-{
-	DataFromPC_typ typ;
-
-	QString plcParamPath = AppPath + "/ModelFile/plc.txt";
-	QFile f(plcParamPath);
-	if (!f.open(QIODevice::ReadOnly | QIODevice::Text))
-	{
-		showMsgBox(QMessageBox::Question, "错误提示", "<img src = './ico/critical.png'/>\t参数文件读取错误，请重试", "我知道了", "");
-		return;
-	}
-	char* ch = new char[sizeof(DataFromPC_typ) + 1];
-	memset(ch, 0, sizeof(DataFromPC_typ) + 1);
-	//txtInput.readAll();
-	f.read(ch, sizeof(DataFromPC_typ));
-
-	memcpy(&typ, ch, sizeof(DataFromPC_typ));//赋值回来
-
-	f.close();
-
-
-	emit GETSTRING(QString::fromLocal8Bit("恭喜，参数文件读取成功，已写入PLC！"));
-
-	typ.Telegram_typ = 2;
-	m_socket->Communicate_PLC(&typ, nullptr);//系统
-
-	typ.Telegram_typ = 4;
-	m_socket->Communicate_PLC(&typ, nullptr);//运行
-}
-
+#pragma region socket
 void QtPLCDialogClass::onSendPLCCommand(bool b)
 {
 	obj = qobject_cast<QPushButton*>(sender());//判断是哪个按钮触发了槽函数
@@ -353,7 +234,16 @@ void QtPLCDialogClass::onSendPLCCommand(bool b)
 		}
 	}
 }
-//获取pc数据
+void QtPLCDialogClass::SetSocket(QtSocket_Class *sc)
+{
+	m_socket = sc;
+	bool b = connect(m_socket, SIGNAL(signal_FROMPLC(void*, int, int, int, int)), this, SLOT(getPLCData(void*, int, int, int, int)));
+
+	//	m_socket->set_message_handler(&message_handler, this);//全局
+}
+#pragma endregion
+
+#pragma region data
 DataFromPC_typ QtPLCDialogClass::getPCData()
 {
 
@@ -386,22 +276,21 @@ DataFromPC_typ QtPLCDialogClass::getPCData()
 
 	//tmp.Machine_Cmd.cmdParaSave = ((Ui::QtPLCDialogClass*)ui)->pb_cmdParaSave->isChecked() ? 1 : 0;						//参数保存命令, 1:保存
 	//tmp.Machine_Cmd.cmdParaLoad = ((Ui::QtPLCDialogClass*)ui)->pb_cmdParaLoad->isChecked() ? 1 : 0;						//参数读取命令, 1:读取
-/*	tmp.Machine_Cmd.Reject = ((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->isChecked() ? 1 : 0;			
+/*	tmp.Machine_Cmd.Reject = ((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->isChecked() ? 1 : 0;
 	tmp.Machine_Cmd.ChannelSwith = ((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->isChecked() ? 1 : 0;
-	tmp.Machine_Cmd.Vaccum = ((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->isChecked() ? 1 : 0;			
-	tmp.Machine_Cmd.CapGet = ((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->isChecked() ? 1 : 0;			
+	tmp.Machine_Cmd.Vaccum = ((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->isChecked() ? 1 : 0;
+	tmp.Machine_Cmd.CapGet = ((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->isChecked() ? 1 : 0;
 	tmp.Machine_Cmd.CapGetValve = ((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->isChecked() ? 1 : 0;
 	tmp.Machine_Cmd.CapBackValve = ((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValve->isChecked() ? 1 : 0;
-	tmp.Machine_Cmd.AlarmOut = ((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->isChecked() ? 1 : 0;		
-	tmp.Machine_Cmd.StopSignal = ((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->isChecked() ? 1 : 0;	
+	tmp.Machine_Cmd.AlarmOut = ((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->isChecked() ? 1 : 0;
+	tmp.Machine_Cmd.StopSignal = ((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->isChecked() ? 1 : 0;
 	tmp.Machine_Cmd.AlarmSignal = ((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->isChecked() ? 1 : 0;
-	tmp.Machine_Cmd.YellowAlarmout = ((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->isChecked() ? 1 : 0;	
-	tmp.Machine_Cmd.Baffle = ((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->isChecked() ? 1 : 0;	*/		
+	tmp.Machine_Cmd.YellowAlarmout = ((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->isChecked() ? 1 : 0;
+	tmp.Machine_Cmd.Baffle = ((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->isChecked() ? 1 : 0;	*/
 	//照相处理结果和按钮在上面⬆⬆⬆⬆⬆⬆
 
 	return tmp;
-}
-//PC显示数据
+}//获取pc数据
 void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kickOpen, int kickMode)
 {
 	memcpy(m_data, (DataToPC_typ*)data, sizeof(DataToPC_typ));//主界面用
@@ -684,7 +573,7 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->setStyleSheet("background: rgb(0,255,0);font-size:20pt");			   
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->blockSignals(false);
 	}
 	else
@@ -694,8 +583,10 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->setStyleSheet("font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->blockSignals(false);
 	}
-}
+}//PC显示数据
+#pragma endregion
 
+#pragma region popup window
 int QtPLCDialogClass::showMsgBox(QMessageBox::Icon icon, const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str)//全是中文
 {
 	if (QString::fromLocal8Bit(button2Str) == "")
@@ -771,14 +662,68 @@ int QtPLCDialogClass::showMsgBox(QMessageBox::Icon icon, const char* titleStr, c
 	//	QMessageBox::Critical
 
 }
+#pragma endregion
 
-void QtPLCDialogClass::SetSocket(QtSocket_Class *sc)
+#pragma region ui slots
+void QtPLCDialogClass::on_pB_SetUp_toggled(bool checked)//设置
 {
-	m_socket = sc;
-	bool b = connect(m_socket, SIGNAL(signal_FROMPLC(void*, int, int, int, int)), this, SLOT(getPLCData(void*, int, int, int, int)));
-
-	//	m_socket->set_message_handler(&message_handler, this);//全局
+	if (checked)
+	{
+		((Ui::QtPLCDialogClass*)ui)->frame->setVisible(false);
+		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_SetUp, "background: rgb(0,255,0)", setupFont, "");
+		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart, "", startFont, QString::fromLocal8Bit("启动"));
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(false);
+	}
+	else
+	{
+		((Ui::QtPLCDialogClass*)ui)->frame->setVisible(true);
+		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_SetUp, "", setupFont, "");
+		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart, "background: rgb(200,200,100)", startFont, QString::fromLocal8Bit("启动"));
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(true);
+	}
 }
-
-
+void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
+{
+	DataFromPC_typ typ;
+	typ = getPCData();
+	typ.Telegram_typ = 1;
+	if (checked)
+	{
+		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart, "background: rgb(0,255,0)", startFont, QString::fromLocal8Bit("停止"));
+		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(false);
+		typ.Machine_Cmd.cmdStart = 1;
+	}
+	else
+	{
+		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart, "background: rgb(200,200,100)", startFont, QString::fromLocal8Bit("启动"));
+		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(true);
+		typ.Machine_Cmd.cmdStop = 1;
+	}
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_pB_cmdCounterZero_clicked()
+{
+	DataFromPC_typ typ;
+	typ = getPCData();
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdCounterZero = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_pB_cmdAlarmReset_clicked()
+{
+	DataFromPC_typ typ;
+	typ = getPCData();
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdAlarmReset = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_pB_cmdCapClean_clicked()
+{
+	DataFromPC_typ typ;
+	typ = getPCData();
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdCapClean = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}//cmdCapClean
+#pragma endregion
 

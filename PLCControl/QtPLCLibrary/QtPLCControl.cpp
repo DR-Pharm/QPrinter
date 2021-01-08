@@ -1,6 +1,7 @@
 #include "QtPLCControl.h"
 #include "QtSocket_Class.h"
 #include "QtPLCDialogClass.h"
+#include <QDebug>
 #include "comm.h"
 
 QtPLCControl::QtPLCControl()
@@ -8,6 +9,10 @@ QtPLCControl::QtPLCControl()
 	qRegisterMetaType<DataToPC_typ>("DataToPC_typ");
 	qRegisterMetaType<DataToPC_typ>("DataToPC_typ&");//注册DataToPC_typ函数，在槽函数中避免出错
 	AppPath = qApp->applicationDirPath();//exe所在目录
+
+	QString LogInfo;
+	LogInfo.sprintf("%p", QThread::currentThread());
+	qDebug() << "PLC CONTROL" << "threadID : " << LogInfo;
 }
 
 void* QtPLCControl::QtCreateDialog(int index)
@@ -116,9 +121,6 @@ bool QtPLCControl::ConnectPlc()
 
 	if (((QtSocket_Class*)m_socket)->initialization())
 	{
-		QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
-		QString ipAddress = configIniRead.value("ProgramSetting/IpAddress", "10.86.50.210").toString();
-		int port = configIniRead.value("ProgramSetting/Port", 5000).toInt();
 		//bool b = connect(this, SIGNAL(SHOWEVERYPLCCONNECT(DataToPC_typ)), this, SLOT(showPLCValue(DataToPC_typ)));
 		bool b = connect(((QtSocket_Class*)m_socket), &QtSocket_Class::signal_Connected, [=] {
 			emit signal_SUCCESSFULCONNECTED();
@@ -130,7 +132,7 @@ bool QtPLCControl::ConnectPlc()
 		//b = connect(m_socket, SIGNAL(signal_SOCKETERROR(QAbstractSocket::SocketError)), this, SLOT(reportSocketError(QAbstractSocket::SocketError)));
 		b = connect(this, SIGNAL(STARTCONNECT(QString, int)), ((QtSocket_Class*)m_socket), SLOT(connectServer(QString,int)));
 		//m_socket->connectServer(ipAddress.toStdString().c_str(), port);
-		emit STARTCONNECT(ipAddress, port);
+		emit STARTCONNECT("10.86.50.210", 5000);
 	}
 	return false;
 }

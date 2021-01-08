@@ -18,6 +18,9 @@ PRT::PRT(QWidget *parent)
 	wt = new QWaiting();
 	installEventFilter(this);
 
+	QString LogInfo;
+	LogInfo.sprintf("%p", QThread::currentThread());
+	qDebug() << "PRT" << "threadID : " << LogInfo;
 }
 PRT::~PRT()
 {
@@ -41,14 +44,12 @@ void PRT::initPLC()
 	lib_PLCThread = new QThread();
 	m_pPlclib->moveToThread(lib_PLCThread);
 	lib_PLCThread->start();
-	bool b = connect(this, SIGNAL(STARTCONNECTPLC()), m_pPlclib, SLOT(ConnectPlc()));
 
+	bool b = connect(this, SIGNAL(STARTCONNECTPLC()), m_pPlclib, SLOT(ConnectPlc()));
 	emit STARTCONNECTPLC();
+	b = connect(m_pPlclib, SIGNAL(SOCKETERROR()), this, SLOT(ErrorConnect()));
 
 	dlg = (QDialog *)(m_pPlclib->QtCreateDialog(1));
-	//b = connect(this, SIGNAL(GRABING(bool)), dlg, SLOT(DisableLe(bool)));
-	//b = connect(dlg, SIGNAL(DATAOUT(int, int, float)), this, SLOT(DATAIN(int, int, float)));
-	//b = connect(this, SIGNAL(SETIMGRESULT(int)), dlg, SLOT(setImgResult(int)));
 	dlg->setParent(ui.widget);
 	dlg->move(0, 0);
 }
@@ -250,6 +251,10 @@ void PRT::writeIni()
 void PRT::initPrinter()
 {
 	m_drawpicture = new DrawPicture(nullptr);
+	m_drawpictureThread = new QThread();
+	m_drawpicture->moveToThread(m_drawpictureThread);
+	m_drawpictureThread->start();
+
 	connect(m_drawpicture, SIGNAL(TOUI(QString)), this, SLOT(showPrintName(QString)));
 	QPrinterInfo info;
 	QString ptName = info.defaultPrinterName(); // 默认打印机名字		
@@ -355,7 +360,7 @@ int PRT::showMsgBox(const char* titleStr, const char* contentStr, const char* bu
 	}
 	else
 	{
-		QMessageBox msg(QMessageBox::Information, QString::fromLocal8Bit(titleStr), QString::fromLocal8Bit(contentStr), QMessageBox::Yes | QMessageBox::No);
+		QMessageBox msg(QMessageBox::Question, QString::fromLocal8Bit(titleStr), QString::fromLocal8Bit(contentStr), QMessageBox::Yes | QMessageBox::No);
 		msg.setButtonText(QMessageBox::No, QString::fromLocal8Bit(button2Str));
 		msg.setButtonText(QMessageBox::Yes, QString::fromLocal8Bit(button1Str));
 		msg.setWindowIcon(QIcon("./ico/dr.ico"));
@@ -374,6 +379,30 @@ void PRT::showWindowOut(QString str)
 	levelOut->setWindowCount(0);
 	levelOut->getString(str, 2000);
 	levelOut->show();
+}
+void PRT::SuccessConnect()
+{
+	showWindowOut(QString::fromLocal8Bit("PLC连接恢复正常")); 
+	tm_ReConnect->stop();
+	delete tm_ReConnect;
+	tm_ReConnect = nullptr;
+	bool b = connect(m_pPlclib, SIGNAL(SOCKETERROR()), this, SLOT(ErrorConnect()));
+}
+void PRT::ErrorConnect()
+{
+	showMsgBox("通讯错误", "连接PLC出错,请检查网络连接!", "我知道了", "");
+	bool b = disconnect(m_pPlclib, SIGNAL(SOCKETERROR()), this, SLOT(ErrorConnect()));
+	b = connect(m_pPlclib, SIGNAL(signal_SUCCESSFULCONNECTED()), this, SLOT(SuccessConnect()));
+	if (tm_ReConnect==nullptr)
+	{
+		tm_ReConnect = new QTimer();
+	}
+	b = connect(tm_ReConnect, SIGNAL(timeout()), this, SLOT(EmitReconnect()));
+	tm_ReConnect->start(5000);
+}
+void PRT::EmitReconnect()
+{
+	emit STARTCONNECTPLC();
 }
 #pragma endregion
 

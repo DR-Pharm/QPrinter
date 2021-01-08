@@ -1,5 +1,5 @@
 #pragma once
-
+#include <QDebug>
 #include <QLabel>
 #include "PLCRelayHead.h"
 #include "QtSocket_Class.h"
@@ -43,18 +43,16 @@ private:
 	QFont startFont;
 
 public slots:
-	//void savePLCParaInPLCTxt(int);//将combobox修改的phototimes写入txt
-	void on_pb_cmdParaSave_clicked();//保存PLC参数到本机plc.txt
-	void on_pb_cmdParaLoad_clicked();//将本机plc.txt内PLC参数写入到PLC
 
 	void onSendPLCCommand(bool);
 	DataFromPC_typ getPCData();//PC数值发送给PLC
 	void getPLCData(void*, int, int, int, int);
+
 	void on_pB_SetUp_toggled(bool checked);
-
 	void on_pB_cmdStart_toggled(bool checked);
-
-
+	void on_pB_cmdCounterZero_clicked();
+	void on_pB_cmdAlarmReset_clicked();
+	void on_pB_cmdCapClean_clicked();
 };
 
 #pragma once
