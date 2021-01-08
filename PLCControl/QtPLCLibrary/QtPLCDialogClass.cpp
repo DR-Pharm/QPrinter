@@ -254,7 +254,7 @@ DataFromPC_typ QtPLCDialogClass::getPCData()
 	tmp.Machine_Para.enable = ((Ui::QtPLCDialogClass*)ui)->cB_enable->currentIndex();
 	tmp.Machine_Para.s_trg_stop[0] = ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->text().toFloat();
 	tmp.Machine_Para.s_trg_stop[1] = ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->text().toFloat();
-	tmp.Machine_Para.FeedTimeOut = ((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->text().toFloat(); 
+	tmp.Machine_Para.FeedTimeOut = ((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->text().toFloat();
 	tmp.Machine_Para.CapPickInterval = ((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->text().toFloat();
 	tmp.Machine_Para.CapBackInterval = QString::number(((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->text().toFloat() * 100).toInt();
 	tmp.Machine_Para.TireDelay = QString::number(((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->text().toFloat() * 100).toInt();
@@ -276,18 +276,7 @@ DataFromPC_typ QtPLCDialogClass::getPCData()
 	//命令
 
 	//tmp.Machine_Cmd.cmdParaSave = ((Ui::QtPLCDialogClass*)ui)->pb_cmdParaSave->isChecked() ? 1 : 0;						//参数保存命令, 1:保存
-	//tmp.Machine_Cmd.cmdParaLoad = ((Ui::QtPLCDialogClass*)ui)->pb_cmdParaLoad->isChecked() ? 1 : 0;						//参数读取命令, 1:读取
-/*	tmp.Machine_Cmd.Reject = ((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->isChecked() ? 1 : 0;
-	tmp.Machine_Cmd.ChannelSwith = ((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->isChecked() ? 1 : 0;
-	tmp.Machine_Cmd.Vaccum = ((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->isChecked() ? 1 : 0;
-	tmp.Machine_Cmd.CapGet = ((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->isChecked() ? 1 : 0;
-	tmp.Machine_Cmd.CapGetValve = ((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->isChecked() ? 1 : 0;
-	tmp.Machine_Cmd.CapBackValve = ((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValve->isChecked() ? 1 : 0;
-	tmp.Machine_Cmd.AlarmOut = ((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->isChecked() ? 1 : 0;
-	tmp.Machine_Cmd.StopSignal = ((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->isChecked() ? 1 : 0;
-	tmp.Machine_Cmd.AlarmSignal = ((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->isChecked() ? 1 : 0;
-	tmp.Machine_Cmd.YellowAlarmout = ((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->isChecked() ? 1 : 0;
-	tmp.Machine_Cmd.Baffle = ((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->isChecked() ? 1 : 0;	*/
+
 	//照相处理结果和按钮在上面⬆⬆⬆⬆⬆⬆
 
 	return tmp;
@@ -666,6 +655,69 @@ int QtPLCDialogClass::showMsgBox(QMessageBox::Icon icon, const char* titleStr, c
 #pragma endregion
 
 #pragma region ui slots
+//DateTimeStructTyp		DateTimeSet;		//设定日期时间目标
+//unsigned char		cmdChangeDT;					//修改日期时间,1:执行，自动复位
+void QtPLCDialogClass::on_pB_cmdScaleRead_clicked()//秤读数命令,1:执行，自动复位
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdScaleRead = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_pB_cmdScaleTire_clicked()//秤清零,1:执行，自动复位
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdScaleTire = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_pB_cmdScaleSetStable_clicked()//设定秤稳定状态,1:执行，自动复位
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdScaleSetStable = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_cB_paraScaleSetStable_currentIndexChanged(int index)//稳定状态设定目标，0:非常稳定,1:稳定,2:不稳定,3:非常不稳定
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdScaleSetStable = index;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}	
+void QtPLCDialogClass::on_pB_cmdScaleCalibExt_clicked()//秤外部校正,1:执行，自动复位
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdScaleCalibExt = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+/*unsigned char		cmdAxisFeedJogPos;				//下料正转点动，1:执行，0:停止
+unsigned char		cmdAxisFeedJogNeg;				//下料反转点动，1:执行，0:停止
+unsigned char		cmdAxisFeedRelMov;				//下料相对运动启动，1:执行，自动复位
+unsigned char		cmdAxisFeedPosMov;				//下料正向连续运动启动，1:执行，自动复位
+unsigned char		cmdAxisFeedStopMov;				//下料停止运动，1:执行，自动复位
+
+unsigned char		cmdAxisSwingJogPos;				//旋转正转点动，1:执行，0:停止
+unsigned char		cmdAxisSwingJogNeg;				//旋转反转点动，1:执行，0:停止
+unsigned char		cmdAxisSwingRelMov;				//旋转相对运动启动，1:执行，自动复位
+unsigned char		cmdAxisSwingPosMov;				//旋转正向连续运动启动，1:执行，自动复位
+unsigned char		cmdAxisSwingStopMov;			//旋转停止运动，1:执行，自动复位
+
+unsigned char		cmdFeedSingle;					//单粒下料，1:执行，自动复位
+unsigned char		cmdFeedSingleStop;				//单粒下料停止，1:执行，自动复位
+
+unsigned char		cmdSwing;						//旋转单工位,1:执行，自动复位
+unsigned char		cmdStart;						//启动称重，1:执行，自动复位
+unsigned char		cmdEStop;						//急停，1:执行，自动复位
+unsigned char		cmdStop;						//停止,1:执行，自动复位
+unsigned char		cmdInit;						//初始化，1:执行，自动复位
+unsigned char		cmdAlarmReset;					//报警复位,1:执行，自动复位
+unsigned char		cmdCounterZero;					//计数器清零,1:执行，自动复位
+unsigned char		cmdPrintStart;					//启动打印,1:执行，自动复位
+unsigned char		cmdPrintStartE;					//启动英文打印，1:执行，自动复位
+unsigned char		cmdCapClean;					//清空胶囊，1:执行，自动复位
+unsigned char		cmdAlogtest;*/					//模拟量输出测试,1:执行，自动复位
 void QtPLCDialogClass::on_pB_SetUp_toggled(bool checked)//设置
 {
 	if (checked)
@@ -686,7 +738,6 @@ void QtPLCDialogClass::on_pB_SetUp_toggled(bool checked)//设置
 void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 {
 	DataFromPC_typ typ;
-	typ = getPCData();
 	typ.Telegram_typ = 1;
 	if (checked)
 	{
@@ -705,7 +756,6 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 void QtPLCDialogClass::on_pB_cmdCounterZero_clicked()
 {
 	DataFromPC_typ typ;
-	typ = getPCData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdCounterZero = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -713,7 +763,6 @@ void QtPLCDialogClass::on_pB_cmdCounterZero_clicked()
 void QtPLCDialogClass::on_pB_cmdAlarmReset_clicked()
 {
 	DataFromPC_typ typ;
-	typ = getPCData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAlarmReset = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -721,10 +770,9 @@ void QtPLCDialogClass::on_pB_cmdAlarmReset_clicked()
 void QtPLCDialogClass::on_pB_cmdCapClean_clicked()
 {
 	DataFromPC_typ typ;
-	typ = getPCData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdCapClean = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
-}//cmdCapClean
+}
 #pragma endregion
 

@@ -21,7 +21,7 @@ public:
 	void initFont();
 	int showMsgBox(QMessageBox::Icon icon, const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str);//全是中文
 	void SetSocket(QtSocket_Class*);
-	void setStyleCommand(QPushButton*,QString,QFont,QString);
+	void setStyleCommand(QPushButton*, QString, QFont, QString);
 private:
 	void* ui;
 	bool m_currentSituationOfCyclinder = true;
@@ -36,8 +36,8 @@ private:
 
 	QPushButton* obj = nullptr;//pushbutton le;
 
-	QLabel *lb_01=nullptr;
-	QLabel *lb_11=nullptr;
+	QLabel *lb_01 = nullptr;
+	QLabel *lb_11 = nullptr;
 
 	QFont setupFont;
 	QFont startFont;
@@ -47,6 +47,12 @@ public slots:
 	void onSendPLCCommand(bool);
 	DataFromPC_typ getPCData();//PC数值发送给PLC
 	void getPLCData(void*, int, int, int, int);
+
+	void on_pB_cmdScaleRead_clicked();
+	void on_pB_cmdScaleTire_clicked();
+	void on_pB_cmdScaleSetStable_clicked();
+	void on_cB_paraScaleSetStable_currentIndexChanged(int index);
+	void on_pB_cmdScaleCalibExt_clicked();
 
 	void on_pB_SetUp_toggled(bool checked);
 	void on_pB_cmdStart_toggled(bool checked);

@@ -59,7 +59,7 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab_PLC_Control">
     <attribute name="title">
@@ -87,7 +87,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -660,28 +660,28 @@
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
           <item row="0" column="2" colspan="2">
-           <widget class="QPushButton" name="pushButton_4">
+           <widget class="QPushButton" name="pB_cmdScaleSetStable">
             <property name="text">
              <string>设定秤稳定状态</string>
             </property>
            </widget>
           </item>
           <item row="0" column="0">
-           <widget class="QPushButton" name="pushButton_2">
+           <widget class="QPushButton" name="pB_cmdScaleRead">
             <property name="text">
              <string>秤读数命令</string>
             </property>
            </widget>
           </item>
           <item row="2" column="3">
-           <widget class="QPushButton" name="pushButton_5">
+           <widget class="QPushButton" name="pB_cmdScaleCalibExt">
             <property name="text">
              <string>秤外部校正</string>
             </property>
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QPushButton" name="pushButton_3">
+           <widget class="QPushButton" name="pB_cmdScaleTire">
             <property name="text">
              <string>秤清零</string>
             </property>
