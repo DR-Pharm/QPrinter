@@ -182,14 +182,7 @@ void PRT::initUI()
 	ui.checkBox_2->setChecked(ReadIni.value("ProgramSetting/PrintAveAllOrNot", "0").toBool());
 	m_iPrintMode = ReadIni.value("ProgramSetting/PrintMode", "0").toInt();
 	ui.cB_PrintMode->setCurrentIndex(m_iPrintMode);
-	if (m_iPrintMode ==0)
-	{
-		ui.label->setText(QString::fromLocal8Bit("最大可打印数：") + QString::number(m_iDataNum) + QString::fromLocal8Bit("\n1#站: ") + QString::number(m_iDataNum - m_iDataNum / 2) + QString::fromLocal8Bit("\n2#站: ") + QString::number(m_iDataNum / 2));
-	}
-	else
-	{
-		ui.label->setText(QString::fromLocal8Bit("曲线图表:每1组数据打印\n均值图表:每6组数据打印"));
-	}
+	judgeLabelText(m_iPrintMode);
 }
 int PRT::showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str)
 {
@@ -385,17 +378,23 @@ void PRT::toDraw(QPrinter *p)
 }
 void PRT::on_cB_PrintMode_currentIndexChanged(int index)
 {
-	if (index==0)
+	judgeLabelText(index);
+	QSettings WriteIni(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+	WriteIni.setValue("ProgramSetting/PrintMode", QString::number(ui.cB_PrintMode->currentIndex()));
+	m_iPrintMode = index;
+}
+
+void PRT::judgeLabelText(int index)
+{
+	if (index == 0)
 	{
 		ui.label->setText(QString::fromLocal8Bit("最大可打印数：") + QString::number(m_iDataNum) + QString::fromLocal8Bit("\n1#站: ") + QString::number(m_iDataNum - m_iDataNum / 2) + QString::fromLocal8Bit("\n2#站: ") + QString::number(m_iDataNum / 2));
 	}
 	else
 	{
-		ui.label->setText(QString::fromLocal8Bit("曲线图表:每1组数据打印\n均值图表:每6组数据打印"));
+		ui.label->setText(QString::fromLocal8Bit("曲线图表:打印2组数据\n均值图表:打印12组数据"));
 	}
-	QSettings WriteIni(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
-	WriteIni.setValue("ProgramSetting/PrintMode", QString::number(ui.cB_PrintMode->currentIndex()));
-	m_iPrintMode = index;
+
 }
 #pragma	region//close & minimum
 void PRT::mousePressEvent(QMouseEvent* p)

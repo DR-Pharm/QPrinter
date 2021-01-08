@@ -37,9 +37,6 @@ protected:
 	void mouseMoveEvent(QMouseEvent *event);
 public:
 	PRT(QWidget *parent = Q_NULLPTR);
-
-	void initMovie();
-
 	~PRT();
 	void initPLC();
 	void initDog();
@@ -53,6 +50,7 @@ public:
 	void initPrinter();	
 	bool eventFilter(QObject*, QEvent*);
 
+	void judgeLabelText(int index);
 private:
 	bool m_bAltKeyPressed = false;
 	QWaiting *wt;
