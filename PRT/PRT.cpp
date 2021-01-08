@@ -386,11 +386,12 @@ void PRT::SuccessConnect()
 	tm_ReConnect->stop();
 	delete tm_ReConnect;
 	tm_ReConnect = nullptr;
-	bool b = connect(m_pPlclib, SIGNAL(SOCKETERROR()), this, SLOT(ErrorConnect()));
+	bool b = connect(m_pPlclib, SIGNAL(SOCKETERROR()), this, SLOT(ErrorConnect()));	
+	b = disconnect(m_pPlclib, SIGNAL(signal_SUCCESSFULCONNECTED()), this, SLOT(SuccessConnect()));
 }
 void PRT::ErrorConnect()
 {
-	showMsgBox("通讯错误", "连接PLC出错,请检查网络连接!", "我知道了", "");
+	showMsgBox("通讯错误", "连接PLC出错,请检查网络连接!", "我去查查", "");
 	bool b = disconnect(m_pPlclib, SIGNAL(SOCKETERROR()), this, SLOT(ErrorConnect()));
 	b = connect(m_pPlclib, SIGNAL(signal_SUCCESSFULCONNECTED()), this, SLOT(SuccessConnect()));
 	if (tm_ReConnect==nullptr)
@@ -398,6 +399,7 @@ void PRT::ErrorConnect()
 		tm_ReConnect = new QTimer();
 	}
 	b = connect(tm_ReConnect, SIGNAL(timeout()), this, SLOT(EmitReconnect()));
+	emit STARTCONNECTPLC();
 	tm_ReConnect->start(5000);
 }
 void PRT::EmitReconnect()
