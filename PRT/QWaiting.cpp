@@ -4,7 +4,7 @@ QWaiting::QWaiting(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
-	setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);//设置为对话框风格，并且去掉边框
+	setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint | Qt::SubWindow);//设置为对话框风格，并且去掉边框
 	setWindowModality(Qt::ApplicationModal);//设置为模式对话框，同时在构造该对话框时要设置父窗口
 
 	//设置透明度

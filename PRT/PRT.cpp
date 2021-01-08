@@ -73,6 +73,7 @@ void PRT::closes(int index)
 		showMsgBox("提示", "未找到加密狗!", "我知道了", "取消");
 		//QMessageBox::about(nullptr, "0", "can not FIND dongle!");
 		m_bFlagWriteDongleFinally = true;
+		m_bCloseSignal = true;
 		close();
 	}
 	else if (index == 1)
@@ -80,6 +81,7 @@ void PRT::closes(int index)
 		showMsgBox("提示", "加密狗打开失败!", "我知道了", "取消");
 		//QMessageBox::about(nullptr, "1", "can not OPEN dongle!");
 		m_bFlagWriteDongleFinally = true;
+		m_bCloseSignal = true;
 		close();
 	}
 	else if (index == 2)
@@ -87,6 +89,7 @@ void PRT::closes(int index)
 		showMsgBox("提示", "加密狗验证失败!", "我知道了", "取消");
 		//QMessageBox::about(nullptr, "2", "can not VERIFY dongle!");
 		m_bFlagWriteDongleFinally = true;
+		m_bCloseSignal = true;
 		close();
 	}
 	else if (index == 3)
@@ -94,6 +97,7 @@ void PRT::closes(int index)
 		showMsgBox("提示", "加密狗读取失败!", "我知道了", "取消");
 		//QMessageBox::about(nullptr, "3", "can not READ dongle!");
 		m_bFlagWriteDongleFinally = true;
+		m_bCloseSignal = true;
 		close();
 	}
 	else if (index == 4)
@@ -101,6 +105,7 @@ void PRT::closes(int index)
 		showMsgBox("提示", "加密狗写入失败!", "我知道了", "取消");
 		//QMessageBox::about(nullptr, "4", "can not WRITE dongle!");
 		m_bFlagWriteDongleFinally = true;
+		m_bCloseSignal = true;
 		close();
 	}
 	else if (index == 10)
@@ -108,6 +113,7 @@ void PRT::closes(int index)
 		showMsgBox("提示", "系统时间被非法修改!", "我知道了", "取消");
 		//QMessageBox::about(nullptr, "10", "system time be changed ILLEGALLY!");
 		m_bFlagWriteDongleFinally = true;
+		m_bCloseSignal = true;
 		close();
 	}
 	else if (index == 11)
@@ -115,6 +121,7 @@ void PRT::closes(int index)
 		showMsgBox("提示", "加密狗授权已过期!", "我知道了", "取消");
 		//QMessageBox::about(nullptr, "11", "the dongle is RUN OUT!");
 		m_bFlagWriteDongleFinally = true;
+		m_bCloseSignal = true;
 		close();
 	}
 	else
@@ -338,6 +345,7 @@ void PRT::on_pB_Print_clicked()
 	if (!caculateCount())return;
 
 	QPrintPreviewDialog preview;// 创建打印预览对话框
+	preview.setWindowTitle(QString::fromLocal8Bit("打印预览"));
 	preview.setWindowIcon(QIcon("./ico/dr.ico"));
 	preview.setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowCloseButtonHint);
 	//preview.setModal(Qt::WindowModal);
@@ -387,6 +395,7 @@ void PRT::mouseMoveEvent(QMouseEvent * event)
 		{
 			if (QMessageBox::Yes == showMsgBox2("退出确认", "是否确认退出该系统?", "确认", "取消"))
 			{
+				m_bCloseSignal = true;
 				close();
 			}
 		}
@@ -401,6 +410,14 @@ void PRT::showWindowOut(QString str)
 }
 #pragma endregion
 
+
+void PRT::closeEvent(QCloseEvent *event)
+{
+	if (!m_bCloseSignal)
+	{
+		event->ignore();
+	}
+}
 bool PRT::eventFilter(QObject* obj, QEvent* event)
 {
 	if (obj == this)

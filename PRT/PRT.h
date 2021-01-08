@@ -30,7 +30,9 @@ class PRT : public QMainWindow
     Q_OBJECT
 signals:
 	void STARTCONNECTPLC(); 
+
 protected:
+	virtual void closeEvent(QCloseEvent *event);
 	void mousePressEvent(QMouseEvent *event);
 	void mouseMoveEvent(QMouseEvent *event);
 public:
@@ -84,6 +86,8 @@ private:
 
 	QString m_sName;
 	QPrinter *m_prt = nullptr;
+
+	bool m_bCloseSignal = false;
 public slots:
 	void on_pB_Print_clicked();
 	void on_pB_PrintDirect_clicked();
