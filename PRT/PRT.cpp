@@ -149,7 +149,7 @@ void PRT::initDog()
 
 void PRT::initData()
 {
-	m_iDataNum = 500;
+	m_iDataNum = 50;
 	data.resize(m_iDataNum);
 	ui.label->setText(QString::fromLocal8Bit("最大可打印数：") + QString::number(m_iDataNum) + QString::fromLocal8Bit("\n1#站:") + QString::number(m_iDataNum - m_iDataNum / 2) + QString::fromLocal8Bit("\n2#站:") + QString::number(m_iDataNum / 2));
 
