@@ -87,6 +87,7 @@ private:
 
 	bool m_bCloseSignal = false;
 	int m_iPrintMode;
+	QSettings *RWini;
 public slots:
 	void on_pB_Print_clicked();
 	void on_pB_PrintDirect_clicked();

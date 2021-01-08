@@ -4,20 +4,20 @@ PRT::PRT(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-	initDog();
-	//setWindowFlags(windowFlags()&~Qt::WindowMinMaxButtonsHint | Qt::WindowMinimizeButtonHint);
 
+	initDog();
 	setWindowFlags(Qt::FramelessWindowHint);//无边框  
 	setWindowIcon(QIcon("./ico/dr.ico"));
-
-	initData();
 	AppPath = qApp->applicationDirPath();//exe所在目录
+	RWini = new QSettings(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+	initData();
+	initPrinter();
 	initUI();
 	initPLC();
-	initPrinter();
 
 	wt = new QWaiting();
 	installEventFilter(this);
+
 }
 
 void PRT::initPrinter()
@@ -170,17 +170,16 @@ void PRT::initUI()
 	ui.cB_Curve->setStyleSheet(STYLESHEET);
 	ui.cB_Average->setStyleSheet(STYLESHEET);
 
-	QSettings ReadIni(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
 	QRegExp regx("[0-9]+$");//正则表达式QRegExp,只允许输入中文、数字、字母、下划线以及空格,[\u4e00 - \u9fa5a - zA - Z0 - 9_] + $
 	ui.lineEdit->setValidator(new QRegExpValidator(regx, this));
 	ui.lineEdit_2->setValidator(new QRegExpValidator(regx, this));
-	ui.lineEdit->setText(QString::number(ReadIni.value("ProgramSetting/PrintCurveCount", "0").toInt()));
-	ui.lineEdit_2->setText(QString::number(ReadIni.value("ProgramSetting/PrintAveCount", "0").toInt()));
-	ui.cB_Curve->setChecked(ReadIni.value("ProgramSetting/PrintCurve", "0").toBool());
-	ui.cB_Average->setChecked(ReadIni.value("ProgramSetting/PrintAve", "0").toBool());
-	ui.checkBox->setChecked(ReadIni.value("ProgramSetting/PrintCurveAllOrNot", "0").toBool());
-	ui.checkBox_2->setChecked(ReadIni.value("ProgramSetting/PrintAveAllOrNot", "0").toBool());
-	m_iPrintMode = ReadIni.value("ProgramSetting/PrintMode", "0").toInt();
+	ui.lineEdit->setText(QString::number(RWini->value("ProgramSetting/PrintCurveCount", "0").toInt()));
+	ui.lineEdit_2->setText(QString::number(RWini->value("ProgramSetting/PrintAveCount", "0").toInt()));
+	ui.cB_Curve->setChecked(RWini->value("ProgramSetting/PrintCurve", "0").toBool());
+	ui.cB_Average->setChecked(RWini->value("ProgramSetting/PrintAve", "0").toBool());
+	ui.checkBox->setChecked(RWini->value("ProgramSetting/PrintCurveAllOrNot", "0").toBool());
+	ui.checkBox_2->setChecked(RWini->value("ProgramSetting/PrintAveAllOrNot", "0").toBool());
+	m_iPrintMode = RWini->value("ProgramSetting/PrintMode", "0").toInt();
 	ui.cB_PrintMode->setCurrentIndex(m_iPrintMode);
 	judgeLabelText(m_iPrintMode);
 }
@@ -271,15 +270,14 @@ void PRT::on_checkBox_2_toggled(bool checked)
 }
 void PRT::writeIni()
 {
-	QSettings WriteIni(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
 	num1_Le = ui.lineEdit->text().toInt();
 	num2_Le_2 = ui.lineEdit_2->text().toInt();
 
 	ui.lineEdit->setText(QString::number(num1_Le));
 	ui.lineEdit_2->setText(QString::number(num2_Le_2));
 
-	WriteIni.setValue("ProgramSetting/PrintCurveCount", QString::number(num1_Le));
-	WriteIni.setValue("ProgramSetting/PrintAveCount", QString::number(num2_Le_2));
+	RWini->setValue("ProgramSetting/PrintCurveCount", QString::number(num1_Le));
+	RWini->setValue("ProgramSetting/PrintAveCount", QString::number(num2_Le_2));
 }
 bool PRT::caculateCount()
 {
@@ -379,8 +377,7 @@ void PRT::toDraw(QPrinter *p)
 void PRT::on_cB_PrintMode_currentIndexChanged(int index)
 {
 	judgeLabelText(index);
-	QSettings WriteIni(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
-	WriteIni.setValue("ProgramSetting/PrintMode", QString::number(ui.cB_PrintMode->currentIndex()));
+	RWini->setValue("ProgramSetting/PrintMode", QString::number(ui.cB_PrintMode->currentIndex()));
 	m_iPrintMode = index;
 }
 
@@ -396,7 +393,7 @@ void PRT::judgeLabelText(int index)
 	}
 
 }
-#pragma	region//close & minimum
+#pragma	region//close & minimum events
 void PRT::mousePressEvent(QMouseEvent* p)
 {
 	if (p->button() == Qt::LeftButton) {       // 如果是鼠标左键按下
@@ -423,15 +420,6 @@ void PRT::mouseMoveEvent(QMouseEvent * event)
 		}
 	}
 }
-void PRT::showWindowOut(QString str)
-{
-	levelOut = new WindowOut;
-	levelOut->setWindowCount(0);
-	levelOut->getString(str, 2000);
-	levelOut->show();
-}
-#pragma endregion
-
 
 void PRT::closeEvent(QCloseEvent *event)
 {
@@ -474,3 +462,14 @@ bool PRT::eventFilter(QObject* obj, QEvent* event)
 	}
 	return QObject::eventFilter(obj, event);
 }
+
+#pragma endregion
+
+void PRT::showWindowOut(QString str)
+{
+	levelOut = new WindowOut;
+	levelOut->setWindowCount(0);
+	levelOut->getString(str, 2000);
+	levelOut->show();
+}
+
