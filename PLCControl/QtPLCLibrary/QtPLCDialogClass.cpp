@@ -246,20 +246,21 @@ void QtPLCDialogClass::SetSocket(QtSocket_Class *sc)
 #pragma region data
 DataFromPC_typ QtPLCDialogClass::getPCData()
 {
-
 	DataFromPC_typ tmp;
 	memset(&tmp, 0, sizeof(DataFromPC_typ));//将新char所指向的前size字节的内存单元用一个0替换，初始化内存。下同
 	//tmp.Telegram_typ = ((Ui::QtPLCDialogClass*)ui)->lE_Telegram_typ->text().toInt();
 
-	//系统参数
-
+	//Machine_Pare
+	tmp.Machine_Para.enable = ((Ui::QtPLCDialogClass*)ui)->cB_enable->currentIndex();
+	tmp.Machine_Para.s_trg_stop[0] = ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->text().toFloat();
+	tmp.Machine_Para.s_trg_stop[1] = ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->text().toFloat();
+	tmp.Machine_Para.FeedTimeOut = ((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->text().toFloat(); 
+	tmp.Machine_Para.CapPickInterval = ((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->text().toFloat();
 	tmp.Machine_Para.CapBackInterval = QString::number(((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->text().toFloat() * 100).toInt();
-	tmp.Machine_Para.TireWaitTime = QString::number(((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->text().toFloat() * 100).toInt();
 	tmp.Machine_Para.TireDelay = QString::number(((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->text().toFloat() * 100).toInt();
 	tmp.Machine_Para.ReadDelay = QString::number(((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->text().toFloat() * 100).toInt();
-	tmp.Machine_Para.FeedTimeOut = ((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->text().toFloat();
-	tmp.Machine_Para.CapPickInterval = ((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->text().toFloat();
-	tmp.Machine_Para.StopSignalDelay = ((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->text().toFloat();
+	tmp.Machine_Para.TireWaitTime = QString::number(((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->text().toFloat() * 100).toInt();
+	tmp.Machine_Para.StopSignalDelay = ((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->text().toInt();
 
 	//运行数据
 //	tmp.Run_Para.RunSpeed = ((Ui::QtPLCDialogClass*)ui)->lE_RunSpeed->text().toInt();
