@@ -255,7 +255,35 @@ DataFromPC_typ QtPLCDialogClass::getPCParaData()//2
 	tmp.Machine_Para.TireDelay = m_data->Machine_Para.TireDelay;
 	tmp.Machine_Para.ReadDelay = m_data->Machine_Para.ReadDelay;
 	tmp.Machine_Para.TireWaitTime = m_data->Machine_Para.TireWaitTime;
-	tmp.Machine_Para.StopSignalDelay = m_data->Machine_Para.StopSignalDelay; 
+	tmp.Machine_Para.StopSignalDelay = m_data->Machine_Para.StopSignalDelay;
+	return tmp;
+}
+DataFromPC_typ QtPLCDialogClass::getPCRunData()//4
+{
+	DataFromPC_typ tmp;
+	memset(&tmp, 0, sizeof(DataFromPC_typ));
+	tmp.Run_Para.SysOveride = m_data->ActData.SysOveride;				//系统速度，0-10000对应0-100%
+	tmp.Run_Para.PassCount = m_data->ActData.PassCount;				//通过计数
+	tmp.Run_Para.RejectCount = m_data->ActData.RejectCount;			//剔废计数
+	tmp.Run_Para.ProdCount = m_data->ActData.ProdCount;				//称重计数
+	tmp.Run_Para.TOCount = m_data->ActData.TOCount;				//过重计数
+	tmp.Run_Para.TUCount = m_data->ActData.TUCount;				//过轻计数
+	tmp.Run_Para.TOverload = m_data->ActData.TOverload;				//超重重量,单位g
+	tmp.Run_Para.TUnderload = m_data->ActData.TUnderload;				//超轻重量,单位g
+	tmp.Run_Para.InterOverLoad = m_data->ActData.InterOverLoad;			//内控线，上限,单位g
+	tmp.Run_Para.InterUnderLoad = m_data->ActData.InterUnderLoad;			//内控线，下限,单位g
+	tmp.Run_Para.TDemand = m_data->ActData.TDemand;				//期望重量,单位g			
+	tmp.Run_Para.TireMode = m_data->ActData.TireMode;				//0:每组去皮重,1:每次称重去皮重
+	tmp.Run_Para.GroupSet = m_data->ActData.GroupSet;				//每组测试胶囊数量
+	tmp.Run_Para.TestInterval = m_data->ActData.TestInterval;			//测试间隔时间,单位s
+	tmp.Run_Para.BatchName[40] = m_data->ActData.BatchName[40];			//批号字符串
+	tmp.Run_Para.GroupNo = m_data->ActData.GroupNo;				//当前组号
+	tmp.Run_Para.Language = m_data->ActData.Language;				//当前语言，0：中文，1：英文
+	tmp.Run_Para.UserAnalogoutput = m_data->ActData.UserAnalogoutput;		//用户模拟量输入
+	tmp.Run_Para.Adjustvalue = m_data->ActData.Adjustvalue;			//自动调整系数
+	tmp.Run_Para.DeltaInput = m_data->ActData.DeltaInput;				//装量调整偏差值
+	tmp.Run_Para.cmdAutoPrint = m_data->ActData.cmdAutoPrint;			//自动打印，1:自动，0：手动
+
 	return tmp;
 }
 DataFromPC_typ QtPLCDialogClass::getPCData()
@@ -298,80 +326,81 @@ DataFromPC_typ QtPLCDialogClass::getPCData()
 void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kickOpen, int kickMode)
 {
 	memcpy(m_data, (DataToPC_typ*)data, sizeof(DataToPC_typ));//主界面用
-
+	
 	//运行数据
-	//if (!((Ui::QtPLCDialogClass*)ui)->lE_RunSpeed->hasFocus())
-	//{
-	//	((Ui::QtPLCDialogClass*)ui)->lE_RunSpeed->setText(QString::number(m_data->ActData.RunSpeed));
-	//}
-///	((Ui::QtPLCDialogClass*)ui)->lE_SysPhase->setText(QString::number(m_data->ActData.SysPhase / 100.0, 'f', 2));
-	/*if (m_data->ActData.enPhoto == 1)
+#pragma region run
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->hasFocus())//系统速度，0-10000对应0-100%
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_enPhoto->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_enPhoto->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_enPhoto->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pB_enPhoto->blockSignals(false);
-
-	}
-	else
+		((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->setText(QString::number(m_data->ActData.SysOveride));
+	}	
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_PassCount->hasFocus())//通过计数
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_enPhoto->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_enPhoto->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pB_enPhoto->setStyleSheet("font-size:20pt");
-
-		((Ui::QtPLCDialogClass*)ui)->pB_enPhoto->blockSignals(false);
-	}
-	if (m_data->ActData.enReject == 1)
-
+		((Ui::QtPLCDialogClass*)ui)->lE_PassCount->setText(QString::number(m_data->ActData.PassCount));
+	}	
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_RejectCount->hasFocus())//剔废计数
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_enReject->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_enReject->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_enReject->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pB_enReject->blockSignals(false);
+		((Ui::QtPLCDialogClass*)ui)->lE_RejectCount->setText(QString::number(m_data->ActData.RejectCount));
 	}
-	else
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_ProdCount->hasFocus())//称重计数
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_enReject->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_enReject->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pB_enReject->setStyleSheet("font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pB_enReject->blockSignals(false);
+		((Ui::QtPLCDialogClass*)ui)->lE_ProdCount->setText(QString::number(m_data->ActData.ProdCount));
 	}
-
-	if (m_data->ActData.enFeed == 1)
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_TOCount->hasFocus())//过重计数,单位g
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_enFeed->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_enFeed->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_enFeed->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pB_enFeed->blockSignals(false);
-
+		((Ui::QtPLCDialogClass*)ui)->lE_TOCount->setText(QString::number(m_data->ActData.TOCount));
 	}
-	else
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_TUCount->hasFocus())//过轻计数,单位g
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_enFeed->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_enFeed->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pB_enFeed->setStyleSheet("font-size:20pt");
-
-		((Ui::QtPLCDialogClass*)ui)->pB_enFeed->blockSignals(false);
+		((Ui::QtPLCDialogClass*)ui)->lE_TUCount->setText(QString::number(m_data->ActData.TUCount));
 	}
-	if (m_data->ActData.enRotate == 1)
-
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_TOverload->hasFocus())//超重重量,单位g
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_enRotate->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_enRotate->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_enRotate->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pB_enRotate->blockSignals(false);
+		((Ui::QtPLCDialogClass*)ui)->lE_TOverload->setText(QString::number(m_data->ActData.TOverload));
 	}
-	else
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->hasFocus())//超轻重量,单位g
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_enRotate->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_enRotate->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pB_enRotate->setStyleSheet("font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pB_enRotate->blockSignals(false);
+		((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->setText(QString::number(m_data->ActData.TUnderload));
 	}
-
-	//((Ui::QtPLCDialogClass*)ui)->lE_CheckCount->setText(QString::number(m_data->ActData.CheckCount));
-	//((Ui::QtPLCDialogClass*)ui)->lE_RejectCount->setText(QString::number(m_data->ActData.RejectCount));
-	//((Ui::QtPLCDialogClass*)ui)->lE_ForceRejectCount->setText(QString::number(m_data->ActData.ForceRejectCount));*/
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->hasFocus())//内控线，上限,单位g
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->setText(QString::number(m_data->ActData.InterOverLoad));
+	}
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->hasFocus())//内控线，下限,单位g
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->setText(QString::number(m_data->ActData.InterUnderLoad));
+	}
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_TDemand->hasFocus())//期望重量, 单位g
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_TDemand->setText(QString::number(m_data->ActData.TDemand));
+	}	
+	if (!((Ui::QtPLCDialogClass*)ui)->cB_TireMode->hasFocus())//0:每组去皮重,1:每次称重去皮重
+	{
+		((Ui::QtPLCDialogClass*)ui)->cB_TireMode->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->cB_TireMode->setCurrentIndex(m_data->ActData.TireMode);
+		((Ui::QtPLCDialogClass*)ui)->cB_TireMode->blockSignals(false);
+	}
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->hasFocus())//每组测试胶囊数量
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->setText(QString::number(m_data->ActData.GroupSet));
+	}
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->hasFocus())////测试间隔时间,单位s
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->setText(QString::number(m_data->ActData.TestInterval));
+	}
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_BatchName->hasFocus())//BatchName[40];			//批号字符串
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setText(m_data->ActData.BatchName);
+	}
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_GroupNo->hasFocus())//GroupNo;				//当前组号
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_GroupNo->setText(QString::number(m_data->ActData.GroupNo));
+	}
+	//int				Language;				//当前语言，0：中文，1：英文
+	//float			UserAnalogoutput;		//用户模拟量输入
+	//float			Adjustvalue;			//自动调整系数
+	//unsigned int	DeltaInput;				//装量调整偏差值
+	//int				cmdAutoPrint;			//自动打印，1:自动，0：手动
+#pragma endregion
 
 	//系统状态
 	((Ui::QtPLCDialogClass*)ui)->lE_AlarmStatus->setText(QString::number(m_data->Status.AlarmStatus));
@@ -380,7 +409,7 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	//((Ui::QtPLCDialogClass*)ui)->lE_ServoErrorNum1->setText(QString::number(m_data->Status.ServoErrorNum[1]));
 	//((Ui::QtPLCDialogClass*)ui)->lE_SysPhase_1->setText(QString::number(m_data->Status.SysPhase / 100.0, 'f', 2));
 	//((Ui::QtPLCDialogClass*)ui)->lE_HomeOK->setText(QString::number(m_data->Status.HomeOK));
-
+#pragma endregion
 	//系统参数
 #pragma region para
 	if (!((Ui::QtPLCDialogClass*)ui)->cB_enable->hasFocus())
@@ -672,6 +701,134 @@ int QtPLCDialogClass::showMsgBox(QMessageBox::Icon icon, const char* titleStr, c
 	//	QMessageBox::Critical
 
 }
+#pragma endregion
+
+#pragma region ui run slots
+void QtPLCDialogClass::on_lE_SysOveride_editingFinished()//系统速度，0-10000对应0-100%
+{
+	DataFromPC_typ typ;
+	typ = getPCRunData();
+	typ.Telegram_typ = 4;
+	typ.Run_Para.SysOveride = ((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->text().toInt();
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_lE_RejectCount_editingFinished()//通过计数
+{
+	DataFromPC_typ typ;
+	typ = getPCRunData();
+	typ.Telegram_typ = 4;
+	typ.Run_Para.RejectCount = ((Ui::QtPLCDialogClass*)ui)->lE_RejectCount->text().toInt();
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_lE_ProdCount_editingFinished()//称重计数
+{
+	DataFromPC_typ typ;
+	typ = getPCRunData();
+	typ.Telegram_typ = 4;
+	typ.Run_Para.ProdCount = ((Ui::QtPLCDialogClass*)ui)->lE_ProdCount->text().toInt();
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_lE_TOCount_editingFinished()//过重计数
+{
+	DataFromPC_typ typ;
+	typ = getPCRunData();
+	typ.Telegram_typ = 4;
+	typ.Run_Para.TOCount = ((Ui::QtPLCDialogClass*)ui)->lE_TOCount->text().toUInt();
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_lE_TUCount_editingFinished()//过轻计数
+{
+	DataFromPC_typ typ;
+	typ = getPCRunData();
+	typ.Telegram_typ = 4;
+	typ.Run_Para.TUCount = ((Ui::QtPLCDialogClass*)ui)->lE_TUCount->text().toUInt();
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_lE_TOverload_editingFinished()//超重重量,单位g
+{
+	DataFromPC_typ typ;
+	typ = getPCRunData();
+	typ.Telegram_typ = 4;
+	typ.Run_Para.TOverload = ((Ui::QtPLCDialogClass*)ui)->lE_TOverload->text().toFloat();
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_lE_TUnderload_editingFinished()//超轻重量,单位g
+{
+	DataFromPC_typ typ;
+	typ = getPCRunData();
+	typ.Telegram_typ = 4;
+	typ.Run_Para.TUnderload = ((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->text().toFloat();
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_lE_InterOverLoad_editingFinished()//内控线，上限,单位g
+{
+	DataFromPC_typ typ;
+	typ = getPCRunData();
+	typ.Telegram_typ = 4;
+	typ.Run_Para.InterOverLoad = ((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->text().toFloat();
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_lE_InterUnderLoad_editingFinished()//内控线，下限,单位g
+{
+	DataFromPC_typ typ;
+	typ = getPCRunData();
+	typ.Telegram_typ = 4;
+	typ.Run_Para.InterUnderLoad = ((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->text().toFloat();
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_lE_TDemand_editingFinished()///期望重量,单位g	
+{
+	DataFromPC_typ typ;
+	typ = getPCRunData();
+	typ.Telegram_typ = 4;
+	typ.Run_Para.TDemand = ((Ui::QtPLCDialogClass*)ui)->lE_TDemand->text().toFloat();
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_cB_TireMode_currentIndexChanged(int index)//0:每组去皮重,1:每次称重去皮重
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 4;
+	typ.Run_Para.TireMode = index;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+
+void QtPLCDialogClass::on_lE_GroupSet_editingFinished()///每组测试胶囊数量
+{
+	DataFromPC_typ typ;
+	typ = getPCRunData();
+	typ.Telegram_typ = 4;
+	typ.Run_Para.GroupSet = ((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->text().toInt();
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_lE_TestInterval_editingFinished()///测试间隔时间,单位s
+{
+	DataFromPC_typ typ;
+	typ = getPCRunData();
+	typ.Telegram_typ = 4;
+	typ.Run_Para.TestInterval = ((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->text().toInt();
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_lE_BatchName_editingFinished()//批号字符串
+{
+	DataFromPC_typ typ;
+	typ = getPCRunData();
+	typ.Telegram_typ = 4;
+	//typ.Run_Para.BatchName = (char*)(((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text());
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_lE_GroupNo_editingFinished()//当前组号,单位s
+{
+	DataFromPC_typ typ;
+	typ = getPCRunData();
+	typ.Telegram_typ = 4;
+	typ.Run_Para.GroupNo = ((Ui::QtPLCDialogClass*)ui)->lE_GroupNo->text().toUInt();
+	m_socket->Communicate_PLC(&typ, nullptr);
+}			
+//int				Language;				//当前语言，0：中文，1：英文
+//float			UserAnalogoutput;		//用户模拟量输入
+//float			Adjustvalue;			//自动调整系数
+//unsigned int	DeltaInput;				//装量调整偏差值
+//int				cmdAutoPrint;			//自动打印，1:自动，0：手动
 #pragma endregion
 
 #pragma region ui para slots

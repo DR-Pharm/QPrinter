@@ -40,7 +40,7 @@
    <property name="maximumSize">
     <size>
      <width>849</width>
-     <height>725</height>
+     <height>525</height>
     </size>
    </property>
    <property name="font">
@@ -59,7 +59,7 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab_PLC_Control">
     <attribute name="title">
@@ -839,6 +839,228 @@
         <number>2</number>
        </property>
        <layout class="QGridLayout" name="gridLayout_5">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_30">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>80</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>234234</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>宋体</family>
+            <pointsize>20</pointsize>
+            <weight>75</weight>
+            <italic>false</italic>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>使能信号</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="4">
+         <widget class="UserLE" name="lE_CapBackInterval">
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>3434</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>宋体</family>
+            <pointsize>20</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="QLabel" name="label_32">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>232323</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>宋体</family>
+            <pointsize>20</pointsize>
+            <weight>75</weight>
+            <italic>false</italic>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>去皮延迟启动时间</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_4">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>444444</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>宋体</family>
+            <pointsize>20</pointsize>
+            <weight>75</weight>
+            <italic>false</italic>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>下料超时时间</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QComboBox" name="cB_enable">
+          <property name="maximumSize">
+           <size>
+            <width>3434</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <item>
+           <property name="text">
+            <string>否</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>是</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="0" column="4">
+         <widget class="UserLE" name="lE_CapPickInterval">
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>3434</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>宋体</family>
+            <pointsize>20</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_31">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>234234</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>宋体</family>
+            <pointsize>20</pointsize>
+            <weight>75</weight>
+            <italic>false</italic>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>停止位置2</string>
+          </property>
+         </widget>
+        </item>
         <item row="4" column="4">
          <widget class="UserLE" name="lE_StopSignalDelay">
           <property name="minimumSize">
@@ -849,7 +1071,34 @@
           </property>
           <property name="maximumSize">
            <size>
-            <width>100</width>
+            <width>3434</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>宋体</family>
+            <pointsize>20</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="UserLE" name="lE_TireWaitTime">
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>3434</width>
             <height>35</height>
            </size>
           </property>
@@ -903,35 +1152,8 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
-         <widget class="UserLE" name="lE_TireDelay">
-          <property name="minimumSize">
-           <size>
-            <width>120</width>
-            <height>35</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>100</width>
-            <height>35</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>宋体</family>
-            <pointsize>20</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_32">
+        <item row="0" column="3">
+         <widget class="QLabel" name="label_25">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -963,12 +1185,49 @@
            <string notr="true"/>
           </property>
           <property name="text">
-           <string>去皮延迟启动时间</string>
+           <string>自动取料周期</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="4">
-         <widget class="UserLE" name="lE_ReadDelay">
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_26">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>80</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>234234</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>宋体</family>
+            <pointsize>20</pointsize>
+            <weight>75</weight>
+            <italic>false</italic>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>停止位置1</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="4">
+         <widget class="UserLE" name="lE_TireDelay">
           <property name="minimumSize">
            <size>
             <width>120</width>
@@ -977,7 +1236,7 @@
           </property>
           <property name="maximumSize">
            <size>
-            <width>100</width>
+            <width>3434</width>
             <height>35</height>
            </size>
           </property>
@@ -994,7 +1253,34 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="0">
+        <item row="2" column="1">
+         <widget class="UserLE" name="lE_s_trg_stop1">
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>3434</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>宋体</family>
+            <pointsize>20</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
          <widget class="QLabel" name="label_42">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -1028,6 +1314,70 @@
           </property>
           <property name="text">
            <string>去皮等待时间</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="UserLE" name="lE_s_trg_stop0">
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>3434</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>宋体</family>
+            <pointsize>20</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="QLabel" name="label_5">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>500</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>宋体</family>
+            <pointsize>20</pointsize>
+            <weight>75</weight>
+            <italic>false</italic>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>成品返还周期</string>
           </property>
          </widget>
         </item>
@@ -1069,7 +1419,7 @@
          </widget>
         </item>
         <item row="4" column="1">
-         <widget class="UserLE" name="lE_TireWaitTime">
+         <widget class="UserLE" name="lE_FeedTimeOut">
           <property name="minimumSize">
            <size>
             <width>120</width>
@@ -1078,7 +1428,34 @@
           </property>
           <property name="maximumSize">
            <size>
-            <width>100</width>
+            <width>3434</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>宋体</family>
+            <pointsize>20</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="4">
+         <widget class="UserLE" name="lE_ReadDelay">
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>3434</width>
             <height>35</height>
            </size>
           </property>
@@ -1097,399 +1474,19 @@
         </item>
         <item row="2" column="2">
          <spacer name="horizontalSpacer">
-          <property name="font">
-           <font>
-            <family>宋体</family>
-            <pointsize>20</pointsize>
-            <weight>75</weight>
-            <italic>false</italic>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string/>
-          </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>40</width>
+            <width>20</width>
             <height>20</height>
            </size>
           </property>
          </spacer>
-        </item>
-        <item row="2" column="4">
-         <widget class="UserLE" name="lE_CapBackInterval">
-          <property name="minimumSize">
-           <size>
-            <width>120</width>
-            <height>35</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>100</width>
-            <height>35</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>宋体</family>
-            <pointsize>20</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="3">
-         <widget class="QLabel" name="label_5">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>500</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>宋体</family>
-            <pointsize>20</pointsize>
-            <weight>75</weight>
-            <italic>false</italic>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-          <property name="text">
-           <string>成品返还周期</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_25">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>232323</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>宋体</family>
-            <pointsize>20</pointsize>
-            <weight>75</weight>
-            <italic>false</italic>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-          <property name="text">
-           <string>自动取料周期</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="UserLE" name="lE_CapPickInterval">
-          <property name="minimumSize">
-           <size>
-            <width>120</width>
-            <height>35</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>100</width>
-            <height>35</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>宋体</family>
-            <pointsize>20</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="4">
-         <widget class="UserLE" name="lE_FeedTimeOut">
-          <property name="minimumSize">
-           <size>
-            <width>120</width>
-            <height>35</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>100</width>
-            <height>35</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>宋体</family>
-            <pointsize>20</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="3">
-         <widget class="QLabel" name="label_4">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>444444</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>宋体</family>
-            <pointsize>20</pointsize>
-            <weight>75</weight>
-            <italic>false</italic>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-          <property name="text">
-           <string>下料超时时间</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_31">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>234234</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>宋体</family>
-            <pointsize>20</pointsize>
-            <weight>75</weight>
-            <italic>false</italic>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-          <property name="text">
-           <string>停止位置2</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="UserLE" name="lE_s_trg_stop1">
-          <property name="minimumSize">
-           <size>
-            <width>120</width>
-            <height>35</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>100</width>
-            <height>35</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>宋体</family>
-            <pointsize>20</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="4">
-         <widget class="UserLE" name="lE_s_trg_stop0">
-          <property name="minimumSize">
-           <size>
-            <width>120</width>
-            <height>35</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>100</width>
-            <height>35</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>宋体</family>
-            <pointsize>20</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="3">
-         <widget class="QLabel" name="label_26">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>80</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>234234</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>宋体</family>
-            <pointsize>20</pointsize>
-            <weight>75</weight>
-            <italic>false</italic>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-          <property name="text">
-           <string>停止位置1</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_30">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>80</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>234234</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>宋体</family>
-            <pointsize>20</pointsize>
-            <weight>75</weight>
-            <italic>false</italic>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-          <property name="text">
-           <string>使能信号</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QComboBox" name="cB_enable">
-          <item>
-           <property name="text">
-            <string>否</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>是</string>
-           </property>
-          </item>
-         </widget>
         </item>
        </layout>
       </widget>
@@ -2152,6 +2149,13 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
      <height>528</height>
     </size>
    </property>
+   <property name="font">
+    <font>
+     <family>宋体</family>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="autoFillBackground">
     <bool>true</bool>
    </property>
@@ -2183,8 +2187,82 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
           <number>2</number>
          </property>
          <layout class="QGridLayout" name="gridLayout_11">
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="lE_TOCount">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>宋体</family>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>1</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="3">
+           <widget class="QLabel" name="label_48">
+            <property name="font">
+             <font>
+              <family>宋体</family>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>过轻</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_10">
+            <property name="font">
+             <font>
+              <family>宋体</family>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>通过</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="lE_PassCount">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>宋体</family>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>223</string>
+            </property>
+           </widget>
+          </item>
           <item row="0" column="7">
-           <widget class="QLineEdit" name="lineEdit_12">
+           <widget class="QLineEdit" name="lE_ProdCount">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -2203,6 +2281,96 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
             </property>
             <property name="text">
              <string>226</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="5">
+           <spacer name="horizontalSpacer_11">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="6">
+           <widget class="QLabel" name="label_39">
+            <property name="font">
+             <font>
+              <family>宋体</family>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>合计</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="4">
+           <widget class="QLineEdit" name="lE_TUCount">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>宋体</family>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>3</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="4">
+           <widget class="QLineEdit" name="lE_RejectCount">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>宋体</family>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>3</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QLabel" name="label_17">
+            <property name="font">
+             <font>
+              <family>宋体</family>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>剔废</string>
             </property>
            </widget>
           </item>
@@ -2236,170 +2404,6 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
             </property>
            </spacer>
           </item>
-          <item row="1" column="1">
-           <widget class="QLineEdit" name="lineEdit_10">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_10">
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>通过</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="3">
-           <widget class="QLabel" name="label_17">
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>剔废</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="4">
-           <widget class="QLineEdit" name="lineEdit_9">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>3</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QLineEdit" name="lineEdit_4">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>223</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="3">
-           <widget class="QLabel" name="label_48">
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>过轻</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="6">
-           <widget class="QLabel" name="label_39">
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>合计</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="4">
-           <widget class="QLineEdit" name="lineEdit_11">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>3</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="5">
-           <spacer name="horizontalSpacer_11">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Fixed</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
          </layout>
         </widget>
        </item>
@@ -2414,6 +2418,13 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
       <layout class="QVBoxLayout" name="verticalLayout_6">
        <item>
         <widget class="QFrame" name="frame_6">
+         <property name="font">
+          <font>
+           <family>宋体</family>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
          <property name="frameShape">
           <enum>QFrame::Box</enum>
          </property>
@@ -2424,34 +2435,24 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
           <number>2</number>
          </property>
          <layout class="QGridLayout" name="gridLayout_10">
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_14">
-            <property name="minimumSize">
+          <item row="3" column="2">
+           <spacer name="horizontalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
              <size>
-              <width>0</width>
-              <height>0</height>
+              <width>10</width>
+              <height>20</height>
              </size>
             </property>
-            <property name="maximumSize">
-             <size>
-              <width>1572323</width>
-              <height>232323</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>期望重量(g)</string>
-            </property>
-           </widget>
+           </spacer>
           </item>
-          <item row="0" column="1">
-           <widget class="QLineEdit" name="lineEdit_13">
+          <item row="4" column="1">
+           <widget class="QLineEdit" name="lE_TOverload">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -2460,13 +2461,13 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
             </property>
             <property name="minimumSize">
              <size>
-              <width>0</width>
+              <width>100</width>
               <height>42</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>16777215</width>
+              <width>100</width>
               <height>42</height>
              </size>
             </property>
@@ -2478,63 +2479,43 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
              </font>
             </property>
             <property name="text">
-             <string>0.313</string>
+             <string>0.323</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLineEdit" name="lE_InterUnderLoad">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>42</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>42</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>宋体</family>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>0.299</string>
             </property>
            </widget>
           </item>
           <item row="4" column="3">
-           <widget class="QLabel" name="label_50">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>1572323</width>
-              <height>232323</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>检测间隔(s)</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_13">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>1572323</width>
-              <height>232323</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>内控上限</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0">
            <widget class="QLabel" name="label_9">
             <property name="minimumSize">
              <size>
@@ -2560,8 +2541,60 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QLineEdit" name="lineEdit_3">
+          <item row="5" column="0">
+           <widget class="QLabel" name="label_54">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>1572323</width>
+              <height>232323</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>宋体</family>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>超轻重量(g)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_12">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>1572323</width>
+              <height>232323</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>宋体</family>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>内控下限(g)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QLineEdit" name="lE_TUnderload">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -2570,13 +2603,13 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
             </property>
             <property name="minimumSize">
              <size>
-              <width>0</width>
+              <width>100</width>
               <height>42</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>16777215</width>
+              <width>100</width>
               <height>42</height>
              </size>
             </property>
@@ -2588,11 +2621,72 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
              </font>
             </property>
             <property name="text">
-             <string>0.345</string>
+             <string>0.300</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
+          <item row="1" column="4">
+           <layout class="QHBoxLayout" name="horizontalLayout_8">
+            <item>
+             <widget class="QLineEdit" name="lE_GroupSet">
+              <property name="font">
+               <font>
+                <family>宋体</family>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>20</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_16">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>5</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QComboBox" name="cB_TireMode">
+              <property name="minimumSize">
+               <size>
+                <width>165</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>宋体</family>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <item>
+               <property name="text">
+                <string>每组去皮</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>每次去皮</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="4" column="0">
            <widget class="QLabel" name="label_53">
             <property name="minimumSize">
              <size>
@@ -2618,24 +2712,18 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="lineEdit_14">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
+          <item row="3" column="3">
+           <widget class="QLabel" name="label_50">
             <property name="minimumSize">
              <size>
               <width>0</width>
-              <height>42</height>
+              <height>0</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>16777215</width>
-              <height>42</height>
+              <width>1572323</width>
+              <height>232323</height>
              </size>
             </property>
             <property name="font">
@@ -2646,28 +2734,22 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
              </font>
             </property>
             <property name="text">
-             <string>0.323</string>
+             <string>组间隔(s)</string>
             </property>
            </widget>
           </item>
-          <item row="4" column="4">
-           <widget class="QLineEdit" name="lineEdit_17">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
+          <item row="5" column="3">
+           <widget class="QLabel" name="label_79">
             <property name="minimumSize">
              <size>
               <width>0</width>
-              <height>42</height>
+              <height>0</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>16777215</width>
-              <height>42</height>
+              <width>1572323</width>
+              <height>232323</height>
              </size>
             </property>
             <property name="font">
@@ -2678,28 +2760,164 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
              </font>
             </property>
             <property name="text">
-             <string>60</string>
+             <string>当前组号</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="4">
-           <widget class="QLineEdit" name="lineEdit_18">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
+          <item row="3" column="4" rowspan="3">
+           <layout class="QGridLayout" name="gridLayout_2">
+            <item row="0" column="2" rowspan="3">
+             <widget class="QPushButton" name="pushButton">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>165</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>检测数据
+明细表</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLineEdit" name="lE_GroupNo">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>42</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>42</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>宋体</family>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>45</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLineEdit" name="lE_TestInterval">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>42</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>42</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>宋体</family>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>60</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLineEdit" name="lE_SysOveride">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>42</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>42</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>宋体</family>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>120</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <spacer name="horizontalSpacer_14">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>5</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item row="0" column="3">
+           <widget class="QLabel" name="label_78">
             <property name="minimumSize">
              <size>
               <width>0</width>
-              <height>42</height>
+              <height>0</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>16777215</width>
-              <height>42</height>
+              <width>1572323</width>
+              <height>232323</height>
              </size>
             </property>
             <property name="font">
@@ -2710,44 +2928,12 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
              </font>
             </property>
             <property name="text">
-             <string>0.300</string>
+             <string>生产批号</string>
             </property>
            </widget>
           </item>
-          <item row="4" column="1">
-           <widget class="QLineEdit" name="lineEdit">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>42</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>42</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>120</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="1">
-           <widget class="QLineEdit" name="lineEdit_19">
+          <item row="0" column="4">
+           <widget class="QLineEdit" name="lE_BatchName">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -2778,76 +2964,22 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="3">
-           <spacer name="verticalSpacer_12">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Fixed</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>5</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="5" column="0">
-           <widget class="QLabel" name="label_78">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>1572323</width>
-              <height>232323</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>批      号</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="3">
-           <widget class="QLabel" name="label_54">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>1572323</width>
-              <height>232323</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>超轻重量(g)</string>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="3">
-           <widget class="QLabel" name="label_12">
+           <widget class="QLabel" name="label_52">
+            <property name="font">
+             <font>
+              <family>宋体</family>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>每组检测数</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_14">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -2868,12 +3000,12 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
              </font>
             </property>
             <property name="text">
-             <string>内控下限</string>
+             <string>期望重量(g)</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="4">
-           <widget class="QLineEdit" name="lineEdit_2">
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="lE_TDemand">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -2882,13 +3014,13 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
             </property>
             <property name="minimumSize">
              <size>
-              <width>0</width>
+              <width>100</width>
               <height>42</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>16777215</width>
+              <width>100</width>
               <height>42</height>
              </size>
             </property>
@@ -2900,12 +3032,12 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
              </font>
             </property>
             <property name="text">
-             <string>0.299</string>
+             <string>0.313</string>
             </property>
            </widget>
           </item>
-          <item row="5" column="3">
-           <widget class="QLabel" name="label_79">
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_13">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -2926,15 +3058,12 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
              </font>
             </property>
             <property name="text">
-             <string>当前组号</string>
+             <string>内控上限(g)</string>
             </property>
            </widget>
           </item>
-          <item row="5" column="4">
-           <widget class="QLineEdit" name="lineEdit_33">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="lE_InterOverLoad">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -2943,13 +3072,13 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
             </property>
             <property name="minimumSize">
              <size>
-              <width>0</width>
+              <width>100</width>
               <height>42</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>16777215</width>
+              <width>100</width>
               <height>42</height>
              </size>
             </property>
@@ -2961,25 +3090,9 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
              </font>
             </property>
             <property name="text">
-             <string>45</string>
+             <string>0.345</string>
             </property>
            </widget>
-          </item>
-          <item row="2" column="2">
-           <spacer name="horizontalSpacer_4">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Fixed</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
           </item>
          </layout>
         </widget>
@@ -2988,90 +3101,6 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
      </widget>
     </item>
    </layout>
-  </widget>
-  <widget class="QComboBox" name="comboBox_2">
-   <property name="geometry">
-    <rect>
-     <x>1070</x>
-     <y>620</y>
-     <width>138</width>
-     <height>33</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>宋体</family>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <item>
-    <property name="text">
-     <string>每组去皮</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>每次去皮</string>
-    </property>
-   </item>
-  </widget>
-  <widget class="QLabel" name="label_51">
-   <property name="geometry">
-    <rect>
-     <x>907</x>
-     <y>620</y>
-     <width>112</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>宋体</family>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>去皮模式</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="lineEdit_15">
-   <property name="geometry">
-    <rect>
-     <x>1430</x>
-     <y>620</y>
-     <width>242</width>
-     <height>35</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>宋体</family>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_52">
-   <property name="geometry">
-    <rect>
-     <x>1267</x>
-     <y>620</y>
-     <width>140</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>宋体</family>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>每组检测数</string>
-   </property>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

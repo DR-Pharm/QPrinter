@@ -20,6 +20,7 @@ public:
 	~QtPLCDialogClass();
 	void initFont();
 	int showMsgBox(QMessageBox::Icon icon, const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str);
+
 	
 	//全是中文
 	void SetSocket(QtSocket_Class*);
@@ -48,8 +49,25 @@ public slots:
 
 	void onSendPLCCommand(bool);
 	DataFromPC_typ getPCParaData();
+	DataFromPC_typ getPCRunData();
 	DataFromPC_typ getPCData();//PC数值发送给PLC
 	void getPLCData(void*, int, int, int, int);
+
+	void on_lE_SysOveride_editingFinished();
+	void on_lE_RejectCount_editingFinished();
+	void on_lE_ProdCount_editingFinished();
+	void on_lE_TOCount_editingFinished();
+	void on_lE_TUCount_editingFinished();
+	void on_lE_TOverload_editingFinished();
+	void on_lE_TUnderload_editingFinished();
+	void on_lE_InterOverLoad_editingFinished();
+	void on_lE_InterUnderLoad_editingFinished();
+	void on_lE_TDemand_editingFinished();
+	void on_cB_TireMode_currentIndexChanged(int index);
+	void on_lE_GroupSet_editingFinished();
+	void on_lE_TestInterval_editingFinished();
+	void on_lE_BatchName_editingFinished();
+	void on_lE_GroupNo_editingFinished();
 
 	void on_cB_enable_currentIndexChanged(int index);
 	void on_lE_s_trg_stop0_editingFinished();
