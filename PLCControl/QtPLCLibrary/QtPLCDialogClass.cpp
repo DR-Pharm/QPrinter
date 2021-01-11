@@ -630,10 +630,11 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 void QtPLCDialogClass::initDlg()
 {
 	dtDlg = new QDialog();
-	dtDlg->setWindowFlags(Qt::CustomizeWindowHint|Qt::WindowCloseButtonHint);
+	dtDlg->setWindowFlags(Qt::CustomizeWindowHint|Qt::WindowCloseButtonHint | Qt::WindowStaysOnTopHint);
 	dtDlg->setWindowIcon(QIcon(AppPath + "/ico/dr.ico"));
 	dtDlg->setWindowTitle(QString::fromLocal8Bit("检测数据明细表"));
 	connect(dtDlg, SIGNAL(rejected()), this, SLOT(dtClose()));
+	dtDlg->show();
 }
 int QtPLCDialogClass::showMsgBox(QMessageBox::Icon icon, const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str)//全是中文
 {

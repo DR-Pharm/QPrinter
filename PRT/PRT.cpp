@@ -361,6 +361,7 @@ int PRT::showMsgBox(const char* titleStr, const char* contentStr, const char* bu
 	{
 		QMessageBox msg(QMessageBox::Information, QString::fromLocal8Bit(titleStr), QString::fromLocal8Bit(contentStr), QMessageBox::Yes);
 		msg.setButtonText(QMessageBox::Yes, QString::fromLocal8Bit(button1Str));
+		msg.setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowCloseButtonHint | Qt::WindowStaysOnTopHint);
 		msg.setWindowIcon(QIcon("./ico/dr.ico"));
 		return msg.exec();
 	}
@@ -369,6 +370,7 @@ int PRT::showMsgBox(const char* titleStr, const char* contentStr, const char* bu
 		QMessageBox msg(QMessageBox::Question, QString::fromLocal8Bit(titleStr), QString::fromLocal8Bit(contentStr), QMessageBox::Yes | QMessageBox::No);
 		msg.setButtonText(QMessageBox::No, QString::fromLocal8Bit(button2Str));
 		msg.setButtonText(QMessageBox::Yes, QString::fromLocal8Bit(button1Str));
+		msg.setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowCloseButtonHint | Qt::WindowStaysOnTopHint);
 		msg.setWindowIcon(QIcon("./ico/dr.ico"));
 		return msg.exec();
 	}
