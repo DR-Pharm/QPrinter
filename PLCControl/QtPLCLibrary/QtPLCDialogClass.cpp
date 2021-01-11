@@ -238,17 +238,30 @@ void QtPLCDialogClass::SetSocket(QtSocket_Class *sc)
 {
 	m_socket = sc;
 	bool b = connect(m_socket, SIGNAL(signal_FROMPLC(void*, int, int, int, int)), this, SLOT(getPLCData(void*, int, int, int, int)));
-
-	//	m_socket->set_message_handler(&message_handler, this);//全局
 }
 #pragma endregion
 
 #pragma region data
+DataFromPC_typ QtPLCDialogClass::getPCParaData()//2
+{
+	DataFromPC_typ tmp;
+	memset(&tmp, 0, sizeof(DataFromPC_typ));
+	tmp.Machine_Para.enable = m_data->Machine_Para.enable;
+	tmp.Machine_Para.s_trg_stop[0] = m_data->Machine_Para.s_trg_stop[0];
+	tmp.Machine_Para.s_trg_stop[1] = m_data->Machine_Para.s_trg_stop[1];
+	tmp.Machine_Para.FeedTimeOut = m_data->Machine_Para.FeedTimeOut;
+	tmp.Machine_Para.CapPickInterval = m_data->Machine_Para.CapPickInterval;
+	tmp.Machine_Para.CapBackInterval = m_data->Machine_Para.CapBackInterval;
+	tmp.Machine_Para.TireDelay = m_data->Machine_Para.TireDelay;
+	tmp.Machine_Para.ReadDelay = m_data->Machine_Para.ReadDelay;
+	tmp.Machine_Para.TireWaitTime = m_data->Machine_Para.TireWaitTime;
+	tmp.Machine_Para.StopSignalDelay = m_data->Machine_Para.StopSignalDelay; 
+	return tmp;
+}
 DataFromPC_typ QtPLCDialogClass::getPCData()
 {
 	DataFromPC_typ tmp;
 	memset(&tmp, 0, sizeof(DataFromPC_typ));//将新char所指向的前size字节的内存单元用一个0替换，初始化内存。下同
-	//tmp.Telegram_typ = ((Ui::QtPLCDialogClass*)ui)->lE_Telegram_typ->text().toInt();
 
 	//Machine_Pare
 	tmp.Machine_Para.enable = ((Ui::QtPLCDialogClass*)ui)->cB_enable->currentIndex();
@@ -281,12 +294,10 @@ DataFromPC_typ QtPLCDialogClass::getPCData()
 
 	return tmp;
 }//获取pc数据
+
 void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kickOpen, int kickMode)
 {
 	memcpy(m_data, (DataToPC_typ*)data, sizeof(DataToPC_typ));//主界面用
-
-	//报文类型
-	//((Ui::QtPLCDialogClass*)ui)->lE_Telegram_typ->setText(QString::number(m_data->Telegram_typ));
 
 	//运行数据
 	//if (!((Ui::QtPLCDialogClass*)ui)->lE_RunSpeed->hasFocus())
@@ -371,22 +382,20 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	//((Ui::QtPLCDialogClass*)ui)->lE_HomeOK->setText(QString::number(m_data->Status.HomeOK));
 
 	//系统参数
-
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->hasFocus())
+#pragma region para
+	if (!((Ui::QtPLCDialogClass*)ui)->cB_enable->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->setText(QString::number(m_data->Machine_Para.CapBackInterval / 100.0, 'f', 2));
+		((Ui::QtPLCDialogClass*)ui)->cB_enable->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->cB_enable->setCurrentIndex(m_data->Machine_Para.enable);
+		((Ui::QtPLCDialogClass*)ui)->cB_enable->blockSignals(false);
+	}	
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->hasFocus())
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->setText(QString::number(m_data->Machine_Para.s_trg_stop[0]));
 	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->hasFocus())
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->setText(QString::number(m_data->Machine_Para.TireWaitTime / 100.0, 'f', 2));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->setText(QString::number(m_data->Machine_Para.TireDelay / 100.0, 'f', 2));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->setText(QString::number(m_data->Machine_Para.ReadDelay / 100.0, 'f', 2));
+		((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->setText(QString::number(m_data->Machine_Para.s_trg_stop[1]));
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->hasFocus())
 	{
@@ -396,19 +405,38 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->setText(QString::number(m_data->Machine_Para.CapPickInterval));
 	}
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->hasFocus())
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->setText(QString::number(m_data->Machine_Para.CapBackInterval / 100.0, 'f', 2));
+	}	
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->hasFocus())
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->setText(QString::number(m_data->Machine_Para.TireDelay / 100.0, 'f', 2));
+	}
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->hasFocus())
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->setText(QString::number(m_data->Machine_Para.ReadDelay / 100.0, 'f', 2));
+	}
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->hasFocus())
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->setText(QString::number(m_data->Machine_Para.TireWaitTime / 100.0, 'f', 2));
+	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->hasFocus())
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->setText(QString::number(m_data->Machine_Para.StopSignalDelay));
 	}
-
+#pragma endregion
 	//输入点
+#pragma region input
 	lb_01->setVisible(m_data->Inputs.FeedTrigger ? true : false);
 	((Ui::QtPLCDialogClass*)ui)->lb_00->setVisible(m_data->Inputs.FeedTrigger ? false : true);
 	lb_11->setVisible(m_data->Inputs.SwingTrigger ? true : false);
 	((Ui::QtPLCDialogClass*)ui)->lb_10->setVisible(m_data->Inputs.SwingTrigger ? false : true);
+#pragma endregion
 	//输出点
-	//((Ui::QtPLCDialogClass*)ui)->lE_Inveter->setText(m_data->Outputs.Inveter ? "1" : "0");	
-	if (m_data->Outputs.Reject)
+#pragma region output
+	/*short		Analogoutput;*/			//模拟量输出
+	if (m_data->Outputs.Reject)			//排废电磁铁
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->setChecked(true);
@@ -422,8 +450,7 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->setStyleSheet("font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->blockSignals(false);
 	}
-	//((Ui::QtPLCDialogClass*)ui)->lE_ClipValve->setText(m_data->Outputs.ClipValve ? "1" : "0");
-	if (m_data->Outputs.ChannelSwith)
+	if (m_data->Outputs.ChannelSwith)	//胶囊通道切换
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->setChecked(true);
@@ -437,8 +464,7 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->setStyleSheet("font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->blockSignals(false);
 	}
-	//((Ui::QtPLCDialogClass*)ui)->lE_UpValve->setText(m_data->Outputs.UpValve ? "1" : "0");
-	if (m_data->Outputs.Vaccum)
+	if (m_data->Outputs.Vaccum)//真空发生器
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->setChecked(true);
@@ -452,8 +478,7 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->setStyleSheet("font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->blockSignals(false);
 	}
-	//((Ui::QtPLCDialogClass*)ui)->lE_DropValve->setText(m_data->Outputs.DropValve ? "1" : "0");
-	if (m_data->Outputs.CapGet)
+	if (m_data->Outputs.CapGet)//取料电磁铁
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->setChecked(true);
@@ -467,8 +492,7 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->setStyleSheet("font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->blockSignals(false);
 	}
-	//((Ui::QtPLCDialogClass*)ui)->lE_LampRed->setText(m_data->Outputs.LampRed ? "1" : "0");
-	if (m_data->Outputs.CapGetValve)
+	if (m_data->Outputs.CapGetValve)//取料电磁阀
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->setChecked(true);
@@ -482,8 +506,7 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->setStyleSheet("font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->blockSignals(false);
 	}
-	//((Ui::QtPLCDialogClass*)ui)->lE_LampYellow->setText(m_data->Outputs.LampYellow ? "1" : "0");
-	if (m_data->Outputs.CapBackValve)
+	if (m_data->Outputs.CapBackValve)//回料电磁阀
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValve->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValve->setChecked(true);
@@ -497,8 +520,7 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValve->setStyleSheet("font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValve->blockSignals(false);
 	}
-	//((Ui::QtPLCDialogClass*)ui)->lE_LampGreen->setText(m_data->Outputs.LampGreen ? "1" : "0");
-	if (m_data->Outputs.AlarmOut)
+	if (m_data->Outputs.AlarmOut)//报警蜂鸣器
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->setChecked(true);
@@ -512,8 +534,7 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->setStyleSheet("font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->blockSignals(false);
 	}
-	//((Ui::QtPLCDialogClass*)ui)->lE_Buzzer->setText(m_data->Outputs.Buzzer ? "1" : "0");
-	if (m_data->Outputs.StopSignal)
+	if (m_data->Outputs.StopSignal)//停机信号
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->setChecked(true);
@@ -527,8 +548,7 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->setStyleSheet("font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->blockSignals(false);
 	}
-	//((Ui::QtPLCDialogClass*)ui)->lE_Photo->setText(m_data->Outputs.Photo ? "1" : "0");
-	if (m_data->Outputs.AlarmSignal)
+	if (m_data->Outputs.AlarmSignal)//报警输出
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->setChecked(true);
@@ -542,9 +562,7 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->setStyleSheet("font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->blockSignals(false);
 	}
-
-	//((Ui::QtPLCDialogClass*)ui)->lE_Flash0->setText(m_data->Outputs.Flash[0] ? "1" : "0");
-	if (m_data->Outputs.YellowAlarmout)
+	if (m_data->Outputs.YellowAlarmout)//黄灯报警
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->setChecked(true);
@@ -558,8 +576,7 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->setStyleSheet("font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->blockSignals(false);
 	}
-	//((Ui::QtPLCDialogClass*)ui)->lE_Flash1->setText(m_data->Outputs.Flash[1] ? "1" : "0");
-	if (m_data->Outputs.Baffle)
+	if (m_data->Outputs.Baffle)//挡板
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->setChecked(true);
@@ -573,6 +590,9 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->setStyleSheet("font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->blockSignals(false);
 	}
+	//bool		Photo;					//拍照
+	//bool		Flash;					//闪光
+#pragma endregion
 }//PC显示数据
 #pragma endregion
 
@@ -651,6 +671,89 @@ int QtPLCDialogClass::showMsgBox(QMessageBox::Icon icon, const char* titleStr, c
 	//	QMessageBox::Warning
 	//	QMessageBox::Critical
 
+}
+#pragma endregion
+
+#pragma region ui para slots
+void QtPLCDialogClass::on_cB_enable_currentIndexChanged(int index)
+{
+	DataFromPC_typ typ;
+	typ = getPCParaData();
+	typ.Telegram_typ = 2;
+	typ.Machine_Para.enable = index;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_lE_s_trg_stop0_editingFinished()
+{
+	DataFromPC_typ typ;
+	typ = getPCParaData();
+	typ.Telegram_typ = 2;
+	typ.Machine_Para.s_trg_stop[0] = ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->text().toInt();
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_lE_s_trg_stop1_editingFinished()
+{
+	DataFromPC_typ typ;
+	typ = getPCParaData();
+	typ.Telegram_typ = 2;
+	typ.Machine_Para.s_trg_stop[1] = ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->text().toInt();
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_lE_FeedTimeOut_editingFinished()
+{
+	DataFromPC_typ typ;
+	typ = getPCParaData();
+	typ.Telegram_typ = 2;
+	typ.Machine_Para.FeedTimeOut = ((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->text().toInt();
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_lE_CapPickInterval_editingFinished()
+{
+	DataFromPC_typ typ;
+	typ = getPCParaData();
+	typ.Telegram_typ = 2;
+	typ.Machine_Para.CapPickInterval = ((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->text().toInt();
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_lE_CapBackInterval_editingFinished()
+{
+	DataFromPC_typ typ;
+	typ = getPCParaData();
+	typ.Telegram_typ = 2;
+	typ.Machine_Para.CapBackInterval = ((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->text().toInt();
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_lE_TireDelay_editingFinished()
+{
+	DataFromPC_typ typ;
+	typ = getPCParaData();
+	typ.Telegram_typ = 2;
+	typ.Machine_Para.TireDelay = ((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->text().toInt();
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_lE_ReadDelay_editingFinished()
+{
+	DataFromPC_typ typ;
+	typ = getPCParaData();
+	typ.Telegram_typ = 2;
+	typ.Machine_Para.ReadDelay = ((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->text().toInt();
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_lE_TireWaitTime_editingFinished()
+{
+	DataFromPC_typ typ;
+	typ = getPCParaData();
+	typ.Telegram_typ = 2;
+	typ.Machine_Para.TireWaitTime = ((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->text().toInt();
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_lE_StopSignalDelay_editingFinished()
+{
+	DataFromPC_typ typ;
+	typ = getPCParaData();
+	typ.Telegram_typ = 2;
+	typ.Machine_Para.StopSignalDelay = ((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->text().toInt();
+	m_socket->Communicate_PLC(&typ, nullptr);
 }
 #pragma endregion
 

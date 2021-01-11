@@ -59,7 +59,7 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="tab_PLC_Control">
     <attribute name="title">
@@ -658,72 +658,34 @@
          <property name="flat">
           <bool>false</bool>
          </property>
-         <layout class="QGridLayout" name="gridLayout_2">
-          <item row="0" column="2" colspan="2">
-           <widget class="QPushButton" name="pB_cmdScaleSetStable">
-            <property name="text">
-             <string>设定秤稳定状态</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QPushButton" name="pB_cmdScaleRead">
-            <property name="text">
-             <string>秤读数命令</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="3">
-           <widget class="QPushButton" name="pB_cmdScaleCalibExt">
-            <property name="text">
-             <string>秤外部校正</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QPushButton" name="pB_cmdScaleTire">
-            <property name="text">
-             <string>秤清零</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0" colspan="3">
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <layout class="QVBoxLayout" name="verticalLayout_10">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout">
             <item>
-             <widget class="QLabel" name="label">
+             <widget class="QPushButton" name="pB_cmdScaleRead">
               <property name="text">
-               <string>稳定状态设定目标:</string>
+               <string>秤读数命令</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="comboBox">
-              <item>
-               <property name="text">
-                <string>非常稳定</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>稳定</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>不稳定</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>非常不稳定</string>
-               </property>
-              </item>
+             <widget class="QPushButton" name="pB_cmdScaleTire">
+              <property name="text">
+               <string>秤清零</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pB_cmdScaleCalibExt">
+              <property name="text">
+               <string>秤外部校正</string>
+              </property>
              </widget>
             </item>
            </layout>
           </item>
-          <item row="1" column="2">
-           <spacer name="verticalSpacer_5">
+          <item>
+           <spacer name="verticalSpacer">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
             </property>
@@ -734,6 +696,52 @@
              </size>
             </property>
            </spacer>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_7">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <item>
+               <widget class="QLabel" name="label">
+                <property name="text">
+                 <string>稳定状态设定目标:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="cB_paraScaleSetStable">
+                <item>
+                 <property name="text">
+                  <string>非常稳定</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>稳定</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>不稳定</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>非常不稳定</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pB_cmdScaleSetStable">
+              <property name="text">
+               <string>设定秤稳定状态</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </widget>
@@ -1473,12 +1481,12 @@
          <widget class="QComboBox" name="cB_enable">
           <item>
            <property name="text">
-            <string>是</string>
+            <string>否</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>否</string>
+            <string>是</string>
            </property>
           </item>
          </widget>

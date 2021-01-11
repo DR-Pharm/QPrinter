@@ -19,7 +19,9 @@ public:
 	QtPLCDialogClass(QDialog *parent = Q_NULLPTR);
 	~QtPLCDialogClass();
 	void initFont();
-	int showMsgBox(QMessageBox::Icon icon, const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str);//全是中文
+	int showMsgBox(QMessageBox::Icon icon, const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str);
+	
+	//全是中文
 	void SetSocket(QtSocket_Class*);
 	void setStyleCommand(QPushButton*, QString, QFont, QString);
 private:
@@ -45,8 +47,20 @@ private:
 public slots:
 
 	void onSendPLCCommand(bool);
+	DataFromPC_typ getPCParaData();
 	DataFromPC_typ getPCData();//PC数值发送给PLC
 	void getPLCData(void*, int, int, int, int);
+
+	void on_cB_enable_currentIndexChanged(int index);
+	void on_lE_s_trg_stop0_editingFinished();
+	void on_lE_s_trg_stop1_editingFinished();
+	void on_lE_FeedTimeOut_editingFinished();
+	void on_lE_CapPickInterval_editingFinished();
+	void on_lE_CapBackInterval_editingFinished();
+	void on_lE_TireDelay_editingFinished();
+	void on_lE_ReadDelay_editingFinished();
+	void on_lE_TireWaitTime_editingFinished();
+	void on_lE_StopSignalDelay_editingFinished();
 
 	void on_pB_cmdScaleRead_clicked();
 	void on_pB_cmdScaleTire_clicked();
@@ -67,13 +81,12 @@ public slots:
 	void on_pB_cmdFeedSingleStop_clicked();
 	void on_pB_cmdSwing_clicked();
 
-
-	void on_pB_SetUp_toggled(bool checked);
 	void on_pB_cmdStart_toggled(bool checked);
 	void on_pB_cmdAlarmReset_clicked();
 	void on_pB_cmdCounterZero_clicked();
 	void on_pB_cmdCapClean_clicked();
 	void on_pB_cmdAlogtest_clicked();
+	void on_pB_SetUp_toggled(bool checked);
 };
 
 #pragma once
