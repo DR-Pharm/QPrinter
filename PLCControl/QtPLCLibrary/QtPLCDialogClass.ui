@@ -528,49 +528,49 @@
          </property>
          <layout class="QGridLayout" name="gridLayout_7">
           <item row="2" column="1">
-           <widget class="QPushButton" name="pushButton_16">
+           <widget class="QPushButton" name="pB_cmdFeedSingleStop">
             <property name="text">
              <string>单粒下料停止</string>
             </property>
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QPushButton" name="pushButton_9">
+           <widget class="QPushButton" name="pB_cmdAxisFeedPosMov">
             <property name="text">
              <string>正向连续运动</string>
             </property>
            </widget>
           </item>
           <item row="1" column="2">
-           <widget class="QPushButton" name="pushButton_10">
+           <widget class="QPushButton" name="pB_cmdAxisFeedStopMov">
             <property name="text">
              <string>停止运动</string>
             </property>
            </widget>
           </item>
           <item row="2" column="0">
-           <widget class="QPushButton" name="pushButton_17">
+           <widget class="QPushButton" name="pB_cmdFeedSingle">
             <property name="text">
              <string>单粒下料</string>
             </property>
            </widget>
           </item>
           <item row="1" column="0">
-           <widget class="QPushButton" name="pushButton_8">
+           <widget class="QPushButton" name="pB_cmdAxisFeedRelMov">
             <property name="text">
              <string>相对运动</string>
             </property>
            </widget>
           </item>
           <item row="0" column="0">
-           <widget class="QPushButton" name="pushButton_6">
+           <widget class="QPushButton" name="pB_cmdAxisFeedJogPos">
             <property name="text">
              <string>正转点动</string>
             </property>
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QPushButton" name="pushButton_7">
+           <widget class="QPushButton" name="pB_cmdAxisFeedJogNeg">
             <property name="text">
              <string>反转点动</string>
             </property>
@@ -586,42 +586,42 @@
          </property>
          <layout class="QGridLayout" name="gridLayout_8">
           <item row="0" column="0">
-           <widget class="QPushButton" name="pushButton_11">
+           <widget class="QPushButton" name="pB_cmdAxisSwingJogPos">
             <property name="text">
              <string>正转点动</string>
             </property>
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QPushButton" name="pushButton_12">
+           <widget class="QPushButton" name="pB_cmdAxisSwingJogNeg">
             <property name="text">
              <string>反转点动</string>
             </property>
            </widget>
           </item>
           <item row="1" column="0">
-           <widget class="QPushButton" name="pushButton_13">
+           <widget class="QPushButton" name="pB_cmdAxisSwingRelMov">
             <property name="text">
              <string>相对运动</string>
             </property>
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QPushButton" name="pushButton_14">
+           <widget class="QPushButton" name="pB_cmdAxisSwingPosMov">
             <property name="text">
              <string>正向连续运动</string>
             </property>
            </widget>
           </item>
           <item row="1" column="2">
-           <widget class="QPushButton" name="pushButton_15">
+           <widget class="QPushButton" name="pB_cmdAxisSwingStopMov">
             <property name="text">
              <string>停止运动</string>
             </property>
            </widget>
           </item>
           <item row="2" column="0">
-           <widget class="QPushButton" name="pushButton_19">
+           <widget class="QPushButton" name="pB_cmdSwing">
             <property name="text">
              <string>旋转单工位</string>
             </property>
@@ -739,46 +739,6 @@
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <widget class="QDateTimeEdit" name="dateTimeEdit">
-           <property name="wrapping">
-            <bool>false</bool>
-           </property>
-           <property name="accelerated">
-            <bool>false</bool>
-           </property>
-           <property name="displayFormat">
-            <string>yyyy/MM/dd HH:mm:ss</string>
-           </property>
-           <property name="calendarPopup">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton">
-           <property name="text">
-            <string>修改日期时间</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
         <spacer name="verticalSpacer_2">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -794,25 +754,37 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
-          <widget class="QPushButton" name="pushButton_25">
-           <property name="text">
-            <string>启动打印</string>
+          <spacer name="horizontalSpacer_12">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
            </property>
-          </widget>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_26">
-           <property name="text">
-            <string>启动英文打印</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_28">
+          <widget class="QPushButton" name="pB_cmdAlogtest">
            <property name="text">
             <string>模拟量输出测试</string>
            </property>
           </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_13">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
          </item>
         </layout>
        </item>

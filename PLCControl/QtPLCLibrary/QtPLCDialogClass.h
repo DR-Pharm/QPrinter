@@ -53,12 +53,27 @@ public slots:
 	void on_pB_cmdScaleSetStable_clicked();
 	void on_cB_paraScaleSetStable_currentIndexChanged(int index);
 	void on_pB_cmdScaleCalibExt_clicked();
+	void on_pB_cmdAxisFeedJogPos_clicked();
+	void on_pB_cmdAxisFeedJogNeg_clicked();
+	void on_pB_cmdAxisFeedRelMov_clicked();
+	void on_pB_cmdAxisFeedPosMov_clicked();
+	void on_pB_cmdAxisFeedStopMov_clicked();
+	void on_pB_cmdAxisSwingJogPos_clicked();
+	void on_pB_cmdAxisSwingJogNeg_clicked();
+	void on_pB_cmdAxisSwingRelMov_clicked();
+	void on_pB_cmdAxisSwingPosMov_clicked();
+	void on_pB_cmdAxisSwingStopMov_clicked();
+	void on_pB_cmdFeedSingle_clicked();
+	void on_pB_cmdFeedSingleStop_clicked();
+	void on_pB_cmdSwing_clicked();
+
 
 	void on_pB_SetUp_toggled(bool checked);
 	void on_pB_cmdStart_toggled(bool checked);
-	void on_pB_cmdCounterZero_clicked();
 	void on_pB_cmdAlarmReset_clicked();
+	void on_pB_cmdCounterZero_clicked();
 	void on_pB_cmdCapClean_clicked();
+	void on_pB_cmdAlogtest_clicked();
 };
 
 #pragma once

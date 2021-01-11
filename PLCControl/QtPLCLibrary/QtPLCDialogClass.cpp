@@ -654,7 +654,7 @@ int QtPLCDialogClass::showMsgBox(QMessageBox::Icon icon, const char* titleStr, c
 }
 #pragma endregion
 
-#pragma region ui slots
+#pragma region ui cmd slots
 //DateTimeStructTyp		DateTimeSet;		//设定日期时间目标
 //unsigned char		cmdChangeDT;					//修改日期时间,1:执行，自动复位
 void QtPLCDialogClass::on_pB_cmdScaleRead_clicked()//秤读数命令,1:执行，自动复位
@@ -692,48 +692,98 @@ void QtPLCDialogClass::on_pB_cmdScaleCalibExt_clicked()//秤外部校正,1:执�
 	typ.Machine_Cmd.cmdScaleCalibExt = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
-/*unsigned char		cmdAxisFeedJogPos;				//下料正转点动，1:执行，0:停止
-unsigned char		cmdAxisFeedJogNeg;				//下料反转点动，1:执行，0:停止
-unsigned char		cmdAxisFeedRelMov;				//下料相对运动启动，1:执行，自动复位
-unsigned char		cmdAxisFeedPosMov;				//下料正向连续运动启动，1:执行，自动复位
-unsigned char		cmdAxisFeedStopMov;				//下料停止运动，1:执行，自动复位
 
-unsigned char		cmdAxisSwingJogPos;				//旋转正转点动，1:执行，0:停止
-unsigned char		cmdAxisSwingJogNeg;				//旋转反转点动，1:执行，0:停止
-unsigned char		cmdAxisSwingRelMov;				//旋转相对运动启动，1:执行，自动复位
-unsigned char		cmdAxisSwingPosMov;				//旋转正向连续运动启动，1:执行，自动复位
-unsigned char		cmdAxisSwingStopMov;			//旋转停止运动，1:执行，自动复位
-
-unsigned char		cmdFeedSingle;					//单粒下料，1:执行，自动复位
-unsigned char		cmdFeedSingleStop;				//单粒下料停止，1:执行，自动复位
-
-unsigned char		cmdSwing;						//旋转单工位,1:执行，自动复位
-unsigned char		cmdStart;						//启动称重，1:执行，自动复位
-unsigned char		cmdEStop;						//急停，1:执行，自动复位
-unsigned char		cmdStop;						//停止,1:执行，自动复位
-unsigned char		cmdInit;						//初始化，1:执行，自动复位
-unsigned char		cmdAlarmReset;					//报警复位,1:执行，自动复位
-unsigned char		cmdCounterZero;					//计数器清零,1:执行，自动复位
-unsigned char		cmdPrintStart;					//启动打印,1:执行，自动复位
-unsigned char		cmdPrintStartE;					//启动英文打印，1:执行，自动复位
-unsigned char		cmdCapClean;					//清空胶囊，1:执行，自动复位
-unsigned char		cmdAlogtest;*/					//模拟量输出测试,1:执行，自动复位
-void QtPLCDialogClass::on_pB_SetUp_toggled(bool checked)//设置
+void QtPLCDialogClass::on_pB_cmdAxisFeedJogPos_clicked()//下料正转点动，1:执行，0:停止
 {
-	if (checked)
-	{
-		((Ui::QtPLCDialogClass*)ui)->frame->setVisible(false);
-		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_SetUp, "background: rgb(0,255,0)", setupFont, "");
-		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart, "", startFont, QString::fromLocal8Bit("启动"));
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(false);
-	}
-	else
-	{
-		((Ui::QtPLCDialogClass*)ui)->frame->setVisible(true);
-		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_SetUp, "", setupFont, "");
-		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart, "background: rgb(200,200,100)", startFont, QString::fromLocal8Bit("启动"));
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(true);
-	}
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdAxisFeedJogPos = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}				
+void QtPLCDialogClass::on_pB_cmdAxisFeedJogNeg_clicked()//下料反转点动，1:执行，0:停止
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdAxisFeedJogNeg = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}					
+void QtPLCDialogClass::on_pB_cmdAxisFeedRelMov_clicked()//下料相对运动启动，1:执行，自动复位
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdAxisFeedRelMov = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}						
+void QtPLCDialogClass::on_pB_cmdAxisFeedPosMov_clicked()//下料正向连续运动启动，1:执行，自动复位
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdAxisFeedPosMov = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}					
+void QtPLCDialogClass::on_pB_cmdAxisFeedStopMov_clicked()//下料停止运动，1:执行，自动复位
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdAxisFeedPosMov = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}					
+
+void QtPLCDialogClass::on_pB_cmdAxisSwingJogPos_clicked()//旋转正转点动，1:执行，0:停止
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdAxisSwingJogPos = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}					
+void QtPLCDialogClass::on_pB_cmdAxisSwingJogNeg_clicked()//旋转反转点动，1:执行，0:停止
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdAxisSwingJogNeg = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}						
+void QtPLCDialogClass::on_pB_cmdAxisSwingRelMov_clicked()//旋转相对运动启动，1:执行，自动复位
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdAxisSwingRelMov = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}						
+void QtPLCDialogClass::on_pB_cmdAxisSwingPosMov_clicked()//旋转正向连续运动启动，1:执行，自动复位
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdAxisSwingPosMov = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}							
+void QtPLCDialogClass::on_pB_cmdAxisSwingStopMov_clicked()//旋转停止运动，1:执行，自动复位
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdAxisSwingStopMov = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}				
+void QtPLCDialogClass::on_pB_cmdFeedSingle_clicked()//单粒下料，1:执行，自动复位
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdFeedSingle = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}							
+void QtPLCDialogClass::on_pB_cmdFeedSingleStop_clicked()//单粒下料停止，1:执行，自动复位
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdFeedSingleStop = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}								
+void QtPLCDialogClass::on_pB_cmdSwing_clicked()//旋转单工位,1:执行，自动复位
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdSwing = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
 }
 void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 {
@@ -753,13 +803,10 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 	}
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
-void QtPLCDialogClass::on_pB_cmdCounterZero_clicked()
-{
-	DataFromPC_typ typ;
-	typ.Telegram_typ = 1;
-	typ.Machine_Cmd.cmdCounterZero = 1;
-	m_socket->Communicate_PLC(&typ, nullptr);
-}
+//unsigned char		cmdStart;						//启动称重，1:执行，自动复位
+//unsigned char		cmdEStop;						//急停，1:执行，自动复位
+//unsigned char		cmdStop;						//停止,1:执行，自动复位
+//unsigned char		cmdInit;						//初始化，1:执行，自动复位
 void QtPLCDialogClass::on_pB_cmdAlarmReset_clicked()
 {
 	DataFromPC_typ typ;
@@ -767,12 +814,45 @@ void QtPLCDialogClass::on_pB_cmdAlarmReset_clicked()
 	typ.Machine_Cmd.cmdAlarmReset = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
+void QtPLCDialogClass::on_pB_cmdCounterZero_clicked()
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdCounterZero = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+//unsigned char		cmdPrintStart;					//启动打印,1:执行，自动复位
+//unsigned char		cmdPrintStartE;					//启动英文打印，1:执行，自动复位
 void QtPLCDialogClass::on_pB_cmdCapClean_clicked()
 {
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdCapClean = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_pB_cmdAlogtest_clicked()//模拟量输出测试,1:执行，自动复位
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdCapClean = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}					
+void QtPLCDialogClass::on_pB_SetUp_toggled(bool checked)//设置
+{
+	if (checked)
+	{
+		((Ui::QtPLCDialogClass*)ui)->frame->setVisible(false);
+		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_SetUp, "background: rgb(0,255,0)", setupFont, "");
+		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart, "", startFont, QString::fromLocal8Bit("启动"));
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(false);
+	}
+	else
+	{
+		((Ui::QtPLCDialogClass*)ui)->frame->setVisible(true);
+		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_SetUp, "", setupFont, "");
+		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart, "background: rgb(200,200,100)", startFont, QString::fromLocal8Bit("启动"));
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(true);
+	}
 }
 #pragma endregion
 
