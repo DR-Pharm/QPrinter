@@ -32,10 +32,9 @@ signals:
 	void STARTCONNECTPLC(); 
 
 protected:
-	virtual void closeEvent(QCloseEvent *event);
+	void closeEvent(QCloseEvent *event);
 	void mousePressEvent(QMouseEvent *event);
 	void mouseMoveEvent(QMouseEvent *event);
-
 public:
 	PRT(QWidget *parent = Q_NULLPTR);
 	~PRT();

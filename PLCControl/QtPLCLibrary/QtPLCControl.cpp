@@ -93,6 +93,7 @@ void QtPLCControl::QtDestroyDlg()
 {
 	if (dlg!=nullptr)
 	{
+		((QtPLCDialogClass*)dlg)->dtClose();
 		delete ((QtPLCDialogClass*)dlg);
 		dlg = nullptr;
 	}

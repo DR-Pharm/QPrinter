@@ -310,6 +310,12 @@ void PRT::closeEvent(QCloseEvent *event)
 	if (!m_bCloseSignal)
 	{
 		event->ignore();
+		return;
+	}
+
+	if (m_pPlclib != nullptr)
+	{
+		m_pPlclib->QtDestroyDlg();
 	}
 }
 bool PRT::eventFilter(QObject* obj, QEvent* event)

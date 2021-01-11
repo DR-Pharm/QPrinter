@@ -32,6 +32,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 }
 QtPLCDialogClass::~QtPLCDialogClass()
 {
+	dtDlg->close();
 	if (m_socket != nullptr)
 	{
 		//		m_socket->set_message_handler(nullptr, this);
@@ -629,7 +630,7 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 void QtPLCDialogClass::initDlg()
 {
 	dtDlg = new QDialog();
-	//dtDlg->setWindowFlags(Qt::FramelessWindowHint);
+	dtDlg->setWindowFlags(Qt::CustomizeWindowHint|Qt::WindowCloseButtonHint);
 	dtDlg->setWindowIcon(QIcon(AppPath + "/ico/dr.ico"));
 	dtDlg->setWindowTitle(QString::fromLocal8Bit("检测数据明细表"));
 	connect(dtDlg, SIGNAL(rejected()), this, SLOT(dtClose()));
