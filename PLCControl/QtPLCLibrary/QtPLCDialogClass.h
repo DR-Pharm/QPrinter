@@ -19,6 +19,7 @@ public:
 	QtPLCDialogClass(QDialog *parent = Q_NULLPTR);
 	~QtPLCDialogClass();
 	void initFont();
+	void initDlg();
 	int showMsgBox(QMessageBox::Icon icon, const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str);
 
 	
@@ -27,6 +28,7 @@ public:
 	void setStyleCommand(QPushButton*, QString, QFont, QString);
 private:
 	void* ui;
+	QDialog *dtDlg = nullptr;
 	bool m_currentSituationOfCyclinder = true;
 	QTimer *cyclinderTimer = nullptr;
 	//DataToPC_typ *m_data;	//获取的PLC数据
@@ -44,6 +46,7 @@ private:
 
 	QFont setupFont;
 	QFont startFont;
+	QFont contentFont;
 
 public slots:
 
@@ -105,6 +108,8 @@ public slots:
 	void on_pB_cmdCapClean_clicked();
 	void on_pB_cmdAlogtest_clicked();
 	void on_pB_SetUp_toggled(bool checked);
+	void on_pB_dtDlg_toggled(bool checked); 
+	void dtClose();
 };
 
 #pragma once

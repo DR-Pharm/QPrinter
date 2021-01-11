@@ -12,7 +12,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	((Ui::QtPLCDialogClass*)ui)->setupUi(this);
 	((Ui::QtPLCDialogClass*)ui)->frame->move(0, 0);
 	initFont();
-
+	initDlg();
 	m_data = new DataToPC_typ;
 	memset(m_data, 0, sizeof(DataToPC_typ));//主界面用
 
@@ -29,9 +29,6 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	lb_11->move(670 + 9, 37 + 38);
 	lb_11->setVisible(false);
 
-	QString LogInfo;
-	LogInfo.sprintf("%p", QThread::currentThread());
-	qDebug() << "PLC DLG" << "threadID : " << LogInfo;
 }
 QtPLCDialogClass::~QtPLCDialogClass()
 {
@@ -61,7 +58,10 @@ void QtPLCDialogClass::initFont()
 	setupFont.setFamily(QString::fromLocal8Bit("迷你简菱心"));
 	setupFont.setPointSize(36);
 	startFont.setFamily(QString::fromLocal8Bit("迷你简菱心"));
-	startFont.setPointSize(60);
+	startFont.setPointSize(60); 
+	contentFont.setFamily(QString::fromLocal8Bit("宋体"));
+	contentFont.setBold(true);
+	contentFont.setPointSize(20);
 }
 void QtPLCDialogClass::setStyleCommand(QPushButton*btn, QString bg, QFont ft, QString tt)
 {
@@ -626,6 +626,14 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 #pragma endregion
 
 #pragma region popup window
+void QtPLCDialogClass::initDlg()
+{
+	dtDlg = new QDialog();
+	//dtDlg->setWindowFlags(Qt::FramelessWindowHint);
+	dtDlg->setWindowIcon(QIcon(AppPath + "/ico/dr.ico"));
+	dtDlg->setWindowTitle(QString::fromLocal8Bit("检测数据明细表"));
+	connect(dtDlg, SIGNAL(rejected()), this, SLOT(dtClose()));
+}
 int QtPLCDialogClass::showMsgBox(QMessageBox::Icon icon, const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str)//全是中文
 {
 	if (QString::fromLocal8Bit(button2Str) == "")
@@ -952,92 +960,90 @@ void QtPLCDialogClass::on_pB_cmdScaleCalibExt_clicked()//秤外部校正,1:执�
 	typ.Machine_Cmd.cmdScaleCalibExt = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
-
 void QtPLCDialogClass::on_pB_cmdAxisFeedJogPos_clicked()//下料正转点动，1:执行，0:停止
 {
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisFeedJogPos = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
-}				
+}
 void QtPLCDialogClass::on_pB_cmdAxisFeedJogNeg_clicked()//下料反转点动，1:执行，0:停止
 {
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisFeedJogNeg = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
-}					
+}	
 void QtPLCDialogClass::on_pB_cmdAxisFeedRelMov_clicked()//下料相对运动启动，1:执行，自动复位
 {
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisFeedRelMov = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
-}						
+}	
 void QtPLCDialogClass::on_pB_cmdAxisFeedPosMov_clicked()//下料正向连续运动启动，1:执行，自动复位
 {
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisFeedPosMov = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
-}					
+}
 void QtPLCDialogClass::on_pB_cmdAxisFeedStopMov_clicked()//下料停止运动，1:执行，自动复位
 {
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisFeedPosMov = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
-}					
-
+}	
 void QtPLCDialogClass::on_pB_cmdAxisSwingJogPos_clicked()//旋转正转点动，1:执行，0:停止
 {
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisSwingJogPos = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
-}					
+}	
 void QtPLCDialogClass::on_pB_cmdAxisSwingJogNeg_clicked()//旋转反转点动，1:执行，0:停止
 {
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisSwingJogNeg = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
-}						
+}	
 void QtPLCDialogClass::on_pB_cmdAxisSwingRelMov_clicked()//旋转相对运动启动，1:执行，自动复位
 {
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisSwingRelMov = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
-}						
+}	
 void QtPLCDialogClass::on_pB_cmdAxisSwingPosMov_clicked()//旋转正向连续运动启动，1:执行，自动复位
 {
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisSwingPosMov = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
-}							
+}
 void QtPLCDialogClass::on_pB_cmdAxisSwingStopMov_clicked()//旋转停止运动，1:执行，自动复位
 {
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisSwingStopMov = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
-}				
+}	
 void QtPLCDialogClass::on_pB_cmdFeedSingle_clicked()//单粒下料，1:执行，自动复位
 {
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdFeedSingle = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
-}							
+}				
 void QtPLCDialogClass::on_pB_cmdFeedSingleStop_clicked()//单粒下料停止，1:执行，自动复位
 {
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdFeedSingleStop = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
-}								
+}					
 void QtPLCDialogClass::on_pB_cmdSwing_clicked()//旋转单工位,1:执行，自动复位
 {
 	DataFromPC_typ typ;
@@ -1096,7 +1102,7 @@ void QtPLCDialogClass::on_pB_cmdAlogtest_clicked()//模拟量输出测试,1:执�
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdCapClean = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
-}					
+}
 void QtPLCDialogClass::on_pB_SetUp_toggled(bool checked)//设置
 {
 	if (checked)
@@ -1113,6 +1119,23 @@ void QtPLCDialogClass::on_pB_SetUp_toggled(bool checked)//设置
 		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart, "background: rgb(200,200,100)", startFont, QString::fromLocal8Bit("启动"));
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(true);
 	}
+}
+void QtPLCDialogClass::on_pB_dtDlg_toggled(bool checked)//数据dialog
+{
+	if (checked)
+	{
+		dtDlg->show();
+		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_dtDlg, "background: rgb(0,255,0)", contentFont, "");
+	}
+	else
+	{
+		dtDlg->close();
+		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_dtDlg, "", contentFont, "");
+	}
+}
+void QtPLCDialogClass::dtClose()
+{
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setChecked(false);
 }
 #pragma endregion
 

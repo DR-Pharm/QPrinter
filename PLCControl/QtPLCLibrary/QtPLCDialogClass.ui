@@ -2767,7 +2767,7 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
           <item row="3" column="4" rowspan="3">
            <layout class="QGridLayout" name="gridLayout_2">
             <item row="0" column="2" rowspan="3">
-             <widget class="QPushButton" name="pushButton">
+             <widget class="QPushButton" name="pB_dtDlg">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                 <horstretch>0</horstretch>

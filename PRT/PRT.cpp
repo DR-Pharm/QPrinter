@@ -230,7 +230,7 @@ void PRT::judgeLabelText(int index)
 	}
 	else
 	{
-		ui.label->setText(QString::fromLocal8Bit("曲线图表:2组数据/次\n均值图表:12组数据/次"));
+		ui.label->setText(QString::fromLocal8Bit("曲线图表: 2组数据\n均值图表:12组数据"));
 	}
 
 }
