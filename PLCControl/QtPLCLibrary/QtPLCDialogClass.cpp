@@ -76,165 +76,6 @@ void QtPLCDialogClass::setStyleCommand(QPushButton*btn, QString bg, QFont ft, QS
 #pragma endregion
 
 #pragma region socket
-void QtPLCDialogClass::onSendPLCCommand(bool b)
-{
-	obj = qobject_cast<QPushButton*>(sender());//判断是哪个按钮触发了槽函数
-	obj->setFocus();
-	QString objname = obj->objectName();//获取触发者objectname
-	DataFromPC_typ typ;
-
-	if (!objname.contains("pb_cmdTestKick"))
-	{
-		typ = getPCData();
-	}
-	typ.Telegram_typ = 1;//命令报文
-	if (obj != nullptr)
-	{
-
-		if (b)
-		{
-			if (objname == "pB_enPhoto" || objname == "pB_enReject" || objname == "pB_enFeed" || objname == "pB_enRotate")
-			{
-				typ.Telegram_typ = 4;//运行报文
-				//if (objname == "pB_enPhoto")
-				//{
-				//	typ.Run_Para.enPhoto = 1;
-				//}
-				//if (objname == "pB_enReject")
-				//{
-				//	typ.Run_Para.enReject = 1;
-				//}
-				//if (objname == "pB_enFeed")
-				//{
-				//	typ.Run_Para.enFeed = 1;
-				//}
-				//if (objname == "pB_enRotate")
-				//{
-				//	typ.Run_Para.enRotate = 1;
-				//}
-				//////////obj->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
-				m_socket->Communicate_PLC(&typ, nullptr);//此处只发送，不接收
-			}
-
-			else {
-
-				/*if (objname == "pb_cmdHome") typ.Machine_Cmd.cmdHome = 1;//结构体数据赋值
-				if (objname == "pb_cmdStart") typ.Machine_Cmd.cmdStart = 1;
-				if (objname == "pb_cmdStop") typ.Machine_Cmd.cmdStop = 1;
-				if (objname == "pb_cmdEStop")
-				{
-					typ.Machine_Cmd.cmdEStop = 1;//非点动按钮,点动需要到最下面setChecked(false)
-					obj->setText(QString::fromLocal8Bit("急停\n按下！"));
-				}
-				if (objname == "pb_cmdJog")
-				{
-					typ.Machine_Cmd.cmdJog = 1;
-					obj->setText(QString::fromLocal8Bit("运行..."));
-				}
-				if (objname == "pb_cmdErrorAck") typ.Machine_Cmd.cmdErrorAck = 1;					//报警复位, 1:复位
-				if (objname == "pb_cmdResetCounter") typ.Machine_Cmd.cmdResetCounter = 1;				//复位计数变量, 1:复位
-				if (objname == "pb_cmdParaSave") typ.Machine_Cmd.cmdParaSave = 1;						//参数保存命令, 1:保存
-				if (objname == "pb_cmdParaLoad") typ.Machine_Cmd.cmdParaLoad = 1;						//参数读取命令, 1:读取
-				if (objname == "pb_cmdTestFlash0") typ.Machine_Cmd.cmdTestFlash[0] = 1;			//手动闪光, 1:闪光,自动复位
-				if (objname == "pb_cmdTestFlash1") typ.Machine_Cmd.cmdTestFlash[1] = 1;
-				if (objname == "pb_cmdTestFlash2") typ.Machine_Cmd.cmdTestFlash[2] = 1;
-
-				if (objname == "pb_cmdTestValveUp") typ.Machine_Cmd.cmdTestValveUp = 1;						//手动升降气缸, 1:Push, 2:Back
-				if (objname == "pb_cmdTestValveClip") typ.Machine_Cmd.cmdTestValveClip = 1;					//手动夹紧气缸, 1:Push, 2:Back
-				if (objname == "pb_cmdTestValveDrop") typ.Machine_Cmd.cmdTestValveDrop = 1;					//手动落囊气缸, 1:Push, 2:Back
-				if (objname == "pb_cmdTestInverter") typ.Machine_Cmd.cmdTestInverter = 1;				//手动胶囊料斗启动, 1:Start, 2:Stop
-				if (objname == "pb_cmdTestLampRead") typ.Machine_Cmd.cmdTestLampRead = 1;				//手动红灯输出, 1:输出 , 2: 复位
-				if (objname == "pb_cmdTestLampYellow") typ.Machine_Cmd.cmdTestLampYellow = 1;					//手动黄灯输出, 1:输出 , 2: 复位
-				if (objname == "pb_cmdTestLampGreen") typ.Machine_Cmd.cmdTestLampGreen = 1;					//手动绿灯输出, 1:输出 , 2: 复位
-				if (objname == "pb_cmdTestBuzzer") typ.Machine_Cmd.cmdTestBuzzer = 1;						//手动蜂鸣器输出, 1:输出 , 2: 复位
-				if (objname == "pb_cmdTestPhoto") typ.Machine_Cmd.cmdTestPhoto = 1;						//手动拍照, 1:输出 , 2: 复位
-				if (objname == "pb_cmdTestFlashPhoto") typ.Machine_Cmd.cmdTestFlashPhoto = 1;					//手动闪光加拍照, 1:启动
-				if (objname == "pb_cmdTestCapPhoto") typ.Machine_Cmd.cmdTestCapPhoto = 1;				//手动胶囊拍照
-				if (objname == "pb_cmdRotateCtl") typ.Machine_Cmd.cmdRotateCtl = 1;						//手动转囊启停
-
-				/////////////////obj->setStyleSheet("background: rgb(0,255,0)");*/
-			}
-		}
-		if (!b)
-		{
-			if (objname == "pB_enPhoto" || objname == "pB_enReject" || objname == "pB_enFeed" || objname == "pB_enRotate")
-			{
-				typ.Telegram_typ = 4;//运行报文
-				/*if (objname == "pB_enPhoto")
-				{
-					typ.Run_Para.enPhoto = 0;
-				}
-				if (objname == "pB_enReject")
-				{
-					typ.Run_Para.enReject = 0;
-				}
-				if (objname == "pB_enFeed")
-				{
-					typ.Run_Para.enFeed = 0;
-				}
-				if (objname == "pB_enRotate")
-				{
-					typ.Run_Para.enRotate = 0;
-				}*/
-				obj->setStyleSheet("font-size:20pt");
-				m_socket->Communicate_PLC(&typ, nullptr);//此处只发送，不接收
-			}
-			else {
-				/*if (objname == "pb_cmdHome")typ.Machine_Cmd.cmdHome = 0;
-				if (objname == "pb_cmdStart") typ.Machine_Cmd.cmdStart = 0;
-				if (objname == "pb_cmdStop") typ.Machine_Cmd.cmdStop = 0;
-				if (objname == "pb_cmdEStop")
-				{
-					typ.Machine_Cmd.cmdEStop = 0;//非点动按钮
-					obj->setText(QString::fromLocal8Bit("急停"));
-				}
-				if (objname == "pb_cmdJog")
-				{
-					typ.Machine_Cmd.cmdJog = 0; //非点动按钮
-					obj->setText(QString::fromLocal8Bit("点动"));
-				}
-				/*if (objname == "pb_cmdErrorAck") typ.Machine_Cmd.cmdErrorAck = 0;					//报警复位, 1:复位
-				if (objname == "pb_cmdResetCounter") typ.Machine_Cmd.cmdResetCounter = 0;				//复位计数变量, 1:复位
-				//if (objname == "pb_cmdParaSave") typ.Machine_Cmd.cmdParaSave = 0;						//参数保存命令, 1:保存
-				//if (objname == "pb_cmdParaLoad") typ.Machine_Cmd.cmdParaLoad = 0;						//参数读取命令, 1:读取
-				if (objname == "pb_cmdTestFlash0") typ.Machine_Cmd.cmdTestFlash[0] = 0;			//手动闪光, 1:闪光,自动复位
-				if (objname == "pb_cmdTestFlash1") typ.Machine_Cmd.cmdTestFlash[1] = 0;
-				if (objname == "pb_cmdTestFlash2") typ.Machine_Cmd.cmdTestFlash[2] = 0;
-
-				if (objname == "pb_cmdTestValveUp") typ.Machine_Cmd.cmdTestValveUp = 2;						//手动升降气缸, 1:Push, 2:Back
-				if (objname == "pb_cmdTestValveClip") typ.Machine_Cmd.cmdTestValveClip = 2;					//手动夹紧气缸, 1:Push, 2:Back
-				if (objname == "pb_cmdTestValveDrop") typ.Machine_Cmd.cmdTestValveDrop = 2;					//手动落囊气缸, 1:Push, 2:Back
-				if (objname == "pb_cmdTestInverter") typ.Machine_Cmd.cmdTestInverter = 2;				//手动胶囊料斗启动, 1:Start, 2:Stop
-				if (objname == "pb_cmdTestLampRead") typ.Machine_Cmd.cmdTestLampRead = 2;				//手动红灯输出, 1:输出 , 2: 复位
-				if (objname == "pb_cmdTestLampYellow") typ.Machine_Cmd.cmdTestLampYellow = 2;					//手动黄灯输出, 1:输出 , 2: 复位
-				if (objname == "pb_cmdTestLampGreen") typ.Machine_Cmd.cmdTestLampGreen = 2;					//手动绿灯输出, 1:输出 , 2: 复位
-				if (objname == "pb_cmdTestBuzzer") typ.Machine_Cmd.cmdTestBuzzer = 2;						//手动蜂鸣器输出, 1:输出 , 2: 复位
-				if (objname == "pb_cmdTestPhoto") typ.Machine_Cmd.cmdTestPhoto = 2;						//手动拍照, 1:输出 , 2: 复位
-				if (objname == "pb_cmdTestFlashPhoto") typ.Machine_Cmd.cmdTestFlashPhoto = 0;					//手动闪光加拍照, 1:启动
-				if (objname == "pb_cmdTestCapPhoto") typ.Machine_Cmd.cmdTestCapPhoto = 0;				//手动胶囊拍照
-				if (objname == "pb_cmdRotateCtl") typ.Machine_Cmd.cmdRotateCtl = 2;						//手动转囊启停
-				obj->setStyleSheet("");*/
-			}
-		}
-		if (objname != "pb_StWritePLC")//写入debug两次发送/旨在上面发送一次
-		{
-			m_socket->Communicate_PLC(&typ, nullptr);//此处只发送，不接收
-		}//参数报文
-
-
-		if (objname == "pb_StWritePLC" /*|| objname.contains("pb_cmdTestKick")*/ || objname == "pb_cmdHome" || objname == "pb_cmdStart"
-			|| objname == "pb_cmdStop" || objname == "pb_cmdErrorAck"
-			|| objname == "pb_cmdResetCounter" || objname == "pb_cmdParaSave" || objname == "pb_cmdParaLoad"
-			//|| objname == "pb_cmdTestFlash0" || objname == "pb_cmdTestFlash1" || objname == "pb_cmdTestFlash2"
-			//|| objname == "pb_cmdTestValveUp" || objname == "pb_cmdTestValveClip" || objname == "pb_cmdTestValveDrop"
-			//|| objname == "pb_cmdTestInverter" || objname == "pb_cmdTestLampRead" || objname == "pb_cmdTestLampYellow"
-			//|| objname == "pb_cmdTestLampGreen" || objname == "pb_cmdTestBuzzer"  || objname == "pb_cmdRotateCtl"
-			|| objname == "pb_cmdTestPhoto" || objname == "pb_cmdTestFlashPhoto" || objname == "pb_cmdTestCapPhoto")
-		{
-			obj->setChecked(false);
-		}
-	}
-}
 void QtPLCDialogClass::SetSocket(QtSocket_Class *sc)
 {
 	m_socket = sc;
@@ -287,42 +128,6 @@ DataFromPC_typ QtPLCDialogClass::getPCRunData()//4
 
 	return tmp;
 }
-DataFromPC_typ QtPLCDialogClass::getPCData()
-{
-	DataFromPC_typ tmp;
-	memset(&tmp, 0, sizeof(DataFromPC_typ));//将新char所指向的前size字节的内存单元用一个0替换，初始化内存。下同
-
-	//Machine_Pare
-	tmp.Machine_Para.enable = ((Ui::QtPLCDialogClass*)ui)->cB_enable->currentIndex();
-	tmp.Machine_Para.s_trg_stop[0] = ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->text().toFloat();
-	tmp.Machine_Para.s_trg_stop[1] = ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->text().toFloat();
-	tmp.Machine_Para.FeedTimeOut = ((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->text().toFloat();
-	tmp.Machine_Para.CapPickInterval = ((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->text().toFloat();
-	tmp.Machine_Para.CapBackInterval = QString::number(((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->text().toFloat() * 100).toInt();
-	tmp.Machine_Para.TireDelay = QString::number(((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->text().toFloat() * 100).toInt();
-	tmp.Machine_Para.ReadDelay = QString::number(((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->text().toFloat() * 100).toInt();
-	tmp.Machine_Para.TireWaitTime = QString::number(((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->text().toFloat() * 100).toInt();
-	tmp.Machine_Para.StopSignalDelay = ((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->text().toInt();
-
-	//运行数据
-//	tmp.Run_Para.RunSpeed = ((Ui::QtPLCDialogClass*)ui)->lE_RunSpeed->text().toInt();
-/////	tmp.Run_Para.SysPhase = ((Ui::QtPLCDialogClass*)ui)->lE_SysPhase->text().toInt();
-//	tmp.Run_Para.enPhoto = ((Ui::QtPLCDialogClass*)ui)->pB_enPhoto->isChecked() ? 1 : 0;
-//	tmp.Run_Para.enReject = ((Ui::QtPLCDialogClass*)ui)->pB_enReject->isChecked() ? 1 : 0;
-//	tmp.Run_Para.enFeed = ((Ui::QtPLCDialogClass*)ui)->pB_enFeed->isChecked() ? 1 : 0;
-//	tmp.Run_Para.enRotate = ((Ui::QtPLCDialogClass*)ui)->pB_enRotate->isChecked() ? 1 : 0;
-//	tmp.Run_Para.CheckCount = m_data->ActData.CheckCount;
-//	tmp.Run_Para.RejectCount = m_data->ActData.RejectCount;
-//	tmp.Run_Para.ForceRejectCount = m_data->ActData.ForceRejectCount;
-
-	//命令
-
-	//tmp.Machine_Cmd.cmdParaSave = ((Ui::QtPLCDialogClass*)ui)->pb_cmdParaSave->isChecked() ? 1 : 0;						//参数保存命令, 1:保存
-
-	//照相处理结果和按钮在上面⬆⬆⬆⬆⬆⬆
-
-	return tmp;
-}//获取pc数据
 
 void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kickOpen, int kickMode)
 {
@@ -403,13 +208,18 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	//int				cmdAutoPrint;			//自动打印，1:自动，0：手动
 #pragma endregion
 
-	//系统状态
+	//系统状态	
+	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedStep->setText(QString::number(m_data->Status.AxisFeedStep));			//下料电机状态机步骤
+	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedErrorNo->setText(QString::number(m_data->Status.AxisFeedErrorNo));		//下料电机错误代码
+	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedRelMovDistance->setText(QString::number(m_data->Status.AxisFeedRelMovDistance));	//下料电机相对运动距离，单位unit
+	((Ui::QtPLCDialogClass*)ui)->lE_AxisSwingStep->setText(QString::number(m_data->Status.AxisSwingStep));			//旋转电机状态机步骤
+	((Ui::QtPLCDialogClass*)ui)->lE_AxisSwingErrorNo->setText(QString::number(m_data->Status.AxisSwingErrorNo));		//旋转电机错误代码
+	((Ui::QtPLCDialogClass*)ui)->lE_AxisSwingRelMovDistance->setText(QString::number(m_data->Status.AxisSwingRelMovDistance));//旋转电机相对运动距离，单位unit
+	((Ui::QtPLCDialogClass*)ui)->lE_MachineStep->setText(QString::number(m_data->Status.MachineStep));			//系统运行状态机步骤
+	((Ui::QtPLCDialogClass*)ui)->lE_TimeInterval->setText(QString::number(m_data->Status.TimeInterval));			//测量实际间隔时间
 	((Ui::QtPLCDialogClass*)ui)->lE_AlarmStatus->setText(QString::number(m_data->Status.AlarmStatus));
 	((Ui::QtPLCDialogClass*)ui)->lE_Alarm16->setText((char*)(m_data->Status.Alarm));
-	//((Ui::QtPLCDialogClass*)ui)->lE_ServoErrorNum0->setText(QString::number(m_data->Status.ServoErrorNum[0]));
-	//((Ui::QtPLCDialogClass*)ui)->lE_ServoErrorNum1->setText(QString::number(m_data->Status.ServoErrorNum[1]));
-	//((Ui::QtPLCDialogClass*)ui)->lE_SysPhase_1->setText(QString::number(m_data->Status.SysPhase / 100.0, 'f', 2));
-	//((Ui::QtPLCDialogClass*)ui)->lE_HomeOK->setText(QString::number(m_data->Status.HomeOK));
+
 #pragma endregion
 	//系统参数
 #pragma region para
@@ -622,10 +432,9 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	}
 	//bool		Photo;					//拍照
 	//bool		Flash;					//闪光
-#pragma endregion
 }//PC显示数据
 #pragma endregion
-
+ 
 #pragma region popup window
 void QtPLCDialogClass::initDlg()
 {
@@ -637,14 +446,43 @@ void QtPLCDialogClass::initDlg()
 
 	QGridLayout *glayout = new QGridLayout(dtDlg);
 
-
-	for (int i=0;i<13;i++)
+	QLabel *lb = new QLabel();
+	lb->setText(QString::fromLocal8Bit("每粒重量(g)："));
+	glayout->addWidget(lb, 0, 0, 1, 3);
+	
+	int i = 0;
+	for (;i<13;i++)
 	{
-		QLabel *lb = new QLabel();
-		lb->setObjectName(QString::number(i)); 
-		lb->setText("123");
-		glayout->addWidget(lb, i/10, i%10, 1, 1);
+		lb = new QLabel();
+		lb->setObjectName(QString::number(i));
+		lb->setFrameShape(QFrame::Panel);
+		lb->setFrameShadow(QFrame::Raised);
+		lb->setText("0.123");
+		glayout->addWidget(lb, i/10+1, i%10, 1, 1);
 	}
+	lb = new QLabel();
+	glayout->addWidget(lb, i++, 0, 1, 3);
+
+	lb = new QLabel();
+	lb->setText(QString::fromLocal8Bit("重量结果："));
+	glayout->addWidget(lb, i++, 0, 1, 3);
+
+	int j = 0;
+	for (; j < 8; j++)
+	{
+		lb = new QLabel();
+		lb->setObjectName("Cal" + QString::number(j));
+		lb->setFrameShape(QFrame::Panel);
+		lb->setFrameShadow(QFrame::Raised);
+		lb->setText(QString::fromLocal8Bit("平均值(g)：") + "0.1236");
+		glayout->addWidget(lb, j / 4 + i, j * 3 % 12, 1, 3);
+	}
+
+	lb = new QLabel();
+	glayout->addWidget(lb, j / 4 + i + 1, 0, 1, 3);	
+	lb = new QLabel();
+	lb->setText(QString::fromLocal8Bit("更多数据信息请查看<打印预览>项..."));
+	glayout->addWidget(lb, j / 4 + i + 2, 0, 1, 8);
 }
 void QtPLCDialogClass::drawpix(int count)
 {

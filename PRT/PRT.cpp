@@ -278,7 +278,7 @@ void PRT::toDraw(QPrinter *p)
 }
 #pragma endregion
 
-#pragma	region//events
+#pragma	region events
 void PRT::mousePressEvent(QMouseEvent* p)
 {
 	if (p->button() == Qt::LeftButton) {       // 如果是鼠标左键按下
@@ -416,7 +416,7 @@ void PRT::EmitReconnect()
 }
 #pragma endregion
 
-#pragma	region//ui slots
+#pragma	region ui slots
 void PRT::on_cB_Curve_toggled(bool checked)
 {
 	m_drawpicture->setCurveChecked(checked);
@@ -498,7 +498,7 @@ void PRT::on_pB_Print_clicked()
 	QPrintPreviewDialog preview;// 创建打印预览对话框
 	preview.setWindowTitle(QString::fromLocal8Bit("打印预览"));
 	preview.setWindowIcon(QIcon("./ico/dr.ico"));
-	preview.setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowCloseButtonHint);
+	preview.setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowCloseButtonHint| Qt::WindowStaysOnTopHint);
 	//preview.setModal(Qt::WindowModal);
 	preview.setMinimumWidth(1262);
 	preview.setMinimumHeight(755);

@@ -51,10 +51,9 @@ private:
 
 public slots:
 
-	void onSendPLCCommand(bool);
 	DataFromPC_typ getPCParaData();
 	DataFromPC_typ getPCRunData();
-	DataFromPC_typ getPCData();//PC数值发送给PLC
+
 	void getPLCData(void*, int, int, int, int);
 
 	void on_lE_SysOveride_editingFinished();
