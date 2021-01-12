@@ -20,6 +20,7 @@ public:
 	~QtPLCDialogClass();
 	void initFont();
 	void initDlg();
+	void drawpix(int count);
 	int showMsgBox(QMessageBox::Icon icon, const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str);
 
 	

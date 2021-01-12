@@ -634,7 +634,20 @@ void QtPLCDialogClass::initDlg()
 	dtDlg->setWindowIcon(QIcon(AppPath + "/ico/dr.ico"));
 	dtDlg->setWindowTitle(QString::fromLocal8Bit("检测数据明细表"));
 	connect(dtDlg, SIGNAL(rejected()), this, SLOT(dtClose()));
-	dtDlg->show();
+
+	QGridLayout *glayout = new QGridLayout(dtDlg);
+
+
+	for (int i=0;i<13;i++)
+	{
+		QLabel *lb = new QLabel();
+		lb->setObjectName(QString::number(i)); 
+		lb->setText("123");
+		glayout->addWidget(lb, i/10, i%10, 1, 1);
+	}
+}
+void QtPLCDialogClass::drawpix(int count)
+{
 }
 int QtPLCDialogClass::showMsgBox(QMessageBox::Icon icon, const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str)//全是中文
 {
@@ -808,6 +821,7 @@ void QtPLCDialogClass::on_lE_GroupSet_editingFinished()///每组测试胶囊数�
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
 	typ.Run_Para.GroupSet = ((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->text().toInt();
+	drawpix(typ.Run_Para.GroupSet);
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
 void QtPLCDialogClass::on_lE_TestInterval_editingFinished()///测试间隔时间,单位s
