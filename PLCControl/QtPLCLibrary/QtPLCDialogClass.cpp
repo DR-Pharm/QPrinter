@@ -451,14 +451,16 @@ void QtPLCDialogClass::initDlg()
 	glayout->addWidget(lb, 0, 0, 1, 3);
 	
 	int i = 0;
-	for (;i<13;i++)
+	for (;i<80;i++)
 	{
 		lb = new QLabel();
 		lb->setObjectName(QString::number(i));
 		lb->setFrameShape(QFrame::Panel);
 		lb->setFrameShadow(QFrame::Raised);
 		lb->setText("0.123");
-		glayout->addWidget(lb, i/10+1, i%10, 1, 1);
+		glayout->addWidget(lb, i/10+1, i%10+1, 1, 1);
+		lb->setVisible(false);
+
 	}
 	lb = new QLabel();
 	glayout->addWidget(lb, i++, 0, 1, 3);
@@ -476,6 +478,7 @@ void QtPLCDialogClass::initDlg()
 		lb->setFrameShadow(QFrame::Raised);
 		lb->setText(QString::fromLocal8Bit("平均值(g)：") + "0.1236");
 		glayout->addWidget(lb, j / 4 + i, j * 3 % 12, 1, 3);
+		lb->setVisible(false);
 	}
 
 	lb = new QLabel();
