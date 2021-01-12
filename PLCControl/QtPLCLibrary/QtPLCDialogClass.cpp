@@ -16,6 +16,8 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	m_data = new DataToPC_typ;
 	memset(m_data, 0, sizeof(DataToPC_typ));//主界面用
 
+	((Ui::QtPLCDialogClass*)ui)->lb_logo->setPixmap(QPixmap(AppPath + "/ico/dr-pharmTrans.png"));
+	((Ui::QtPLCDialogClass*)ui)->lb_logo->setScaledContents(true);
 	//指示灯部分
 	((Ui::QtPLCDialogClass*)ui)->lb_00->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
 	lb_01 = new QLabel(((Ui::QtPLCDialogClass*)ui)->tabWidget->widget(0));
@@ -128,7 +130,6 @@ DataFromPC_typ QtPLCDialogClass::getPCRunData()//4
 
 	return tmp;
 }
-
 void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kickOpen, int kickMode)
 {
 	memcpy(m_data, (DataToPC_typ*)data, sizeof(DataToPC_typ));//主界面用
@@ -208,6 +209,16 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	//int				cmdAutoPrint;			//自动打印，1:自动，0：手动
 #pragma endregion
 	//系统状态	
+#pragma region status	
+	((Ui::QtPLCDialogClass*)ui)->lE_Finished->setText(QString::number(m_data->Status.Finished));//本组结束
+	((Ui::QtPLCDialogClass*)ui)->lE_GroupIndex->setText(QString::number(m_data->Status.GroupIndex));//本组序号
+	((Ui::QtPLCDialogClass*)ui)->lE_Weight->setText(QString::number(m_data->Status.Weight));//本次重量
+	((Ui::QtPLCDialogClass*)ui)->lE_ScaleResult->setText(QString::number(m_data->Status.ScaleResult));//天平当前读数，单位g
+	((Ui::QtPLCDialogClass*)ui)->cB_ScaleStableState->setCurrentIndex(m_data->Status.ScaleStableState);//天平当前稳定状态,0:非常稳定,1:稳定,2:不稳定,3:非常不稳定
+
+	//Group Data
+	//Displaytyp			CapDataDisp;			//组数据
+
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedStep->setText(QString::number(m_data->Status.AxisFeedStep));			//下料电机状态机步骤
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedErrorNo->setText(QString::number(m_data->Status.AxisFeedErrorNo));		//下料电机错误代码
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedRelMovDistance->setText(QString::number(m_data->Status.AxisFeedRelMovDistance));	//下料电机相对运动距离，单位unit
@@ -430,6 +441,7 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	}
 	//bool		Photo;					//拍照
 	//bool		Flash;					//闪光
+#pragma endregion
 }//PC显示数据
 #pragma endregion
  
@@ -914,12 +926,14 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 	{
 		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart, "background: rgb(0,255,0)", startFont, QString::fromLocal8Bit("停止"));
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(false);
+		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(false);
 		typ.Machine_Cmd.cmdStart = 1;
 	}
 	else
 	{
 		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart, "background: rgb(200,200,100)", startFont, QString::fromLocal8Bit("启动"));
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(true);
 		typ.Machine_Cmd.cmdStop = 1;
 	}
 	m_socket->Communicate_PLC(&typ, nullptr);
