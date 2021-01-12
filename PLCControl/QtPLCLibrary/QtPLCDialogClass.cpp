@@ -207,7 +207,6 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	//unsigned int	DeltaInput;				//装量调整偏差值
 	//int				cmdAutoPrint;			//自动打印，1:自动，0：手动
 #pragma endregion
-
 	//系统状态	
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedStep->setText(QString::number(m_data->Status.AxisFeedStep));			//下料电机状态机步骤
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedErrorNo->setText(QString::number(m_data->Status.AxisFeedErrorNo));		//下料电机错误代码
@@ -219,7 +218,6 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	((Ui::QtPLCDialogClass*)ui)->lE_TimeInterval->setText(QString::number(m_data->Status.TimeInterval));			//测量实际间隔时间
 	((Ui::QtPLCDialogClass*)ui)->lE_AlarmStatus->setText(QString::number(m_data->Status.AlarmStatus));
 	((Ui::QtPLCDialogClass*)ui)->lE_Alarm16->setText((char*)(m_data->Status.Alarm));
-
 #pragma endregion
 	//系统参数
 #pragma region para
@@ -275,7 +273,7 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 #pragma endregion
 	//输出点
 #pragma region output
-	/*short		Analogoutput;*/			//模拟量输出
+	((Ui::QtPLCDialogClass*)ui)->lE_Analogoutput->setText(QString::number(m_data->Outputs.Analogoutput));		//模拟量输出
 	if (m_data->Outputs.Reject)			//排废电磁铁
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->blockSignals(true);

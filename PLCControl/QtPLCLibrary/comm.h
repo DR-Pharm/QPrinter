@@ -57,7 +57,7 @@ typedef struct
 //output
 typedef	struct
 {
-	short		Analogoutput;			//模拟量输出 ///// 这个没用
+	short		Analogoutput;			//模拟量输出
 	bool		Reject;					//排废电磁铁
 	bool		ChannelSwith;			//胶囊通道切换
 	bool		Vaccum;					//真空发生器
