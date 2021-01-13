@@ -40,7 +40,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 }
 QtPLCDialogClass::~QtPLCDialogClass()
 {
-	dtDlg->close();
+	m_dtDlg->close();
 	if (m_socket != nullptr)
 	{
 		//		m_socket->set_message_handler(nullptr, this);
@@ -455,13 +455,16 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 #pragma region popup window
 void QtPLCDialogClass::initDlg()
 {
-	dtDlg = new QDialog();
-	dtDlg->setWindowFlags(Qt::CustomizeWindowHint|Qt::WindowCloseButtonHint | Qt::WindowStaysOnTopHint);
-	dtDlg->setWindowIcon(QIcon(AppPath + "/ico/dr.ico"));
-	dtDlg->setWindowTitle(QString::fromLocal8Bit("检测数据明细表"));
-	connect(dtDlg, SIGNAL(rejected()), this, SLOT(dtClose()));
+	m_dtDlg = new dtDlg();
+	m_dtDlg->setWindowFlags(Qt::CustomizeWindowHint|Qt::WindowCloseButtonHint | Qt::WindowStaysOnTopHint);
+	m_dtDlg->setWindowIcon(QIcon(AppPath + "/ico/dr.ico"));
+	m_dtDlg->setWindowTitle(QString::fromLocal8Bit("检测数据明细表"));
+	connect(m_dtDlg, SIGNAL(rejected()), this, SLOT(dtClose()));
+	connect(this, SIGNAL(MINI()), m_dtDlg, SLOT(showMinimized()));
+	connect(this, SIGNAL(MAXI()), m_dtDlg, SLOT(showNormal()));
+	connect(m_dtDlg, SIGNAL(MAXIBACK()), this, SLOT(emitMAXIBACKsignal()));
 
-	QGridLayout *glayout = new QGridLayout(dtDlg);
+	QGridLayout *glayout = new QGridLayout(m_dtDlg);
 
 	QLabel *lb = new QLabel();
 	lb->setText(QString::fromLocal8Bit("每粒重量(g)："));
@@ -504,8 +507,23 @@ void QtPLCDialogClass::initDlg()
 	lb->setText(QString::fromLocal8Bit("更多数据信息请查看<打印预览>项..."));
 	glayout->addWidget(lb, j / 4 + i + 2, 0, 1, 8);
 }
-void QtPLCDialogClass::drawpix(int count)
+void QtPLCDialogClass::setWindowMinimized()
 {
+	if (((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->isChecked())
+	{
+		emit MINI();
+	}
+}
+void QtPLCDialogClass::setWindowMaximized()
+{
+	if (((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->isChecked())
+	{
+		emit MAXI();
+	}
+}
+void QtPLCDialogClass::emitMAXIBACKsignal()
+{
+	emit MAXIBACKsignal();
 }
 int QtPLCDialogClass::showMsgBox(QMessageBox::Icon icon, const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str)//全是中文
 {
@@ -679,7 +697,6 @@ void QtPLCDialogClass::on_lE_GroupSet_editingFinished()///每组测试胶囊数�
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
 	typ.Run_Para.GroupSet = ((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->text().toInt();
-	drawpix(typ.Run_Para.GroupSet);
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
 void QtPLCDialogClass::on_lE_TestInterval_editingFinished()///测试间隔时间,单位s
@@ -1000,13 +1017,13 @@ void QtPLCDialogClass::on_pB_dtDlg_toggled(bool checked)//数据dialog
 {
 	if (checked)
 	{
-		dtDlg->show();
+		m_dtDlg->show();
 		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setStyleSheet("background: rgb(0,255,0)");
 		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setFont(contentFont);
 	}
 	else
 	{
-		dtDlg->close();
+		m_dtDlg->close();
 		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setStyleSheet("");
 		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setFont(contentFont);
 	}

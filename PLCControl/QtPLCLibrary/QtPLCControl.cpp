@@ -18,10 +18,15 @@ QtPLCControl::QtPLCControl()
 void* QtPLCControl::QtCreateDialog(int index)
 {
 	dlg = new QtPLCDialogClass();
+	connect((QtPLCDialogClass*)dlg, SIGNAL(MAXIBACKsignal()), this, SLOT(emitMaxBack()));
 	((QtPLCDialogClass*)dlg)->SetSocket(((QtSocket_Class*)m_socket));
 	return dlg;
 }
 
+void QtPLCControl::emitMaxBack()
+{
+	emit MAXBACK();
+}
 
 void QtPLCControl::ProgramSetCloseEvent()
 {
@@ -189,5 +194,20 @@ void QtPLCControl::InitWork()//PLC.txt
 	if (nullptr != m_socket)
 	{
 		((QtSocket_Class*)m_socket)->InitWork();
+	}
+}
+
+void QtPLCControl::setWinMini()
+{
+	if (dlg != nullptr)
+	{
+		((QtPLCDialogClass*)dlg)->setWindowMinimized();
+	}
+}
+void QtPLCControl::setWinMaxi()
+{
+	if (dlg != nullptr)
+	{
+		((QtPLCDialogClass*)dlg)->setWindowMaximized();
 	}
 }

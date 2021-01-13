@@ -24,7 +24,7 @@ PRT::PRT(QWidget *parent)
 }
 PRT::~PRT()
 {
-	if (m_dong!=nullptr)
+	if (m_dong != nullptr)
 	{
 		if (!m_bFlagWriteDongleFinally)//如果过程中狗有错误就不写入了，否则最后写一次时间
 		{
@@ -52,6 +52,9 @@ void PRT::initPLC()
 	dlg = (QDialog *)(m_pPlclib->QtCreateDialog(1));
 	dlg->setParent(ui.widget);
 	dlg->move(0, 0);
+	b = connect(this, SIGNAL(MINI()), m_pPlclib, SLOT(setWinMini()));
+	b = connect(this, SIGNAL(MAXI()), m_pPlclib, SLOT(setWinMaxi()));
+	b = connect(m_pPlclib, SIGNAL(MAXBACK()), this, SLOT(showNormal()));
 }
 #pragma endregion
 
@@ -143,7 +146,7 @@ void PRT::initData()
 	m_iDataNum = 50;
 	data.resize(m_iDataNum);
 
-	for (int i=0;i<50;i++)
+	for (int i = 0; i < 50; i++)
 	{
 		data[i] << 0.369 << 0.321 << 0.332 << 0.311 << 0.399 << 0.334 << 0.321 << 0.346 << 0.389 << 0.333
 			<< 0.333 << 0.333 << 0.333 << 0.333 << 0.333 << 0.369 << 0.321 << 0.332 << 0.311 << 0.399
@@ -321,6 +324,18 @@ void PRT::closeEvent(QCloseEvent *event)
 		m_pPlclib->QtDestroyDlg();
 	}
 }
+void PRT::changeEvent(QEvent * event)
+{
+	if (event->type() != QEvent::WindowStateChange) return;
+	if (this->windowState() == Qt::WindowNoState)
+	{
+		emit MAXI();
+	}
+	else if (this->windowState() == Qt::WindowMinimized)
+	{
+		emit MINI();
+	}
+}
 bool PRT::eventFilter(QObject* obj, QEvent* event)
 {
 	if (obj == this)
@@ -393,11 +408,11 @@ void PRT::showWindowOut(QString str)
 }
 void PRT::SuccessConnect()
 {
-	showWindowOut(QString::fromLocal8Bit("PLC连接恢复正常")); 
+	showWindowOut(QString::fromLocal8Bit("PLC连接恢复正常"));
 	tm_ReConnect->stop();
 	delete tm_ReConnect;
 	tm_ReConnect = nullptr;
-	bool b = connect(m_pPlclib, SIGNAL(SOCKETERROR()), this, SLOT(ErrorConnect()));	
+	bool b = connect(m_pPlclib, SIGNAL(SOCKETERROR()), this, SLOT(ErrorConnect()));
 	b = disconnect(m_pPlclib, SIGNAL(signal_SUCCESSFULCONNECTED()), this, SLOT(SuccessConnect()));
 }
 void PRT::ErrorConnect()
@@ -405,7 +420,7 @@ void PRT::ErrorConnect()
 	showMsgBox("通讯错误", "连接PLC出错,请检查网络连接!", "我去查查", "");
 	bool b = disconnect(m_pPlclib, SIGNAL(SOCKETERROR()), this, SLOT(ErrorConnect()));
 	b = connect(m_pPlclib, SIGNAL(signal_SUCCESSFULCONNECTED()), this, SLOT(SuccessConnect()));
-	if (tm_ReConnect==nullptr)
+	if (tm_ReConnect == nullptr)
 	{
 		tm_ReConnect = new QTimer();
 	}
@@ -501,7 +516,7 @@ void PRT::on_pB_Print_clicked()
 	QPrintPreviewDialog preview;// 创建打印预览对话框
 	preview.setWindowTitle(QString::fromLocal8Bit("打印预览"));
 	preview.setWindowIcon(QIcon("./ico/dr.ico"));
-	preview.setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowCloseButtonHint| Qt::WindowStaysOnTopHint);
+	preview.setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowCloseButtonHint | Qt::WindowStaysOnTopHint);
 	//preview.setModal(Qt::WindowModal);
 	preview.setMinimumWidth(1262);
 	preview.setMinimumHeight(755);

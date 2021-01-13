@@ -79,17 +79,17 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtCore;D:\Work_Dev\QtConsoleApplication1\QtClassLibrary1;D:\Work_Dev\QtConsoleApplication1\;D:\Work_Dev\RelayFile\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtCore;D:\Work_Dev\QtConsoleApplication1\QtClassLibrary1;D:\Work_Dev\QtConsoleApplication1\;D:\Work_Dev\RelayFile\include;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtCore;D:\Work_Dev\QtConsoleApplication1\QtClassLibrary1;D:\Work_Dev\QtConsoleApplication1\;D:\Work_Dev\RelayFile\include;D:\Work_Dev\Dr_Pharm_PLCCONTROLModel\QtConsoleApplication1;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtCore;D:\Work_Dev\QtConsoleApplication1\QtClassLibrary1;D:\Work_Dev\QtConsoleApplication1\;D:\Work_Dev\RelayFile\include;D:\Work_Dev\Dr_Pharm_PLCCONTROLModel\QtConsoleApplication1;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtCore;D:\Work_Dev\QtConsoleApplication1\QtClassLibrary1;D:\Work_Dev\QtConsoleApplication1\;D:\Work_Dev\RelayFile\include;D:\Work_Dev\Dr_Pharm_PLCCONTROLModel\QtConsoleApplication1;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtCore;D:\Work_Dev\QtConsoleApplication1\QtClassLibrary1;D:\Work_Dev\QtConsoleApplication1\;D:\Work_Dev\RelayFile\include;D:\Work_Dev\Dr_Pharm_PLCCONTROLModel\QtConsoleApplication1;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
@@ -172,10 +172,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="dtDlg.cpp" />
     <ClCompile Include="QtPLCControl.cpp" />
     <ClCompile Include="QtPLCDialogClass.cpp" />
     <ClCompile Include="QtSocket_Class.cpp" />
     <ClCompile Include="UserLE.cpp" />
+    <QtMoc Include="dtDlg.h" />
     <ClInclude Include="PLCRelayHead.h" />
     <ClInclude Include="comm.h" />
     <QtMoc Include="QtPLCControl.h" />
@@ -185,6 +187,7 @@
     <QtMoc Include="QtPLCDialogClass.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtUic Include="dtDlg.ui" />
     <QtUic Include="QtPLCDialogClass.ui">
       <Include Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </Include>

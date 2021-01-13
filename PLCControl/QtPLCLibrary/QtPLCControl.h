@@ -23,6 +23,7 @@ signals:
 	void FROMPLC(void*, int, int, int, int);
 	void SOCKETERROR();
 	void STARTCONNECT(QString, int);
+	void MAXBACK();
 private:
 	void *m_socket = nullptr;
 	QString AppPath = qApp->applicationDirPath(); 
@@ -54,4 +55,7 @@ public slots:
 	void connectIN_AND_OUT(void*, int, int, int, int);
 	void reportSocketError();
 	void setStartWork(bool b);
+	void setWinMini();
+	void setWinMaxi();
+	void emitMaxBack();
 };
