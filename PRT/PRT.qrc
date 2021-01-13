@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/NewUI_Demo">
+        <file>ico/critical.png</file>
+    </qresource>
+</RCC>
