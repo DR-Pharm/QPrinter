@@ -30,7 +30,6 @@ class PRT : public QMainWindow
     Q_OBJECT
 signals:
 	void STARTCONNECTPLC();
-	void MAXI();
 	void MINI();
 protected:
 	void closeEvent(QCloseEvent *event);

@@ -56,6 +56,4 @@ public slots:
 	void reportSocketError();
 	void setStartWork(bool b);
 	void setWinMini();
-	void setWinMaxi();
-	void emitMaxBack();
 };

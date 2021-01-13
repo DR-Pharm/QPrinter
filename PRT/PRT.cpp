@@ -53,8 +53,6 @@ void PRT::initPLC()
 	dlg->setParent(ui.widget);
 	dlg->move(0, 0);
 	b = connect(this, SIGNAL(MINI()), m_pPlclib, SLOT(setWinMini()));
-	b = connect(this, SIGNAL(MAXI()), m_pPlclib, SLOT(setWinMaxi()));
-	b = connect(m_pPlclib, SIGNAL(MAXBACK()), this, SLOT(showNormal()));
 }
 #pragma endregion
 
@@ -327,11 +325,7 @@ void PRT::closeEvent(QCloseEvent *event)
 void PRT::changeEvent(QEvent * event)
 {
 	if (event->type() != QEvent::WindowStateChange) return;
-	if (this->windowState() == Qt::WindowNoState)
-	{
-		emit MAXI();
-	}
-	else if (this->windowState() == Qt::WindowMinimized)
+	if (this->windowState() == Qt::WindowMinimized)
 	{
 		emit MINI();
 	}

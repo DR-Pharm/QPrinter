@@ -48,9 +48,6 @@
     <ClCompile Include="QtSocket_Class.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="dtDlg.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="UserLE.h">
@@ -65,15 +62,9 @@
     <QtMoc Include="QtPLCControl.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="dtDlg.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="QtPLCDialogClass.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
-    <QtUic Include="dtDlg.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

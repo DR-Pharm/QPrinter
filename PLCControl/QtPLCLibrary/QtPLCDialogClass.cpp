@@ -455,14 +455,11 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 #pragma region popup window
 void QtPLCDialogClass::initDlg()
 {
-	m_dtDlg = new dtDlg();
+	m_dtDlg = new QDialog();
 	m_dtDlg->setWindowFlags(Qt::CustomizeWindowHint|Qt::WindowCloseButtonHint | Qt::WindowStaysOnTopHint);
 	m_dtDlg->setWindowIcon(QIcon(AppPath + "/ico/dr.ico"));
 	m_dtDlg->setWindowTitle(QString::fromLocal8Bit("检测数据明细表"));
 	connect(m_dtDlg, SIGNAL(rejected()), this, SLOT(dtClose()));
-	connect(this, SIGNAL(MINI()), m_dtDlg, SLOT(showMinimized()));
-	connect(this, SIGNAL(MAXI()), m_dtDlg, SLOT(showNormal()));
-	connect(m_dtDlg, SIGNAL(MAXIBACK()), this, SLOT(emitMAXIBACKsignal()));
 
 	QGridLayout *glayout = new QGridLayout(m_dtDlg);
 
@@ -509,22 +506,9 @@ void QtPLCDialogClass::initDlg()
 }
 void QtPLCDialogClass::setWindowMinimized()
 {
-	if (((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->isChecked())
-	{
-		emit MINI();
-	}
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setChecked(false);
 }
-void QtPLCDialogClass::setWindowMaximized()
-{
-	if (((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->isChecked())
-	{
-		emit MAXI();
-	}
-}
-void QtPLCDialogClass::emitMAXIBACKsignal()
-{
-	emit MAXIBACKsignal();
-}
+
 int QtPLCDialogClass::showMsgBox(QMessageBox::Icon icon, const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str)//全是中文
 {
 	if (QString::fromLocal8Bit(button2Str) == "")

@@ -3,7 +3,6 @@
 #include <QLabel>
 #include "PLCRelayHead.h"
 #include "QtSocket_Class.h"
-#include "dtDlg.h"
 namespace spd = spdlog;
 
 class QtPLCDialogClass : public QDialog
@@ -15,16 +14,12 @@ signals:
 	void CLOSESIGNAL();
 	void SHOWEVERYPLCVALUE(DataToPC_typ);
 	void GETSTRING(QString);
-	void MAXI();
-	void MINI();
-	void MAXIBACKsignal();
 public:
 	QtPLCDialogClass(QDialog *parent = Q_NULLPTR);
 	~QtPLCDialogClass();
 	void initFont();
 	void initDlg();
 	void setWindowMinimized();
-	void setWindowMaximized();
 	int showMsgBox(QMessageBox::Icon icon, const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str);
 
 
@@ -33,7 +28,7 @@ public:
 	void setStyleCommand(QPushButton*, QString, QFont, QString);
 private:
 	void* ui;
-	dtDlg *m_dtDlg = nullptr;
+	QDialog *m_dtDlg = nullptr;
 	bool m_currentSituationOfCyclinder = true;
 	QTimer *cyclinderTimer = nullptr;
 	//DataToPC_typ *m_data;	//获取的PLC数据
@@ -114,9 +109,6 @@ public slots:
 	void on_pB_SetUp_toggled(bool checked);
 	void on_pB_dtDlg_toggled(bool checked); 
 	void dtClose();
-
-
-	void emitMAXIBACKsignal();
 };
 
 #pragma once
