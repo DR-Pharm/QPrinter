@@ -206,6 +206,9 @@ bool PRT::caculateCount()
 #pragma region ui
 void PRT::initUI()
 {
+	ui.pB_PrintDirect->setIconSize(QSize(64, 64));
+	ui.pB_PrintDirect->setIcon(QIcon(AppPath + "/ico/pt.ico"));
+
 	ui.cB_Curve->setStyleSheet(STYLESHEET);
 	ui.cB_Average->setStyleSheet(STYLESHEET);
 

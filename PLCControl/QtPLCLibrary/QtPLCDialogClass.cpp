@@ -18,6 +18,12 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 
 	((Ui::QtPLCDialogClass*)ui)->lb_logo->setPixmap(QPixmap(AppPath + "/ico/dr-pharmTrans.png"));
 	((Ui::QtPLCDialogClass*)ui)->lb_logo->setScaledContents(true);
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIconSize(QSize(64, 64));
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIcon(QIcon(AppPath + "/ico/dlg.ico"));
+	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIconSize(QSize(64, 64));
+	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIcon(QIcon(AppPath + "/ico/set.ico"));
+	
 	//指示灯部分
 	((Ui::QtPLCDialogClass*)ui)->lb_00->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
 	lb_01 = new QLabel(((Ui::QtPLCDialogClass*)ui)->tabWidget->widget(0));
@@ -139,6 +145,7 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->hasFocus())//系统速度，0-10000对应0-100%
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->setText(QString::number(m_data->ActData.SysOveride));
+		((Ui::QtPLCDialogClass*)ui)->lE_SysOveride_2->setText(QString::number(m_data->ActData.SysOveride));
 	}	
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_PassCount->hasFocus())//通过计数
 	{
@@ -994,12 +1001,14 @@ void QtPLCDialogClass::on_pB_dtDlg_toggled(bool checked)//数据dialog
 	if (checked)
 	{
 		dtDlg->show();
-		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_dtDlg, "background: rgb(0,255,0)", contentFont, "");
+		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setStyleSheet("background: rgb(0,255,0)");
+		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setFont(contentFont);
 	}
 	else
 	{
 		dtDlg->close();
-		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_dtDlg, "", contentFont, "");
+		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setStyleSheet("");
+		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setFont(contentFont);
 	}
 }
 void QtPLCDialogClass::dtClose()

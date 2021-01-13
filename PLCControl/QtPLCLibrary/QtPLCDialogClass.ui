@@ -59,7 +59,7 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="tab_PLC_Control">
     <attribute name="title">
@@ -87,7 +87,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -2087,6 +2087,9 @@
         </item>
         <item row="3" column="4">
          <widget class="QLineEdit" name="lE_SysOveride_2">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -2654,7 +2657,7 @@
          </font>
         </property>
         <property name="text">
-         <string>设  置</string>
+         <string>设置</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -3522,13 +3525,7 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="pB_dtDlg">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QToolButton" name="pB_dtDlg">
            <property name="minimumSize">
             <size>
              <width>160</width>
@@ -3541,14 +3538,8 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
              <height>120</height>
             </size>
            </property>
-           <property name="font">
-            <font>
-             <pointsize>20</pointsize>
-            </font>
-           </property>
            <property name="text">
-            <string>检测数据
-明细表</string>
+            <string>组数据</string>
            </property>
            <property name="checkable">
             <bool>true</bool>
