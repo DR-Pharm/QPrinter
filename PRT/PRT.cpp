@@ -296,7 +296,8 @@ void PRT::mouseMoveEvent(QMouseEvent * event)
 		temp = event->globalPos() - m_offset;// 使用鼠标指针当前的位置减去差值，就得到了窗口应该移动的位置
 		if (temp.y() > 750)
 		{
-			showMinimized();
+			showMinimized(); 
+			emit MINI();
 			showWindowOut(QString::fromLocal8Bit("系统界面已最小化至任务栏"));
 		}
 		if (temp.x() > 1250)
@@ -322,14 +323,7 @@ void PRT::closeEvent(QCloseEvent *event)
 		m_pPlclib->QtDestroyDlg();
 	}
 }
-void PRT::changeEvent(QEvent * event)
-{
-	if (event->type() != QEvent::WindowStateChange) return;
-	if (this->windowState() == Qt::WindowMinimized)
-	{
-		emit MINI();
-	}
-}
+
 bool PRT::eventFilter(QObject* obj, QEvent* event)
 {
 	if (obj == this)

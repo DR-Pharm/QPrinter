@@ -33,7 +33,6 @@ signals:
 	void MINI();
 protected:
 	void closeEvent(QCloseEvent *event);
-	void changeEvent(QEvent * event);
 	void mousePressEvent(QMouseEvent *event);
 	void mouseMoveEvent(QMouseEvent *event);
 public:
