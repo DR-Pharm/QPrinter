@@ -23,6 +23,7 @@
 #pragma comment(lib,"Dongle.lib")
 
 #include "QtPLCControl.h"
+#pragma comment(lib,"Qt_PLC_ConnectLIB.lib")
 
 #define STYLESHEET "QCheckBox{ background:transparent}QCheckBox::indicator {width: 40px; height: 40px; }QCheckBox::indicator:unchecked{background:url(./240.png)}QCheckBox::indicator:checked{background:url(./140.png)}"
 class PRT : public QMainWindow
