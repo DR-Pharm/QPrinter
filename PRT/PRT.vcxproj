@@ -195,7 +195,7 @@
     <QtMoc Include="..\PLCControl\QtPLCLibrary\QtPLCControl.h" />
     <QtMoc Include="DrawPicture.h" />
     <QtMoc Include="QWaiting.h" />
-    <ClInclude Include="Dongle.h" />
+    <ClInclude Include="..\Dongle\Dongle.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

@@ -15,5 +15,5 @@ public:
 	void threadRun();
 private:
 	RockeyARM *m_RockeyARM = nullptr;
-	QStringList* m_CameraQstringList= new QStringList;
+	QStringList* m_CameraQstringList= nullptr;
 };
