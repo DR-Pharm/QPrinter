@@ -25,9 +25,9 @@ unsigned __stdcall RockeyARM::ReceivingThrd(void * pParam)
 	((RockeyARM *)pParam)->beatHeart();
 	return 0;
 }
-std::string RockeyARM::byteToHexStr(unsigned char byte_arr[], int arr_len)
+QString RockeyARM::byteToHexStr(unsigned char byte_arr[], int arr_len)
 {
-	std::string hexstr;
+	QString hexstr;
 	for (int i = 0; i < arr_len; i++)
 	{
 		char hex1;
@@ -186,8 +186,8 @@ bool RockeyARM::init()
 	}
 
 	//读Time所在字节内容 16字节对应32个10进制数字
-	std::string strTimeTemp = byteToHexStr(bReadDataSec, 16);//字节
-	QString strTime = QString::fromStdString(strTimeTemp);//string to QString
+
+	QString strTime = byteToHexStr(bReadDataSec, 16);
 
 	//上次保存的系统时间 精度1s 如果无错误需要保存 开关的时候都要保存一次
 	strLastTime = strTime.mid(0, 14);//数字位 
@@ -226,11 +226,10 @@ bool RockeyARM::init()
 	}
 
 	//读camera所在字节内容 40字节对应80个10进制数字
-	std::string strCamTemp = byteToHexStr(bReadDataSec, 40);//字节 
-	QString strCam = QString::fromStdString(strCamTemp); //将string转为Qstring
+	QString strCam = byteToHexStr(bReadDataSec, 40);//字节
 
 
-	m_StringList = new QStringList;
+	m_StringList = new QStringList();
 	//将相机序列号放到QStringList //这个list要return到外部
 	for (int i = 0; i < 80; i += 8)//数字位
 	{

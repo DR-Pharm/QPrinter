@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <QDateTime>
 #include <iostream> 
+#include <QString>
 #include <malloc.h>
 
 #include "../../Lib/Dongle_API.h"
@@ -24,7 +25,7 @@ public:
 	RockeyARM(QWidget *parent = Q_NULLPTR);
 	~RockeyARM();
 
-	std::string byteToHexStr(unsigned char byte_arr[], int arr_len);
+	QString byteToHexStr(unsigned char byte_arr[], int arr_len);
 	QString getCurrentTimeString();
 	bool writeTimeData(QString);//开关机时写系统时间
 	QStringList *getCameraQstringList();

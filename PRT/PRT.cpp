@@ -29,11 +29,11 @@ PRT::~PRT()
 		if (!m_bFlagWriteDongleFinally)//如果过程中狗有错误就不写入了，否则最后写一次时间
 		{
 			m_dong->setTimeData();
-		}
+		}		
+
 		delete m_dong;
 		m_dong = nullptr;
-		delete lst;
-		lst = nullptr;
+
 	}
 }
 
@@ -65,7 +65,8 @@ void PRT::initDog()
 	if (m_dong->initDongle())
 	{
 		m_dong->threadRun();
-		lst = (QStringList *)(m_dong->CameraQstringListInDongle());
+		lst = new QStringList();
+		//lst = (QStringList *)(m_dong->CameraQstringListInDongle());
 
 	}
 	else
