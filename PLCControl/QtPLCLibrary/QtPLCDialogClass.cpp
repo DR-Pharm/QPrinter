@@ -17,7 +17,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	m_data = new DataToPC_typ;
 	memset(m_data, 0, sizeof(DataToPC_typ));//主界面用
 
-	((Ui::QtPLCDialogClass*)ui)->lb_logo->setPixmap(QPixmap(AppPath + "/ico/dr-pharmTrans.png"));
+	((Ui::QtPLCDialogClass*)ui)->lb_logo->setPixmap(QPixmap(AppPath + "/ico/dr-pharmTrans_2.png"));
 	((Ui::QtPLCDialogClass*)ui)->lb_logo->setScaledContents(true);
 	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIconSize(QSize(64, 64));
 	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
@@ -65,7 +65,7 @@ QtPLCDialogClass::~QtPLCDialogClass()
 #pragma region ui stylesheet
 void QtPLCDialogClass::initUI()
 {
-	lb_dataNow = new QLabel(this);
+	lb_dataNow = new QLabel(((Ui::QtPLCDialogClass*)ui)->frame);
 	lb_dataNow->resize(140, 35);
 	lb_dataNow->move(30, 13);
 	lb_dataNow->setPixmap(QPixmap(AppPath + "/ico/fontImage/datanow.png"));
