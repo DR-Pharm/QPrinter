@@ -210,31 +210,34 @@ public:
     QVBoxLayout *verticalLayout_9;
     QFrame *frame_7;
     QGridLayout *gridLayout_10;
-    QSpacerItem *verticalSpacer_13;
-    QLineEdit *lE_Finished;
-    QLineEdit *lE_TOCount;
-    QLineEdit *lE_RejectCount;
-    QSpacerItem *verticalSpacer_12;
-    QLineEdit *lE_TUCount;
-    QLabel *label_15;
-    QLabel *label_10;
-    QSpacerItem *horizontalSpacer_10;
-    QLabel *label_18;
     QComboBox *cB_ScaleStableState;
-    QSpacerItem *verticalSpacer_5;
-    QLabel *label_49;
-    QLabel *label_17;
-    QLineEdit *lE_ScaleResult;
-    QLabel *label_43;
-    QLineEdit *lE_GroupIndex;
-    QLabel *label_48;
-    QLabel *label_39;
-    QLineEdit *lE_ProdCount;
-    QLineEdit *lE_PassCount;
-    QLabel *label_16;
-    QSpacerItem *verticalSpacer_14;
     QLineEdit *lE_Weight;
+    QLineEdit *lE_GroupIndex;
+    QLineEdit *lE_Finished;
+    QLineEdit *lE_PassCount;
+    QLabel *label_43;
+    QLineEdit *lE_TUCount;
+    QSpacerItem *horizontalSpacer_10;
+    QLineEdit *lE_TOCount;
+    QSpacerItem *verticalSpacer_16;
+    QLabel *label_48;
+    QSpacerItem *verticalSpacer_14;
+    QSpacerItem *verticalSpacer_13;
+    QLabel *label_18;
+    QSpacerItem *verticalSpacer_12;
+    QLabel *label_15;
+    QLabel *label_17;
+    QLabel *label_16;
+    QLabel *label_39;
+    QLineEdit *lE_ScaleResult;
+    QLabel *label_10;
+    QLineEdit *lE_ProdCount;
     QLabel *label_45;
+    QSpacerItem *verticalSpacer_5;
+    QSpacerItem *verticalSpacer_15;
+    QLabel *label_49;
+    QLineEdit *lE_RejectCount;
+    QSpacerItem *verticalSpacer_17;
     QHBoxLayout *horizontalLayout_8;
     QSpacerItem *horizontalSpacer_11;
     QLabel *lb_logo;
@@ -1437,82 +1440,6 @@ public:
         gridLayout_10->setSpacing(6);
         gridLayout_10->setContentsMargins(11, 11, 11, 11);
         gridLayout_10->setObjectName(QString::fromUtf8("gridLayout_10"));
-        verticalSpacer_13 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_10->addItem(verticalSpacer_13, 4, 1, 1, 1);
-
-        lE_Finished = new QLineEdit(frame_7);
-        lE_Finished->setObjectName(QString::fromUtf8("lE_Finished"));
-        lE_Finished->setEnabled(false);
-        sizePolicy1.setHeightForWidth(lE_Finished->sizePolicy().hasHeightForWidth());
-        lE_Finished->setSizePolicy(sizePolicy1);
-        lE_Finished->setFont(font2);
-        lE_Finished->setStyleSheet(QString::fromUtf8("color: rgb(0, 114, 188);"));
-
-        gridLayout_10->addWidget(lE_Finished, 8, 1, 1, 1);
-
-        lE_TOCount = new QLineEdit(frame_7);
-        lE_TOCount->setObjectName(QString::fromUtf8("lE_TOCount"));
-        lE_TOCount->setEnabled(false);
-        sizePolicy1.setHeightForWidth(lE_TOCount->sizePolicy().hasHeightForWidth());
-        lE_TOCount->setSizePolicy(sizePolicy1);
-        lE_TOCount->setFont(font2);
-        lE_TOCount->setStyleSheet(QString::fromUtf8("color: rgb(0, 114, 188);"));
-
-        gridLayout_10->addWidget(lE_TOCount, 3, 1, 1, 1);
-
-        lE_RejectCount = new QLineEdit(frame_7);
-        lE_RejectCount->setObjectName(QString::fromUtf8("lE_RejectCount"));
-        lE_RejectCount->setEnabled(false);
-        sizePolicy1.setHeightForWidth(lE_RejectCount->sizePolicy().hasHeightForWidth());
-        lE_RejectCount->setSizePolicy(sizePolicy1);
-        lE_RejectCount->setFont(font2);
-        lE_RejectCount->setStyleSheet(QString::fromUtf8("color: rgb(0, 114, 188);"));
-
-        gridLayout_10->addWidget(lE_RejectCount, 1, 4, 1, 1);
-
-        verticalSpacer_12 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_10->addItem(verticalSpacer_12, 9, 1, 1, 1);
-
-        lE_TUCount = new QLineEdit(frame_7);
-        lE_TUCount->setObjectName(QString::fromUtf8("lE_TUCount"));
-        lE_TUCount->setEnabled(false);
-        sizePolicy1.setHeightForWidth(lE_TUCount->sizePolicy().hasHeightForWidth());
-        lE_TUCount->setSizePolicy(sizePolicy1);
-        lE_TUCount->setFont(font2);
-        lE_TUCount->setStyleSheet(QString::fromUtf8("color: rgb(0, 114, 188);"));
-
-        gridLayout_10->addWidget(lE_TUCount, 3, 4, 1, 1);
-
-        label_15 = new QLabel(frame_7);
-        label_15->setObjectName(QString::fromUtf8("label_15"));
-        label_15->setMinimumSize(QSize(140, 35));
-        label_15->setMaximumSize(QSize(140, 35));
-        label_15->setFont(font3);
-
-        gridLayout_10->addWidget(label_15, 8, 0, 1, 1);
-
-        label_10 = new QLabel(frame_7);
-        label_10->setObjectName(QString::fromUtf8("label_10"));
-        label_10->setMinimumSize(QSize(140, 35));
-        label_10->setMaximumSize(QSize(140, 35));
-        label_10->setFont(font3);
-
-        gridLayout_10->addWidget(label_10, 1, 0, 1, 1);
-
-        horizontalSpacer_10 = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        gridLayout_10->addItem(horizontalSpacer_10, 5, 2, 1, 1);
-
-        label_18 = new QLabel(frame_7);
-        label_18->setObjectName(QString::fromUtf8("label_18"));
-        label_18->setMinimumSize(QSize(140, 35));
-        label_18->setMaximumSize(QSize(140, 35));
-        label_18->setFont(font3);
-
-        gridLayout_10->addWidget(label_18, 8, 3, 1, 1);
-
         cB_ScaleStableState = new QComboBox(frame_7);
         cB_ScaleStableState->addItem(QString());
         cB_ScaleStableState->addItem(QString());
@@ -1523,45 +1450,17 @@ public:
         cB_ScaleStableState->setFont(font2);
         cB_ScaleStableState->setStyleSheet(QString::fromUtf8("color: rgb(0, 114, 188);"));
 
-        gridLayout_10->addWidget(cB_ScaleStableState, 6, 1, 1, 1);
+        gridLayout_10->addWidget(cB_ScaleStableState, 9, 1, 1, 1);
 
-        verticalSpacer_5 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        lE_Weight = new QLineEdit(frame_7);
+        lE_Weight->setObjectName(QString::fromUtf8("lE_Weight"));
+        lE_Weight->setEnabled(false);
+        sizePolicy1.setHeightForWidth(lE_Weight->sizePolicy().hasHeightForWidth());
+        lE_Weight->setSizePolicy(sizePolicy1);
+        lE_Weight->setFont(font2);
+        lE_Weight->setStyleSheet(QString::fromUtf8("color: rgb(0, 114, 188);"));
 
-        gridLayout_10->addItem(verticalSpacer_5, 0, 1, 1, 1);
-
-        label_49 = new QLabel(frame_7);
-        label_49->setObjectName(QString::fromUtf8("label_49"));
-        label_49->setMinimumSize(QSize(140, 35));
-        label_49->setMaximumSize(QSize(140, 35));
-        label_49->setFont(font3);
-
-        gridLayout_10->addWidget(label_49, 3, 0, 1, 1);
-
-        label_17 = new QLabel(frame_7);
-        label_17->setObjectName(QString::fromUtf8("label_17"));
-        label_17->setMinimumSize(QSize(140, 35));
-        label_17->setMaximumSize(QSize(140, 35));
-        label_17->setFont(font3);
-
-        gridLayout_10->addWidget(label_17, 1, 3, 1, 1);
-
-        lE_ScaleResult = new QLineEdit(frame_7);
-        lE_ScaleResult->setObjectName(QString::fromUtf8("lE_ScaleResult"));
-        lE_ScaleResult->setEnabled(false);
-        sizePolicy1.setHeightForWidth(lE_ScaleResult->sizePolicy().hasHeightForWidth());
-        lE_ScaleResult->setSizePolicy(sizePolicy1);
-        lE_ScaleResult->setFont(font2);
-        lE_ScaleResult->setStyleSheet(QString::fromUtf8("color: rgb(0, 114, 188);"));
-
-        gridLayout_10->addWidget(lE_ScaleResult, 5, 1, 1, 1);
-
-        label_43 = new QLabel(frame_7);
-        label_43->setObjectName(QString::fromUtf8("label_43"));
-        label_43->setMinimumSize(QSize(140, 35));
-        label_43->setMaximumSize(QSize(140, 35));
-        label_43->setFont(font3);
-
-        gridLayout_10->addWidget(label_43, 5, 3, 1, 1);
+        gridLayout_10->addWidget(lE_Weight, 7, 4, 1, 1);
 
         lE_GroupIndex = new QLineEdit(frame_7);
         lE_GroupIndex->setObjectName(QString::fromUtf8("lE_GroupIndex"));
@@ -1571,33 +1470,17 @@ public:
         lE_GroupIndex->setFont(font2);
         lE_GroupIndex->setStyleSheet(QString::fromUtf8("color: rgb(0, 114, 188);"));
 
-        gridLayout_10->addWidget(lE_GroupIndex, 8, 4, 1, 1);
+        gridLayout_10->addWidget(lE_GroupIndex, 11, 4, 1, 1);
 
-        label_48 = new QLabel(frame_7);
-        label_48->setObjectName(QString::fromUtf8("label_48"));
-        label_48->setMinimumSize(QSize(140, 35));
-        label_48->setMaximumSize(QSize(140, 35));
-        label_48->setFont(font3);
+        lE_Finished = new QLineEdit(frame_7);
+        lE_Finished->setObjectName(QString::fromUtf8("lE_Finished"));
+        lE_Finished->setEnabled(false);
+        sizePolicy1.setHeightForWidth(lE_Finished->sizePolicy().hasHeightForWidth());
+        lE_Finished->setSizePolicy(sizePolicy1);
+        lE_Finished->setFont(font2);
+        lE_Finished->setStyleSheet(QString::fromUtf8("color: rgb(0, 114, 188);"));
 
-        gridLayout_10->addWidget(label_48, 3, 3, 1, 1);
-
-        label_39 = new QLabel(frame_7);
-        label_39->setObjectName(QString::fromUtf8("label_39"));
-        label_39->setMinimumSize(QSize(140, 35));
-        label_39->setMaximumSize(QSize(140, 35));
-        label_39->setFont(font3);
-
-        gridLayout_10->addWidget(label_39, 2, 0, 1, 1);
-
-        lE_ProdCount = new QLineEdit(frame_7);
-        lE_ProdCount->setObjectName(QString::fromUtf8("lE_ProdCount"));
-        lE_ProdCount->setEnabled(false);
-        sizePolicy1.setHeightForWidth(lE_ProdCount->sizePolicy().hasHeightForWidth());
-        lE_ProdCount->setSizePolicy(sizePolicy1);
-        lE_ProdCount->setFont(font2);
-        lE_ProdCount->setStyleSheet(QString::fromUtf8("color: rgb(0, 114, 188);"));
-
-        gridLayout_10->addWidget(lE_ProdCount, 2, 1, 1, 1);
+        gridLayout_10->addWidget(lE_Finished, 11, 1, 1, 1);
 
         lE_PassCount = new QLineEdit(frame_7);
         lE_PassCount->setObjectName(QString::fromUtf8("lE_PassCount"));
@@ -1609,27 +1492,129 @@ public:
 
         gridLayout_10->addWidget(lE_PassCount, 1, 1, 1, 1);
 
+        label_43 = new QLabel(frame_7);
+        label_43->setObjectName(QString::fromUtf8("label_43"));
+        label_43->setMinimumSize(QSize(140, 35));
+        label_43->setMaximumSize(QSize(140, 35));
+        label_43->setFont(font3);
+
+        gridLayout_10->addWidget(label_43, 7, 3, 1, 1);
+
+        lE_TUCount = new QLineEdit(frame_7);
+        lE_TUCount->setObjectName(QString::fromUtf8("lE_TUCount"));
+        lE_TUCount->setEnabled(false);
+        sizePolicy1.setHeightForWidth(lE_TUCount->sizePolicy().hasHeightForWidth());
+        lE_TUCount->setSizePolicy(sizePolicy1);
+        lE_TUCount->setFont(font2);
+        lE_TUCount->setStyleSheet(QString::fromUtf8("color: rgb(0, 114, 188);"));
+
+        gridLayout_10->addWidget(lE_TUCount, 5, 4, 1, 1);
+
+        horizontalSpacer_10 = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        gridLayout_10->addItem(horizontalSpacer_10, 7, 2, 1, 1);
+
+        lE_TOCount = new QLineEdit(frame_7);
+        lE_TOCount->setObjectName(QString::fromUtf8("lE_TOCount"));
+        lE_TOCount->setEnabled(false);
+        sizePolicy1.setHeightForWidth(lE_TOCount->sizePolicy().hasHeightForWidth());
+        lE_TOCount->setSizePolicy(sizePolicy1);
+        lE_TOCount->setFont(font2);
+        lE_TOCount->setStyleSheet(QString::fromUtf8("color: rgb(0, 114, 188);"));
+
+        gridLayout_10->addWidget(lE_TOCount, 5, 1, 1, 1);
+
+        verticalSpacer_16 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_10->addItem(verticalSpacer_16, 4, 1, 1, 1);
+
+        label_48 = new QLabel(frame_7);
+        label_48->setObjectName(QString::fromUtf8("label_48"));
+        label_48->setMinimumSize(QSize(140, 35));
+        label_48->setMaximumSize(QSize(140, 35));
+        label_48->setFont(font3);
+
+        gridLayout_10->addWidget(label_48, 5, 3, 1, 1);
+
+        verticalSpacer_14 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_10->addItem(verticalSpacer_14, 10, 1, 1, 1);
+
+        verticalSpacer_13 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_10->addItem(verticalSpacer_13, 6, 1, 1, 1);
+
+        label_18 = new QLabel(frame_7);
+        label_18->setObjectName(QString::fromUtf8("label_18"));
+        label_18->setMinimumSize(QSize(140, 35));
+        label_18->setMaximumSize(QSize(140, 35));
+        label_18->setFont(font3);
+
+        gridLayout_10->addWidget(label_18, 11, 3, 1, 1);
+
+        verticalSpacer_12 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_10->addItem(verticalSpacer_12, 12, 1, 1, 1);
+
+        label_15 = new QLabel(frame_7);
+        label_15->setObjectName(QString::fromUtf8("label_15"));
+        label_15->setMinimumSize(QSize(140, 35));
+        label_15->setMaximumSize(QSize(140, 35));
+        label_15->setFont(font3);
+
+        gridLayout_10->addWidget(label_15, 11, 0, 1, 1);
+
+        label_17 = new QLabel(frame_7);
+        label_17->setObjectName(QString::fromUtf8("label_17"));
+        label_17->setMinimumSize(QSize(140, 35));
+        label_17->setMaximumSize(QSize(140, 35));
+        label_17->setFont(font3);
+
+        gridLayout_10->addWidget(label_17, 1, 3, 1, 1);
+
         label_16 = new QLabel(frame_7);
         label_16->setObjectName(QString::fromUtf8("label_16"));
         label_16->setMinimumSize(QSize(140, 35));
         label_16->setMaximumSize(QSize(140, 35));
         label_16->setFont(font3);
 
-        gridLayout_10->addWidget(label_16, 5, 0, 1, 1);
+        gridLayout_10->addWidget(label_16, 7, 0, 1, 1);
 
-        verticalSpacer_14 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        label_39 = new QLabel(frame_7);
+        label_39->setObjectName(QString::fromUtf8("label_39"));
+        label_39->setMinimumSize(QSize(140, 35));
+        label_39->setMaximumSize(QSize(140, 35));
+        label_39->setFont(font3);
 
-        gridLayout_10->addItem(verticalSpacer_14, 7, 1, 1, 1);
+        gridLayout_10->addWidget(label_39, 3, 0, 1, 1);
 
-        lE_Weight = new QLineEdit(frame_7);
-        lE_Weight->setObjectName(QString::fromUtf8("lE_Weight"));
-        lE_Weight->setEnabled(false);
-        sizePolicy1.setHeightForWidth(lE_Weight->sizePolicy().hasHeightForWidth());
-        lE_Weight->setSizePolicy(sizePolicy1);
-        lE_Weight->setFont(font2);
-        lE_Weight->setStyleSheet(QString::fromUtf8("color: rgb(0, 114, 188);"));
+        lE_ScaleResult = new QLineEdit(frame_7);
+        lE_ScaleResult->setObjectName(QString::fromUtf8("lE_ScaleResult"));
+        lE_ScaleResult->setEnabled(false);
+        sizePolicy1.setHeightForWidth(lE_ScaleResult->sizePolicy().hasHeightForWidth());
+        lE_ScaleResult->setSizePolicy(sizePolicy1);
+        lE_ScaleResult->setFont(font2);
+        lE_ScaleResult->setStyleSheet(QString::fromUtf8("color: rgb(0, 114, 188);"));
 
-        gridLayout_10->addWidget(lE_Weight, 5, 4, 1, 1);
+        gridLayout_10->addWidget(lE_ScaleResult, 7, 1, 1, 1);
+
+        label_10 = new QLabel(frame_7);
+        label_10->setObjectName(QString::fromUtf8("label_10"));
+        label_10->setMinimumSize(QSize(140, 35));
+        label_10->setMaximumSize(QSize(140, 35));
+        label_10->setFont(font3);
+
+        gridLayout_10->addWidget(label_10, 1, 0, 1, 1);
+
+        lE_ProdCount = new QLineEdit(frame_7);
+        lE_ProdCount->setObjectName(QString::fromUtf8("lE_ProdCount"));
+        lE_ProdCount->setEnabled(false);
+        sizePolicy1.setHeightForWidth(lE_ProdCount->sizePolicy().hasHeightForWidth());
+        lE_ProdCount->setSizePolicy(sizePolicy1);
+        lE_ProdCount->setFont(font2);
+        lE_ProdCount->setStyleSheet(QString::fromUtf8("color: rgb(0, 114, 188);"));
+
+        gridLayout_10->addWidget(lE_ProdCount, 3, 1, 1, 1);
 
         label_45 = new QLabel(frame_7);
         label_45->setObjectName(QString::fromUtf8("label_45"));
@@ -1637,7 +1622,37 @@ public:
         label_45->setMaximumSize(QSize(140, 35));
         label_45->setFont(font3);
 
-        gridLayout_10->addWidget(label_45, 6, 0, 1, 1);
+        gridLayout_10->addWidget(label_45, 9, 0, 1, 1);
+
+        verticalSpacer_5 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_10->addItem(verticalSpacer_5, 0, 1, 1, 1);
+
+        verticalSpacer_15 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_10->addItem(verticalSpacer_15, 2, 1, 1, 1);
+
+        label_49 = new QLabel(frame_7);
+        label_49->setObjectName(QString::fromUtf8("label_49"));
+        label_49->setMinimumSize(QSize(140, 35));
+        label_49->setMaximumSize(QSize(140, 35));
+        label_49->setFont(font3);
+
+        gridLayout_10->addWidget(label_49, 5, 0, 1, 1);
+
+        lE_RejectCount = new QLineEdit(frame_7);
+        lE_RejectCount->setObjectName(QString::fromUtf8("lE_RejectCount"));
+        lE_RejectCount->setEnabled(false);
+        sizePolicy1.setHeightForWidth(lE_RejectCount->sizePolicy().hasHeightForWidth());
+        lE_RejectCount->setSizePolicy(sizePolicy1);
+        lE_RejectCount->setFont(font2);
+        lE_RejectCount->setStyleSheet(QString::fromUtf8("color: rgb(0, 114, 188);"));
+
+        gridLayout_10->addWidget(lE_RejectCount, 1, 4, 1, 1);
+
+        verticalSpacer_17 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_10->addItem(verticalSpacer_17, 8, 1, 1, 1);
 
 
         verticalLayout_9->addWidget(frame_7);
@@ -1856,30 +1871,30 @@ public:
         pB_cmdCounterZero->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\256\241\346\225\260\346\270\205\351\233\266", nullptr));
         pB_cmdStart->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\220\257\345\212\250", nullptr));
         groupBox_10->setTitle(QCoreApplication::translate("QtPLCDialogClass", "\345\256\236\346\227\266\346\225\260\346\215\256", nullptr));
-        lE_Finished->setText(QCoreApplication::translate("QtPLCDialogClass", "1", nullptr));
-        lE_TOCount->setText(QCoreApplication::translate("QtPLCDialogClass", "1", nullptr));
-        lE_RejectCount->setText(QCoreApplication::translate("QtPLCDialogClass", "1", nullptr));
-        lE_TUCount->setText(QCoreApplication::translate("QtPLCDialogClass", "3", nullptr));
-        label_15->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\234\254\347\273\204\347\273\223\346\235\237", nullptr));
-        label_10->setText(QCoreApplication::translate("QtPLCDialogClass", "\351\200\232\350\277\207\350\256\241\346\225\260", nullptr));
-        label_18->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\234\254\347\273\204\345\272\217\345\217\267", nullptr));
         cB_ScaleStableState->setItemText(0, QCoreApplication::translate("QtPLCDialogClass", "\351\235\236\345\270\270\347\250\263\345\256\232", nullptr));
         cB_ScaleStableState->setItemText(1, QCoreApplication::translate("QtPLCDialogClass", "\347\250\263\345\256\232", nullptr));
         cB_ScaleStableState->setItemText(2, QCoreApplication::translate("QtPLCDialogClass", "\344\270\215\347\250\263\345\256\232", nullptr));
         cB_ScaleStableState->setItemText(3, QCoreApplication::translate("QtPLCDialogClass", "\351\235\236\345\270\270\344\270\215\347\250\263\345\256\232", nullptr));
 
-        label_49->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\277\207\351\207\215\350\256\241\346\225\260", nullptr));
-        label_17->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\211\224\345\272\237\350\256\241\346\225\260", nullptr));
-        lE_ScaleResult->setText(QCoreApplication::translate("QtPLCDialogClass", "0.567", nullptr));
-        label_43->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\234\254\346\254\241\351\207\215\351\207\217", nullptr));
-        lE_GroupIndex->setText(QCoreApplication::translate("QtPLCDialogClass", "13", nullptr));
-        label_48->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\277\207\350\275\273\350\256\241\346\225\260", nullptr));
-        label_39->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\247\260\351\207\215\350\256\241\346\225\260", nullptr));
-        lE_ProdCount->setText(QCoreApplication::translate("QtPLCDialogClass", "14", nullptr));
-        lE_PassCount->setText(QCoreApplication::translate("QtPLCDialogClass", "13", nullptr));
-        label_16->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\275\223\345\211\215\350\257\273\346\225\260", nullptr));
         lE_Weight->setText(QCoreApplication::translate("QtPLCDialogClass", "0.234", nullptr));
+        lE_GroupIndex->setText(QCoreApplication::translate("QtPLCDialogClass", "13", nullptr));
+        lE_Finished->setText(QCoreApplication::translate("QtPLCDialogClass", "1", nullptr));
+        lE_PassCount->setText(QCoreApplication::translate("QtPLCDialogClass", "13", nullptr));
+        label_43->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\234\254\346\254\241\351\207\215\351\207\217", nullptr));
+        lE_TUCount->setText(QCoreApplication::translate("QtPLCDialogClass", "3", nullptr));
+        lE_TOCount->setText(QCoreApplication::translate("QtPLCDialogClass", "1", nullptr));
+        label_48->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\277\207\350\275\273\350\256\241\346\225\260", nullptr));
+        label_18->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\234\254\347\273\204\345\272\217\345\217\267", nullptr));
+        label_15->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\234\254\347\273\204\347\273\223\346\235\237", nullptr));
+        label_17->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\211\224\345\272\237\350\256\241\346\225\260", nullptr));
+        label_16->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\275\223\345\211\215\350\257\273\346\225\260", nullptr));
+        label_39->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\247\260\351\207\215\350\256\241\346\225\260", nullptr));
+        lE_ScaleResult->setText(QCoreApplication::translate("QtPLCDialogClass", "0.567", nullptr));
+        label_10->setText(QCoreApplication::translate("QtPLCDialogClass", "\351\200\232\350\277\207\350\256\241\346\225\260", nullptr));
+        lE_ProdCount->setText(QCoreApplication::translate("QtPLCDialogClass", "14", nullptr));
         label_45->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\250\263\345\256\232\347\212\266\346\200\201", nullptr));
+        label_49->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\277\207\351\207\215\350\256\241\346\225\260", nullptr));
+        lE_RejectCount->setText(QCoreApplication::translate("QtPLCDialogClass", "1", nullptr));
         lb_logo->setText(QString());
         label_80->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\277\220\350\241\214\351\200\237\345\272\246\357\274\232", nullptr));
         lE_SysOveride->setText(QCoreApplication::translate("QtPLCDialogClass", "120", nullptr));

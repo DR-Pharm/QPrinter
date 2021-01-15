@@ -227,7 +227,12 @@ void PRT::initUI()
 	ui.cB_PrintMode->setCurrentIndex(m_iPrintMode);
 	judgeLabelText(m_iPrintMode);
 
-
+	lbDr = new QLabel(this);
+	lbDr->resize(1280, 800);
+	lbDr->move(0, 0);
+	lbDr->setPixmap(QPixmap(AppPath + "/ico/dr.png"));
+	lbDr->setScaledContents(true);
+	lbDr->setAttribute(Qt::WA_TransparentForMouseEvents);
 }
 void PRT::judgeLabelText(int index)
 {

@@ -57,7 +57,7 @@ public:
 	void showWindowOut(QString str);
 	//event
 	bool eventFilter(QObject*, QEvent*);
-
+	QLabel *lbDr = nullptr;
 private:
 	Ui::PRTClass ui;
 	//data calculate
