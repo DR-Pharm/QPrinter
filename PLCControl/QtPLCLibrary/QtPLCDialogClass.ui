@@ -2804,7 +2804,7 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
     <item>
      <widget class="QGroupBox" name="groupBox_10">
       <property name="title">
-       <string>     .   </string>
+       <string>     . </string>
       </property>
       <property name="flat">
        <bool>false</bool>

@@ -2098,7 +2098,7 @@ public:
         pB_cmdCapClean->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\270\205\347\251\272\350\203\266\345\233\212", nullptr));
         pB_cmdCounterZero->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\256\241\346\225\260\346\270\205\351\233\266", nullptr));
         pB_cmdStart->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\220\257\345\212\250", nullptr));
-        groupBox_10->setTitle(QCoreApplication::translate("QtPLCDialogClass", "     .   ", nullptr));
+        groupBox_10->setTitle(QCoreApplication::translate("QtPLCDialogClass", "     . ", nullptr));
         lE_ScaleResult->setText(QCoreApplication::translate("QtPLCDialogClass", "0.567", nullptr));
         label_10->setText(QCoreApplication::translate("QtPLCDialogClass", "\351\200\232\350\277\207\350\256\241\346\225\260", nullptr));
         cB_ScaleStableState->setItemText(0, QCoreApplication::translate("QtPLCDialogClass", "\351\235\236\345\270\270\347\250\263\345\256\232", nullptr));
