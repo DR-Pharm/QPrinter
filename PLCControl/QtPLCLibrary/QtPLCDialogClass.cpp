@@ -65,6 +65,12 @@ QtPLCDialogClass::~QtPLCDialogClass()
 #pragma region ui stylesheet
 void QtPLCDialogClass::initUI()
 {
+	lb_dataNow = new QLabel(this);
+	lb_dataNow->resize(140, 35);
+	lb_dataNow->move(30, 13);
+	lb_dataNow->setPixmap(QPixmap(AppPath + "/ico/fontImage/datanow.png"));
+	lb_dataNow->setScaledContents(true);
+
 	((Ui::QtPLCDialogClass*)ui)->label_15->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_15.png"));
 	((Ui::QtPLCDialogClass*)ui)->label_15->setScaledContents(true);
 	((Ui::QtPLCDialogClass*)ui)->label_18->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_18.png"));
@@ -959,13 +965,14 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart, "background: rgb(0,255,0)", startFont, QString::fromLocal8Bit("停止"));
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(false);
 		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(false);
+		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setStyleSheet("color: rgb(0, 114, 188)");
 		typ.Machine_Cmd.cmdStart = 1;
 	}
 	else
 	{
 		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart, "background: rgb(200,200,100)", startFont, QString::fromLocal8Bit("启动"));
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(true);
-		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(true); ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setStyleSheet("");
 		typ.Machine_Cmd.cmdStop = 1;
 	}
 	m_socket->Communicate_PLC(&typ, nullptr);

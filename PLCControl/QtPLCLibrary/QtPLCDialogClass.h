@@ -49,6 +49,7 @@ private:
 	QFont startFont;
 	QFont contentFont;
 
+	QLabel *lb_dataNow;
 public slots:
 
 	DataFromPC_typ getPCParaData();

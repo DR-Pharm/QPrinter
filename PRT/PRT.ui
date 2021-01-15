@@ -57,7 +57,7 @@
      </font>
     </property>
     <property name="title">
-     <string>PLC</string>
+     <string/>
     </property>
     <property name="flat">
      <bool>false</bool>
@@ -67,14 +67,14 @@
       <widget class="QWidget" name="widget" native="true">
        <property name="minimumSize">
         <size>
-         <width>851</width>
-         <height>734</height>
+         <width>0</width>
+         <height>0</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>851</width>
-         <height>734</height>
+         <width>900</width>
+         <height>900</height>
         </size>
        </property>
       </widget>

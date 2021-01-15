@@ -86,8 +86,8 @@ public:
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
         widget = new QWidget(groupBox_2);
         widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setMinimumSize(QSize(851, 734));
-        widget->setMaximumSize(QSize(851, 734));
+        widget->setMinimumSize(QSize(0, 0));
+        widget->setMaximumSize(QSize(900, 900));
 
         verticalLayout_3->addWidget(widget);
 
@@ -275,7 +275,7 @@ public:
     void retranslateUi(QMainWindow *PRTClass)
     {
         PRTClass->setWindowTitle(QCoreApplication::translate("PRTClass", "PRT", nullptr));
-        groupBox_2->setTitle(QCoreApplication::translate("PRTClass", "PLC", nullptr));
+        groupBox_2->setTitle(QString());
         groupBox->setTitle(QCoreApplication::translate("PRTClass", "\346\211\223\345\215\260", nullptr));
         label_4->setText(QCoreApplication::translate("PRTClass", "\346\211\223\345\215\260\346\250\241\345\274\217:", nullptr));
         cB_PrintMode->setItemText(0, QCoreApplication::translate("PRTClass", "\346\211\213\345\212\250", nullptr));
