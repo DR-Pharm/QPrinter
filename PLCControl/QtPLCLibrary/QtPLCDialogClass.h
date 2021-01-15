@@ -17,6 +17,7 @@ signals:
 public:
 	QtPLCDialogClass(QDialog *parent = Q_NULLPTR);
 	~QtPLCDialogClass();
+	void initUI();
 	void initFont();
 	void initDlg();
 	void setWindowMinimized();

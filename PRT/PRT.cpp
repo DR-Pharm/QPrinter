@@ -226,6 +226,8 @@ void PRT::initUI()
 	m_iPrintMode = RWini->value("ProgramSetting/PrintMode", "0").toInt();
 	ui.cB_PrintMode->setCurrentIndex(m_iPrintMode);
 	judgeLabelText(m_iPrintMode);
+
+
 }
 void PRT::judgeLabelText(int index)
 {

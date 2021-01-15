@@ -2955,6 +2955,18 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
           </item>
           <item row="8" column="0">
            <widget class="QLabel" name="label_15">
+            <property name="minimumSize">
+             <size>
+              <width>140</width>
+              <height>35</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>140</width>
+              <height>35</height>
+             </size>
+            </property>
             <property name="font">
              <font>
               <family>宋体</family>
@@ -2969,6 +2981,18 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_10">
+            <property name="minimumSize">
+             <size>
+              <width>140</width>
+              <height>35</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>140</width>
+              <height>35</height>
+             </size>
+            </property>
             <property name="font">
              <font>
               <family>宋体</family>
@@ -2999,6 +3023,18 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
           </item>
           <item row="8" column="3">
            <widget class="QLabel" name="label_18">
+            <property name="minimumSize">
+             <size>
+              <width>140</width>
+              <height>35</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>140</width>
+              <height>35</height>
+             </size>
+            </property>
             <property name="font">
              <font>
               <family>宋体</family>
@@ -3064,6 +3100,18 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
           </item>
           <item row="3" column="0">
            <widget class="QLabel" name="label_49">
+            <property name="minimumSize">
+             <size>
+              <width>140</width>
+              <height>35</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>140</width>
+              <height>35</height>
+             </size>
+            </property>
             <property name="font">
              <font>
               <family>宋体</family>
@@ -3078,6 +3126,18 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
           </item>
           <item row="1" column="3">
            <widget class="QLabel" name="label_17">
+            <property name="minimumSize">
+             <size>
+              <width>140</width>
+              <height>35</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>140</width>
+              <height>35</height>
+             </size>
+            </property>
             <property name="font">
              <font>
               <family>宋体</family>
@@ -3119,6 +3179,18 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
           </item>
           <item row="5" column="3">
            <widget class="QLabel" name="label_43">
+            <property name="minimumSize">
+             <size>
+              <width>140</width>
+              <height>35</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>140</width>
+              <height>35</height>
+             </size>
+            </property>
             <property name="font">
              <font>
               <family>宋体</family>
@@ -3160,6 +3232,18 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
           </item>
           <item row="3" column="3">
            <widget class="QLabel" name="label_48">
+            <property name="minimumSize">
+             <size>
+              <width>140</width>
+              <height>35</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>140</width>
+              <height>35</height>
+             </size>
+            </property>
             <property name="font">
              <font>
               <family>宋体</family>
@@ -3174,6 +3258,18 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
           </item>
           <item row="2" column="0">
            <widget class="QLabel" name="label_39">
+            <property name="minimumSize">
+             <size>
+              <width>140</width>
+              <height>35</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>140</width>
+              <height>35</height>
+             </size>
+            </property>
             <property name="font">
              <font>
               <family>宋体</family>
@@ -3242,6 +3338,18 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
           </item>
           <item row="5" column="0">
            <widget class="QLabel" name="label_16">
+            <property name="minimumSize">
+             <size>
+              <width>140</width>
+              <height>35</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>140</width>
+              <height>35</height>
+             </size>
+            </property>
             <property name="font">
              <font>
               <family>宋体</family>
@@ -3296,6 +3404,18 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
           </item>
           <item row="6" column="0">
            <widget class="QLabel" name="label_45">
+            <property name="minimumSize">
+             <size>
+              <width>140</width>
+              <height>35</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>140</width>
+              <height>35</height>
+             </size>
+            </property>
             <property name="font">
              <font>
               <family>宋体</family>
@@ -3387,16 +3507,22 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
            <layout class="QGridLayout" name="gridLayout_11">
             <item row="0" column="0">
              <widget class="QLabel" name="label_80">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="minimumSize">
                <size>
-                <width>0</width>
-                <height>0</height>
+                <width>160</width>
+                <height>35</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
-                <width>1572323</width>
-                <height>232323</height>
+                <width>160</width>
+                <height>35</height>
                </size>
               </property>
               <property name="font">
@@ -3445,16 +3571,22 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
             </item>
             <item row="1" column="0">
              <widget class="QLabel" name="label_78">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="minimumSize">
                <size>
-                <width>0</width>
-                <height>0</height>
+                <width>160</width>
+                <height>35</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
-                <width>1572323</width>
-                <height>232323</height>
+                <width>160</width>
+                <height>35</height>
                </size>
               </property>
               <property name="font">

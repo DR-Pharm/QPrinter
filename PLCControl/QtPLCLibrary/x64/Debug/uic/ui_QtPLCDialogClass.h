@@ -1487,12 +1487,16 @@ public:
 
         label_15 = new QLabel(frame_7);
         label_15->setObjectName(QString::fromUtf8("label_15"));
+        label_15->setMinimumSize(QSize(140, 35));
+        label_15->setMaximumSize(QSize(140, 35));
         label_15->setFont(font3);
 
         gridLayout_10->addWidget(label_15, 8, 0, 1, 1);
 
         label_10 = new QLabel(frame_7);
         label_10->setObjectName(QString::fromUtf8("label_10"));
+        label_10->setMinimumSize(QSize(140, 35));
+        label_10->setMaximumSize(QSize(140, 35));
         label_10->setFont(font3);
 
         gridLayout_10->addWidget(label_10, 1, 0, 1, 1);
@@ -1503,6 +1507,8 @@ public:
 
         label_18 = new QLabel(frame_7);
         label_18->setObjectName(QString::fromUtf8("label_18"));
+        label_18->setMinimumSize(QSize(140, 35));
+        label_18->setMaximumSize(QSize(140, 35));
         label_18->setFont(font3);
 
         gridLayout_10->addWidget(label_18, 8, 3, 1, 1);
@@ -1525,12 +1531,16 @@ public:
 
         label_49 = new QLabel(frame_7);
         label_49->setObjectName(QString::fromUtf8("label_49"));
+        label_49->setMinimumSize(QSize(140, 35));
+        label_49->setMaximumSize(QSize(140, 35));
         label_49->setFont(font3);
 
         gridLayout_10->addWidget(label_49, 3, 0, 1, 1);
 
         label_17 = new QLabel(frame_7);
         label_17->setObjectName(QString::fromUtf8("label_17"));
+        label_17->setMinimumSize(QSize(140, 35));
+        label_17->setMaximumSize(QSize(140, 35));
         label_17->setFont(font3);
 
         gridLayout_10->addWidget(label_17, 1, 3, 1, 1);
@@ -1547,6 +1557,8 @@ public:
 
         label_43 = new QLabel(frame_7);
         label_43->setObjectName(QString::fromUtf8("label_43"));
+        label_43->setMinimumSize(QSize(140, 35));
+        label_43->setMaximumSize(QSize(140, 35));
         label_43->setFont(font3);
 
         gridLayout_10->addWidget(label_43, 5, 3, 1, 1);
@@ -1563,12 +1575,16 @@ public:
 
         label_48 = new QLabel(frame_7);
         label_48->setObjectName(QString::fromUtf8("label_48"));
+        label_48->setMinimumSize(QSize(140, 35));
+        label_48->setMaximumSize(QSize(140, 35));
         label_48->setFont(font3);
 
         gridLayout_10->addWidget(label_48, 3, 3, 1, 1);
 
         label_39 = new QLabel(frame_7);
         label_39->setObjectName(QString::fromUtf8("label_39"));
+        label_39->setMinimumSize(QSize(140, 35));
+        label_39->setMaximumSize(QSize(140, 35));
         label_39->setFont(font3);
 
         gridLayout_10->addWidget(label_39, 2, 0, 1, 1);
@@ -1595,6 +1611,8 @@ public:
 
         label_16 = new QLabel(frame_7);
         label_16->setObjectName(QString::fromUtf8("label_16"));
+        label_16->setMinimumSize(QSize(140, 35));
+        label_16->setMaximumSize(QSize(140, 35));
         label_16->setFont(font3);
 
         gridLayout_10->addWidget(label_16, 5, 0, 1, 1);
@@ -1615,6 +1633,8 @@ public:
 
         label_45 = new QLabel(frame_7);
         label_45->setObjectName(QString::fromUtf8("label_45"));
+        label_45->setMinimumSize(QSize(140, 35));
+        label_45->setMaximumSize(QSize(140, 35));
         label_45->setFont(font3);
 
         gridLayout_10->addWidget(label_45, 6, 0, 1, 1);
@@ -1657,8 +1677,10 @@ public:
         gridLayout_11->setObjectName(QString::fromUtf8("gridLayout_11"));
         label_80 = new QLabel(frame_9);
         label_80->setObjectName(QString::fromUtf8("label_80"));
-        label_80->setMinimumSize(QSize(0, 0));
-        label_80->setMaximumSize(QSize(1572323, 232323));
+        sizePolicy2.setHeightForWidth(label_80->sizePolicy().hasHeightForWidth());
+        label_80->setSizePolicy(sizePolicy2);
+        label_80->setMinimumSize(QSize(160, 35));
+        label_80->setMaximumSize(QSize(160, 35));
         label_80->setFont(font3);
 
         gridLayout_11->addWidget(label_80, 0, 0, 1, 1);
@@ -1675,8 +1697,10 @@ public:
 
         label_78 = new QLabel(frame_9);
         label_78->setObjectName(QString::fromUtf8("label_78"));
-        label_78->setMinimumSize(QSize(0, 0));
-        label_78->setMaximumSize(QSize(1572323, 232323));
+        sizePolicy2.setHeightForWidth(label_78->sizePolicy().hasHeightForWidth());
+        label_78->setSizePolicy(sizePolicy2);
+        label_78->setMinimumSize(QSize(160, 35));
+        label_78->setMaximumSize(QSize(160, 35));
         label_78->setFont(font3);
 
         gridLayout_11->addWidget(label_78, 1, 0, 1, 1);

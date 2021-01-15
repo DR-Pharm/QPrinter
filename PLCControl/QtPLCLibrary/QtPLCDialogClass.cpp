@@ -13,6 +13,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	((Ui::QtPLCDialogClass*)ui)->frame->move(0, 0);
 	initFont();
 	initDlg();
+	initUI();
 	m_data = new DataToPC_typ;
 	memset(m_data, 0, sizeof(DataToPC_typ));//主界面用
 
@@ -62,6 +63,19 @@ QtPLCDialogClass::~QtPLCDialogClass()
 }
 
 #pragma region ui stylesheet
+void QtPLCDialogClass::initUI()
+{
+	((Ui::QtPLCDialogClass*)ui)->label_15->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_15.png"));
+	((Ui::QtPLCDialogClass*)ui)->label_15->setScaledContents(true);
+	((Ui::QtPLCDialogClass*)ui)->label_18->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_18.png"));
+	((Ui::QtPLCDialogClass*)ui)->label_18->setScaledContents(true);
+	((Ui::QtPLCDialogClass*)ui)->label_78->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_78.png"));
+	((Ui::QtPLCDialogClass*)ui)->label_78->setScaledContents(true);	((Ui::QtPLCDialogClass*)ui)->label_80->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_80.png"));
+	((Ui::QtPLCDialogClass*)ui)->label_80->setScaledContents(true);
+	((Ui::QtPLCDialogClass*)ui)->label_10->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_10.png"));
+	((Ui::QtPLCDialogClass*)ui)->label_10->setScaledContents(true);	((Ui::QtPLCDialogClass*)ui)->label_39->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_39.png"));
+	((Ui::QtPLCDialogClass*)ui)->label_39->setScaledContents(true);
+}
 void QtPLCDialogClass::initFont()
 {
 	setupFont.setFamily(QString::fromLocal8Bit("迷你简菱心"));
