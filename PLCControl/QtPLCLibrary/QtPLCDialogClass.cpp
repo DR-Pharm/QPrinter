@@ -4,6 +4,7 @@
 #include <QFont>
 #include <QBitmap>
 #include <QPainter>
+#include "mypushbutton.h"
 
 QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	: QDialog(parent)
@@ -22,6 +23,18 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIconSize(QSize(64, 64));
 	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
 	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIcon(QIcon(AppPath + "/ico/dlg.ico"));
+
+	//开始按钮
+	MyPushButton * startBtn = new MyPushButton(AppPath + "/ico/nottoggled.png", AppPath + "/ico/toggled.png",260,80);
+	startBtn->setParent(this);
+	startBtn->move(0, 0);
+	connect(startBtn, &MyPushButton::clicked, [=]() {
+		//qDebug() << "点击了开始";
+		//做弹起特效
+		startBtn->zoom1();
+		startBtn->zoom2(); });
+
+
 	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIconSize(QSize(64, 64));
 	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIcon(QIcon(AppPath + "/ico/set.ico"));
 	

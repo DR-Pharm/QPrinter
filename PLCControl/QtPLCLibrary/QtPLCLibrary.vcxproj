@@ -94,7 +94,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\..\RelayFile\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\RelayFile\include;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
@@ -177,10 +177,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="mypushbutton.cpp" />
     <ClCompile Include="QtPLCControl.cpp" />
     <ClCompile Include="QtPLCDialogClass.cpp" />
     <ClCompile Include="QtSocket_Class.cpp" />
     <ClCompile Include="UserLE.cpp" />
+    <QtMoc Include="mypushbutton.h" />
     <ClInclude Include="PLCRelayHead.h" />
     <ClInclude Include="comm.h" />
     <QtMoc Include="QtPLCControl.h" />

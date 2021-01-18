@@ -3,6 +3,7 @@
 #include <QLabel>
 #include "PLCRelayHead.h"
 #include "QtSocket_Class.h"
+#include "mypushbutton.h"
 namespace spd = spdlog;
 
 class QtPLCDialogClass : public QDialog

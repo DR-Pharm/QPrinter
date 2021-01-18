@@ -32,22 +32,22 @@
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>9</x>
-      <y>9</y>
-      <width>871</width>
-      <height>781</height>
+      <x>10</x>
+      <y>10</y>
+      <width>1260</width>
+      <height>780</height>
      </rect>
     </property>
     <property name="minimumSize">
      <size>
-      <width>871</width>
-      <height>781</height>
+      <width>1260</width>
+      <height>780</height>
      </size>
     </property>
     <property name="maximumSize">
      <size>
-      <width>871</width>
-      <height>781</height>
+      <width>1260</width>
+      <height>780</height>
      </size>
     </property>
     <property name="font">
@@ -62,7 +62,7 @@
     <property name="flat">
      <bool>false</bool>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_3">
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
      <item>
       <widget class="QWidget" name="widget" native="true">
        <property name="minimumSize">
@@ -73,146 +73,100 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>900</width>
-         <height>900</height>
+         <width>3434</width>
+         <height>3434</height>
         </size>
        </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QGroupBox" name="groupBox">
-    <property name="geometry">
-     <rect>
-      <x>886</x>
-      <y>9</y>
-      <width>385</width>
-      <height>781</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>385</width>
-      <height>781</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>385</width>
-      <height>781</height>
-     </size>
-    </property>
-    <property name="font">
-     <font>
-      <family>迷你简菱心</family>
-      <pointsize>20</pointsize>
-     </font>
-    </property>
-    <property name="title">
-     <string>打印</string>
-    </property>
-    <property name="flat">
-     <bool>false</bool>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout_5">
-     <item>
-      <widget class="QFrame" name="frame_3">
-       <property name="frameShape">
-        <enum>QFrame::Box</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Sunken</enum>
-       </property>
-       <property name="lineWidth">
-        <number>2</number>
-       </property>
-       <property name="midLineWidth">
-        <number>0</number>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_4">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <widget class="QGroupBox" name="groupBox">
+        <property name="geometry">
+         <rect>
+          <x>530</x>
+          <y>30</y>
+          <width>385</width>
+          <height>760</height>
+         </rect>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>385</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>385</width>
+          <height>781</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>迷你简菱心</family>
+          <pointsize>20</pointsize>
+         </font>
+        </property>
+        <property name="title">
+         <string>打印</string>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+        <widget class="QFrame" name="frame_3">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>37</y>
+           <width>242</width>
+           <height>94</height>
+          </rect>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Sunken</enum>
+         </property>
+         <property name="lineWidth">
+          <number>2</number>
+         </property>
+         <property name="midLineWidth">
+          <number>0</number>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
-           <widget class="QLabel" name="label_4">
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <pointsize>20</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>打印模式:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="cB_PrintMode">
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
-             <property name="text">
-              <string>手动</string>
-             </property>
+             <widget class="QLabel" name="label_4">
+              <property name="font">
+               <font>
+                <family>宋体</family>
+                <pointsize>20</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>打印模式:</string>
+              </property>
+             </widget>
             </item>
             <item>
-             <property name="text">
-              <string>自动</string>
-             </property>
+             <widget class="QComboBox" name="cB_PrintMode">
+              <item>
+               <property name="text">
+                <string>手动</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>自动</string>
+               </property>
+              </item>
+             </widget>
             </item>
-           </widget>
+           </layout>
           </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QLabel" name="label">
-          <property name="font">
-           <font>
-            <family>宋体</family>
-            <pointsize>20</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>最大可打印数：0</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
-      <widget class="QFrame" name="frame">
-       <property name="frameShape">
-        <enum>QFrame::Box</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Sunken</enum>
-       </property>
-       <property name="lineWidth">
-        <number>2</number>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <widget class="QCheckBox" name="cB_Curve">
-          <property name="font">
-           <font>
-            <family>迷你简菱心</family>
-            <pointsize>36</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>曲线图表</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
-           <widget class="QLabel" name="label_2">
+           <widget class="QLabel" name="label">
             <property name="font">
              <font>
               <family>宋体</family>
@@ -222,74 +176,199 @@
              </font>
             </property>
             <property name="text">
-             <string>打印数</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="lineEdit">
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <pointsize>20</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="checkBox">
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <pointsize>20</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>全部</string>
+             <string>最大可打印数：0</string>
             </property>
            </widget>
           </item>
          </layout>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
-      <widget class="QFrame" name="frame_2">
-       <property name="frameShape">
-        <enum>QFrame::Box</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Sunken</enum>
-       </property>
-       <property name="lineWidth">
-        <number>2</number>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <item>
-         <widget class="QCheckBox" name="cB_Average">
-          <property name="font">
-           <font>
-            <family>迷你简菱心</family>
-            <pointsize>36</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>均值图表</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
+        </widget>
+        <widget class="QFrame" name="frame">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>186</y>
+           <width>365</width>
+           <height>143</height>
+          </rect>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Sunken</enum>
+         </property>
+         <property name="lineWidth">
+          <number>2</number>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
           <item>
-           <widget class="QLabel" name="label_3">
+           <widget class="QCheckBox" name="cB_Curve">
+            <property name="font">
+             <font>
+              <family>迷你简菱心</family>
+              <pointsize>36</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>曲线图表</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="font">
+               <font>
+                <family>宋体</family>
+                <pointsize>20</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>打印数</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="lineEdit">
+              <property name="font">
+               <font>
+                <family>宋体</family>
+                <pointsize>20</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox">
+              <property name="font">
+               <font>
+                <family>宋体</family>
+                <pointsize>20</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>全部</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QFrame" name="frame_2">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>335</y>
+           <width>365</width>
+           <height>142</height>
+          </rect>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Sunken</enum>
+         </property>
+         <property name="lineWidth">
+          <number>2</number>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QCheckBox" name="cB_Average">
+            <property name="font">
+             <font>
+              <family>迷你简菱心</family>
+              <pointsize>36</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>均值图表</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QLabel" name="label_3">
+              <property name="font">
+               <font>
+                <family>宋体</family>
+                <pointsize>20</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>打印数</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="lineEdit_2">
+              <property name="font">
+               <font>
+                <family>宋体</family>
+                <pointsize>20</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_2">
+              <property name="font">
+               <font>
+                <family>宋体</family>
+                <pointsize>20</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>全部</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QFrame" name="frame_4">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>483</y>
+           <width>311</width>
+           <height>53</height>
+          </rect>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Sunken</enum>
+         </property>
+         <property name="lineWidth">
+          <number>2</number>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_6">
+          <item>
+           <widget class="QLabel" name="lb_PrinterName">
             <property name="font">
              <font>
               <family>宋体</family>
@@ -299,93 +378,48 @@
              </font>
             </property>
             <property name="text">
-             <string>打印数</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="lineEdit_2">
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <pointsize>20</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="checkBox_2">
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <pointsize>20</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>全部</string>
+             <string>1111111111111111111</string>
             </property>
            </widget>
           </item>
          </layout>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
-      <widget class="QFrame" name="frame_4">
-       <property name="frameShape">
-        <enum>QFrame::Box</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Sunken</enum>
-       </property>
-       <property name="lineWidth">
-        <number>2</number>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_6">
-        <item>
-         <widget class="QLabel" name="lb_PrinterName">
-          <property name="font">
-           <font>
-            <family>宋体</family>
-            <pointsize>20</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>1111111111111111111</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pB_Print">
-       <property name="styleSheet">
-        <string notr="true">font: 36pt &quot;迷你简菱心&quot;;</string>
-       </property>
-       <property name="text">
-        <string>打印预览</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pB_PrintDirect">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">font: 36pt &quot;迷你简菱心&quot;;</string>
-       </property>
-       <property name="text">
-        <string>打印</string>
-       </property>
+        </widget>
+        <widget class="QPushButton" name="pB_Print">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>632</y>
+           <width>200</width>
+           <height>56</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 36pt &quot;迷你简菱心&quot;;</string>
+         </property>
+         <property name="text">
+          <string>打印预览</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="pB_PrintDirect">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>694</y>
+           <width>104</width>
+           <height>56</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 36pt &quot;迷你简菱心&quot;;</string>
+         </property>
+         <property name="text">
+          <string>打印</string>
+         </property>
+        </widget>
+       </widget>
       </widget>
      </item>
     </layout>

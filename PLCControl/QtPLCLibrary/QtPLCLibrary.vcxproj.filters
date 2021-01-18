@@ -48,6 +48,9 @@
     <ClCompile Include="QtSocket_Class.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="mypushbutton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="UserLE.h">
@@ -60,6 +63,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="QtPLCControl.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="mypushbutton.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
