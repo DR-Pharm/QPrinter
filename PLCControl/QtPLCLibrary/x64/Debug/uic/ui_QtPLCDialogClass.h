@@ -197,10 +197,11 @@ public:
     QSpacerItem *verticalSpacer_7;
     QPushButton *pb_cmdParaSave;
     QFrame *frame_5;
+    QGridLayout *gridLayout_4;
     QPushButton *pB_cmdCounterZero_2;
     QPushButton *pB_cmdCounterZero_3;
-    QPushButton *pB_cmdCounterZero_4;
     QPushButton *pB_cmdCounterZero_5;
+    QPushButton *pB_cmdCounterZero_4;
     QFrame *frame;
     QVBoxLayout *verticalLayout_6;
     QGroupBox *groupBox_10;
@@ -273,11 +274,9 @@ public:
     QLineEdit *lE_BatchName;
     QSpacerItem *horizontalSpacer_14;
     QToolButton *pB_dtDlg;
-    QPushButton *pB_cmdAlarmReset;
-    QPushButton *pB_cmdCapClean;
-    QPushButton *pB_cmdCounterZero;
-    QPushButton *pB_cmdStart;
+    QFrame *frame_20;
     QPushButton *pB_SetUp;
+    QPushButton *pB_cmdStart;
 
     void setupUi(QDialog *QtPLCDialogClass)
     {
@@ -291,9 +290,9 @@ public:
         QtPLCDialogClass->setLayoutDirection(Qt::LeftToRight);
         tabWidget_PLC = new QTabWidget(QtPLCDialogClass);
         tabWidget_PLC->setObjectName(QString::fromUtf8("tabWidget_PLC"));
-        tabWidget_PLC->setGeometry(QRect(0, 0, 849, 565));
-        tabWidget_PLC->setMinimumSize(QSize(849, 565));
-        tabWidget_PLC->setMaximumSize(QSize(849, 565));
+        tabWidget_PLC->setGeometry(QRect(0, 0, 849, 755));
+        tabWidget_PLC->setMinimumSize(QSize(849, 755));
+        tabWidget_PLC->setMaximumSize(QSize(849, 755));
         QFont font1;
         font1.setFamily(QString::fromUtf8("\345\256\213\344\275\223"));
         font1.setPointSize(20);
@@ -1353,15 +1352,15 @@ public:
         tabWidget_PLC->addTab(tab_3, QString());
         pb_cmdParaSave = new QPushButton(QtPLCDialogClass);
         pb_cmdParaSave->setObjectName(QString::fromUtf8("pb_cmdParaSave"));
-        pb_cmdParaSave->setGeometry(QRect(970, 610, 90, 50));
+        pb_cmdParaSave->setGeometry(QRect(750, 800, 90, 50));
         pb_cmdParaSave->setMinimumSize(QSize(90, 50));
         pb_cmdParaSave->setMaximumSize(QSize(90, 50));
         pb_cmdParaSave->setCheckable(false);
         frame_5 = new QFrame(QtPLCDialogClass);
         frame_5->setObjectName(QString::fromUtf8("frame_5"));
-        frame_5->setGeometry(QRect(0, 570, 847, 190));
-        frame_5->setMinimumSize(QSize(847, 190));
-        frame_5->setMaximumSize(QSize(847, 190));
+        frame_5->setGeometry(QRect(310, 770, 847, 182));
+        frame_5->setMinimumSize(QSize(847, 182));
+        frame_5->setMaximumSize(QSize(847, 182));
         QFont font4;
         font4.setFamily(QString::fromUtf8("\350\277\267\344\275\240\347\256\200\350\217\261\345\277\203"));
         font4.setPointSize(24);
@@ -1369,41 +1368,53 @@ public:
         frame_5->setFrameShape(QFrame::Box);
         frame_5->setFrameShadow(QFrame::Sunken);
         frame_5->setLineWidth(3);
+        gridLayout_4 = new QGridLayout(frame_5);
+        gridLayout_4->setSpacing(6);
+        gridLayout_4->setContentsMargins(11, 11, 11, 11);
+        gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
         pB_cmdCounterZero_2 = new QPushButton(frame_5);
         pB_cmdCounterZero_2->setObjectName(QString::fromUtf8("pB_cmdCounterZero_2"));
-        pB_cmdCounterZero_2->setGeometry(QRect(10, 20, 221, 80));
         sizePolicy.setHeightForWidth(pB_cmdCounterZero_2->sizePolicy().hasHeightForWidth());
         pB_cmdCounterZero_2->setSizePolicy(sizePolicy);
         pB_cmdCounterZero_2->setMinimumSize(QSize(0, 80));
         QFont font5;
         font5.setPointSize(36);
         pB_cmdCounterZero_2->setFont(font5);
+
+        gridLayout_4->addWidget(pB_cmdCounterZero_2, 0, 0, 1, 1);
+
         pB_cmdCounterZero_3 = new QPushButton(frame_5);
         pB_cmdCounterZero_3->setObjectName(QString::fromUtf8("pB_cmdCounterZero_3"));
-        pB_cmdCounterZero_3->setGeometry(QRect(260, 50, 221, 80));
         sizePolicy.setHeightForWidth(pB_cmdCounterZero_3->sizePolicy().hasHeightForWidth());
         pB_cmdCounterZero_3->setSizePolicy(sizePolicy);
         pB_cmdCounterZero_3->setMinimumSize(QSize(0, 80));
         pB_cmdCounterZero_3->setFont(font5);
-        pB_cmdCounterZero_4 = new QPushButton(frame_5);
-        pB_cmdCounterZero_4->setObjectName(QString::fromUtf8("pB_cmdCounterZero_4"));
-        pB_cmdCounterZero_4->setGeometry(QRect(490, 50, 221, 80));
-        sizePolicy.setHeightForWidth(pB_cmdCounterZero_4->sizePolicy().hasHeightForWidth());
-        pB_cmdCounterZero_4->setSizePolicy(sizePolicy);
-        pB_cmdCounterZero_4->setMinimumSize(QSize(0, 80));
-        pB_cmdCounterZero_4->setFont(font5);
+
+        gridLayout_4->addWidget(pB_cmdCounterZero_3, 0, 1, 1, 1);
+
         pB_cmdCounterZero_5 = new QPushButton(frame_5);
         pB_cmdCounterZero_5->setObjectName(QString::fromUtf8("pB_cmdCounterZero_5"));
-        pB_cmdCounterZero_5->setGeometry(QRect(20, 100, 221, 80));
         sizePolicy.setHeightForWidth(pB_cmdCounterZero_5->sizePolicy().hasHeightForWidth());
         pB_cmdCounterZero_5->setSizePolicy(sizePolicy);
         pB_cmdCounterZero_5->setMinimumSize(QSize(0, 80));
         pB_cmdCounterZero_5->setFont(font5);
+
+        gridLayout_4->addWidget(pB_cmdCounterZero_5, 1, 0, 1, 1);
+
+        pB_cmdCounterZero_4 = new QPushButton(frame_5);
+        pB_cmdCounterZero_4->setObjectName(QString::fromUtf8("pB_cmdCounterZero_4"));
+        sizePolicy.setHeightForWidth(pB_cmdCounterZero_4->sizePolicy().hasHeightForWidth());
+        pB_cmdCounterZero_4->setSizePolicy(sizePolicy);
+        pB_cmdCounterZero_4->setMinimumSize(QSize(0, 80));
+        pB_cmdCounterZero_4->setFont(font5);
+
+        gridLayout_4->addWidget(pB_cmdCounterZero_4, 1, 1, 1, 1);
+
         frame = new QFrame(QtPLCDialogClass);
         frame->setObjectName(QString::fromUtf8("frame"));
-        frame->setGeometry(QRect(880, 0, 847, 568));
-        frame->setMinimumSize(QSize(847, 568));
-        frame->setMaximumSize(QSize(847, 568));
+        frame->setGeometry(QRect(1250, 10, 847, 755));
+        frame->setMinimumSize(QSize(847, 755));
+        frame->setMaximumSize(QSize(847, 755));
         frame->setFont(font3);
         frame->setAutoFillBackground(true);
         frame->setFrameShape(QFrame::Box);
@@ -1415,7 +1426,9 @@ public:
         verticalLayout_6->setObjectName(QString::fromUtf8("verticalLayout_6"));
         groupBox_10 = new QGroupBox(frame);
         groupBox_10->setObjectName(QString::fromUtf8("groupBox_10"));
+        groupBox_10->setStyleSheet(QString::fromUtf8("color: rgb(240, 240, 240);"));
         groupBox_10->setFlat(false);
+        groupBox_10->setCheckable(false);
         verticalLayout_9 = new QVBoxLayout(groupBox_10);
         verticalLayout_9->setSpacing(6);
         verticalLayout_9->setContentsMargins(11, 11, 11, 11);
@@ -1878,6 +1891,7 @@ public:
         lE_SysOveride->setMinimumSize(QSize(0, 42));
         lE_SysOveride->setMaximumSize(QSize(16777215, 42));
         lE_SysOveride->setFont(font6);
+        lE_SysOveride->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         lE_SysOveride->setFrame(false);
 
         verticalLayout_14->addWidget(lE_SysOveride);
@@ -1913,7 +1927,7 @@ public:
         lE_BatchName->setMinimumSize(QSize(0, 42));
         lE_BatchName->setMaximumSize(QSize(16777215, 42));
         lE_BatchName->setFont(font6);
-        lE_BatchName->setStyleSheet(QString::fromUtf8(""));
+        lE_BatchName->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         lE_BatchName->setFrame(false);
 
         verticalLayout_15->addWidget(lE_BatchName);
@@ -1942,34 +1956,31 @@ public:
 
         verticalLayout_6->addWidget(groupBox_10);
 
-        pB_cmdAlarmReset = new QPushButton(QtPLCDialogClass);
-        pB_cmdAlarmReset->setObjectName(QString::fromUtf8("pB_cmdAlarmReset"));
-        pB_cmdAlarmReset->setGeometry(QRect(1120, 590, 261, 80));
-        sizePolicy.setHeightForWidth(pB_cmdAlarmReset->sizePolicy().hasHeightForWidth());
-        pB_cmdAlarmReset->setSizePolicy(sizePolicy);
-        pB_cmdAlarmReset->setMinimumSize(QSize(0, 80));
-        pB_cmdAlarmReset->setFont(font5);
-        pB_cmdCapClean = new QPushButton(QtPLCDialogClass);
-        pB_cmdCapClean->setObjectName(QString::fromUtf8("pB_cmdCapClean"));
-        pB_cmdCapClean->setGeometry(QRect(1120, 680, 261, 80));
-        sizePolicy.setHeightForWidth(pB_cmdCapClean->sizePolicy().hasHeightForWidth());
-        pB_cmdCapClean->setSizePolicy(sizePolicy);
-        pB_cmdCapClean->setMinimumSize(QSize(0, 80));
-        pB_cmdCapClean->setFont(font5);
-        pB_cmdCounterZero = new QPushButton(QtPLCDialogClass);
-        pB_cmdCounterZero->setObjectName(QString::fromUtf8("pB_cmdCounterZero"));
-        pB_cmdCounterZero->setGeometry(QRect(1120, 770, 221, 80));
-        sizePolicy.setHeightForWidth(pB_cmdCounterZero->sizePolicy().hasHeightForWidth());
-        pB_cmdCounterZero->setSizePolicy(sizePolicy);
-        pB_cmdCounterZero->setMinimumSize(QSize(0, 80));
-        pB_cmdCounterZero->setFont(font5);
-        pB_cmdStart = new QPushButton(QtPLCDialogClass);
+        frame_20 = new QFrame(QtPLCDialogClass);
+        frame_20->setObjectName(QString::fromUtf8("frame_20"));
+        frame_20->setGeometry(QRect(858, 0, 376, 755));
+        frame_20->setMinimumSize(QSize(0, 0));
+        frame_20->setMaximumSize(QSize(7898, 7788));
+        frame_20->setAutoFillBackground(true);
+        frame_20->setFrameShape(QFrame::Box);
+        frame_20->setFrameShadow(QFrame::Sunken);
+        frame_20->setLineWidth(3);
+        pB_SetUp = new QPushButton(frame_20);
+        pB_SetUp->setObjectName(QString::fromUtf8("pB_SetUp"));
+        pB_SetUp->setEnabled(true);
+        pB_SetUp->setGeometry(QRect(15, 15, 41, 45));
+        sizePolicy.setHeightForWidth(pB_SetUp->sizePolicy().hasHeightForWidth());
+        pB_SetUp->setSizePolicy(sizePolicy);
+        pB_SetUp->setMinimumSize(QSize(0, 45));
+        pB_SetUp->setFont(font5);
+        pB_SetUp->setCheckable(true);
+        pB_cmdStart = new QPushButton(frame_20);
         pB_cmdStart->setObjectName(QString::fromUtf8("pB_cmdStart"));
-        pB_cmdStart->setGeometry(QRect(1370, 780, 250, 88));
+        pB_cmdStart->setGeometry(QRect(15, 550, 347, 200));
         sizePolicy.setHeightForWidth(pB_cmdStart->sizePolicy().hasHeightForWidth());
         pB_cmdStart->setSizePolicy(sizePolicy);
-        pB_cmdStart->setMinimumSize(QSize(250, 80));
-        pB_cmdStart->setMaximumSize(QSize(250, 16777215));
+        pB_cmdStart->setMinimumSize(QSize(0, 0));
+        pB_cmdStart->setMaximumSize(QSize(16777215, 16777215));
         QFont font8;
         font8.setFamily(QString::fromUtf8("\350\277\267\344\275\240\347\256\200\350\217\261\345\277\203"));
         font8.setPointSize(60);
@@ -1981,19 +1992,10 @@ public:
         pB_cmdStart->setStyleSheet(QString::fromUtf8("background-color: rgb(200, 200, 100);\n"
 "font: 60pt \"\350\277\267\344\275\240\347\256\200\350\217\261\345\277\203\";"));
         pB_cmdStart->setCheckable(true);
-        pB_SetUp = new QPushButton(QtPLCDialogClass);
-        pB_SetUp->setObjectName(QString::fromUtf8("pB_SetUp"));
-        pB_SetUp->setEnabled(true);
-        pB_SetUp->setGeometry(QRect(850, 580, 221, 80));
-        sizePolicy.setHeightForWidth(pB_SetUp->sizePolicy().hasHeightForWidth());
-        pB_SetUp->setSizePolicy(sizePolicy);
-        pB_SetUp->setMinimumSize(QSize(0, 80));
-        pB_SetUp->setFont(font5);
-        pB_SetUp->setCheckable(true);
 
         retranslateUi(QtPLCDialogClass);
 
-        tabWidget_PLC->setCurrentIndex(2);
+        tabWidget_PLC->setCurrentIndex(3);
         tabWidget->setCurrentIndex(2);
 
 
@@ -2051,7 +2053,7 @@ public:
         pB_cmdScaleSetStable->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\256\276\345\256\232\347\247\244\347\250\263\345\256\232\347\212\266\346\200\201", nullptr));
         pB_cmdAlogtest->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\250\241\346\213\237\351\207\217\350\276\223\345\207\272\346\265\213\350\257\225", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_6), QCoreApplication::translate("QtPLCDialogClass", "\347\247\244&&\345\205\266\344\273\226", nullptr));
-        tabWidget_PLC->setTabText(tabWidget_PLC->indexOf(tab_PLC_Control), QString());
+        tabWidget_PLC->setTabText(tabWidget_PLC->indexOf(tab_PLC_Control), QCoreApplication::translate("QtPLCDialogClass", "PLC\347\233\221\346\216\247", nullptr));
         label_30->setText(QCoreApplication::translate("QtPLCDialogClass", "\344\275\277\350\203\275\344\277\241\345\217\267", nullptr));
         label_32->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\216\273\347\232\256\345\273\266\350\277\237\345\220\257\345\212\250\346\227\266\351\227\264", nullptr));
         label_4->setText(QCoreApplication::translate("QtPLCDialogClass", "\344\270\213\346\226\231\350\266\205\346\227\266\346\227\266\351\227\264", nullptr));
@@ -2065,7 +2067,7 @@ public:
         label_42->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\216\273\347\232\256\347\255\211\345\276\205\346\227\266\351\227\264", nullptr));
         label_5->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\210\220\345\223\201\350\277\224\350\277\230\345\221\250\346\234\237", nullptr));
         label_41->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\257\273\346\225\260\345\273\266\350\277\237\345\220\257\345\212\250\346\227\266\351\227\264", nullptr));
-        tabWidget_PLC->setTabText(tabWidget_PLC->indexOf(tab_8), QString());
+        tabWidget_PLC->setTabText(tabWidget_PLC->indexOf(tab_8), QCoreApplication::translate("QtPLCDialogClass", "\347\263\273\347\273\237\345\217\202\346\225\260", nullptr));
         label_9->setText(QCoreApplication::translate("QtPLCDialogClass", "\351\200\237 \345\272\246(rpm)", nullptr));
         lE_InterUnderLoad->setText(QCoreApplication::translate("QtPLCDialogClass", "0.299", nullptr));
         lE_TOverload->setText(QCoreApplication::translate("QtPLCDialogClass", "0.323", nullptr));
@@ -2088,7 +2090,7 @@ public:
         lE_TUnderload->setText(QCoreApplication::translate("QtPLCDialogClass", "0.300", nullptr));
         label_79->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\275\223\345\211\215\347\273\204\345\217\267", nullptr));
         lE_SysOveride_2->setText(QCoreApplication::translate("QtPLCDialogClass", "120", nullptr));
-        tabWidget_PLC->setTabText(tabWidget_PLC->indexOf(tab_2), QString());
+        tabWidget_PLC->setTabText(tabWidget_PLC->indexOf(tab_2), QCoreApplication::translate("QtPLCDialogClass", "\350\277\220\350\241\214\345\217\202\346\225\260", nullptr));
         groupBox_4->setTitle(QCoreApplication::translate("QtPLCDialogClass", "\344\270\213\346\226\231\347\224\265\346\234\272", nullptr));
         label_21->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\212\266\346\200\201\346\234\272\346\255\245\351\252\244", nullptr));
         label_19->setText(QCoreApplication::translate("QtPLCDialogClass", "\351\224\231\350\257\257\344\273\243\347\240\201", nullptr));
@@ -2101,13 +2103,13 @@ public:
         label_33->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\265\213\351\207\217\345\256\236\351\231\205\351\227\264\351\232\224\346\227\266\351\227\264", nullptr));
         label_29->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\263\273\347\273\237\350\277\220\350\241\214\347\212\266\346\200\201\346\234\272\346\255\245\351\252\244", nullptr));
         label_20->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\212\245\350\255\246\347\212\266\346\200\201", nullptr));
-        tabWidget_PLC->setTabText(tabWidget_PLC->indexOf(tab_3), QString());
+        tabWidget_PLC->setTabText(tabWidget_PLC->indexOf(tab_3), QCoreApplication::translate("QtPLCDialogClass", "\350\277\220\350\241\214\347\212\266\346\200\201", nullptr));
         pb_cmdParaSave->setText(QCoreApplication::translate("QtPLCDialogClass", "\344\277\235\345\255\230", nullptr));
         pB_cmdCounterZero_2->setText(QCoreApplication::translate("QtPLCDialogClass", "PLC\347\233\221\346\216\247", nullptr));
         pB_cmdCounterZero_3->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\263\273\347\273\237\345\217\202\346\225\260", nullptr));
-        pB_cmdCounterZero_4->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\277\220\350\241\214\345\217\202\346\225\260", nullptr));
         pB_cmdCounterZero_5->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\277\220\350\241\214\347\212\266\346\200\201", nullptr));
-        groupBox_10->setTitle(QCoreApplication::translate("QtPLCDialogClass", "     . ", nullptr));
+        pB_cmdCounterZero_4->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\277\220\350\241\214\345\217\202\346\225\260", nullptr));
+        groupBox_10->setTitle(QCoreApplication::translate("QtPLCDialogClass", "\343\200\202     ", nullptr));
         lE_ScaleResult->setText(QCoreApplication::translate("QtPLCDialogClass", "0.567", nullptr));
         label_10->setText(QCoreApplication::translate("QtPLCDialogClass", "\351\200\232\350\277\207\350\256\241\346\225\260", nullptr));
         cB_ScaleStableState->setItemText(0, QCoreApplication::translate("QtPLCDialogClass", "\351\235\236\345\270\270\347\250\263\345\256\232", nullptr));
@@ -2138,11 +2140,8 @@ public:
         label_78->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\224\237\344\272\247\346\211\271\345\217\267\357\274\232", nullptr));
         lE_BatchName->setText(QCoreApplication::translate("QtPLCDialogClass", "123456789", nullptr));
         pB_dtDlg->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\273\204\346\225\260\346\215\256", nullptr));
-        pB_cmdAlarmReset->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\212\245\350\255\246\345\244\215\344\275\215", nullptr));
-        pB_cmdCapClean->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\270\205\347\251\272\350\203\266\345\233\212", nullptr));
-        pB_cmdCounterZero->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\256\241\346\225\260\346\270\205\351\233\266", nullptr));
-        pB_cmdStart->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\220\257\345\212\250", nullptr));
-        pB_SetUp->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\256\276\347\275\256", nullptr));
+        pB_SetUp->setText(QString());
+        pB_cmdStart->setText(QString());
     } // retranslateUi
 
 };

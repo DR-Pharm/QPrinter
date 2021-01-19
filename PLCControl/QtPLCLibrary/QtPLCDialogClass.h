@@ -18,16 +18,17 @@ signals:
 public:
 	QtPLCDialogClass(QDialog *parent = Q_NULLPTR);
 	~QtPLCDialogClass();
+	void initMovie();
 	void initUI();
 	void initFont();
 	void initDlg();
 	void setWindowMinimized();
 	int showMsgBox(QMessageBox::Icon icon, const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str);
 
-
 	//全是中文
 	void SetSocket(QtSocket_Class*);
 	void setStyleCommand(QPushButton*, QString, QFont, QString);
+
 private:
 	void* ui;
 	QDialog *m_dtDlg = nullptr;
@@ -51,6 +52,10 @@ private:
 	QFont contentFont;
 
 	QLabel *lb_dataNow;
+
+	//弹跳特效
+	QPropertyAnimation * animation1 = nullptr;
+	QPropertyAnimation * animation2 = nullptr;
 public slots:
 
 	DataFromPC_typ getPCParaData();

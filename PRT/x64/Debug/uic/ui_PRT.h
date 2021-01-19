@@ -29,8 +29,9 @@ class Ui_PRTClass
 {
 public:
     QWidget *centralWidget;
-    QGroupBox *groupBox_2;
     QHBoxLayout *horizontalLayout_4;
+    QGroupBox *groupBox_2;
+    QHBoxLayout *horizontalLayout_5;
     QWidget *widget;
     QGroupBox *groupBox;
     QFrame *frame_3;
@@ -69,29 +70,28 @@ public:
         PRTClass->setMaximumSize(QSize(1280, 800));
         centralWidget = new QWidget(PRTClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
-        groupBox_2 = new QGroupBox(centralWidget);
-        groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
-        groupBox_2->setGeometry(QRect(10, 10, 1260, 780));
-        groupBox_2->setMinimumSize(QSize(1260, 780));
-        groupBox_2->setMaximumSize(QSize(1260, 780));
-        QFont font;
-        font.setFamily(QString::fromUtf8("\350\277\267\344\275\240\347\256\200\350\217\261\345\277\203"));
-        font.setPointSize(20);
-        groupBox_2->setFont(font);
-        groupBox_2->setFlat(false);
-        horizontalLayout_4 = new QHBoxLayout(groupBox_2);
+        horizontalLayout_4 = new QHBoxLayout(centralWidget);
         horizontalLayout_4->setSpacing(6);
         horizontalLayout_4->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
+        groupBox_2 = new QGroupBox(centralWidget);
+        groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
+        horizontalLayout_5 = new QHBoxLayout(groupBox_2);
+        horizontalLayout_5->setSpacing(6);
+        horizontalLayout_5->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
         widget = new QWidget(groupBox_2);
         widget->setObjectName(QString::fromUtf8("widget"));
         widget->setMinimumSize(QSize(0, 0));
         widget->setMaximumSize(QSize(3434, 3434));
         groupBox = new QGroupBox(widget);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setGeometry(QRect(530, 30, 385, 760));
+        groupBox->setGeometry(QRect(320, 10, 385, 760));
         groupBox->setMinimumSize(QSize(385, 0));
         groupBox->setMaximumSize(QSize(385, 781));
+        QFont font;
+        font.setFamily(QString::fromUtf8("\350\277\267\344\275\240\347\256\200\350\217\261\345\277\203"));
+        font.setPointSize(20);
         groupBox->setFont(font);
         groupBox->setFlat(false);
         frame_3 = new QFrame(groupBox);
@@ -246,7 +246,10 @@ public:
         pB_PrintDirect->setGeometry(QRect(10, 694, 104, 56));
         pB_PrintDirect->setStyleSheet(QString::fromUtf8("font: 36pt \"\350\277\267\344\275\240\347\256\200\350\217\261\345\277\203\";"));
 
-        horizontalLayout_4->addWidget(widget);
+        horizontalLayout_5->addWidget(widget);
+
+
+        horizontalLayout_4->addWidget(groupBox_2);
 
         PRTClass->setCentralWidget(centralWidget);
 

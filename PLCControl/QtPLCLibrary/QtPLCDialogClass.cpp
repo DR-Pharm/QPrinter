@@ -15,6 +15,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	initFont();
 	initDlg();
 	initUI();
+	initMovie();
 	m_data = new DataToPC_typ;
 	memset(m_data, 0, sizeof(DataToPC_typ));//主界面用
 
@@ -23,21 +24,51 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIconSize(QSize(64, 64));
 	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
 	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIcon(QIcon(AppPath + "/ico/dlg.ico"));
+	//设置
 
-	//开始按钮
-	MyPushButton * startBtn = new MyPushButton(AppPath + "/ico/nottoggled.png", AppPath + "/ico/toggled.png",260,80);
-	startBtn->setParent(this);
-	startBtn->move(0, 0);
-	connect(startBtn, &MyPushButton::clicked, [=]() {
-		//qDebug() << "点击了开始";
+	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setFixedSize(347, 99);
+	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setStyleSheet("QPushButton{border:0px;}");
+	QPixmap pix;
+	bool ret = pix.load(AppPath + "/ico/sznt.png");
+	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIcon(pix);
+	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIconSize(QSize(347, 99));
+	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->move(15, 10);
+
+	MyPushButton * AlarmResetBtn = new MyPushButton(AppPath + "/ico/bjfwnt.png", AppPath + "/ico/bjfw.png",347, 99);
+	AlarmResetBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
+	AlarmResetBtn->move(15, 120);
+	connect(AlarmResetBtn, &MyPushButton::clicked, [=]() {
+		on_pB_cmdAlarmReset_clicked(); });
+
+	AlarmResetBtn = new MyPushButton(AppPath + "/ico/qkjnnt.png", AppPath + "/ico/qkjn.png", 347, 99);
+	AlarmResetBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
+	AlarmResetBtn->move(15, 230);
+	connect(AlarmResetBtn, &MyPushButton::clicked, [=]() {
+		on_pB_cmdCapClean_clicked();});
+
+	AlarmResetBtn = new MyPushButton(AppPath + "/ico/jsqlnt.png", AppPath + "/ico/jsql.png", 347, 99);
+	AlarmResetBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
+	AlarmResetBtn->move(15, 340);
+	connect(AlarmResetBtn, &MyPushButton::clicked, [=]() {
+		on_pB_cmdCounterZero_clicked();});
+
+	AlarmResetBtn = new MyPushButton(AppPath + "/ico/jtnt.png", AppPath + "/ico/jt.png", 347, 99);
+	AlarmResetBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
+	AlarmResetBtn->move(15, 450);
+	connect(AlarmResetBtn, &MyPushButton::clicked, [=]() {
+		//on_pB_cmdCounterZero_clicked();
 		//做弹起特效
-		startBtn->zoom1();
-		startBtn->zoom2(); });
+		//startBtn->zoom1();
+		/*startBtn->zoom2();*/ });	
 
+		//开始
 
-	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIconSize(QSize(64, 64));
-	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIcon(QIcon(AppPath + "/ico/set.ico"));
-	
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setFixedSize(347, 200);
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setStyleSheet("QPushButton{border:0px;}");
+		ret = pix.load(AppPath + "/ico/start.png");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIcon(pix);
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIconSize(QSize(347, 200));
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->move(15, 550);
 	//指示灯部分
 	((Ui::QtPLCDialogClass*)ui)->lb_00->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
 	lb_01 = new QLabel(((Ui::QtPLCDialogClass*)ui)->tabWidget->widget(0));
@@ -76,11 +107,41 @@ QtPLCDialogClass::~QtPLCDialogClass()
 }
 
 #pragma region ui stylesheet
+
+void QtPLCDialogClass::initMovie()
+{//创建动态对象
+	{
+		animation1 = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart, "geometry");
+		//设置动画时间间隔
+		animation1->setDuration(200);
+
+		//起始位置
+		animation1->setStartValue(QRect(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->x(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->y(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->width(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->height()));
+		//结束位置
+		animation1->setEndValue(QRect(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->x(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->y() + 10, ((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->width(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->height()));
+
+		//设置弹跳曲线
+		animation1->setEasingCurve(QEasingCurve::OutBounce);
+	}
+	{    //创建动态对象
+		animation2 = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart, "geometry");
+		//设置动画时间间隔
+		animation2->setDuration(200);
+
+		//起始位置
+		animation2->setStartValue(QRect(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->x(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->y() + 10, ((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->width(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->height()));
+		//结束位置
+		animation2->setEndValue(QRect(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->x(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->y(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->width(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->height()));
+
+		//设置弹跳曲线
+		animation2->setEasingCurve(QEasingCurve::OutBounce);
+	}
+}
 void QtPLCDialogClass::initUI()
 {
 	lb_dataNow = new QLabel(((Ui::QtPLCDialogClass*)ui)->frame);
 	lb_dataNow->resize(140, 35);
-	lb_dataNow->move(30, 13);
+	lb_dataNow->move(30, 16);
 	lb_dataNow->setPixmap(QPixmap(AppPath + "/ico/fontImage/datanow.png"));
 	lb_dataNow->setScaledContents(true);
 
@@ -975,18 +1036,31 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 	typ.Telegram_typ = 1;
 	if (checked)
 	{
-		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart, "background: rgb(0,255,0)", startFont, QString::fromLocal8Bit("停止"));
+		animation1->start();
+		QPixmap pix;
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setFixedSize(347, 200);
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setStyleSheet("QPushButton{border:0px;}");
+		bool ret = pix.load(AppPath + "/ico/stop.png");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIcon(pix);
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(false);
 		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(false);
 		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setStyleSheet("color: rgb(0, 114, 188)");
 		typ.Machine_Cmd.cmdStart = 1;
+
+		animation2->start();
 	}
 	else
 	{
-		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart, "background: rgb(200,200,100)", startFont, QString::fromLocal8Bit("启动"));
+		animation1->start();
+		QPixmap pix;
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setFixedSize(347, 200);
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setStyleSheet("QPushButton{border:0px;}");
+		bool ret = pix.load(AppPath + "/ico/start.png");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIcon(pix);
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(true);
-		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(true); ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setStyleSheet("");
+		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(true); ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setStyleSheet("color: rgb(0, 0, 0)");
 		typ.Machine_Cmd.cmdStop = 1;
+		animation2->start();
 	}
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
@@ -1029,15 +1103,19 @@ void QtPLCDialogClass::on_pB_SetUp_toggled(bool checked)//设置
 	if (checked)
 	{
 		((Ui::QtPLCDialogClass*)ui)->frame->setVisible(false);
-		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_SetUp, "background: rgb(0,255,0)", setupFont, "");
-		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart, "", startFont, QString::fromLocal8Bit("启动"));
+		QPixmap pix;
+		bool ret = pix.load(AppPath + "/ico/sz.png");
+		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIcon(pix);
+		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIconSize(QSize(347, 99));
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(false);
 	}
 	else
 	{
 		((Ui::QtPLCDialogClass*)ui)->frame->setVisible(true);
-		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_SetUp, "", setupFont, "");
-		setStyleCommand(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart, "background: rgb(200,200,100)", startFont, QString::fromLocal8Bit("启动"));
+		QPixmap pix;
+		bool ret = pix.load(AppPath + "/ico/sznt.png");
+		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIcon(pix);
+		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIconSize(QSize(347, 99));
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(true);
 	}
 }
