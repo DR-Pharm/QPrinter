@@ -33,7 +33,7 @@ private:
 	void* ui;
 	QDialog *m_dtDlg = nullptr;
 	bool m_currentSituationOfCyclinder = true;
-	QTimer *cyclinderTimer = nullptr;
+	QTimer *btnTimer = nullptr;
 	//DataToPC_typ *m_data;	//获取的PLC数据
 	//WindowOut *levelOut;//show默认为非模态modal，如果是局部变量会闪现消失
 	QString m_objname = "";
@@ -117,6 +117,7 @@ public slots:
 	void on_pB_SetUp_toggled(bool checked);
 	void on_pB_dtDlg_toggled(bool checked); 
 	void dtClose();
+	void startMovie();
 };
 
 #pragma once

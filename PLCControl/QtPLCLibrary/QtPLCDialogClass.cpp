@@ -85,6 +85,8 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	lb_11->move(670 + 9, 37 + 38);
 	lb_11->setVisible(false);
 
+	btnTimer = new QTimer();
+	connect(btnTimer, SIGNAL(timeout()), this, SLOT(startMovie()));
 }
 QtPLCDialogClass::~QtPLCDialogClass()
 {
@@ -96,10 +98,10 @@ QtPLCDialogClass::~QtPLCDialogClass()
 	//disconnect(this, SIGNAL(SHOWEVERYPLCVALUE(DataToPC_typ)), this, SLOT(getPLCData(DataToPC_typ)));
 	bool b = disconnect(m_socket, SIGNAL(signal_FROMPLC(void*, int, int, int, int)), this, SLOT(getPLCData(void*, int, int, int, int)));
 
-	if (cyclinderTimer != nullptr)
+	if (btnTimer != nullptr)
 	{
-		delete cyclinderTimer;
-		cyclinderTimer = nullptr;
+		delete btnTimer;
+		btnTimer = nullptr;
 	}
 
 	if (m_data != nullptr)
@@ -1046,9 +1048,7 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(false);
 		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setStyleSheet("color: rgb(0, 114, 188)");
 		typ.Machine_Cmd.cmdStart = 1;
-
-		animation1->start();
-		animation2->start();
+		btnTimer->start(1);
 	}
 	else
 	{
@@ -1056,10 +1056,10 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 		bool ret = pix.load(AppPath + "/ico/start.png");
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIcon(pix);
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(true);
-		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(true); ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setStyleSheet("color: rgb(0, 0, 0)");
+		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(true); 
+		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setStyleSheet("color: rgb(0, 0, 0)");
 		typ.Machine_Cmd.cmdStop = 1;
-		animation1->start();
-		animation2->start();
+		btnTimer->start(1);
 	}
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
@@ -1140,6 +1140,12 @@ void QtPLCDialogClass::on_pB_dtDlg_toggled(bool checked)//数据dialog
 void QtPLCDialogClass::dtClose()
 {
 	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setChecked(false);
+}
+void QtPLCDialogClass::startMovie()
+{
+	animation1->start();
+	animation2->start();
+	btnTimer->stop();
 }
 #pragma endregion
 
