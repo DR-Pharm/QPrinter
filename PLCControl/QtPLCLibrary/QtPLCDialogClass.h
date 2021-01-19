@@ -20,6 +20,7 @@ public:
 	~QtPLCDialogClass();
 	void initMovie();
 	void initUI();
+	void inittabicon();
 	void initFont();
 	void initDlg();
 	void setWindowMinimized();

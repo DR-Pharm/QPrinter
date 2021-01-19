@@ -16,6 +16,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	initDlg();
 	initUI();
 	initMovie();
+	inittabicon();
 	m_data = new DataToPC_typ;
 	memset(m_data, 0, sizeof(DataToPC_typ));//主界面用
 
@@ -170,6 +171,21 @@ void QtPLCDialogClass::initUI()
 	((Ui::QtPLCDialogClass*)ui)->label_48->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_48.png"));
 	((Ui::QtPLCDialogClass*)ui)->label_48->setScaledContents(true);	((Ui::QtPLCDialogClass*)ui)->label_43->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_43.png"));
 	((Ui::QtPLCDialogClass*)ui)->label_43->setScaledContents(true);
+}
+
+void QtPLCDialogClass::inittabicon()
+{
+	((Ui::QtPLCDialogClass*)ui)->tabWidget_PLC->setIconSize(QSize(140, 35));
+	((Ui::QtPLCDialogClass*)ui)->tabWidget_PLC->setTabIcon(0, QIcon(AppPath + "/ico/fontImage/xtjk.png"));
+	((Ui::QtPLCDialogClass*)ui)->tabWidget_PLC->setTabIcon(1, QIcon(AppPath + "/ico/fontImage/xtcs.png"));
+	((Ui::QtPLCDialogClass*)ui)->tabWidget_PLC->setTabIcon(2, QIcon(AppPath + "/ico/fontImage/yxcs.png"));
+	((Ui::QtPLCDialogClass*)ui)->tabWidget_PLC->setTabIcon(3, QIcon(AppPath + "/ico/fontImage/yxzt.png"));
+
+	((Ui::QtPLCDialogClass*)ui)->tabWidget->setIconSize(QSize(140, 35));
+	((Ui::QtPLCDialogClass*)ui)->tabWidget->setTabIcon(0, QIcon(AppPath + "/ico/fontImage/srsc.png"));
+	((Ui::QtPLCDialogClass*)ui)->tabWidget->setTabIcon(1, QIcon(AppPath + "/ico/fontImage/xlxz.png"));
+	((Ui::QtPLCDialogClass*)ui)->tabWidget->setTabIcon(2, QIcon(AppPath + "/ico/fontImage/czdy.png"));
+
 }
 void QtPLCDialogClass::initFont()
 {
@@ -569,7 +585,8 @@ void QtPLCDialogClass::initDlg()
 	m_dtDlg->setWindowIcon(QIcon(AppPath + "/ico/dr.ico"));
 	m_dtDlg->setWindowTitle(QString::fromLocal8Bit("检测数据明细表"));
 	connect(m_dtDlg, SIGNAL(rejected()), this, SLOT(dtClose()));
-
+	m_dtDlg->move(15,15);
+	m_dtDlg->resize(797, 550);
 	QGridLayout *glayout = new QGridLayout(m_dtDlg);
 
 	QLabel *lb = new QLabel();
@@ -1046,7 +1063,6 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIcon(pix);
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(false);
 		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(false);
-		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setStyleSheet("color: rgb(0, 114, 188)");
 		typ.Machine_Cmd.cmdStart = 1;
 		btnTimer->start(1);
 	}
@@ -1057,7 +1073,6 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIcon(pix);
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(true);
 		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(true); 
-		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setStyleSheet("color: rgb(0, 0, 0)");
 		typ.Machine_Cmd.cmdStop = 1;
 		btnTimer->start(1);
 	}

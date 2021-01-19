@@ -63,7 +63,7 @@
    </property>
    <widget class="QWidget" name="tab_PLC_Control">
     <attribute name="title">
-     <string>PLC监控</string>
+     <string/>
     </attribute>
     <layout class="QVBoxLayout" name="verticalLayout_9">
      <item>
@@ -81,11 +81,11 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
-         <string>输入输出</string>
+         <string/>
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_7">
          <item>
@@ -582,7 +582,7 @@
        </widget>
        <widget class="QWidget" name="tab_4">
         <attribute name="title">
-         <string>下料&amp;&amp;旋转</string>
+         <string/>
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_5">
          <item>
@@ -698,7 +698,7 @@
        </widget>
        <widget class="QWidget" name="tab_6">
         <attribute name="title">
-         <string>秤&amp;&amp;其他</string>
+         <string/>
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
@@ -717,7 +717,7 @@
          <item>
           <widget class="QGroupBox" name="groupBox_5">
            <property name="title">
-            <string>秤</string>
+            <string>称重</string>
            </property>
            <property name="flat">
             <bool>false</bool>
@@ -881,7 +881,7 @@
    </widget>
    <widget class="QWidget" name="tab_8">
     <attribute name="title">
-     <string>系统参数</string>
+     <string/>
     </attribute>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
@@ -1570,7 +1570,7 @@
    </widget>
    <widget class="QWidget" name="tab_2">
     <attribute name="title">
-     <string>运行参数</string>
+     <string/>
     </attribute>
     <layout class="QVBoxLayout" name="verticalLayout_12">
      <item>
@@ -2196,7 +2196,7 @@
    </widget>
    <widget class="QWidget" name="tab_3">
     <attribute name="title">
-     <string>运行状态</string>
+     <string/>
     </attribute>
     <layout class="QVBoxLayout" name="verticalLayout_4">
      <item>
@@ -2823,11 +2823,16 @@
    <layout class="QVBoxLayout" name="verticalLayout_6">
     <item>
      <widget class="QGroupBox" name="groupBox_10">
+      <property name="font">
+       <font>
+        <family>System</family>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">color: rgb(240, 240, 240);</string>
+       <string notr="true"/>
       </property>
       <property name="title">
-       <string>。     </string>
+       <string>          .                          </string>
       </property>
       <property name="flat">
        <bool>false</bool>
@@ -2841,8 +2846,15 @@
          <x>10</x>
          <y>37</y>
          <width>797</width>
-         <height>531</height>
+         <height>521</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>宋体</family>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
        </property>
        <property name="frameShape">
         <enum>QFrame::Box</enum>
@@ -2901,7 +2913,7 @@
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">color: rgb(0, 114, 188);</string>
+              <string notr="true"/>
              </property>
              <property name="text">
               <string>0.567</string>
@@ -2997,7 +3009,7 @@
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">color: rgb(0, 114, 188);</string>
+              <string notr="true"/>
              </property>
              <property name="frame">
               <bool>false</bool>
@@ -3074,7 +3086,7 @@
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">color: rgb(0, 114, 188);</string>
+              <string notr="true"/>
              </property>
              <property name="text">
               <string>14</string>
@@ -3228,7 +3240,7 @@
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">color: rgb(0, 114, 188);</string>
+              <string notr="true"/>
              </property>
              <property name="text">
               <string>1</string>
@@ -3314,7 +3326,7 @@
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">color: rgb(0, 114, 188);</string>
+              <string notr="true"/>
              </property>
              <property name="text">
               <string>13</string>
@@ -3383,7 +3395,7 @@
               <bool>false</bool>
              </property>
              <property name="styleSheet">
-              <string notr="true">color: rgb(0, 114, 188)</string>
+              <string notr="true"/>
              </property>
              <property name="text">
               <string>1</string>
@@ -3680,7 +3692,7 @@
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">color: rgb(0, 114, 188);</string>
+              <string notr="true"/>
              </property>
              <property name="text">
               <string>1</string>
@@ -3743,7 +3755,7 @@
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">color: rgb(0, 114, 188);</string>
+              <string notr="true"/>
              </property>
              <property name="text">
               <string>3</string>
@@ -3803,7 +3815,7 @@
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">color: rgb(0, 114, 188);</string>
+              <string notr="true"/>
              </property>
              <property name="text">
               <string>0.234</string>
@@ -3863,7 +3875,7 @@
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">color: rgb(0, 114, 188);</string>
+              <string notr="true"/>
              </property>
              <property name="text">
               <string>13</string>
@@ -3882,7 +3894,7 @@
        <property name="geometry">
         <rect>
          <x>140</x>
-         <y>570</y>
+         <y>565</y>
          <width>501</width>
          <height>151</height>
         </rect>
@@ -3901,7 +3913,7 @@
          <rect>
           <x>16</x>
           <y>23</y>
-          <width>160</width>
+          <width>140</width>
           <height>35</height>
          </rect>
         </property>
@@ -3913,13 +3925,13 @@
         </property>
         <property name="minimumSize">
          <size>
-          <width>160</width>
+          <width>140</width>
           <height>35</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>160</width>
+          <width>140</width>
           <height>35</height>
          </size>
         </property>
@@ -3937,9 +3949,9 @@
        <widget class="QFrame" name="frame_10">
         <property name="geometry">
          <rect>
-          <x>182</x>
+          <x>164</x>
           <y>10</y>
-          <width>303</width>
+          <width>321</width>
           <height>61</height>
          </rect>
         </property>
@@ -3985,7 +3997,7 @@
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true">color: rgb(0, 0, 0);</string>
+            <string notr="true"/>
            </property>
            <property name="text">
             <string>120</string>
@@ -4002,7 +4014,7 @@
          <rect>
           <x>16</x>
           <y>92</y>
-          <width>160</width>
+          <width>140</width>
           <height>35</height>
          </rect>
         </property>
@@ -4014,13 +4026,13 @@
         </property>
         <property name="minimumSize">
          <size>
-          <width>160</width>
+          <width>140</width>
           <height>35</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>160</width>
+          <width>140</width>
           <height>35</height>
          </size>
         </property>
@@ -4038,9 +4050,9 @@
        <widget class="QFrame" name="frame_11">
         <property name="geometry">
          <rect>
-          <x>182</x>
+          <x>164</x>
           <y>80</y>
-          <width>303</width>
+          <width>321</width>
           <height>60</height>
          </rect>
         </property>
@@ -4086,7 +4098,7 @@
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true">color: rgb(0, 0, 0);</string>
+            <string notr="true"/>
            </property>
            <property name="text">
             <string>123456789</string>
