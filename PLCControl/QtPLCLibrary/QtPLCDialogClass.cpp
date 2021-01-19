@@ -31,12 +31,12 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIconSize(QSize(347, 99));
 	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->move(15, 10);
 
-	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setFixedSize(160, 120);
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setFixedSize(170, 140);
 	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setStyleSheet("QPushButton{border:0px;}");
 	ret = pix.load(AppPath + "/ico/data2.png");
 	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIcon(pix);
-	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIconSize(QSize(160, 120));
-	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->move(650, 590);
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIconSize(QSize(170, 140));
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->move(640, 575);
 
 	MyPushButton * AlarmResetBtn = new MyPushButton(AppPath + "/ico/bjfwnt.png", AppPath + "/ico/bjfw.png",347, 99);
 	AlarmResetBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
@@ -1126,7 +1126,7 @@ void QtPLCDialogClass::on_pB_dtDlg_toggled(bool checked)//数据dialog
 		QPixmap pix;
 		bool ret = pix.load(AppPath + "/ico/data1.png");
 		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIcon(pix);
-		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIconSize(QSize(160, 120));
+		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIconSize(QSize(170, 140));
 	}
 	else
 	{
@@ -1134,7 +1134,7 @@ void QtPLCDialogClass::on_pB_dtDlg_toggled(bool checked)//数据dialog
 		QPixmap pix;
 		bool ret = pix.load(AppPath + "/ico/data2.png");
 		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIcon(pix);
-		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIconSize(QSize(160, 120));
+		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIconSize(QSize(170, 140));
 	}
 }
 void QtPLCDialogClass::dtClose()

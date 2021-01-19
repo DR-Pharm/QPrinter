@@ -961,6 +961,7 @@
             <family>宋体</family>
             <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -1082,6 +1083,7 @@
             <family>宋体</family>
             <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -1146,6 +1148,7 @@
             <family>宋体</family>
             <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -1173,6 +1176,7 @@
             <family>宋体</family>
             <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -1311,6 +1315,7 @@
             <family>宋体</family>
             <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -1338,6 +1343,7 @@
             <family>宋体</family>
             <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -1402,6 +1408,7 @@
             <family>宋体</family>
             <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -1503,6 +1510,7 @@
             <family>宋体</family>
             <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -1530,6 +1538,7 @@
             <family>宋体</family>
             <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -1569,7 +1578,9 @@
        <property name="font">
         <font>
          <family>宋体</family>
+         <pointsize>20</pointsize>
          <weight>75</weight>
+         <italic>false</italic>
          <bold>true</bold>
         </font>
        </property>
@@ -1600,7 +1611,9 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -1632,7 +1645,9 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -1664,7 +1679,9 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -1690,7 +1707,9 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -1704,7 +1723,9 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -1730,7 +1751,9 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -1756,7 +1779,9 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -1782,7 +1807,9 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -1814,7 +1841,9 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -1828,7 +1857,9 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -1860,7 +1891,9 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -1874,7 +1907,9 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -1900,7 +1935,9 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -1926,7 +1963,9 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -1946,7 +1985,9 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -1988,7 +2029,9 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -2020,7 +2063,9 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -2052,7 +2097,9 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -2078,7 +2125,9 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -2129,7 +2178,9 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
@@ -2642,6 +2693,7 @@
       </property>
       <property name="font">
        <font>
+        <family>迷你简菱心</family>
         <pointsize>36</pointsize>
        </font>
       </property>
@@ -2666,6 +2718,7 @@
       </property>
       <property name="font">
        <font>
+        <family>迷你简菱心</family>
         <pointsize>36</pointsize>
        </font>
       </property>
@@ -2690,6 +2743,7 @@
       </property>
       <property name="font">
        <font>
+        <family>迷你简菱心</family>
         <pointsize>36</pointsize>
        </font>
       </property>
@@ -2714,6 +2768,7 @@
       </property>
       <property name="font">
        <font>
+        <family>迷你简菱心</family>
         <pointsize>36</pointsize>
        </font>
       </property>
@@ -2748,6 +2803,7 @@
    <property name="font">
     <font>
      <family>宋体</family>
+     <pointsize>20</pointsize>
      <weight>75</weight>
      <bold>true</bold>
     </font>
@@ -2785,7 +2841,7 @@
          <x>10</x>
          <y>37</y>
          <width>797</width>
-         <height>538</height>
+         <height>531</height>
         </rect>
        </property>
        <property name="frameShape">
@@ -3825,10 +3881,10 @@
       <widget class="QFrame" name="frame_9">
        <property name="geometry">
         <rect>
-         <x>137</x>
-         <y>582</y>
-         <width>503</width>
-         <height>132</height>
+         <x>140</x>
+         <y>570</y>
+         <width>501</width>
+         <height>151</height>
         </rect>
        </property>
        <property name="frameShape">
@@ -3840,218 +3896,216 @@
        <property name="lineWidth">
         <number>3</number>
        </property>
-       <layout class="QGridLayout" name="gridLayout_11">
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_80">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>160</width>
-            <height>35</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>160</width>
-            <height>35</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>宋体</family>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>运行速度：</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QFrame" name="frame_10">
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(235, 235, 235);</string>
-          </property>
-          <property name="frameShape">
-           <enum>QFrame::Panel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <property name="lineWidth">
-           <number>3</number>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_14">
-           <property name="leftMargin">
-            <number>0</number>
+       <widget class="QLabel" name="label_80">
+        <property name="geometry">
+         <rect>
+          <x>16</x>
+          <y>23</y>
+          <width>160</width>
+          <height>35</height>
+         </rect>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>160</width>
+          <height>35</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>160</width>
+          <height>35</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>宋体</family>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>运行速度：</string>
+        </property>
+       </widget>
+       <widget class="QFrame" name="frame_10">
+        <property name="geometry">
+         <rect>
+          <x>182</x>
+          <y>10</y>
+          <width>303</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(235, 235, 235);</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Panel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <property name="lineWidth">
+         <number>3</number>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_14">
+         <item>
+          <widget class="QLineEdit" name="lE_SysOveride">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
            </property>
-           <property name="topMargin">
-            <number>0</number>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
            </property>
-           <property name="rightMargin">
-            <number>0</number>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>12312313</height>
+            </size>
            </property>
-           <property name="bottomMargin">
-            <number>0</number>
+           <property name="font">
+            <font>
+             <family>Arial Black</family>
+             <pointsize>20</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
            </property>
-           <item>
-            <widget class="QLineEdit" name="lE_SysOveride">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>42</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>42</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <family>Arial Black</family>
-               <pointsize>20</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color: rgb(0, 0, 0);</string>
-             </property>
-             <property name="text">
-              <string>120</string>
-             </property>
-             <property name="frame">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_78">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>160</width>
-            <height>35</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>160</width>
-            <height>35</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>宋体</family>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>生产批号：</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QFrame" name="frame_11">
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(235, 235, 235);</string>
-          </property>
-          <property name="frameShape">
-           <enum>QFrame::Panel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <property name="lineWidth">
-           <number>3</number>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_15">
-           <property name="leftMargin">
-            <number>0</number>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(0, 0, 0);</string>
            </property>
-           <property name="topMargin">
-            <number>0</number>
+           <property name="text">
+            <string>120</string>
            </property>
-           <property name="rightMargin">
-            <number>0</number>
+           <property name="frame">
+            <bool>false</bool>
            </property>
-           <property name="bottomMargin">
-            <number>0</number>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QLabel" name="label_78">
+        <property name="geometry">
+         <rect>
+          <x>16</x>
+          <y>92</y>
+          <width>160</width>
+          <height>35</height>
+         </rect>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>160</width>
+          <height>35</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>160</width>
+          <height>35</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>宋体</family>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>生产批号：</string>
+        </property>
+       </widget>
+       <widget class="QFrame" name="frame_11">
+        <property name="geometry">
+         <rect>
+          <x>182</x>
+          <y>80</y>
+          <width>303</width>
+          <height>60</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(235, 235, 235);</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Panel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <property name="lineWidth">
+         <number>3</number>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_15">
+         <item>
+          <widget class="QLineEdit" name="lE_BatchName">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
            </property>
-           <item>
-            <widget class="QLineEdit" name="lE_BatchName">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>42</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>42</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <family>Arial Black</family>
-               <pointsize>20</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color: rgb(0, 0, 0);</string>
-             </property>
-             <property name="text">
-              <string>123456789</string>
-             </property>
-             <property name="frame">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-       </layout>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>234324</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Arial Black</family>
+             <pointsize>20</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(0, 0, 0);</string>
+           </property>
+           <property name="text">
+            <string>123456789</string>
+           </property>
+           <property name="frame">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </widget>
       <widget class="QLabel" name="lb_logo">
        <property name="geometry">
         <rect>
-         <x>11</x>
-         <y>588</y>
-         <width>120</width>
-         <height>120</height>
+         <x>5</x>
+         <y>580</y>
+         <width>130</width>
+         <height>130</height>
         </rect>
        </property>
        <property name="sizePolicy">
@@ -4062,14 +4116,14 @@
        </property>
        <property name="minimumSize">
         <size>
-         <width>120</width>
-         <height>120</height>
+         <width>130</width>
+         <height>130</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>120</width>
-         <height>120</height>
+         <width>130</width>
+         <height>130</height>
         </size>
        </property>
        <property name="text">
@@ -4192,6 +4246,7 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
     </property>
     <property name="font">
      <font>
+      <family>幼圆</family>
       <pointsize>36</pointsize>
      </font>
     </property>
