@@ -175,7 +175,7 @@ void QtPLCDialogClass::initUI()
 
 void QtPLCDialogClass::inittabicon()
 {
-	((Ui::QtPLCDialogClass*)ui)->tabWidget_PLC->setIconSize(QSize(140, 35));
+	((Ui::QtPLCDialogClass*)ui)->tabWidget_PLC->setIconSize(QSize(160, 40));
 	((Ui::QtPLCDialogClass*)ui)->tabWidget_PLC->setTabIcon(0, QIcon(AppPath + "/ico/fontImage/xtjk.png"));
 	((Ui::QtPLCDialogClass*)ui)->tabWidget_PLC->setTabIcon(1, QIcon(AppPath + "/ico/fontImage/xtcs.png"));
 	((Ui::QtPLCDialogClass*)ui)->tabWidget_PLC->setTabIcon(2, QIcon(AppPath + "/ico/fontImage/yxcs.png"));
