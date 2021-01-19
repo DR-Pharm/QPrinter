@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>2273</width>
-    <height>896</height>
+    <height>893</height>
    </rect>
   </property>
   <property name="font">
@@ -2761,1364 +2761,1356 @@
       <property name="checkable">
        <bool>false</bool>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_9">
-       <item>
-        <widget class="QFrame" name="frame_7">
-         <property name="frameShape">
-          <enum>QFrame::Box</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Sunken</enum>
-         </property>
-         <property name="lineWidth">
-          <number>3</number>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_10">
-          <item row="7" column="2">
-           <widget class="QFrame" name="frame_15">
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(235, 235, 235);</string>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::Panel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <property name="lineWidth">
-             <number>3</number>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_19">
-             <property name="leftMargin">
-              <number>0</number>
+      <widget class="QFrame" name="frame_7">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>37</y>
+         <width>797</width>
+         <height>538</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Sunken</enum>
+       </property>
+       <property name="lineWidth">
+        <number>3</number>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_10">
+        <item row="7" column="2">
+         <widget class="QFrame" name="frame_15">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(235, 235, 235);</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::Panel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <property name="lineWidth">
+           <number>3</number>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_19">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLineEdit" name="lE_ScaleResult">
+             <property name="enabled">
+              <bool>false</bool>
              </property>
-             <property name="topMargin">
-              <number>0</number>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
-             <property name="rightMargin">
-              <number>0</number>
+             <property name="font">
+              <font>
+               <family>Arial Black</family>
+               <pointsize>20</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
              </property>
-             <property name="bottomMargin">
-              <number>0</number>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(0, 114, 188);</string>
+             </property>
+             <property name="text">
+              <string>0.567</string>
+             </property>
+             <property name="frame">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="7" column="5">
+         <spacer name="horizontalSpacer_19">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>10</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_10">
+          <property name="minimumSize">
+           <size>
+            <width>140</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>140</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>宋体</family>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>通过计数</string>
+          </property>
+         </widget>
+        </item>
+        <item row="10" column="2">
+         <widget class="QFrame" name="frame_8">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(235, 235, 235);</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::Panel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <property name="lineWidth">
+           <number>3</number>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_13">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QComboBox" name="cB_ScaleStableState">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="font">
+              <font>
+               <family>幼圆</family>
+               <pointsize>19</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(0, 114, 188);</string>
+             </property>
+             <property name="frame">
+              <bool>false</bool>
              </property>
              <item>
-              <widget class="QLineEdit" name="lE_ScaleResult">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Arial Black</family>
-                 <pointsize>20</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgb(0, 114, 188);</string>
-               </property>
-               <property name="text">
-                <string>0.567</string>
-               </property>
-               <property name="frame">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item row="7" column="5">
-           <spacer name="horizontalSpacer_19">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Fixed</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>10</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_10">
-            <property name="minimumSize">
-             <size>
-              <width>140</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>140</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>通过计数</string>
-            </property>
-           </widget>
-          </item>
-          <item row="10" column="2">
-           <widget class="QFrame" name="frame_8">
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(235, 235, 235);</string>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::Panel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <property name="lineWidth">
-             <number>3</number>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_13">
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
-             <item>
-              <widget class="QComboBox" name="cB_ScaleStableState">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="font">
-                <font>
-                 <family>幼圆</family>
-                 <pointsize>19</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgb(0, 114, 188);</string>
-               </property>
-               <property name="frame">
-                <bool>false</bool>
-               </property>
-               <item>
-                <property name="text">
-                 <string>非常稳定</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>稳定</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>不稳定</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>非常不稳定</string>
-                </property>
-               </item>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item row="3" column="2">
-           <widget class="QFrame" name="frame_14">
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(235, 235, 235);</string>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::Panel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <property name="lineWidth">
-             <number>3</number>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_17">
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
-             <item>
-              <widget class="QLineEdit" name="lE_ProdCount">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Arial Black</family>
-                 <pointsize>20</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgb(0, 114, 188);</string>
-               </property>
-               <property name="text">
-                <string>14</string>
-               </property>
-               <property name="frame">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item row="6" column="2">
-           <spacer name="verticalSpacer_13">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="2" column="2">
-           <spacer name="verticalSpacer_15">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="7" column="4">
-           <widget class="QLabel" name="label_43">
-            <property name="minimumSize">
-             <size>
-              <width>140</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>140</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>本次重量</string>
-            </property>
-           </widget>
-          </item>
-          <item row="7" column="1">
-           <spacer name="horizontalSpacer_18">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Fixed</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>10</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_39">
-            <property name="minimumSize">
-             <size>
-              <width>140</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>140</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>称重计数</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="2">
-           <widget class="QFrame" name="frame_16">
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(235, 235, 235);</string>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::Panel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <property name="lineWidth">
-             <number>3</number>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_18">
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
-             <item>
-              <widget class="QLineEdit" name="lE_TOCount">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Arial Black</family>
-                 <pointsize>20</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgb(0, 114, 188);</string>
-               </property>
-               <property name="text">
-                <string>1</string>
-               </property>
-               <property name="frame">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item row="5" column="4">
-           <widget class="QLabel" name="label_48">
-            <property name="minimumSize">
-             <size>
-              <width>140</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>140</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>过轻计数</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2">
-           <widget class="QFrame" name="frame_13">
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(235, 235, 235);</string>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::Panel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <property name="lineWidth">
-             <number>3</number>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_16">
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
-             <item>
-              <widget class="QLineEdit" name="lE_PassCount">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Arial Black</family>
-                 <pointsize>20</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgb(0, 114, 188);</string>
-               </property>
-               <property name="text">
-                <string>13</string>
-               </property>
-               <property name="frame">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item row="13" column="2">
-           <widget class="QFrame" name="frame_3">
-            <property name="autoFillBackground">
-             <bool>false</bool>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(235, 235, 235);</string>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::Panel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <property name="lineWidth">
-             <number>3</number>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_8">
-             <property name="spacing">
-              <number>6</number>
-             </property>
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
-             <item>
-              <widget class="QLineEdit" name="lE_Finished">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Arial Black</family>
-                 <pointsize>20</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="autoFillBackground">
-                <bool>false</bool>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgb(0, 114, 188)</string>
-               </property>
-               <property name="text">
-                <string>1</string>
-               </property>
-               <property name="frame">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item row="7" column="3">
-           <spacer name="horizontalSpacer_10">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Fixed</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="5" column="0">
-           <widget class="QLabel" name="label_49">
-            <property name="minimumSize">
-             <size>
-              <width>140</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>140</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>过重计数</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <spacer name="verticalSpacer_5">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="11" column="2">
-           <spacer name="verticalSpacer_14">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="13" column="4">
-           <widget class="QLabel" name="label_18">
-            <property name="minimumSize">
-             <size>
-              <width>140</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>140</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>本组序号</string>
-            </property>
-           </widget>
-          </item>
-          <item row="8" column="2">
-           <spacer name="verticalSpacer_17">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="10" column="0">
-           <widget class="QLabel" name="label_45">
-            <property name="minimumSize">
-             <size>
-              <width>140</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>140</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>稳定状态</string>
-            </property>
-           </widget>
-          </item>
-          <item row="13" column="0">
-           <widget class="QLabel" name="label_15">
-            <property name="minimumSize">
-             <size>
-              <width>140</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>140</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>本组结束</string>
-            </property>
-           </widget>
-          </item>
-          <item row="15" column="2">
-           <spacer name="verticalSpacer_12">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="4" column="2">
-           <spacer name="verticalSpacer_16">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="7" column="0">
-           <widget class="QLabel" name="label_16">
-            <property name="minimumSize">
-             <size>
-              <width>140</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>140</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>当前读数</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="4">
-           <widget class="QLabel" name="label_17">
-            <property name="minimumSize">
-             <size>
-              <width>140</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>140</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>宋体</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>剔废计数</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="6">
-           <widget class="QFrame" name="frame_12">
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(235, 235, 235);</string>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::Panel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <property name="lineWidth">
-             <number>3</number>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_20">
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
-             <item>
-              <widget class="QLineEdit" name="lE_RejectCount">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Arial Black</family>
-                 <pointsize>20</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgb(0, 114, 188);</string>
-               </property>
-               <property name="text">
-                <string>1</string>
-               </property>
-               <property name="frame">
-                <bool>false</bool>
-               </property>
-               <property name="echoMode">
-                <enum>QLineEdit::Normal</enum>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item row="5" column="6">
-           <widget class="QFrame" name="frame_17">
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(235, 235, 235);</string>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::Panel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <property name="lineWidth">
-             <number>3</number>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_21">
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
-             <item>
-              <widget class="QLineEdit" name="lE_TUCount">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Arial Black</family>
-                 <pointsize>20</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgb(0, 114, 188);</string>
-               </property>
-               <property name="text">
-                <string>3</string>
-               </property>
-               <property name="frame">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item row="7" column="6">
-           <widget class="QFrame" name="frame_18">
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(235, 235, 235);</string>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::Panel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <property name="lineWidth">
-             <number>3</number>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_22">
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
-             <item>
-              <widget class="QLineEdit" name="lE_Weight">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Arial Black</family>
-                 <pointsize>20</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgb(0, 114, 188);</string>
-               </property>
-               <property name="text">
-                <string>0.234</string>
-               </property>
-               <property name="frame">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item row="13" column="6">
-           <widget class="QFrame" name="frame_19">
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(235, 235, 235);</string>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::Panel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <property name="lineWidth">
-             <number>3</number>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_23">
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
-             <item>
-              <widget class="QLineEdit" name="lE_GroupIndex">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Arial Black</family>
-                 <pointsize>20</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgb(0, 114, 188);</string>
-               </property>
-               <property name="text">
-                <string>13</string>
-               </property>
-               <property name="frame">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_8">
-         <item>
-          <spacer name="horizontalSpacer_11">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Fixed</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>10</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QLabel" name="lb_logo">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>120</width>
-             <height>120</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>120</width>
-             <height>120</height>
-            </size>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="scaledContents">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer_16">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Fixed</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>10</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QFrame" name="frame_9">
-           <property name="frameShape">
-            <enum>QFrame::Box</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Sunken</enum>
-           </property>
-           <property name="lineWidth">
-            <number>3</number>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_11">
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_80">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>160</width>
-                <height>35</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>160</width>
-                <height>35</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <family>宋体</family>
-                <weight>75</weight>
-                <bold>true</bold>
-               </font>
-              </property>
               <property name="text">
-               <string>运行速度：</string>
+               <string>非常稳定</string>
               </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QFrame" name="frame_10">
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(235, 235, 235);</string>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::Panel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
-              <property name="lineWidth">
-               <number>3</number>
-              </property>
-              <layout class="QVBoxLayout" name="verticalLayout_14">
-               <property name="leftMargin">
-                <number>0</number>
-               </property>
-               <property name="topMargin">
-                <number>0</number>
-               </property>
-               <property name="rightMargin">
-                <number>0</number>
-               </property>
-               <property name="bottomMargin">
-                <number>0</number>
-               </property>
-               <item>
-                <widget class="QLineEdit" name="lE_SysOveride">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>0</width>
-                   <height>42</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>16777215</width>
-                   <height>42</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>Arial Black</family>
-                   <pointsize>20</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">color: rgb(0, 0, 0);</string>
-                 </property>
-                 <property name="text">
-                  <string>120</string>
-                 </property>
-                 <property name="frame">
-                  <bool>false</bool>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_78">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>160</width>
-                <height>35</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>160</width>
-                <height>35</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <family>宋体</family>
-                <weight>75</weight>
-                <bold>true</bold>
-               </font>
-              </property>
+             </item>
+             <item>
               <property name="text">
-               <string>生产批号：</string>
+               <string>稳定</string>
               </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QFrame" name="frame_11">
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(235, 235, 235);</string>
+             </item>
+             <item>
+              <property name="text">
+               <string>不稳定</string>
               </property>
-              <property name="frameShape">
-               <enum>QFrame::Panel</enum>
+             </item>
+             <item>
+              <property name="text">
+               <string>非常不稳定</string>
               </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
-              <property name="lineWidth">
-               <number>3</number>
-              </property>
-              <layout class="QVBoxLayout" name="verticalLayout_15">
-               <property name="leftMargin">
-                <number>0</number>
-               </property>
-               <property name="topMargin">
-                <number>0</number>
-               </property>
-               <property name="rightMargin">
-                <number>0</number>
-               </property>
-               <property name="bottomMargin">
-                <number>0</number>
-               </property>
-               <item>
-                <widget class="QLineEdit" name="lE_BatchName">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>0</width>
-                   <height>42</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>16777215</width>
-                   <height>42</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>Arial Black</family>
-                   <pointsize>20</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">color: rgb(0, 0, 0);</string>
-                 </property>
-                 <property name="text">
-                  <string>123456789</string>
-                 </property>
-                 <property name="frame">
-                  <bool>false</bool>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer_14">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+             </item>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QFrame" name="frame_14">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(235, 235, 235);</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::Panel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <property name="lineWidth">
+           <number>3</number>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_17">
+           <property name="leftMargin">
+            <number>0</number>
            </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Fixed</enum>
+           <property name="topMargin">
+            <number>0</number>
            </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>10</width>
-             <height>20</height>
-            </size>
+           <property name="rightMargin">
+            <number>0</number>
            </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QToolButton" name="pB_dtDlg">
-           <property name="minimumSize">
-            <size>
-             <width>160</width>
-             <height>120</height>
-            </size>
+           <property name="bottomMargin">
+            <number>0</number>
            </property>
-           <property name="maximumSize">
-            <size>
-             <width>160</width>
-             <height>120</height>
-            </size>
+           <item>
+            <widget class="QLineEdit" name="lE_ProdCount">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial Black</family>
+               <pointsize>20</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(0, 114, 188);</string>
+             </property>
+             <property name="text">
+              <string>14</string>
+             </property>
+             <property name="frame">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="6" column="2">
+         <spacer name="verticalSpacer_13">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="2" column="2">
+         <spacer name="verticalSpacer_15">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="7" column="4">
+         <widget class="QLabel" name="label_43">
+          <property name="minimumSize">
+           <size>
+            <width>140</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>140</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>宋体</family>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>本次重量</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="1">
+         <spacer name="horizontalSpacer_18">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>10</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_39">
+          <property name="minimumSize">
+           <size>
+            <width>140</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>140</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>宋体</family>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>称重计数</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="2">
+         <widget class="QFrame" name="frame_16">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(235, 235, 235);</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::Panel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <property name="lineWidth">
+           <number>3</number>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_18">
+           <property name="leftMargin">
+            <number>0</number>
            </property>
-           <property name="text">
-            <string>组数据</string>
+           <property name="topMargin">
+            <number>0</number>
            </property>
-           <property name="checkable">
-            <bool>true</bool>
+           <property name="rightMargin">
+            <number>0</number>
            </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLineEdit" name="lE_TOCount">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial Black</family>
+               <pointsize>20</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(0, 114, 188);</string>
+             </property>
+             <property name="text">
+              <string>1</string>
+             </property>
+             <property name="frame">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="5" column="4">
+         <widget class="QLabel" name="label_48">
+          <property name="minimumSize">
+           <size>
+            <width>140</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>140</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>宋体</family>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>过轻计数</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QFrame" name="frame_13">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(235, 235, 235);</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::Panel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <property name="lineWidth">
+           <number>3</number>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_16">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLineEdit" name="lE_PassCount">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial Black</family>
+               <pointsize>20</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(0, 114, 188);</string>
+             </property>
+             <property name="text">
+              <string>13</string>
+             </property>
+             <property name="frame">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="13" column="2">
+         <widget class="QFrame" name="frame_3">
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(235, 235, 235);</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::Panel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <property name="lineWidth">
+           <number>3</number>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_8">
+           <property name="spacing">
+            <number>6</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLineEdit" name="lE_Finished">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial Black</family>
+               <pointsize>20</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="autoFillBackground">
+              <bool>false</bool>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(0, 114, 188)</string>
+             </property>
+             <property name="text">
+              <string>1</string>
+             </property>
+             <property name="frame">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="7" column="3">
+         <spacer name="horizontalSpacer_10">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="label_49">
+          <property name="minimumSize">
+           <size>
+            <width>140</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>140</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>宋体</family>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>过重计数</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <spacer name="verticalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="11" column="2">
+         <spacer name="verticalSpacer_14">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="13" column="4">
+         <widget class="QLabel" name="label_18">
+          <property name="minimumSize">
+           <size>
+            <width>140</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>140</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>宋体</family>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>本组序号</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="2">
+         <spacer name="verticalSpacer_17">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="10" column="0">
+         <widget class="QLabel" name="label_45">
+          <property name="minimumSize">
+           <size>
+            <width>140</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>140</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>宋体</family>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>稳定状态</string>
+          </property>
+         </widget>
+        </item>
+        <item row="13" column="0">
+         <widget class="QLabel" name="label_15">
+          <property name="minimumSize">
+           <size>
+            <width>140</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>140</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>宋体</family>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>本组结束</string>
+          </property>
+         </widget>
+        </item>
+        <item row="15" column="2">
+         <spacer name="verticalSpacer_12">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="4" column="2">
+         <spacer name="verticalSpacer_16">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="7" column="0">
+         <widget class="QLabel" name="label_16">
+          <property name="minimumSize">
+           <size>
+            <width>140</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>140</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>宋体</family>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>当前读数</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="4">
+         <widget class="QLabel" name="label_17">
+          <property name="minimumSize">
+           <size>
+            <width>140</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>140</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>宋体</family>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>剔废计数</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="6">
+         <widget class="QFrame" name="frame_12">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(235, 235, 235);</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::Panel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <property name="lineWidth">
+           <number>3</number>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_20">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLineEdit" name="lE_RejectCount">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial Black</family>
+               <pointsize>20</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(0, 114, 188);</string>
+             </property>
+             <property name="text">
+              <string>1</string>
+             </property>
+             <property name="frame">
+              <bool>false</bool>
+             </property>
+             <property name="echoMode">
+              <enum>QLineEdit::Normal</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="5" column="6">
+         <widget class="QFrame" name="frame_17">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(235, 235, 235);</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::Panel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <property name="lineWidth">
+           <number>3</number>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_21">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLineEdit" name="lE_TUCount">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial Black</family>
+               <pointsize>20</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(0, 114, 188);</string>
+             </property>
+             <property name="text">
+              <string>3</string>
+             </property>
+             <property name="frame">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="7" column="6">
+         <widget class="QFrame" name="frame_18">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(235, 235, 235);</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::Panel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <property name="lineWidth">
+           <number>3</number>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_22">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLineEdit" name="lE_Weight">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial Black</family>
+               <pointsize>20</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(0, 114, 188);</string>
+             </property>
+             <property name="text">
+              <string>0.234</string>
+             </property>
+             <property name="frame">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="13" column="6">
+         <widget class="QFrame" name="frame_19">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(235, 235, 235);</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::Panel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <property name="lineWidth">
+           <number>3</number>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_23">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLineEdit" name="lE_GroupIndex">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial Black</family>
+               <pointsize>20</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(0, 114, 188);</string>
+             </property>
+             <property name="text">
+              <string>13</string>
+             </property>
+             <property name="frame">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QFrame" name="frame_9">
+       <property name="geometry">
+        <rect>
+         <x>137</x>
+         <y>582</y>
+         <width>503</width>
+         <height>132</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Sunken</enum>
+       </property>
+       <property name="lineWidth">
+        <number>3</number>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_11">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_80">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>160</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>160</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>宋体</family>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>运行速度：</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QFrame" name="frame_10">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(235, 235, 235);</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::Panel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <property name="lineWidth">
+           <number>3</number>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_14">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLineEdit" name="lE_SysOveride">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>42</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>42</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial Black</family>
+               <pointsize>20</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(0, 0, 0);</string>
+             </property>
+             <property name="text">
+              <string>120</string>
+             </property>
+             <property name="frame">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_78">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>160</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>160</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>宋体</family>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>生产批号：</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QFrame" name="frame_11">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(235, 235, 235);</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::Panel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <property name="lineWidth">
+           <number>3</number>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_15">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLineEdit" name="lE_BatchName">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>42</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>42</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial Black</family>
+               <pointsize>20</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(0, 0, 0);</string>
+             </property>
+             <property name="text">
+              <string>123456789</string>
+             </property>
+             <property name="frame">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QLabel" name="lb_logo">
+       <property name="geometry">
+        <rect>
+         <x>11</x>
+         <y>588</y>
+         <width>120</width>
+         <height>120</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>120</width>
+         <height>120</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>120</width>
+         <height>120</height>
+        </size>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pB_dtDlg">
+       <property name="geometry">
+        <rect>
+         <x>650</x>
+         <y>580</y>
+         <width>41</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>迷你简菱心</family>
+         <pointsize>60</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::RightToLeft</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(200, 200, 100);
+font: 60pt &quot;迷你简菱心&quot;;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
      </widget>
     </item>
    </layout>

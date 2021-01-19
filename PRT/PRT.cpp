@@ -7,6 +7,7 @@ PRT::PRT(QWidget *parent)
 
 	initDog();
 	setWindowFlags(Qt::FramelessWindowHint);//无边框  
+	//setAttribute(Qt::WA_AcceptTouchEvents);
 	setWindowIcon(QIcon("./ico/dr.ico"));
 	AppPath = qApp->applicationDirPath();//exe所在目录
 	RWini = new QSettings(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);

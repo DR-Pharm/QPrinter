@@ -22,7 +22,6 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QTabWidget>
-#include <QtWidgets/QToolButton>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "../QtPLCLibrary/userle.h"
@@ -205,7 +204,6 @@ public:
     QFrame *frame;
     QVBoxLayout *verticalLayout_6;
     QGroupBox *groupBox_10;
-    QVBoxLayout *verticalLayout_9;
     QFrame *frame_7;
     QGridLayout *gridLayout_10;
     QFrame *frame_15;
@@ -258,10 +256,6 @@ public:
     QFrame *frame_19;
     QVBoxLayout *verticalLayout_23;
     QLineEdit *lE_GroupIndex;
-    QHBoxLayout *horizontalLayout_8;
-    QSpacerItem *horizontalSpacer_11;
-    QLabel *lb_logo;
-    QSpacerItem *horizontalSpacer_16;
     QFrame *frame_9;
     QGridLayout *gridLayout_11;
     QLabel *label_80;
@@ -272,8 +266,8 @@ public:
     QFrame *frame_11;
     QVBoxLayout *verticalLayout_15;
     QLineEdit *lE_BatchName;
-    QSpacerItem *horizontalSpacer_14;
-    QToolButton *pB_dtDlg;
+    QLabel *lb_logo;
+    QPushButton *pB_dtDlg;
     QFrame *frame_20;
     QPushButton *pB_SetUp;
     QPushButton *pB_cmdStart;
@@ -282,7 +276,7 @@ public:
     {
         if (QtPLCDialogClass->objectName().isEmpty())
             QtPLCDialogClass->setObjectName(QString::fromUtf8("QtPLCDialogClass"));
-        QtPLCDialogClass->resize(2273, 896);
+        QtPLCDialogClass->resize(2273, 893);
         QFont font;
         font.setFamily(QString::fromUtf8("\345\271\274\345\234\206"));
         font.setPointSize(20);
@@ -1429,12 +1423,9 @@ public:
         groupBox_10->setStyleSheet(QString::fromUtf8("color: rgb(240, 240, 240);"));
         groupBox_10->setFlat(false);
         groupBox_10->setCheckable(false);
-        verticalLayout_9 = new QVBoxLayout(groupBox_10);
-        verticalLayout_9->setSpacing(6);
-        verticalLayout_9->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_9->setObjectName(QString::fromUtf8("verticalLayout_9"));
         frame_7 = new QFrame(groupBox_10);
         frame_7->setObjectName(QString::fromUtf8("frame_7"));
+        frame_7->setGeometry(QRect(10, 37, 797, 538));
         frame_7->setFrameShape(QFrame::Box);
         frame_7->setFrameShadow(QFrame::Sunken);
         frame_7->setLineWidth(3);
@@ -1827,35 +1818,9 @@ public:
 
         gridLayout_10->addWidget(frame_19, 13, 6, 1, 1);
 
-
-        verticalLayout_9->addWidget(frame_7);
-
-        horizontalLayout_8 = new QHBoxLayout();
-        horizontalLayout_8->setSpacing(6);
-        horizontalLayout_8->setObjectName(QString::fromUtf8("horizontalLayout_8"));
-        horizontalSpacer_11 = new QSpacerItem(10, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        horizontalLayout_8->addItem(horizontalSpacer_11);
-
-        lb_logo = new QLabel(groupBox_10);
-        lb_logo->setObjectName(QString::fromUtf8("lb_logo"));
-        QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(lb_logo->sizePolicy().hasHeightForWidth());
-        lb_logo->setSizePolicy(sizePolicy2);
-        lb_logo->setMinimumSize(QSize(120, 120));
-        lb_logo->setMaximumSize(QSize(120, 120));
-        lb_logo->setScaledContents(true);
-
-        horizontalLayout_8->addWidget(lb_logo);
-
-        horizontalSpacer_16 = new QSpacerItem(10, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        horizontalLayout_8->addItem(horizontalSpacer_16);
-
         frame_9 = new QFrame(groupBox_10);
         frame_9->setObjectName(QString::fromUtf8("frame_9"));
+        frame_9->setGeometry(QRect(137, 582, 503, 132));
         frame_9->setFrameShape(QFrame::Box);
         frame_9->setFrameShadow(QFrame::Sunken);
         frame_9->setLineWidth(3);
@@ -1865,6 +1830,9 @@ public:
         gridLayout_11->setObjectName(QString::fromUtf8("gridLayout_11"));
         label_80 = new QLabel(frame_9);
         label_80->setObjectName(QString::fromUtf8("label_80"));
+        QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
         sizePolicy2.setHeightForWidth(label_80->sizePolicy().hasHeightForWidth());
         label_80->setSizePolicy(sizePolicy2);
         label_80->setMinimumSize(QSize(160, 35));
@@ -1935,24 +1903,32 @@ public:
 
         gridLayout_11->addWidget(frame_11, 1, 1, 1, 1);
 
-
-        horizontalLayout_8->addWidget(frame_9);
-
-        horizontalSpacer_14 = new QSpacerItem(10, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        horizontalLayout_8->addItem(horizontalSpacer_14);
-
-        pB_dtDlg = new QToolButton(groupBox_10);
+        lb_logo = new QLabel(groupBox_10);
+        lb_logo->setObjectName(QString::fromUtf8("lb_logo"));
+        lb_logo->setGeometry(QRect(11, 588, 120, 120));
+        sizePolicy2.setHeightForWidth(lb_logo->sizePolicy().hasHeightForWidth());
+        lb_logo->setSizePolicy(sizePolicy2);
+        lb_logo->setMinimumSize(QSize(120, 120));
+        lb_logo->setMaximumSize(QSize(120, 120));
+        lb_logo->setScaledContents(true);
+        pB_dtDlg = new QPushButton(groupBox_10);
         pB_dtDlg->setObjectName(QString::fromUtf8("pB_dtDlg"));
-        pB_dtDlg->setMinimumSize(QSize(160, 120));
-        pB_dtDlg->setMaximumSize(QSize(160, 120));
+        pB_dtDlg->setGeometry(QRect(650, 580, 41, 31));
+        sizePolicy.setHeightForWidth(pB_dtDlg->sizePolicy().hasHeightForWidth());
+        pB_dtDlg->setSizePolicy(sizePolicy);
+        pB_dtDlg->setMinimumSize(QSize(0, 0));
+        pB_dtDlg->setMaximumSize(QSize(16777215, 16777215));
+        QFont font8;
+        font8.setFamily(QString::fromUtf8("\350\277\267\344\275\240\347\256\200\350\217\261\345\277\203"));
+        font8.setPointSize(60);
+        font8.setBold(false);
+        font8.setItalic(false);
+        font8.setWeight(50);
+        pB_dtDlg->setFont(font8);
+        pB_dtDlg->setLayoutDirection(Qt::RightToLeft);
+        pB_dtDlg->setStyleSheet(QString::fromUtf8("background-color: rgb(200, 200, 100);\n"
+"font: 60pt \"\350\277\267\344\275\240\347\256\200\350\217\261\345\277\203\";"));
         pB_dtDlg->setCheckable(true);
-
-        horizontalLayout_8->addWidget(pB_dtDlg);
-
-
-        verticalLayout_9->addLayout(horizontalLayout_8);
-
 
         verticalLayout_6->addWidget(groupBox_10);
 
@@ -1981,12 +1957,6 @@ public:
         pB_cmdStart->setSizePolicy(sizePolicy);
         pB_cmdStart->setMinimumSize(QSize(0, 0));
         pB_cmdStart->setMaximumSize(QSize(16777215, 16777215));
-        QFont font8;
-        font8.setFamily(QString::fromUtf8("\350\277\267\344\275\240\347\256\200\350\217\261\345\277\203"));
-        font8.setPointSize(60);
-        font8.setBold(false);
-        font8.setItalic(false);
-        font8.setWeight(50);
         pB_cmdStart->setFont(font8);
         pB_cmdStart->setLayoutDirection(Qt::RightToLeft);
         pB_cmdStart->setStyleSheet(QString::fromUtf8("background-color: rgb(200, 200, 100);\n"
@@ -2134,12 +2104,12 @@ public:
         lE_TUCount->setText(QCoreApplication::translate("QtPLCDialogClass", "3", nullptr));
         lE_Weight->setText(QCoreApplication::translate("QtPLCDialogClass", "0.234", nullptr));
         lE_GroupIndex->setText(QCoreApplication::translate("QtPLCDialogClass", "13", nullptr));
-        lb_logo->setText(QString());
         label_80->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\277\220\350\241\214\351\200\237\345\272\246\357\274\232", nullptr));
         lE_SysOveride->setText(QCoreApplication::translate("QtPLCDialogClass", "120", nullptr));
         label_78->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\224\237\344\272\247\346\211\271\345\217\267\357\274\232", nullptr));
         lE_BatchName->setText(QCoreApplication::translate("QtPLCDialogClass", "123456789", nullptr));
-        pB_dtDlg->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\273\204\346\225\260\346\215\256", nullptr));
+        lb_logo->setText(QString());
+        pB_dtDlg->setText(QString());
         pB_SetUp->setText(QString());
         pB_cmdStart->setText(QString());
     } // retranslateUi

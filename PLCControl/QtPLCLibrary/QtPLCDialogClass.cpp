@@ -21,9 +21,6 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 
 	((Ui::QtPLCDialogClass*)ui)->lb_logo->setPixmap(QPixmap(AppPath + "/ico/dr-pharmTrans_2.png"));
 	((Ui::QtPLCDialogClass*)ui)->lb_logo->setScaledContents(true);
-	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIconSize(QSize(64, 64));
-	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIcon(QIcon(AppPath + "/ico/dlg.ico"));
 	//设置
 
 	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setFixedSize(347, 99);
@@ -33,6 +30,13 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIcon(pix);
 	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIconSize(QSize(347, 99));
 	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->move(15, 10);
+
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setFixedSize(160, 120);
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setStyleSheet("QPushButton{border:0px;}");
+	ret = pix.load(AppPath + "/ico/data2.png");
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIcon(pix);
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIconSize(QSize(160, 120));
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->move(650, 590);
 
 	MyPushButton * AlarmResetBtn = new MyPushButton(AppPath + "/ico/bjfwnt.png", AppPath + "/ico/bjfw.png",347, 99);
 	AlarmResetBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
@@ -59,7 +63,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 		//on_pB_cmdCounterZero_clicked();
 		//做弹起特效
 		//startBtn->zoom1();
-		/*startBtn->zoom2();*/ });	
+		/*startBtn->zoom2();*/ });
 
 		//开始
 
@@ -68,7 +72,6 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 		ret = pix.load(AppPath + "/ico/start.png");
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIcon(pix);
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIconSize(QSize(347, 200));
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->move(15, 550);
 	//指示灯部分
 	((Ui::QtPLCDialogClass*)ui)->lb_00->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
 	lb_01 = new QLabel(((Ui::QtPLCDialogClass*)ui)->tabWidget->widget(0));
@@ -1036,10 +1039,7 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 	typ.Telegram_typ = 1;
 	if (checked)
 	{
-		animation1->start();
 		QPixmap pix;
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setFixedSize(347, 200);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setStyleSheet("QPushButton{border:0px;}");
 		bool ret = pix.load(AppPath + "/ico/stop.png");
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIcon(pix);
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(false);
@@ -1047,19 +1047,18 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setStyleSheet("color: rgb(0, 114, 188)");
 		typ.Machine_Cmd.cmdStart = 1;
 
+		animation1->start();
 		animation2->start();
 	}
 	else
 	{
-		animation1->start();
 		QPixmap pix;
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setFixedSize(347, 200);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setStyleSheet("QPushButton{border:0px;}");
 		bool ret = pix.load(AppPath + "/ico/start.png");
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIcon(pix);
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(true);
 		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(true); ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setStyleSheet("color: rgb(0, 0, 0)");
 		typ.Machine_Cmd.cmdStop = 1;
+		animation1->start();
 		animation2->start();
 	}
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -1123,15 +1122,19 @@ void QtPLCDialogClass::on_pB_dtDlg_toggled(bool checked)//数据dialog
 {
 	if (checked)
 	{
-		m_dtDlg->show();
-		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setStyleSheet("background: rgb(0,255,0)");
-		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setFont(contentFont);
+		m_dtDlg->show();		
+		QPixmap pix;
+		bool ret = pix.load(AppPath + "/ico/data1.png");
+		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIcon(pix);
+		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIconSize(QSize(160, 120));
 	}
 	else
 	{
 		m_dtDlg->close();
-		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setStyleSheet("");
-		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setFont(contentFont);
+		QPixmap pix;
+		bool ret = pix.load(AppPath + "/ico/data2.png");
+		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIcon(pix);
+		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIconSize(QSize(160, 120));
 	}
 }
 void QtPLCDialogClass::dtClose()
