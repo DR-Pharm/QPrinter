@@ -33,6 +33,7 @@ class Ui_QtPLCDialogClass
 public:
     QTabWidget *tabWidget_PLC;
     QWidget *tab_PLC_Control;
+    QVBoxLayout *verticalLayout_9;
     QTabWidget *tabWidget;
     QWidget *tab;
     QVBoxLayout *verticalLayout_7;
@@ -61,6 +62,9 @@ public:
     QPushButton *pb_cmdYellowAlarmout;
     QPushButton *pb_cmdAlarmSignal;
     QPushButton *pb_cmdAlarmOut;
+    QSpacerItem *verticalSpacer_18;
+    QGroupBox *groupBox_8;
+    QHBoxLayout *horizontalLayout_8;
     QHBoxLayout *horizontalLayout_9;
     QSpacerItem *horizontalSpacer_15;
     QLabel *label_2;
@@ -298,11 +302,14 @@ public:
         tabWidget_PLC->setTabShape(QTabWidget::Rounded);
         tab_PLC_Control = new QWidget();
         tab_PLC_Control->setObjectName(QString::fromUtf8("tab_PLC_Control"));
+        verticalLayout_9 = new QVBoxLayout(tab_PLC_Control);
+        verticalLayout_9->setSpacing(6);
+        verticalLayout_9->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_9->setObjectName(QString::fromUtf8("verticalLayout_9"));
         tabWidget = new QTabWidget(tab_PLC_Control);
         tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
-        tabWidget->setGeometry(QRect(5, 5, 831, 511));
-        tabWidget->setMinimumSize(QSize(831, 511));
-        tabWidget->setMaximumSize(QSize(831, 511));
+        tabWidget->setMinimumSize(QSize(0, 0));
+        tabWidget->setMaximumSize(QSize(122222, 111111));
         tab = new QWidget();
         tab->setObjectName(QString::fromUtf8("tab"));
         verticalLayout_7 = new QVBoxLayout(tab);
@@ -468,6 +475,19 @@ public:
 
         verticalLayout_11->addLayout(gridLayout_6);
 
+
+        verticalLayout_7->addWidget(groupBox_7);
+
+        verticalSpacer_18 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_7->addItem(verticalSpacer_18);
+
+        groupBox_8 = new QGroupBox(tab);
+        groupBox_8->setObjectName(QString::fromUtf8("groupBox_8"));
+        horizontalLayout_8 = new QHBoxLayout(groupBox_8);
+        horizontalLayout_8->setSpacing(6);
+        horizontalLayout_8->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_8->setObjectName(QString::fromUtf8("horizontalLayout_8"));
         horizontalLayout_9 = new QHBoxLayout();
         horizontalLayout_9->setSpacing(6);
         horizontalLayout_9->setObjectName(QString::fromUtf8("horizontalLayout_9"));
@@ -475,12 +495,12 @@ public:
 
         horizontalLayout_9->addItem(horizontalSpacer_15);
 
-        label_2 = new QLabel(groupBox_7);
+        label_2 = new QLabel(groupBox_8);
         label_2->setObjectName(QString::fromUtf8("label_2"));
 
         horizontalLayout_9->addWidget(label_2);
 
-        lE_Analogoutput = new QLineEdit(groupBox_7);
+        lE_Analogoutput = new QLineEdit(groupBox_8);
         lE_Analogoutput->setObjectName(QString::fromUtf8("lE_Analogoutput"));
         lE_Analogoutput->setEnabled(false);
 
@@ -491,10 +511,10 @@ public:
         horizontalLayout_9->addItem(horizontalSpacer_17);
 
 
-        verticalLayout_11->addLayout(horizontalLayout_9);
+        horizontalLayout_8->addLayout(horizontalLayout_9);
 
 
-        verticalLayout_7->addWidget(groupBox_7);
+        verticalLayout_7->addWidget(groupBox_8);
 
         verticalSpacer_9 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
@@ -695,6 +715,9 @@ public:
         verticalLayout_2->addItem(verticalSpacer_3);
 
         tabWidget->addTab(tab_6, QString());
+
+        verticalLayout_9->addWidget(tabWidget);
+
         tabWidget_PLC->addTab(tab_PLC_Control, QString());
         tab_8 = new QWidget();
         tab_8->setObjectName(QString::fromUtf8("tab_8"));
@@ -1965,8 +1988,8 @@ public:
 
         retranslateUi(QtPLCDialogClass);
 
-        tabWidget_PLC->setCurrentIndex(3);
-        tabWidget->setCurrentIndex(2);
+        tabWidget_PLC->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(QtPLCDialogClass);
@@ -1980,7 +2003,7 @@ public:
         lb_00->setText(QString());
         label_11->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\221\206\350\207\202\344\275\215\347\275\256\346\243\200\346\265\213", nullptr));
         lb_10->setText(QString());
-        groupBox_7->setTitle(QCoreApplication::translate("QtPLCDialogClass", "DO/AO", nullptr));
+        groupBox_7->setTitle(QCoreApplication::translate("QtPLCDialogClass", "DO", nullptr));
         pb_cmdVaccum->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\234\237\347\251\272\345\217\221\347\224\237\345\231\250", nullptr));
         pb_cmdBaffle->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\214\241    \346\235\277", nullptr));
         pb_cmdReject->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\216\222\345\272\237\347\224\265\347\243\201\351\223\201", nullptr));
@@ -1992,6 +2015,7 @@ public:
         pb_cmdYellowAlarmout->setText(QCoreApplication::translate("QtPLCDialogClass", "\351\273\204\347\201\257\346\212\245\350\255\246", nullptr));
         pb_cmdAlarmSignal->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\212\245\350\255\246\350\276\223\345\207\272", nullptr));
         pb_cmdAlarmOut->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\212\245\350\255\246\350\234\202\351\270\243\345\231\250", nullptr));
+        groupBox_8->setTitle(QCoreApplication::translate("QtPLCDialogClass", "AO", nullptr));
         label_2->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\250\241\346\213\237\351\207\217\350\276\223\345\207\272", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("QtPLCDialogClass", "\350\276\223\345\205\245\350\276\223\345\207\272", nullptr));
         groupBox_2->setTitle(QCoreApplication::translate("QtPLCDialogClass", "\344\270\213\346\226\231", nullptr));

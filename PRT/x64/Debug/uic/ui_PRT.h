@@ -34,6 +34,7 @@ public:
     QHBoxLayout *horizontalLayout_5;
     QWidget *widget;
     QGroupBox *groupBox;
+    QVBoxLayout *verticalLayout_3;
     QFrame *frame_3;
     QVBoxLayout *verticalLayout_4;
     QHBoxLayout *horizontalLayout_3;
@@ -86,7 +87,7 @@ public:
         widget->setMaximumSize(QSize(3434, 3434));
         groupBox = new QGroupBox(widget);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setGeometry(QRect(320, 10, 385, 760));
+        groupBox->setGeometry(QRect(340, 27, 385, 571));
         groupBox->setMinimumSize(QSize(385, 0));
         groupBox->setMaximumSize(QSize(385, 781));
         QFont font;
@@ -94,9 +95,12 @@ public:
         font.setPointSize(20);
         groupBox->setFont(font);
         groupBox->setFlat(false);
+        verticalLayout_3 = new QVBoxLayout(groupBox);
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
         frame_3 = new QFrame(groupBox);
         frame_3->setObjectName(QString::fromUtf8("frame_3"));
-        frame_3->setGeometry(QRect(10, 37, 242, 94));
         frame_3->setFrameShape(QFrame::Box);
         frame_3->setFrameShadow(QFrame::Sunken);
         frame_3->setLineWidth(2);
@@ -135,9 +139,11 @@ public:
 
         verticalLayout_4->addWidget(label);
 
+
+        verticalLayout_3->addWidget(frame_3);
+
         frame = new QFrame(groupBox);
         frame->setObjectName(QString::fromUtf8("frame"));
-        frame->setGeometry(QRect(10, 186, 365, 143));
         frame->setFrameShape(QFrame::Box);
         frame->setFrameShadow(QFrame::Sunken);
         frame->setLineWidth(2);
@@ -179,9 +185,11 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
+
+        verticalLayout_3->addWidget(frame);
+
         frame_2 = new QFrame(groupBox);
         frame_2->setObjectName(QString::fromUtf8("frame_2"));
-        frame_2->setGeometry(QRect(10, 335, 365, 142));
         frame_2->setFrameShape(QFrame::Box);
         frame_2->setFrameShadow(QFrame::Sunken);
         frame_2->setLineWidth(2);
@@ -220,9 +228,11 @@ public:
 
         verticalLayout_2->addLayout(horizontalLayout_2);
 
+
+        verticalLayout_3->addWidget(frame_2);
+
         frame_4 = new QFrame(groupBox);
         frame_4->setObjectName(QString::fromUtf8("frame_4"));
-        frame_4->setGeometry(QRect(10, 483, 311, 53));
         frame_4->setFrameShape(QFrame::Box);
         frame_4->setFrameShadow(QFrame::Sunken);
         frame_4->setLineWidth(2);
@@ -236,15 +246,22 @@ public:
 
         verticalLayout_6->addWidget(lb_PrinterName);
 
+
+        verticalLayout_3->addWidget(frame_4);
+
         pB_Print = new QPushButton(groupBox);
         pB_Print->setObjectName(QString::fromUtf8("pB_Print"));
-        pB_Print->setGeometry(QRect(10, 632, 200, 56));
         pB_Print->setStyleSheet(QString::fromUtf8("font: 36pt \"\350\277\267\344\275\240\347\256\200\350\217\261\345\277\203\";"));
+
+        verticalLayout_3->addWidget(pB_Print);
+
         pB_PrintDirect = new QPushButton(groupBox);
         pB_PrintDirect->setObjectName(QString::fromUtf8("pB_PrintDirect"));
         pB_PrintDirect->setEnabled(true);
-        pB_PrintDirect->setGeometry(QRect(10, 694, 104, 56));
         pB_PrintDirect->setStyleSheet(QString::fromUtf8("font: 36pt \"\350\277\267\344\275\240\347\256\200\350\217\261\345\277\203\";"));
+
+        verticalLayout_3->addWidget(pB_PrintDirect);
+
 
         horizontalLayout_5->addWidget(widget);
 
