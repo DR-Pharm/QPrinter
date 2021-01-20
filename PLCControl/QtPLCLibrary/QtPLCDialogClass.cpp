@@ -221,7 +221,7 @@ DataFromPC_typ QtPLCDialogClass::getPCParaData()//2
 {
 	DataFromPC_typ tmp;
 	memset(&tmp, 0, sizeof(DataFromPC_typ));
-	tmp.Machine_Para.enable = m_data->Machine_Para.enable;
+//	tmp.Machine_Para.enable = m_data->Machine_Para.enable;
 	tmp.Machine_Para.s_trg_stop[0] = m_data->Machine_Para.s_trg_stop[0];
 	tmp.Machine_Para.s_trg_stop[1] = m_data->Machine_Para.s_trg_stop[1];
 	tmp.Machine_Para.FeedTimeOut = m_data->Machine_Para.FeedTimeOut;
@@ -257,7 +257,7 @@ DataFromPC_typ QtPLCDialogClass::getPCRunData()//4
 	tmp.Run_Para.UserAnalogoutput = m_data->ActData.UserAnalogoutput;		//用户模拟量输入
 	tmp.Run_Para.Adjustvalue = m_data->ActData.Adjustvalue;			//自动调整系数
 	tmp.Run_Para.DeltaInput = m_data->ActData.DeltaInput;				//装量调整偏差值
-	tmp.Run_Para.cmdAutoPrint = m_data->ActData.cmdAutoPrint;			//自动打印，1:自动，0：手动
+	tmp.Run_Para.sWAutoPrint = m_data->ActData.sWAutoPrint;			//自动打印，1:自动，0：手动
 
 	return tmp;
 }
@@ -364,12 +364,12 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 #pragma endregion
 	//系统参数
 #pragma region para
-	if (!((Ui::QtPLCDialogClass*)ui)->cB_enable->hasFocus())
+/*	if (!((Ui::QtPLCDialogClass*)ui)->cB_enable->hasFocus())
 	{
 		((Ui::QtPLCDialogClass*)ui)->cB_enable->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->cB_enable->setCurrentIndex(m_data->Machine_Para.enable);
 		((Ui::QtPLCDialogClass*)ui)->cB_enable->blockSignals(false);
-	}	
+	}*/	
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->hasFocus())
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->setText(QString::number(m_data->Machine_Para.s_trg_stop[0]));
@@ -841,14 +841,14 @@ void QtPLCDialogClass::on_lE_GroupNo_editingFinished()//当前组号,单位s
 #pragma endregion
 
 #pragma region ui para slots
-void QtPLCDialogClass::on_cB_enable_currentIndexChanged(int index)
-{
-	DataFromPC_typ typ;
-	typ = getPCParaData();
-	typ.Telegram_typ = 2;
-	typ.Machine_Para.enable = index;
-	m_socket->Communicate_PLC(&typ, nullptr);
-}
+//void QtPLCDialogClass::on_cB_enable_currentIndexChanged(int index)
+//{
+//	DataFromPC_typ typ;
+//	typ = getPCParaData();
+//	typ.Telegram_typ = 2;
+//	typ.Machine_Para.enable = index;
+//	m_socket->Communicate_PLC(&typ, nullptr);
+//}
 void QtPLCDialogClass::on_lE_s_trg_stop0_editingFinished()
 {
 	DataFromPC_typ typ;

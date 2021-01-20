@@ -10,9 +10,8 @@ QtPLCControl::QtPLCControl()
 	qRegisterMetaType<DataToPC_typ>("DataToPC_typ&");//注册DataToPC_typ函数，在槽函数中避免出错
 	AppPath = qApp->applicationDirPath();//exe所在目录
 
-	QString LogInfo;
-	LogInfo.sprintf("%p", QThread::currentThread());
-	qDebug() << "PLC CONTROL" << "threadID : " << LogInfo;
+	m_socket = new QtSocket_Class(nullptr);
+
 }
 
 void* QtPLCControl::QtCreateDialog(int index)
@@ -117,8 +116,6 @@ void QtPLCControl::reportSocketError()
 
 bool QtPLCControl::ConnectPlc()
 {
-	m_socket = new QtSocket_Class(nullptr);
-
 	if (((QtSocket_Class*)m_socket)->initialization())
 	{
 		//bool b = connect(this, SIGNAL(SHOWEVERYPLCCONNECT(DataToPC_typ)), this, SLOT(showPLCValue(DataToPC_typ)));

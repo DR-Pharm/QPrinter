@@ -86,7 +86,7 @@ typedef	struct
 
 typedef struct
 {
-	unsigned int		enable;
+//	unsigned int		enable;
 
 	float		s_trg_stop[MAX_PULSE_SERVO];				//停止位置
 	float		FeedTimeOut;								//下料超时时间,单位s
@@ -123,7 +123,7 @@ typedef struct
 	float			UserAnalogoutput;		//用户模拟量输入
 	float			Adjustvalue;			//自动调整系数
 	unsigned int	DeltaInput;				//装量调整偏差值
-	int				cmdAutoPrint;			//自动打印，1:自动，0：手动
+	int				sWAutoPrint;			//自动打印，1:自动，0：手动
 
 	int				Reserve[16];			//预留空间
 }Comm_Run_Para_typ;

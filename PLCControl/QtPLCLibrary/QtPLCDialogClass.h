@@ -80,7 +80,7 @@ public slots:
 	void on_lE_BatchName_editingFinished();
 	void on_lE_GroupNo_editingFinished();
 
-	void on_cB_enable_currentIndexChanged(int index);
+	//void on_cB_enable_currentIndexChanged(int index);
 	void on_lE_s_trg_stop0_editingFinished();
 	void on_lE_s_trg_stop1_editingFinished();
 	void on_lE_FeedTimeOut_editingFinished();

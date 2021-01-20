@@ -28,6 +28,7 @@ private:
 	void *m_socket = nullptr;
 	QString AppPath = qApp->applicationDirPath(); 
 	void *dlg = nullptr;
+	int m_cnCount = 0;
 public:
 	QtPLCControl();
 	void* QtCreateDialog(int);
