@@ -713,7 +713,7 @@ int QtPLCDialogClass::showMsgBox(QMessageBox::Icon icon, const char* titleStr, c
 #pragma endregion
 
 #pragma region ui run slots
-void QtPLCDialogClass::on_lE_SysOveride_editingFinished()//系统速度，0-10000对应0-100%
+void QtPLCDialogClass::on_lE_SysOveride_returnPressed()//系统速度，0-10000对应0-100%
 {
 	DataFromPC_typ typ;
 	typ = getPCRunData();
@@ -721,7 +721,7 @@ void QtPLCDialogClass::on_lE_SysOveride_editingFinished()//系统速度，0-1000
 	typ.Run_Para.SysOveride = ((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->text().toInt();
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
-void QtPLCDialogClass::on_lE_RejectCount_editingFinished()//通过计数
+void QtPLCDialogClass::on_lE_RejectCount_returnPressed()//通过计数
 {
 	DataFromPC_typ typ;
 	typ = getPCRunData();
@@ -729,7 +729,7 @@ void QtPLCDialogClass::on_lE_RejectCount_editingFinished()//通过计数
 	typ.Run_Para.RejectCount = ((Ui::QtPLCDialogClass*)ui)->lE_RejectCount->text().toInt();
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
-void QtPLCDialogClass::on_lE_ProdCount_editingFinished()//称重计数
+void QtPLCDialogClass::on_lE_ProdCount_returnPressed()//称重计数
 {
 	DataFromPC_typ typ;
 	typ = getPCRunData();
@@ -737,7 +737,7 @@ void QtPLCDialogClass::on_lE_ProdCount_editingFinished()//称重计数
 	typ.Run_Para.ProdCount = ((Ui::QtPLCDialogClass*)ui)->lE_ProdCount->text().toInt();
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
-void QtPLCDialogClass::on_lE_TOCount_editingFinished()//过重计数
+void QtPLCDialogClass::on_lE_TOCount_returnPressed()//过重计数
 {
 	DataFromPC_typ typ;
 	typ = getPCRunData();
@@ -745,7 +745,7 @@ void QtPLCDialogClass::on_lE_TOCount_editingFinished()//过重计数
 	typ.Run_Para.TOCount = ((Ui::QtPLCDialogClass*)ui)->lE_TOCount->text().toUInt();
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
-void QtPLCDialogClass::on_lE_TUCount_editingFinished()//过轻计数
+void QtPLCDialogClass::on_lE_TUCount_returnPressed()//过轻计数
 {
 	DataFromPC_typ typ;
 	typ = getPCRunData();
@@ -753,7 +753,7 @@ void QtPLCDialogClass::on_lE_TUCount_editingFinished()//过轻计数
 	typ.Run_Para.TUCount = ((Ui::QtPLCDialogClass*)ui)->lE_TUCount->text().toUInt();
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
-void QtPLCDialogClass::on_lE_TOverload_editingFinished()//超重重量,单位g
+void QtPLCDialogClass::on_lE_TOverload_returnPressed()//超重重量,单位g
 {
 	DataFromPC_typ typ;
 	typ = getPCRunData();
@@ -761,7 +761,7 @@ void QtPLCDialogClass::on_lE_TOverload_editingFinished()//超重重量,单位g
 	typ.Run_Para.TOverload = ((Ui::QtPLCDialogClass*)ui)->lE_TOverload->text().toFloat();
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
-void QtPLCDialogClass::on_lE_TUnderload_editingFinished()//超轻重量,单位g
+void QtPLCDialogClass::on_lE_TUnderload_returnPressed()//超轻重量,单位g
 {
 	DataFromPC_typ typ;
 	typ = getPCRunData();
@@ -769,7 +769,7 @@ void QtPLCDialogClass::on_lE_TUnderload_editingFinished()//超轻重量,单位g
 	typ.Run_Para.TUnderload = ((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->text().toFloat();
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
-void QtPLCDialogClass::on_lE_InterOverLoad_editingFinished()//内控线，上限,单位g
+void QtPLCDialogClass::on_lE_InterOverLoad_returnPressed()//内控线，上限,单位g
 {
 	DataFromPC_typ typ;
 	typ = getPCRunData();
@@ -777,7 +777,7 @@ void QtPLCDialogClass::on_lE_InterOverLoad_editingFinished()//内控线，上限
 	typ.Run_Para.InterOverLoad = ((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->text().toFloat();
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
-void QtPLCDialogClass::on_lE_InterUnderLoad_editingFinished()//内控线，下限,单位g
+void QtPLCDialogClass::on_lE_InterUnderLoad_returnPressed()//内控线，下限,单位g
 {
 	DataFromPC_typ typ;
 	typ = getPCRunData();
@@ -785,7 +785,7 @@ void QtPLCDialogClass::on_lE_InterUnderLoad_editingFinished()//内控线，下�
 	typ.Run_Para.InterUnderLoad = ((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->text().toFloat();
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
-void QtPLCDialogClass::on_lE_TDemand_editingFinished()///期望重量,单位g	
+void QtPLCDialogClass::on_lE_TDemand_returnPressed()///期望重量,单位g	
 {
 	DataFromPC_typ typ;
 	typ = getPCRunData();
@@ -801,7 +801,7 @@ void QtPLCDialogClass::on_cB_TireMode_currentIndexChanged(int index)//0:每组�
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
 
-void QtPLCDialogClass::on_lE_GroupSet_editingFinished()///每组测试胶囊数量
+void QtPLCDialogClass::on_lE_GroupSet_returnPressed()///每组测试胶囊数量
 {
 	DataFromPC_typ typ;
 	typ = getPCRunData();
@@ -809,7 +809,7 @@ void QtPLCDialogClass::on_lE_GroupSet_editingFinished()///每组测试胶囊数�
 	typ.Run_Para.GroupSet = ((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->text().toInt();
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
-void QtPLCDialogClass::on_lE_TestInterval_editingFinished()///测试间隔时间,单位s
+void QtPLCDialogClass::on_lE_TestInterval_returnPressed()///测试间隔时间,单位s
 {
 	DataFromPC_typ typ;
 	typ = getPCRunData();
@@ -817,7 +817,7 @@ void QtPLCDialogClass::on_lE_TestInterval_editingFinished()///测试间隔时间
 	typ.Run_Para.TestInterval = ((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->text().toInt();
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
-void QtPLCDialogClass::on_lE_BatchName_editingFinished()//批号字符串
+void QtPLCDialogClass::on_lE_BatchName_returnPressed()//批号字符串
 {
 	DataFromPC_typ typ;
 	typ = getPCRunData();
@@ -825,7 +825,7 @@ void QtPLCDialogClass::on_lE_BatchName_editingFinished()//批号字符串
 	//typ.Run_Para.BatchName = (char*)(((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text());
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
-void QtPLCDialogClass::on_lE_GroupNo_editingFinished()//当前组号,单位s
+void QtPLCDialogClass::on_lE_GroupNo_returnPressed()//当前组号,单位s
 {
 	DataFromPC_typ typ;
 	typ = getPCRunData();
@@ -849,7 +849,7 @@ void QtPLCDialogClass::on_lE_GroupNo_editingFinished()//当前组号,单位s
 //	typ.Machine_Para.enable = index;
 //	m_socket->Communicate_PLC(&typ, nullptr);
 //}
-void QtPLCDialogClass::on_lE_s_trg_stop0_editingFinished()
+void QtPLCDialogClass::on_lE_s_trg_stop0_returnPressed()
 {
 	DataFromPC_typ typ;
 	typ = getPCParaData();
@@ -857,7 +857,7 @@ void QtPLCDialogClass::on_lE_s_trg_stop0_editingFinished()
 	typ.Machine_Para.s_trg_stop[0] = ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->text().toInt();
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
-void QtPLCDialogClass::on_lE_s_trg_stop1_editingFinished()
+void QtPLCDialogClass::on_lE_s_trg_stop1_returnPressed()
 {
 	DataFromPC_typ typ;
 	typ = getPCParaData();
@@ -865,7 +865,7 @@ void QtPLCDialogClass::on_lE_s_trg_stop1_editingFinished()
 	typ.Machine_Para.s_trg_stop[1] = ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->text().toInt();
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
-void QtPLCDialogClass::on_lE_FeedTimeOut_editingFinished()
+void QtPLCDialogClass::on_lE_FeedTimeOut_returnPressed()
 {
 	DataFromPC_typ typ;
 	typ = getPCParaData();
@@ -873,7 +873,7 @@ void QtPLCDialogClass::on_lE_FeedTimeOut_editingFinished()
 	typ.Machine_Para.FeedTimeOut = ((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->text().toInt();
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
-void QtPLCDialogClass::on_lE_CapPickInterval_editingFinished()
+void QtPLCDialogClass::on_lE_CapPickInterval_returnPressed()
 {
 	DataFromPC_typ typ;
 	typ = getPCParaData();
@@ -881,7 +881,7 @@ void QtPLCDialogClass::on_lE_CapPickInterval_editingFinished()
 	typ.Machine_Para.CapPickInterval = ((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->text().toInt();
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
-void QtPLCDialogClass::on_lE_CapBackInterval_editingFinished()
+void QtPLCDialogClass::on_lE_CapBackInterval_returnPressed()
 {
 	DataFromPC_typ typ;
 	typ = getPCParaData();
@@ -889,7 +889,7 @@ void QtPLCDialogClass::on_lE_CapBackInterval_editingFinished()
 	typ.Machine_Para.CapBackInterval = ((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->text().toInt();
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
-void QtPLCDialogClass::on_lE_TireDelay_editingFinished()
+void QtPLCDialogClass::on_lE_TireDelay_returnPressed()
 {
 	DataFromPC_typ typ;
 	typ = getPCParaData();
@@ -897,7 +897,7 @@ void QtPLCDialogClass::on_lE_TireDelay_editingFinished()
 	typ.Machine_Para.TireDelay = ((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->text().toInt();
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
-void QtPLCDialogClass::on_lE_ReadDelay_editingFinished()
+void QtPLCDialogClass::on_lE_ReadDelay_returnPressed()
 {
 	DataFromPC_typ typ;
 	typ = getPCParaData();
@@ -905,7 +905,7 @@ void QtPLCDialogClass::on_lE_ReadDelay_editingFinished()
 	typ.Machine_Para.ReadDelay = ((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->text().toInt();
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
-void QtPLCDialogClass::on_lE_TireWaitTime_editingFinished()
+void QtPLCDialogClass::on_lE_TireWaitTime_returnPressed()
 {
 	DataFromPC_typ typ;
 	typ = getPCParaData();
@@ -913,7 +913,7 @@ void QtPLCDialogClass::on_lE_TireWaitTime_editingFinished()
 	typ.Machine_Para.TireWaitTime = ((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->text().toInt();
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
-void QtPLCDialogClass::on_lE_StopSignalDelay_editingFinished()
+void QtPLCDialogClass::on_lE_StopSignalDelay_returnPressed()
 {
 	DataFromPC_typ typ;
 	typ = getPCParaData();
