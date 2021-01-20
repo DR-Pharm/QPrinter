@@ -11,6 +11,23 @@ QtPLCControl::QtPLCControl()
 	AppPath = qApp->applicationDirPath();//exeËùÔÚÄ¿Â¼
 
 	m_socket = new QtSocket_Class(nullptr);
+	((QtSocket_Class*)m_socket)->initialization();
+	bool b = connect(this, SIGNAL(STARTCONNECT(QString, int)), ((QtSocket_Class*)m_socket), SLOT(connectServer(QString, int)));
+	b = connect(((QtSocket_Class*)m_socket), SIGNAL(signal_FROMPLC(void*, int, int, int, int)), this, SLOT(connectIN_AND_OUT(void*, int, int, int, int)));
+	b = connect(((QtSocket_Class*)m_socket), &QtSocket_Class::signal_Connected, [=] {
+		emit signal_SUCCESSFULCONNECTED();
+	});
+	b = connect(((QtSocket_Class*)m_socket), &QtSocket_Class::signal_SOCKETERROR, [=] {
+		if (m_cnCount++<150)
+		{
+			QCoreApplication::processEvents();
+			ConnectPlc();
+		}
+		else
+		{ 
+			emit SOCKETERROR();
+		}
+	});
 
 }
 
@@ -49,41 +66,21 @@ void QtPLCControl::AlarmReset()
 
 void QtPLCControl::CountReset()
 {
-	if (m_socket != nullptr)
-	{
-		((QtSocket_Class*)m_socket)->CountReset();
-	}
 }
 
 void QtPLCControl::SetAlarm(int index)
 {
-	if (m_socket != nullptr)
-	{
-		((QtSocket_Class*)m_socket)->SetAlarm(index);
-	}
 }
 void QtPLCControl::RunSpeed(int index, void* data)
 {
-	if (m_socket !=nullptr)
-	{
-		((QtSocket_Class*)m_socket)->RunSpeed(index,(DataToPC_typ*)data);
-	}
 }
 
 void QtPLCControl::EnReject(void* data)
 {
-	if (nullptr != m_socket)
-	{
-		((QtSocket_Class*)m_socket)->EnReject((DataToPC_typ*)data);
-	}
 }
 
 void QtPLCControl::GoHome()
 {
-	if (nullptr != m_socket)
-	{
-		((QtSocket_Class*)m_socket)->GoHome();
-	}
 }
 /////NewUI_Demo¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü
 
@@ -116,18 +113,10 @@ void QtPLCControl::reportSocketError()
 
 bool QtPLCControl::ConnectPlc()
 {
-	if (((QtSocket_Class*)m_socket)->initialization())
 	{
 		//bool b = connect(this, SIGNAL(SHOWEVERYPLCCONNECT(DataToPC_typ)), this, SLOT(showPLCValue(DataToPC_typ)));
-		bool b = connect(((QtSocket_Class*)m_socket), &QtSocket_Class::signal_Connected, [=] {
-			emit signal_SUCCESSFULCONNECTED();
-		});
-		b = connect(((QtSocket_Class*)m_socket), &QtSocket_Class::signal_SOCKETERROR, [=] {
-			emit SOCKETERROR();
-		});
-		b = connect(((QtSocket_Class*)m_socket), SIGNAL(signal_FROMPLC(void*, int, int, int, int)), this, SLOT(connectIN_AND_OUT(void*,int,int, int, int)));
+
 		//b = connect(m_socket, SIGNAL(signal_SOCKETERROR(QAbstractSocket::SocketError)), this, SLOT(reportSocketError(QAbstractSocket::SocketError)));
-		b = connect(this, SIGNAL(STARTCONNECT(QString, int)), ((QtSocket_Class*)m_socket), SLOT(connectServer(QString,int)));
 		//m_socket->connectServer(ipAddress.toStdString().c_str(), port);
 		emit STARTCONNECT("10.86.50.210", 5000);
 	}
@@ -162,7 +151,7 @@ void QtPLCControl::StopWork()
 bool QtPLCControl::SetResult(int counter, unsigned int alarm[2])
 {
 
-	return ((QtSocket_Class*)m_socket)->SetResult(counter,&alarm[0]);
+	return false;
 }
 
 void QtPLCControl::setStartWork(bool b)
@@ -182,10 +171,6 @@ void QtPLCControl::setStartWork(bool b)
 
 void QtPLCControl::InitWork()//PLC.txt
 {
-	if (nullptr != m_socket)
-	{
-		((QtSocket_Class*)m_socket)->InitWork();
-	}
 }
 
 void QtPLCControl::setWinMini()

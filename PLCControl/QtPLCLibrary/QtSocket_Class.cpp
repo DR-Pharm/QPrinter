@@ -125,7 +125,11 @@ bool QtSocket_Class::initialization()//连接初始化
 {
 	if (nullptr == mp_TCPSocket)
 	{
-		mp_TCPSocket = new QTcpSocket(this);
+		mp_TCPSocket = new QTcpSocket(this);	
+
+		bool b = connect(mp_TCPSocket, SIGNAL(connected()), this, SLOT(OnServer()));
+			 b = connect(mp_TCPSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(onConnectError(QAbstractSocket::SocketError)));
+			b = connect(mp_TCPSocket, SIGNAL(readyRead()), this, SLOT(onReadAllData()));
 	}
 	return true;
 }
@@ -149,15 +153,12 @@ bool QtSocket_Class::connectServer(QString ip, int port)
 	m_iport = port;
 	if (mp_TCPSocket != nullptr)
 	{
-		bool b = connect(mp_TCPSocket, SIGNAL(connected()), this, SLOT(OnServer()));
-		b = connect(mp_TCPSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(onConnectError(QAbstractSocket::SocketError)));
-		b = connect(mp_TCPSocket, SIGNAL(readyRead()), this, SLOT(onReadAllData()));
 		mp_TCPSocket->connectToHost(m_sip, m_iport);
-		b = mp_TCPSocket->waitForConnected(1000);
+		bool b = mp_TCPSocket->waitForConnected(100);//1000 before
 		if (!b)
 		{
 			emit signal_SOCKETERROR();
-			mp_TCPSocket = nullptr;
+			//mp_TCPSocket = nullptr;
 		}
 		return true;
 	}
@@ -169,45 +170,6 @@ bool QtSocket_Class::disconnect()
 	return false;
 }
 
-
-
-
-
-bool QtSocket_Class::InitWork()
-{
-	memset(m_Dmsg_FromPC, 0, sizeof(DataFromPC_typ));
-	memset(m_Dmsg_ToPC, 0, sizeof(DataToPC_typ));
-	// 	if (Communicate_PLC(m_Dmsg_FromPC, m_Dmsg_ToPC))
-	// 	{
-	// 	}
-
-	DataFromPC_typ typ;
-
-	QString plcParamPath = qApp->applicationDirPath() + "/ModelFile/plc.txt";
-	QFile f(plcParamPath);
-	if (!f.open(QIODevice::ReadOnly | QIODevice::Text))
-	{
-		return false;
-	}
-	char* ch = new char[sizeof(DataFromPC_typ) + 1];
-	memset(ch, 0, sizeof(DataFromPC_typ) + 1);
-	//txtInput.readAll();
-	f.read(ch, sizeof(DataFromPC_typ));
-
-	memcpy(&typ, ch, sizeof(DataFromPC_typ));//赋值回来
-
-	f.close();
-
-	typ.Telegram_typ = 2;
-	Communicate_PLC(&typ, nullptr);//系统
-
-	typ.Telegram_typ = 4;
-	if (Communicate_PLC(&typ, nullptr))//运行
-	{
-		return true;
-	}
-	return false;
-}
 
 bool QtSocket_Class::ResetError()
 {
@@ -224,36 +186,6 @@ bool QtSocket_Class::ResetError()
 	return false;
 }
 
-
-bool QtSocket_Class::SetResult(int counter, unsigned int alarm[2])
-{
-	memset(m_Dmsg_FromPC, 0, sizeof(DataFromPC_typ));
-	memset(m_Dmsg_ToPC, 0, sizeof(DataToPC_typ));
-	m_Dmsg_FromPC->Telegram_typ = 3;
-#ifdef INSPECTION_1//时↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-	m_Dmsg_FromPC->PhotoResult.Result[0] = alarm[0]; //0b00000101;
-	//m_Dmsg_FromPC->PhotoResult.Result[1] = alarm[1]; //0b00001001;
-	//m_Dmsg_FromPC->PhotoResult.Alarm[2] = alarm[2]; //0b00010001;
-	//m_Dmsg_FromPC->PhotoResult.Alarm[3] = alarm[3]; //0b00100001;
-	m_Dmsg_FromPC->PhotoResult.PhotoCnt[0] = counter;
-#endif
-	//phototimes!=0时↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-#ifdef INSPECTION_361
-	m_Dmsg_FromPC->PhotoResult.Alarm[0] = alarm[0]; //0b00000101;
-	m_Dmsg_FromPC->PhotoResult.Alarm[1] = alarm[1]; //0b00001001;
-	m_Dmsg_FromPC->PhotoResult.Alarm[2] = alarm[2]; //0b00010001;
-	m_Dmsg_FromPC->PhotoResult.Alarm[3] = alarm[3]; //0b00100001;
-#endif
-// 	for (int i=0;i<30;i++)
-// 	{
-// 		SET_BIT(msg_FromPC->PhotoResult.Alarm[i/8], i-i/8*8);
-// 	}
-	if (Communicate_PLC(m_Dmsg_FromPC, m_Dmsg_ToPC))
-	{
-		return true;
-	}
-	return false;
-}
 
 void QtSocket_Class::programsetCloseEvent()
 {
@@ -384,107 +316,7 @@ bool QtSocket_Class::AlarmReset()
 #endif
 	return false;
 }
-bool QtSocket_Class::CountReset()
-{
-#ifndef INSPECTION_EDGE
-	memset(m_Dmsg_FromPC, 0, sizeof(DataFromPC_typ));
-	memset(m_Dmsg_ToPC, 0, sizeof(DataToPC_typ));
-	m_Dmsg_FromPC->Telegram_typ = 1;
-	//m_Dmsg_FromPC->Machine_Cmd.cmdResetCounter = 1;
-#ifdef INSPECTION_1
-	m_Dmsg_FromPC->Machine_Cmd.cmdPhotoCntZero = 1;
-#endif
-	if (Communicate_PLC(m_Dmsg_FromPC, m_Dmsg_ToPC))
-	{
-		return true;
-	}
-#endif
-	return false;
-}
 
-bool QtSocket_Class::SetAlarm(int index)
-{
-	memset(m_Dmsg_FromPC, 0, sizeof(DataFromPC_typ));
-	memset(m_Dmsg_ToPC, 0, sizeof(DataToPC_typ));
-	m_Dmsg_FromPC->Telegram_typ = 1;
-
-	if (0 == index)
-	{
-#ifdef INSPECTION_1
-		m_Dmsg_FromPC->Machine_Cmd.cmdTestBuzzer = 0;
-#endif
-	}
-	if (1 == index)
-	{
-#ifdef INSPECTION_1
-		m_Dmsg_FromPC->Machine_Cmd.cmdTestBuzzer = 1;
-#endif
-	}
-	if (2 == index)
-	{
-#ifdef INSPECTION_1
-		m_Dmsg_FromPC->Machine_Cmd.cmdSetAlarm = 2;
-#endif
-	}
-	if (Communicate_PLC(m_Dmsg_FromPC, m_Dmsg_ToPC))
-	{
-		return true;
-	}
-	return false;
-}
-
-
-bool QtSocket_Class::RunSpeed(int index, DataToPC_typ* data)//data no use 
-{
-	memset(m_Dmsg_FromPC, 0, sizeof(DataFromPC_typ));
-	memcpy(m_Dmsg_ToPC, _ToPC, sizeof(DataToPC_typ));//主界面用
-#ifdef INSPECTION_360
-	m_Dmsg_FromPC->Telegram_typ = 4;
-	//m_Dmsg_FromPC->Run_Para.RunSpeed = index;
-	//m_Dmsg_FromPC->Run_Para.enFeed = _ToPC->ActData.enFeed;
-	//m_Dmsg_FromPC->Run_Para.enPhoto = _ToPC->ActData.enPhoto;
-	//m_Dmsg_FromPC->Run_Para.enReject = _ToPC->ActData.enReject;
-	//m_Dmsg_FromPC->Run_Para.enRotate = _ToPC->ActData.enRotate;
-#endif // INSPECTION_360
-
-	if (Communicate_PLC(m_Dmsg_FromPC, m_Dmsg_ToPC))
-	{
-		return true;
-	}
-	return false;
-}
-
-bool QtSocket_Class::EnReject(DataToPC_typ* data)
-{
-#ifndef INSPECTION_EDGE
-	memset(m_Dmsg_FromPC, 0, sizeof(DataFromPC_typ));
-	memcpy(m_Dmsg_ToPC, &data, sizeof(DataToPC_typ));//主界面用
-
-	m_Dmsg_FromPC->Telegram_typ = 4;
-	//m_Dmsg_FromPC->Run_Para.enReject = 1;
-	if (Communicate_PLC(m_Dmsg_FromPC, m_Dmsg_ToPC))
-	{
-		return true;
-	}
-#endif
-	return false;
-}
-
-bool QtSocket_Class::GoHome()
-{
-	memset(m_Dmsg_FromPC, 0, sizeof(DataFromPC_typ));
-	memset(m_Dmsg_ToPC, 0, sizeof(DataToPC_typ));
-
-	m_Dmsg_FromPC->Telegram_typ = 1;
-#ifdef INSPECTION_360
-	//m_Dmsg_FromPC->Machine_Cmd.cmdHome = 1;
-#endif // INSPECTION_360
-	if (Communicate_PLC(m_Dmsg_FromPC, m_Dmsg_ToPC))
-	{
-		return true;
-	}
-	return false;
-}
 void QtSocket_Class::onConnectError(QAbstractSocket::SocketError err)
 {
 
@@ -504,12 +336,15 @@ void QtSocket_Class::onBeatSignal()
 		// 		_ToPC->Status.HomeOK = 1;
 		// 		memcpy(_ctoPC, _ToPC, sizeof(DataFromPC_typ));
 
+		if (mp_TCPSocket!=nullptr)
+		{
 		if (mp_TCPSocket->write(_cfromPC, sizeof(DataFromPC_typ)))
 		{
 			// 			while (sizeof(DataToPC_typ) == mp_TCPSocket->read(_ctoPC, sizeof(DataToPC_typ)))
 			// 				memcpy(_ToPC, _ctoPC, sizeof(DataToPC_typ));
 		}
 
+		}
 		memset(_ToPC, 0, sizeof(DataToPC_typ));
 		memset(_ctoPC, 0, sizeof(DataToPC_typ));
 	}

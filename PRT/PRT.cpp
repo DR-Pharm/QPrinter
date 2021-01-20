@@ -48,7 +48,7 @@ void PRT::initPLC()
 
 	bool b = connect(this, SIGNAL(STARTCONNECTPLC()), m_pPlclib, SLOT(ConnectPlc()));
 	//emit STARTCONNECTPLC();
-	//b = connect(m_pPlclib, SIGNAL(SOCKETERROR()), this, SLOT(ErrorConnect()));
+	b = connect(m_pPlclib, SIGNAL(SOCKETERROR()), this, SLOT(ErrorConnect()));
 	b = connect(m_pPlclib, SIGNAL(signal_SUCCESSFULCONNECTED()), this, SLOT(SuccessConnect()));
 	if (tm_ReConnect == nullptr)
 	{
@@ -58,7 +58,6 @@ void PRT::initPLC()
 	tm_ReConnect->start(10);
 
 	wt->setTxt(QString::fromLocal8Bit("正在连接PLC,请稍等..."));
-	wt->show();
 	dlg = (QDialog *)(m_pPlclib->QtCreateDialog(1));
 	dlg->setParent(ui.widget);
 	dlg->move(0, 0);
@@ -414,9 +413,6 @@ void PRT::showWindowOut(QString str)
 }
 void PRT::SuccessConnect()
 {
-	tm_ReConnect->stop();
-	delete tm_ReConnect;
-	tm_ReConnect = nullptr;
 	wt->close();
 	showWindowOut(QString::fromLocal8Bit("PLC连接正常"));
 
@@ -425,13 +421,16 @@ void PRT::SuccessConnect()
 }
 void PRT::ErrorConnect()
 {
-	/*showMsgBox("通讯错误", "连接PLC出错,请检查网络连接!", "我去查查", "");
-	bool b = disconnect(m_pPlclib, SIGNAL(SOCKETERROR()), this, SLOT(ErrorConnect()));*/
+	wt->close();
+	showMsgBox("通讯错误", "连接PLC出错,请修复后重启程序!", "我去查查", "");
 
 }
 void PRT::EmitReconnect()
 {
+	wt->show();
 	tm_ReConnect->stop();
+	delete tm_ReConnect;
+	tm_ReConnect = nullptr;
 	emit STARTCONNECTPLC();
 }
 #pragma endregion

@@ -14,7 +14,6 @@
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -22,7 +21,9 @@ QT_BEGIN_NAMESPACE
 class Ui_QWaiting
 {
 public:
-    QVBoxLayout *verticalLayout;
+    QHBoxLayout *horizontalLayout_3;
+    QFrame *frame_2;
+    QHBoxLayout *horizontalLayout_2;
     QFrame *frame;
     QHBoxLayout *horizontalLayout;
     QLabel *label;
@@ -32,15 +33,25 @@ public:
     {
         if (QWaiting->objectName().isEmpty())
             QWaiting->setObjectName(QString::fromUtf8("QWaiting"));
-        QWaiting->resize(374, 117);
+        QWaiting->resize(400, 131);
         QWaiting->setMinimumSize(QSize(20, 20));
         QWaiting->setMaximumSize(QSize(400, 400));
         QWaiting->setContextMenuPolicy(Qt::DefaultContextMenu);
-        verticalLayout = new QVBoxLayout(QWaiting);
-        verticalLayout->setSpacing(6);
-        verticalLayout->setContentsMargins(11, 11, 11, 11);
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        frame = new QFrame(QWaiting);
+        horizontalLayout_3 = new QHBoxLayout(QWaiting);
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
+        horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
+        frame_2 = new QFrame(QWaiting);
+        frame_2->setObjectName(QString::fromUtf8("frame_2"));
+        frame_2->setFrameShape(QFrame::Panel);
+        frame_2->setFrameShadow(QFrame::Raised);
+        frame_2->setLineWidth(10);
+        horizontalLayout_2 = new QHBoxLayout(frame_2);
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        frame = new QFrame(frame_2);
         frame->setObjectName(QString::fromUtf8("frame"));
         frame->setAutoFillBackground(false);
         frame->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 221);"));
@@ -78,7 +89,10 @@ public:
         horizontalLayout->addWidget(label_2);
 
 
-        verticalLayout->addWidget(frame);
+        horizontalLayout_2->addWidget(frame);
+
+
+        horizontalLayout_3->addWidget(frame_2);
 
 
         retranslateUi(QWaiting);

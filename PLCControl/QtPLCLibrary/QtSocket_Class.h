@@ -39,7 +39,6 @@ public:
 	bool initialization(); //初始化
 	bool disconnect(); //断开
 	bool ResetError(); //错误复位
-	bool SetResult(int counter, unsigned int alarm[4]); //结果
 	//void set_message_handler(MESSAGE_HANDLER, void*); //消息头
 	bool Communicate_PLC(DataFromPC_typ*, DataToPC_typ*);//PLC通信
 
@@ -47,15 +46,9 @@ public:
 
 	bool StartWork(); //开始任务
 	bool StopWork(); //停止
-	bool InitWork();
 	//初始化任务
 	bool syncData();
 	bool AlarmReset();
-	bool CountReset();
-	bool SetAlarm(int index);
-	bool RunSpeed(int, DataToPC_typ*);
-	bool EnReject(DataToPC_typ*);
-	bool GoHome();
 public slots:
 	void OnServer();
 	bool connectServer(QString, int); //连接服务器
