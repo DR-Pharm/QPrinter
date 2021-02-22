@@ -1,6 +1,7 @@
 #pragma once
 #include <QDebug>
 #include <QLabel>
+#include <QPainter>
 #include "PLCRelayHead.h"
 #include "QtSocket_Class.h"
 #include "mypushbutton.h"
@@ -24,6 +25,7 @@ public:
 	void inittabicon();
 	void initFont();
 	void initDlg();
+	void createPixCurve(QPixmap * pix);
 	void setWindowMinimized();
 	int showMsgBox(QMessageBox::Icon icon, const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str);
 
@@ -58,6 +60,10 @@ private:
 	//µ¯ÌøÌØÐ§
 	QPropertyAnimation * animation1 = nullptr;
 	QPropertyAnimation * animation2 = nullptr;
+
+	QPainter *painter = nullptr; 
+	QPixmap *pix = nullptr; 
+	QLabel *lb = nullptr;
 public slots:
 
 	DataFromPC_typ getPCParaData();
