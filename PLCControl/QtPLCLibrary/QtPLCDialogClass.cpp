@@ -926,6 +926,7 @@ void QtPLCDialogClass::on_lE_StopSignalDelay_returnPressed()
 #pragma region ui cmd slots
 //DateTimeStructTyp		DateTimeSet;		//设定日期时间目标
 //unsigned char		cmdChangeDT;					//修改日期时间,1:执行，自动复位
+
 void QtPLCDialogClass::on_pB_cmdScaleRead_clicked()//秤读数命令,1:执行，自动复位
 {
 	DataFromPC_typ typ;
@@ -1051,6 +1052,10 @@ void QtPLCDialogClass::on_pB_cmdSwing_clicked()//旋转单工位,1:执行，自�
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdSwing = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_pB_showPrt_toggled(bool checked)//
+{
+	emit SHOWPRT(checked);
 }
 void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 {

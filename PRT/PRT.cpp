@@ -17,6 +17,9 @@ PRT::PRT(QWidget *parent)
 	initUI();
 	initPLC();
 
+	ui.groupBox->raise();
+	ui.groupBox->setVisible(false);
+
 	installEventFilter(this);
 
 	QString LogInfo;
@@ -59,6 +62,7 @@ void PRT::initPLC()
 
 	wt->setTxt(QString::fromLocal8Bit("正在连接PLC,请稍等..."));
 	dlg = (QDialog *)(m_pPlclib->QtCreateDialog(1));
+	b = connect(dlg, SIGNAL(SHOWPRT(bool)), this, SLOT(showPrt(bool)));
 	dlg->setParent(ui.widget);
 	dlg->move(0, 0);
 	b = connect(this, SIGNAL(MINI()), m_pPlclib, SLOT(setWinMini()));
@@ -215,6 +219,10 @@ bool PRT::caculateCount()
 #pragma endregion
 
 #pragma region ui
+void PRT::showPrt(bool b)
+{
+		ui.groupBox->setVisible(b);//lower
+}
 void PRT::initUI()
 {
 	ui.pB_PrintDirect->setIconSize(QSize(64, 64));
@@ -427,7 +435,7 @@ void PRT::ErrorConnect()
 }
 void PRT::EmitReconnect()
 {
-	wt->show();
+	//wt->show();//remeber to note off
 	tm_ReConnect->stop();
 	delete tm_ReConnect;
 	tm_ReConnect = nullptr;

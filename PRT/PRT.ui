@@ -53,21 +53,21 @@
          <widget class="QGroupBox" name="groupBox">
           <property name="geometry">
            <rect>
-            <x>340</x>
-            <y>27</y>
-            <width>385</width>
-            <height>571</height>
+            <x>850</x>
+            <y>0</y>
+            <width>382</width>
+            <height>761</height>
            </rect>
           </property>
           <property name="minimumSize">
            <size>
-            <width>385</width>
+            <width>382</width>
             <height>0</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>385</width>
+            <width>382</width>
             <height>781</height>
            </size>
           </property>
@@ -76,6 +76,9 @@
             <family>迷你简菱心</family>
             <pointsize>20</pointsize>
            </font>
+          </property>
+          <property name="autoFillBackground">
+           <bool>true</bool>
           </property>
           <property name="title">
            <string>打印</string>

@@ -107,4 +107,5 @@ public slots:
 	void SuccessConnect();
 	void ErrorConnect();
 	void EmitReconnect();
+	void showPrt(bool);
 };

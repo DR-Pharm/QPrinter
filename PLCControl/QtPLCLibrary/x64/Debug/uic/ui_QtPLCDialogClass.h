@@ -106,6 +106,11 @@ public:
     QComboBox *cB_paraScaleSetStable;
     QPushButton *pB_cmdScaleSetStable;
     QSpacerItem *verticalSpacer_2;
+    QHBoxLayout *horizontalLayout_5;
+    QSpacerItem *horizontalSpacer_14;
+    QPushButton *pB_showPrt;
+    QSpacerItem *horizontalSpacer_11;
+    QSpacerItem *verticalSpacer_19;
     QHBoxLayout *horizontalLayout_3;
     QSpacerItem *horizontalSpacer_12;
     QPushButton *pB_cmdAlogtest;
@@ -687,6 +692,30 @@ public:
         verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
         verticalLayout_2->addItem(verticalSpacer_2);
+
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setSpacing(6);
+        horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
+        horizontalSpacer_14 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_5->addItem(horizontalSpacer_14);
+
+        pB_showPrt = new QPushButton(tab_6);
+        pB_showPrt->setObjectName(QString::fromUtf8("pB_showPrt"));
+        pB_showPrt->setCheckable(true);
+
+        horizontalLayout_5->addWidget(pB_showPrt);
+
+        horizontalSpacer_11 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_5->addItem(horizontalSpacer_11);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_5);
+
+        verticalSpacer_19 = new QSpacerItem(20, 85, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_2->addItem(verticalSpacer_19);
 
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setSpacing(6);
@@ -1964,8 +1993,8 @@ public:
 
         retranslateUi(QtPLCDialogClass);
 
-        tabWidget_PLC->setCurrentIndex(1);
-        tabWidget->setCurrentIndex(0);
+        tabWidget_PLC->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(QtPLCDialogClass);
@@ -2021,6 +2050,7 @@ public:
         cB_paraScaleSetStable->setItemText(3, QCoreApplication::translate("QtPLCDialogClass", "\351\235\236\345\270\270\344\270\215\347\250\263\345\256\232", nullptr));
 
         pB_cmdScaleSetStable->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\256\276\345\256\232\347\247\244\347\250\263\345\256\232\347\212\266\346\200\201", nullptr));
+        pB_showPrt->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\211\223\345\215\260\350\256\276\347\275\256", nullptr));
         pB_cmdAlogtest->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\250\241\346\213\237\351\207\217\350\276\223\345\207\272\346\265\213\350\257\225", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_6), QString());
         tabWidget_PLC->setTabText(tabWidget_PLC->indexOf(tab_PLC_Control), QString());

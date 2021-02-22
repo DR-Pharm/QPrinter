@@ -15,6 +15,7 @@ signals:
 	void CLOSESIGNAL();
 	void SHOWEVERYPLCVALUE(DataToPC_typ);
 	void GETSTRING(QString);
+	void SHOWPRT(bool);
 public:
 	QtPLCDialogClass(QDialog *parent = Q_NULLPTR);
 	~QtPLCDialogClass();
@@ -109,6 +110,8 @@ public slots:
 	void on_pB_cmdFeedSingle_clicked();
 	void on_pB_cmdFeedSingleStop_clicked();
 	void on_pB_cmdSwing_clicked();
+
+	void on_pB_showPrt_toggled(bool checked);
 
 	void on_pB_cmdStart_toggled(bool checked);
 	void on_pB_cmdAlarmReset_clicked();
