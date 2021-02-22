@@ -714,7 +714,7 @@ void QtPLCDialogClass::createPixCurve(QPixmap *pix)
 	//坐标系
 	int of = 10;//箭头
 	int basePointX = 200;
-	int basePointY = pixHeight / 2 - 150;
+	int basePointY = pixHeight - 150;
 	int XRight = rightW - 150;
 	int dotLineRight = XRight - 75;
 	int YTop = weightBottom + 100;
@@ -762,8 +762,8 @@ void QtPLCDialogClass::createPixCurve(QPixmap *pix)
 			}
 		}
 		//lines.append(QLine(QPoint(betweenweight, weightTop), QPoint(betweenweight, weightBottom)));//重量分析与每粒重量之间
-		lines.append(QLine(QPoint(edgeOffset, pixHeight / 2 - 80 + simpleFun), QPoint(rightW, pixHeight / 2 - 80 + simpleFun)));//1#操作人签名上侧
-		lines.append(QLine(QPoint(edgeOffset, pixHeight / 2), QPoint(rightW, pixHeight / 2)));//1/2#分割线
+		//lines.append(QLine(QPoint(edgeOffset, pixHeight - 80 + simpleFun), QPoint(rightW, pixHeight - 80 + simpleFun)));//1#操作人签名上侧
+		//lines.append(QLine(QPoint(edgeOffset, pixHeight), QPoint(rightW, pixHeight)));//1/2#分割线
 		//lines.append(QLine(QPoint(edgeOffset, bottomH - 80), QPoint(rightW, bottomH -80)));//2#操作人签名上侧
 
 
@@ -781,8 +781,8 @@ void QtPLCDialogClass::createPixCurve(QPixmap *pix)
 
 		painter->setPen(QPen(QColor(0, 0, 0), 1, Qt::DashLine));
 
-		lines.append(QLine(QPoint(edgeOffset, pixHeight / 2 + 5), QPoint(rightW, pixHeight / 2 + 5)));//1/2#分割线
-		lines.append(QLine(QPoint(edgeOffset, pixHeight / 2 - 5), QPoint(rightW, pixHeight / 2 - 5)));//1/2#分割线
+		//lines.append(QLine(QPoint(edgeOffset, pixHeight / 2 + 5), QPoint(rightW, pixHeight / 2 + 5)));//1/2#分割线
+		//lines.append(QLine(QPoint(edgeOffset, pixHeight / 2 - 5), QPoint(rightW, pixHeight / 2 - 5)));//1/2#分割线
 		//lines   200,rightW-250 pixHeight/2-825 pixHeight/2-275   250start point
 		painter->drawText(basePointX - 40, basePointY + simpleFun, 50, 50, Qt::AlignVCenter, "0");//0
 		if (data_One[totalMachineCount].size() > 0)
