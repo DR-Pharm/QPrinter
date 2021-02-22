@@ -87,9 +87,9 @@ public:
         widget->setMaximumSize(QSize(3434, 3434));
         groupBox = new QGroupBox(widget);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setGeometry(QRect(850, 0, 382, 761));
-        groupBox->setMinimumSize(QSize(382, 0));
-        groupBox->setMaximumSize(QSize(382, 781));
+        groupBox->setGeometry(QRect(850, 0, 384, 755));
+        groupBox->setMinimumSize(QSize(384, 755));
+        groupBox->setMaximumSize(QSize(384, 755));
         QFont font;
         font.setFamily(QString::fromUtf8("\350\277\267\344\275\240\347\256\200\350\217\261\345\277\203"));
         font.setPointSize(20);

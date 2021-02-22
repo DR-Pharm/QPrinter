@@ -55,20 +55,20 @@
            <rect>
             <x>850</x>
             <y>0</y>
-            <width>382</width>
-            <height>761</height>
+            <width>384</width>
+            <height>755</height>
            </rect>
           </property>
           <property name="minimumSize">
            <size>
-            <width>382</width>
-            <height>0</height>
+            <width>384</width>
+            <height>755</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>382</width>
-            <height>781</height>
+            <width>384</width>
+            <height>755</height>
            </size>
           </property>
           <property name="font">
