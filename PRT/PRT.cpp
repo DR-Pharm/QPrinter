@@ -435,7 +435,7 @@ void PRT::ErrorConnect()
 }
 void PRT::EmitReconnect()
 {
-	wt->show();//remeber to note off
+	//wt->show();//remeber to note off
 	tm_ReConnect->stop();
 	delete tm_ReConnect;
 	tm_ReConnect = nullptr;

@@ -592,9 +592,9 @@ void QtPLCDialogClass::initDlg()
 	m_dtDlg->setWindowIcon(QIcon(AppPath + "/ico/dr.ico"));
 	m_dtDlg->setWindowTitle(QString::fromLocal8Bit("检测数据明细表"));
 	connect(m_dtDlg, SIGNAL(rejected()), this, SLOT(dtClose()));
-	m_dtDlg->move(15,15);
-	//m_dtDlg->resize(797, 550);
-	m_dtDlg->setFixedSize(QSize(797, 550));
+	m_dtDlg->move(0, 0);
+	m_dtDlg->setFixedSize(QSize(860, 755));//1280 800
+	//m_dtDlg->setFixedSize(QSize(797, 550));
 	QGridLayout *glayout = new QGridLayout(m_dtDlg);
 	
 	//lb->setText(QString::fromLocal8Bit("每粒重量(g)："));
@@ -606,7 +606,6 @@ void QtPLCDialogClass::initDlg()
 	lb->setPixmap(*pix);
 	lb->setScaledContents(true);
 	glayout->addWidget(lb, 0, 0, 1, 1);
-	
 	/*int i = 0;
 	for (;i<80;i++)
 	{
@@ -692,14 +691,14 @@ void QtPLCDialogClass::createPixCurve(QPixmap *pix)
 	painter->setBrush(QColor(255, 255, 255));
 	int pixWidth = 2100;
 	int pixHeight = 1500;
-	int edgeOffset = 50;
+	int edgeOffset = 0;//50
 	int innerW = pixWidth - 2 * edgeOffset;
 	int inner50percentW = innerW / 2;
 	int innerH = pixHeight - 2 * edgeOffset;
 	int inner50percentH = innerH / 2;
 	int rightW = pixWidth - edgeOffset;
 	int bottomH = pixHeight - edgeOffset;
-	int firstLine = 110;//大标题下面
+	int firstLine = 60;//大标题下面110
 	int secondLine = firstLine + 60;
 	int weightTop = firstLine + 60;
 	int weightMiddle = firstLine + 2 * 60;
@@ -714,7 +713,7 @@ void QtPLCDialogClass::createPixCurve(QPixmap *pix)
 	//坐标系
 	int of = 10;//箭头
 	int basePointX = 200;
-	int basePointY = pixHeight - 150;
+	int basePointY = pixHeight - 100;//150
 	int XRight = rightW - 150;
 	int dotLineRight = XRight - 75;
 	int YTop = weightBottom + 100;
@@ -1479,6 +1478,7 @@ void QtPLCDialogClass::on_pB_dtDlg_toggled(bool checked)//数据dialog
 {
 	if (checked)
 	{
+		m_dtDlg->move(0, 0);
 		m_dtDlg->show();		
 		QPixmap pix;
 		bool ret = pix.load(AppPath + "/ico/data1.png");
