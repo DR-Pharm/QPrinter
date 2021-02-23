@@ -142,7 +142,7 @@ void QtSocket_Class::OnServer()
 	{
 		timer_beat = new QTimer(this);
 		connect(timer_beat, SIGNAL(timeout()), this, SLOT(onBeatSignal()));
-		timer_beat->start(100);
+		timer_beat->start(500);
 	}
 	emit signal_Connected();
 }

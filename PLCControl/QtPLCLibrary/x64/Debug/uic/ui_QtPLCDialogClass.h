@@ -1993,8 +1993,8 @@ public:
 
         retranslateUi(QtPLCDialogClass);
 
-        tabWidget_PLC->setCurrentIndex(2);
-        tabWidget->setCurrentIndex(2);
+        tabWidget_PLC->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
         cB_TireMode->setCurrentIndex(-1);
         cB_ScaleStableState->setCurrentIndex(-1);
 
