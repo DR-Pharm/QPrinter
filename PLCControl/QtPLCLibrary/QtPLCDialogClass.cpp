@@ -272,8 +272,15 @@ DataFromPC_typ QtPLCDialogClass::getPCRunData()//4
 }
 void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kickOpen, int kickMode)
 {
-	memcpy(m_data, (DataToPC_typ*)data, sizeof(DataToPC_typ));//主界面用
-	
+	if (*m_data== *(DataToPC_typ*)data)
+	{
+		//return;
+	}
+	else 
+	{
+		memcpy(m_data, (DataToPC_typ*)data, sizeof(DataToPC_typ));//主界面用
+
+	}
 	//运行数据
 #pragma region run
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->hasFocus())//系统速度，0-10000对应0-100%
@@ -337,7 +344,7 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_BatchName->hasFocus())//BatchName[40];			//批号字符串
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setText(QString(QLatin1String(m_data->ActData.BatchName)));
+		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setText(QString(QLatin1String(m_data->ActData.BatchName)));//Cause kinco has a bug when input this parameter,but use PC to input,we do not have this bug,so don't need to change.
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_GroupNo->hasFocus())//GroupNo;				//当前组号
 	{
@@ -1063,6 +1070,8 @@ void QtPLCDialogClass::on_lE_SysOveride_returnPressed()//系统速度，0-10000�
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
+	if (((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->text().toInt() > 100)
+		((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->setText("100");
 	typ.Run_Para.SysOveride = ((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->text().toInt() * 100;
 	m_socket->Communicate_PLC(&typ, nullptr);
 }

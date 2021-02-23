@@ -247,8 +247,10 @@ typedef struct DataToPC_typ
 	int							Reserve[16];		//Ô¤Áô¿Õ¼ä	
 	bool operator==(const DataToPC_typ &data)
 	{
-		/*if (Status.HomeOK != data.Status.HomeOK)return false;
-		if (Telegram_typ!= data.Telegram_typ)return false;
+		//if (this Equals data)return true;
+		//if (equal(this, this->begin(), this->end(), data, data.begin(), data.end())) return true;
+		if (memcmp(this, &data, sizeof(data)) != 0) return false;
+		/*if (Telegram_typ!= data.Telegram_typ)return false;
 		if (Status.AlarmStatus != data.Status.AlarmStatus)return false;
 		if (ActData.CheckCount != data.ActData.CheckCount)return false;
 		if (ActData.RunSpeed != data.ActData.RunSpeed)return false;*/
