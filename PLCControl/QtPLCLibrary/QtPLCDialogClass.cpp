@@ -19,6 +19,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	inittabicon();
 	m_data = new DataToPC_typ;
 	memset(m_data, 0, sizeof(DataToPC_typ));//主界面用
+	//int jdd = sizeof(m_data->ActData.BatchName);//40
 	memset(m_data->ActData.BatchName, '\0', sizeof(m_data->ActData.BatchName));
 
 	((Ui::QtPLCDialogClass*)ui)->lb_logo->setPixmap(QPixmap(AppPath + "/ico/dr-pharmTrans_2.png"));
@@ -1515,5 +1516,85 @@ void QtPLCDialogClass::startMovie()
 	animation2->start();
 	btnTimer->stop();
 }
+//output
+void QtPLCDialogClass::on_pb_cmdReject_toggled(bool checked)//
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.Outputs.Reject = checked;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_pb_cmdChannelSwith_toggled(bool checked)//
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.Outputs.ChannelSwith = checked;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_pb_cmdVaccum_toggled(bool checked)//
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.Outputs.Vaccum = checked;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_pb_cmdCapGet_toggled(bool checked)//
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.Outputs.CapGet = checked;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_pb_cmdCapGetValve_toggled(bool checked)//
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.Outputs.CapGetValve = checked;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_pb_cmdCapBackValve_toggled(bool checked)//
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.Outputs.CapBackValve = checked;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_pb_cmdAlarmOut_toggled(bool checked)//
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.Outputs.AlarmOut = checked;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_pb_cmdStopSignal_toggled(bool checked)//
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.Outputs.StopSignal = checked;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_pb_cmdAlarmSignal_toggled(bool checked)//
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.Outputs.AlarmSignal = checked;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_pb_cmdYellowAlarmout_toggled(bool checked)//
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.Outputs.YellowAlarmout = checked;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_pb_cmdBaffle_toggled(bool checked)//
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.Outputs.Baffle = checked;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+//Photo;
+//Flash;
 #pragma endregion
 

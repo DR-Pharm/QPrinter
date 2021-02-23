@@ -128,6 +128,17 @@ public slots:
 	void on_pB_dtDlg_toggled(bool checked); 
 	void dtClose();
 	void startMovie();
+	void on_pb_cmdReject_toggled(bool checked);
+	void on_pb_cmdChannelSwith_toggled(bool checked);
+	void on_pb_cmdVaccum_toggled(bool checked);
+	void on_pb_cmdCapGet_toggled(bool checked);
+	void on_pb_cmdCapGetValve_toggled(bool checked);
+	void on_pb_cmdCapBackValve_toggled(bool checked);
+	void on_pb_cmdAlarmOut_toggled(bool checked);
+	void on_pb_cmdStopSignal_toggled(bool checked);
+	void on_pb_cmdAlarmSignal_toggled(bool checked);
+	void on_pb_cmdYellowAlarmout_toggled(bool checked);
+	void on_pb_cmdBaffle_toggled(bool checked);
 };
 
 #pragma once
