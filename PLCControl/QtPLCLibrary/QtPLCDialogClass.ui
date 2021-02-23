@@ -2912,7 +2912,7 @@
               <string notr="true"/>
              </property>
              <property name="text">
-              <string>0.567</string>
+              <string/>
              </property>
              <property name="frame">
               <bool>false</bool>
@@ -3007,6 +3007,12 @@
              <property name="styleSheet">
               <string notr="true"/>
              </property>
+             <property name="currentText">
+              <string/>
+             </property>
+             <property name="currentIndex">
+              <number>-1</number>
+             </property>
              <property name="frame">
               <bool>false</bool>
              </property>
@@ -3085,7 +3091,7 @@
               <string notr="true"/>
              </property>
              <property name="text">
-              <string>14</string>
+              <string/>
              </property>
              <property name="frame">
               <bool>false</bool>
@@ -3239,7 +3245,7 @@
               <string notr="true"/>
              </property>
              <property name="text">
-              <string>1</string>
+              <string/>
              </property>
              <property name="frame">
               <bool>false</bool>
@@ -3325,7 +3331,7 @@
               <string notr="true"/>
              </property>
              <property name="text">
-              <string>13</string>
+              <string/>
              </property>
              <property name="frame">
               <bool>false</bool>
@@ -3394,7 +3400,7 @@
               <string notr="true"/>
              </property>
              <property name="text">
-              <string>1</string>
+              <string/>
              </property>
              <property name="frame">
               <bool>false</bool>
@@ -3691,7 +3697,7 @@
               <string notr="true"/>
              </property>
              <property name="text">
-              <string>1</string>
+              <string/>
              </property>
              <property name="frame">
               <bool>false</bool>
@@ -3754,7 +3760,7 @@
               <string notr="true"/>
              </property>
              <property name="text">
-              <string>3</string>
+              <string/>
              </property>
              <property name="frame">
               <bool>false</bool>
@@ -3814,7 +3820,7 @@
               <string notr="true"/>
              </property>
              <property name="text">
-              <string>0.234</string>
+              <string/>
              </property>
              <property name="frame">
               <bool>false</bool>
@@ -3874,7 +3880,7 @@
               <string notr="true"/>
              </property>
              <property name="text">
-              <string>13</string>
+              <string/>
              </property>
              <property name="frame">
               <bool>false</bool>
@@ -3996,7 +4002,7 @@
             <string notr="true"/>
            </property>
            <property name="text">
-            <string>120</string>
+            <string/>
            </property>
            <property name="frame">
             <bool>false</bool>
@@ -4097,7 +4103,7 @@
             <string notr="true"/>
            </property>
            <property name="text">
-            <string>123456789</string>
+            <string/>
            </property>
            <property name="frame">
             <bool>false</bool>

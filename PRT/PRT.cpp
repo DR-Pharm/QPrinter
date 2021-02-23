@@ -6,7 +6,7 @@ PRT::PRT(QWidget *parent)
 	ui.setupUi(this);
 
 	wt = new QWaiting();
-	initDog(); //remeber to note off
+	//initDog(); //remeber to note off
 	setWindowFlags(Qt::FramelessWindowHint);//нч╠ъ©Р  
 	//setAttribute(Qt::WA_AcceptTouchEvents);
 	setWindowIcon(QIcon("./ico/dr.ico"));

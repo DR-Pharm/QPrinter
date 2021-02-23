@@ -19,6 +19,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	inittabicon();
 	m_data = new DataToPC_typ;
 	memset(m_data, 0, sizeof(DataToPC_typ));//主界面用
+	memset(m_data->ActData.BatchName, '\0', sizeof(m_data->ActData.BatchName));
 
 	((Ui::QtPLCDialogClass*)ui)->lb_logo->setPixmap(QPixmap(AppPath + "/ico/dr-pharmTrans_2.png"));
 	((Ui::QtPLCDialogClass*)ui)->lb_logo->setScaledContents(true);
@@ -251,7 +252,14 @@ DataFromPC_typ QtPLCDialogClass::getPCRunData()//4
 	tmp.Run_Para.TireMode = m_data->ActData.TireMode;				//0:每组去皮重,1:每次称重去皮重
 	tmp.Run_Para.GroupSet = m_data->ActData.GroupSet;				//每组测试胶囊数量
 	tmp.Run_Para.TestInterval = m_data->ActData.TestInterval;			//测试间隔时间,单位s
-	tmp.Run_Para.BatchName[40] = m_data->ActData.BatchName[40];			//批号字符串
+
+	memset(tmp.Run_Para.BatchName, '\0', sizeof(tmp.Run_Para.BatchName));
+	//tmp.Run_Para.BatchName[40] = m_data->ActData.BatchName[40];			//批号字符串	
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text();
+	QByteArray ba = str.toLatin1();
+	char *c = ba.data();
+	strcpy(tmp.Run_Para.BatchName, c);
+
 	tmp.Run_Para.GroupNo = m_data->ActData.GroupNo;				//当前组号
 	tmp.Run_Para.Language = m_data->ActData.Language;				//当前语言，0：中文，1：英文
 	tmp.Run_Para.UserAnalogoutput = m_data->ActData.UserAnalogoutput;		//用户模拟量输入
@@ -269,8 +277,8 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 #pragma region run
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->hasFocus())//系统速度，0-10000对应0-100%
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->setText(QString::number(m_data->ActData.SysOveride));
-		((Ui::QtPLCDialogClass*)ui)->lE_SysOveride_2->setText(QString::number(m_data->ActData.SysOveride));
+		((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->setText(QString::number(m_data->ActData.SysOveride / 100));
+		((Ui::QtPLCDialogClass*)ui)->lE_SysOveride_2->setText(QString::number(m_data->ActData.SysOveride / 100));
 	}	
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_PassCount->hasFocus())//通过计数
 	{
@@ -328,7 +336,7 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_BatchName->hasFocus())//BatchName[40];			//批号字符串
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setText(m_data->ActData.BatchName);
+		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setText(QString(QLatin1String(m_data->ActData.BatchName)));
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_GroupNo->hasFocus())//GroupNo;				//当前组号
 	{
@@ -1054,7 +1062,7 @@ void QtPLCDialogClass::on_lE_SysOveride_returnPressed()//系统速度，0-10000�
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
-	typ.Run_Para.SysOveride = ((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->text().toInt();
+	typ.Run_Para.SysOveride = ((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->text().toInt() * 100;
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
 void QtPLCDialogClass::on_lE_RejectCount_returnPressed()//通过计数
@@ -1157,8 +1165,11 @@ void QtPLCDialogClass::on_lE_BatchName_returnPressed()//批号字符串
 {
 	DataFromPC_typ typ;
 	typ = getPCRunData();
-	typ.Telegram_typ = 4;
-	//typ.Run_Para.BatchName = (char*)(((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text());
+	typ.Telegram_typ = 4; 
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text();
+	QByteArray ba = str.toLatin1();
+	char *c = ba.data();
+	strcpy(typ.Run_Para.BatchName, c);
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
 void QtPLCDialogClass::on_lE_GroupNo_returnPressed()//当前组号,单位s

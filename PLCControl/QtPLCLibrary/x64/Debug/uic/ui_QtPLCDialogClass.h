@@ -1995,6 +1995,7 @@ public:
 
         tabWidget_PLC->setCurrentIndex(0);
         tabWidget->setCurrentIndex(2);
+        cB_ScaleStableState->setCurrentIndex(-1);
 
 
         QMetaObject::connectSlotsByName(QtPLCDialogClass);
@@ -2106,34 +2107,35 @@ public:
         pB_cmdCounterZero_5->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\277\220\350\241\214\347\212\266\346\200\201", nullptr));
         pB_cmdCounterZero_4->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\277\220\350\241\214\345\217\202\346\225\260", nullptr));
         groupBox_10->setTitle(QCoreApplication::translate("QtPLCDialogClass", "          .                          ", nullptr));
-        lE_ScaleResult->setText(QCoreApplication::translate("QtPLCDialogClass", "0.567", nullptr));
+        lE_ScaleResult->setText(QString());
         label_10->setText(QCoreApplication::translate("QtPLCDialogClass", "\351\200\232\350\277\207\350\256\241\346\225\260", nullptr));
         cB_ScaleStableState->setItemText(0, QCoreApplication::translate("QtPLCDialogClass", "\351\235\236\345\270\270\347\250\263\345\256\232", nullptr));
         cB_ScaleStableState->setItemText(1, QCoreApplication::translate("QtPLCDialogClass", "\347\250\263\345\256\232", nullptr));
         cB_ScaleStableState->setItemText(2, QCoreApplication::translate("QtPLCDialogClass", "\344\270\215\347\250\263\345\256\232", nullptr));
         cB_ScaleStableState->setItemText(3, QCoreApplication::translate("QtPLCDialogClass", "\351\235\236\345\270\270\344\270\215\347\250\263\345\256\232", nullptr));
 
-        lE_ProdCount->setText(QCoreApplication::translate("QtPLCDialogClass", "14", nullptr));
+        cB_ScaleStableState->setCurrentText(QString());
+        lE_ProdCount->setText(QString());
         label_43->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\234\254\346\254\241\351\207\215\351\207\217", nullptr));
         label_39->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\247\260\351\207\215\350\256\241\346\225\260", nullptr));
-        lE_TOCount->setText(QCoreApplication::translate("QtPLCDialogClass", "1", nullptr));
+        lE_TOCount->setText(QString());
         label_48->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\277\207\350\275\273\350\256\241\346\225\260", nullptr));
-        lE_PassCount->setText(QCoreApplication::translate("QtPLCDialogClass", "13", nullptr));
-        lE_Finished->setText(QCoreApplication::translate("QtPLCDialogClass", "1", nullptr));
+        lE_PassCount->setText(QString());
+        lE_Finished->setText(QString());
         label_49->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\277\207\351\207\215\350\256\241\346\225\260", nullptr));
         label_18->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\234\254\347\273\204\345\272\217\345\217\267", nullptr));
         label_45->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\250\263\345\256\232\347\212\266\346\200\201", nullptr));
         label_15->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\234\254\347\273\204\347\273\223\346\235\237", nullptr));
         label_16->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\275\223\345\211\215\350\257\273\346\225\260", nullptr));
         label_17->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\211\224\345\272\237\350\256\241\346\225\260", nullptr));
-        lE_RejectCount->setText(QCoreApplication::translate("QtPLCDialogClass", "1", nullptr));
-        lE_TUCount->setText(QCoreApplication::translate("QtPLCDialogClass", "3", nullptr));
-        lE_Weight->setText(QCoreApplication::translate("QtPLCDialogClass", "0.234", nullptr));
-        lE_GroupIndex->setText(QCoreApplication::translate("QtPLCDialogClass", "13", nullptr));
+        lE_RejectCount->setText(QString());
+        lE_TUCount->setText(QString());
+        lE_Weight->setText(QString());
+        lE_GroupIndex->setText(QString());
         label_80->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\277\220\350\241\214\351\200\237\345\272\246\357\274\232", nullptr));
-        lE_SysOveride->setText(QCoreApplication::translate("QtPLCDialogClass", "120", nullptr));
+        lE_SysOveride->setText(QString());
         label_78->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\224\237\344\272\247\346\211\271\345\217\267\357\274\232", nullptr));
-        lE_BatchName->setText(QCoreApplication::translate("QtPLCDialogClass", "123456789", nullptr));
+        lE_BatchName->setText(QString());
         lb_logo->setText(QString());
         pB_dtDlg->setText(QString());
         pB_SetUp->setText(QString());

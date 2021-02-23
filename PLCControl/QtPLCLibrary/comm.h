@@ -86,8 +86,8 @@ typedef	struct
 
 typedef struct
 {
-//	unsigned int		enable;
 
+	int			enable;										//1读取 2保存
 	float		s_trg_stop[MAX_PULSE_SERVO];				//停止位置
 	float		FeedTimeOut;								//下料超时时间,单位s
 	float		CapPickInterval;							//自动取料周期,单位s
@@ -212,6 +212,7 @@ typedef struct
 	unsigned char		cmdPrintStartE;					//启动英文打印，1:执行，自动复位
 	unsigned char		cmdCapClean;					//清空胶囊，1:执行，自动复位
 	unsigned char		cmdAlogtest;					//模拟量输出测试,1:执行，自动复位
+	Output_typ			Outputs;			//输出点
 
 	unsigned char		Reserve[32];					//预留空间
 }Comm_Machine_Cmd_typ;
