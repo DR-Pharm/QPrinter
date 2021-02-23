@@ -303,23 +303,23 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_TOverload->hasFocus())//超重重量,单位g
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_TOverload->setText(QString::number(m_data->ActData.TOverload));
+		((Ui::QtPLCDialogClass*)ui)->lE_TOverload->setText(QString::number(m_data->ActData.TOverload, 'f', 3));
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->hasFocus())//超轻重量,单位g
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->setText(QString::number(m_data->ActData.TUnderload));
+		((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->setText(QString::number(m_data->ActData.TUnderload, 'f', 3));
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->hasFocus())//内控线，上限,单位g
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->setText(QString::number(m_data->ActData.InterOverLoad));
+		((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->setText(QString::number(m_data->ActData.InterOverLoad, 'f', 3));
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->hasFocus())//内控线，下限,单位g
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->setText(QString::number(m_data->ActData.InterUnderLoad));
+		((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->setText(QString::number(m_data->ActData.InterUnderLoad, 'f', 3));
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_TDemand->hasFocus())//期望重量, 单位g
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_TDemand->setText(QString::number(m_data->ActData.TDemand));
+		((Ui::QtPLCDialogClass*)ui)->lE_TDemand->setText(QString::number(m_data->ActData.TDemand,'f',3));
 	}	
 	if (!((Ui::QtPLCDialogClass*)ui)->cB_TireMode->hasFocus())//0:每组去皮重,1:每次称重去皮重
 	{
@@ -393,23 +393,23 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->setText(QString::number(m_data->Machine_Para.CapPickInterval));
+		((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->setText(QString::number(m_data->Machine_Para.CapPickInterval,'f',2));
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->setText(QString::number(m_data->Machine_Para.CapBackInterval / 100.0, 'f', 2));
+		((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->setText(QString::number(m_data->Machine_Para.CapBackInterval, 'f', 2));
 	}	
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->setText(QString::number(m_data->Machine_Para.TireDelay / 100.0, 'f', 2));
+		((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->setText(QString::number(m_data->Machine_Para.TireDelay, 'f', 2));
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->setText(QString::number(m_data->Machine_Para.ReadDelay / 100.0, 'f', 2));
+		((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->setText(QString::number(m_data->Machine_Para.ReadDelay, 'f', 2));
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->setText(QString::number(m_data->Machine_Para.TireWaitTime / 100.0, 'f', 2));
+		((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->setText(QString::number(m_data->Machine_Para.TireWaitTime, 'f', 2));
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->hasFocus())
 	{
@@ -1202,7 +1202,7 @@ void QtPLCDialogClass::on_lE_s_trg_stop0_returnPressed()
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
-	typ.Machine_Para.s_trg_stop[0] = ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->text().toInt();
+	typ.Machine_Para.s_trg_stop[0] = ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->text().toFloat();
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
 void QtPLCDialogClass::on_lE_s_trg_stop1_returnPressed()
@@ -1210,7 +1210,7 @@ void QtPLCDialogClass::on_lE_s_trg_stop1_returnPressed()
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
-	typ.Machine_Para.s_trg_stop[1] = ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->text().toInt();
+	typ.Machine_Para.s_trg_stop[1] = ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->text().toFloat();
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
 void QtPLCDialogClass::on_lE_FeedTimeOut_returnPressed()
@@ -1218,7 +1218,7 @@ void QtPLCDialogClass::on_lE_FeedTimeOut_returnPressed()
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
-	typ.Machine_Para.FeedTimeOut = ((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->text().toInt();
+	typ.Machine_Para.FeedTimeOut = ((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->text().toFloat();
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
 void QtPLCDialogClass::on_lE_CapPickInterval_returnPressed()
@@ -1226,7 +1226,7 @@ void QtPLCDialogClass::on_lE_CapPickInterval_returnPressed()
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
-	typ.Machine_Para.CapPickInterval = ((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->text().toInt();
+	typ.Machine_Para.CapPickInterval = ((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->text().toFloat();
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
 void QtPLCDialogClass::on_lE_CapBackInterval_returnPressed()
@@ -1234,7 +1234,7 @@ void QtPLCDialogClass::on_lE_CapBackInterval_returnPressed()
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
-	typ.Machine_Para.CapBackInterval = ((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->text().toInt();
+	typ.Machine_Para.CapBackInterval = ((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->text().toFloat();
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
 void QtPLCDialogClass::on_lE_TireDelay_returnPressed()
@@ -1242,7 +1242,7 @@ void QtPLCDialogClass::on_lE_TireDelay_returnPressed()
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
-	typ.Machine_Para.TireDelay = ((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->text().toInt();
+	typ.Machine_Para.TireDelay = ((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->text().toFloat();
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
 void QtPLCDialogClass::on_lE_ReadDelay_returnPressed()
@@ -1250,7 +1250,7 @@ void QtPLCDialogClass::on_lE_ReadDelay_returnPressed()
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
-	typ.Machine_Para.ReadDelay = ((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->text().toInt();
+	typ.Machine_Para.ReadDelay = ((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->text().toFloat();
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
 void QtPLCDialogClass::on_lE_TireWaitTime_returnPressed()
@@ -1258,7 +1258,7 @@ void QtPLCDialogClass::on_lE_TireWaitTime_returnPressed()
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
-	typ.Machine_Para.TireWaitTime = ((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->text().toInt();
+	typ.Machine_Para.TireWaitTime = ((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->text().toFloat();
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
 void QtPLCDialogClass::on_lE_StopSignalDelay_returnPressed()

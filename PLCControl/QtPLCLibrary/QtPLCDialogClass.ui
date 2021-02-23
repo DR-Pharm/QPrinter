@@ -59,7 +59,7 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="tab_PLC_Control">
     <attribute name="title">
@@ -81,7 +81,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -1648,7 +1648,7 @@
            </font>
           </property>
           <property name="text">
-           <string>0.299</string>
+           <string/>
           </property>
          </widget>
         </item>
@@ -1682,7 +1682,7 @@
            </font>
           </property>
           <property name="text">
-           <string>0.323</string>
+           <string/>
           </property>
          </widget>
         </item>
@@ -1726,7 +1726,7 @@
            </font>
           </property>
           <property name="text">
-           <string>20</string>
+           <string/>
           </property>
          </widget>
         </item>
@@ -1844,7 +1844,7 @@
            </font>
           </property>
           <property name="text">
-           <string>60</string>
+           <string/>
           </property>
          </widget>
         </item>
@@ -1894,7 +1894,7 @@
            </font>
           </property>
           <property name="text">
-           <string>0.313</string>
+           <string/>
           </property>
          </widget>
         </item>
@@ -1987,6 +1987,9 @@
             <bold>true</bold>
            </font>
           </property>
+          <property name="currentIndex">
+           <number>-1</number>
+          </property>
           <item>
            <property name="text">
             <string>每组去皮</string>
@@ -2032,7 +2035,7 @@
            </font>
           </property>
           <property name="text">
-           <string>45</string>
+           <string/>
           </property>
          </widget>
         </item>
@@ -2066,7 +2069,7 @@
            </font>
           </property>
           <property name="text">
-           <string>0.345</string>
+           <string/>
           </property>
          </widget>
         </item>
@@ -2100,7 +2103,7 @@
            </font>
           </property>
           <property name="text">
-           <string>0.300</string>
+           <string/>
           </property>
          </widget>
         </item>
@@ -2181,7 +2184,7 @@
            </font>
           </property>
           <property name="text">
-           <string>120</string>
+           <string/>
           </property>
          </widget>
         </item>
