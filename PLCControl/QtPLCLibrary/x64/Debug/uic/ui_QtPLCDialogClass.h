@@ -272,6 +272,7 @@ public:
     QFrame *frame_11;
     QVBoxLayout *verticalLayout_15;
     QLineEdit *lE_BatchName;
+    QLabel *label_81;
     QLabel *lb_logo;
     QPushButton *pB_dtDlg;
     QFrame *frame_20;
@@ -1876,7 +1877,7 @@ public:
         label_80->setFont(font8);
         frame_10 = new QFrame(frame_9);
         frame_10->setObjectName(QString::fromUtf8("frame_10"));
-        frame_10->setGeometry(QRect(164, 10, 321, 61));
+        frame_10->setGeometry(QRect(164, 10, 301, 61));
         frame_10->setStyleSheet(QString::fromUtf8("background-color: rgb(235, 235, 235);"));
         frame_10->setFrameShape(QFrame::Panel);
         frame_10->setFrameShadow(QFrame::Raised);
@@ -1928,6 +1929,14 @@ public:
 
         verticalLayout_15->addWidget(lE_BatchName);
 
+        label_81 = new QLabel(frame_9);
+        label_81->setObjectName(QString::fromUtf8("label_81"));
+        label_81->setGeometry(QRect(470, 30, 15, 35));
+        sizePolicy2.setHeightForWidth(label_81->sizePolicy().hasHeightForWidth());
+        label_81->setSizePolicy(sizePolicy2);
+        label_81->setMinimumSize(QSize(15, 35));
+        label_81->setMaximumSize(QSize(15, 35));
+        label_81->setFont(font8);
         lb_logo = new QLabel(groupBox_10);
         lb_logo->setObjectName(QString::fromUtf8("lb_logo"));
         lb_logo->setGeometry(QRect(5, 580, 130, 130));
@@ -1993,8 +2002,8 @@ public:
 
         retranslateUi(QtPLCDialogClass);
 
-        tabWidget_PLC->setCurrentIndex(0);
-        tabWidget->setCurrentIndex(1);
+        tabWidget_PLC->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(2);
         cB_TireMode->setCurrentIndex(-1);
         cB_ScaleStableState->setCurrentIndex(-1);
 
@@ -2056,14 +2065,14 @@ public:
         pB_cmdAlogtest->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\250\241\346\213\237\351\207\217\350\276\223\345\207\272\346\265\213\350\257\225", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_6), QString());
         tabWidget_PLC->setTabText(tabWidget_PLC->indexOf(tab_PLC_Control), QString());
-        label_25->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\207\252\345\212\250\345\217\226\346\226\231\345\221\250\346\234\237", nullptr));
-        label_41->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\257\273\346\225\260\345\273\266\350\277\237\345\220\257\345\212\250\346\227\266\351\227\264", nullptr));
-        label_26->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\201\234\346\255\242\344\275\215\347\275\2561", nullptr));
-        label_32->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\216\273\347\232\256\345\273\266\350\277\237\345\220\257\345\212\250\346\227\266\351\227\264", nullptr));
-        label_31->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\201\234\346\255\242\344\275\215\347\275\2562", nullptr));
-        label_5->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\210\220\345\223\201\350\277\224\350\277\230\345\221\250\346\234\237", nullptr));
-        label_4->setText(QCoreApplication::translate("QtPLCDialogClass", "\344\270\213\346\226\231\350\266\205\346\227\266\346\227\266\351\227\264", nullptr));
-        label_42->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\216\273\347\232\256\347\255\211\345\276\205\346\227\266\351\227\264", nullptr));
+        label_25->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\207\252\345\212\250\345\217\226\346\226\231\345\221\250\346\234\237s", nullptr));
+        label_41->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\257\273\346\225\260\345\273\266\350\277\237\345\220\257\345\212\250\346\227\266\351\227\264s", nullptr));
+        label_26->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\201\234\346\255\242\344\275\215\347\275\2561 mm", nullptr));
+        label_32->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\216\273\347\232\256\345\273\266\350\277\237\345\220\257\345\212\250\346\227\266\351\227\264s", nullptr));
+        label_31->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\201\234\346\255\242\344\275\215\347\275\2562 mm", nullptr));
+        label_5->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\210\220\345\223\201\350\277\224\350\277\230\345\221\250\346\234\237s", nullptr));
+        label_4->setText(QCoreApplication::translate("QtPLCDialogClass", "\344\270\213\346\226\231\350\266\205\346\227\266\346\227\266\351\227\264s", nullptr));
+        label_42->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\216\273\347\232\256\347\255\211\345\276\205\346\227\266\351\227\264s", nullptr));
         label_44->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\277\236\347\273\255\350\266\205\351\231\220\345\201\234\346\234\272\346\225\260", nullptr));
         tabWidget_PLC->setTabText(tabWidget_PLC->indexOf(tab_8), QString());
         label_9->setText(QCoreApplication::translate("QtPLCDialogClass", "\351\200\237 \345\272\246(rpm)", nullptr));
@@ -2137,6 +2146,7 @@ public:
         lE_SysOveride->setText(QString());
         label_78->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\224\237\344\272\247\346\211\271\345\217\267\357\274\232", nullptr));
         lE_BatchName->setText(QString());
+        label_81->setText(QCoreApplication::translate("QtPLCDialogClass", "%", nullptr));
         lb_logo->setText(QString());
         pB_dtDlg->setText(QString());
         pB_SetUp->setText(QString());

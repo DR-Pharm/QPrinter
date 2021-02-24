@@ -8,7 +8,6 @@ WindowOut::WindowOut(QWidget *parent)
 	: QDialog(parent)
 {
 	ui.setupUi(this);
-
 }
 
 WindowOut::~WindowOut()
@@ -45,7 +44,8 @@ void WindowOut::showMe()
 	QRect screenRect = desktopWidget->screenGeometry();  //ÆÁÄ»ÇøÓò
 	int w = screenRect.width();
 	int h = screenRect.height();
-	this->setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog | Qt::WindowStaysOnTopHint | Qt::SubWindow);
+	//this->setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog | Qt::WindowStaysOnTopHint | Qt::SubWindow| Qt::WindowDoesNotAcceptFocus);//
+	this->setWindowFlags(Qt::WindowDoesNotAcceptFocus);
 	this->setGeometry((w - this->width()) / 2, 20 + (windowCount * 180), this->width(), this->height());
 
 	QBitmap bmp(this->size());

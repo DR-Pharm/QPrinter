@@ -75,32 +75,33 @@ public slots:
 
 	void getPLCData(void*, int, int, int, int);
 
-	void on_lE_SysOveride_returnPressed();
-	void on_lE_RejectCount_returnPressed();
-	void on_lE_ProdCount_returnPressed();
-	void on_lE_TOCount_returnPressed();
-	void on_lE_TUCount_returnPressed();
-	void on_lE_TOverload_returnPressed();
-	void on_lE_TUnderload_returnPressed();
-	void on_lE_InterOverLoad_returnPressed();
-	void on_lE_InterUnderLoad_returnPressed();
-	void on_lE_TDemand_returnPressed();
+	void on_lE_SysOveride_editingFinished();
+	/*passcount
+	void on_lE_RejectCount_editingFinished();
+	void on_lE_ProdCount_editingFinished();
+	void on_lE_TOCount_editingFinished();
+	void on_lE_TUCount_editingFinished();*/
+	void on_lE_TOverload_editingFinished();
+	void on_lE_TUnderload_editingFinished();
+	void on_lE_InterOverLoad_editingFinished();
+	void on_lE_InterUnderLoad_editingFinished();
+	void on_lE_TDemand_editingFinished();
 	void on_cB_TireMode_currentIndexChanged(int index);
-	void on_lE_GroupSet_returnPressed();
-	void on_lE_TestInterval_returnPressed();
+	void on_lE_GroupSet_editingFinished();
+	void on_lE_TestInterval_editingFinished();
 	void on_lE_BatchName_editingFinished();
-	void on_lE_GroupNo_returnPressed();
+	void on_lE_GroupNo_editingFinished();
 
 	//void on_cB_enable_currentIndexChanged(int index);
-	void on_lE_s_trg_stop0_returnPressed();
-	void on_lE_s_trg_stop1_returnPressed();
-	void on_lE_FeedTimeOut_returnPressed();
-	void on_lE_CapPickInterval_returnPressed();
-	void on_lE_CapBackInterval_returnPressed();
-	void on_lE_TireDelay_returnPressed();
-	void on_lE_ReadDelay_returnPressed();
-	void on_lE_TireWaitTime_returnPressed();
-	void on_lE_StopSignalDelay_returnPressed();
+	void on_lE_s_trg_stop0_editingFinished();
+	void on_lE_s_trg_stop1_editingFinished();
+	void on_lE_FeedTimeOut_editingFinished();
+	void on_lE_CapPickInterval_editingFinished();
+	void on_lE_CapBackInterval_editingFinished();
+	void on_lE_TireDelay_editingFinished();
+	void on_lE_ReadDelay_editingFinished();
+	void on_lE_TireWaitTime_editingFinished();
+	void on_lE_StopSignalDelay_editingFinished();
 
 	void on_pB_cmdScaleRead_clicked();
 	void on_pB_cmdScaleTire_clicked();
