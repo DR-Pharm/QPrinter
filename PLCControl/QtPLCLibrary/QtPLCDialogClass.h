@@ -5,6 +5,7 @@
 #include "PLCRelayHead.h"
 #include "QtSocket_Class.h"
 #include "mypushbutton.h"
+#include "WindowOut.h"
 namespace spd = spdlog;
 
 class QtPLCDialogClass : public QDialog
@@ -29,6 +30,7 @@ public:
 	void setWindowMinimized();
 	int showMsgBox(QMessageBox::Icon icon, const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str);
 
+	void showWindowOut(QString str);
 	//全是中文
 	void SetSocket(QtSocket_Class*);
 	void setStyleCommand(QPushButton*, QString, QFont, QString);
@@ -64,6 +66,8 @@ private:
 	QPainter *painter = nullptr; 
 	QPixmap *pix = nullptr; 
 	QLabel *lb = nullptr;
+
+	WindowOut *levelOut;//show默认为非模态modal，如果是局部变量会闪现消失
 public slots:
 
 	DataFromPC_typ getPCParaData();
@@ -84,7 +88,7 @@ public slots:
 	void on_cB_TireMode_currentIndexChanged(int index);
 	void on_lE_GroupSet_returnPressed();
 	void on_lE_TestInterval_returnPressed();
-	void on_lE_BatchName_returnPressed();
+	void on_lE_BatchName_editingFinished();
 	void on_lE_GroupNo_returnPressed();
 
 	//void on_cB_enable_currentIndexChanged(int index);

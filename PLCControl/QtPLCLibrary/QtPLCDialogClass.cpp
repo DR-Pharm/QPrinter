@@ -274,7 +274,7 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 {
 	if (*m_data== *(DataToPC_typ*)data)
 	{
-		//return;
+		return;
 	}
 	else 
 	{
@@ -1062,6 +1062,13 @@ int QtPLCDialogClass::showMsgBox(QMessageBox::Icon icon, const char* titleStr, c
 	//	QMessageBox::Critical
 
 }
+void QtPLCDialogClass::showWindowOut(QString str)
+{
+	levelOut = new WindowOut;
+	levelOut->setWindowCount(0);
+	levelOut->getString(str, 2000);
+	levelOut->show();
+}
 #pragma endregion
 
 #pragma region ui run slots
@@ -1074,6 +1081,7 @@ void QtPLCDialogClass::on_lE_SysOveride_returnPressed()//系统速度，0-10000�
 		((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->setText("100");
 	typ.Run_Para.SysOveride = ((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->text().toInt() * 100;
 	m_socket->Communicate_PLC(&typ, nullptr);
+	((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->clearFocus();
 }
 void QtPLCDialogClass::on_lE_RejectCount_returnPressed()//通过计数
 {
@@ -1171,16 +1179,26 @@ void QtPLCDialogClass::on_lE_TestInterval_returnPressed()///测试间隔时间,�
 	typ.Run_Para.TestInterval = ((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->text().toInt();
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
-void QtPLCDialogClass::on_lE_BatchName_returnPressed()//批号字符串
+void QtPLCDialogClass::on_lE_BatchName_editingFinished()//批号字符串
 {
+	QString oldstr = QString(QLatin1String(m_data->ActData.BatchName));
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text();
+	if (oldstr == str)
+	{
+		return;
+	}
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4; 
-	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text();
 	QByteArray ba = str.toLatin1();
 	char *c = ba.data();
 	strcpy(typ.Run_Para.BatchName, c);
 	m_socket->Communicate_PLC(&typ, nullptr);
+	((Ui::QtPLCDialogClass*)ui)->lE_BatchName->blockSignals(true);
+	((Ui::QtPLCDialogClass*)ui)->lE_BatchName->clearFocus();
+	((Ui::QtPLCDialogClass*)ui)->lE_BatchName->blockSignals(false);
+
+	showWindowOut(QString::fromLocal8Bit("生产批号已更改!"));
 }
 void QtPLCDialogClass::on_lE_GroupNo_returnPressed()//当前组号,单位s
 {

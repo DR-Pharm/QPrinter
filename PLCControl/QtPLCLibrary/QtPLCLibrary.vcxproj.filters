@@ -51,6 +51,9 @@
     <ClCompile Include="mypushbutton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WindowOut.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="UserLE.h">
@@ -68,9 +71,15 @@
     <QtMoc Include="mypushbutton.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="WindowOut.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="QtPLCDialogClass.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="WindowOut.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

@@ -182,6 +182,8 @@
     <ClCompile Include="QtPLCDialogClass.cpp" />
     <ClCompile Include="QtSocket_Class.cpp" />
     <ClCompile Include="UserLE.cpp" />
+    <ClCompile Include="WindowOut.cpp" />
+    <QtMoc Include="WindowOut.h" />
     <QtMoc Include="mypushbutton.h" />
     <ClInclude Include="PLCRelayHead.h" />
     <ClInclude Include="comm.h" />
@@ -196,6 +198,7 @@
       <Include Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </Include>
     </QtUic>
+    <QtUic Include="WindowOut.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
