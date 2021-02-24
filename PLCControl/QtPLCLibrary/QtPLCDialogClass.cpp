@@ -1214,6 +1214,7 @@ void QtPLCDialogClass::on_lE_TDemand_editingFinished()///期望重量,单位g
 void QtPLCDialogClass::on_cB_TireMode_currentIndexChanged(int index)//0:每组去皮重,1:每次称重去皮重
 {
 	DataFromPC_typ typ;
+	typ = getPCRunData();
 	typ.Telegram_typ = 4;
 	typ.Run_Para.TireMode = index;
 	m_socket->Communicate_PLC(&typ, nullptr);

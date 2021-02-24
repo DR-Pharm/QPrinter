@@ -46,8 +46,8 @@ void WindowOut::showMe()
 	int h = screenRect.height();
 	//this->setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog | Qt::WindowStaysOnTopHint | Qt::SubWindow| Qt::WindowDoesNotAcceptFocus);//
 	this->setWindowFlags(Qt::WindowDoesNotAcceptFocus);
-	this->setGeometry((w - this->width()) / 2, 20 + (windowCount * 180), this->width(), this->height());
-
+	//this->setGeometry((w - this->width()) / 2, 20 + (windowCount * 180), this->width(), this->height());pB_cmdStart
+	this->setGeometry(870, 550, this->width(), this->height());
 	QBitmap bmp(this->size());
 	bmp.fill();
 	QPainter p(&bmp);
