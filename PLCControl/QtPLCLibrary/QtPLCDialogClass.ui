@@ -2825,6 +2825,9 @@
       <property name="font">
        <font>
         <family>System</family>
+        <pointsize>20</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
        </font>
       </property>
       <property name="styleSheet">
@@ -2851,6 +2854,7 @@
        <property name="font">
         <font>
          <family>宋体</family>
+         <pointsize>20</pointsize>
          <weight>50</weight>
          <bold>false</bold>
         </font>
@@ -2958,6 +2962,7 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
             <bold>true</bold>
            </font>
@@ -3147,6 +3152,7 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
             <bold>true</bold>
            </font>
@@ -3189,6 +3195,7 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
             <bold>true</bold>
            </font>
@@ -3275,6 +3282,7 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
             <bold>true</bold>
            </font>
@@ -3446,6 +3454,7 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
             <bold>true</bold>
            </font>
@@ -3498,6 +3507,7 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
             <bold>true</bold>
            </font>
@@ -3537,6 +3547,7 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
             <bold>true</bold>
            </font>
@@ -3563,6 +3574,7 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
             <bold>true</bold>
            </font>
@@ -3615,6 +3627,7 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
             <bold>true</bold>
            </font>
@@ -3641,6 +3654,7 @@
           <property name="font">
            <font>
             <family>宋体</family>
+            <pointsize>20</pointsize>
             <weight>75</weight>
             <bold>true</bold>
            </font>
@@ -3943,6 +3957,7 @@
         <property name="font">
          <font>
           <family>宋体</family>
+          <pointsize>20</pointsize>
           <weight>75</weight>
           <bold>true</bold>
          </font>
@@ -3956,7 +3971,7 @@
          <rect>
           <x>164</x>
           <y>10</y>
-          <width>301</width>
+          <width>291</width>
           <height>61</height>
          </rect>
         </property>
@@ -4044,6 +4059,7 @@
         <property name="font">
          <font>
           <family>宋体</family>
+          <pointsize>20</pointsize>
           <weight>75</weight>
           <bold>true</bold>
          </font>
@@ -4118,9 +4134,9 @@
        <widget class="QLabel" name="label_81">
         <property name="geometry">
          <rect>
-          <x>470</x>
+          <x>460</x>
           <y>30</y>
-          <width>15</width>
+          <width>20</width>
           <height>35</height>
          </rect>
         </property>
@@ -4132,19 +4148,20 @@
         </property>
         <property name="minimumSize">
          <size>
-          <width>15</width>
+          <width>20</width>
           <height>35</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>15</width>
+          <width>20</width>
           <height>35</height>
          </size>
         </property>
         <property name="font">
          <font>
           <family>宋体</family>
+          <pointsize>20</pointsize>
           <weight>75</weight>
           <bold>true</bold>
          </font>

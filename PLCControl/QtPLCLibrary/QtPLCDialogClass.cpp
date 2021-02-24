@@ -374,9 +374,10 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisSwingErrorNo->setText(QString::number(m_data->Status.AxisSwingErrorNo));		//旋转电机错误代码
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisSwingRelMovDistance->setText(QString::number(m_data->Status.AxisSwingRelMovDistance));//旋转电机相对运动距离，单位unit
 	((Ui::QtPLCDialogClass*)ui)->lE_MachineStep->setText(QString::number(m_data->Status.MachineStep));			//系统运行状态机步骤
-	((Ui::QtPLCDialogClass*)ui)->lE_TimeInterval->setText(QString::number(m_data->Status.TimeInterval));			//测量实际间隔时间
+	((Ui::QtPLCDialogClass*)ui)->lE_TimeInterval->setText(QString::number(m_data->Status.TimeInterval,'f',2));			//测量实际间隔时间
 	((Ui::QtPLCDialogClass*)ui)->lE_AlarmStatus->setText(QString::number(m_data->Status.AlarmStatus));
-	((Ui::QtPLCDialogClass*)ui)->lE_Alarm16->setText((char*)(m_data->Status.Alarm));
+	char *str1 = (char*)(m_data->Status.Alarm);
+	((Ui::QtPLCDialogClass*)ui)->lE_Alarm16->setText(QString(QLatin1String(str1)));
 #pragma endregion
 	//系统参数
 #pragma region para
@@ -1075,11 +1076,8 @@ void QtPLCDialogClass::showWindowOut(QString str)
 void QtPLCDialogClass::on_lE_SysOveride_editingFinished()//系统速度，0-10000对应0-100%
 {
 	QString oldstr = QString::number(m_data->ActData.SysOveride / 100);
-	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text();
-	if (oldstr == str)
-	{
-		return;
-	}
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->text();
+	if (oldstr == str) return;
 
 	DataFromPC_typ typ;
 	typ = getPCRunData();
@@ -1091,6 +1089,7 @@ void QtPLCDialogClass::on_lE_SysOveride_editingFinished()//系统速度，0-1000
 	((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->blockSignals(true);
 	((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->blockSignals(false);
+
 	showWindowOut(QString::fromLocal8Bit("运行速度已更改!"));
 
 }
@@ -1129,43 +1128,88 @@ void QtPLCDialogClass::on_lE_TUCount_editingFinished()//过轻计数
 }*/
 void QtPLCDialogClass::on_lE_TOverload_editingFinished()//超重重量,单位g
 {
+	QString oldstr = QString::number(m_data->ActData.TOverload, 'f', 3);
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_TOverload->text();
+	if (oldstr == str) return;
+
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
 	typ.Run_Para.TOverload = ((Ui::QtPLCDialogClass*)ui)->lE_TOverload->text().toFloat();
 	m_socket->Communicate_PLC(&typ, nullptr);
+	((Ui::QtPLCDialogClass*)ui)->lE_TOverload->blockSignals(true);
+	((Ui::QtPLCDialogClass*)ui)->lE_TOverload->clearFocus();
+	((Ui::QtPLCDialogClass*)ui)->lE_TOverload->blockSignals(false);
+
+	showWindowOut(QString::fromLocal8Bit("超重重量已更改!"));
 }
 void QtPLCDialogClass::on_lE_TUnderload_editingFinished()//超轻重量,单位g
 {
+	QString oldstr = QString::number(m_data->ActData.TUnderload, 'f', 3);
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->text();
+	if (oldstr == str) return;
+
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
 	typ.Run_Para.TUnderload = ((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->text().toFloat();
 	m_socket->Communicate_PLC(&typ, nullptr);
+	((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->blockSignals(true);
+	((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->clearFocus();
+	((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->blockSignals(false);
+
+	showWindowOut(QString::fromLocal8Bit("超轻重量已更改!"));
 }
 void QtPLCDialogClass::on_lE_InterOverLoad_editingFinished()//内控线，上限,单位g
 {
+	QString oldstr = QString::number(m_data->ActData.InterOverLoad, 'f', 3);
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->text();
+	if (oldstr == str) return;
+
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
 	typ.Run_Para.InterOverLoad = ((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->text().toFloat();
 	m_socket->Communicate_PLC(&typ, nullptr);
+	((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->blockSignals(true);
+	((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->clearFocus();
+	((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->blockSignals(false);
+
+	showWindowOut(QString::fromLocal8Bit("内控上限已更改!"));
 }
 void QtPLCDialogClass::on_lE_InterUnderLoad_editingFinished()//内控线，下限,单位g
 {
+	QString oldstr = QString::number(m_data->ActData.InterUnderLoad, 'f', 3);
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->text();
+	if (oldstr == str) return;
+
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
 	typ.Run_Para.InterUnderLoad = ((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->text().toFloat();
 	m_socket->Communicate_PLC(&typ, nullptr);
+	((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->blockSignals(true);
+	((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->clearFocus();
+	((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->blockSignals(false);
+
+	showWindowOut(QString::fromLocal8Bit("内控下限已更改!"));
 }
 void QtPLCDialogClass::on_lE_TDemand_editingFinished()///期望重量,单位g	
 {
+	QString oldstr = QString::number(m_data->ActData.TDemand, 'f', 3);
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_TDemand->text();
+	if (oldstr == str) return;
+
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
 	typ.Run_Para.TDemand = ((Ui::QtPLCDialogClass*)ui)->lE_TDemand->text().toFloat();
 	m_socket->Communicate_PLC(&typ, nullptr);
+	((Ui::QtPLCDialogClass*)ui)->lE_TDemand->blockSignals(true);
+	((Ui::QtPLCDialogClass*)ui)->lE_TDemand->clearFocus();
+	((Ui::QtPLCDialogClass*)ui)->lE_TDemand->blockSignals(false);
+
+	showWindowOut(QString::fromLocal8Bit("期望重量已更改!"));
 }
 void QtPLCDialogClass::on_cB_TireMode_currentIndexChanged(int index)//0:每组去皮重,1:每次称重去皮重
 {
@@ -1173,32 +1217,48 @@ void QtPLCDialogClass::on_cB_TireMode_currentIndexChanged(int index)//0:每组�
 	typ.Telegram_typ = 4;
 	typ.Run_Para.TireMode = index;
 	m_socket->Communicate_PLC(&typ, nullptr);
+	showWindowOut(QString::fromLocal8Bit("去皮方式已更改!"));
 }
 
 void QtPLCDialogClass::on_lE_GroupSet_editingFinished()///每组测试胶囊数量
 {
+	QString oldstr = QString::number(m_data->ActData.GroupSet);
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->text();
+	if (oldstr == str) return;
+
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
 	typ.Run_Para.GroupSet = ((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->text().toInt();
 	m_socket->Communicate_PLC(&typ, nullptr);
+	((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->blockSignals(true);
+	((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->clearFocus();
+	((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->blockSignals(false);
+
+	showWindowOut(QString::fromLocal8Bit("每组检测数已更改!"));
 }
 void QtPLCDialogClass::on_lE_TestInterval_editingFinished()///测试间隔时间,单位s
 {
+	QString oldstr = QString::number(m_data->ActData.TestInterval);
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->text();
+	if (oldstr == str) return;
+
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
 	typ.Run_Para.TestInterval = ((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->text().toInt();
 	m_socket->Communicate_PLC(&typ, nullptr);
+	((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->blockSignals(true);
+	((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->clearFocus();
+	((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->blockSignals(false);
+
+	showWindowOut(QString::fromLocal8Bit("组间隔已更改!"));
 }
 void QtPLCDialogClass::on_lE_BatchName_editingFinished()//批号字符串
 {
 	QString oldstr = QString(QLatin1String(m_data->ActData.BatchName));
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text();
-	if (oldstr == str)
-	{
-		return;
-	}
+	if (oldstr == str) return;
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4; 
@@ -1212,14 +1272,14 @@ void QtPLCDialogClass::on_lE_BatchName_editingFinished()//批号字符串
 
 	showWindowOut(QString::fromLocal8Bit("生产批号已更改!"));
 }
-void QtPLCDialogClass::on_lE_GroupNo_editingFinished()//当前组号,单位s
+/*void QtPLCDialogClass::on_lE_GroupNo_editingFinished()//当前组号,单位s
 {
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
 	typ.Run_Para.GroupNo = ((Ui::QtPLCDialogClass*)ui)->lE_GroupNo->text().toUInt();
 	m_socket->Communicate_PLC(&typ, nullptr);
-}			
+}*/			
 //int				Language;				//当前语言，0：中文，1：英文
 //float			UserAnalogoutput;		//用户模拟量输入
 //float			Adjustvalue;			//自动调整系数
@@ -1237,76 +1297,155 @@ void QtPLCDialogClass::on_lE_GroupNo_editingFinished()//当前组号,单位s
 //	m_socket->Communicate_PLC(&typ, nullptr);
 //}
 void QtPLCDialogClass::on_lE_s_trg_stop0_editingFinished()
-{
+{	
+	QString oldstr = QString::number(m_data->Machine_Para.s_trg_stop[0]);
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->text();
+	if (oldstr == str) return;
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
 	typ.Machine_Para.s_trg_stop[0] = ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->text().toFloat();
 	m_socket->Communicate_PLC(&typ, nullptr);
+	((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->blockSignals(true);
+	((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->clearFocus();
+	((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->blockSignals(false);
+
+	showWindowOut(QString::fromLocal8Bit("停止位置1已更改!"));
 }
 void QtPLCDialogClass::on_lE_s_trg_stop1_editingFinished()
 {
+	QString oldstr = QString::number(m_data->Machine_Para.s_trg_stop[1]);
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->text();
+	if (oldstr == str) return;
+
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
 	typ.Machine_Para.s_trg_stop[1] = ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->text().toFloat();
 	m_socket->Communicate_PLC(&typ, nullptr);
+	((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->blockSignals(true);
+	((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->clearFocus();
+	((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->blockSignals(false);
+
+	showWindowOut(QString::fromLocal8Bit("停止位置2已更改!"));
 }
 void QtPLCDialogClass::on_lE_FeedTimeOut_editingFinished()
 {
+	QString oldstr = QString::number(m_data->Machine_Para.FeedTimeOut);
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->text();
+	if (oldstr == str) return;
+
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
 	typ.Machine_Para.FeedTimeOut = ((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->text().toFloat();
 	m_socket->Communicate_PLC(&typ, nullptr);
+	((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->blockSignals(true);
+	((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->clearFocus();
+	((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->blockSignals(false);
+
+	showWindowOut(QString::fromLocal8Bit("下料超时时间已更改!"));
 }
 void QtPLCDialogClass::on_lE_CapPickInterval_editingFinished()
 {
+	QString oldstr = QString::number(m_data->Machine_Para.CapPickInterval, 'f', 2);
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->text();
+	if (oldstr == str) return;
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
 	typ.Machine_Para.CapPickInterval = ((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->text().toFloat();
 	m_socket->Communicate_PLC(&typ, nullptr);
+	((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->blockSignals(true);
+	((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->clearFocus();
+	((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->blockSignals(false);
+
+	showWindowOut(QString::fromLocal8Bit("自动取料周期已更改!"));
 }
 void QtPLCDialogClass::on_lE_CapBackInterval_editingFinished()
 {
+	QString oldstr = QString::number(m_data->Machine_Para.CapBackInterval, 'f', 2);
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->text();
+	if (oldstr == str) return;
+	
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
 	typ.Machine_Para.CapBackInterval = ((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->text().toFloat();
 	m_socket->Communicate_PLC(&typ, nullptr);
+	((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->blockSignals(true);
+	((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->clearFocus();
+	((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->blockSignals(false);
+
+	showWindowOut(QString::fromLocal8Bit("成品返还周期已更改!"));
 }
 void QtPLCDialogClass::on_lE_TireDelay_editingFinished()
 {
+	QString oldstr = QString::number(m_data->Machine_Para.TireDelay, 'f', 2);
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->text();
+	if (oldstr == str) return;
+
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
 	typ.Machine_Para.TireDelay = ((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->text().toFloat();
 	m_socket->Communicate_PLC(&typ, nullptr);
+	((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->blockSignals(true);
+	((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->clearFocus();
+	((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->blockSignals(false);
+
+	showWindowOut(QString::fromLocal8Bit("去皮延迟启动时间已更改!"));
 }
 void QtPLCDialogClass::on_lE_ReadDelay_editingFinished()
 {
+	QString oldstr = QString::number(m_data->Machine_Para.ReadDelay, 'f', 2);
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->text();
+	if (oldstr == str) return;
+
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
 	typ.Machine_Para.ReadDelay = ((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->text().toFloat();
 	m_socket->Communicate_PLC(&typ, nullptr);
+	((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->blockSignals(true);
+	((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->clearFocus();
+	((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->blockSignals(false);
+
+	showWindowOut(QString::fromLocal8Bit("读数延迟启动时间已更改!"));
 }
 void QtPLCDialogClass::on_lE_TireWaitTime_editingFinished()
 {
+	QString oldstr = QString::number(m_data->Machine_Para.TireWaitTime, 'f', 2);
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->text();
+	if (oldstr == str) return;
+
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
 	typ.Machine_Para.TireWaitTime = ((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->text().toFloat();
 	m_socket->Communicate_PLC(&typ, nullptr);
+	((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->blockSignals(true);
+	((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->clearFocus();
+	((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->blockSignals(false);
+
+	showWindowOut(QString::fromLocal8Bit("去皮等待时间已更改!"));
 }
 void QtPLCDialogClass::on_lE_StopSignalDelay_editingFinished()
 {
+	QString oldstr = QString::number(m_data->Machine_Para.StopSignalDelay);
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->text();
+	if (oldstr == str) return;
+
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
 	typ.Machine_Para.StopSignalDelay = ((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->text().toInt();
 	m_socket->Communicate_PLC(&typ, nullptr);
+	((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->blockSignals(true);
+	((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->clearFocus();
+	((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->blockSignals(false);
+
+	showWindowOut(QString::fromLocal8Bit("连续超限停机数已更改!"));
 }
 #pragma endregion
 

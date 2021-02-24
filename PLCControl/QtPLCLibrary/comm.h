@@ -5,6 +5,7 @@
 //int == DINT 4个字节 和long一样是4个字节 
 //float == REAL 4个字节 double和longlong是8个字节
 //unsigned char = USINT 8位 1个字节
+//char == STRING
 //char[40] == STRING[40] 8位 1个字节是1个字符占位
 //bool == BOOL 1位
 //short == INT 2个字节
