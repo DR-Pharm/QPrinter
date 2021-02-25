@@ -14,7 +14,7 @@
 #pragma comment(lib, "../../LIB/x86/Dongle_s.lib")
 #endif
 
-#include "Debug/uic/ui_RockeyARM.h"
+#include "x64/Debug/uic/ui_RockeyARM.h"
 
 class RockeyARM : public QDialog
 {
