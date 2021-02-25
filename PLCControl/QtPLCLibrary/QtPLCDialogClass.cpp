@@ -147,6 +147,11 @@ void QtPLCDialogClass::initMovie()
 }
 void QtPLCDialogClass::initUI()
 {
+	//QRegExp regx("[a-zA-Z0-9_]+$");//正则表达式QRegExp,只允许输入中文、数字、字母、下划线以及空格,[\u4e00 - \u9fa5a - zA - Z0 - 9_] + $
+	QRegExp regx("[0-9]+$");
+	((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->setValidator(new QRegExpValidator(regx, this)); 
+	QRegExp regx_2("[a-zA-Z0-9_]+$");
+	((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setValidator(new QRegExpValidator(regx_2, this));
 	lb_dataNow = new QLabel(((Ui::QtPLCDialogClass*)ui)->frame);
 	lb_dataNow->resize(140, 35);
 	lb_dataNow->move(30, 16);
