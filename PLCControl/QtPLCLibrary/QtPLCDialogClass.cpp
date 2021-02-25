@@ -1494,20 +1494,34 @@ void QtPLCDialogClass::on_pB_cmdScaleCalibExt_clicked()//秤外部校正,1:执�
 	typ.Machine_Cmd.cmdScaleCalibExt = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
-void QtPLCDialogClass::on_pB_cmdAxisFeedJogPos_clicked()//下料正转点动，1:执行，0:停止
+void QtPLCDialogClass::on_pB_cmdAxisFeedJogPos_pressed()//下料正转点动，1:执行，0:停止
 {
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisFeedJogPos = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
-void QtPLCDialogClass::on_pB_cmdAxisFeedJogNeg_clicked()//下料反转点动，1:执行，0:停止
+void QtPLCDialogClass::on_pB_cmdAxisFeedJogPos_released()//下料正转点动，1:执行，0:停止 
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdAxisFeedJogPos = 0;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_pB_cmdAxisFeedJogNeg_pressed()//下料反转点动，1:执行，0:停止
 {
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisFeedJogNeg = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
-}	
+}
+void QtPLCDialogClass::on_pB_cmdAxisFeedJogNeg_released()//下料反转点动，1:执行，0:停止
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdAxisFeedJogNeg = 0;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
 void QtPLCDialogClass::on_pB_cmdAxisFeedRelMov_clicked()//下料相对运动启动，1:执行，自动复位
 {
 	DataFromPC_typ typ;
@@ -1528,21 +1542,35 @@ void QtPLCDialogClass::on_pB_cmdAxisFeedStopMov_clicked()//下料停止运动，
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisFeedPosMov = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
-}	
-void QtPLCDialogClass::on_pB_cmdAxisSwingJogPos_clicked()//旋转正转点动，1:执行，0:停止
+}
+void QtPLCDialogClass::on_pB_cmdAxisSwingJogPos_pressed()//旋转正转点动，1:执行，0:停止
 {
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisSwingJogPos = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
-}	
-void QtPLCDialogClass::on_pB_cmdAxisSwingJogNeg_clicked()//旋转反转点动，1:执行，0:停止
+}
+void QtPLCDialogClass::on_pB_cmdAxisSwingJogPos_released()//旋转正转点动，1:执行，0:停止
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdAxisSwingJogPos = 0;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_pB_cmdAxisSwingJogNeg_pressed()//旋转反转点动，1:执行，0:停止
 {
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisSwingJogNeg = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
-}	
+}
+void QtPLCDialogClass::on_pB_cmdAxisSwingJogNeg_released()//旋转反转点动，1:执行，0:停止
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdAxisSwingJogNeg = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
 void QtPLCDialogClass::on_pB_cmdAxisSwingRelMov_clicked()//旋转相对运动启动，1:执行，自动复位
 {
 	DataFromPC_typ typ;
