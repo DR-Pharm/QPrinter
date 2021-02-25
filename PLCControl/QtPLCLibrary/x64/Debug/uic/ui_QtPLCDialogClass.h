@@ -24,7 +24,6 @@
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
-#include "../QtPLCLibrary/userle.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -121,21 +120,21 @@ public:
     QFrame *frame_4;
     QGridLayout *gridLayout_5;
     QLabel *label_25;
-    UserLE *lE_FeedTimeOut;
-    UserLE *lE_CapPickInterval;
-    UserLE *lE_s_trg_stop1;
+    QLineEdit *lE_FeedTimeOut;
+    QLineEdit *lE_CapPickInterval;
+    QLineEdit *lE_s_trg_stop1;
     QLabel *label_41;
     QLabel *label_26;
-    UserLE *lE_TireDelay;
+    QLineEdit *lE_TireDelay;
     QLabel *label_32;
     QSpacerItem *horizontalSpacer;
-    UserLE *lE_s_trg_stop0;
-    UserLE *lE_CapBackInterval;
-    UserLE *lE_ReadDelay;
-    UserLE *lE_TireWaitTime;
+    QLineEdit *lE_s_trg_stop0;
+    QLineEdit *lE_CapBackInterval;
+    QLineEdit *lE_ReadDelay;
+    QLineEdit *lE_TireWaitTime;
     QLabel *label_31;
     QLabel *label_5;
-    UserLE *lE_StopSignalDelay;
+    QLineEdit *lE_StopSignalDelay;
     QLabel *label_4;
     QLabel *label_42;
     QLabel *label_44;
@@ -776,7 +775,7 @@ public:
 
         gridLayout_5->addWidget(label_25, 0, 0, 1, 1);
 
-        lE_FeedTimeOut = new UserLE(frame_4);
+        lE_FeedTimeOut = new QLineEdit(frame_4);
         lE_FeedTimeOut->setObjectName(QString::fromUtf8("lE_FeedTimeOut"));
         lE_FeedTimeOut->setMinimumSize(QSize(120, 35));
         lE_FeedTimeOut->setMaximumSize(QSize(3434, 35));
@@ -785,7 +784,7 @@ public:
 
         gridLayout_5->addWidget(lE_FeedTimeOut, 3, 1, 1, 1);
 
-        lE_CapPickInterval = new UserLE(frame_4);
+        lE_CapPickInterval = new QLineEdit(frame_4);
         lE_CapPickInterval->setObjectName(QString::fromUtf8("lE_CapPickInterval"));
         lE_CapPickInterval->setMinimumSize(QSize(120, 35));
         lE_CapPickInterval->setMaximumSize(QSize(3434, 35));
@@ -794,7 +793,7 @@ public:
 
         gridLayout_5->addWidget(lE_CapPickInterval, 0, 1, 1, 1);
 
-        lE_s_trg_stop1 = new UserLE(frame_4);
+        lE_s_trg_stop1 = new QLineEdit(frame_4);
         lE_s_trg_stop1->setObjectName(QString::fromUtf8("lE_s_trg_stop1"));
         lE_s_trg_stop1->setMinimumSize(QSize(120, 35));
         lE_s_trg_stop1->setMaximumSize(QSize(3434, 35));
@@ -825,7 +824,7 @@ public:
 
         gridLayout_5->addWidget(label_26, 1, 0, 1, 1);
 
-        lE_TireDelay = new UserLE(frame_4);
+        lE_TireDelay = new QLineEdit(frame_4);
         lE_TireDelay->setObjectName(QString::fromUtf8("lE_TireDelay"));
         lE_TireDelay->setMinimumSize(QSize(120, 35));
         lE_TireDelay->setMaximumSize(QSize(3434, 35));
@@ -849,7 +848,7 @@ public:
 
         gridLayout_5->addItem(horizontalSpacer, 2, 2, 1, 1);
 
-        lE_s_trg_stop0 = new UserLE(frame_4);
+        lE_s_trg_stop0 = new QLineEdit(frame_4);
         lE_s_trg_stop0->setObjectName(QString::fromUtf8("lE_s_trg_stop0"));
         lE_s_trg_stop0->setMinimumSize(QSize(120, 35));
         lE_s_trg_stop0->setMaximumSize(QSize(3434, 35));
@@ -858,7 +857,7 @@ public:
 
         gridLayout_5->addWidget(lE_s_trg_stop0, 1, 1, 1, 1);
 
-        lE_CapBackInterval = new UserLE(frame_4);
+        lE_CapBackInterval = new QLineEdit(frame_4);
         lE_CapBackInterval->setObjectName(QString::fromUtf8("lE_CapBackInterval"));
         lE_CapBackInterval->setMinimumSize(QSize(120, 35));
         lE_CapBackInterval->setMaximumSize(QSize(3434, 35));
@@ -867,7 +866,7 @@ public:
 
         gridLayout_5->addWidget(lE_CapBackInterval, 0, 4, 1, 1);
 
-        lE_ReadDelay = new UserLE(frame_4);
+        lE_ReadDelay = new QLineEdit(frame_4);
         lE_ReadDelay->setObjectName(QString::fromUtf8("lE_ReadDelay"));
         lE_ReadDelay->setMinimumSize(QSize(120, 35));
         lE_ReadDelay->setMaximumSize(QSize(3434, 35));
@@ -876,7 +875,7 @@ public:
 
         gridLayout_5->addWidget(lE_ReadDelay, 3, 4, 1, 1);
 
-        lE_TireWaitTime = new UserLE(frame_4);
+        lE_TireWaitTime = new QLineEdit(frame_4);
         lE_TireWaitTime->setObjectName(QString::fromUtf8("lE_TireWaitTime"));
         lE_TireWaitTime->setMinimumSize(QSize(120, 35));
         lE_TireWaitTime->setMaximumSize(QSize(3434, 35));
@@ -907,7 +906,7 @@ public:
 
         gridLayout_5->addWidget(label_5, 0, 3, 1, 1);
 
-        lE_StopSignalDelay = new UserLE(frame_4);
+        lE_StopSignalDelay = new QLineEdit(frame_4);
         lE_StopSignalDelay->setObjectName(QString::fromUtf8("lE_StopSignalDelay"));
         lE_StopSignalDelay->setMinimumSize(QSize(120, 35));
         lE_StopSignalDelay->setMaximumSize(QSize(3434, 35));
@@ -2002,8 +2001,8 @@ public:
 
         retranslateUi(QtPLCDialogClass);
 
-        tabWidget_PLC->setCurrentIndex(1);
-        tabWidget->setCurrentIndex(2);
+        tabWidget_PLC->setCurrentIndex(3);
+        tabWidget->setCurrentIndex(0);
         cB_TireMode->setCurrentIndex(-1);
         cB_ScaleStableState->setCurrentIndex(-1);
 
@@ -2145,7 +2144,7 @@ public:
         label_80->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\277\220\350\241\214\351\200\237\345\272\246\357\274\232", nullptr));
         lE_SysOveride->setText(QString());
         label_78->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\224\237\344\272\247\346\211\271\345\217\267\357\274\232", nullptr));
-        lE_BatchName->setText(QCoreApplication::translate("QtPLCDialogClass", "_", nullptr));
+        lE_BatchName->setText(QString());
         label_81->setText(QCoreApplication::translate("QtPLCDialogClass", "%", nullptr));
         lb_logo->setText(QString());
         pB_dtDlg->setText(QString());

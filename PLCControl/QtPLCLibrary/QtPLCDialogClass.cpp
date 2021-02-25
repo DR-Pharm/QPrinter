@@ -1095,7 +1095,7 @@ void QtPLCDialogClass::on_lE_SysOveride_editingFinished()//系统速度，0-1000
 	((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("运行速度已更改!"));
+	showWindowOut(QString::fromLocal8Bit("运行速度\n已更改!"));
 
 }
 //passcount//通过计数
@@ -1146,7 +1146,7 @@ void QtPLCDialogClass::on_lE_TOverload_editingFinished()//超重重量,单位g
 	((Ui::QtPLCDialogClass*)ui)->lE_TOverload->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_TOverload->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("超重重量已更改!"));
+	showWindowOut(QString::fromLocal8Bit("超重重量\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_TUnderload_editingFinished()//超轻重量,单位g
 {
@@ -1163,7 +1163,7 @@ void QtPLCDialogClass::on_lE_TUnderload_editingFinished()//超轻重量,单位g
 	((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("超轻重量已更改!"));
+	showWindowOut(QString::fromLocal8Bit("超轻重量\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_InterOverLoad_editingFinished()//内控线，上限,单位g
 {
@@ -1180,7 +1180,7 @@ void QtPLCDialogClass::on_lE_InterOverLoad_editingFinished()//内控线，上限
 	((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("内控上限已更改!"));
+	showWindowOut(QString::fromLocal8Bit("内控上限\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_InterUnderLoad_editingFinished()//内控线，下限,单位g
 {
@@ -1197,7 +1197,7 @@ void QtPLCDialogClass::on_lE_InterUnderLoad_editingFinished()//内控线，下�
 	((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("内控下限已更改!"));
+	showWindowOut(QString::fromLocal8Bit("内控下限\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_TDemand_editingFinished()///期望重量,单位g	
 {
@@ -1214,7 +1214,7 @@ void QtPLCDialogClass::on_lE_TDemand_editingFinished()///期望重量,单位g
 	((Ui::QtPLCDialogClass*)ui)->lE_TDemand->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_TDemand->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("期望重量已更改!"));
+	showWindowOut(QString::fromLocal8Bit("期望重量\n已更改!"));
 }
 void QtPLCDialogClass::on_cB_TireMode_currentIndexChanged(int index)//0:每组去皮重,1:每次称重去皮重
 {
@@ -1223,7 +1223,7 @@ void QtPLCDialogClass::on_cB_TireMode_currentIndexChanged(int index)//0:每组�
 	typ.Telegram_typ = 4;
 	typ.Run_Para.TireMode = index;
 	m_socket->Communicate_PLC(&typ, nullptr);
-	showWindowOut(QString::fromLocal8Bit("去皮方式已更改!"));
+	showWindowOut(QString::fromLocal8Bit("去皮方式\n已更改!"));
 }
 
 void QtPLCDialogClass::on_lE_GroupSet_editingFinished()///每组测试胶囊数量
@@ -1241,7 +1241,7 @@ void QtPLCDialogClass::on_lE_GroupSet_editingFinished()///每组测试胶囊数�
 	((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("每组检测数已更改!"));
+	showWindowOut(QString::fromLocal8Bit("每组检测数\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_TestInterval_editingFinished()///测试间隔时间,单位s
 {
@@ -1258,7 +1258,7 @@ void QtPLCDialogClass::on_lE_TestInterval_editingFinished()///测试间隔时间
 	((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("组间隔已更改!"));
+	showWindowOut(QString::fromLocal8Bit("组间隔\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_BatchName_editingFinished()//批号字符串
 {
@@ -1276,7 +1276,7 @@ void QtPLCDialogClass::on_lE_BatchName_editingFinished()//批号字符串
 	((Ui::QtPLCDialogClass*)ui)->lE_BatchName->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_BatchName->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("生产批号已更改!"));
+	showWindowOut(QString::fromLocal8Bit("生产批号\n已更改!"));
 }
 /*void QtPLCDialogClass::on_lE_GroupNo_editingFinished()//当前组号,单位s
 {
@@ -1316,7 +1316,7 @@ void QtPLCDialogClass::on_lE_s_trg_stop0_editingFinished()
 	((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("停止位置1已更改!"));
+	showWindowOut(QString::fromLocal8Bit("停止位置1\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_s_trg_stop1_editingFinished()
 {
@@ -1333,7 +1333,7 @@ void QtPLCDialogClass::on_lE_s_trg_stop1_editingFinished()
 	((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("停止位置2已更改!"));
+	showWindowOut(QString::fromLocal8Bit("停止位置2\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_FeedTimeOut_editingFinished()
 {
@@ -1350,7 +1350,7 @@ void QtPLCDialogClass::on_lE_FeedTimeOut_editingFinished()
 	((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("下料超时时间已更改!"));
+	showWindowOut(QString::fromLocal8Bit("下料超时时间\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_CapPickInterval_editingFinished()
 {
@@ -1366,7 +1366,7 @@ void QtPLCDialogClass::on_lE_CapPickInterval_editingFinished()
 	((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("自动取料周期已更改!"));
+	showWindowOut(QString::fromLocal8Bit("自动取料周期\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_CapBackInterval_editingFinished()
 {
@@ -1383,7 +1383,7 @@ void QtPLCDialogClass::on_lE_CapBackInterval_editingFinished()
 	((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("成品返还周期已更改!"));
+	showWindowOut(QString::fromLocal8Bit("成品返还周期\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_TireDelay_editingFinished()
 {
@@ -1400,7 +1400,7 @@ void QtPLCDialogClass::on_lE_TireDelay_editingFinished()
 	((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("去皮延迟启动时间已更改!"));
+	showWindowOut(QString::fromLocal8Bit("去皮延迟启动时间\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_ReadDelay_editingFinished()
 {
@@ -1417,7 +1417,7 @@ void QtPLCDialogClass::on_lE_ReadDelay_editingFinished()
 	((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("读数延迟启动时间已更改!"));
+	showWindowOut(QString::fromLocal8Bit("读数延迟启动时间\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_TireWaitTime_editingFinished()
 {
@@ -1434,7 +1434,7 @@ void QtPLCDialogClass::on_lE_TireWaitTime_editingFinished()
 	((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("去皮等待时间已更改!"));
+	showWindowOut(QString::fromLocal8Bit("去皮等待时间\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_StopSignalDelay_editingFinished()
 {
@@ -1451,7 +1451,7 @@ void QtPLCDialogClass::on_lE_StopSignalDelay_editingFinished()
 	((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("连续超限停机数已更改!"));
+	showWindowOut(QString::fromLocal8Bit("连续超限停机数\n已更改!"));
 }
 #pragma endregion
 
@@ -1777,6 +1777,14 @@ void QtPLCDialogClass::on_pb_cmdBaffle_toggled(bool checked)//
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.Outputs.Baffle = checked;
 	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_tabWidget_currentChanged(int index)
+{
+	((Ui::QtPLCDialogClass*)ui)->pB_showPrt->setChecked(false);
+}
+void QtPLCDialogClass::on_tabWidget_PLC_currentChanged(int index)
+{
+	((Ui::QtPLCDialogClass*)ui)->pB_showPrt->setChecked(false);
 }
 //Photo;
 //Flash;

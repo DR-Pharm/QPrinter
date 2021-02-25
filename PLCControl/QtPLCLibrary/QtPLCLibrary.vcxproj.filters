@@ -36,9 +36,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="UserLE.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="QtPLCControl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -56,9 +53,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="UserLE.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="QtPLCDialogClass.h">
       <Filter>Header Files</Filter>
     </QtMoc>

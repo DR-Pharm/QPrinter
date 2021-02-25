@@ -59,7 +59,7 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>3</number>
    </property>
    <widget class="QWidget" name="tab_PLC_Control">
     <attribute name="title">
@@ -81,7 +81,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -996,7 +996,7 @@
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="UserLE" name="lE_FeedTimeOut">
+         <widget class="QLineEdit" name="lE_FeedTimeOut">
           <property name="minimumSize">
            <size>
             <width>120</width>
@@ -1024,7 +1024,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="UserLE" name="lE_CapPickInterval">
+         <widget class="QLineEdit" name="lE_CapPickInterval">
           <property name="minimumSize">
            <size>
             <width>120</width>
@@ -1052,7 +1052,7 @@
          </widget>
         </item>
         <item row="1" column="4">
-         <widget class="UserLE" name="lE_s_trg_stop1">
+         <widget class="QLineEdit" name="lE_s_trg_stop1">
           <property name="minimumSize">
            <size>
             <width>120</width>
@@ -1154,7 +1154,7 @@
          </widget>
         </item>
         <item row="2" column="4">
-         <widget class="UserLE" name="lE_TireDelay">
+         <widget class="QLineEdit" name="lE_TireDelay">
           <property name="minimumSize">
            <size>
             <width>120</width>
@@ -1235,7 +1235,7 @@
          </spacer>
         </item>
         <item row="1" column="1">
-         <widget class="UserLE" name="lE_s_trg_stop0">
+         <widget class="QLineEdit" name="lE_s_trg_stop0">
           <property name="minimumSize">
            <size>
             <width>120</width>
@@ -1263,7 +1263,7 @@
          </widget>
         </item>
         <item row="0" column="4">
-         <widget class="UserLE" name="lE_CapBackInterval">
+         <widget class="QLineEdit" name="lE_CapBackInterval">
           <property name="minimumSize">
            <size>
             <width>120</width>
@@ -1291,7 +1291,7 @@
          </widget>
         </item>
         <item row="3" column="4">
-         <widget class="UserLE" name="lE_ReadDelay">
+         <widget class="QLineEdit" name="lE_ReadDelay">
           <property name="minimumSize">
            <size>
             <width>120</width>
@@ -1319,7 +1319,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="UserLE" name="lE_TireWaitTime">
+         <widget class="QLineEdit" name="lE_TireWaitTime">
           <property name="minimumSize">
            <size>
             <width>120</width>
@@ -1421,7 +1421,7 @@
          </widget>
         </item>
         <item row="4" column="4">
-         <widget class="UserLE" name="lE_StopSignalDelay">
+         <widget class="QLineEdit" name="lE_StopSignalDelay">
           <property name="minimumSize">
            <size>
             <width>120</width>
@@ -4122,7 +4122,7 @@
             <string notr="true"/>
            </property>
            <property name="text">
-            <string>_</string>
+            <string/>
            </property>
            <property name="frame">
             <bool>false</bool>
@@ -4382,13 +4382,6 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <customwidgets>
-  <customwidget>
-   <class>UserLE</class>
-   <extends>QLineEdit</extends>
-   <header>../QtPLCLibrary/userle.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

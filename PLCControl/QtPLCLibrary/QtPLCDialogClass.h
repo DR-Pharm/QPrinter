@@ -144,6 +144,8 @@ public slots:
 	void on_pb_cmdAlarmSignal_toggled(bool checked);
 	void on_pb_cmdYellowAlarmout_toggled(bool checked);
 	void on_pb_cmdBaffle_toggled(bool checked);
+	void on_tabWidget_currentChanged(int index);
+	void on_tabWidget_PLC_currentChanged(int index);
 };
 
 #pragma once
