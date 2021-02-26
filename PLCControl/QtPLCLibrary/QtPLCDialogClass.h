@@ -103,6 +103,14 @@ public slots:
 	void on_lE_TireWaitTime_editingFinished();
 	void on_lE_StopSignalDelay_editingFinished();
 
+	void on_pB_Read1_clicked();
+
+	void on_pB_Read2_clicked();
+
+	void on_pB_Write1_clicked();
+
+	void on_pB_Write2_clicked();
+
 	void on_pB_cmdScaleRead_clicked();
 	void on_pB_cmdScaleTire_clicked();
 	void on_pB_cmdScaleSetStable_clicked();

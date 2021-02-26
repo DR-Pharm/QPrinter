@@ -228,7 +228,7 @@ DataFromPC_typ QtPLCDialogClass::getPCParaData()//2
 {
 	DataFromPC_typ tmp;
 	memset(&tmp, 0, sizeof(DataFromPC_typ));
-//	tmp.Machine_Para.enable = m_data->Machine_Para.enable;
+	tmp.Machine_Para.enable = 0;// m_data->Machine_Para.enable;
 	tmp.Machine_Para.s_trg_stop[0] = m_data->Machine_Para.s_trg_stop[0];
 	tmp.Machine_Para.s_trg_stop[1] = m_data->Machine_Para.s_trg_stop[1];
 	tmp.Machine_Para.FeedTimeOut = m_data->Machine_Para.FeedTimeOut;
@@ -1551,7 +1551,42 @@ void QtPLCDialogClass::on_lE_StopSignalDelay_editingFinished()
 #pragma region ui cmd slots
 //DateTimeStructTyp		DateTimeSet;		//设定日期时间目标
 //unsigned char		cmdChangeDT;					//修改日期时间,1:执行，自动复位
-
+void QtPLCDialogClass::on_pB_Read1_clicked()//读取1
+{
+	DataFromPC_typ typ;
+	typ = getPCParaData();
+	typ.Telegram_typ = 2;
+	typ.Machine_Para.enable = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+	showWindowOut(QString::fromLocal8Bit("PLC默认参数\n已读取!"));
+}
+void QtPLCDialogClass::on_pB_Read2_clicked()//读取2
+{
+	DataFromPC_typ typ;
+	typ = getPCParaData();
+	typ.Telegram_typ = 2;
+	typ.Machine_Para.enable = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+	showWindowOut(QString::fromLocal8Bit("PLC默认参数\n已读取!"));
+}
+void QtPLCDialogClass::on_pB_Write1_clicked()//写入1
+{
+	DataFromPC_typ typ;
+	typ = getPCParaData();
+	typ.Telegram_typ = 2;
+	typ.Machine_Para.enable = 2;
+	m_socket->Communicate_PLC(&typ, nullptr);
+	showWindowOut(QString::fromLocal8Bit("PLC默认参数\n已保存!"));
+}
+void QtPLCDialogClass::on_pB_Write2_clicked()//写入2
+{
+	DataFromPC_typ typ;
+	typ = getPCParaData();
+	typ.Telegram_typ = 2;
+	typ.Machine_Para.enable = 2;
+	m_socket->Communicate_PLC(&typ, nullptr);
+	showWindowOut(QString::fromLocal8Bit("PLC默认参数\n已保存!"));
+}
 void QtPLCDialogClass::on_pB_cmdScaleRead_clicked()//秤读数命令,1:执行，自动复位
 {
 	DataFromPC_typ typ;
