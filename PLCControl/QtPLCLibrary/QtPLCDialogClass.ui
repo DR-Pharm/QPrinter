@@ -59,7 +59,7 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="tab_PLC_Control">
     <attribute name="title">
@@ -1021,6 +1021,9 @@
           <property name="styleSheet">
            <string notr="true"/>
           </property>
+          <property name="text">
+           <string>0</string>
+          </property>
          </widget>
         </item>
         <item row="0" column="1">
@@ -1049,6 +1052,9 @@
           <property name="styleSheet">
            <string notr="true"/>
           </property>
+          <property name="text">
+           <string>0.00</string>
+          </property>
          </widget>
         </item>
         <item row="1" column="4">
@@ -1076,6 +1082,9 @@
           </property>
           <property name="styleSheet">
            <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>0</string>
           </property>
          </widget>
         </item>
@@ -1179,6 +1188,9 @@
           <property name="styleSheet">
            <string notr="true"/>
           </property>
+          <property name="text">
+           <string>0.00</string>
+          </property>
          </widget>
         </item>
         <item row="2" column="3">
@@ -1260,6 +1272,9 @@
           <property name="styleSheet">
            <string notr="true"/>
           </property>
+          <property name="text">
+           <string>0</string>
+          </property>
          </widget>
         </item>
         <item row="0" column="4">
@@ -1287,6 +1302,9 @@
           </property>
           <property name="styleSheet">
            <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>0.00</string>
           </property>
          </widget>
         </item>
@@ -1316,6 +1334,9 @@
           <property name="styleSheet">
            <string notr="true"/>
           </property>
+          <property name="text">
+           <string>0.00</string>
+          </property>
          </widget>
         </item>
         <item row="2" column="1">
@@ -1343,6 +1364,9 @@
           </property>
           <property name="styleSheet">
            <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>0.00</string>
           </property>
          </widget>
         </item>
@@ -1445,6 +1469,9 @@
           </property>
           <property name="styleSheet">
            <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>0</string>
           </property>
          </widget>
         </item>
@@ -1648,7 +1675,7 @@
            </font>
           </property>
           <property name="text">
-           <string/>
+           <string>0.000</string>
           </property>
          </widget>
         </item>
@@ -1682,7 +1709,7 @@
            </font>
           </property>
           <property name="text">
-           <string/>
+           <string>0.000</string>
           </property>
          </widget>
         </item>
@@ -1726,7 +1753,7 @@
            </font>
           </property>
           <property name="text">
-           <string/>
+           <string>0</string>
           </property>
          </widget>
         </item>
@@ -1844,7 +1871,7 @@
            </font>
           </property>
           <property name="text">
-           <string/>
+           <string>0</string>
           </property>
          </widget>
         </item>
@@ -1894,7 +1921,7 @@
            </font>
           </property>
           <property name="text">
-           <string/>
+           <string>0.000</string>
           </property>
          </widget>
         </item>
@@ -2035,7 +2062,7 @@
            </font>
           </property>
           <property name="text">
-           <string/>
+           <string>0</string>
           </property>
          </widget>
         </item>
@@ -2069,7 +2096,7 @@
            </font>
           </property>
           <property name="text">
-           <string/>
+           <string>0.000</string>
           </property>
          </widget>
         </item>
@@ -2103,7 +2130,7 @@
            </font>
           </property>
           <property name="text">
-           <string/>
+           <string>0.000</string>
           </property>
          </widget>
         </item>
@@ -2184,7 +2211,7 @@
            </font>
           </property>
           <property name="text">
-           <string/>
+           <string>0</string>
           </property>
          </widget>
         </item>
@@ -3340,7 +3367,7 @@
               <string notr="true"/>
              </property>
              <property name="text">
-              <string/>
+              <string>0</string>
              </property>
              <property name="frame">
               <bool>false</bool>
@@ -3409,7 +3436,7 @@
               <string notr="true"/>
              </property>
              <property name="text">
-              <string/>
+              <string>0</string>
              </property>
              <property name="frame">
               <bool>false</bool>
@@ -3469,7 +3496,7 @@
               <string notr="true"/>
              </property>
              <property name="text">
-              <string/>
+              <string>0</string>
              </property>
              <property name="frame">
               <bool>false</bool>
@@ -3556,7 +3583,7 @@
               <string notr="true"/>
              </property>
              <property name="text">
-              <string/>
+              <string>0</string>
              </property>
              <property name="frame">
               <bool>false</bool>
@@ -3616,7 +3643,7 @@
               <string notr="true"/>
              </property>
              <property name="text">
-              <string/>
+              <string>0.000</string>
              </property>
              <property name="frame">
               <bool>false</bool>
@@ -3692,7 +3719,7 @@
               <string notr="true"/>
              </property>
              <property name="text">
-              <string/>
+              <string>0</string>
              </property>
              <property name="frame">
               <bool>false</bool>
@@ -3807,7 +3834,7 @@
               <string notr="true"/>
              </property>
              <property name="text">
-              <string/>
+              <string>0</string>
              </property>
              <property name="frame">
               <bool>false</bool>
@@ -3870,7 +3897,7 @@
               <string notr="true"/>
              </property>
              <property name="text">
-              <string/>
+              <string>0</string>
              </property>
              <property name="frame">
               <bool>false</bool>
@@ -4020,7 +4047,7 @@
             <string notr="true"/>
            </property>
            <property name="text">
-            <string/>
+            <string>0</string>
            </property>
            <property name="frame">
             <bool>false</bool>

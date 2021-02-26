@@ -1082,8 +1082,13 @@ void QtPLCDialogClass::on_lE_SysOveride_editingFinished()//系统速度，0-1000
 {
 	QString oldstr = QString::number(m_data->ActData.SysOveride / 100);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->text();
-	if (oldstr == str) return;
-
+	 if (oldstr == str)
+	 {
+		 ((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->blockSignals(true);
+		 ((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->clearFocus();
+		 ((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->blockSignals(false);
+		 return;
+	 }
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
@@ -1135,8 +1140,13 @@ void QtPLCDialogClass::on_lE_TOverload_editingFinished()//超重重量,单位g
 {
 	QString oldstr = QString::number(m_data->ActData.TOverload, 'f', 3);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_TOverload->text();
-	if (oldstr == str) return;
-
+	 if (oldstr == str)
+	 {
+		 ((Ui::QtPLCDialogClass*)ui)->lE_TOverload->blockSignals(true);
+		 ((Ui::QtPLCDialogClass*)ui)->lE_TOverload->clearFocus();
+		 ((Ui::QtPLCDialogClass*)ui)->lE_TOverload->blockSignals(false);
+		 return;
+	 }
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
@@ -1152,8 +1162,13 @@ void QtPLCDialogClass::on_lE_TUnderload_editingFinished()//超轻重量,单位g
 {
 	QString oldstr = QString::number(m_data->ActData.TUnderload, 'f', 3);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->text();
-	if (oldstr == str) return;
-
+	 if (oldstr == str)
+	 {
+		 ((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->blockSignals(true);
+		 ((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->clearFocus();
+		 ((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->blockSignals(false);
+		 return;
+	 }
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
@@ -1169,8 +1184,13 @@ void QtPLCDialogClass::on_lE_InterOverLoad_editingFinished()//内控线，上限
 {
 	QString oldstr = QString::number(m_data->ActData.InterOverLoad, 'f', 3);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->text();
-	if (oldstr == str) return;
-
+	 if (oldstr == str)
+	 {
+		 ((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->blockSignals(true);
+		 ((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->clearFocus();
+		 ((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->blockSignals(false);
+		 return;
+	 }
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
@@ -1186,8 +1206,13 @@ void QtPLCDialogClass::on_lE_InterUnderLoad_editingFinished()//内控线，下�
 {
 	QString oldstr = QString::number(m_data->ActData.InterUnderLoad, 'f', 3);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->text();
-	if (oldstr == str) return;
-
+	 if (oldstr == str)
+	 {
+		 ((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->blockSignals(true);
+		 ((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->clearFocus();
+		 ((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->blockSignals(false);
+		 return;
+	 }
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
@@ -1203,8 +1228,13 @@ void QtPLCDialogClass::on_lE_TDemand_editingFinished()///期望重量,单位g
 {
 	QString oldstr = QString::number(m_data->ActData.TDemand, 'f', 3);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_TDemand->text();
-	if (oldstr == str) return;
-
+	 if (oldstr == str)
+	 {
+		 ((Ui::QtPLCDialogClass*)ui)->lE_TDemand->blockSignals(true);
+		 ((Ui::QtPLCDialogClass*)ui)->lE_TDemand->clearFocus();
+		 ((Ui::QtPLCDialogClass*)ui)->lE_TDemand->blockSignals(false);
+		 return;
+	 }
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
@@ -1230,8 +1260,13 @@ void QtPLCDialogClass::on_lE_GroupSet_editingFinished()///每组测试胶囊数�
 {
 	QString oldstr = QString::number(m_data->ActData.GroupSet);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->text();
-	if (oldstr == str) return;
-
+	 if (oldstr == str)
+	 {
+		 ((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->blockSignals(true);
+		 ((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->clearFocus();
+		 ((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->blockSignals(false);
+		 return;
+	 }
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
@@ -1247,8 +1282,13 @@ void QtPLCDialogClass::on_lE_TestInterval_editingFinished()///测试间隔时间
 {
 	QString oldstr = QString::number(m_data->ActData.TestInterval);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->text();
-	if (oldstr == str) return;
-
+	 if (oldstr == str)
+	 {
+		 ((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->blockSignals(true);
+		 ((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->clearFocus();
+		 ((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->blockSignals(false);
+		 return;
+	 }
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
@@ -1264,7 +1304,13 @@ void QtPLCDialogClass::on_lE_BatchName_editingFinished()//批号字符串
 {
 	QString oldstr = QString(QLatin1String(m_data->ActData.BatchName));
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text();
-	if (oldstr == str) return;
+	 if (oldstr == str)
+	 {
+		 ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->blockSignals(true);
+		 ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->clearFocus();
+		 ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->blockSignals(false);
+		 return;
+	 }
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4; 
@@ -1306,7 +1352,13 @@ void QtPLCDialogClass::on_lE_s_trg_stop0_editingFinished()
 {	
 	QString oldstr = QString::number(m_data->Machine_Para.s_trg_stop[0]);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->text();
-	if (oldstr == str) return;
+	 if (oldstr == str)
+	 {
+		 ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->blockSignals(true);
+		 ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->clearFocus();
+		 ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->blockSignals(false);
+		 return;
+	 }
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
@@ -1322,8 +1374,13 @@ void QtPLCDialogClass::on_lE_s_trg_stop1_editingFinished()
 {
 	QString oldstr = QString::number(m_data->Machine_Para.s_trg_stop[1]);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->text();
-	if (oldstr == str) return;
-
+	 if (oldstr == str)
+	 {
+		 ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->blockSignals(true);
+		 ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->clearFocus();
+		 ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->blockSignals(false);
+		 return;
+	 }
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
@@ -1339,8 +1396,13 @@ void QtPLCDialogClass::on_lE_FeedTimeOut_editingFinished()
 {
 	QString oldstr = QString::number(m_data->Machine_Para.FeedTimeOut);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->text();
-	if (oldstr == str) return;
-
+	 if (oldstr == str)
+	 {
+		 ((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->blockSignals(true);
+		 ((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->clearFocus();
+		 ((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->blockSignals(false);
+		 return;
+	 }
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
@@ -1356,7 +1418,13 @@ void QtPLCDialogClass::on_lE_CapPickInterval_editingFinished()
 {
 	QString oldstr = QString::number(m_data->Machine_Para.CapPickInterval, 'f', 2);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->text();
-	if (oldstr == str) return;
+	if (oldstr == str)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->blockSignals(false);
+		return;
+	}
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
@@ -1372,8 +1440,13 @@ void QtPLCDialogClass::on_lE_CapBackInterval_editingFinished()
 {
 	QString oldstr = QString::number(m_data->Machine_Para.CapBackInterval, 'f', 2);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->text();
-	if (oldstr == str) return;
-	
+	 if (oldstr == str)
+	 {
+		 ((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->blockSignals(true);
+		 ((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->clearFocus();
+		 ((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->blockSignals(false);
+		 return;
+	 }
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
@@ -1389,8 +1462,13 @@ void QtPLCDialogClass::on_lE_TireDelay_editingFinished()
 {
 	QString oldstr = QString::number(m_data->Machine_Para.TireDelay, 'f', 2);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->text();
-	if (oldstr == str) return;
-
+	 if (oldstr == str)
+	 {
+		 ((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->blockSignals(true);
+		 ((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->clearFocus();
+		 ((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->blockSignals(false);
+		 return;
+	 }
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
@@ -1406,8 +1484,13 @@ void QtPLCDialogClass::on_lE_ReadDelay_editingFinished()
 {
 	QString oldstr = QString::number(m_data->Machine_Para.ReadDelay, 'f', 2);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->text();
-	if (oldstr == str) return;
-
+	 if (oldstr == str)
+	 {
+		 ((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->blockSignals(true);
+		 ((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->clearFocus();
+		 ((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->blockSignals(false);
+		 return;
+	 }
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
@@ -1423,8 +1506,13 @@ void QtPLCDialogClass::on_lE_TireWaitTime_editingFinished()
 {
 	QString oldstr = QString::number(m_data->Machine_Para.TireWaitTime, 'f', 2);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->text();
-	if (oldstr == str) return;
-
+	 if (oldstr == str)
+	 {
+		 ((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->blockSignals(true);
+		 ((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->clearFocus();
+		 ((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->blockSignals(false);
+		 return;
+	 }
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
@@ -1440,8 +1528,13 @@ void QtPLCDialogClass::on_lE_StopSignalDelay_editingFinished()
 {
 	QString oldstr = QString::number(m_data->Machine_Para.StopSignalDelay);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->text();
-	if (oldstr == str) return;
-
+	if (oldstr == str)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->blockSignals(false);
+		return;
+	 }
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
