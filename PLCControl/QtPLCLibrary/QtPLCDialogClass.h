@@ -26,8 +26,7 @@ public:
 	void inittabicon();
 	void initFont();
 	void initDlg();
-	void createPixCurve(QPixmap * pix);
-	void createPixCurve2(QPixmap * pix);
+
 	void setWindowMinimized();
 	int showMsgBox(QMessageBox::Icon icon, const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str);
 
@@ -38,8 +37,7 @@ public:
 
 private:
 	void* ui;
-	QDialog *m_dtDlg = nullptr;
-	bool m_currentSituationOfCyclinder = true;
+
 	QTimer *btnTimer = nullptr;
 	//DataToPC_typ *m_data;	//获取的PLC数据
 	//WindowOut *levelOut;//show默认为非模态modal，如果是局部变量会闪现消失
@@ -61,10 +59,6 @@ private:
 	//弹跳特效
 	QPropertyAnimation * animation1 = nullptr;
 	QPropertyAnimation * animation2 = nullptr;
-
-	QPainter *painter = nullptr; 
-	QPixmap *pix = nullptr; 
-	QLabel *lb = nullptr;
 
 	WindowOut *levelOut;//show默认为非模态modal，如果是局部变量会闪现消失
 public slots:
