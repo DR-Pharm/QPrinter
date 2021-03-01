@@ -153,6 +153,8 @@ void QtPLCDialogClass::initUI()
 	((Ui::QtPLCDialogClass*)ui)->label_15->setScaledContents(true);
 	((Ui::QtPLCDialogClass*)ui)->label_18->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_18.png"));
 	((Ui::QtPLCDialogClass*)ui)->label_18->setScaledContents(true);
+	((Ui::QtPLCDialogClass*)ui)->label_79->setPixmap(QPixmap(AppPath + "/ico/fontImage/dqzh.png"));
+	((Ui::QtPLCDialogClass*)ui)->label_79->setScaledContents(true);
 	((Ui::QtPLCDialogClass*)ui)->label_78->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_78.png"));
 	((Ui::QtPLCDialogClass*)ui)->label_78->setScaledContents(true);	((Ui::QtPLCDialogClass*)ui)->label_80->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_80.png"));
 	((Ui::QtPLCDialogClass*)ui)->label_80->setScaledContents(true);

@@ -168,8 +168,6 @@ public:
     QLineEdit *lE_SysOveride_2;
     QLabel *label_54;
     QLineEdit *lE_TUnderload;
-    QLabel *label_79;
-    QLineEdit *lE_GroupNo;
     QWidget *layoutWidget2;
     QHBoxLayout *horizontalLayout_10;
     QPushButton *pB_Read2;
@@ -273,6 +271,10 @@ public:
     QVBoxLayout *verticalLayout_23;
     QLineEdit *lE_GroupIndex;
     QLabel *label_15;
+    QLabel *label_79;
+    QFrame *frame_21;
+    QVBoxLayout *verticalLayout_24;
+    QLineEdit *lE_GroupNo;
     QFrame *frame_9;
     QLabel *label_80;
     QFrame *frame_10;
@@ -1170,25 +1172,6 @@ public:
 
         gridLayout_2->addWidget(lE_TUnderload, 4, 1, 1, 1);
 
-        label_79 = new QLabel(layoutWidget1);
-        label_79->setObjectName(QString::fromUtf8("label_79"));
-        label_79->setMinimumSize(QSize(0, 0));
-        label_79->setMaximumSize(QSize(1572323, 232323));
-        label_79->setFont(font1);
-
-        gridLayout_2->addWidget(label_79, 4, 2, 1, 1);
-
-        lE_GroupNo = new QLineEdit(layoutWidget1);
-        lE_GroupNo->setObjectName(QString::fromUtf8("lE_GroupNo"));
-        lE_GroupNo->setEnabled(false);
-        sizePolicy1.setHeightForWidth(lE_GroupNo->sizePolicy().hasHeightForWidth());
-        lE_GroupNo->setSizePolicy(sizePolicy1);
-        lE_GroupNo->setMinimumSize(QSize(0, 42));
-        lE_GroupNo->setMaximumSize(QSize(16777215, 42));
-        lE_GroupNo->setFont(font1);
-
-        gridLayout_2->addWidget(lE_GroupNo, 4, 3, 1, 1);
-
         layoutWidget2 = new QWidget(frame_6);
         layoutWidget2->setObjectName(QString::fromUtf8("layoutWidget2"));
         layoutWidget2->setGeometry(QRect(10, 590, 801, 44));
@@ -1916,6 +1899,39 @@ public:
 
         gridLayout_10->addWidget(label_15, 13, 0, 1, 1);
 
+        label_79 = new QLabel(frame_7);
+        label_79->setObjectName(QString::fromUtf8("label_79"));
+        label_79->setMinimumSize(QSize(140, 35));
+        label_79->setMaximumSize(QSize(140, 35));
+        label_79->setFont(font1);
+
+        gridLayout_10->addWidget(label_79, 10, 4, 1, 1);
+
+        frame_21 = new QFrame(frame_7);
+        frame_21->setObjectName(QString::fromUtf8("frame_21"));
+        frame_21->setStyleSheet(QString::fromUtf8("background-color: rgb(235, 235, 235);"));
+        frame_21->setFrameShape(QFrame::Panel);
+        frame_21->setFrameShadow(QFrame::Raised);
+        frame_21->setLineWidth(3);
+        verticalLayout_24 = new QVBoxLayout(frame_21);
+        verticalLayout_24->setSpacing(6);
+        verticalLayout_24->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_24->setObjectName(QString::fromUtf8("verticalLayout_24"));
+        verticalLayout_24->setContentsMargins(0, 0, 0, 0);
+        lE_GroupNo = new QLineEdit(frame_21);
+        lE_GroupNo->setObjectName(QString::fromUtf8("lE_GroupNo"));
+        lE_GroupNo->setEnabled(false);
+        sizePolicy1.setHeightForWidth(lE_GroupNo->sizePolicy().hasHeightForWidth());
+        lE_GroupNo->setSizePolicy(sizePolicy1);
+        lE_GroupNo->setFont(font8);
+        lE_GroupNo->setStyleSheet(QString::fromUtf8(""));
+        lE_GroupNo->setFrame(false);
+
+        verticalLayout_24->addWidget(lE_GroupNo);
+
+
+        gridLayout_10->addWidget(frame_21, 10, 6, 1, 1);
+
         frame_9 = new QFrame(groupBox_10);
         frame_9->setObjectName(QString::fromUtf8("frame_9"));
         frame_9->setGeometry(QRect(140, 565, 501, 151));
@@ -2060,8 +2076,8 @@ public:
 
         retranslateUi(QtPLCDialogClass);
 
-        tabWidget_PLC->setCurrentIndex(0);
-        tabWidget->setCurrentIndex(0);
+        tabWidget_PLC->setCurrentIndex(2);
+        tabWidget->setCurrentIndex(1);
         cB_TireMode->setCurrentIndex(-1);
         cB_ScaleStableState->setCurrentIndex(-1);
 
@@ -2164,8 +2180,6 @@ public:
         lE_SysOveride_2->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));
         label_54->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\266\205\350\275\273\351\207\215\351\207\217(g)", nullptr));
         lE_TUnderload->setText(QCoreApplication::translate("QtPLCDialogClass", "0.000", nullptr));
-        label_79->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\275\223\345\211\215\347\273\204\345\217\267", nullptr));
-        lE_GroupNo->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));
         pB_Read2->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\257\273\345\217\226", nullptr));
         pB_Write2->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\206\231\345\205\245", nullptr));
         tabWidget_PLC->setTabText(tabWidget_PLC->indexOf(tab_2), QString());
@@ -2201,7 +2215,7 @@ public:
         label_43->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\234\254\346\254\241\351\207\215\351\207\217", nullptr));
         label_17->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\211\224\345\272\237\350\256\241\346\225\260", nullptr));
         label_45->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\250\263\345\256\232\347\212\266\346\200\201", nullptr));
-        lE_ScaleResult->setText(QString());
+        lE_ScaleResult->setText(QCoreApplication::translate("QtPLCDialogClass", "0.000", nullptr));
         label_39->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\247\260\351\207\215\350\256\241\346\225\260", nullptr));
         lE_TUCount->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));
         lE_Finished->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));
@@ -2213,6 +2227,8 @@ public:
         lE_RejectCount->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));
         lE_GroupIndex->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));
         label_15->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\234\254\347\273\204\347\273\223\346\235\237", nullptr));
+        label_79->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\275\223\345\211\215\347\273\204\345\217\267", nullptr));
+        lE_GroupNo->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));
         label_80->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\277\220\350\241\214\351\200\237\345\272\246\357\274\232", nullptr));
         lE_SysOveride->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));
         label_78->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\224\237\344\272\247\346\211\271\345\217\267\357\274\232", nullptr));
