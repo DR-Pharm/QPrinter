@@ -82,7 +82,10 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	btnTimer = new QTimer();
 	connect(btnTimer, SIGNAL(timeout()), this, SLOT(startMovie()));
 
-	dtCurve = new DataCurve();
+	dtCurve = new DataCurve();	
+	connect(dtCurve, SIGNAL(rejected()), this, SLOT(dtClose()));
+	dtCurve->move(0, 0);
+	dtCurve->setFixedSize(QSize(860, 755));//1280 800
 }
 QtPLCDialogClass::~QtPLCDialogClass()
 {
