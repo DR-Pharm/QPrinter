@@ -770,7 +770,7 @@ public:
         frame_4->setLineWidth(2);
         layoutWidget_2 = new QWidget(frame_4);
         layoutWidget_2->setObjectName(QString::fromUtf8("layoutWidget_2"));
-        layoutWidget_2->setGeometry(QRect(10, 590, 801, 41));
+        layoutWidget_2->setGeometry(QRect(10, 590, 801, 44));
         horizontalLayout_11 = new QHBoxLayout(layoutWidget_2);
         horizontalLayout_11->setSpacing(6);
         horizontalLayout_11->setContentsMargins(11, 11, 11, 11);
@@ -1191,7 +1191,7 @@ public:
 
         layoutWidget2 = new QWidget(frame_6);
         layoutWidget2->setObjectName(QString::fromUtf8("layoutWidget2"));
-        layoutWidget2->setGeometry(QRect(10, 590, 801, 41));
+        layoutWidget2->setGeometry(QRect(10, 590, 801, 44));
         horizontalLayout_10 = new QHBoxLayout(layoutWidget2);
         horizontalLayout_10->setSpacing(6);
         horizontalLayout_10->setContentsMargins(11, 11, 11, 11);
@@ -2060,8 +2060,8 @@ public:
 
         retranslateUi(QtPLCDialogClass);
 
-        tabWidget_PLC->setCurrentIndex(1);
-        tabWidget->setCurrentIndex(2);
+        tabWidget_PLC->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(0);
         cB_TireMode->setCurrentIndex(-1);
         cB_ScaleStableState->setCurrentIndex(-1);
 

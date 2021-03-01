@@ -3333,7 +3333,7 @@
               <string notr="true"/>
              </property>
              <property name="text">
-              <string/>
+              <string>0.000</string>
              </property>
              <property name="frame">
               <bool>false</bool>
