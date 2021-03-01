@@ -51,6 +51,9 @@
     <ClCompile Include="WindowOut.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DataCurve.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="QtPLCDialogClass.h">
@@ -68,12 +71,18 @@
     <QtMoc Include="WindowOut.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="DataCurve.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="QtPLCDialogClass.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="WindowOut.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="DataCurve.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

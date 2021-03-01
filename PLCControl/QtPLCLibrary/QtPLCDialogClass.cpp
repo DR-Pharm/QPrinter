@@ -81,6 +81,8 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 
 	btnTimer = new QTimer();
 	connect(btnTimer, SIGNAL(timeout()), this, SLOT(startMovie()));
+
+	dtCurve = new DataCurve();
 }
 QtPLCDialogClass::~QtPLCDialogClass()
 {
@@ -1462,6 +1464,7 @@ void QtPLCDialogClass::on_pB_dtDlg_toggled(bool checked)//数据dialog
 {
 	if (checked)
 	{
+		dtCurve->show();
 		QPixmap pix;
 		bool ret = pix.load(AppPath + "/ico/data1.png");
 		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIcon(pix);
@@ -1469,6 +1472,7 @@ void QtPLCDialogClass::on_pB_dtDlg_toggled(bool checked)//数据dialog
 	}
 	else
 	{
+		dtCurve->hide();
 		QPixmap pix;
 		bool ret = pix.load(AppPath + "/ico/data2.png");
 		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIcon(pix);

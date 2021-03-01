@@ -79,7 +79,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtCore;..\..\..\RelayFile\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtCore;..\..\..\RelayFile\include;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -177,6 +177,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DataCurve.cpp" />
     <ClCompile Include="mypushbutton.cpp" />
     <ClCompile Include="QtPLCControl.cpp" />
     <ClCompile Include="QtPLCDialogClass.cpp" />
@@ -184,6 +185,7 @@
     <ClCompile Include="WindowOut.cpp" />
     <QtMoc Include="WindowOut.h" />
     <QtMoc Include="mypushbutton.h" />
+    <QtMoc Include="DataCurve.h" />
     <ClInclude Include="PLCRelayHead.h" />
     <ClInclude Include="comm.h" />
     <QtMoc Include="QtPLCControl.h" />
@@ -192,6 +194,7 @@
     <QtMoc Include="QtPLCDialogClass.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtUic Include="DataCurve.ui" />
     <QtUic Include="QtPLCDialogClass.ui">
       <Include Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </Include>

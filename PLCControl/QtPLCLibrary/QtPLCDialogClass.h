@@ -6,6 +6,7 @@
 #include "QtSocket_Class.h"
 #include "mypushbutton.h"
 #include "WindowOut.h"
+#include "DataCurve.h"
 namespace spd = spdlog;
 
 class QtPLCDialogClass : public QDialog
@@ -37,7 +38,7 @@ public:
 
 private:
 	void* ui;
-
+	DataCurve *dtCurve;
 	QTimer *btnTimer = nullptr;
 	//DataToPC_typ *m_data;	//获取的PLC数据
 	//WindowOut *levelOut;//show默认为非模态modal，如果是局部变量会闪现消失
