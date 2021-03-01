@@ -27,6 +27,7 @@ public:
 	void initFont();
 	void initDlg();
 	void createPixCurve(QPixmap * pix);
+	void createPixCurve2(QPixmap * pix);
 	void setWindowMinimized();
 	int showMsgBox(QMessageBox::Icon icon, const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str);
 
@@ -56,6 +57,7 @@ private:
 
 	QLabel *lb_dataNow;
 
+	QVector<float> data_One;
 	//µ¯ÌøÌØÐ§
 	QPropertyAnimation * animation1 = nullptr;
 	QPropertyAnimation * animation2 = nullptr;

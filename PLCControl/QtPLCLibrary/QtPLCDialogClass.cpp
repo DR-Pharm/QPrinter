@@ -41,7 +41,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIconSize(QSize(170, 140));
 	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->move(640, 575);
 
-	MyPushButton * AlarmResetBtn = new MyPushButton(AppPath + "/ico/bjfwnt.png", AppPath + "/ico/bjfw.png",347, 99);
+	MyPushButton * AlarmResetBtn = new MyPushButton(AppPath + "/ico/bjfwnt.png", AppPath + "/ico/bjfw.png", 347, 99);
 	AlarmResetBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
 	AlarmResetBtn->move(15, 120);
 	connect(AlarmResetBtn, &MyPushButton::clicked, [=]() {
@@ -51,13 +51,13 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	AlarmResetBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
 	AlarmResetBtn->move(15, 230);
 	connect(AlarmResetBtn, &MyPushButton::clicked, [=]() {
-		on_pB_cmdCapClean_clicked();});
+		on_pB_cmdCapClean_clicked(); });
 
 	AlarmResetBtn = new MyPushButton(AppPath + "/ico/jsqlnt.png", AppPath + "/ico/jsql.png", 347, 99);
 	AlarmResetBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
 	AlarmResetBtn->move(15, 340);
 	connect(AlarmResetBtn, &MyPushButton::clicked, [=]() {
-		on_pB_cmdCounterZero_clicked();});
+		on_pB_cmdCounterZero_clicked(); });
 
 	AlarmResetBtn = new MyPushButton(AppPath + "/ico/jtnt.png", AppPath + "/ico/jt.png", 347, 99);
 	AlarmResetBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
@@ -68,13 +68,13 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 		//startBtn->zoom1();
 		/*startBtn->zoom2();*/ });
 
-		//开始
+	//开始
 
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setFixedSize(347, 200);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setStyleSheet("QPushButton{border:0px;}");
-		ret = pix.load(AppPath + "/ico/start.png");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIcon(pix);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIconSize(QSize(347, 200));
+	((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setFixedSize(347, 200);
+	((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setStyleSheet("QPushButton{border:0px;}");
+	ret = pix.load(AppPath + "/ico/start.png");
+	((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIcon(pix);
+	((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIconSize(QSize(347, 200));
 	//指示灯部分
 	((Ui::QtPLCDialogClass*)ui)->lb_00->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
 	((Ui::QtPLCDialogClass*)ui)->lb_10->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
@@ -140,7 +140,7 @@ void QtPLCDialogClass::initUI()
 {
 	//QRegExp regx("[a-zA-Z0-9_]+$");//正则表达式QRegExp,只允许输入中文、数字、字母、下划线以及空格,[\u4e00 - \u9fa5a - zA - Z0 - 9_] + $
 	QRegExp regx("[0-9]+$");
-	((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->setValidator(new QRegExpValidator(regx, this)); 
+	((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->setValidator(new QRegExpValidator(regx, this));
 	QRegExp regx_2("[a-zA-Z0-9_]+$");
 	((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setValidator(new QRegExpValidator(regx_2, this));
 	lb_dataNow = new QLabel(((Ui::QtPLCDialogClass*)ui)->frame);
@@ -192,7 +192,7 @@ void QtPLCDialogClass::initFont()
 	setupFont.setFamily(QString::fromLocal8Bit("迷你简菱心"));
 	setupFont.setPointSize(36);
 	startFont.setFamily(QString::fromLocal8Bit("迷你简菱心"));
-	startFont.setPointSize(60); 
+	startFont.setPointSize(60);
 	contentFont.setFamily(QString::fromLocal8Bit("宋体"));
 	contentFont.setBold(true);
 	contentFont.setPointSize(20);
@@ -270,11 +270,11 @@ DataFromPC_typ QtPLCDialogClass::getPCRunData()//4
 }
 void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kickOpen, int kickMode)
 {
-	if (*m_data== *(DataToPC_typ*)data)
+	if (*m_data == *(DataToPC_typ*)data)
 	{
 		return;
 	}
-	else 
+	else
 	{
 		memcpy(m_data, (DataToPC_typ*)data, sizeof(DataToPC_typ));//主界面用
 
@@ -285,12 +285,12 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->setText(QString::number(m_data->ActData.SysOveride / 100));
 		((Ui::QtPLCDialogClass*)ui)->lE_SysOveride_2->setText(QString::number(m_data->ActData.SysOveride / 100));
-	}	
+	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_PassCount->hasFocus())//通过计数
 	{
 		//((Ui::QtPLCDialogClass*)ui)->lE_PassCount->setText(QString::number(m_data->ActData.PassCount));
-		((Ui::QtPLCDialogClass*)ui)->lE_PassCount->setText(QString::number(m_data->ActData.ProdCount- m_data->ActData.RejectCount));
-	}	
+		((Ui::QtPLCDialogClass*)ui)->lE_PassCount->setText(QString::number(m_data->ActData.ProdCount - m_data->ActData.RejectCount));
+	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_RejectCount->hasFocus())//剔废计数
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_RejectCount->setText(QString::number(m_data->ActData.RejectCount));
@@ -325,8 +325,8 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_TDemand->hasFocus())//期望重量, 单位g
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_TDemand->setText(QString::number(m_data->ActData.TDemand,'f',3));
-	}	
+		((Ui::QtPLCDialogClass*)ui)->lE_TDemand->setText(QString::number(m_data->ActData.TDemand, 'f', 3));
+	}
 	if (!((Ui::QtPLCDialogClass*)ui)->cB_TireMode->hasFocus())//0:每组去皮重,1:每次称重去皮重
 	{
 		((Ui::QtPLCDialogClass*)ui)->cB_TireMode->blockSignals(true);
@@ -360,13 +360,18 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	((Ui::QtPLCDialogClass*)ui)->lE_Finished->setText(QString::number(m_data->Status.Finished));//本组结束
 	((Ui::QtPLCDialogClass*)ui)->lE_GroupIndex->setText(QString::number(m_data->Status.GroupIndex));//本组序号
 	((Ui::QtPLCDialogClass*)ui)->lE_Weight->setText(QString::number(m_data->Status.Weight, 'f', 3));//本次重量
-	((Ui::QtPLCDialogClass*)ui)->lE_ScaleResult->setText(QString::number(m_data->Status.ScaleResult,'f',3));//天平当前读数，单位g
+	((Ui::QtPLCDialogClass*)ui)->lE_ScaleResult->setText(QString::number(m_data->Status.ScaleResult, 'f', 3));//天平当前读数，单位g
 	((Ui::QtPLCDialogClass*)ui)->cB_ScaleStableState->setCurrentIndex(m_data->Status.ScaleStableState);//天平当前稳定状态,0:非常稳定,1:稳定,2:不稳定,3:非常不稳定
 
 	//Group Data
 	Displaytyp			CapDataDisp_temp;			//组数据
 	CapDataDisp_temp = m_data->Status.CapDataDisp;
-	int i = sizeof(CapDataDisp_temp);
+	data_One.resize(CapDataDisp_temp.GroupIndex);
+	if (CapDataDisp_temp.GroupIndex > 0)//有数据进来
+	{
+		data_One[CapDataDisp_temp.GroupIndex - 1] = m_data->Status.Weight;
+		lb->setPixmap(*pix);
+	}
 
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedStep->setText(QString::number(m_data->Status.AxisFeedStep));			//下料电机状态机步骤
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedErrorNo->setText(QString::number(m_data->Status.AxisFeedErrorNo));		//下料电机错误代码
@@ -375,7 +380,7 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisSwingErrorNo->setText(QString::number(m_data->Status.AxisSwingErrorNo));		//旋转电机错误代码
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisSwingRelMovDistance->setText(QString::number(m_data->Status.AxisSwingRelMovDistance));//旋转电机相对运动距离，单位unit
 	((Ui::QtPLCDialogClass*)ui)->lE_MachineStep->setText(QString::number(m_data->Status.MachineStep));			//系统运行状态机步骤
-	((Ui::QtPLCDialogClass*)ui)->lE_TimeInterval->setText(QString::number(m_data->Status.TimeInterval,'f',2));			//测量实际间隔时间
+	((Ui::QtPLCDialogClass*)ui)->lE_TimeInterval->setText(QString::number(m_data->Status.TimeInterval, 'f', 2));			//测量实际间隔时间
 	((Ui::QtPLCDialogClass*)ui)->lE_AlarmStatus->setText(QString::number(m_data->Status.AlarmStatus));
 	char *str1 = (char*)(m_data->Status.Alarm);
 	((Ui::QtPLCDialogClass*)ui)->lE_Alarm16->setText(QString(QLatin1String(str1)));
@@ -387,7 +392,7 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 		((Ui::QtPLCDialogClass*)ui)->cB_enable->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->cB_enable->setCurrentIndex(m_data->Machine_Para.enable);
 		((Ui::QtPLCDialogClass*)ui)->cB_enable->blockSignals(false);
-	}*/	
+	}*/
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->hasFocus())
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->setText(QString::number(m_data->Machine_Para.s_trg_stop[0]));
@@ -402,12 +407,12 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->setText(QString::number(m_data->Machine_Para.CapPickInterval,'f',2));
+		((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->setText(QString::number(m_data->Machine_Para.CapPickInterval, 'f', 2));
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->hasFocus())
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->setText(QString::number(m_data->Machine_Para.CapBackInterval, 'f', 2));
-	}	
+	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->hasFocus())
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->setText(QString::number(m_data->Machine_Para.TireDelay, 'f', 2));
@@ -609,7 +614,7 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 #pragma endregion
 }//PC显示数据
 #pragma endregion
- 
+
 #pragma region popup window
 
 void QtPLCDialogClass::initDlg()
@@ -621,7 +626,7 @@ void QtPLCDialogClass::initDlg()
 	lb = new QLabel();
 
 	m_dtDlg = new QDialog();
-	m_dtDlg->setWindowFlags(Qt::CustomizeWindowHint|Qt::WindowCloseButtonHint | Qt::WindowStaysOnTopHint);
+	m_dtDlg->setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowCloseButtonHint | Qt::WindowStaysOnTopHint);
 	m_dtDlg->setWindowIcon(QIcon(AppPath + "/ico/dr.ico"));
 	m_dtDlg->setWindowTitle(QString::fromLocal8Bit("检测数据明细表"));
 	connect(m_dtDlg, SIGNAL(rejected()), this, SLOT(dtClose()));
@@ -629,7 +634,7 @@ void QtPLCDialogClass::initDlg()
 	m_dtDlg->setFixedSize(QSize(860, 755));//1280 800
 	//m_dtDlg->setFixedSize(QSize(797, 550));
 	QGridLayout *glayout = new QGridLayout(m_dtDlg);
-	
+
 	//lb->setText(QString::fromLocal8Bit("每粒重量(g)："));
 
 	//lb->setPixmap(QPixmap(AppPath + "/ico/dr-pharmTrans_2.png"));
@@ -671,38 +676,235 @@ void QtPLCDialogClass::initDlg()
 	}
 
 	lb = new QLabel();
-	glayout->addWidget(lb, j / 4 + i + 1, 0, 1, 3);	
+	glayout->addWidget(lb, j / 4 + i + 1, 0, 1, 3);
 	lb = new QLabel();
 	lb->setText(QString::fromLocal8Bit("更多数据信息请查看<打印预览>项..."));
 	glayout->addWidget(lb, j / 4 + i + 2, 0, 1, 8);*/
 
-	
+
 }
 void QtPLCDialogClass::createPixCurve(QPixmap *pix)
 {
+	painter->begin(pix);
+	painter->setRenderHint(QPainter::Antialiasing, true);
+	// 设置画笔颜色、宽度
+	painter->setPen(QPen(QColor(255, 255, 255), 4));
+	// 设置画刷颜色
+	painter->setBrush(QColor(255, 255, 255));
+	int pixWidth = 2100;
+	int pixHeight = 1500;
+	int edgeOffset = 0;//50
+	int innerW = pixWidth - 2 * edgeOffset;
+	int inner50percentW = innerW / 2;
+	int innerH = pixHeight - 2 * edgeOffset;
+	int inner50percentH = innerH / 2;
+	int rightW = pixWidth - edgeOffset;
+	int bottomH = pixHeight - edgeOffset;
+	int firstLine = 60;//大标题下面110
+	int secondLine = firstLine + 60;
+	int weightTop = firstLine + 60;
+	int weightMiddle = firstLine + 2 * 60;
+	int weightRowCount = 8;
+	int weightRowAve = 55;
+	int betweenweight = weightMiddle + weightRowAve * weightRowCount;
+	int weightColumnCount = 10;
+	float weightColumnAve = (rightW - edgeOffset)*1.0 / weightColumnCount;//12个格子
+	int weightBottom = betweenweight + 180;
 
-	QVector<float> data_One[1];
-	data_One[0] << 0.369 << 0.321 << 0.332 << 0.311 << 0.399 << 0.334 << 0.321 << 0.346 << 0.389 << 0.333
-			<< 0.333 << 0.333 << 0.333 << 0.333 << 0.333 << 0.369 << 0.321 << 0.332 << 0.311 << 0.399
-			<< 0.334 << 0.321 << 0.346 << 0.389 << 0.333 << 0.323 << 0.333 << 0.333 << 0.333 << 0.333
-			<< 0.333 << 0.369 << 0.321 << 0.332 << 0.311 << 0.399 << 0.334 << 0.321 << 0.346 << 0.389
-			<< 0.333 << 0.333 << 0.333 << 0.333 << 0.333 << 0.333 << 0.333 << 0.369 << 0.321 << 0.332
-			<< 0.311 << 0.399 << 0.334 << 0.321 << 0.346 << 0.389 << 0.333 << 0.333 << 0.333 << 0.333
-		<< 0.333 << 0.343 << 0.333 << 0.319;
+
+	//坐标系
+	int of = 10;//箭头
+	int basePointX = 200;
+	int basePointY = pixHeight - 100;//150
+	int XRight = rightW - 150;
+	int dotLineRight = XRight - 75;
+	int YTop = weightBottom + 100;
+	int dotLineUp = YTop + 25;
+
+	//实际绘图内
+	int actualTop = YTop + 50;
+	int actualBottom = basePointY - 50;
+	int actualLeft = basePointX + 50;
+	int actualRight = dotLineRight - 25;
+	int actualWidth = actualRight - actualLeft;
+	int actualHight = actualBottom - actualTop;
+	int YActualLength = actualBottom - actualTop;
+
+	QRect rect(0, 0, pixWidth, pixHeight);
+	//整张图设置画刷白底	
+	QFont font;
+	font.setPointSize(23);
+	font.setFamily("宋体");
+	font.setItalic(true);
+	painter->setFont(font);
+	painter->fillRect(rect, QColor(255, 255, 255));
+	painter->drawRect(rect);
+	//画数据部分的线条
+	painter->setPen(QPen(QColor(0, 0, 0), 3));
+	QVector<QLine> lines;
+
+	int totalMachineCount = 0;
+	for (; totalMachineCount < 1; totalMachineCount++)
+	{
+		int simpleFun = inner50percentH * totalMachineCount;
+		lines.append(QLine(QPoint(edgeOffset, edgeOffset), QPoint(rightW, edgeOffset)));//上边
+		lines.append(QLine(QPoint(rightW, edgeOffset), QPoint(rightW, bottomH)));//右边
+		lines.append(QLine(QPoint(edgeOffset, bottomH), QPoint(rightW, bottomH)));//下边
+		lines.append(QLine(QPoint(edgeOffset, edgeOffset), QPoint(edgeOffset, bottomH)));//左边
+		for (int i = 0; i < 3; i++)
+		{
+			lines.append(QLine(QPoint(edgeOffset, firstLine + i * 60 + simpleFun), QPoint(rightW, firstLine + i * 60 + simpleFun)));//名称下边//产品下边//重量栏目下边	
+		}
+		for (int i = 0; i < 4; i++)
+		{
+			if (i != 2)
+			{
+				lines.append(QLine(QPoint(edgeOffset, betweenweight + i * 60 + simpleFun), QPoint(rightW, betweenweight + i * 60 + simpleFun)));//每粒重量下边
+			}
+		}
+		//lines.append(QLine(QPoint(betweenweight, weightTop), QPoint(betweenweight, weightBottom)));//重量分析与每粒重量之间
+		//lines.append(QLine(QPoint(edgeOffset, pixHeight - 80 + simpleFun), QPoint(rightW, pixHeight - 80 + simpleFun)));//1#操作人签名上侧
+		//lines.append(QLine(QPoint(edgeOffset, pixHeight), QPoint(rightW, pixHeight)));//1/2#分割线
+		//lines.append(QLine(QPoint(edgeOffset, bottomH - 80), QPoint(rightW, bottomH -80)));//2#操作人签名上侧
+
+
+		//画坐标系
+
+		lines.append(QLine(QPoint(basePointX, basePointY + simpleFun), QPoint(basePointX, YTop + simpleFun)));//Y
+		lines.append(QLine(QPoint(basePointX - of, YTop + of + simpleFun), QPoint(basePointX, YTop + simpleFun)));
+		lines.append(QLine(QPoint(basePointX + of, YTop + of + simpleFun), QPoint(basePointX, YTop + simpleFun)));
+		lines.append(QLine(QPoint(basePointX, basePointY + simpleFun), QPoint(XRight, basePointY + simpleFun)));//X
+		lines.append(QLine(QPoint(XRight - of, basePointY - of + simpleFun), QPoint(XRight, basePointY + simpleFun)));
+		lines.append(QLine(QPoint(XRight - of, basePointY + of + simpleFun), QPoint(XRight, basePointY + simpleFun)));
+
+		painter->drawLines(lines);
+		lines.clear();
+
+		painter->setPen(QPen(QColor(0, 0, 0), 1, Qt::DashLine));
+
+		//lines.append(QLine(QPoint(edgeOffset, pixHeight / 2 + 5), QPoint(rightW, pixHeight / 2 + 5)));//1/2#分割线
+		//lines.append(QLine(QPoint(edgeOffset, pixHeight / 2 - 5), QPoint(rightW, pixHeight / 2 - 5)));//1/2#分割线
+		//lines   200,rightW-250 pixHeight/2-825 pixHeight/2-275   250start point
+		painter->drawText(basePointX - 40, basePointY + simpleFun, 50, 50, Qt::AlignVCenter, "0");//0	
+
+		painter->drawText(100, YTop - 50 + simpleFun, 150, 50, Qt::AlignVCenter, QString::fromLocal8Bit("重量(g)"));//重量
+		painter->drawText(XRight, basePointY + simpleFun, 150, 50, Qt::AlignVCenter, QString::fromLocal8Bit("次数"));//粒数
+
+		painter->setPen(QPen(QColor(0, 0, 0), 1));
+
+		//画打印机和站号
+
+		lines.append(QLine(QPoint(edgeOffset + 250, edgeOffset + simpleFun), QPoint(edgeOffset + 250, firstLine + simpleFun)));
+		lines.append(QLine(QPoint(edgeOffset + innerW * 1.0 / 3 * 2, edgeOffset + simpleFun), QPoint(edgeOffset + innerW * 1.0 / 3 * 2, firstLine + simpleFun)));
+		lines.append(QLine(QPoint(edgeOffset + 250 + innerW * 1.0 / 3 * 2, edgeOffset + simpleFun), QPoint(edgeOffset + 250 + innerW * 1.0 / 3 * 2, firstLine + simpleFun)));
+		//画规格型号
+		for (int i = 0; i < 3; i++)
+		{
+			lines.append(QLine(QPoint(edgeOffset + innerW * 1.0 / 3 * (i + 1), firstLine + simpleFun), QPoint(edgeOffset + innerW * 1.0 / 3 * (i + 1), secondLine + simpleFun)));
+			lines.append(QLine(QPoint(edgeOffset + 250 + innerW * 1.0 / 3 * i, firstLine + simpleFun), QPoint(edgeOffset + 250 + innerW * 1.0 / 3 * i, secondLine + simpleFun)));
+		}
+		//画重量结果
+		for (int i = 0; i < 4; i++)
+		{
+			lines.append(QLine(QPoint(edgeOffset + innerW * 1.0 / 4 * (i + 1), betweenweight + 60 + simpleFun), QPoint(edgeOffset + innerW * 1.0 / 4 * (i + 1), weightBottom + simpleFun)));
+			lines.append(QLine(QPoint(edgeOffset + 225 + innerW * 1.0 / 4 * i, betweenweight + 60 + simpleFun), QPoint(edgeOffset + 225 + innerW * 1.0 / 4 * i, weightBottom + simpleFun)));
+		}
+		lines.append(QLine(QPoint(edgeOffset, betweenweight + 2 * 60 + simpleFun), QPoint(rightW, betweenweight + 2 * 60 + simpleFun)));//每粒重量下边
+		//画每粒重量格
+		for (int i = 1; i < weightRowCount; i++)
+		{
+			lines.append(QLine(QPoint(edgeOffset, weightMiddle + i * weightRowAve + simpleFun), QPoint(rightW, weightMiddle + i * weightRowAve + simpleFun)));
+		}
+		for (int i = 1; i < weightColumnCount; i++)
+		{
+			lines.append(QLine(QPoint(edgeOffset + i * weightColumnAve, weightMiddle + simpleFun), QPoint(edgeOffset + i * weightColumnAve, betweenweight + simpleFun)));
+		}
+		for (int i = 0; i < weightColumnCount; i++)//order no.
+		{
+			lines.append(QLine(QPoint(edgeOffset + i * weightColumnAve + 60, weightMiddle + simpleFun), QPoint(edgeOffset + i * weightColumnAve + 60, betweenweight + simpleFun)));
+		}
+		painter->drawLines(lines);
+		lines.clear();
+
+		painter->setPen(QPen(QColor(0, 0, 0), 3));
+
+
+		//第一部分
+		/*if (totalMachineCount == 0)
+		{
+			font.setPointSize(20);
+			painter->setFont(font);
+			painter->drawText(100, 0 + simpleFun, innerW, 50, Qt::AlignVCenter, QString::fromLocal8Bit("版权所有:Dr.Pharm"));// ui->lE_unit->text());//单位名称
+			font.setPointSize(35);
+			font.setBold(true);
+			painter->setFont(font);
+			painter->drawText(0, 0 + simpleFun, pixWidth, 50, Qt::AlignCenter, QString::fromLocal8Bit("抽检报告"));// ui->lE_report->text());//报告名称
+		}*/
+		font.setPointSize(23);
+		font.setBold(false);
+		painter->setFont(font);
+		int machnum = totalMachineCount + 1;
+		painter->drawText(edgeOffset, edgeOffset + simpleFun, 250, 70, Qt::AlignCenter, QString::fromLocal8Bit("设备型号"));
+		painter->drawText(edgeOffset + 275, edgeOffset + simpleFun, innerW * 1.0 / 2 - 250, 70, Qt::AlignVCenter, "nto");
+		painter->drawText(edgeOffset + innerW * 1.0 / 3 * 2, edgeOffset + simpleFun, 250, 70, Qt::AlignCenter, QString::fromLocal8Bit("站号"));
+		painter->drawText(edgeOffset + innerW * 1.0 / 3 * 2 + 275, edgeOffset + simpleFun, edgeOffset + innerW * 1.0 / 3 * 2 - 250, 70, Qt::AlignVCenter, QString::number(machnum) + QString::fromLocal8Bit("#"));
+		//第二部分
+
+		painter->drawText(edgeOffset, firstLine + simpleFun, 250, 60, Qt::AlignCenter, QString::fromLocal8Bit("产品名称"));// +ui->lE_means->text());
+		painter->drawText(edgeOffset + 250 + 25, firstLine + simpleFun, innerW * 1.0 / 3 - 250, 60, Qt::AlignVCenter, QString::fromLocal8Bit("红素片"));// +ui->lE_means->text());
+
+		painter->drawText(edgeOffset + innerW * 1.0 / 3, firstLine + simpleFun, 250, 60, Qt::AlignCenter, QString::fromLocal8Bit("产品规格"));// +ui->lE_instrument->text());
+		painter->drawText(edgeOffset + innerW * 1.0 / 3 + 250 + 25, firstLine + simpleFun, innerW * 1.0 / 3 * 2 - 250, 60, Qt::AlignVCenter, QString::fromLocal8Bit("一号片"));// +ui->lE_instrument->text());
+		painter->drawText(edgeOffset + innerW * 1.0 / 3 * 2, firstLine + simpleFun, 250, 60, Qt::AlignCenter, QString::fromLocal8Bit("产品批号"));// +ui->lE_instrument->text());
+		painter->drawText(edgeOffset + innerW * 1.0 / 3 * 2 + 250 + 25, firstLine + simpleFun, innerW * 1.0 - 250, 60, Qt::AlignVCenter, QString::fromLocal8Bit("123456789"));// +ui->lE_instrument->text());
+		//第三部分
+		font.setBold(true);
+		painter->setFont(font);
+		painter->drawText(edgeOffset, weightTop + simpleFun, innerW, 60, Qt::AlignCenter, QString::fromLocal8Bit("每粒重量(g)"));
+		painter->drawText(edgeOffset, betweenweight + simpleFun, innerW, 60, Qt::AlignCenter, QString::fromLocal8Bit("重量结果"));
+		font.setBold(false);
+		painter->setFont(font);
+		//第四部分 数据
+		//lines.append(QLine(QPoint(edgeOffset + innerW * 1.0 / 4 * i, betweenweight + 60 + simpleFun), QPoint(edgeOffset + innerW * 1.0 / 4 * i, weightBottom + simpleFun)));
+		
+		//第五部分
+		/*painter->drawText(50, pixHeight / 2 - 80 + simpleFun, 1900, 80, Qt::AlignCenter, QString::fromLocal8Bit("签字:张三"));// +ui->lE_code->text());
+
+		painter->drawText(50, pixHeight / 2 - 80 + simpleFun, 3000, 80, Qt::AlignCenter, QString::fromLocal8Bit("日期:20201210"));// +ui->lE_reportDate->text());*/
+
+	}
+	painter->end();
+}
+void QtPLCDialogClass::createPixCurve2(QPixmap *pix)
+{
+	int i = data_One.size();
+	if (i == 0)
+	{
+		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setEnabled(false);
+		return;
+	}
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setEnabled(true);
+	/*data_One[0] << 0.369 << 0.321 << 0.332 << 0.311 << 0.399 << 0.334 << 0.321 << 0.346 << 0.389 << 0.333
+		<< 0.333 << 0.333 << 0.333 << 0.333 << 0.333 << 0.369 << 0.321 << 0.332 << 0.311 << 0.399
+		<< 0.334 << 0.321 << 0.346 << 0.389 << 0.333 << 0.323 << 0.333 << 0.333 << 0.333 << 0.333
+		<< 0.333 << 0.369 << 0.321 << 0.332 << 0.311 << 0.399 << 0.334 << 0.321 << 0.346 << 0.389
+		<< 0.333 << 0.333 << 0.333 << 0.333 << 0.333 << 0.333 << 0.333 << 0.369 << 0.321 << 0.332
+		<< 0.311 << 0.399 << 0.334 << 0.321 << 0.346 << 0.389 << 0.333 << 0.333 << 0.333 << 0.333
+		<< 0.333 << 0.343 << 0.333 << 0.319;*/
 	QVector<float> data;
-	data = data_One[0];
+	data = data_One;
 
 	double m_dmax[1];
-	m_dmax[0]= data.at(0);
+	m_dmax[0] = data.at(0);
 
 	double m_dmin[1];
-	m_dmin[0]= data.at(0);
+	m_dmin[0] = data.at(0);
 
 	double m_dsum[1];
-	m_dsum[0]= 0;
+	m_dsum[0] = 0;
 
 	double m_dtheory[1];
-	m_dtheory[0]= 0.2;
+	m_dtheory[0] = 0.2;
 
 	for (int j = 0; j < data.size(); j++) {
 		if (m_dmin[0] > data.at(j)) m_dmin[0] = data.at(j);
@@ -817,7 +1019,7 @@ void QtPLCDialogClass::createPixCurve(QPixmap *pix)
 		//lines.append(QLine(QPoint(edgeOffset, pixHeight / 2 - 5), QPoint(rightW, pixHeight / 2 - 5)));//1/2#分割线
 		//lines   200,rightW-250 pixHeight/2-825 pixHeight/2-275   250start point
 		painter->drawText(basePointX - 40, basePointY + simpleFun, 50, 50, Qt::AlignVCenter, "0");//0
-		if (data_One[totalMachineCount].size() > 0)
+		if (data_One.size() > 0)
 		{
 
 			if (m_dmin[totalMachineCount] == m_dmax[totalMachineCount])//min==max
@@ -838,10 +1040,10 @@ void QtPLCDialogClass::createPixCurve(QPixmap *pix)
 			painter->drawText(XRight, basePointY + simpleFun, 150, 50, Qt::AlignVCenter, QString::fromLocal8Bit("次数"));//粒数
 
 
-			if (data_One[totalMachineCount].size() > 1)
+			if (data_One.size() > 1)
 			{
 				painter->drawText(actualLeft - 25, basePointY + simpleFun, 50, 50, Qt::AlignCenter, "1");//1
-				painter->drawText(actualRight - 25, basePointY + simpleFun, 50, 50, Qt::AlignCenter, QString::number(data_One[totalMachineCount].size()));//size()
+				painter->drawText(actualRight - 25, basePointY + simpleFun, 50, 50, Qt::AlignCenter, QString::number(data_One.size()));//size()
 				lines.append(QLine(QPoint(basePointX + 50, basePointY + 5 + simpleFun), QPoint(basePointX + 50, dotLineUp + simpleFun)));//1111111111
 				lines.append(QLine(QPoint(dotLineRight - 25, basePointY + 5 + simpleFun), QPoint(dotLineRight - 25, dotLineUp + simpleFun)));//808080808080
 			}
@@ -851,7 +1053,7 @@ void QtPLCDialogClass::createPixCurve(QPixmap *pix)
 				lines.append(QLine(QPoint(actualLeft + actualWidth / 2, basePointY + 5 + simpleFun), QPoint(actualLeft + actualWidth / 2, dotLineUp + simpleFun)));//1111111111
 
 				painter->setPen(QPen(QColor(0, 0, 0), 6));
-				for (int i = 0; i < data_One[totalMachineCount].size(); i++)
+				for (int i = 0; i < data_One.size(); i++)
 				{
 					painter->drawPoint(actualLeft + actualWidth / 2, actualTop + actualHight / 2 + simpleFun);
 				}
@@ -862,16 +1064,16 @@ void QtPLCDialogClass::createPixCurve(QPixmap *pix)
 			painter->drawLines(lines);
 			lines.clear();
 
-			if (data_One[totalMachineCount].size() > 1)
+			if (data_One.size() > 1)
 			{
 				//曲线
 				painter->setPen(QPen(QColor(0, 0, 0), 2));
 
-				for (int i = 0; i < data_One[totalMachineCount].size() - 1; i++)
+				for (int i = 0; i < data_One.size() - 1; i++)
 				{
 					if (m_dmin[totalMachineCount] != m_dmax[totalMachineCount])
 					{
-						lines.append(QLine(QPoint(actualLeft + actualWidth * 1.0 / (data_One[totalMachineCount].size() - 1)*i, actualBottom + simpleFun - (data_One[totalMachineCount].at(i) - m_dmin[totalMachineCount])*1.0 / (m_dmax[totalMachineCount] - m_dmin[totalMachineCount]) * actualHight), QPoint(actualLeft + actualWidth * 1.0 / (data_One[totalMachineCount].size() - 1)*(i + 1), actualBottom + simpleFun - (data_One[totalMachineCount].at(i + 1) - m_dmin[totalMachineCount])*1.0 / (m_dmax[totalMachineCount] - m_dmin[totalMachineCount]) * actualHight)));
+						lines.append(QLine(QPoint(actualLeft + actualWidth * 1.0 / (data_One.size() - 1)*i, actualBottom + simpleFun - (data_One.at(i) - m_dmin[totalMachineCount])*1.0 / (m_dmax[totalMachineCount] - m_dmin[totalMachineCount]) * actualHight), QPoint(actualLeft + actualWidth * 1.0 / (data_One.size() - 1)*(i + 1), actualBottom + simpleFun - (data_One.at(i + 1) - m_dmin[totalMachineCount])*1.0 / (m_dmax[totalMachineCount] - m_dmin[totalMachineCount]) * actualHight)));
 					}
 					else
 					{
@@ -879,9 +1081,9 @@ void QtPLCDialogClass::createPixCurve(QPixmap *pix)
 					}
 				}
 				painter->setPen(QPen(QColor(0, 0, 0), 6));
-				for (int i = 0; i < data_One[totalMachineCount].size(); i++)
+				for (int i = 0; i < data_One.size(); i++)
 				{
-					painter->drawPoint(actualLeft + actualWidth * 1.0 / (data_One[totalMachineCount].size() - 1)*i, actualBottom + simpleFun - (data_One[totalMachineCount].at(i) - m_dmin[totalMachineCount])*1.0 / (m_dmax[totalMachineCount] - m_dmin[totalMachineCount]) * actualHight);
+					painter->drawPoint(actualLeft + actualWidth * 1.0 / (data_One.size() - 1)*i, actualBottom + simpleFun - (data_One.at(i) - m_dmin[totalMachineCount])*1.0 / (m_dmax[totalMachineCount] - m_dmin[totalMachineCount]) * actualHight);
 				}
 				painter->setPen(QPen(QColor(0, 0, 0), 2));
 				painter->drawLines(lines);
@@ -932,7 +1134,7 @@ void QtPLCDialogClass::createPixCurve(QPixmap *pix)
 		{
 			font.setPointSize(20);
 			painter->setFont(font);
-			painter->drawText(100, 0 + simpleFun, innerW, 50, Qt::AlignVCenter, QString::fromLocal8Bit("版权所有:Dr.Pharm"));// ui->lE_unit->text());//单位名称	
+			painter->drawText(100, 0 + simpleFun, innerW, 50, Qt::AlignVCenter, QString::fromLocal8Bit("版权所有:Dr.Pharm"));// ui->lE_unit->text());//单位名称
 			font.setPointSize(35);
 			font.setBold(true);
 			painter->setFont(font);
@@ -964,10 +1166,10 @@ void QtPLCDialogClass::createPixCurve(QPixmap *pix)
 		painter->setFont(font);
 		//第四部分 数据
 		//lines.append(QLine(QPoint(edgeOffset + innerW * 1.0 / 4 * i, betweenweight + 60 + simpleFun), QPoint(edgeOffset + innerW * 1.0 / 4 * i, weightBottom + simpleFun)));
-		if (data_One[totalMachineCount].size() > 0)
+		if (data_One.size() > 0)
 		{
 			painter->drawText(edgeOffset, betweenweight + 60 + simpleFun, 225, 60, Qt::AlignCenter, QString::fromLocal8Bit("次  数"));
-			painter->drawText(edgeOffset + 250, betweenweight + 60 + simpleFun, innerW * 1.0 / 4 - 225, 60, Qt::AlignVCenter, QString::number(data_One[totalMachineCount].size()));
+			painter->drawText(edgeOffset + 250, betweenweight + 60 + simpleFun, innerW * 1.0 / 4 - 225, 60, Qt::AlignVCenter, QString::number(data_One.size()));
 			painter->drawText(edgeOffset + innerW * 1.0 / 4 * 1, betweenweight + 60 + simpleFun, 225, 60, Qt::AlignCenter, QString::fromLocal8Bit("总  和 (g)"));
 			painter->drawText(edgeOffset + 250 + innerW * 1.0 / 4 * 1, betweenweight + 60 + simpleFun, innerW * 1.0 / 4 - 225, 60, Qt::AlignVCenter, QString::number(m_dsum[totalMachineCount], 'f', 3));
 			painter->drawText(edgeOffset + innerW * 1.0 / 4 * 2, betweenweight + 60 + simpleFun, 225, 60, Qt::AlignCenter, QString::fromLocal8Bit("平均值 (g)"));
@@ -983,11 +1185,11 @@ void QtPLCDialogClass::createPixCurve(QPixmap *pix)
 			painter->drawText(edgeOffset + innerW * 1.0 / 4 * 3, betweenweight + 120 + simpleFun, 225, 60, Qt::AlignCenter, QString::fromLocal8Bit("差异值(小)"));
 			painter->drawText(edgeOffset + 250 + innerW * 1.0 / 4 * 3, betweenweight + 120 + simpleFun, innerW * 1.0 / 4 - 225, 60, Qt::AlignVCenter, QString::number(m_dminoff[totalMachineCount], 'f', 2) + "%");
 
-			for (int i = 0; i < data_One[totalMachineCount].size(); i++) {
+			for (int i = 0; i < data_One.size(); i++) {
 				painter->drawText(edgeOffset + i % weightColumnCount * weightColumnAve, weightMiddle + simpleFun + i / weightColumnCount % weightRowCount * weightRowAve, 60, weightRowAve, Qt::AlignCenter, QString::number(i + 1));
 			}
-			for (int i = 0; i < data_One[totalMachineCount].size(); i++) {
-				painter->drawText(edgeOffset + i % weightColumnCount * weightColumnAve + 70, weightMiddle + simpleFun + i / weightColumnCount % weightRowCount * weightRowAve, weightColumnAve - 60, weightRowAve, Qt::AlignVCenter, QString::number(data_One[totalMachineCount].at(i), 'f', 3));
+			for (int i = 0; i < data_One.size(); i++) {
+				painter->drawText(edgeOffset + i % weightColumnCount * weightColumnAve + 70, weightMiddle + simpleFun + i / weightColumnCount % weightRowCount * weightRowAve, weightColumnAve - 60, weightRowAve, Qt::AlignVCenter, QString::number(data_One.at(i), 'f', 3));
 			}
 
 		}
@@ -1093,13 +1295,13 @@ void QtPLCDialogClass::on_lE_SysOveride_editingFinished()//系统速度，0-1000
 {
 	QString oldstr = QString::number(m_data->ActData.SysOveride / 100);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->text();
-	 if (oldstr == str)
-	 {
-		 ((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->blockSignals(true);
-		 ((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->clearFocus();
-		 ((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->blockSignals(false);
-		 return;
-	 }
+	if (oldstr == str)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->blockSignals(false);
+		return;
+	}
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
@@ -1151,13 +1353,13 @@ void QtPLCDialogClass::on_lE_TOverload_editingFinished()//超重重量,单位g
 {
 	QString oldstr = QString::number(m_data->ActData.TOverload, 'f', 3);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_TOverload->text();
-	 if (oldstr == str)
-	 {
-		 ((Ui::QtPLCDialogClass*)ui)->lE_TOverload->blockSignals(true);
-		 ((Ui::QtPLCDialogClass*)ui)->lE_TOverload->clearFocus();
-		 ((Ui::QtPLCDialogClass*)ui)->lE_TOverload->blockSignals(false);
-		 return;
-	 }
+	if (oldstr == str)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_TOverload->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_TOverload->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_TOverload->blockSignals(false);
+		return;
+	}
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
@@ -1173,13 +1375,13 @@ void QtPLCDialogClass::on_lE_TUnderload_editingFinished()//超轻重量,单位g
 {
 	QString oldstr = QString::number(m_data->ActData.TUnderload, 'f', 3);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->text();
-	 if (oldstr == str)
-	 {
-		 ((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->blockSignals(true);
-		 ((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->clearFocus();
-		 ((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->blockSignals(false);
-		 return;
-	 }
+	if (oldstr == str)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->blockSignals(false);
+		return;
+	}
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
@@ -1195,13 +1397,13 @@ void QtPLCDialogClass::on_lE_InterOverLoad_editingFinished()//内控线，上限
 {
 	QString oldstr = QString::number(m_data->ActData.InterOverLoad, 'f', 3);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->text();
-	 if (oldstr == str)
-	 {
-		 ((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->blockSignals(true);
-		 ((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->clearFocus();
-		 ((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->blockSignals(false);
-		 return;
-	 }
+	if (oldstr == str)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->blockSignals(false);
+		return;
+	}
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
@@ -1217,13 +1419,13 @@ void QtPLCDialogClass::on_lE_InterUnderLoad_editingFinished()//内控线，下�
 {
 	QString oldstr = QString::number(m_data->ActData.InterUnderLoad, 'f', 3);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->text();
-	 if (oldstr == str)
-	 {
-		 ((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->blockSignals(true);
-		 ((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->clearFocus();
-		 ((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->blockSignals(false);
-		 return;
-	 }
+	if (oldstr == str)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->blockSignals(false);
+		return;
+	}
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
@@ -1239,13 +1441,13 @@ void QtPLCDialogClass::on_lE_TDemand_editingFinished()///期望重量,单位g
 {
 	QString oldstr = QString::number(m_data->ActData.TDemand, 'f', 3);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_TDemand->text();
-	 if (oldstr == str)
-	 {
-		 ((Ui::QtPLCDialogClass*)ui)->lE_TDemand->blockSignals(true);
-		 ((Ui::QtPLCDialogClass*)ui)->lE_TDemand->clearFocus();
-		 ((Ui::QtPLCDialogClass*)ui)->lE_TDemand->blockSignals(false);
-		 return;
-	 }
+	if (oldstr == str)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_TDemand->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_TDemand->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_TDemand->blockSignals(false);
+		return;
+	}
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
@@ -1271,13 +1473,13 @@ void QtPLCDialogClass::on_lE_GroupSet_editingFinished()///每组测试胶囊数�
 {
 	QString oldstr = QString::number(m_data->ActData.GroupSet);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->text();
-	 if (oldstr == str)
-	 {
-		 ((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->blockSignals(true);
-		 ((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->clearFocus();
-		 ((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->blockSignals(false);
-		 return;
-	 }
+	if (oldstr == str)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->blockSignals(false);
+		return;
+	}
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
@@ -1293,13 +1495,13 @@ void QtPLCDialogClass::on_lE_TestInterval_editingFinished()///测试间隔时间
 {
 	QString oldstr = QString::number(m_data->ActData.TestInterval);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->text();
-	 if (oldstr == str)
-	 {
-		 ((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->blockSignals(true);
-		 ((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->clearFocus();
-		 ((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->blockSignals(false);
-		 return;
-	 }
+	if (oldstr == str)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->blockSignals(false);
+		return;
+	}
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
@@ -1315,16 +1517,16 @@ void QtPLCDialogClass::on_lE_BatchName_editingFinished()//批号字符串
 {
 	QString oldstr = QString(QLatin1String(m_data->ActData.BatchName));
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text();
-	 if (oldstr == str)
-	 {
-		 ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->blockSignals(true);
-		 ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->clearFocus();
-		 ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->blockSignals(false);
-		 return;
-	 }
+	if (oldstr == str)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->blockSignals(false);
+		return;
+	}
 	DataFromPC_typ typ;
 	typ = getPCRunData();
-	typ.Telegram_typ = 4; 
+	typ.Telegram_typ = 4;
 	QByteArray ba = str.toLatin1();
 	char *c = ba.data();
 	strcpy(typ.Run_Para.BatchName, c);
@@ -1342,7 +1544,7 @@ void QtPLCDialogClass::on_lE_BatchName_editingFinished()//批号字符串
 	typ.Telegram_typ = 4;
 	typ.Run_Para.GroupNo = ((Ui::QtPLCDialogClass*)ui)->lE_GroupNo->text().toUInt();
 	m_socket->Communicate_PLC(&typ, nullptr);
-}*/			
+}*/
 //int				Language;				//当前语言，0：中文，1：英文
 //float			UserAnalogoutput;		//用户模拟量输入
 //float			Adjustvalue;			//自动调整系数
@@ -1360,16 +1562,16 @@ void QtPLCDialogClass::on_lE_BatchName_editingFinished()//批号字符串
 //	m_socket->Communicate_PLC(&typ, nullptr);
 //}
 void QtPLCDialogClass::on_lE_s_trg_stop0_editingFinished()
-{	
+{
 	QString oldstr = QString::number(m_data->Machine_Para.s_trg_stop[0]);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->text();
-	 if (oldstr == str)
-	 {
-		 ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->blockSignals(true);
-		 ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->clearFocus();
-		 ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->blockSignals(false);
-		 return;
-	 }
+	if (oldstr == str)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->blockSignals(false);
+		return;
+	}
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
@@ -1385,13 +1587,13 @@ void QtPLCDialogClass::on_lE_s_trg_stop1_editingFinished()
 {
 	QString oldstr = QString::number(m_data->Machine_Para.s_trg_stop[1]);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->text();
-	 if (oldstr == str)
-	 {
-		 ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->blockSignals(true);
-		 ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->clearFocus();
-		 ((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->blockSignals(false);
-		 return;
-	 }
+	if (oldstr == str)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->blockSignals(false);
+		return;
+	}
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
@@ -1407,13 +1609,13 @@ void QtPLCDialogClass::on_lE_FeedTimeOut_editingFinished()
 {
 	QString oldstr = QString::number(m_data->Machine_Para.FeedTimeOut);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->text();
-	 if (oldstr == str)
-	 {
-		 ((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->blockSignals(true);
-		 ((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->clearFocus();
-		 ((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->blockSignals(false);
-		 return;
-	 }
+	if (oldstr == str)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->blockSignals(false);
+		return;
+	}
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
@@ -1451,13 +1653,13 @@ void QtPLCDialogClass::on_lE_CapBackInterval_editingFinished()
 {
 	QString oldstr = QString::number(m_data->Machine_Para.CapBackInterval, 'f', 2);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->text();
-	 if (oldstr == str)
-	 {
-		 ((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->blockSignals(true);
-		 ((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->clearFocus();
-		 ((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->blockSignals(false);
-		 return;
-	 }
+	if (oldstr == str)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->blockSignals(false);
+		return;
+	}
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
@@ -1473,13 +1675,13 @@ void QtPLCDialogClass::on_lE_TireDelay_editingFinished()
 {
 	QString oldstr = QString::number(m_data->Machine_Para.TireDelay, 'f', 2);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->text();
-	 if (oldstr == str)
-	 {
-		 ((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->blockSignals(true);
-		 ((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->clearFocus();
-		 ((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->blockSignals(false);
-		 return;
-	 }
+	if (oldstr == str)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->blockSignals(false);
+		return;
+	}
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
@@ -1495,13 +1697,13 @@ void QtPLCDialogClass::on_lE_ReadDelay_editingFinished()
 {
 	QString oldstr = QString::number(m_data->Machine_Para.ReadDelay, 'f', 2);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->text();
-	 if (oldstr == str)
-	 {
-		 ((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->blockSignals(true);
-		 ((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->clearFocus();
-		 ((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->blockSignals(false);
-		 return;
-	 }
+	if (oldstr == str)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->blockSignals(false);
+		return;
+	}
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
@@ -1517,13 +1719,13 @@ void QtPLCDialogClass::on_lE_TireWaitTime_editingFinished()
 {
 	QString oldstr = QString::number(m_data->Machine_Para.TireWaitTime, 'f', 2);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->text();
-	 if (oldstr == str)
-	 {
-		 ((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->blockSignals(true);
-		 ((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->clearFocus();
-		 ((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->blockSignals(false);
-		 return;
-	 }
+	if (oldstr == str)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->blockSignals(false);
+		return;
+	}
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
@@ -1545,7 +1747,7 @@ void QtPLCDialogClass::on_lE_StopSignalDelay_editingFinished()
 		((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->clearFocus();
 		((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->blockSignals(false);
 		return;
-	 }
+	}
 	DataFromPC_typ typ;
 	typ = getPCParaData();
 	typ.Telegram_typ = 2;
@@ -1625,7 +1827,7 @@ void QtPLCDialogClass::on_cB_paraScaleSetStable_currentIndexChanged(int index)//
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdScaleSetStable = index;
 	m_socket->Communicate_PLC(&typ, nullptr);
-}	
+}
 void QtPLCDialogClass::on_pB_cmdScaleCalibExt_clicked()//秤外部校正,1:执行，自动复位
 {
 	DataFromPC_typ typ;
@@ -1667,7 +1869,7 @@ void QtPLCDialogClass::on_pB_cmdAxisFeedRelMov_clicked()//下料相对运动启�
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisFeedRelMov = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
-}	
+}
 void QtPLCDialogClass::on_pB_cmdAxisFeedPosMov_clicked()//下料正向连续运动启动，1:执行，自动复位
 {
 	DataFromPC_typ typ;
@@ -1716,7 +1918,7 @@ void QtPLCDialogClass::on_pB_cmdAxisSwingRelMov_clicked()//旋转相对运动启
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisSwingRelMov = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
-}	
+}
 void QtPLCDialogClass::on_pB_cmdAxisSwingPosMov_clicked()//旋转正向连续运动启动，1:执行，自动复位
 {
 	DataFromPC_typ typ;
@@ -1730,21 +1932,21 @@ void QtPLCDialogClass::on_pB_cmdAxisSwingStopMov_clicked()//旋转停止运动�
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisSwingStopMov = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
-}	
+}
 void QtPLCDialogClass::on_pB_cmdFeedSingle_clicked()//单粒下料，1:执行，自动复位
 {
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdFeedSingle = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
-}				
+}
 void QtPLCDialogClass::on_pB_cmdFeedSingleStop_clicked()//单粒下料停止，1:执行，自动复位
 {
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdFeedSingleStop = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
-}					
+}
 void QtPLCDialogClass::on_pB_cmdSwing_clicked()//旋转单工位,1:执行，自动复位
 {
 	DataFromPC_typ typ;
@@ -1758,6 +1960,8 @@ void QtPLCDialogClass::on_pB_showPrt_toggled(bool checked)//
 }
 void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 {
+
+	createPixCurve(pix);
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	if (checked)
@@ -1776,7 +1980,7 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 		bool ret = pix.load(AppPath + "/ico/start.png");
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIcon(pix);
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(true);
-		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(true); 
+		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(true);
 		typ.Machine_Cmd.cmdStop = 1;
 		btnTimer->start(1);
 	}
@@ -1842,7 +2046,7 @@ void QtPLCDialogClass::on_pB_dtDlg_toggled(bool checked)//数据dialog
 	if (checked)
 	{
 		m_dtDlg->move(0, 0);
-		m_dtDlg->show();		
+		m_dtDlg->show();
 		QPixmap pix;
 		bool ret = pix.load(AppPath + "/ico/data1.png");
 		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIcon(pix);
