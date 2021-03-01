@@ -59,7 +59,7 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab_PLC_Control">
     <attribute name="title">
@@ -81,7 +81,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -963,7 +963,7 @@
           <x>10</x>
           <y>590</y>
           <width>801</width>
-          <height>41</height>
+          <height>44</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_11">
@@ -2275,7 +2275,7 @@
           <x>10</x>
           <y>590</y>
           <width>801</width>
-          <height>41</height>
+          <height>44</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_10">

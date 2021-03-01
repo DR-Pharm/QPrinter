@@ -50,9 +50,6 @@ private:
 
 	QPushButton* obj = nullptr;//pushbutton le;
 
-	QLabel *lb_01 = nullptr;
-	QLabel *lb_11 = nullptr;
-
 	QFont setupFont;
 	QFont startFont;
 	QFont contentFont;

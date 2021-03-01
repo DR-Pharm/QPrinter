@@ -77,16 +77,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIconSize(QSize(347, 200));
 	//指示灯部分
 	((Ui::QtPLCDialogClass*)ui)->lb_00->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
-	lb_01 = new QLabel(((Ui::QtPLCDialogClass*)ui)->tabWidget->widget(0));
-	lb_01->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
-	lb_01->move(321 + 9, 37 + 38);
-	lb_01->setVisible(false);
-
 	((Ui::QtPLCDialogClass*)ui)->lb_10->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
-	lb_11 = new QLabel(((Ui::QtPLCDialogClass*)ui)->tabWidget->widget(0));
-	lb_11->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
-	lb_11->move(670 + 9, 37 + 38);
-	lb_11->setVisible(false);
 
 	btnTimer = new QTimer();
 	connect(btnTimer, SIGNAL(timeout()), this, SLOT(startMovie()));
@@ -431,10 +422,25 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 #pragma endregion
 	//输入点
 #pragma region input
-	lb_01->setVisible(m_data->Inputs.FeedTrigger ? true : false);
-	((Ui::QtPLCDialogClass*)ui)->lb_00->setVisible(m_data->Inputs.FeedTrigger ? false : true);
-	lb_11->setVisible(m_data->Inputs.SwingTrigger ? true : false);
-	((Ui::QtPLCDialogClass*)ui)->lb_10->setVisible(m_data->Inputs.SwingTrigger ? false : true);
+	if (!m_data->Inputs.FeedTrigger)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lb_00->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
+	}
+	else
+	{
+		((Ui::QtPLCDialogClass*)ui)->lb_00->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
+
+	}
+
+	if (!m_data->Inputs.SwingTrigger)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lb_10->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
+	}
+	else
+	{
+		((Ui::QtPLCDialogClass*)ui)->lb_10->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
+
+	}
 #pragma endregion
 	//输出点
 #pragma region output
@@ -443,154 +449,154 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->blockSignals(false);
 	}
 	else
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->setStyleSheet("font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->setStyleSheet("font: bold;font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->blockSignals(false);
 	}
 	if (m_data->Outputs.ChannelSwith)	//胶囊通道切换
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->blockSignals(false);
 	}
 	else
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->setStyleSheet("font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->setStyleSheet("font: bold;font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->blockSignals(false);
 	}
 	if (m_data->Outputs.Vaccum)//真空发生器
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->blockSignals(false);
 	}
 	else
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->setStyleSheet("font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->setStyleSheet("font: bold;font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->blockSignals(false);
 	}
 	if (m_data->Outputs.CapGet)//取料电磁铁
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->blockSignals(false);
 	}
 	else
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->setStyleSheet("font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->setStyleSheet("font: bold;font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->blockSignals(false);
 	}
 	if (m_data->Outputs.CapGetValve)//取料电磁阀
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->blockSignals(false);
 	}
 	else
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->setStyleSheet("font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->setStyleSheet("font: bold;font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->blockSignals(false);
 	}
 	if (m_data->Outputs.CapBackValve)//回料电磁阀
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValve->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValve->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValve->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValve->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValve->blockSignals(false);
 	}
 	else
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValve->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValve->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValve->setStyleSheet("font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValve->setStyleSheet("font: bold;font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValve->blockSignals(false);
 	}
 	if (m_data->Outputs.AlarmOut)//报警蜂鸣器
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->blockSignals(false);
 	}
 	else
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->setStyleSheet("font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->setStyleSheet("font: bold;font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->blockSignals(false);
 	}
 	if (m_data->Outputs.StopSignal)//停机信号
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->blockSignals(false);
 	}
 	else
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->setStyleSheet("font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->setStyleSheet("font: bold;font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->blockSignals(false);
 	}
 	if (m_data->Outputs.AlarmSignal)//报警输出
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->blockSignals(false);
 	}
 	else
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->setStyleSheet("font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->setStyleSheet("font: bold;font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->blockSignals(false);
 	}
 	if (m_data->Outputs.YellowAlarmout)//黄灯报警
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->blockSignals(false);
 	}
 	else
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->setStyleSheet("font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->setStyleSheet("font: bold;font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->blockSignals(false);
 	}
 	if (m_data->Outputs.Baffle)//挡板
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->blockSignals(false);
 	}
 	else
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->setStyleSheet("font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->setStyleSheet("font: bold;font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->blockSignals(false);
 	}
 	//bool		Photo;					//拍照
@@ -1668,7 +1674,7 @@ void QtPLCDialogClass::on_pB_cmdAxisFeedStopMov_clicked()//下料停止运动，
 {
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
-	typ.Machine_Cmd.cmdAxisFeedPosMov = 1;
+	typ.Machine_Cmd.cmdAxisFeedStopMov = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
 void QtPLCDialogClass::on_pB_cmdAxisSwingJogPos_pressed()//旋转正转点动，1:执行，0:停止
@@ -1696,7 +1702,7 @@ void QtPLCDialogClass::on_pB_cmdAxisSwingJogNeg_released()//旋转反转点动�
 {
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
-	typ.Machine_Cmd.cmdAxisSwingJogNeg = 1;
+	typ.Machine_Cmd.cmdAxisSwingJogNeg = 0;
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
 void QtPLCDialogClass::on_pB_cmdAxisSwingRelMov_clicked()//旋转相对运动启动，1:执行，自动复位
