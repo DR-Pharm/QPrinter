@@ -11,6 +11,13 @@ DataCurve::DataCurve(QWidget *parent)
 	setWindowTitle(QString::fromLocal8Bit("检测数据明细表"));
 
 	initChartOne();
+
+	QStringList str1;
+	str1 << QString::fromLocal8Bit("重量");
+	ui.tableWidget->setColumnCount(1);
+	ui.tableWidget->setHorizontalHeaderLabels(str1);//加水平表头 每行加日期结果
+	ui.tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);//均分填充表头
+
 }
 ////////////////////////////////曲线
 void DataCurve::initChartOne()
@@ -65,7 +72,7 @@ void DataCurve::initChartOne()
 // {
 // 	dataReceived(1);
 // }
-void DataCurve::dataReceived(int count,float ma, float mi, QList<qreal> lst)
+void DataCurve::dataReceived(int count,float value,float ma, float mi, QList<qreal> lst)
 {
 
 	data_One = lst;
@@ -109,6 +116,10 @@ void DataCurve::dataReceived(int count,float ma, float mi, QList<qreal> lst)
 		ui.lE_Sum->setText(QString::number(f_sum));
 		ui.lE_Ave->setText(QString::number(f_sum / count, 'f', 4));
 		ui.lE_Ct->setText(QString::number(count));
+
+		ui.tableWidget->insertRow(0);
+		ui.tableWidget->setVerticalHeaderItem(0, new QTableWidgetItem(QString::number(count)));
+		ui.tableWidget->setItem(0, 0, new QTableWidgetItem(QString::number(value)));
 	}
 }
 DataCurve::~DataCurve()

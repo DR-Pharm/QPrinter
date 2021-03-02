@@ -84,7 +84,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 
 	dtCurve = new DataCurve();	
 	connect(dtCurve, SIGNAL(rejected()), this, SLOT(dtClose()));
-	connect(this, SIGNAL(TODATACURVE(int,float, float, QList<qreal>)), dtCurve, SLOT(dataReceived(int,float, float, QList<qreal>)));
+	connect(this, SIGNAL(TODATACURVE(int,float, float, float, QList<qreal>)), dtCurve, SLOT(dataReceived(int, float, float, float, QList<qreal>)));
 	dtCurve->move(0, 0);
 	//dtCurve->setFixedSize(QSize(860, 755));//1280 800
 }
@@ -396,7 +396,7 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 			{
 				m_fMin = m_data->Status.Weight;
 			}
-			emit TODATACURVE(i, m_fMax, m_fMin, data_One);
+			emit TODATACURVE(i, m_data->Status.Weight,m_fMax, m_fMin, data_One);
 		}
 	}
 	if (m_data->Status.Finished==1)

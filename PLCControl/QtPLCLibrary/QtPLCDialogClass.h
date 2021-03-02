@@ -21,7 +21,7 @@ signals:
 	void SHOWEVERYPLCVALUE(DataToPC_typ);
 	void GETSTRING(QString);
 	void SHOWPRT(bool);
-	void TODATACURVE(int,float, float, QList<qreal>);
+	void TODATACURVE(int,float, float, float, QList<qreal>);
 public:
 	QtPLCDialogClass(QDialog *parent = Q_NULLPTR);
 	~QtPLCDialogClass();

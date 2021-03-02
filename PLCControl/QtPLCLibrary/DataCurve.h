@@ -21,7 +21,7 @@ public:
 
 public slots:
 	//void addAverageData();
-	void dataReceived(int,float, float, QList<qreal>);
+	void dataReceived(int, float, float, float, QList<qreal>);
 private:
 	Ui::DataCurve ui;
 	QString AppPath = qApp->applicationDirPath();

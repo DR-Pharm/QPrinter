@@ -16,30 +16,20 @@
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>170</x>
+     <x>120</x>
      <y>320</y>
-     <width>681</width>
+     <width>731</width>
      <height>431</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout_One"/>
   </widget>
-  <widget class="QTableWidget" name="tableWidget">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>161</width>
-     <height>731</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>180</x>
+     <x>120</x>
      <y>10</y>
-     <width>671</width>
+     <width>731</width>
      <height>301</height>
     </rect>
    </property>
@@ -164,6 +154,16 @@
      </spacer>
     </item>
    </layout>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>111</width>
+     <height>741</height>
+    </rect>
+   </property>
   </widget>
   <zorder>layoutWidget</zorder>
   <zorder>gridLayoutWidget</zorder>
