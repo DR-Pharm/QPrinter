@@ -84,8 +84,9 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 
 	dtCurve = new DataCurve();	
 	connect(dtCurve, SIGNAL(rejected()), this, SLOT(dtClose()));
+	connect(this, SIGNAL(TODATACURVE(float, float, QList<qreal>)), dtCurve, SLOT(dataReceived(float, float, QList<qreal>)));
 	dtCurve->move(0, 0);
-	dtCurve->setFixedSize(QSize(860, 755));//1280 800
+	//dtCurve->setFixedSize(QSize(860, 755));//1280 800
 }
 QtPLCDialogClass::~QtPLCDialogClass()
 {
@@ -274,11 +275,11 @@ DataFromPC_typ QtPLCDialogClass::getPCRunData()//4
 }
 void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kickOpen, int kickMode)
 {
-	if (*m_data == *(DataToPC_typ*)data)
-	{
-		return;
-	}
-	else
+	//if (*m_data == *(DataToPC_typ*)data)
+	//{
+	//	return;
+	//}
+	//else
 	{
 		memcpy(m_data, (DataToPC_typ*)data, sizeof(DataToPC_typ));//主界面用
 
@@ -368,14 +369,21 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	((Ui::QtPLCDialogClass*)ui)->cB_ScaleStableState->setCurrentIndex(m_data->Status.ScaleStableState);//天平当前稳定状态,0:非常稳定,1:稳定,2:不稳定,3:非常不稳定
 
 	//Group Data
-	Displaytyp			CapDataDisp_temp;			//组数据
-	CapDataDisp_temp = m_data->Status.CapDataDisp;
-	data_One.resize(CapDataDisp_temp.GroupIndex);
-	if (CapDataDisp_temp.GroupIndex > 0)//有数据进来
-	{
-		data_One[CapDataDisp_temp.GroupIndex - 1] = m_data->Status.Weight;
-	}
 
+	if (m_data->Status.GroupIndex == 1)//第一个数据进来
+	{
+		data_One.clear();
+	}
+	int i = m_data->Status.GroupIndex - 1;
+	int j = data_One.size();
+	if ((m_data->Status.GroupIndex > 0) && (i == j))//有数据进来
+	{
+		if (m_data->Status.Weight > 0)
+		{
+			data_One << m_data->Status.Weight;
+			emit TODATACURVE(m_data->Status.CapDataDisp.GroupMax, m_data->Status.CapDataDisp.GroupMin, data_One);
+		}
+	}
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedStep->setText(QString::number(m_data->Status.AxisFeedStep));			//下料电机状态机步骤
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedErrorNo->setText(QString::number(m_data->Status.AxisFeedErrorNo));		//下料电机错误代码
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedRelMovDistance->setText(QString::number(m_data->Status.AxisFeedRelMovDistance));	//下料电机相对运动距离，单位unit
@@ -1388,6 +1396,8 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 	typ.Telegram_typ = 1;
 	if (checked)
 	{
+		data_One.clear();
+
 		QPixmap pix;
 		bool ret = pix.load(AppPath + "/ico/stop.png");
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIcon(pix);

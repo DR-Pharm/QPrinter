@@ -2,11 +2,13 @@
 #include <QDebug>
 #include <QLabel>
 #include <QPainter>
+
 #include "PLCRelayHead.h"
 #include "QtSocket_Class.h"
 #include "mypushbutton.h"
 #include "WindowOut.h"
 #include "DataCurve.h"
+
 namespace spd = spdlog;
 
 class QtPLCDialogClass : public QDialog
@@ -19,6 +21,7 @@ signals:
 	void SHOWEVERYPLCVALUE(DataToPC_typ);
 	void GETSTRING(QString);
 	void SHOWPRT(bool);
+	void TODATACURVE(float, float, QList<qreal>);
 public:
 	QtPLCDialogClass(QDialog *parent = Q_NULLPTR);
 	~QtPLCDialogClass();
@@ -56,12 +59,14 @@ private:
 
 	QLabel *lb_dataNow;
 
-	QVector<float> data_One;
+	QList<qreal> data_One;
 	//弹跳特效
 	QPropertyAnimation * animation1 = nullptr;
 	QPropertyAnimation * animation2 = nullptr;
 
 	WindowOut *levelOut;//show默认为非模态modal，如果是局部变量会闪现消失
+
+	
 public slots:
 
 	DataFromPC_typ getPCParaData();
