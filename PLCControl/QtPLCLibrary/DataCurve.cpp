@@ -42,8 +42,8 @@ void DataCurve::initChartOne()
 	axisy = new QValueAxis;
 	//axisy->setLabelFormat("%d");
 	axisy->setLabelFormat("%.3f");
-	axisy->setTickCount(9);
-	axisy->setRange(0, 1);
+	axisy->setTickCount(10);
+	axisy->setRange(0.210, 0.250);
 	axisy->setGridLineVisible(true);
 	chart->setAxisY(axisy, splineSeries);
 	chart->addAxis(axisy, Qt::AlignLeft);
@@ -65,9 +65,11 @@ void DataCurve::initChartOne()
 // {
 // 	dataReceived(1);
 // }
-void DataCurve::dataReceived(float ma, float mi, QList<qreal> lst)
+void DataCurve::dataReceived(int count,float ma, float mi, QList<qreal> lst)
 {
+
 	data_One = lst;
+
 	if (data_One.size()<7)
 	{
 		axisx->setTickCount(data_One.size()+2);
@@ -76,9 +78,17 @@ void DataCurve::dataReceived(float ma, float mi, QList<qreal> lst)
 	{
 		axisx->setTickCount(9);
 	}
-	axisx->setRange(0, data_One.size() + 1);
-	axisy->setRange(mi, ma);
+	axisx->setRange(0, data_One.size()+1);
 
+	axisy->setTickCount(9);
+	if (mi==ma)
+	{
+		axisy->setRange(0, ma);
+	}
+	else
+	{
+		axisy->setRange(mi, ma);
+	}
 	//数据个数超过了最大数量，则删除所有数据，从头开始。
 	//while (data_One.size() > maxSize) {
 	//	//data.clear();//
@@ -87,12 +97,18 @@ void DataCurve::dataReceived(float ma, float mi, QList<qreal> lst)
 	// 界面被隐藏后就没有必要绘制数据的曲线了
 	if (isVisible()) {
 		splineSeries->clear();
-		//scatterSeries->clear();
 		int dx = 1;// maxX / (maxSize - 1);
+		float f_sum = 0;
 		for (int i = 0; i < data_One.size(); ++i) {
+			f_sum += data_One.at(i);
 			splineSeries->append((i + 1)*dx, data_One.at(i));
 			//scatterSeries->append(i*dx, data.at(i));
 		}
+		ui.lE_Max->setText(QString::number(ma));
+		ui.lE_Min->setText(QString::number(mi));
+		ui.lE_Sum->setText(QString::number(f_sum));
+		ui.lE_Ave->setText(QString::number(f_sum / count, 'f', 4));
+		ui.lE_Ct->setText(QString::number(count));
 	}
 }
 DataCurve::~DataCurve()

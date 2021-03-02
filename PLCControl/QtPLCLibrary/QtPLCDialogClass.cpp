@@ -84,7 +84,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 
 	dtCurve = new DataCurve();	
 	connect(dtCurve, SIGNAL(rejected()), this, SLOT(dtClose()));
-	connect(this, SIGNAL(TODATACURVE(float, float, QList<qreal>)), dtCurve, SLOT(dataReceived(float, float, QList<qreal>)));
+	connect(this, SIGNAL(TODATACURVE(int,float, float, QList<qreal>)), dtCurve, SLOT(dataReceived(int,float, float, QList<qreal>)));
 	dtCurve->move(0, 0);
 	//dtCurve->setFixedSize(QSize(860, 755));//1280 800
 }
@@ -370,19 +370,39 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 
 	//Group Data
 
-	if (m_data->Status.GroupIndex == 1)//第一个数据进来
+	int i = m_data->Status.GroupIndex;
+	int j = data_One.size();
+	//float k = m_data->Status.CapDataDisp.GroupMax;
+	//float l = m_data->Status.CapDataDisp.GroupMin;
+	if (m_data->Status.GroupIndex==0)
 	{
 		data_One.clear();
 	}
-	int i = m_data->Status.GroupIndex - 1;
-	int j = data_One.size();
-	if ((m_data->Status.GroupIndex > 0) && (i == j))//有数据进来
+	if (m_data->Status.GroupIndex == 1)
+	{
+		m_fMax = m_data->Status.Weight;
+		m_fMin = m_data->Status.Weight;
+	}
+	if ((m_data->Status.GroupIndex > 0) && (i-1 == j))//有数据进来
 	{
 		if (m_data->Status.Weight > 0)
 		{
 			data_One << m_data->Status.Weight;
-			emit TODATACURVE(m_data->Status.CapDataDisp.GroupMax, m_data->Status.CapDataDisp.GroupMin, data_One);
+			if (m_fMax< m_data->Status.Weight)
+			{
+				m_fMax = m_data->Status.Weight;
+			}
+			if (m_fMin > m_data->Status.Weight)
+			{
+				m_fMin = m_data->Status.Weight;
+			}
+			emit TODATACURVE(i, m_fMax, m_fMin, data_One);
 		}
+	}
+	if (m_data->Status.Finished==1)
+	{
+		m_fMax = 0;
+		m_fMin = 0;
 	}
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedStep->setText(QString::number(m_data->Status.AxisFeedStep));			//下料电机状态机步骤
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedErrorNo->setText(QString::number(m_data->Status.AxisFeedErrorNo));		//下料电机错误代码

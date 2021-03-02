@@ -21,11 +21,13 @@ public:
 
 public slots:
 	//void addAverageData();
-	void dataReceived(float, float, QList<qreal>);
+	void dataReceived(int,float, float, QList<qreal>);
 private:
 	Ui::DataCurve ui;
 	QString AppPath = qApp->applicationDirPath();
 	
+
+
 	int maxSize;  // data 最多存储 maxSize 个元素
 	int maxX;
 	int maxY;

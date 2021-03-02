@@ -21,7 +21,7 @@ signals:
 	void SHOWEVERYPLCVALUE(DataToPC_typ);
 	void GETSTRING(QString);
 	void SHOWPRT(bool);
-	void TODATACURVE(float, float, QList<qreal>);
+	void TODATACURVE(int,float, float, QList<qreal>);
 public:
 	QtPLCDialogClass(QDialog *parent = Q_NULLPTR);
 	~QtPLCDialogClass();
@@ -40,6 +40,9 @@ public:
 	void setStyleCommand(QPushButton*, QString, QFont, QString);
 
 private:
+	float m_fMax = 0;
+	float m_fMin = 0;
+
 	void* ui;
 	DataCurve *dtCurve;
 	QTimer *btnTimer = nullptr;
