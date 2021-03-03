@@ -376,7 +376,8 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	//float l = m_data->Status.CapDataDisp.GroupMin;
 	if (m_data->Status.GroupIndex==0)
 	{
-		data_One.clear();
+		data_One.clear(); 
+		dataToDraw.clear();
 	}
 	if (m_data->Status.GroupIndex == 1)
 	{
@@ -388,6 +389,8 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 		if (m_data->Status.Weight > 0)
 		{
 			data_One << m_data->Status.Weight;
+			dataToDraw << m_data->Status.Weight;//for draw picture CLASS
+
 			if (m_fMax< m_data->Status.Weight)
 			{
 				m_fMax = m_data->Status.Weight;
@@ -403,6 +406,7 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	{
 		m_fMax = 0;
 		m_fMin = 0;
+		emit TODRAWPICTURE(dataToDraw);
 	}
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedStep->setText(QString::number(m_data->Status.AxisFeedStep));			//下料电机状态机步骤
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedErrorNo->setText(QString::number(m_data->Status.AxisFeedErrorNo));		//下料电机错误代码
@@ -1412,6 +1416,8 @@ void QtPLCDialogClass::on_pB_showPrt_toggled(bool checked)//
 }
 void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 {
+
+	emit TODRAWPICTURE(dataToDraw);
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	if (checked)

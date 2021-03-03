@@ -20,6 +20,7 @@
 #include "WindowOut.h"
 #include "Dongle.h"
 #include "QWaiting.h"
+#include <QVector>
 #pragma comment(lib,"Dongle.lib")
 
 #include "QtPLCControl.h"

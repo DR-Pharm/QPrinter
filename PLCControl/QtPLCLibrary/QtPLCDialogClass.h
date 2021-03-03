@@ -22,6 +22,7 @@ signals:
 	void GETSTRING(QString);
 	void SHOWPRT(bool);
 	void TODATACURVE(int,float, float, float, QList<qreal>);
+	void TODRAWPICTURE(QVector<float>);
 public:
 	QtPLCDialogClass(QDialog *parent = Q_NULLPTR);
 	~QtPLCDialogClass();
@@ -63,6 +64,7 @@ private:
 	QLabel *lb_dataNow;
 
 	QList<qreal> data_One;
+	QVector<float> dataToDraw;
 	//µ¯ÌøÌØÐ§
 	QPropertyAnimation * animation1 = nullptr;
 	QPropertyAnimation * animation2 = nullptr;

@@ -1,10 +1,13 @@
 #include "PRT.h"
+#include <QMetaType> 
 
 PRT::PRT(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
 
+	qRegisterMetaType<QVector<float>>("QVector<float>");
+	qRegisterMetaType<QVector<float>>("QVector<float>&");//注册opencv函数，在槽函数中避免出错
 	wt = new QWaiting();
 	//initDog(); //remeber to note off
 	setWindowFlags(Qt::FramelessWindowHint);//无边框  
@@ -63,6 +66,7 @@ void PRT::initPLC()
 	wt->setTxt(QString::fromLocal8Bit("正在连接PLC,请稍等..."));
 	dlg = (QDialog *)(m_pPlclib->QtCreateDialog(1));
 	b = connect(dlg, SIGNAL(SHOWPRT(bool)), this, SLOT(showPrt(bool)));
+	b = connect(dlg, SIGNAL(TODRAWPICTURE(QVector<float>)), m_drawpicture, SLOT(getVec(QVector<float>)));
 	dlg->setParent(ui.widget);
 	dlg->move(0, 0);
 	b = connect(this, SIGNAL(MINI()), m_pPlclib, SLOT(setWinMini()));

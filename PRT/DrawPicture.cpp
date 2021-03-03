@@ -189,6 +189,11 @@ void DrawPicture::drawPic(QPrinter *printer)
 	painterPixmap.end();
 }
 
+void DrawPicture::getVec(QVector<float>)
+{
+	int i = 0;
+}
+
 void DrawPicture::createPixCurve(QPixmap *pix)
 {
 	painter->begin(pix);
