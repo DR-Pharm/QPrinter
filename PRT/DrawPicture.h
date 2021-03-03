@@ -50,5 +50,5 @@ public:
 	void setData(QVector<QVector<float>> sourcedata, int i, int j);
 public slots:
 	void drawPic(QPrinter * pt);
-	void getVec(QVector<float>);
+
 };

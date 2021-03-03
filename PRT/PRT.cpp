@@ -66,7 +66,7 @@ void PRT::initPLC()
 	wt->setTxt(QString::fromLocal8Bit("正在连接PLC,请稍等..."));
 	dlg = (QDialog *)(m_pPlclib->QtCreateDialog(1));
 	b = connect(dlg, SIGNAL(SHOWPRT(bool)), this, SLOT(showPrt(bool)));
-	b = connect(dlg, SIGNAL(TODRAWPICTURE(QVector<float>)), m_drawpicture, SLOT(getVec(QVector<float>)));
+	b = connect(dlg, SIGNAL(TODRAWPICTURE(QVector<float>)), this, SLOT(getVec(QVector<float>)));
 	dlg->setParent(ui.widget);
 	dlg->move(0, 0);
 	b = connect(this, SIGNAL(MINI()), m_pPlclib, SLOT(setWinMini()));
@@ -162,8 +162,8 @@ void PRT::initData()
 	m_iDataNum = 2;
 	data.resize(2);
 
-	data[0] << 0.369;
-	data[1] << 0.390 << 0.321 << 0.332 << 0.311 << 0.399;
+	//data[0] << 0.369;
+	//data[1] << 0.390 << 0.321 << 0.332 << 0.311 << 0.399;
 
 }
 bool PRT::caculateCount()
@@ -542,5 +542,22 @@ void PRT::on_cB_PrintMode_currentIndexChanged(int index)
 	judgeLabelText(index);
 	RWini->setValue("ProgramSetting/PrintMode", QString::number(ui.cB_PrintMode->currentIndex()));
 	m_iPrintMode = index;
+}
+
+
+void PRT::getVec(QVector<float> a)
+{
+	on_cB_Curve_toggled(true);
+	on_cB_Average_toggled(false);
+	
+	data[m_iCurrentGetDataNo++] = a;
+
+	if (m_iCurrentGetDataNo==2)
+	{
+		on_pB_Print_clicked();
+		m_iCurrentGetDataNo = 0;
+		data.clear();
+		data.resize(2);
+	}
 }
 #pragma endregion

@@ -4,6 +4,7 @@ DrawPicture::DrawPicture(QObject *parent)
 	: QObject(parent)
 {
 	painter = new QPainter();
+
 }
 DrawPicture::~DrawPicture()
 {
@@ -187,11 +188,6 @@ void DrawPicture::drawPic(QPrinter *printer)
 
 	//pix[0].save("c:/pt.bmp");
 	painterPixmap.end();
-}
-
-void DrawPicture::getVec(QVector<float>)
-{
-	int i = 0;
 }
 
 void DrawPicture::createPixCurve(QPixmap *pix)

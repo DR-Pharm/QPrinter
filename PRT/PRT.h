@@ -64,6 +64,7 @@ private:
 	//data calculate
 	QVector<QVector<float>>data;
 	int m_iDataNum;//数据存储数量0135...1#     2468...2#
+	int m_iCurrentGetDataNo = 0;
 	int m_iPrintCurveCount=0;
 	int m_iPrintAveCount=0;
 	int num1_Le;
@@ -105,6 +106,7 @@ public slots:
 	void on_cB_Curve_toggled(bool checked);
 	void on_cB_Average_toggled(bool checked);
 	void on_cB_PrintMode_currentIndexChanged(int index);
+	void getVec(QVector<float>);
 	void SuccessConnect();
 	void ErrorConnect();
 	void EmitReconnect();
