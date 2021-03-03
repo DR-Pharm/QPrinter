@@ -406,7 +406,11 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 	{
 		m_fMax = 0;
 		m_fMin = 0;
-		emit TODRAWPICTURE(dataToDraw);
+		if (dataToDraw.size()>0)
+		{
+			emit TODRAWPICTURE(dataToDraw);
+			dataToDraw.clear();
+		}
 	}
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedStep->setText(QString::number(m_data->Status.AxisFeedStep));			//下料电机状态机步骤
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedErrorNo->setText(QString::number(m_data->Status.AxisFeedErrorNo));		//下料电机错误代码
@@ -1416,8 +1420,6 @@ void QtPLCDialogClass::on_pB_showPrt_toggled(bool checked)//
 }
 void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 {
-
-	emit TODRAWPICTURE(dataToDraw);
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	if (checked)
