@@ -250,11 +250,11 @@ void PRT::judgeLabelText(int index)
 {
 	if (index == 0)
 	{
-		ui.label->setText(QString::fromLocal8Bit("最大可打印数：") + QString::number(m_iDataNum) + QString::fromLocal8Bit("\n1#站: ") + QString::number(m_iDataNum - m_iDataNum / 2) + QString::fromLocal8Bit("\n2#站: ") + QString::number(m_iDataNum / 2));
+		/*ui.label->setText(QString::fromLocal8Bit("最大可打印数：") + QString::number(m_iDataNum) + QString::fromLocal8Bit("\n1#站: ") + QString::number(m_iDataNum - m_iDataNum / 2) + QString::fromLocal8Bit("\n2#站: ") + QString::number(m_iDataNum / 2));*/
 	}
 	else
 	{
-		ui.label->setText(QString::fromLocal8Bit("曲线图表: 2组数据\n均值图表:12组数据"));
+		ui.label->setText(QString::fromLocal8Bit("曲线图表: 2组数据"));/*\n均值图表:12组数据*/
 	}
 
 }
