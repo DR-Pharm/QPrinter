@@ -66,7 +66,7 @@ void PRT::initPLC()
 	wt->setTxt(QString::fromLocal8Bit("正在连接PLC,请稍等..."));
 	dlg = (QDialog *)(m_pPlclib->QtCreateDialog(1));
 	b = connect(dlg, SIGNAL(SHOWPRT(bool)), this, SLOT(showPrt(bool)));
-	b = connect(dlg, SIGNAL(TODRAWPICTURE(QVector<float>)), this, SLOT(getVec(QVector<float>)));
+	b = connect(dlg, SIGNAL(TODRAWPICTURE(QVector<float>,int)), this, SLOT(getVec(QVector<float>,int)));
 	dlg->setParent(ui.widget);
 	dlg->move(0, 0);
 	b = connect(this, SIGNAL(MINI()), m_pPlclib, SLOT(setWinMini()));
@@ -159,11 +159,23 @@ void PRT::closes(int index)
 #pragma region data caculate
 void PRT::initData()
 {
-	m_iDataNum = 2;
-	data.resize(2);
+	//m_iDataNum = 2;//到后面设置
+	//data.resize(2);
 
 	//data[0] << 0.369;
 	//data[1] << 0.390 << 0.321 << 0.332 << 0.311 << 0.399;
+
+	/*m_iDataNum = 2;
+	data.resize(2);
+
+
+	data[0] << 12 << 3;
+	data[1] << 23 << 2;
+
+	data.resize(2);
+
+	data[1] << 23 << 2;
+	data.clear();*/
 
 }
 bool PRT::caculateCount()
@@ -199,7 +211,7 @@ bool PRT::caculateCount()
 	{
 		m_iPrintAveCount = 0;
 	}
-	if (m_iDataNum == 0)
+	if (m_iDataNum == 0 || data.size()==0)
 	{
 		showMsgBox("提示", "无可打印数据!", "我知道了", "");
 		return false;
@@ -545,19 +557,63 @@ void PRT::on_cB_PrintMode_currentIndexChanged(int index)
 }
 
 
-void PRT::getVec(QVector<float> a)
+void PRT::getVec(QVector<float> a,int mode)
 {
-	on_cB_Curve_toggled(true);
-	on_cB_Average_toggled(false);
-	
-	data[m_iCurrentGetDataNo++] = a;
-
-	if (m_iCurrentGetDataNo==2)
+	if (mode==0)//MODE 0:one curve,1:one dataAverage,2:two curve,3:two dataAverage
 	{
+		on_cB_Curve_toggled(true);
+		on_cB_Average_toggled(false); 
+		m_iDataNum = 1;
+		data.resize(1);
+
+		data[0] = a;
+
 		on_pB_Print_clicked();
-		m_iCurrentGetDataNo = 0;
 		data.clear();
-		data.resize(2);
 	}
+	else if (mode == 1)
+	{
+		on_cB_Curve_toggled(false);
+		on_cB_Average_toggled(true);
+		m_iDataNum = 1;
+		data.resize(1);
+
+		data[0] = a;
+
+		on_pB_Print_clicked();
+		data.clear();
+	}
+	else if (mode == 2)
+	{
+		on_cB_Curve_toggled(true);
+		on_cB_Average_toggled(false);
+		m_iDataNum = 2;
+		data.resize(2);
+		data[m_iCurrentGetDataNo++] = a;
+
+		if (m_iCurrentGetDataNo == 2)
+		{
+			on_pB_Print_clicked();
+			m_iCurrentGetDataNo = 0;
+			data.clear();
+		}
+	}
+	else if (mode == 3)
+	{
+		on_cB_Curve_toggled(false);
+		on_cB_Average_toggled(true);
+		m_iDataNum = 2;
+		data.resize(2);
+
+		data[m_iCurrentGetDataNo++] = a;
+
+		if (m_iCurrentGetDataNo == 2)
+		{
+			on_pB_Print_clicked();
+			m_iCurrentGetDataNo = 0;
+			data.clear();
+		}
+	}
+	
 }
 #pragma endregion

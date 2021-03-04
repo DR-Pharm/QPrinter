@@ -408,7 +408,22 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 		m_fMin = 0;
 		if (dataToDraw.size()>0)
 		{
-			emit TODRAWPICTURE(dataToDraw);
+			/*if (0)
+			{
+				emit TODRAWPICTURE(dataToDraw, 0);//MODE 0:one curve,1:one dataAverage,2:two curve,3:two dataAverage
+			}
+			else if (1)
+			{
+				emit TODRAWPICTURE(dataToDraw, 1);
+			}
+			else if (2)
+			{
+				emit TODRAWPICTURE(dataToDraw, 2);
+			}
+			else if (3)*/
+			{
+				emit TODRAWPICTURE(dataToDraw, 3);
+			}
 			dataToDraw.clear();
 		}
 	}

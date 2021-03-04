@@ -106,7 +106,7 @@ public slots:
 	void on_cB_Curve_toggled(bool checked);
 	void on_cB_Average_toggled(bool checked);
 	void on_cB_PrintMode_currentIndexChanged(int index);
-	void getVec(QVector<float>);
+	void getVec(QVector<float>,int);
 	void SuccessConnect();
 	void ErrorConnect();
 	void EmitReconnect();
