@@ -181,12 +181,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DrawPicture.cpp" />
+    <ClCompile Include="QtLoginDlg.cpp" />
     <ClCompile Include="QWaiting.cpp" />
     <ClCompile Include="WindowOut.cpp" />
     <QtUic Include="PRT.ui" />
     <QtMoc Include="PRT.h" />
     <ClCompile Include="PRT.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="QtLoginDlg.ui" />
     <QtUic Include="QWaiting.ui" />
     <QtUic Include="WindowOut.ui" />
   </ItemGroup>
@@ -196,6 +198,7 @@
     <QtMoc Include="DrawPicture.h" />
     <QtMoc Include="QWaiting.h" />
     <ClInclude Include="..\Dongle\Dongle.h" />
+    <QtMoc Include="QtLoginDlg.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

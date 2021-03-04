@@ -1,10 +1,15 @@
 #include "PRT.h"
 #include <QMetaType> 
+QString g_QSUserName;
+int g_IUserLevel;
 
 PRT::PRT(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+
+	QtLoginDlg* dlg = new QtLoginDlg((QDialog*)this);
+	dlg->exec();
 
 	qRegisterMetaType<QVector<float>>("QVector<float>");
 	qRegisterMetaType<QVector<float>>("QVector<float>&");//注册opencv函数，在槽函数中避免出错

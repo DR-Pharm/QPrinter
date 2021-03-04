@@ -2,6 +2,7 @@
 #include <QDebug>
 #include <QLabel>
 #include <QPainter>
+#include <QTreeWidgetItem>
 
 #include "PLCRelayHead.h"
 #include "QtSocket_Class.h"
@@ -9,6 +10,7 @@
 #include "WindowOut.h"
 #include "DataCurve.h"
 
+#include <windows.h>
 namespace spd = spdlog;
 
 class QtPLCDialogClass : public QDialog
@@ -26,6 +28,10 @@ signals:
 public:
 	QtPLCDialogClass(QDialog *parent = Q_NULLPTR);
 	~QtPLCDialogClass();
+	void initUser();
+	void initTableOfUserPermission();
+	void checkPermission();
+	void initTableWidget();
 	void initMovie();
 	void initUI();
 	void inittabicon();
@@ -33,8 +39,8 @@ public:
 	void initDlg();
 
 	void setWindowMinimized();
-	int showMsgBox(QMessageBox::Icon icon, const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str);
 
+	int showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str);
 	void showWindowOut(QString str);
 	//全是中文
 	void SetSocket(QtSocket_Class*);
@@ -71,6 +77,11 @@ private:
 
 	WindowOut *levelOut;//show默认为非模态modal，如果是局部变量会闪现消失
 
+	QFont font;
+	QTreeWidgetItem* checkPermissionGroup=nullptr;
+	QWidget *tab=nullptr;
+	QTableWidget* tableWidget= nullptr;
+	QString m_SelectedName;
 	
 public slots:
 
@@ -162,6 +173,17 @@ public slots:
 	void on_pb_cmdBaffle_toggled(bool checked);
 	void on_tabWidget_currentChanged(int index);
 	void on_tabWidget_PLC_currentChanged(int index);
+	void updateCheckPermission(const QString & str);
+	void selectedName(int r, int c);
+	void btn_Enabled(int i);
+	void on_pB_Users_Delete_clicked();
+	void addUser();
+	void on_lE_SetUserSecretNum_returnPressed();
+	void on_lE_SetUserName_returnPressed();
+	void on_lE_SetUserName_textChanged(const QString &arg1);
+	void on_lE_SetUserSecretNum_textChanged(const QString &arg1);
+	void updateParentItem(QTreeWidgetItem* item);
+	void onTreeItemChanged(QTreeWidgetItem * item);
 };
 
 #pragma once

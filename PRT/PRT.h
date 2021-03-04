@@ -21,6 +21,7 @@
 #include "Dongle.h"
 #include "QWaiting.h"
 #include <QVector>
+#include "QtLoginDlg.h"
 #pragma comment(lib,"Dongle.lib")
 
 #include "QtPLCControl.h"
