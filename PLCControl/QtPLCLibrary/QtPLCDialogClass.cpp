@@ -59,7 +59,8 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	connect(AlarmResetBtn, &MyPushButton::clicked, [=]() {
 		on_pB_cmdCounterZero_clicked(); });
 
-	AlarmResetBtn = new MyPushButton(AppPath + "/ico/jtnt.png", AppPath + "/ico/jt.png", 347, 99);
+	//AlarmResetBtn = new MyPushButton(AppPath + "/ico/jtnt.png", AppPath + "/ico/jt.png", 347, 99);
+	AlarmResetBtn = new MyPushButton(AppPath + "/ico/ycqynt.png", AppPath + "/ico/ycqy.png", 347, 99);
 	AlarmResetBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
 	AlarmResetBtn->move(15, 450);
 	connect(AlarmResetBtn, &MyPushButton::clicked, [=]() {
@@ -422,7 +423,7 @@ void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kic
 			}
 			else if (3)*/
 			{
-				emit TODRAWPICTURE(dataToDraw, 3);
+				emit TODRAWPICTURE(dataToDraw, 2);
 			}
 			dataToDraw.clear();
 		}
@@ -1463,6 +1464,7 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 }
 //unsigned char		cmdStart;						//启动称重，1:执行，自动复位
 //unsigned char		cmdEStop;						//急停，1:执行，自动复位
+
 //unsigned char		cmdStop;						//停止,1:执行，自动复位
 //unsigned char		cmdInit;						//初始化，1:执行，自动复位
 void QtPLCDialogClass::on_pB_cmdAlarmReset_clicked()
