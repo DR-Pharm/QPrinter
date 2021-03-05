@@ -69,6 +69,7 @@ QtLoginDlg::QtLoginDlg(QDialog* parent)
 	ui.cB_style->setVisible(false);
 	ui.cB_turnOn->setVisible(false);
 	ui.cB_turnOff->setVisible(false);
+	ui.pB_more->setVisible(false);
 	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
 	QString text = configIniRead.value("ProgramSetting/Style", "").toString();
 	if (text == "Default Style")
@@ -273,13 +274,14 @@ void QtLoginDlg::onEnsure()
 	{
 		static int i = 1;
 		QString str = QString::fromLocal8Bit("密码输入错误") + QString::number(i++) + QString::fromLocal8Bit("次!");
-		if (i==4)
+		if (i==100)
 		{
-			showMsgBox(QMessageBox::Question, "系统退出", "<img src = './ico/critical.png'/>\t密码连续3次输入错误，系统自动退出!", "我知道了", "");
+			showMsgBox(QMessageBox::Question, "系统退出", "<img src = './ico/critical.png'/>\t密码连续101次输入错误，系统自动退出!", "我知道了", "");
 			this->close();
 		}
 		levelOut = new WindowOut;
 		levelOut->getString(QString::fromLocal8Bit("密码输入错误，请确认后重新输入！"), 2000);
+		levelOut->setWindowCount(0);
 		levelOut->show();
 		ui.lE_Password->setText("");
 		//logAddLine("warning", QString::fromLocal8Bit(dest) + QString::fromLocal8Bit("登录成功"));

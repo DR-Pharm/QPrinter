@@ -1,6 +1,6 @@
 #include "PRT.h"
 #include <QMetaType> 
-QString g_QSUserName;
+QString g_QSUserName = "hanlinzhineng_123_nengzhilinhan_321";
 int g_IUserLevel;
 
 PRT::PRT(QWidget *parent)
@@ -10,7 +10,10 @@ PRT::PRT(QWidget *parent)
 
 	QtLoginDlg* dlg = new QtLoginDlg((QDialog*)this);
 	dlg->exec();
-
+	if (g_QSUserName == "hanlinzhineng_123_nengzhilinhan_321")
+	{
+		exit(-1);
+	}
 	qRegisterMetaType<QVector<float>>("QVector<float>");
 	qRegisterMetaType<QVector<float>>("QVector<float>&");//注册opencv函数，在槽函数中避免出错
 	wt = new QWaiting();
