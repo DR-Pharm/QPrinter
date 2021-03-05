@@ -548,11 +548,11 @@ DataFromPC_typ QtPLCDialogClass::getPCRunData()//4
 	strcpy(tmp.Run_Para.BatchName, c);
 
 	tmp.Run_Para.GroupNo = m_data->ActData.GroupNo;				//当前组号
-	tmp.Run_Para.Language = m_data->ActData.Language;				//当前语言，0：中文，1：英文
+	//tmp.Run_Para.Language = m_data->ActData.Language;				//当前语言，0：中文，1：英文
 	tmp.Run_Para.UserAnalogoutput = m_data->ActData.UserAnalogoutput;		//用户模拟量输入
 	tmp.Run_Para.Adjustvalue = m_data->ActData.Adjustvalue;			//自动调整系数
 	tmp.Run_Para.DeltaInput = m_data->ActData.DeltaInput;				//装量调整偏差值
-	tmp.Run_Para.sWAutoPrint = m_data->ActData.sWAutoPrint;			//自动打印，1:自动，0：手动
+	//tmp.Run_Para.sWAutoPrint = m_data->ActData.sWAutoPrint;			//自动打印，1:自动，0：手动
 
 	return tmp;
 }
