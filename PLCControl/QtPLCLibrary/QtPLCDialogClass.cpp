@@ -509,16 +509,25 @@ DataFromPC_typ QtPLCDialogClass::getPCParaData()//2
 {
 	DataFromPC_typ tmp;
 	memset(&tmp, 0, sizeof(DataFromPC_typ));
-	tmp.Machine_Para.enable = 0;// m_data->Machine_Para.enable;
-	tmp.Machine_Para.s_trg_stop[0] = m_data->Machine_Para.s_trg_stop[0];
-	tmp.Machine_Para.s_trg_stop[1] = m_data->Machine_Para.s_trg_stop[1];
-	tmp.Machine_Para.FeedTimeOut = m_data->Machine_Para.FeedTimeOut;
-	tmp.Machine_Para.CapPickInterval = m_data->Machine_Para.CapPickInterval;
-	tmp.Machine_Para.CapBackInterval = m_data->Machine_Para.CapBackInterval;
-	tmp.Machine_Para.TireDelay = m_data->Machine_Para.TireDelay;
-	tmp.Machine_Para.ReadDelay = m_data->Machine_Para.ReadDelay;
-	tmp.Machine_Para.TireWaitTime = m_data->Machine_Para.TireWaitTime;
-	tmp.Machine_Para.StopSignalDelay = m_data->Machine_Para.StopSignalDelay;
+	tmp.Machine_Para.s_trg_stop[0] = m_data->Machine_Para.s_trg_stop[0];					
+	tmp.Machine_Para.s_trg_stop[1] = m_data->Machine_Para.s_trg_stop[1];			//停止位置
+	tmp.Machine_Para.FeedTimeOut = m_data->Machine_Para.FeedTimeOut;				//下料超时时间,单位s
+	tmp.Machine_Para.CapPickInterval = m_data->Machine_Para.CapPickInterval;		//自动取料周期,单位s
+	tmp.Machine_Para.CapBackInterval = m_data->Machine_Para.CapBackInterval;		//成品返还周期,单位s
+	tmp.Machine_Para.CapAbsorbInterval = m_data->Machine_Para.CapAbsorbInterval;	//抽取时间,单位s               new1
+
+	tmp.Machine_Para.TireDelay = m_data->Machine_Para.TireDelay;					//去皮延迟启动时间,单位s
+	tmp.Machine_Para.ReadDelay = m_data->Machine_Para.ReadDelay;					//读数延迟启动时间,单位s
+	tmp.Machine_Para.TireWaitTime = m_data->Machine_Para.TireWaitTime;				//去皮等待时间,单位s
+	tmp.Machine_Para.StopSignalDelay = m_data->Machine_Para.StopSignalDelay;		//连续几次超重或超轻后输出停机信号
+
+	tmp.Machine_Para.CapPickInterval2 = m_data->Machine_Para.CapPickInterval2;					//自动取料周期1	new2
+	tmp.Machine_Para.PillPickCount = m_data->Machine_Para.PillPickCount;						//取料计数		new3
+	tmp.Machine_Para.PillPickCount2=m_data->Machine_Para.PillPickCount2;								//取料计数2		new4
+	tmp.Machine_Para.StartCapNum= m_data->Machine_Para.StartCapNum;						//开机胶囊取数	new5	
+	tmp.Machine_Para.StartPillNum= m_data->Machine_Para.StartPillNum;							//开机片剂取数	new6	
+	tmp.Machine_Para.enable = 0;// m_data->MStartPillNum;		achine_Para.enable;
+	tmp.Machine_Para.temp = 0;  //no use new7
 	return tmp;
 }
 DataFromPC_typ QtPLCDialogClass::getPCRunData()//4
@@ -526,33 +535,55 @@ DataFromPC_typ QtPLCDialogClass::getPCRunData()//4
 	DataFromPC_typ tmp;
 	memset(&tmp, 0, sizeof(DataFromPC_typ));
 	tmp.Run_Para.SysOveride = m_data->ActData.SysOveride;				//系统速度，0-10000对应0-100%
+	tmp.Run_Para.StableState = m_data->ActData.StableState;			//天平当前稳定状态,0:非常稳定,1:稳定,2:不稳定,3:非常不稳定   maybe move
 	tmp.Run_Para.PassCount = m_data->ActData.PassCount;				//通过计数
-	tmp.Run_Para.RejectCount = m_data->ActData.RejectCount;			//剔废计数
 	tmp.Run_Para.ProdCount = m_data->ActData.ProdCount;				//称重计数
 	tmp.Run_Para.TOCount = m_data->ActData.TOCount;				//过重计数
 	tmp.Run_Para.TUCount = m_data->ActData.TUCount;				//过轻计数
+	tmp.Run_Para.RejectCount = m_data->ActData.RejectCount;			//剔废计数
+
+	tmp.Run_Para.WorkMode = m_data->ActData.WorkMode;				//0:片剂，1：胶囊				new8
+	tmp.Run_Para.GroupSet = m_data->ActData.GroupSet;				//每组测试胶囊数量				new9
+	tmp.Run_Para.GroupCounter = m_data->ActData.GroupCounter;			//组落料数量				     new10
+	tmp.Run_Para.TireMode = m_data->ActData.TireMode;				//0:每组去皮重,1:每次称重去皮重	 new11
+	tmp.Run_Para.TestInterval = m_data->ActData.TestInterval;			//测试间隔时间,单位s		     new12
+
 	tmp.Run_Para.TOverload = m_data->ActData.TOverload;				//超重重量,单位g
 	tmp.Run_Para.TUnderload = m_data->ActData.TUnderload;				//超轻重量,单位g
+	tmp.Run_Para.TDemand = m_data->ActData.TDemand;				//期望重量,单位g	
+	tmp.Run_Para.DeltaSwing = m_data->ActData.DeltaSwing;				//位置偏差,未使用									new13	
+	tmp.Run_Para.GroupWeightCounter = m_data->ActData.GroupWeightCounter;		//组称重数量								new14
+	tmp.Run_Para.GroupRejectCounter = m_data->ActData.GroupRejectCounter;		 //组踢废数量,指剔废处理,非剔废动作		 new15
+	
+	tmp.Run_Para.GroupNo = m_data->ActData.GroupNo;		//组号
+	tmp.Run_Para.GroupIndex = m_data->ActData.GroupIndex;		//组数量计数
+	tmp.Run_Para.GroupSum = m_data->ActData.GroupSum;		//组总重
+	tmp.Run_Para.GroupAvg = m_data->ActData.GroupAvg;		//组平均重量,g
+	tmp.Run_Para.GroupMax = m_data->ActData.GroupMax;		//组最大值
+	tmp.Run_Para.GroupMin = m_data->ActData.GroupMin;		//组最小值
+	tmp.Run_Para.GroupMaxRatio = m_data->ActData.GroupMaxRatio;		//组最大偏差
+	tmp.Run_Para.GroupMinRatio = m_data->ActData.GroupMinRatio;		//组最小偏差
+
 	tmp.Run_Para.InterOverLoad = m_data->ActData.InterOverLoad;			//内控线，上限,单位g
-	tmp.Run_Para.InterUnderLoad = m_data->ActData.InterUnderLoad;			//内控线，下限,单位g
-	tmp.Run_Para.TDemand = m_data->ActData.TDemand;				//期望重量,单位g			
-	tmp.Run_Para.TireMode = m_data->ActData.TireMode;				//0:每组去皮重,1:每次称重去皮重
-	tmp.Run_Para.GroupSet = m_data->ActData.GroupSet;				//每组测试胶囊数量
-	tmp.Run_Para.TestInterval = m_data->ActData.TestInterval;			//测试间隔时间,单位s
+	tmp.Run_Para.InterUnderLoad = m_data->ActData.InterUnderLoad;		//内控线，下限,单位g	
+
+	tmp.Run_Para.UsbOk = m_data->ActData.UsbOk;		//U盘准备好
+	tmp.Run_Para.UsbPrintOk = m_data->ActData.UsbPrintOk;		//Print准备好
+	tmp.Run_Para.UserAnalogoutput = m_data->ActData.UserAnalogoutput;		//用户模拟量输入
+	tmp.Run_Para.Adjustvalue = m_data->ActData.Adjustvalue;			//自动调整系数
+	tmp.Run_Para.DeltaInput = m_data->ActData.DeltaInput;				//装量调整偏差值
+	tmp.Run_Para.TestInterval2 = m_data->ActData.TestInterval2;		//测试间隔时间2,单位s
+	tmp.Run_Para.GroupSet2 = m_data->ActData.GroupSet2;		//每组测试胶囊数量2
+	tmp.Run_Para.CurrentGroup = m_data->ActData.CurrentGroup;		//当前工作对应哪个组间隔，0：组1，1：组2
+	tmp.Run_Para.EmptyCapAvgWeight = m_data->ActData.EmptyCapAvgWeight;		//空胶囊壳均重
+	tmp.Run_Para.enGroupMode = m_data->ActData.enGroupMode;		//0:普通模式，1:组称模式
+	tmp.Run_Para.GroupAmount = m_data->ActData.GroupAmount;		//组称数量	
 
 	memset(tmp.Run_Para.BatchName, '\0', sizeof(tmp.Run_Para.BatchName));
-	//tmp.Run_Para.BatchName[40] = m_data->ActData.BatchName[40];			//批号字符串	
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text();
 	QByteArray ba = str.toLatin1();
 	char *c = ba.data();
 	strcpy(tmp.Run_Para.BatchName, c);
-
-	tmp.Run_Para.GroupNo = m_data->ActData.GroupNo;				//当前组号
-	//tmp.Run_Para.Language = m_data->ActData.Language;				//当前语言，0：中文，1：英文
-	tmp.Run_Para.UserAnalogoutput = m_data->ActData.UserAnalogoutput;		//用户模拟量输入
-	tmp.Run_Para.Adjustvalue = m_data->ActData.Adjustvalue;			//自动调整系数
-	tmp.Run_Para.DeltaInput = m_data->ActData.DeltaInput;				//装量调整偏差值
-	//tmp.Run_Para.sWAutoPrint = m_data->ActData.sWAutoPrint;			//自动打印，1:自动，0：手动
 
 	return tmp;
 }
