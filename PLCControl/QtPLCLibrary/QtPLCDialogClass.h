@@ -110,6 +110,8 @@ public slots:
 	void on_lE_GroupSet_editingFinished();
 	void on_lE_TestInterval_editingFinished();
 	void on_lE_BatchName_editingFinished();
+	void on_lE_AxisFeedRelMovDistance_editingFinished();
+	void on_lE_AxisSwingRelMovDistance_editingFinished();
 	//void on_lE_GroupNo_editingFinished();
 
 	//void on_cB_enable_currentIndexChanged(int index);
