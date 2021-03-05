@@ -214,7 +214,8 @@ typedef struct
 	unsigned char		cmdCapClean;					//清空胶囊，1:执行，自动复位
 	unsigned char		cmdAlogtest;					//模拟量输出测试,1:执行，自动复位
 	Output_typ			Outputs;			//输出点
-
+	int					AxisFeedRelMovDistance;			//下料相对运动距离
+	int					AxisSwingRelMovDistance;		//旋转相对运动距离
 	unsigned char		Reserve[32];					//预留空间
 }Comm_Machine_Cmd_typ;
 

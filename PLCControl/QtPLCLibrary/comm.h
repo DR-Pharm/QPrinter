@@ -3,7 +3,6 @@
 /**********************************************************/
 //unsigned int == UDINT 4个字节
 //int == DINT 4个字节 和long一样是4个字节 
-//int == UINT
 //float == REAL 4个字节 double和longlong是8个字节
 //unsigned char = USINT 8位 1个字节
 //char == STRING
@@ -89,24 +88,16 @@ typedef	struct
 typedef struct
 {
 
+	int			enable;										//1读取 2保存
 	float		s_trg_stop[MAX_PULSE_SERVO];				//停止位置
 	float		FeedTimeOut;								//下料超时时间,单位s
 	float		CapPickInterval;							//自动取料周期,单位s
 	float		CapBackInterval;							//成品返还周期,单位s
-	float		CapAbsorbInterval;							//抽取时间,单位s               new1
 
 	float		TireDelay;									//去皮延迟启动时间,单位s
 	float		ReadDelay;									//读数延迟启动时间,单位s
 	float		TireWaitTime;								//去皮等待时间,单位s
 	int			StopSignalDelay;							//连续几次超重或超轻后输出停机信号
-
-	float		CapPickInterval2;							//自动取料周期1	new2
-	int			PillPickCount;								//取料计数		new3
-	int			PillPickCount2;								//取料计数2		new4
-	int			StartCapNum;								//开机胶囊取数	new5	
-	int			StartPillNum;								//开机片剂取数	new6	
-	int			enable;										//1读取2写入	
-	int			temp;										//no use	new7
 
 	int			Reserve[16];								//预留空间
 }Comm_Machine_Para_typ;
@@ -114,48 +105,26 @@ typedef struct
 typedef struct
 {
 	int				SysOveride;				//系统速度，0-10000对应0-100%
-	int				StableState;	//天平当前稳定状态,0:非常稳定,1:稳定,2:不稳定,3:非常不稳定   maybe move
-	unsigned int    PassCount;				//通过计数
-	unsigned int	ProdCount;				//称重计数
+	int				PassCount;				//通过计数
+	int				RejectCount;			//剔废计数
+	int				ProdCount;				//称重计数
 	unsigned int	TOCount;				//过重计数
 	unsigned int	TUCount;				//过轻计数
-	unsigned int	RejectCount;			//剔废计数
-
-	int				WorkMode;				//0:片剂，1：胶囊				new8
-	int				GroupSet;				//每组测试胶囊数量				new9
-	int				GroupCounter;			//组落料数量				     new10
-	int				TireMode;				//0:每组去皮重,1:每次称重去皮重	 new11
-	float			TestInterval;			//测试间隔时间,单位s		     new12
-
 	float			TOverload;				//超重重量,单位g
 	float			TUnderload;				//超轻重量,单位g
-	float			TDemand;				//期望重量,单位g	
-	int				DeltaSwing;				//位置偏差,未使用									new	
-	int				GroupWeightCounter;		//组称重数量								new
-	int				GroupRejectCounter;		 //组踢废数量,指剔废处理,非剔废动作		 new
-
+	float			InterOverLoad;			//内控线，上限,单位g
+	float			InterUnderLoad;			//内控线，下限,单位g
+	float			TDemand;				//期望重量,单位g			
+	int				TireMode;				//0:每组去皮重,1:每次称重去皮重
+	int				GroupSet;				//每组测试胶囊数量
+	float			TestInterval;			//测试间隔时间,单位s
 	char			BatchName[40];			//批号字符串
-	unsigned int	GroupNo;		//组号
-	unsigned int	GroupIndex;		//组数量计数
-	double			GroupSum;		//组总重
-	float			GroupAvg;		//组平均重量,g
-	float			GroupMax;		//组最大值
-	float			GroupMin;		//组最小值
-	float			GroupMaxRatio;		//组最大偏差
-	float			GroupMinRatio;		//组最小偏差
-	float			InterOverLoad;		//内控线，上限
-	float			InterUnderLoad;		//内控线，下限
-	bool			UsbOk;		//U盘准备好
-	bool			UsbPrintOk;		//Print准备好
+	unsigned int	GroupNo;				//当前组号
+	int				Language;				//当前语言，0：中文，1：英文
 	float			UserAnalogoutput;		//用户模拟量输入
 	float			Adjustvalue;			//自动调整系数
 	unsigned int	DeltaInput;				//装量调整偏差值
-	float			TestInterval2;		//测试间隔时间2,单位s
-	int				GroupSet2;		//每组测试胶囊数量2
-	int				CurrentGroup;		//当前工作对应哪个组间隔，0：组1，1：组2
-	float			EmptyCapAvgWeight;		//空胶囊壳均重
-	int				enGroupMode;		//0:普通模式，1:组称模式
-	int				GroupAmount;		//组称数量	
+	int				sWAutoPrint;			//自动打印，1:自动，0：手动
 
 	int				Reserve[16];			//预留空间
 }Comm_Run_Para_typ;
@@ -244,14 +213,6 @@ typedef struct
 	unsigned char		cmdPrintStartE;					//启动英文打印，1:执行，自动复位
 	unsigned char		cmdCapClean;					//清空胶囊，1:执行，自动复位
 	unsigned char		cmdAlogtest;					//模拟量输出测试,1:执行，自动复位
-
-	bool				LeftRightFeedSign;				//左右进料标志0左进料1右进料
-	bool				cmdSingleSelect;				//单称选择
-	bool				cmdLeftGetCap;					//左取囊动作
-	bool				cmdRightGetCap;					//右取囊动作
-	bool				cmdReject;						//踢废
-	bool				cmdFeedAmount;					//组称落料
-
 	Output_typ			Outputs;			//输出点
 	int					AxisFeedRelMovDistance;			//下料相对运动距离
 	int					AxisSwingRelMovDistance;		//旋转相对运动距离
