@@ -47,6 +47,9 @@ public:
 	void setStyleCommand(QPushButton*, QString, QFont, QString);
 
 private:
+	QString g_QSUserName;
+	int g_IUserLevel;
+
 	float m_fMax = 0;
 	float m_fMin = 0;
 
@@ -89,6 +92,8 @@ public slots:
 	DataFromPC_typ getPCRunData();
 
 	void getPLCData(void*, int, int, int, int);
+
+	void setg_IUserLevel(int);
 
 	void on_lE_SysOveride_editingFinished();
 	/*passcount

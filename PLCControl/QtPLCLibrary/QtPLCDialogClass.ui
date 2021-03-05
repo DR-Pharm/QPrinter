@@ -59,7 +59,7 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>4</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab_PLC_Control">
     <attribute name="title">
@@ -805,7 +805,7 @@
          <item>
           <widget class="QGroupBox" name="groupBox_5">
            <property name="title">
-            <string>称重</string>
+            <string>称重设置</string>
            </property>
            <property name="flat">
             <bool>false</bool>
@@ -3727,7 +3727,7 @@ font: 18pt &quot;幼圆&quot;;</string>
         </item>
         <item>
          <property name="text">
-          <string>质检员：3</string>
+          <string>代码人员：3</string>
          </property>
         </item>
        </widget>
@@ -3958,7 +3958,7 @@ font: 18pt &quot;幼圆&quot;;</string>
         </item>
         <item>
          <property name="text">
-          <string>质检员</string>
+          <string>代码人员</string>
          </property>
         </item>
        </widget>

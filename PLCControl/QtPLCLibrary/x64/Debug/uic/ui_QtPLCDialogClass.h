@@ -2569,7 +2569,7 @@ public:
 
         retranslateUi(QtPLCDialogClass);
 
-        tabWidget_PLC->setCurrentIndex(4);
+        tabWidget_PLC->setCurrentIndex(0);
         tabWidget->setCurrentIndex(2);
         cB_TireMode->setCurrentIndex(-1);
         tabWidget_Users->setCurrentIndex(-1);
@@ -2622,7 +2622,7 @@ public:
         pB_cmdAxisSwingStopMov->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\201\234\346\255\242\350\277\220\345\212\250", nullptr));
         pB_cmdSwing->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\227\213\350\275\254\345\215\225\345\267\245\344\275\215", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_4), QString());
-        groupBox_5->setTitle(QCoreApplication::translate("QtPLCDialogClass", "\347\247\260\351\207\215", nullptr));
+        groupBox_5->setTitle(QCoreApplication::translate("QtPLCDialogClass", "\347\247\260\351\207\215\350\256\276\347\275\256", nullptr));
         pB_cmdScaleRead->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\247\244\350\257\273\346\225\260\345\221\275\344\273\244", nullptr));
         pB_cmdScaleTire->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\247\244\346\270\205\351\233\266", nullptr));
         pB_cmdScaleCalibExt->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\247\244\345\244\226\351\203\250\346\240\241\346\255\243", nullptr));
@@ -2736,7 +2736,7 @@ public:
         cB_SetUserPermission->setItemText(0, QCoreApplication::translate("QtPLCDialogClass", "\347\256\241\347\220\206\345\221\230\357\274\2320", nullptr));
         cB_SetUserPermission->setItemText(1, QCoreApplication::translate("QtPLCDialogClass", "\345\267\245\347\250\213\345\270\210\357\274\2321", nullptr));
         cB_SetUserPermission->setItemText(2, QCoreApplication::translate("QtPLCDialogClass", "\346\223\215\344\275\234\345\221\230\357\274\2322", nullptr));
-        cB_SetUserPermission->setItemText(3, QCoreApplication::translate("QtPLCDialogClass", "\350\264\250\346\243\200\345\221\230\357\274\2323", nullptr));
+        cB_SetUserPermission->setItemText(3, QCoreApplication::translate("QtPLCDialogClass", "\344\273\243\347\240\201\344\272\272\345\221\230\357\274\2323", nullptr));
 
         label_67->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\256\276\347\275\256\345\257\206\347\240\201\357\274\232", nullptr));
         lE_SetUserSecretNum->setPlaceholderText(QCoreApplication::translate("QtPLCDialogClass", "[0-9]+$", nullptr));
@@ -2746,7 +2746,7 @@ public:
         cB_Users->setItemText(0, QCoreApplication::translate("QtPLCDialogClass", "\347\256\241\347\220\206\345\221\230", nullptr));
         cB_Users->setItemText(1, QCoreApplication::translate("QtPLCDialogClass", "\345\267\245\347\250\213\345\270\210", nullptr));
         cB_Users->setItemText(2, QCoreApplication::translate("QtPLCDialogClass", "\346\223\215\344\275\234\345\221\230", nullptr));
-        cB_Users->setItemText(3, QCoreApplication::translate("QtPLCDialogClass", "\350\264\250\346\243\200\345\221\230", nullptr));
+        cB_Users->setItemText(3, QCoreApplication::translate("QtPLCDialogClass", "\344\273\243\347\240\201\344\272\272\345\221\230", nullptr));
 
         label_69->setStyleSheet(QCoreApplication::translate("QtPLCDialogClass", "font: 18pt \"\345\271\274\345\234\206\";", nullptr));
         label_69->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\235\203\351\231\220\346\217\217\350\277\260\357\274\232", nullptr));

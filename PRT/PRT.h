@@ -33,7 +33,8 @@ class PRT : public QMainWindow
     Q_OBJECT
 signals:
 	void STARTCONNECTPLC();
-	void MINI();
+	void MINI(); 
+	void SETUSERLEVEL(int);
 protected:
 	void closeEvent(QCloseEvent *event);
 	void mousePressEvent(QMouseEvent *event);

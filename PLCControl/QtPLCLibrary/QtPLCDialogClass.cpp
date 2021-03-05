@@ -89,6 +89,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	connect(this, SIGNAL(TODATACURVE(int,float, float, float, QList<qreal>)), dtCurve, SLOT(dataReceived(int, float, float, float, QList<qreal>)));
 	dtCurve->move(0, 0);
 	//dtCurve->setFixedSize(QSize(860, 755));//1280 800
+
 }
 QtPLCDialogClass::~QtPLCDialogClass()
 {
@@ -137,6 +138,7 @@ void QtPLCDialogClass::initUser()
 
 	connect(((Ui::QtPLCDialogClass*)ui)->treeWidget_2, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(onTreeItemChanged(QTreeWidgetItem*)));
 
+	updateCheckPermission(QString::fromLocal8Bit("管理员"));
 
 }
 void QtPLCDialogClass::initTableOfUserPermission()
@@ -196,7 +198,7 @@ void QtPLCDialogClass::initTableOfUserPermission()
 	tableWidget->item(currentcolumn, 1)->setFlags(tableWidget->item(currentcolumn, 1)->flags() & (~Qt::ItemIsSelectable));
 	currentcolumn = tableWidget->rowCount();
 	tableWidget->insertRow(currentcolumn);
-	tableWidget->setItem(currentcolumn, 0, new QTableWidgetItem(QString::fromLocal8Bit("质检员")));
+	tableWidget->setItem(currentcolumn, 0, new QTableWidgetItem(QString::fromLocal8Bit("代码人员")));
 	tableWidget->item(currentcolumn, 0)->setFlags(tableWidget->item(currentcolumn, 0)->flags() & (~Qt::ItemIsEditable));
 	tableWidget->item(currentcolumn, 0)->setFlags(tableWidget->item(currentcolumn, 0)->flags() & (~Qt::ItemIsSelectable));
 	tableWidget->setItem(currentcolumn, 1, new QTableWidgetItem(QString::number(3)));
@@ -236,35 +238,47 @@ void QtPLCDialogClass::checkPermission()
 	//设置蓝色group2->setBackground(0, QBrush(QColor("#0000FF")));
 	//父亲项
 	QTreeWidgetItem* group21 = new QTreeWidgetItem(group2);
-	group21->setText(0, QString::fromLocal8Bit("模板管理"));
+	group21->setText(0, QString::fromLocal8Bit("系统监控"));
 	group21->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
 	group21->setCheckState(0, Qt::Checked);
 	QTreeWidgetItem* group22 = new QTreeWidgetItem(group2);
-	group22->setText(0, QString::fromLocal8Bit("相机参数"));
+	group22->setText(0, QString::fromLocal8Bit("系统参数"));
 	group22->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
 	group22->setCheckState(0, Qt::Checked);
 	QTreeWidgetItem* group23 = new QTreeWidgetItem(group2);
-	group23->setText(0, QString::fromLocal8Bit("PLC设置"));
+	group23->setText(0, QString::fromLocal8Bit("运行参数"));
 	group23->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
 	group23->setCheckState(0, Qt::Checked);
 	QTreeWidgetItem* group24 = new QTreeWidgetItem(group2);
-	group24->setText(0, QString::fromLocal8Bit("用户管理"));
+	group24->setText(0, QString::fromLocal8Bit("运行状态"));
 	group24->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
 	group24->setCheckState(0, Qt::Checked);
+	QTreeWidgetItem* group25 = new QTreeWidgetItem(group2);
+	group25->setText(0, QString::fromLocal8Bit("用户管理"));
+	group25->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
+	group25->setCheckState(0, Qt::Checked);
 	//孙子项1
 	QTreeWidgetItem* group211 = new QTreeWidgetItem(group21);   //指定子项属于哪一个父项
 	group211->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
-	group211->setText(0, QString::fromLocal8Bit("保存/应用"));
+	group211->setText(0, QString::fromLocal8Bit("输入输出"));
 	group211->setCheckState(0, Qt::Checked);
 	QTreeWidgetItem* group212 = new QTreeWidgetItem(group21);
 	group212->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
-	group212->setText(0, QString::fromLocal8Bit("添加"));
+	group212->setText(0, QString::fromLocal8Bit("下料旋转"));
 	group212->setCheckState(0, Qt::Checked);
 	QTreeWidgetItem* group213 = new QTreeWidgetItem(group21);
 	group213->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
-	group213->setText(0, QString::fromLocal8Bit("删除"));
+	group213->setText(0, QString::fromLocal8Bit("称重打印"));
 	group213->setCheckState(0, Qt::Checked);
-	QTreeWidgetItem* group214 = new QTreeWidgetItem(group21);
+	QTreeWidgetItem* group2131 = new QTreeWidgetItem(group213);
+	group2131->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
+	group2131->setText(0, QString::fromLocal8Bit("称重设置"));
+	group2131->setCheckState(0, Qt::Checked);
+	QTreeWidgetItem* group2132 = new QTreeWidgetItem(group213);
+	group2132->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
+	group2132->setText(0, QString::fromLocal8Bit("打印设置"));
+	group2132->setCheckState(0, Qt::Checked);
+	/*QTreeWidgetItem* group214 = new QTreeWidgetItem(group21);
 	group214->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
 	group214->setText(0, QString::fromLocal8Bit("修改名称"));
 	group214->setCheckState(0, Qt::Checked);
@@ -297,32 +311,16 @@ void QtPLCDialogClass::checkPermission()
 	QTreeWidgetItem* group234 = new QTreeWidgetItem(group23);
 	group234->setText(0, QString::fromLocal8Bit("控制测试"));
 	group234->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
-	group234->setCheckState(0, Qt::Checked);
+	group234->setCheckState(0, Qt::Checked);*/
 	//孙子项4
 	QTreeWidgetItem* group241 = new QTreeWidgetItem(group24);
 	group241->setText(0, QString::fromLocal8Bit("添加用户"));
 	group241->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
 	group241->setCheckState(0, Qt::Checked);
 	QTreeWidgetItem* group242 = new QTreeWidgetItem(group24);
-	group242->setText(0, QString::fromLocal8Bit("切换用户"));
+	group242->setText(0, QString::fromLocal8Bit("删除用户"));
 	group242->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
 	group242->setCheckState(0, Qt::Checked);
-	QTreeWidgetItem* group243 = new QTreeWidgetItem(group24);
-	group243->setText(0, QString::fromLocal8Bit("删除用户"));
-	group243->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
-	group243->setCheckState(0, Qt::Checked);
-	QTreeWidgetItem* group244 = new QTreeWidgetItem(group24);
-	group244->setText(0, QString::fromLocal8Bit("查看权限"));
-	group244->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
-	group244->setCheckState(0, Qt::Checked);
-	QTreeWidgetItem* group245 = new QTreeWidgetItem(group24);
-	group245->setText(0, QString::fromLocal8Bit("更改权限"));
-	group245->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
-	group245->setCheckState(0, Qt::Checked);
-	QTreeWidgetItem* group3 = new QTreeWidgetItem(checkPermissionGroup);
-	group3->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
-	group3->setText(0, QString::fromLocal8Bit("数据导出"));
-	group3->setCheckState(0, Qt::Checked);
 	((Ui::QtPLCDialogClass*)ui)->treeWidget_2->expandAll();  //展开树
 	//ui.treeWidget_2->expandToDepth(1);
 }
@@ -469,6 +467,23 @@ void QtPLCDialogClass::setStyleCommand(QPushButton*btn, QString bg, QFont ft, QS
 	if (tt != "")
 	{
 		btn->setText(tt);
+	}
+}
+void QtPLCDialogClass::setg_IUserLevel(int index)
+{
+	g_IUserLevel = index;	
+	//user part
+	if (g_IUserLevel == 0)
+	{
+		((Ui::QtPLCDialogClass*)ui)->pB_showPrt->setEnabled(false);
+	}
+	else if (g_IUserLevel == 1)
+	{
+		((Ui::QtPLCDialogClass*)ui)->tabWidget_PLC->removeTab(4);
+	}
+	else if (g_IUserLevel == 2)
+	{
+		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(false);
 	}
 }
 #pragma endregion
@@ -1665,7 +1680,10 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 		QPixmap pix;
 		bool ret = pix.load(AppPath + "/ico/start.png");
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIcon(pix);
-		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(true);
+		if (g_IUserLevel!=2)
+		{
+			((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(true);
+		}
 		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(true);
 		typ.Machine_Cmd.cmdStop = 1;
 		btnTimer->start(1);
@@ -1916,6 +1934,22 @@ void QtPLCDialogClass::updateCheckPermission(const QString& str)
 			{
 				(*it)->setCheckState(0, Qt::Checked);
 			}
+			if ((*it)->text(0) == QString::fromLocal8Bit("打印设置"))
+			{
+				(*it)->setCheckState(0, Qt::Unchecked);
+			}
+			++it;
+		}
+	}	
+	if (checkPermissionGroup->text(0) == QString::fromLocal8Bit("代码人员"))//3
+	{
+		while (*it) {
+			if ((*it)->text(0) == QString::fromLocal8Bit("设备运行")
+				|| (*it)->text(0) == QString::fromLocal8Bit("设置")
+				|| (*it)->text(0) == QString::fromLocal8Bit("数据导出"))
+			{
+				(*it)->setCheckState(0, Qt::Checked);
+			}
 			++it;
 		}
 	}
@@ -1950,21 +1984,21 @@ void QtPLCDialogClass::updateCheckPermission(const QString& str)
 			++it;
 		}
 	}
-	else if (checkPermissionGroup->text(0) == QString::fromLocal8Bit("质检员"))//3
-	{
-		while (*it) {
-			if ((*it)->text(0) == QString::fromLocal8Bit("数据导出"))
-			{
-				(*it)->setCheckState(0, Qt::Checked);
-			}
-			if ((*it)->text(0) == QString::fromLocal8Bit("设备运行")
-				|| (*it)->text(0) == QString::fromLocal8Bit("设置"))
-			{
-				(*it)->setCheckState(0, Qt::Unchecked);
-			}
-			++it;
-		}
-	}
+	//else if (checkPermissionGroup->text(0) == QString::fromLocal8Bit("代码人员"))//3
+	//{
+	//	while (*it) {
+	//		if ((*it)->text(0) == QString::fromLocal8Bit("数据导出"))
+	//		{
+	//			(*it)->setCheckState(0, Qt::Checked);
+	//		}
+	//		if ((*it)->text(0) == QString::fromLocal8Bit("设备运行")
+	//			|| (*it)->text(0) == QString::fromLocal8Bit("设置"))
+	//		{
+	//			(*it)->setCheckState(0, Qt::Unchecked);
+	//		}
+	//		++it;
+	//	}
+	//}
 }
 
 

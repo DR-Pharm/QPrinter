@@ -78,6 +78,9 @@ void PRT::initPLC()
 	dlg->setParent(ui.widget);
 	dlg->move(0, 0);
 	b = connect(this, SIGNAL(MINI()), m_pPlclib, SLOT(setWinMini()));
+
+	b = connect(this, SIGNAL(SETUSERLEVEL(int)), dlg, SLOT(setg_IUserLevel(int)));
+	emit SETUSERLEVEL(g_IUserLevel);
 }
 #pragma endregion
 
