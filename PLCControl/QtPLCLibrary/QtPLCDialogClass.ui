@@ -59,7 +59,7 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="tab_PLC_Control">
     <attribute name="title">
@@ -81,7 +81,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -1424,7 +1424,7 @@
           </widget>
          </item>
          <item row="6" column="1">
-          <widget class="QComboBox" name="cB_paraScaleSetStable_3">
+          <widget class="QComboBox" name="cB_enGroupMode">
            <item>
             <property name="text">
              <string>单粒均重</string>
@@ -1897,7 +1897,7 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QLineEdit" name="lE_CapPickInterval_2">
+          <widget class="QLineEdit" name="lE_CapPickInterval2">
            <property name="minimumSize">
             <size>
              <width>120</width>
@@ -1924,6 +1924,74 @@
            </property>
            <property name="text">
             <string>0.00</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3">
+          <widget class="QLabel" name="label_34">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>234234</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>宋体</family>
+             <pointsize>20</pointsize>
+             <weight>75</weight>
+             <italic>false</italic>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+           <property name="text">
+            <string>抽取时间 s</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="4">
+          <widget class="QLineEdit" name="lE_CapAbsorbInterval">
+           <property name="minimumSize">
+            <size>
+             <width>120</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>3434</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>宋体</family>
+             <pointsize>20</pointsize>
+             <weight>75</weight>
+             <italic>false</italic>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+           <property name="text">
+            <string>0</string>
            </property>
           </widget>
          </item>
@@ -2025,7 +2093,7 @@
           </widget>
          </item>
          <item row="6" column="1">
-          <widget class="QLineEdit" name="lE_TestInterval_5">
+          <widget class="QLineEdit" name="lE_EmptyCapAvgWeight">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -2236,7 +2304,7 @@
           </widget>
          </item>
          <item row="8" column="1">
-          <widget class="QLineEdit" name="lE_TestInterval_8">
+          <widget class="QLineEdit" name="lE_StartCapNum">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -2656,7 +2724,7 @@
           </widget>
          </item>
          <item row="7" column="4">
-          <widget class="QLineEdit" name="lE_TestInterval_7">
+          <widget class="QLineEdit" name="lE_PillPickCount2">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -2758,7 +2826,7 @@
           </widget>
          </item>
          <item row="3" column="4">
-          <widget class="QLineEdit" name="lE_TestInterval_2">
+          <widget class="QLineEdit" name="lE_GroupSet2">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -2880,7 +2948,7 @@
           </widget>
          </item>
          <item row="2" column="4">
-          <widget class="QLineEdit" name="lE_TestInterval_3">
+          <widget class="QLineEdit" name="lE_GroupCounter">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -2914,7 +2982,7 @@
           </widget>
          </item>
          <item row="5" column="4">
-          <widget class="QLineEdit" name="lE_TestInterval_4">
+          <widget class="QLineEdit" name="lE_TestInterval2">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -2982,7 +3050,7 @@
           </widget>
          </item>
          <item row="7" column="1">
-          <widget class="QLineEdit" name="lE_TestInterval_6">
+          <widget class="QLineEdit" name="lE_PillPickCount">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -3016,7 +3084,7 @@
           </widget>
          </item>
          <item row="8" column="4">
-          <widget class="QLineEdit" name="lE_TestInterval_9">
+          <widget class="QLineEdit" name="lE_StartPillNum">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>

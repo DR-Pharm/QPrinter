@@ -124,8 +124,8 @@ typedef struct
 	int				WorkMode;				//0:片剂，1：胶囊				new8
 	int				GroupSet;				//每组测试胶囊数量				new9
 	int				GroupCounter;			//组落料数量				     new10
-	int				TireMode;				//0:每组去皮重,1:每次称重去皮重	 new11
-	float			TestInterval;			//测试间隔时间,单位s		     new12
+	int				TireMode;				//0:每组去皮重,1:每次称重去皮重
+	float			TestInterval;			//测试间隔时间,单位s	
 
 	float			TOverload;				//超重重量,单位g
 	float			TUnderload;				//超轻重量,单位g
