@@ -111,8 +111,10 @@ public slots:
 	void on_lE_TestInterval_editingFinished();
 	void on_lE_BatchName_editingFinished();
 	void on_lE_TestInterval2_editingFinished();
+	void on_lE_GroupSet2_editingFinished();
 	void on_lE_EmptyCapAvgWeight_editingFinished();
 	void on_cB_enGroupMode_currentIndexChanged(int index);
+	void on_lE_GroupAmount_editingFinished();
 	void on_lE_AxisFeedRelMovDistance_editingFinished();
 	void on_lE_AxisSwingRelMovDistance_editingFinished();
 	//void on_lE_GroupNo_editingFinished();

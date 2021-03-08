@@ -151,11 +151,11 @@ typedef struct
 	float			Adjustvalue;			//自动调整系数
 	unsigned int	DeltaInput;				//装量调整偏差值
 	float			TestInterval2;		//测试间隔时间2,单位s
-	int				GroupSet2;		//每组测试胶囊数量2
+	int				GroupSet2;		//每组测试胶囊数量2 每组数量1
 	int				CurrentGroup;		//当前工作对应哪个组间隔，0：组1，1：组2
 	float			EmptyCapAvgWeight;		//空胶囊壳均重
 	int				enGroupMode;		//0:普通模式，1:组称模式
-	int				GroupAmount;		//组称数量	
+	int				GroupAmount;		//组称数量	每组数量2
 
 	int				Reserve[16];			//预留空间
 }Comm_Run_Para_typ;

@@ -191,11 +191,11 @@ public:
     QLineEdit *lE_PillPickCount2;
     QLineEdit *lE_TUnderload;
     QLineEdit *lE_InterOverLoad;
-    QLineEdit *lE_GroupSet2;
+    QLineEdit *lE_GroupAmount;
     QLabel *label_62;
     QComboBox *cB_TireMode;
     QLabel *label_63;
-    QLineEdit *lE_GroupCounter;
+    QLineEdit *lE_GroupSet2;
     QLineEdit *lE_TestInterval2;
     QLineEdit *lE_InterUnderLoad;
     QLineEdit *lE_PillPickCount;
@@ -1422,15 +1422,15 @@ public:
 
         gridLayout_2->addWidget(lE_InterOverLoad, 1, 1, 1, 1);
 
-        lE_GroupSet2 = new QLineEdit(layoutWidget1);
-        lE_GroupSet2->setObjectName(QString::fromUtf8("lE_GroupSet2"));
-        sizePolicy1.setHeightForWidth(lE_GroupSet2->sizePolicy().hasHeightForWidth());
-        lE_GroupSet2->setSizePolicy(sizePolicy1);
-        lE_GroupSet2->setMinimumSize(QSize(0, 42));
-        lE_GroupSet2->setMaximumSize(QSize(16777215, 42));
-        lE_GroupSet2->setFont(font1);
+        lE_GroupAmount = new QLineEdit(layoutWidget1);
+        lE_GroupAmount->setObjectName(QString::fromUtf8("lE_GroupAmount"));
+        sizePolicy1.setHeightForWidth(lE_GroupAmount->sizePolicy().hasHeightForWidth());
+        lE_GroupAmount->setSizePolicy(sizePolicy1);
+        lE_GroupAmount->setMinimumSize(QSize(0, 42));
+        lE_GroupAmount->setMaximumSize(QSize(16777215, 42));
+        lE_GroupAmount->setFont(font1);
 
-        gridLayout_2->addWidget(lE_GroupSet2, 3, 4, 1, 1);
+        gridLayout_2->addWidget(lE_GroupAmount, 3, 4, 1, 1);
 
         label_62 = new QLabel(layoutWidget1);
         label_62->setObjectName(QString::fromUtf8("label_62"));
@@ -1457,15 +1457,15 @@ public:
 
         gridLayout_2->addWidget(label_63, 9, 0, 1, 1);
 
-        lE_GroupCounter = new QLineEdit(layoutWidget1);
-        lE_GroupCounter->setObjectName(QString::fromUtf8("lE_GroupCounter"));
-        sizePolicy1.setHeightForWidth(lE_GroupCounter->sizePolicy().hasHeightForWidth());
-        lE_GroupCounter->setSizePolicy(sizePolicy1);
-        lE_GroupCounter->setMinimumSize(QSize(0, 42));
-        lE_GroupCounter->setMaximumSize(QSize(16777215, 42));
-        lE_GroupCounter->setFont(font1);
+        lE_GroupSet2 = new QLineEdit(layoutWidget1);
+        lE_GroupSet2->setObjectName(QString::fromUtf8("lE_GroupSet2"));
+        sizePolicy1.setHeightForWidth(lE_GroupSet2->sizePolicy().hasHeightForWidth());
+        lE_GroupSet2->setSizePolicy(sizePolicy1);
+        lE_GroupSet2->setMinimumSize(QSize(0, 42));
+        lE_GroupSet2->setMaximumSize(QSize(16777215, 42));
+        lE_GroupSet2->setFont(font1);
 
-        gridLayout_2->addWidget(lE_GroupCounter, 2, 4, 1, 1);
+        gridLayout_2->addWidget(lE_GroupSet2, 2, 4, 1, 1);
 
         lE_TestInterval2 = new QLineEdit(layoutWidget1);
         lE_TestInterval2->setObjectName(QString::fromUtf8("lE_TestInterval2"));
@@ -2723,13 +2723,13 @@ public:
         lE_PillPickCount2->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));
         lE_TUnderload->setText(QCoreApplication::translate("QtPLCDialogClass", "0.000", nullptr));
         lE_InterOverLoad->setText(QCoreApplication::translate("QtPLCDialogClass", "0.000", nullptr));
-        lE_GroupSet2->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));
+        lE_GroupAmount->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));
         label_62->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\211\207\345\211\202\345\274\200\346\234\272\346\225\260", nullptr));
         cB_TireMode->setItemText(0, QCoreApplication::translate("QtPLCDialogClass", "\346\257\217\347\273\204\345\216\273\347\232\256", nullptr));
         cB_TireMode->setItemText(1, QCoreApplication::translate("QtPLCDialogClass", "\346\257\217\346\254\241\345\216\273\347\232\256", nullptr));
 
         label_63->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\235\207\351\207\215\350\256\241\346\225\2601\350\241\245\345\201\277", nullptr));
-        lE_GroupCounter->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));
+        lE_GroupSet2->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));
         lE_TestInterval2->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));
         lE_InterUnderLoad->setText(QCoreApplication::translate("QtPLCDialogClass", "0.000", nullptr));
         lE_PillPickCount->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));

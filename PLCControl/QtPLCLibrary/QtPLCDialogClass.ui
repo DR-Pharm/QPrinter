@@ -59,7 +59,7 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="tab_PLC_Control">
     <attribute name="title">
@@ -2826,7 +2826,7 @@
           </widget>
          </item>
          <item row="3" column="4">
-          <widget class="QLineEdit" name="lE_GroupSet2">
+          <widget class="QLineEdit" name="lE_GroupAmount">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -2948,7 +2948,7 @@
           </widget>
          </item>
          <item row="2" column="4">
-          <widget class="QLineEdit" name="lE_GroupCounter">
+          <widget class="QLineEdit" name="lE_GroupSet2">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
