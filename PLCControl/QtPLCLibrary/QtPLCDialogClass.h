@@ -143,7 +143,7 @@ public slots:
 	void on_pB_cmdScaleRead_clicked();
 	void on_pB_cmdScaleTire_clicked();
 	void on_pB_cmdScaleSetStable_clicked();
-	void on_cB_paraScaleSetStable_currentIndexChanged(int index);
+	/*void on_cB_paraScaleSetStable_currentIndexChanged(int index);*/
 	void on_pB_cmdScaleCalibExt_clicked();
 	void on_pB_cmdAxisFeedJogPos_pressed();
 	void on_pB_cmdAxisFeedJogPos_released();
