@@ -7,7 +7,8 @@ DataCurve::DataCurve(QWidget *parent)
 {
 	ui.setupUi(this);
 	setWindowIcon(QIcon(AppPath + "/ico/dr.ico"));
-	setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowCloseButtonHint | Qt::WindowStaysOnTopHint);
+	//setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowCloseButtonHint | Qt::WindowStaysOnTopHint);
+	setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog | Qt::WindowStaysOnTopHint | Qt::SubWindow);
 	setWindowTitle(QString::fromLocal8Bit("检测数据明细表"));
 
 	initChartOne();
