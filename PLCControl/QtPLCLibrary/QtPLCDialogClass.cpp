@@ -613,11 +613,11 @@ DataFromPC_typ QtPLCDialogClass::getPCRunData()//4
 }
 void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kickOpen, int kickMode)
 {
-	//if (*m_data == *(DataToPC_typ*)data)
+	if (*m_data == *(DataToPC_typ*)data)
 	{
 		return;
 	}
-	//else
+	else
 	{
 		memcpy(m_data, (DataToPC_typ*)data, sizeof(DataToPC_typ));//主界面用
 

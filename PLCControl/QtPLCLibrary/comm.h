@@ -10,7 +10,6 @@
 //bool == BOOL 1位
 //short == INT 2个字节
 //short == UINT 2个字节
-#pragma pack(4)
 #define UDINT unsigned int
 #define DINT int
 #define REAL float
@@ -29,6 +28,7 @@
 
 #define	_COMM_H_
 
+#pragma pack(4)
 #define			MAX_PULSE_SERVO		2
 typedef struct
 {
@@ -300,19 +300,20 @@ typedef struct DataToPC_typ
 	Output_typ					Outputs;			//输出点 
 
 	DINT						Reserve[16];		//预留空间
-	//bool operator==(const DataToPC_typ &data)
-//	{
+	bool operator==(const DataToPC_typ &data)
+	{
 		//if (this Equals data)return true;
 		//if (equal(this, this->begin(), this->end(), data, data.begin(), data.end())) return true;
-		//if (memcmp(this, &data, sizeof(data)) != 0) return false;
+		if (memcmp(this, &data, sizeof(data)) != 0) return false;
 		/*if (Telegram_typ!= data.Telegram_typ)return false;
 		if (Status.AlarmStatus != data.Status.AlarmStatus)return false;
 		if (ActData.CheckCount != data.ActData.CheckCount)return false;
 		if (ActData.RunSpeed != data.ActData.RunSpeed)return false;*/
 		//return true;
-	//}
+	}
 }DataToPC_typ;
 
+#pragma pack()
 //_GLOBAL			DataToPC_typ			DataToPC;
 
 
