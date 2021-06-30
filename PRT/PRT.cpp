@@ -246,17 +246,18 @@ void PRT::mouseMoveEvent(QMouseEvent * event)
 		temp = event->globalPos() - m_offset;// 使用鼠标指针当前的位置减去差值，就得到了窗口应该移动的位置
 		if (temp.y() > 750)
 		{
-			showMinimized(); 
-			emit MINI();
-			showWindowOut(QString::fromLocal8Bit("系统界面已最小化至任务栏"));
-		}
-		if (temp.x() > 1250)
-		{
 			if (QMessageBox::Yes == showMsgBox("退出确认", "是否确认退出该系统?", "确认", "取消"))
 			{
 				m_bCloseSignal = true;
 				close();
 			}
+			//showMinimized(); 
+			//emit MINI();
+			//showWindowOut(QString::fromLocal8Bit("系统界面已最小化至任务栏"));
+		}
+		if (temp.x() > 1250)
+		{
+			
 		}
 	}
 }
