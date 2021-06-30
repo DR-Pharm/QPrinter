@@ -6,6 +6,7 @@ int g_IUserLevel;
 PRT::PRT(QWidget *parent)
 	: QMainWindow(parent)
 {
+	initDog();
 	ui.setupUi(this);
 
 	QtLoginDlg* dlg = new QtLoginDlg((QDialog*)this);
@@ -88,8 +89,9 @@ void PRT::initPLC()
 void PRT::initDog()
 {
 	m_dong = new Dongle();
-	connect(m_dong->get_m_RockeyARM(), SIGNAL(DONGLEERRORCODE(int)), this, SLOT(closes(int)));
-
+	QObject *dgObj = (QObject*)(m_dong->get_m_RockeyARM());
+	connect(dgObj, SIGNAL(DONGLEERRORCODE(int)), this, SLOT(closes(int)));
+	//connect(this, SIGNAL(VERIFYCAMERA(QStringList)), dgObj, SLOT(on_verifyCamra(QStringList)));
 	if (m_dong->initDongle())
 	{
 		m_dong->threadRun();

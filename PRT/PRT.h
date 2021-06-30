@@ -18,10 +18,11 @@
 #include "ui_PRT.h"
 #include "DrawPicture.h"
 #include "WindowOut.h"
-#include "Dongle.h"
 #include "QWaiting.h"
 #include <QVector>
 #include "QtLoginDlg.h"
+
+#include "Dongle.h"
 #pragma comment(lib,"Dongle.lib")
 
 #include "QtPLCControl.h"
