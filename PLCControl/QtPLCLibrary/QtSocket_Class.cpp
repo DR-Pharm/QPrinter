@@ -142,7 +142,7 @@ void QtSocket_Class::OnServer()
 	{
 		timer_beat = new QTimer(this);
 		connect(timer_beat, SIGNAL(timeout()), this, SLOT(onBeatSignal()));
-		timer_beat->start(500);
+		timer_beat->start(200);
 	}
 	emit signal_Connected();
 }
@@ -354,14 +354,6 @@ void QtSocket_Class::onReadAllData()
 {
 	mp_TCPSocket->read(_ctoPC, sizeof(DataToPC_typ));
 	memcpy(_ToPC, _ctoPC, sizeof(DataToPC_typ));
-
-	_ToPC->Status.PLCTimeNow.day = 0;
-	_ToPC->Status.PLCTimeNow.hour = 0;
-	_ToPC->Status.PLCTimeNow.minute = 0;
-	_ToPC->Status.PLCTimeNow.month = 0;
-	_ToPC->Status.PLCTimeNow.second = 0;//重载后只有时间一处不同
-	_ToPC->Status.PLCTimeNow.weekday = 0;
-	_ToPC->Status.PLCTimeNow.year = 0;
 
 	int MachineType=0;
 	int home=0;

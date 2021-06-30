@@ -613,15 +613,8 @@ DataFromPC_typ QtPLCDialogClass::getPCRunData()//4
 }
 void QtPLCDialogClass::getPLCData(void* data, int machinetype, int home, int kickOpen, int kickMode)
 {
-	if (*m_data == *(DataToPC_typ*)data)
-	{
-		return;
-	}
-	else
-	{
-		memcpy(m_data, (DataToPC_typ*)data, sizeof(DataToPC_typ));//主界面用
+	memcpy(m_data, (DataToPC_typ*)data, sizeof(DataToPC_typ));//主界面用
 
-	}
 	//运行数据
 #pragma region run
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->hasFocus())//系统速度，0-10000对应0-100%
