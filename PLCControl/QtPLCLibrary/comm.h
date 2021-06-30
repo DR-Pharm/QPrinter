@@ -309,7 +309,7 @@ typedef struct DataToPC_typ
 		if (Status.AlarmStatus != data.Status.AlarmStatus)return false;
 		if (ActData.CheckCount != data.ActData.CheckCount)return false;
 		if (ActData.RunSpeed != data.ActData.RunSpeed)return false;*/
-		//return true;
+		return true;
 	}
 }DataToPC_typ;
 
