@@ -22,9 +22,6 @@
 #include <QVector>
 #include "QtLoginDlg.h"
 
-#include "Dongle.h"
-#pragma comment(lib,"Dongle.lib")
-
 #include "QtPLCControl.h"
 #pragma comment(lib,"Qt_PLC_ConnectLIB.lib")
 
@@ -43,8 +40,6 @@ protected:
 public:
 	PRT(QWidget *parent = Q_NULLPTR);
 	~PRT();
-	//dog
-	void initDog();
 	//PLC
 	void initPLC();
 	//printer
@@ -72,10 +67,6 @@ private:
 	int m_iPrintAveCount=0;
 	int num1_Le;
 	int num2_Le_2; 
-	//dog
-	Dongle *m_dong = nullptr;
-	QStringList *lst = nullptr;
-	bool m_bFlagWriteDongleFinally = false;
 	//plc
 	QtPLCControl *m_pPlclib = nullptr;//dll
 	QThread *lib_PLCThread = nullptr;
@@ -96,8 +87,6 @@ private:
 	QWaiting *wt;
 	WindowOut *levelOut;//show默认为非模态modal，如果是局部变量会闪现消失
 public slots:
-	//dog
-	void closes(int index);
 	//printer
 	void showPrintName(QString str);
 	void toDraw(QPrinter * p);
