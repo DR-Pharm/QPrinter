@@ -355,20 +355,7 @@ void QtSocket_Class::onReadAllData()
 	mp_TCPSocket->read(_ctoPC, sizeof(DataToPC_typ));
 	memcpy(_ToPC, _ctoPC, sizeof(DataToPC_typ));
 
-	int MachineType=0;
-	int home=0;
-	int ContinueKickIsOpen = 0;
-	int ContinueKickIsNormal = 0;
-#ifdef INSPECTION_1
-	MachineType = 1;
-	home = 1;
-	ContinueKickIsOpen = _ToPC->ActData.enReject;//0 不剔废 1 剔废
-	ContinueKickIsNormal = _ToPC->ActData.TestRejectModel;//0 正常 1 间隔 2全部
-#endif // INSPECTION_1
-#ifdef INSPECTION_360
-	MachineType = 360;
-	//home = _ToPC->Status.HomeOK;
-#endif // INSPECTION_1
-	emit signal_FROMPLC((void*)_ToPC, MachineType, home, ContinueKickIsOpen, ContinueKickIsNormal);
+
+	emit signal_FROMPLC((void*)_ToPC);
 
 }

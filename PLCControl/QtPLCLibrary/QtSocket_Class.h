@@ -11,7 +11,7 @@ class QtSocket_Class : public QObject
 	Q_OBJECT
 signals:
 	void signal_Connected();
-	void signal_FROMPLC(void*,int,int,int,int);
+	void signal_FROMPLC(void*);
 	void signal_SOCKETERROR();
 public:
 	QtSocket_Class(QObject *parent);

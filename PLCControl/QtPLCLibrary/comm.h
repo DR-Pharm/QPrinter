@@ -18,6 +18,7 @@
 #define INT short
 #define UINT short
 #define LREAL double
+//#define BOOL bool
 
 #define SET_BIT(_X,_pos)		{_X|=(1l<<(_pos));}
 #define GET_BIT(_X,_pos)		((bool)((((long)(_X)&(1l<<(_pos)))!=0))
@@ -101,23 +102,18 @@ typedef	struct
 
 typedef struct
 {
+	UINT		enable;//1读取2写入	
 	REAL		s_trg_stop[MAX_PULSE_SERVO];				//停止位置	
+	REAL		Feed_shakeoffset;			//片剂摆动距离
 	REAL		FeedTimeOut;				//下料超时时间,单位s	
 	REAL		CapPickInterval;				//自动取料周期,单位s	
 	REAL		CapBackInterval;				//成品返还周期,单位s	
-	REAL		CapAbsorbInterval;				//抽取时间	
+
+
 	REAL		TireDelay;				//去皮延迟启动时间,单位s	
 	REAL		ReadDelay;				//读数延迟启动时间,单位s	
 	REAL		TireWaitTime;				//去皮等待时间,单位s	
 	UINT		StopSignalDelay;				//连续几次超重或超轻后输出停机信号	
-	REAL		CapPickInterval2;				//抽取时间2	
-	DINT		PillPickCount;				//取料计数	
-	DINT		PillPickCount2;				//取料计数2	
-	UINT		StartCapNum;				//开机胶囊取数	
-	UINT		StartPillNum;				//开机片剂取数	
-	UINT		enable;				//1读取2写入	
-	UINT		temp;				//no use	
-
 
 	DINT		Reserve[16];							//预留空间
 }Comm_Machine_Para_typ;
@@ -126,25 +122,32 @@ typedef struct
 {
 	UINT		SysOveride;		//系统速度
 	UINT		StableState;		//0:非常稳定,1:稳定,2:不稳定,3:非常不稳定
+	UINT		FeedOveride;   //下料速度
+
 	UDINT		PassCount;		//通过计数
 	UDINT		ProdCount;		//称重计数
 	UDINT		TOCount;		//过重计数
 	UDINT		TUCount;		//过轻计数
 	UDINT		RejectCount;		//剔废计数
-	UINT		WorkMode;		//0:片剂，1：胶囊
+
+	UINT		WorkMode;		//0:Normal，1：Debug
 	UINT		GroupSet;		//每组测试胶囊数量
 	UINT		GroupCounter;		//组落料数量
 	UINT		TireMode;		//0:每组去皮重,1:每次称重去皮重
+
 	REAL		TestInterval;		//测试间隔时间,单位s
 	REAL		TOverload;		//超重重量,g
 	REAL		TUnderload;		//超轻重量,g
 	REAL		TDemand;		//期望重量,g
+
 	DINT		DeltaSwing;		//位置偏差,未使用
 	UINT		GroupWeightCounter;		//组称重数量
 	UINT		GroupRejectCounter;		 //组踢废数量,指剔废处理,非剔废动作
 	STRING		BatchName[40];		//批号字符串
+
 	UDINT		GroupNo;		//组号
 	UDINT		GroupIndex;		//组数量计数
+
 	LREAL		GroupSum;		//组总重
 	REAL		GroupAvg;		//组平均重量,g
 	REAL		GroupMax;		//组最大值
@@ -153,18 +156,14 @@ typedef struct
 	REAL		GroupMinRatio;		//组最小偏差
 	REAL		InterOverLoad;		//内控线，上限
 	REAL		InterUnderLoad;		//内控线，下限
+
 	bool		UsbOk;		//U盘准备好
 	bool		UsbPrintOk;		//Print准备好
+	bool		Feedmode;	//0 胶囊 1 片剂
+
 	REAL		UserAnalogoutput;		//用户模拟量输入
 	REAL		Adjustvalue;		//自动调整系数
 	UDINT		DeltaInput;		//装量调整偏差值
-	REAL		TestInterval2;		//测试间隔时间2,单位s
-	UINT		GroupSet2;		//每组测试胶囊数量2
-	UINT		CurrentGroup;		//当前工作对应哪个组间隔，0：组1，1：组2
-	REAL		EmptyCapAvgWeight;		//空胶囊壳均重
-	UINT		enGroupMode;		//0:普通模式，1:组称模式
-	UINT		GroupAmount;		//组称数量
-
 
 	DINT				Reserve[16];			//预留空间
 }Comm_Run_Para_typ;
@@ -260,13 +259,20 @@ typedef struct
 	USINT		cmdRightGetCap;					//右取囊动作
 	USINT		cmdReject;						//踢废
 	USINT		cmdFeedAmount;					//组称落料
-	Output_typ					Outputs;			//输出点
+
+	bool		cmdFeedShake;					//下料摇摆
+	bool		cmdFeedshakestop;				//下料摇摆停止
+	bool		cmdFeedshakelevel;				//下料摇摆水平
+	bool		cmdFeedhome;					//下料寻参
+	bool		cmdFeedFive;					//胶囊落料5粒
+	bool		cmdFeedShakefive;				//片剂落料5粒
 
 	DINT				AxisFeedRelMovDistance;	//下料电机相对运动距离，单位unit
 
 	DINT				AxisSwingRelMovDistance;//旋转电机相对运动距离，单位unit
 
 
+	Output_typ					Outputs;			//输出点
 
 	USINT		Reserve[32];					//预留空间
 }Comm_Machine_Cmd_typ;
