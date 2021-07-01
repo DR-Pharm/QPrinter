@@ -65,6 +65,7 @@ typedef struct
 {
 	bool		FeedTrigger;			//胶囊下落检测
 	bool		SwingTrigger;			//摆臂位置检测
+	bool		FeedTrigger1;			//胶囊下落检测1
 }Input_typ;
 
 
@@ -82,10 +83,6 @@ typedef	struct
 	bool		AlarmSignal;			//报警输出
 	bool        YellowAlarmout;			//黄灯报警
 	bool		Baffle;					//挡板
-	bool		LeftFeed;				//左取料
-	bool		RightFeed;				//右取料
-	bool		LeftAbsorb;				//左抽取
-	bool		RightAbsorb;			//右抽取
 	INT			Analogoutput;			//模拟量输出
 }Output_typ;
 

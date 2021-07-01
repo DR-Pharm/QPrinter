@@ -533,7 +533,7 @@ DataFromPC_typ QtPLCDialogClass::getPCParaData()//2
 {
 	DataFromPC_typ tmp;
 	memset(&tmp, 0, sizeof(DataFromPC_typ));	
-	tmp.Machine_Para.enable = 1;
+	tmp.Machine_Para.enable = 0;
 	tmp.Machine_Para.s_trg_stop[0] = m_data->Machine_Para.s_trg_stop[0];					
 	tmp.Machine_Para.s_trg_stop[1] = m_data->Machine_Para.s_trg_stop[1];			//停止位置
 	tmp.Machine_Para.Feed_shakeoffset = m_data->Machine_Para.Feed_shakeoffset;
@@ -614,7 +614,6 @@ void QtPLCDialogClass::getPLCData(void* data)
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->hasFocus())//系统速度，0-10000对应0-100%
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->setText(QString::number(m_data->ActData.SysOveride / 100));
-		((Ui::QtPLCDialogClass*)ui)->lE_SysOveride_2->setText(QString::number(m_data->ActData.SysOveride / 100));
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_PassCount->hasFocus())//通过计数
 	{
@@ -666,6 +665,10 @@ void QtPLCDialogClass::getPLCData(void* data)
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->hasFocus())//每组测试胶囊数量
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->setText(QString::number(m_data->ActData.GroupSet));
+	}
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->hasFocus())//每组测试胶囊数量
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->setText(QString::number(m_data->ActData.FeedOveride));
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->hasFocus())////测试间隔时间,单位s
 	{
@@ -781,6 +784,10 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->setText(QString::number(m_data->Machine_Para.s_trg_stop[1]));
 	}
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->hasFocus())
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->setText(QString::number(m_data->Machine_Para.Feed_shakeoffset));
+	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->hasFocus())
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->setText(QString::number(m_data->Machine_Para.FeedTimeOut));
@@ -830,6 +837,16 @@ void QtPLCDialogClass::getPLCData(void* data)
 	else
 	{
 		((Ui::QtPLCDialogClass*)ui)->lb_10->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
+
+	}
+
+	if (!m_data->Inputs.FeedTrigger1)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lb_20->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
+	}
+	else
+	{
+		((Ui::QtPLCDialogClass*)ui)->lb_20->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
 
 	}
 #pragma endregion
@@ -990,8 +1007,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->setStyleSheet("font: bold;font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->blockSignals(false);
 	}
-	//bool		Photo;					//拍照
-	//bool		Flash;					//闪光
+
 #pragma endregion
 }//PC显示数据
 #pragma endregion
@@ -1243,6 +1259,28 @@ void QtPLCDialogClass::on_lE_GroupSet_editingFinished()///每组测试胶囊数�
 	((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->blockSignals(false);
 
 	showWindowOut(QString::fromLocal8Bit("每组检测数\n已更改!"));
+}
+void QtPLCDialogClass::on_lE_FeedOveride_editingFinished()///每组测试胶囊数量
+{
+	QString oldstr = QString::number(m_data->ActData.FeedOveride);
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->text();
+	if (oldstr == str)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->blockSignals(false);
+		return;
+	}
+	DataFromPC_typ typ;
+	typ = getPCRunData();
+	typ.Telegram_typ = 4;
+	typ.ActData.GroupSet = ((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->text().toInt();
+	m_socket->Communicate_PLC(&typ, nullptr);
+	((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->blockSignals(true);
+	((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->clearFocus();
+	((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->blockSignals(false);
+
+	showWindowOut(QString::fromLocal8Bit("下料速度\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_TestInterval_editingFinished()///测试间隔时间,单位s
 {
@@ -1940,6 +1978,7 @@ void QtPLCDialogClass::on_pb_cmdBaffle_toggled(bool checked)//
 	typ.Machine_Cmd.Outputs.Baffle = checked;
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
+
 void QtPLCDialogClass::on_tabWidget_currentChanged(int index)
 {
 	((Ui::QtPLCDialogClass*)ui)->pB_showPrt->setChecked(false);
@@ -1948,8 +1987,7 @@ void QtPLCDialogClass::on_tabWidget_PLC_currentChanged(int index)
 {
 	((Ui::QtPLCDialogClass*)ui)->pB_showPrt->setChecked(false);
 }
-//Photo;
-//Flash;
+
 
 /*
 void QtPLCDialogClass::updateParentItem(QTreeWidgetItem* item)
