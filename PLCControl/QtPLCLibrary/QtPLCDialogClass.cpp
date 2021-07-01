@@ -684,7 +684,12 @@ void QtPLCDialogClass::getPLCData(void* data)
 		((Ui::QtPLCDialogClass*)ui)->lE_GroupNo->setText(QString::number(m_data->ActData.GroupNo));
 	}
 
-																							  //int				Language;				//当前语言，0：中文，1：英文
+	if (!((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->hasFocus())//0:每组去皮重,1:每次称重去皮重
+	{
+		((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->setCurrentIndex(m_data->ActData.Feedmode);
+		((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->blockSignals(false);
+	}																						  //int				Language;				//当前语言，0：中文，1：英文
 	//float			UserAnalogoutput;		//用户模拟量输入
 	//float			Adjustvalue;			//自动调整系数
 	//unsigned int	DeltaInput;				//装量调整偏差值
@@ -1329,7 +1334,15 @@ void QtPLCDialogClass::on_lE_BatchName_editingFinished()//批号字符串
 
 	showWindowOut(QString::fromLocal8Bit("生产批号\n已更改!"));
 }
-
+void QtPLCDialogClass::on_cB_Feedmode_currentIndexChanged(int index)//0:每组去皮重,1:每次称重去皮重
+{
+	DataFromPC_typ typ;
+	typ = getPCRunData();
+	typ.Telegram_typ = 4;
+	typ.ActData.Feedmode = index;
+	m_socket->Communicate_PLC(&typ, nullptr);
+	showWindowOut(QString::fromLocal8Bit("去皮方式\n已更改!"));
+}
 void QtPLCDialogClass::on_lE_AxisFeedRelMovDistance_editingFinished()
 {
 	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
@@ -1859,7 +1872,49 @@ void QtPLCDialogClass::on_pB_cmdAlogtest_clicked()//模拟量输出测试,1:执�
 {
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
-	typ.Machine_Cmd.cmdCapClean = 1;
+	typ.Machine_Cmd.cmdAlogtest = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_pB_cmdFeedShake_clicked()//下料摇摆
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdFeedShake = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_pB_cmdFeedshakestop_clicked()//下料摇摆停止
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdFeedshakestop = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_pB_cmdFeedshakelevel_clicked()//下料摇摆水平
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdFeedshakelevel = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_pB_cmdFeedhome_clicked()//下料寻参
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdFeedhome = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_pB_cmdFeedFive_clicked()//胶囊落料五粒
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdFeedFive = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
+}
+void QtPLCDialogClass::on_pB_cmdFeedShakefive_clicked()//片剂落料五粒
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdFeedShakefive = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
 void QtPLCDialogClass::on_pB_SetUp_toggled(bool checked)//设置

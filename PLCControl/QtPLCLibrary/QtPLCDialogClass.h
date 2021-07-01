@@ -113,6 +113,8 @@ public slots:
 	void on_lE_TestInterval_editingFinished();
 	void on_lE_BatchName_editingFinished();
 
+	void on_cB_Feedmode_currentIndexChanged(int index);
+
 	void on_lE_AxisFeedRelMovDistance_editingFinished();
 	void on_lE_AxisSwingRelMovDistance_editingFinished();
 	//void on_lE_GroupNo_editingFinished();
@@ -167,10 +169,17 @@ public slots:
 	void on_pB_cmdKeyboard_clicked();
 	void on_pB_cmdCapClean_clicked();
 	void on_pB_cmdAlogtest_clicked();
+	void on_pB_cmdFeedShake_clicked();
+	void on_pB_cmdFeedshakestop_clicked();
+	void on_pB_cmdFeedshakelevel_clicked();
+	void on_pB_cmdFeedhome_clicked();
+	void on_pB_cmdFeedFive_clicked();
+	void on_pB_cmdFeedShakefive_clicked();
 	void on_pB_SetUp_toggled(bool checked);
 	void on_pB_dtDlg_toggled(bool checked); 
 	void dtClose();
 	void startMovie();
+
 	void on_pb_cmdReject_toggled(bool checked);
 	void on_pb_cmdChannelSwith_toggled(bool checked);
 	void on_pb_cmdVaccum_toggled(bool checked);

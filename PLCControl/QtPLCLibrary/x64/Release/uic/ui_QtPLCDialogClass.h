@@ -94,30 +94,30 @@ public:
     QPushButton *pB_cmdSwing;
     QWidget *tab_6;
     QVBoxLayout *verticalLayout_2;
-    QSpacerItem *verticalSpacer_4;
+    QGroupBox *groupBox_9;
+    QGridLayout *gridLayout_12;
+    QPushButton *pB_cmdFeedshakelevel;
+    QPushButton *pB_cmdFeedShake;
+    QPushButton *pB_cmdFeedhome;
+    QPushButton *pB_cmdFeedshakestop;
+    QPushButton *pB_cmdFeedShakefive;
+    QPushButton *pB_cmdFeedFive;
     QGroupBox *groupBox_5;
     QVBoxLayout *verticalLayout_10;
     QHBoxLayout *horizontalLayout;
     QPushButton *pB_cmdScaleRead;
     QPushButton *pB_cmdScaleTire;
     QPushButton *pB_cmdScaleCalibExt;
-    QSpacerItem *verticalSpacer;
     QHBoxLayout *horizontalLayout_7;
     QHBoxLayout *horizontalLayout_2;
     QLabel *label;
     QComboBox *cB_paraScaleSetStable;
     QPushButton *pB_cmdScaleSetStable;
-    QSpacerItem *verticalSpacer_2;
     QHBoxLayout *horizontalLayout_5;
     QSpacerItem *horizontalSpacer_14;
     QPushButton *pB_showPrt;
-    QSpacerItem *horizontalSpacer_11;
-    QSpacerItem *verticalSpacer_19;
-    QHBoxLayout *horizontalLayout_3;
-    QSpacerItem *horizontalSpacer_12;
     QPushButton *pB_cmdAlogtest;
-    QSpacerItem *horizontalSpacer_13;
-    QSpacerItem *verticalSpacer_3;
+    QSpacerItem *horizontalSpacer_11;
     QWidget *tab_8;
     QVBoxLayout *verticalLayout;
     QFrame *frame_4;
@@ -153,25 +153,27 @@ public:
     QFrame *frame_6;
     QWidget *layoutWidget1;
     QGridLayout *gridLayout_2;
-    QSpacerItem *horizontalSpacer;
-    QLineEdit *lE_GroupSet;
-    QLineEdit *lE_TestInterval;
-    QLabel *label_53;
-    QLineEdit *lE_TUnderload;
     QLabel *label_13;
-    QLineEdit *lE_TDemand;
-    QLabel *label_54;
-    QLabel *label_12;
-    QLabel *label_56;
-    QLineEdit *lE_TOverload;
-    QLabel *label_57;
-    QLineEdit *lE_FeedOveride;
-    QLabel *label_55;
+    QLineEdit *lE_GroupSet;
+    QLineEdit *lE_TUnderload;
     QLabel *label_52;
-    QComboBox *cB_TireMode;
+    QSpacerItem *horizontalSpacer;
     QLineEdit *lE_InterOverLoad;
+    QLabel *label_57;
+    QComboBox *cB_TireMode;
+    QLineEdit *lE_TOverload;
+    QLabel *label_12;
+    QLabel *label_54;
     QLabel *label_14;
+    QLabel *label_56;
+    QLabel *label_53;
+    QLineEdit *lE_TestInterval;
+    QLabel *label_55;
     QLineEdit *lE_InterUnderLoad;
+    QLineEdit *lE_FeedOveride;
+    QLineEdit *lE_TDemand;
+    QLabel *label_58;
+    QComboBox *cB_Feedmode;
     QWidget *layoutWidget2;
     QHBoxLayout *horizontalLayout_10;
     QPushButton *pB_Read2;
@@ -667,9 +669,44 @@ public:
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
-        verticalSpacer_4 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        groupBox_9 = new QGroupBox(tab_6);
+        groupBox_9->setObjectName(QString::fromUtf8("groupBox_9"));
+        gridLayout_12 = new QGridLayout(groupBox_9);
+        gridLayout_12->setSpacing(6);
+        gridLayout_12->setContentsMargins(11, 11, 11, 11);
+        gridLayout_12->setObjectName(QString::fromUtf8("gridLayout_12"));
+        pB_cmdFeedshakelevel = new QPushButton(groupBox_9);
+        pB_cmdFeedshakelevel->setObjectName(QString::fromUtf8("pB_cmdFeedshakelevel"));
 
-        verticalLayout_2->addItem(verticalSpacer_4);
+        gridLayout_12->addWidget(pB_cmdFeedshakelevel, 0, 2, 1, 1);
+
+        pB_cmdFeedShake = new QPushButton(groupBox_9);
+        pB_cmdFeedShake->setObjectName(QString::fromUtf8("pB_cmdFeedShake"));
+
+        gridLayout_12->addWidget(pB_cmdFeedShake, 0, 0, 1, 1);
+
+        pB_cmdFeedhome = new QPushButton(groupBox_9);
+        pB_cmdFeedhome->setObjectName(QString::fromUtf8("pB_cmdFeedhome"));
+
+        gridLayout_12->addWidget(pB_cmdFeedhome, 1, 0, 1, 1);
+
+        pB_cmdFeedshakestop = new QPushButton(groupBox_9);
+        pB_cmdFeedshakestop->setObjectName(QString::fromUtf8("pB_cmdFeedshakestop"));
+
+        gridLayout_12->addWidget(pB_cmdFeedshakestop, 0, 1, 1, 1);
+
+        pB_cmdFeedShakefive = new QPushButton(groupBox_9);
+        pB_cmdFeedShakefive->setObjectName(QString::fromUtf8("pB_cmdFeedShakefive"));
+
+        gridLayout_12->addWidget(pB_cmdFeedShakefive, 1, 2, 1, 1);
+
+        pB_cmdFeedFive = new QPushButton(groupBox_9);
+        pB_cmdFeedFive->setObjectName(QString::fromUtf8("pB_cmdFeedFive"));
+
+        gridLayout_12->addWidget(pB_cmdFeedFive, 1, 1, 1, 1);
+
+
+        verticalLayout_2->addWidget(groupBox_9);
 
         groupBox_5 = new QGroupBox(tab_6);
         groupBox_5->setObjectName(QString::fromUtf8("groupBox_5"));
@@ -698,10 +735,6 @@ public:
 
 
         verticalLayout_10->addLayout(horizontalLayout);
-
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout_10->addItem(verticalSpacer);
 
         horizontalLayout_7 = new QHBoxLayout();
         horizontalLayout_7->setSpacing(6);
@@ -737,10 +770,6 @@ public:
 
         verticalLayout_2->addWidget(groupBox_5);
 
-        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout_2->addItem(verticalSpacer_2);
-
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setSpacing(6);
         horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
@@ -754,39 +783,17 @@ public:
 
         horizontalLayout_5->addWidget(pB_showPrt);
 
+        pB_cmdAlogtest = new QPushButton(tab_6);
+        pB_cmdAlogtest->setObjectName(QString::fromUtf8("pB_cmdAlogtest"));
+
+        horizontalLayout_5->addWidget(pB_cmdAlogtest);
+
         horizontalSpacer_11 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_5->addItem(horizontalSpacer_11);
 
 
         verticalLayout_2->addLayout(horizontalLayout_5);
-
-        verticalSpacer_19 = new QSpacerItem(20, 85, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout_2->addItem(verticalSpacer_19);
-
-        horizontalLayout_3 = new QHBoxLayout();
-        horizontalLayout_3->setSpacing(6);
-        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
-        horizontalSpacer_12 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_3->addItem(horizontalSpacer_12);
-
-        pB_cmdAlogtest = new QPushButton(tab_6);
-        pB_cmdAlogtest->setObjectName(QString::fromUtf8("pB_cmdAlogtest"));
-
-        horizontalLayout_3->addWidget(pB_cmdAlogtest);
-
-        horizontalSpacer_13 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_3->addItem(horizontalSpacer_13);
-
-
-        verticalLayout_2->addLayout(horizontalLayout_3);
-
-        verticalSpacer_3 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout_2->addItem(verticalSpacer_3);
 
         tabWidget->addTab(tab_6, QString());
 
@@ -1062,47 +1069,6 @@ public:
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
         gridLayout_2->setContentsMargins(0, 0, 0, 0);
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout_2->addItem(horizontalSpacer, 4, 2, 1, 1);
-
-        lE_GroupSet = new QLineEdit(layoutWidget1);
-        lE_GroupSet->setObjectName(QString::fromUtf8("lE_GroupSet"));
-        lE_GroupSet->setFont(font1);
-
-        gridLayout_2->addWidget(lE_GroupSet, 1, 4, 1, 1);
-
-        lE_TestInterval = new QLineEdit(layoutWidget1);
-        lE_TestInterval->setObjectName(QString::fromUtf8("lE_TestInterval"));
-        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Fixed);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(lE_TestInterval->sizePolicy().hasHeightForWidth());
-        lE_TestInterval->setSizePolicy(sizePolicy1);
-        lE_TestInterval->setMinimumSize(QSize(0, 42));
-        lE_TestInterval->setMaximumSize(QSize(16777215, 42));
-        lE_TestInterval->setFont(font1);
-
-        gridLayout_2->addWidget(lE_TestInterval, 4, 4, 1, 1);
-
-        label_53 = new QLabel(layoutWidget1);
-        label_53->setObjectName(QString::fromUtf8("label_53"));
-        label_53->setMinimumSize(QSize(0, 0));
-        label_53->setMaximumSize(QSize(1572323, 232323));
-        label_53->setFont(font1);
-
-        gridLayout_2->addWidget(label_53, 3, 0, 1, 1);
-
-        lE_TUnderload = new QLineEdit(layoutWidget1);
-        lE_TUnderload->setObjectName(QString::fromUtf8("lE_TUnderload"));
-        sizePolicy1.setHeightForWidth(lE_TUnderload->sizePolicy().hasHeightForWidth());
-        lE_TUnderload->setSizePolicy(sizePolicy1);
-        lE_TUnderload->setMinimumSize(QSize(0, 42));
-        lE_TUnderload->setMaximumSize(QSize(100888, 42));
-        lE_TUnderload->setFont(font1);
-
-        gridLayout_2->addWidget(lE_TUnderload, 4, 1, 1, 1);
-
         label_13 = new QLabel(layoutWidget1);
         label_13->setObjectName(QString::fromUtf8("label_13"));
         label_13->setMinimumSize(QSize(0, 0));
@@ -1111,67 +1077,24 @@ public:
 
         gridLayout_2->addWidget(label_13, 1, 0, 1, 1);
 
-        lE_TDemand = new QLineEdit(layoutWidget1);
-        lE_TDemand->setObjectName(QString::fromUtf8("lE_TDemand"));
-        sizePolicy1.setHeightForWidth(lE_TDemand->sizePolicy().hasHeightForWidth());
-        lE_TDemand->setSizePolicy(sizePolicy1);
-        lE_TDemand->setMinimumSize(QSize(0, 42));
-        lE_TDemand->setMaximumSize(QSize(100888, 42));
-        lE_TDemand->setFont(font1);
+        lE_GroupSet = new QLineEdit(layoutWidget1);
+        lE_GroupSet->setObjectName(QString::fromUtf8("lE_GroupSet"));
+        lE_GroupSet->setFont(font1);
 
-        gridLayout_2->addWidget(lE_TDemand, 0, 1, 1, 1);
+        gridLayout_2->addWidget(lE_GroupSet, 1, 4, 1, 1);
 
-        label_54 = new QLabel(layoutWidget1);
-        label_54->setObjectName(QString::fromUtf8("label_54"));
-        label_54->setMinimumSize(QSize(0, 0));
-        label_54->setMaximumSize(QSize(1572323, 232323));
-        label_54->setFont(font1);
+        lE_TUnderload = new QLineEdit(layoutWidget1);
+        lE_TUnderload->setObjectName(QString::fromUtf8("lE_TUnderload"));
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(lE_TUnderload->sizePolicy().hasHeightForWidth());
+        lE_TUnderload->setSizePolicy(sizePolicy1);
+        lE_TUnderload->setMinimumSize(QSize(0, 42));
+        lE_TUnderload->setMaximumSize(QSize(100888, 42));
+        lE_TUnderload->setFont(font1);
 
-        gridLayout_2->addWidget(label_54, 4, 0, 1, 1);
-
-        label_12 = new QLabel(layoutWidget1);
-        label_12->setObjectName(QString::fromUtf8("label_12"));
-        label_12->setMinimumSize(QSize(0, 0));
-        label_12->setMaximumSize(QSize(1572323, 232323));
-        label_12->setFont(font1);
-
-        gridLayout_2->addWidget(label_12, 2, 0, 1, 1);
-
-        label_56 = new QLabel(layoutWidget1);
-        label_56->setObjectName(QString::fromUtf8("label_56"));
-        label_56->setMinimumSize(QSize(0, 0));
-        label_56->setMaximumSize(QSize(1572323, 232323));
-        label_56->setFont(font1);
-
-        gridLayout_2->addWidget(label_56, 4, 3, 1, 1);
-
-        lE_TOverload = new QLineEdit(layoutWidget1);
-        lE_TOverload->setObjectName(QString::fromUtf8("lE_TOverload"));
-        sizePolicy1.setHeightForWidth(lE_TOverload->sizePolicy().hasHeightForWidth());
-        lE_TOverload->setSizePolicy(sizePolicy1);
-        lE_TOverload->setMinimumSize(QSize(0, 42));
-        lE_TOverload->setMaximumSize(QSize(100888, 42));
-        lE_TOverload->setFont(font1);
-
-        gridLayout_2->addWidget(lE_TOverload, 3, 1, 1, 1);
-
-        label_57 = new QLabel(layoutWidget1);
-        label_57->setObjectName(QString::fromUtf8("label_57"));
-        label_57->setFont(font1);
-
-        gridLayout_2->addWidget(label_57, 2, 3, 1, 1);
-
-        lE_FeedOveride = new QLineEdit(layoutWidget1);
-        lE_FeedOveride->setObjectName(QString::fromUtf8("lE_FeedOveride"));
-        lE_FeedOveride->setFont(font1);
-
-        gridLayout_2->addWidget(lE_FeedOveride, 2, 4, 1, 1);
-
-        label_55 = new QLabel(layoutWidget1);
-        label_55->setObjectName(QString::fromUtf8("label_55"));
-        label_55->setFont(font1);
-
-        gridLayout_2->addWidget(label_55, 0, 3, 1, 1);
+        gridLayout_2->addWidget(lE_TUnderload, 4, 1, 1, 1);
 
         label_52 = new QLabel(layoutWidget1);
         label_52->setObjectName(QString::fromUtf8("label_52"));
@@ -1179,14 +1102,9 @@ public:
 
         gridLayout_2->addWidget(label_52, 1, 3, 1, 1);
 
-        cB_TireMode = new QComboBox(layoutWidget1);
-        cB_TireMode->addItem(QString());
-        cB_TireMode->addItem(QString());
-        cB_TireMode->setObjectName(QString::fromUtf8("cB_TireMode"));
-        cB_TireMode->setMinimumSize(QSize(165, 0));
-        cB_TireMode->setFont(font1);
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        gridLayout_2->addWidget(cB_TireMode, 0, 4, 1, 1);
+        gridLayout_2->addItem(horizontalSpacer, 4, 2, 1, 1);
 
         lE_InterOverLoad = new QLineEdit(layoutWidget1);
         lE_InterOverLoad->setObjectName(QString::fromUtf8("lE_InterOverLoad"));
@@ -1198,6 +1116,47 @@ public:
 
         gridLayout_2->addWidget(lE_InterOverLoad, 1, 1, 1, 1);
 
+        label_57 = new QLabel(layoutWidget1);
+        label_57->setObjectName(QString::fromUtf8("label_57"));
+        label_57->setFont(font1);
+
+        gridLayout_2->addWidget(label_57, 2, 3, 1, 1);
+
+        cB_TireMode = new QComboBox(layoutWidget1);
+        cB_TireMode->addItem(QString());
+        cB_TireMode->addItem(QString());
+        cB_TireMode->setObjectName(QString::fromUtf8("cB_TireMode"));
+        cB_TireMode->setMinimumSize(QSize(165, 0));
+        cB_TireMode->setFont(font1);
+
+        gridLayout_2->addWidget(cB_TireMode, 0, 4, 1, 1);
+
+        lE_TOverload = new QLineEdit(layoutWidget1);
+        lE_TOverload->setObjectName(QString::fromUtf8("lE_TOverload"));
+        sizePolicy1.setHeightForWidth(lE_TOverload->sizePolicy().hasHeightForWidth());
+        lE_TOverload->setSizePolicy(sizePolicy1);
+        lE_TOverload->setMinimumSize(QSize(0, 42));
+        lE_TOverload->setMaximumSize(QSize(100888, 42));
+        lE_TOverload->setFont(font1);
+
+        gridLayout_2->addWidget(lE_TOverload, 3, 1, 1, 1);
+
+        label_12 = new QLabel(layoutWidget1);
+        label_12->setObjectName(QString::fromUtf8("label_12"));
+        label_12->setMinimumSize(QSize(0, 0));
+        label_12->setMaximumSize(QSize(1572323, 232323));
+        label_12->setFont(font1);
+
+        gridLayout_2->addWidget(label_12, 2, 0, 1, 1);
+
+        label_54 = new QLabel(layoutWidget1);
+        label_54->setObjectName(QString::fromUtf8("label_54"));
+        label_54->setMinimumSize(QSize(0, 0));
+        label_54->setMaximumSize(QSize(1572323, 232323));
+        label_54->setFont(font1);
+
+        gridLayout_2->addWidget(label_54, 4, 0, 1, 1);
+
         label_14 = new QLabel(layoutWidget1);
         label_14->setObjectName(QString::fromUtf8("label_14"));
         label_14->setMinimumSize(QSize(0, 0));
@@ -1205,6 +1164,38 @@ public:
         label_14->setFont(font1);
 
         gridLayout_2->addWidget(label_14, 0, 0, 1, 1);
+
+        label_56 = new QLabel(layoutWidget1);
+        label_56->setObjectName(QString::fromUtf8("label_56"));
+        label_56->setMinimumSize(QSize(0, 0));
+        label_56->setMaximumSize(QSize(1572323, 232323));
+        label_56->setFont(font1);
+
+        gridLayout_2->addWidget(label_56, 4, 3, 1, 1);
+
+        label_53 = new QLabel(layoutWidget1);
+        label_53->setObjectName(QString::fromUtf8("label_53"));
+        label_53->setMinimumSize(QSize(0, 0));
+        label_53->setMaximumSize(QSize(1572323, 232323));
+        label_53->setFont(font1);
+
+        gridLayout_2->addWidget(label_53, 3, 0, 1, 1);
+
+        lE_TestInterval = new QLineEdit(layoutWidget1);
+        lE_TestInterval->setObjectName(QString::fromUtf8("lE_TestInterval"));
+        sizePolicy1.setHeightForWidth(lE_TestInterval->sizePolicy().hasHeightForWidth());
+        lE_TestInterval->setSizePolicy(sizePolicy1);
+        lE_TestInterval->setMinimumSize(QSize(0, 42));
+        lE_TestInterval->setMaximumSize(QSize(16777215, 42));
+        lE_TestInterval->setFont(font1);
+
+        gridLayout_2->addWidget(lE_TestInterval, 4, 4, 1, 1);
+
+        label_55 = new QLabel(layoutWidget1);
+        label_55->setObjectName(QString::fromUtf8("label_55"));
+        label_55->setFont(font1);
+
+        gridLayout_2->addWidget(label_55, 0, 3, 1, 1);
 
         lE_InterUnderLoad = new QLineEdit(layoutWidget1);
         lE_InterUnderLoad->setObjectName(QString::fromUtf8("lE_InterUnderLoad"));
@@ -1215,6 +1206,37 @@ public:
         lE_InterUnderLoad->setFont(font1);
 
         gridLayout_2->addWidget(lE_InterUnderLoad, 2, 1, 1, 1);
+
+        lE_FeedOveride = new QLineEdit(layoutWidget1);
+        lE_FeedOveride->setObjectName(QString::fromUtf8("lE_FeedOveride"));
+        lE_FeedOveride->setFont(font1);
+
+        gridLayout_2->addWidget(lE_FeedOveride, 2, 4, 1, 1);
+
+        lE_TDemand = new QLineEdit(layoutWidget1);
+        lE_TDemand->setObjectName(QString::fromUtf8("lE_TDemand"));
+        sizePolicy1.setHeightForWidth(lE_TDemand->sizePolicy().hasHeightForWidth());
+        lE_TDemand->setSizePolicy(sizePolicy1);
+        lE_TDemand->setMinimumSize(QSize(0, 42));
+        lE_TDemand->setMaximumSize(QSize(100888, 42));
+        lE_TDemand->setFont(font1);
+
+        gridLayout_2->addWidget(lE_TDemand, 0, 1, 1, 1);
+
+        label_58 = new QLabel(layoutWidget1);
+        label_58->setObjectName(QString::fromUtf8("label_58"));
+        label_58->setFont(font1);
+
+        gridLayout_2->addWidget(label_58, 3, 3, 1, 1);
+
+        cB_Feedmode = new QComboBox(layoutWidget1);
+        cB_Feedmode->addItem(QString());
+        cB_Feedmode->addItem(QString());
+        cB_Feedmode->setObjectName(QString::fromUtf8("cB_Feedmode"));
+        cB_Feedmode->setMinimumSize(QSize(165, 0));
+        cB_Feedmode->setFont(font1);
+
+        gridLayout_2->addWidget(cB_Feedmode, 3, 4, 1, 1);
 
         layoutWidget2 = new QWidget(frame_6);
         layoutWidget2->setObjectName(QString::fromUtf8("layoutWidget2"));
@@ -2280,9 +2302,10 @@ public:
 
         retranslateUi(QtPLCDialogClass);
 
-        tabWidget_PLC->setCurrentIndex(2);
-        tabWidget->setCurrentIndex(0);
+        tabWidget_PLC->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(2);
         cB_TireMode->setCurrentIndex(-1);
+        cB_Feedmode->setCurrentIndex(0);
         tabWidget_Users->setCurrentIndex(-1);
         cB_ScaleStableState->setCurrentIndex(-1);
 
@@ -2331,6 +2354,13 @@ public:
         pB_cmdAxisSwingStopMov->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\201\234\346\255\242\350\277\220\345\212\250", nullptr));
         pB_cmdSwing->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\227\213\350\275\254\345\215\225\345\267\245\344\275\215", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_4), QString());
+        groupBox_9->setTitle(QCoreApplication::translate("QtPLCDialogClass", "\344\270\213\346\226\231", nullptr));
+        pB_cmdFeedshakelevel->setText(QCoreApplication::translate("QtPLCDialogClass", "\344\270\213\346\226\231\346\221\207\346\221\206\346\260\264\345\271\263", nullptr));
+        pB_cmdFeedShake->setText(QCoreApplication::translate("QtPLCDialogClass", "\344\270\213\346\226\231\346\221\207\346\221\206", nullptr));
+        pB_cmdFeedhome->setText(QCoreApplication::translate("QtPLCDialogClass", "\344\270\213\346\226\231\345\257\273\345\217\202", nullptr));
+        pB_cmdFeedshakestop->setText(QCoreApplication::translate("QtPLCDialogClass", "\344\270\213\346\226\231\346\221\207\346\221\206\345\201\234\346\255\242", nullptr));
+        pB_cmdFeedShakefive->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\211\207\345\211\202\350\220\275\346\226\231\344\272\224\347\262\222", nullptr));
+        pB_cmdFeedFive->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\203\266\345\233\212\350\220\275\346\226\231\344\272\224\347\262\222", nullptr));
         groupBox_5->setTitle(QCoreApplication::translate("QtPLCDialogClass", "\347\247\260\351\207\215\350\256\276\347\275\256", nullptr));
         pB_cmdScaleRead->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\247\244\350\257\273\346\225\260\345\221\275\344\273\244", nullptr));
         pB_cmdScaleTire->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\247\244\346\270\205\351\233\266", nullptr));
@@ -2369,26 +2399,30 @@ public:
         label_41->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\257\273\346\225\260\345\273\266\350\277\237\346\227\266\351\227\264s", nullptr));
         lE_StopSignalDelay->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));
         tabWidget_PLC->setTabText(tabWidget_PLC->indexOf(tab_8), QString());
-        lE_GroupSet->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));
-        lE_TestInterval->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));
-        label_53->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\266\205\351\207\215\351\207\215\351\207\217(g)", nullptr));
-        lE_TUnderload->setText(QCoreApplication::translate("QtPLCDialogClass", "0.000", nullptr));
         label_13->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\206\205\346\216\247\344\270\212\351\231\220(g)", nullptr));
-        lE_TDemand->setText(QCoreApplication::translate("QtPLCDialogClass", "0.000", nullptr));
-        label_54->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\266\205\350\275\273\351\207\215\351\207\217(g)", nullptr));
-        label_12->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\206\205\346\216\247\344\270\213\351\231\220(g)", nullptr));
-        label_56->setText(QCoreApplication::translate("QtPLCDialogClass", "\351\227\264\351\232\224\346\227\266\351\227\264(s)", nullptr));
-        lE_TOverload->setText(QCoreApplication::translate("QtPLCDialogClass", "0.000", nullptr));
-        label_57->setText(QCoreApplication::translate("QtPLCDialogClass", "\344\270\213\346\226\231\351\200\237\345\272\246", nullptr));
-        lE_FeedOveride->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));
-        label_55->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\216\273\347\232\256\346\226\271\345\274\217", nullptr));
+        lE_GroupSet->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));
+        lE_TUnderload->setText(QCoreApplication::translate("QtPLCDialogClass", "0.000", nullptr));
         label_52->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\257\217\347\273\204\346\225\260\351\207\217", nullptr));
+        lE_InterOverLoad->setText(QCoreApplication::translate("QtPLCDialogClass", "0.000", nullptr));
+        label_57->setText(QCoreApplication::translate("QtPLCDialogClass", "\344\270\213\346\226\231\351\200\237\345\272\246", nullptr));
         cB_TireMode->setItemText(0, QCoreApplication::translate("QtPLCDialogClass", "\346\257\217\347\273\204\345\216\273\347\232\256", nullptr));
         cB_TireMode->setItemText(1, QCoreApplication::translate("QtPLCDialogClass", "\346\257\217\346\254\241\345\216\273\347\232\256", nullptr));
 
-        lE_InterOverLoad->setText(QCoreApplication::translate("QtPLCDialogClass", "0.000", nullptr));
+        lE_TOverload->setText(QCoreApplication::translate("QtPLCDialogClass", "0.000", nullptr));
+        label_12->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\206\205\346\216\247\344\270\213\351\231\220(g)", nullptr));
+        label_54->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\266\205\350\275\273\351\207\215\351\207\217(g)", nullptr));
         label_14->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\234\237\346\234\233\351\207\215\351\207\217(g)", nullptr));
+        label_56->setText(QCoreApplication::translate("QtPLCDialogClass", "\351\227\264\351\232\224\346\227\266\351\227\264(s)", nullptr));
+        label_53->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\266\205\351\207\215\351\207\215\351\207\217(g)", nullptr));
+        lE_TestInterval->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));
+        label_55->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\216\273\347\232\256\346\226\271\345\274\217", nullptr));
         lE_InterUnderLoad->setText(QCoreApplication::translate("QtPLCDialogClass", "0.000", nullptr));
+        lE_FeedOveride->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));
+        lE_TDemand->setText(QCoreApplication::translate("QtPLCDialogClass", "0.000", nullptr));
+        label_58->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\243\200\346\265\213\347\211\251", nullptr));
+        cB_Feedmode->setItemText(0, QCoreApplication::translate("QtPLCDialogClass", "\350\203\266\345\233\212", nullptr));
+        cB_Feedmode->setItemText(1, QCoreApplication::translate("QtPLCDialogClass", "\347\211\207\345\211\202", nullptr));
+
         pB_Read2->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\257\273\345\217\226", nullptr));
         pB_Write2->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\206\231\345\205\245", nullptr));
         tabWidget_PLC->setTabText(tabWidget_PLC->indexOf(tab_2), QString());
