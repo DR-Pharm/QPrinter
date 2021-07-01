@@ -90,10 +90,15 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	AlarmResetBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
 	AlarmResetBtn->move(15, 450);
 	connect(AlarmResetBtn, &MyPushButton::clicked, [=]() {
-		on_pB_cmdKeyboard_clicked();
-		//做弹起特效
-		//startBtn->zoom1();
-		/*startBtn->zoom2();*/ });
+		if (key == nullptr) key = new keyBoard(this);
+		if (key->isVisible())
+		{
+			key->close();
+		}
+		else
+		{
+			key->show();
+		}});
 
 	//开始
 
@@ -1851,14 +1856,7 @@ void QtPLCDialogClass::on_pB_cmdCounterZero_clicked()
 	typ.Machine_Cmd.cmdCounterZero = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
-void QtPLCDialogClass::on_pB_cmdKeyboard_clicked()
-{
-	if(key==NULL){
-    key = new keyBoard();	
-}
-	
-	key->show();
-}
+
 //unsigned char		cmdPrintStart;					//启动打印,1:执行，自动复位
 //unsigned char		cmdPrintStartE;					//启动英文打印，1:执行，自动复位
 void QtPLCDialogClass::on_pB_cmdCapClean_clicked()

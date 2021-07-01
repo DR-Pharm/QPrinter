@@ -53,7 +53,7 @@ private:
 
 	float m_fMax = 0;
 	float m_fMin = 0;
-	keyBoard *key=NULL;
+	keyBoard *key=nullptr;
 	void* ui;
 	DataCurve *dtCurve;
 	QTimer *btnTimer = nullptr;
@@ -166,7 +166,6 @@ public slots:
 	void on_pB_cmdStart_toggled(bool checked);
 	void on_pB_cmdAlarmReset_clicked();
 	void on_pB_cmdCounterZero_clicked();
-	void on_pB_cmdKeyboard_clicked();
 	void on_pB_cmdCapClean_clicked();
 	void on_pB_cmdAlogtest_clicked();
 	void on_pB_cmdFeedShake_clicked();
