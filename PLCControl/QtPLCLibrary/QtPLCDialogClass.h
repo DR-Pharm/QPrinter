@@ -48,6 +48,12 @@ public:
 	void setStyleCommand(QPushButton*, QString, QFont, QString);
 
 private:
+	int deskWidth;                  //桌面宽度
+	int deskHeight;                 //桌面高度
+	int frmWidth;                   //窗体宽度
+	int frmHeight;                  //窗体高度
+	QPoint movePoint;
+
 	QString g_QSUserName;
 	int g_IUserLevel;
 

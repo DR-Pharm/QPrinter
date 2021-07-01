@@ -6,10 +6,20 @@
 #include <QPainter>
 #include "mypushbutton.h"
 #include "Keyboard.h"
+#include <QDesktopWidget>
 
 QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	: QDialog(parent)
 {
+	QDesktopWidget* w = QApplication::desktop();
+	deskWidth = w->screenGeometry().width();
+	deskHeight = w->screenGeometry().height();
+	frmWidth = this->width();
+	frmHeight = this->height();
+	// 靠上居中显示
+	movePoint = QPoint(deskWidth / 2 - frmWidth / 2, 0);
+
+
 	ui = new Ui::QtPLCDialogClass();
 	((Ui::QtPLCDialogClass*)ui)->setupUi(this);
 	((Ui::QtPLCDialogClass*)ui)->frame->move(0, 0);
@@ -88,17 +98,14 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	//AlarmResetBtn = new MyPushButton(AppPath + "/ico/jtnt.png", AppPath + "/ico/jt.png", 347, 99);
 	AlarmResetBtn = new MyPushButton(AppPath + "/ico/dr_keyboard.ico", AppPath + "/ico/dr_keyboard.ico", 347, 99);
 	AlarmResetBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
+	AlarmResetBtn->setFocusPolicy(Qt::NoFocus);
 	AlarmResetBtn->move(15, 450);
 	connect(AlarmResetBtn, &MyPushButton::clicked, [=]() {
 		if (key == nullptr) key = new keyBoard(this);
-		if (key->isVisible())
-		{
-			key->close();
-		}
-		else
-		{
-			key->show();
-		}});
+
+		key->move(movePoint);
+		key->repaint();
+		key->show();});
 
 	//开始
 

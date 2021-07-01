@@ -184,8 +184,8 @@ void keyBoard::InitWindow()
 	this->setProperty("Form", true);
 	this->setWindowFlags(Qt::Tool | Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
 	this->setFixedSize(14 * BTN_SIZE, 3 * BTN_SIZE);
-	this->setFocusPolicy(Qt::NoFocus);
-	//    this->setAttribute(Qt::WA_X11DoNotAcceptFocus, true);
+	//this->setFocusPolicy(Qt::NoFocus);
+	this->setAttribute(Qt::WA_X11DoNotAcceptFocus, true);
 	//    this->setAttribute(Qt::WA_ShowWithoutActivating,true);
 
 	keyWindow = new QStackedWidget(this);
@@ -197,6 +197,7 @@ void keyBoard::InitWindow()
 
 	lb0 = new QLabel(this);
 	lb0->setAlignment(Qt::AlignCenter);
+	lb0->setFocusPolicy(Qt::NoFocus);
 	lb0->setObjectName("lb0");
 	//lb0->setProperty("function", true);
 	lb0->setStyleSheet("font: bold; background: rgb(255, 200, 200);");
