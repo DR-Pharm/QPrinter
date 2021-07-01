@@ -109,6 +109,7 @@ public slots:
 	void on_lE_TDemand_editingFinished();
 	void on_cB_TireMode_currentIndexChanged(int index);
 	void on_lE_GroupSet_editingFinished();
+	void on_lE_FeedOveride_editingFinished();
 	void on_lE_TestInterval_editingFinished();
 	void on_lE_BatchName_editingFinished();
 
