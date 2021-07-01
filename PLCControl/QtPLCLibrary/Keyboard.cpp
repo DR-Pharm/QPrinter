@@ -83,7 +83,7 @@ void keyBoard::focusChanged(QWidget *, QWidget *nowWidget)
 				movePoint = QPoint(deskWidth / 2 - frmWidth / 2, deskHeight - frmHeight);
 			}
 
-			//this->move(movePoint);
+			this->move(movePoint);
 			this->repaint();
 			this->setVisible(true);
 		}

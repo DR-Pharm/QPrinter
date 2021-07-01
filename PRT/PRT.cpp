@@ -64,6 +64,8 @@ void PRT::initPLC()
 	wt->setTxt(QString::fromLocal8Bit("正在连接PLC,请稍等..."));
 	dlg = (QDialog *)(m_pPlclib->QtCreateDialog(1));
 	b = connect(dlg, SIGNAL(SHOWPRT(bool)), this, SLOT(showPrt(bool)));
+
+	b = connect(dlg, SIGNAL(CLOSESIGNAL()), this, SLOT(on_ToClose()));
 	b = connect(dlg, SIGNAL(TODRAWPICTURE(QVector<float>,int)), this, SLOT(getVec(QVector<float>,int)));
 	dlg->setParent(ui.widget);
 	dlg->move(0, 0);
@@ -246,14 +248,14 @@ void PRT::mouseMoveEvent(QMouseEvent * event)
 		temp = event->globalPos() - m_offset;// 使用鼠标指针当前的位置减去差值，就得到了窗口应该移动的位置
 		if (temp.y() > 750)
 		{
-			if (QMessageBox::Yes == showMsgBox("退出确认", "是否确认退出该系统?", "确认", "取消"))
+			/*if (QMessageBox::Yes == showMsgBox("退出确认", "是否确认退出该系统?", "确认", "取消"))
 			{
 				m_bCloseSignal = true;
 				close();
-			}
-			//showMinimized(); 
-			//emit MINI();
-			//showWindowOut(QString::fromLocal8Bit("系统界面已最小化至任务栏"));
+			}*/
+			showMinimized(); 
+			emit MINI();
+			showWindowOut(QString::fromLocal8Bit("系统界面已最小化至任务栏"));
 		}
 		if (temp.x() > 1250)
 		{
@@ -474,7 +476,14 @@ void PRT::on_cB_PrintMode_currentIndexChanged(int index)
 	RWini->setValue("ProgramSetting/PrintMode", QString::number(ui.cB_PrintMode->currentIndex()));
 	m_iPrintMode = index;
 }
-
+void PRT::on_ToClose()
+{
+	if (QMessageBox::Yes == showMsgBox("退出确认", "是否确认退出该系统?", "确认", "取消"))
+				{
+					m_bCloseSignal = true;
+					close();
+				}
+}
 
 void PRT::getVec(QVector<float> a,int mode)
 {

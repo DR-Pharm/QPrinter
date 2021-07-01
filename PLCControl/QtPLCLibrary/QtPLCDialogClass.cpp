@@ -19,6 +19,11 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	// 靠上居中显示
 	movePoint = QPoint(deskWidth / 2 - frmWidth / 2, 0);
 
+	if (key == nullptr) key = new keyBoard(this);
+
+	key->move(movePoint);
+	key->repaint();
+	key->show();
 
 	ui = new Ui::QtPLCDialogClass();
 	((Ui::QtPLCDialogClass*)ui)->setupUi(this);
@@ -83,20 +88,25 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	connect(AlarmResetBtn, &MyPushButton::clicked, [=]() {
 		on_pB_cmdAlarmReset_clicked(); });
 
-	AlarmResetBtn = new MyPushButton(AppPath + "/ico/qkjnnt.png", AppPath + "/ico/qkjn.png", 347, 99);
+	AlarmResetBtn = new MyPushButton(AppPath + "/ico/jsqlnt.png", AppPath + "/ico/jsql.png", 347, 99);
 	AlarmResetBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
 	AlarmResetBtn->move(15, 230);
 	connect(AlarmResetBtn, &MyPushButton::clicked, [=]() {
-		on_pB_cmdCapClean_clicked(); });
+		on_pB_cmdCounterZero_clicked(); });
 
-	AlarmResetBtn = new MyPushButton(AppPath + "/ico/jsqlnt.png", AppPath + "/ico/jsql.png", 347, 99);
+	AlarmResetBtn = new MyPushButton(AppPath + "/ico/languageCNnt.png", AppPath + "/ico/languageCN.png", 347, 99);
 	AlarmResetBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
 	AlarmResetBtn->move(15, 340);
 	connect(AlarmResetBtn, &MyPushButton::clicked, [=]() {
-		on_pB_cmdCounterZero_clicked(); });
+		/*();*/ });
 
+	AlarmResetBtn = new MyPushButton(AppPath + "/ico/exitnt.png", AppPath + "/ico/exit.png", 347, 99);
+	AlarmResetBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
+	AlarmResetBtn->move(15, 450);
+	connect(AlarmResetBtn, &MyPushButton::clicked, [=]() {
+		emit CLOSESIGNAL(); });
 	//AlarmResetBtn = new MyPushButton(AppPath + "/ico/jtnt.png", AppPath + "/ico/jt.png", 347, 99);
-	AlarmResetBtn = new MyPushButton(AppPath + "/ico/dr_keyboard.ico", AppPath + "/ico/dr_keyboard.ico", 347, 99);
+	/*AlarmResetBtn = new MyPushButton(AppPath + "/ico/dr_keyboard.ico", AppPath + "/ico/dr_keyboard.ico", 347, 99);
 	AlarmResetBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
 	AlarmResetBtn->setFocusPolicy(Qt::NoFocus);
 	AlarmResetBtn->move(15, 450);
@@ -106,7 +116,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 		key->move(movePoint);
 		key->repaint();
 		key->show();});
-
+		*/
 	//开始
 
 	((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setFixedSize(347, 200);
