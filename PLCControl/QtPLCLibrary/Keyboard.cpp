@@ -1,4 +1,4 @@
-#include "keyBoard.h"
+ï»¿#include "keyBoard.h"
 #include "qdesktopwidget.h"
 #include <QApplication>
 #include <QStackedWidget>
@@ -24,9 +24,9 @@ keyBoard::keyBoard(QWidget *parent) :
 	frmWidth = this->width();
 	frmHeight = this->height();
 
-	// ×Ô¶¯Ìî³äÔÚµ×²¿
+	// è‡ªåŠ¨å¡«å……åœ¨åº•éƒ¨
 	//this->setGeometry(0,deskHeight-frmWidth,deskWidth,frmWidth);
-	// ¾ÓÖÐÏÔÊ¾
+	// å±…ä¸­æ˜¾ç¤º
 	//QPoint movePoint(deskWidth / 2 - frmWidth / 2, deskHeight / 2 - frmHeight / 2);
 	//this->move(movePoint);
 }
@@ -71,19 +71,19 @@ void keyBoard::focusChanged(QWidget *, QWidget *nowWidget)
 
 			QPoint movePoint;
 
-			// Êó±êµã»÷Î»ÖÃ×ø±ê
+			// é¼ æ ‡ç‚¹å‡»ä½ç½®åæ ‡
 			if (QCursor::pos().y() > deskHeight / 2)
 			{
-				// ¿¿ÉÏ¾ÓÖÐÏÔÊ¾
+				// é ä¸Šå±…ä¸­æ˜¾ç¤º
 				movePoint = QPoint(deskWidth / 2 - frmWidth / 2, 0);
 			}
 			else
 			{
-				// ¿¿ÏÂ¾ÓÖÐÏÔÊ¾
+				// é ä¸‹å±…ä¸­æ˜¾ç¤º
 				movePoint = QPoint(deskWidth / 2 - frmWidth / 2, deskHeight - frmHeight);
 			}
 
-			this->move(movePoint);
+			//this->move(movePoint);
 			this->repaint();
 			this->setVisible(true);
 		}
@@ -92,7 +92,7 @@ void keyBoard::focusChanged(QWidget *, QWidget *nowWidget)
 			currentLineEdit = 0;
 			//qDebug() << "BBB";
 			this->setVisible(false);
-			// ÐèÒª½«ÊäÈë·¨ÇÐ»»µ½×î³õµÄÔ­Ê¼×´Ì¬--Ð¡Ð´
+			// éœ€è¦å°†è¾“å…¥æ³•åˆ‡æ¢åˆ°æœ€åˆçš„åŽŸå§‹çŠ¶æ€--å°å†™
 			currentType = "min";
 			changeType(currentType);
 			currentStyle = 0;
@@ -141,7 +141,7 @@ void keyBoard::slotBtnClicked()
 	}
 	else if (objectName == "closeBtn")
 	{
-#ifdef Q_OS_WIN     //Èç¹ûÊÇwindowsÏµÍ³
+#ifdef Q_OS_WIN     //å¦‚æžœæ˜¯windowsç³»ç»Ÿ
 		this->move(-500, -500);
 #else
 		this->setVisible(false);
@@ -153,15 +153,22 @@ void keyBoard::slotBtnClicked()
 		keyWindow->setCurrentIndex(0);
 		//close();
 	}
+	else if (objectName == "okBtn")
+	{
+		if (currentLineEdit != 0)
+		{
+			currentLineEdit->clearFocus();
+		}
+	}
 	else
 	{
 		QString value = btn->text();
-		// Èç¹ûÊÇ&°´Å¥£¬ÒòÎª¶ÔÓ¦&±»¹ýÂË,ËùÒÔÕæÊµµÄtextÎªÈ¥³ýÇ°ÃæÒ»¸ö&×Ö·û
+		// å¦‚æžœæ˜¯&æŒ‰é’®ï¼Œå› ä¸ºå¯¹åº”&è¢«è¿‡æ»¤,æ‰€ä»¥çœŸå®žçš„textä¸ºåŽ»é™¤å‰é¢ä¸€ä¸ª&å­—ç¬¦
 		if (value == "&&")
 		{
 			value = value.right(1);
 		}
-		// µ±Ç°²»ÊÇÖÐÎÄÄ£Ê½,Ôòµ¥»÷°´Å¥¶ÔÓ¦textÎª´«µÝ²ÎÊý
+		// å½“å‰ä¸æ˜¯ä¸­æ–‡æ¨¡å¼,åˆ™å•å‡»æŒ‰é’®å¯¹åº”textä¸ºä¼ é€’å‚æ•°
 		if (currentType != "chinese")
 		{
 			if (currentLineEdit != 0)
@@ -186,35 +193,50 @@ void keyBoard::InitWindow()
 	letterWindow = new QWidget;
 	signWindow = new QWidget;
 
-	// Ìî¼Ó¹¦ÄÜ°´Å¥
+	// å¡«åŠ åŠŸèƒ½æŒ‰é’®
+
+	lb0 = new QLabel(this);
+	lb0->setAlignment(Qt::AlignCenter);
+	lb0->setObjectName("lb0");
+	//lb0->setProperty("function", true);
+	lb0->setStyleSheet("font: bold; background: rgb(255, 200, 200);");
+	lb0->setText(QString::fromLocal8Bit("MOV"));
+	lb0->setFixedSize(BTN_SIZE, BTN_SIZE);
+
 	closeBtn = new QPushButton(this);
 	closeBtn->setObjectName("closeBtn");
 	closeBtn->setProperty("function", true);
 	closeBtn->setText(tr("X"));
 	closeBtn->setFixedSize(BTN_SIZE, BTN_SIZE);
 
-	// É¾³ýÒ»¸ö×Ö·û
+	okBtn = new QPushButton(this);
+	okBtn->setObjectName("okBtn");
+	okBtn->setProperty("function", true);
+	okBtn->setText(tr("OK"));
+	okBtn->setFixedSize(BTN_SIZE, BTN_SIZE);
+
+	// åˆ é™¤ä¸€ä¸ªå­—ç¬¦
 	delBtn = new QPushButton(this);
 	delBtn->setObjectName("delBtn");
 	delBtn->setProperty("function", true);
 	delBtn->setText(tr("D"));
 	delBtn->setFixedSize(BTN_SIZE, BTN_SIZE);
 
-	// ¸Ä±äÊä·¨ÀàÐÍ:´óÐ´,Ð¡Ð´,×Ö·û
+	// æ”¹å˜è¾“æ³•ç±»åž‹:å¤§å†™,å°å†™,å­—ç¬¦
 	typeBtn = new QPushButton(this);
 	typeBtn->setObjectName("typeBtn");
 	typeBtn->setProperty("function", true);
-	typeBtn->setText(tr("Ð¡"));
+	typeBtn->setText(tr("å°"));
 	typeBtn->setFixedSize(BTN_SIZE, BTN_SIZE);
 
-	// »»·ô
+	// æ¢è‚¤
 	styleBtn = new QPushButton(this);
 	styleBtn->setObjectName("styleBtn");
 	styleBtn->setProperty("function", true);
 	styleBtn->setText(tr("style"));
 	styleBtn->setFixedSize(BTN_SIZE, BTN_SIZE);
 
-	// Ìî¼ÓÊý×Ö¼üÅÌ
+	// å¡«åŠ æ•°å­—é”®ç›˜
 	btn1 = new QPushButton(this);
 	btn1->setText(tr("1"));
 	btn1->setProperty("num", true);
@@ -265,7 +287,7 @@ void keyBoard::InitWindow()
 	btn0->setProperty("num", true);
 	btn0->setText(tr("0"));
 
-	// Ìî¼Ó×ÖÄ¸¼üÅÌ
+	// å¡«åŠ å­—æ¯é”®ç›˜
 	btnA = new QPushButton(letterWindow);
 	btnA->setText(tr("a"));
 	btnA->setProperty("letter", true);
@@ -424,14 +446,14 @@ void keyBoard::InitWindow()
 	letterLayout->addWidget(btnY, 1, 11, 1, 1);
 	letterLayout->addWidget(btnZ, 1, 12, 1, 1);
 
-	// ÉèÖÃÐÐºÍÁÐ¼ä¾à
+	// è®¾ç½®è¡Œå’Œåˆ—é—´è·
 	letterLayout->setSpacing(0);
 
-	// ÉèÖÃºÍÍâ¿ò¼ä¾à
+	// è®¾ç½®å’Œå¤–æ¡†é—´è·
 	letterLayout->setContentsMargins(0, 0, 0, 0);
 	letterWindow->setLayout(letterLayout);
 
-	// Ìî¼Ó·ûºÅ¼üÅÌ
+	// å¡«åŠ ç¬¦å·é”®ç›˜
 	btnSign0 = new QPushButton(signWindow);
 	btnSign0->setFixedSize(BTN_SIZE, BTN_SIZE);
 	btnSign0->setProperty("sign", true);
@@ -516,10 +538,10 @@ void keyBoard::InitWindow()
 	signLayout->addWidget(btnSign12, 0, 12, 1, 1);
 	signLayout->addWidget(infoLabel, 1, 0, 1, 13, Qt::AlignCenter);
 
-	// ÉèÖÃÐÐºÍÁÐ¼ä¾à
+	// è®¾ç½®è¡Œå’Œåˆ—é—´è·
 	signLayout->setSpacing(0);
 
-	// ÉèÖÃºÍÍâ¿ò¼ä¾à
+	// è®¾ç½®å’Œå¤–æ¡†é—´è·
 	signLayout->setContentsMargins(0, 0, 0, 0);
 	signWindow->setLayout(signLayout);
 
@@ -527,8 +549,10 @@ void keyBoard::InitWindow()
 	keyWindow->addWidget(signWindow);
 	keyWindow->setCurrentIndex(0);
 
-	// È«¾Ö²½¾Ö
+	// å…¨å±€æ­¥å±€
 	QGridLayout *layout = new QGridLayout;
+
+	layout->addWidget(lb0, 0, 0, 1, 1);
 	layout->addWidget(btn0, 0, 1, 1, 1);
 	layout->addWidget(btn1, 0, 2, 1, 1);
 	layout->addWidget(btn2, 0, 3, 1, 1);
@@ -540,7 +564,8 @@ void keyBoard::InitWindow()
 	layout->addWidget(btn8, 0, 9, 1, 1);
 	layout->addWidget(btn9, 0, 10, 1, 1);
 	layout->addWidget(delBtn, 0, 11, 1, 1);
-	layout->addWidget(closeBtn, 0, 12, 1, 1);
+	layout->addWidget(closeBtn, 0, 13, 1, 1);
+	layout->addWidget(okBtn, 0, 12, 1, 1);
 	layout->addWidget(typeBtn, 1, 13, 1, 1);
 	layout->addWidget(styleBtn, 2, 13, 1, 1);
 	layout->addWidget(keyWindow, 1, 0, 2, 13);
@@ -564,10 +589,10 @@ void keyBoard::InitForm()
 		connect(b, SIGNAL(clicked()), this, SLOT(slotBtnClicked()));
 	}
 
-	// °ó¶¨È«¾Ö¸Ä±ä½¹µãÐÅºÅ²Û
+	// ç»‘å®šå…¨å±€æ”¹å˜ç„¦ç‚¹ä¿¡å·æ§½
 	connect(qApp, SIGNAL(focusChanged(QWidget *, QWidget *)),
 		this, SLOT(focusChanged(QWidget *, QWidget *)));
-	// °ó¶¨°´¼üÊÂ¼þ¹ýÂËÆ÷
+	// ç»‘å®šæŒ‰é”®äº‹ä»¶è¿‡æ»¤å™¨
 //    qApp->installEventFilter(this);
 }
 
@@ -575,18 +600,18 @@ void keyBoard::changeType(QString type)
 {
 	if (type == "min")
 	{
-		typeBtn->setText(tr(""));
+		typeBtn->setText(QString::fromLocal8Bit ("â†“"));
 		changeLetter(false);
 		keyWindow->setCurrentIndex(0);
 	}
 	else if (type == "max")
 	{
-		typeBtn->setText(tr(""));
+		typeBtn->setText(QString::fromLocal8Bit("â†‘"));
 		changeLetter(true);
 	}
 	else
 	{
-		typeBtn->setText(tr(""));
+		typeBtn->setText(QString::fromLocal8Bit("SY"));
 		keyWindow->setCurrentIndex(1);
 	}
 }
@@ -616,23 +641,23 @@ void keyBoard::changeStyle(int style)
 	{
 	case 0:
 	{
-		// »ÒÉ«
+		// ç°è‰²
 		setStyle("#E4E4E4", "#A2A2A2", "#DCDCDC", "#000000");
-		styleBtn->setText(tr(""));
+		styleBtn->setText(QString::fromLocal8Bit("ST"));
 		break;
 	}
 	case 1:
 	{
-		// À¶É«
+		// è“è‰²
 		setStyle("#DEF0FE", "#C0DEF6", "#C0DCF2", "#386487");
-		styleBtn->setText(tr(""));
+		styleBtn->setText(QString::fromLocal8Bit("ST"));
 		break;
 	}
 	case 2:
 	{
-		// ºÚÉ«
+		// é»‘è‰²
 		setStyle("#4D4D4D", "#292929", "#C2CCD8", "#F0F0F0");
-		styleBtn->setText(tr(""));
+		styleBtn->setText(QString::fromLocal8Bit("ST"));
 		break;
 	}
 	}
@@ -643,27 +668,32 @@ void keyBoard::setStyle(QString topColor, QString bottomColor, QString borderCol
 {
 	QStringList qss;
 
-	// ÉèÖÃ¼üÅÌ±³¾°É«,´ÓÉÏµ½ÏÂ½¥±äÐ§¹û
+	// è®¾ç½®é”®ç›˜èƒŒæ™¯è‰²,ä»Žä¸Šåˆ°ä¸‹æ¸å˜æ•ˆæžœ
 	qss.append(QString("QWidget{background:qlineargradient(spread:pad,x1:0,y1:0,x2:0,y2:1,stop:0 %1,stop:1 %2);}")
 		.arg(topColor).arg(bottomColor));
 
-	// ÉèÖÃ×Ö°´Å¥×ÖÌå
+	// è®¾ç½®å­—æŒ‰é’®å­—ä½“
 	qss.append(QString("QLabel,QPushButton{font:%1px;color:%2;}").arg(BTN_SIZE / 2).arg(textColor));
 
-	// °´Å¥±ß¿ò
+	// æŒ‰é’®è¾¹æ¡†
 	qss.append(QString("QPushButton{border:1px solid %1;}").arg(borderColor));
 
-	// È¥µô°´Å¥½¹µãÐéÏß¿òºÍÔ²½Ç
+	// åŽ»æŽ‰æŒ‰é’®ç„¦ç‚¹è™šçº¿æ¡†å’Œåœ†è§’
 	qss.append("QPushButton{outline:0px;border-radius:5px;}");
 
-	// °´Å¥ÓÐ°´ÏÂµÄÐ§¹û
+	// æŒ‰é’®æœ‰æŒ‰ä¸‹çš„æ•ˆæžœ
 	qss.append(QString("QPushButton:pressed{padding-left:5px;padding-top:5px;}"));
 
-	// É¾³ý°´Å¥ÉèÎªÀ¶É«±³¾°,°×É«×ÖÌå
+	// åˆ é™¤æŒ‰é’®è®¾ä¸ºè“è‰²èƒŒæ™¯,ç™½è‰²å­—ä½“
 	qss.append("QPushButton#delBtn{font:bold;background:blue;color:white;}");
 
-	// ¹Ø±Õ°´Å¥ÉèÎªºìÉ«±³¾°,°×É«×ÖÌå
+	// å…³é—­æŒ‰é’®è®¾ä¸ºçº¢è‰²èƒŒæ™¯,ç™½è‰²å­—ä½“
+	qss.append("QLable#lb0{font:bold;background:white;color:white;}");
+
 	qss.append("QPushButton#closeBtn{font:bold;background:red;color:white;}");
+
+	qss.append("QPushButton#okBtn{font:bold;background:green;color:white;}");
+
 
 	this->setStyleSheet(qss.join(""));
 }

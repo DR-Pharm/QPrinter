@@ -52,12 +52,14 @@ private:
     QWidget *signWindow;            // вжд╦╪Эел
     QLabel *infoLabel;              // отй╬╪Эелпео╒
 
-    QPushButton *closeBtn;
+	QPushButton *closeBtn;
+	QPushButton *okBtn;
     QPushButton *delBtn;
     QPushButton *typeBtn;
     QPushButton *styleBtn;
 
-    QPushButton *btn0;
+	QLabel *lb0;
+	QPushButton *btn0;
     QPushButton *btn1;
     QPushButton *btn2;
     QPushButton *btn3;
