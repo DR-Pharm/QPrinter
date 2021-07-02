@@ -1295,7 +1295,7 @@ void QtPLCDialogClass::on_lE_FeedOveride_editingFinished()///每组测试胶囊�
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
-	typ.ActData.GroupSet = ((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->text().toInt();
+	typ.ActData.FeedOveride = ((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->text().toInt();
 	m_socket->Communicate_PLC(&typ, nullptr);
 	((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->blockSignals(true);
 	((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->clearFocus();

@@ -14,6 +14,7 @@
 keyBoard::keyBoard(QWidget *parent) :
 	QWidget(parent)
 {
+	setStyleSheet("QWidget:focus{ outline: none; }");
 	this->InitWindow();
 	//    this->InitProperty();
 	this->InitForm();
@@ -191,240 +192,278 @@ void keyBoard::slotBtnClicked()
 void keyBoard::InitWindow()
 {
 	this->setProperty("Form", true);
-	this->setWindowFlags(Qt::Tool | Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
+	this->setWindowFlags(Qt::Tool | Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint|Qt::WindowDoesNotAcceptFocus);
 	this->setFixedSize(14 * BTN_SIZE, 3 * BTN_SIZE);
 	//this->setFocusPolicy(Qt::NoFocus);
-	this->setAttribute(Qt::WA_X11DoNotAcceptFocus, true);
+	//this->setAttribute(Qt::WA_X11DoNotAcceptFocus, true);
 	//    this->setAttribute(Qt::WA_ShowWithoutActivating,true);
 
 	keyWindow = new QStackedWidget(this);
 	keyWindow->setFixedSize(13 * BTN_SIZE, 2 * BTN_SIZE);
-	letterWindow = new QWidget;
+	letterWindow = new QWidget; 
+	letterWindow->setFocusPolicy(Qt::NoFocus);
 	signWindow = new QWidget;
+	signWindow->setFocusPolicy(Qt::NoFocus);
 
 	// 填加功能按钮
-
 	lb0 = new QLabel(this);
 	lb0->setAlignment(Qt::AlignCenter);
-	lb0->setFocusPolicy(Qt::NoFocus);
 	lb0->setObjectName("lb0");
-	//lb0->setProperty("function", true);
+	lb0->setProperty("function", true);
 	lb0->setStyleSheet("font: bold; background: rgb(255, 200, 200);");
 	lb0->setText(QString::fromLocal8Bit("MOV"));
 	lb0->setFixedSize(BTN_SIZE, BTN_SIZE);
+	lb0->setFocusPolicy(Qt::NoFocus);
 
 	closeBtn = new QPushButton(this);
 	closeBtn->setObjectName("closeBtn");
 	closeBtn->setProperty("function", true);
 	closeBtn->setText(tr("X"));
 	closeBtn->setFixedSize(BTN_SIZE, BTN_SIZE);
+	closeBtn->setFocusPolicy(Qt::NoFocus);
 
 	okBtn = new QPushButton(this);
 	okBtn->setObjectName("okBtn");
 	okBtn->setProperty("function", true);
 	okBtn->setText(tr("OK"));
 	okBtn->setFixedSize(BTN_SIZE, BTN_SIZE);
-
+	okBtn->setFocusPolicy(Qt::NoFocus);
 	// 删除一个字符
 	delBtn = new QPushButton(this);
 	delBtn->setObjectName("delBtn");
 	delBtn->setProperty("function", true);
 	delBtn->setText(tr("D"));
 	delBtn->setFixedSize(BTN_SIZE, BTN_SIZE);
-
+	delBtn->setFocusPolicy(Qt::NoFocus);
 	// 改变输法类型:大写,小写,字符
 	typeBtn = new QPushButton(this);
 	typeBtn->setObjectName("typeBtn");
 	typeBtn->setProperty("function", true);
 	typeBtn->setText(tr("小"));
 	typeBtn->setFixedSize(BTN_SIZE, BTN_SIZE);
-
+	typeBtn->setFocusPolicy(Qt::NoFocus);
 	// 换肤
 	styleBtn = new QPushButton(this);
 	styleBtn->setObjectName("styleBtn");
 	styleBtn->setProperty("function", true);
 	styleBtn->setText(tr("style"));
 	styleBtn->setFixedSize(BTN_SIZE, BTN_SIZE);
-
+	styleBtn->setFocusPolicy(Qt::NoFocus);
 	// 填加数字键盘
 	btn1 = new QPushButton(this);
 	btn1->setText(tr("1"));
 	btn1->setProperty("num", true);
 	btn1->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btn1->setFocusPolicy(Qt::NoFocus);
 
 	btn2 = new QPushButton(this);
 	btn2->setText(tr("2"));
 	btn2->setProperty("num", true);
 	btn2->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btn2->setFocusPolicy(Qt::NoFocus);
 
 	btn3 = new QPushButton(this);
 	btn3->setText(tr("3"));
 	btn3->setProperty("num", true);
 	btn3->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btn3->setFocusPolicy(Qt::NoFocus);
 
 	btn4 = new QPushButton(this);
 	btn4->setFixedSize(BTN_SIZE, BTN_SIZE);
 	btn4->setProperty("num", true);
 	btn4->setText(tr("4"));
+	btn4->setFocusPolicy(Qt::NoFocus);
 
 	btn5 = new QPushButton(this);
 	btn5->setFixedSize(BTN_SIZE, BTN_SIZE);
 	btn5->setProperty("num", true);
 	btn5->setText(tr("5"));
+	btn5->setFocusPolicy(Qt::NoFocus);
 
 	btn6 = new QPushButton(this);
 	btn6->setFixedSize(BTN_SIZE, BTN_SIZE);
 	btn6->setProperty("num", true);
-	btn6->setText(tr("6"));
+	btn6->setText(tr("6")); 
+	btn6->setFocusPolicy(Qt::NoFocus);
 
 	btn7 = new QPushButton(this);
 	btn7->setFixedSize(BTN_SIZE, BTN_SIZE);
 	btn7->setProperty("num", true);
 	btn7->setText(tr("7"));
+	btn7->setFocusPolicy(Qt::NoFocus);
 
 	btn8 = new QPushButton(this);
 	btn8->setFixedSize(BTN_SIZE, BTN_SIZE);
 	btn8->setProperty("num", true);
 	btn8->setText(tr("8"));
+	btn8->setFocusPolicy(Qt::NoFocus);
 
 	btn9 = new QPushButton(this);
 	btn9->setFixedSize(BTN_SIZE, BTN_SIZE);
 	btn9->setProperty("num", true);
 	btn9->setText(tr("9"));
+	btn9->setFocusPolicy(Qt::NoFocus);
 
 	btn0 = new QPushButton(this);
 	btn0->setFixedSize(BTN_SIZE, BTN_SIZE);
 	btn0->setProperty("num", true);
 	btn0->setText(tr("0"));
+	btn0->setFocusPolicy(Qt::NoFocus);
 
 	// 填加字母键盘
 	btnA = new QPushButton(letterWindow);
 	btnA->setText(tr("a"));
 	btnA->setProperty("letter", true);
 	btnA->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnA->setFocusPolicy(Qt::NoFocus);
 
 	btnB = new QPushButton(letterWindow);
 	btnB->setText(tr("b"));
 	btnB->setProperty("letter", true);
 	btnB->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnB->setFocusPolicy(Qt::NoFocus);
 
 	btnC = new QPushButton(letterWindow);
 	btnC->setText(tr("c"));
 	btnC->setProperty("letter", true);
 	btnC->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnC->setFocusPolicy(Qt::NoFocus);
 
 	btnD = new QPushButton(letterWindow);
 	btnD->setText(tr("d"));
 	btnD->setProperty("letter", true);
 	btnD->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnD->setFocusPolicy(Qt::NoFocus);
 
 	btnE = new QPushButton(letterWindow);
 	btnE->setText(tr("e"));
 	btnE->setProperty("letter", true);
 	btnE->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnE->setFocusPolicy(Qt::NoFocus);
 
 	btnF = new QPushButton(letterWindow);
 	btnF->setText(tr("f"));
 	btnF->setProperty("letter", true);
 	btnF->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnF->setFocusPolicy(Qt::NoFocus);
 
 	btnG = new QPushButton(letterWindow);
 	btnG->setText(tr("g"));
 	btnG->setProperty("letter", true);
 	btnG->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnG->setFocusPolicy(Qt::NoFocus);
 
 	btnH = new QPushButton(letterWindow);
 	btnH->setText(tr("h"));
 	btnH->setProperty("letter", true);
 	btnH->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnH->setFocusPolicy(Qt::NoFocus);
 
 	btnI = new QPushButton(letterWindow);
 	btnI->setText(tr("i"));
 	btnI->setProperty("letter", true);
 	btnI->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnI->setFocusPolicy(Qt::NoFocus);
 
 	btnJ = new QPushButton(letterWindow);
 	btnJ->setText(tr("j"));
 	btnJ->setProperty("letter", true);
 	btnJ->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnJ->setFocusPolicy(Qt::NoFocus);
 
 	btnK = new QPushButton(letterWindow);
 	btnK->setText(tr("k"));
 	btnK->setProperty("letter", true);
 	btnK->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnK->setFocusPolicy(Qt::NoFocus);
 
 	btnL = new QPushButton(letterWindow);
 	btnL->setText(tr("l"));
 	btnL->setProperty("letter", true);
 	btnL->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnL->setFocusPolicy(Qt::NoFocus);
 
 	btnM = new QPushButton(letterWindow);
 	btnM->setText(tr("m"));
 	btnM->setProperty("letter", true);
 	btnM->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnM->setFocusPolicy(Qt::NoFocus);
 
 	btnN = new QPushButton(letterWindow);
 	btnN->setText(tr("n"));
 	btnN->setProperty("letter", true);
 	btnN->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnN->setFocusPolicy(Qt::NoFocus);
 
 	btnO = new QPushButton(letterWindow);
 	btnO->setText(tr("o"));
 	btnO->setProperty("letter", true);
 	btnO->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnO->setFocusPolicy(Qt::NoFocus);
 
 	btnP = new QPushButton(letterWindow);
 	btnP->setText(tr("p"));
 	btnP->setProperty("letter", true);
 	btnP->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnP->setFocusPolicy(Qt::NoFocus);
 
 	btnQ = new QPushButton(letterWindow);
 	btnQ->setText(tr("q"));
 	btnQ->setProperty("letter", true);
 	btnQ->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnQ->setFocusPolicy(Qt::NoFocus);
 
 	btnR = new QPushButton(letterWindow);
 	btnR->setText(tr("r"));
 	btnR->setProperty("letter", true);
 	btnR->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnR->setFocusPolicy(Qt::NoFocus);
 
 	btnS = new QPushButton(letterWindow);
 	btnS->setText(tr("s"));
 	btnS->setProperty("letter", true);
 	btnS->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnS->setFocusPolicy(Qt::NoFocus);
 
 	btnT = new QPushButton(letterWindow);
 	btnT->setText(tr("t"));
 	btnT->setProperty("letter", true);
 	btnT->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnT->setFocusPolicy(Qt::NoFocus);
 
 	btnU = new QPushButton(letterWindow);
 	btnU->setText(tr("u"));
 	btnU->setProperty("letter", true);
 	btnU->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnU->setFocusPolicy(Qt::NoFocus);
 
 	btnV = new QPushButton(letterWindow);
 	btnV->setText(tr("v"));
 	btnV->setProperty("letter", true);
 	btnV->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnV->setFocusPolicy(Qt::NoFocus);
 
 	btnW = new QPushButton(letterWindow);
 	btnW->setText(tr("w"));
 	btnW->setProperty("letter", true);
 	btnW->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnW->setFocusPolicy(Qt::NoFocus);
 
 	btnX = new QPushButton(letterWindow);
 	btnX->setText(tr("x"));
 	btnX->setProperty("letter", true);
 	btnX->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnX->setFocusPolicy(Qt::NoFocus);
 
 	btnY = new QPushButton(letterWindow);
 	btnY->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnY->setFocusPolicy(Qt::NoFocus);
 	btnY->setProperty("letter", true);
 	btnY->setText(tr("y"));
 
 	btnZ = new QPushButton(letterWindow);
 	btnZ->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnZ->setFocusPolicy(Qt::NoFocus);
 	btnZ->setProperty("letter", true);
 	btnZ->setText(tr("z"));
 
@@ -466,70 +505,84 @@ void keyBoard::InitWindow()
 	// 填加符号键盘
 	btnSign0 = new QPushButton(signWindow);
 	btnSign0->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnSign0->setFocusPolicy(Qt::NoFocus);
 	btnSign0->setProperty("sign", true);
 	btnSign0->setText(tr("!"));
 
 	btnSign1 = new QPushButton(signWindow);
 	btnSign1->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnSign1->setFocusPolicy(Qt::NoFocus);
 	btnSign1->setProperty("sign", true);
 	btnSign1->setText(tr("@"));
 
 	btnSign2 = new QPushButton(signWindow);
 	btnSign2->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnSign2->setFocusPolicy(Qt::NoFocus);
 	btnSign2->setProperty("sign", true);
 	btnSign2->setText(tr("#"));
 
 	btnSign3 = new QPushButton(signWindow);
 	btnSign3->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnSign3->setFocusPolicy(Qt::NoFocus);
 	btnSign3->setProperty("sign", true);
 	btnSign3->setText(tr("$"));
 
 	btnSign4 = new QPushButton(signWindow);
 	btnSign4->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnSign4->setFocusPolicy(Qt::NoFocus);
 	btnSign4->setProperty("sign", true);
 	btnSign4->setText(tr("%"));
 
 	btnSign5 = new QPushButton(signWindow);
 	btnSign5->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnSign5->setFocusPolicy(Qt::NoFocus);
 	btnSign5->setProperty("sign", true);
 	btnSign5->setText(tr("^"));
 
 	btnSign6 = new QPushButton(signWindow);
 	btnSign6->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnSign6->setFocusPolicy(Qt::NoFocus);
 	btnSign6->setProperty("sign", true);
 	btnSign6->setText(tr("&&"));
 
 	btnSign7 = new QPushButton(signWindow);
 	btnSign7->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnSign7->setFocusPolicy(Qt::NoFocus);
 	btnSign7->setProperty("sign", true);
 	btnSign7->setText(tr("*"));
 
 	btnSign8 = new QPushButton(signWindow);
 	btnSign8->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnSign8->setFocusPolicy(Qt::NoFocus);
 	btnSign8->setProperty("sign", true);
 	btnSign8->setText(tr("("));
 
 	btnSign9 = new QPushButton(signWindow);
 	btnSign9->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnSign9->setFocusPolicy(Qt::NoFocus);
 	btnSign9->setProperty("sign", true);
 	btnSign9->setText(tr(")"));
 
 	btnSign10 = new QPushButton(signWindow);
 	btnSign10->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnSign10->setFocusPolicy(Qt::NoFocus);
 	btnSign10->setProperty("sign", true);
 	btnSign10->setText(tr(","));
 
 	btnSign11 = new QPushButton(signWindow);
 	btnSign11->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnSign11->setFocusPolicy(Qt::NoFocus);
 	btnSign11->setProperty("sign", true);
 	btnSign11->setText(tr("."));
 
 	btnSign12 = new QPushButton(signWindow);
 	btnSign12->setFixedSize(BTN_SIZE, BTN_SIZE);
+	btnSign12->setFocusPolicy(Qt::NoFocus);
 	btnSign12->setProperty("sign", true);
 	btnSign12->setText(tr("?"));
 
 	infoLabel = new QLabel(signWindow);
+	infoLabel->setFocusPolicy(Qt::NoFocus);
 	infoLabel->setProperty("sign", true);
 
 	QGridLayout *signLayout = new QGridLayout;
