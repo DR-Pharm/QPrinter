@@ -94,30 +94,29 @@ public:
     QPushButton *pB_cmdSwing;
     QWidget *tab_6;
     QVBoxLayout *verticalLayout_2;
+    QSpacerItem *verticalSpacer_2;
     QGroupBox *groupBox_9;
     QGridLayout *gridLayout_12;
+    QPushButton *pB_cmdFeedFive;
     QPushButton *pB_cmdFeedshakelevel;
     QPushButton *pB_cmdFeedShake;
+    QPushButton *pB_cmdFeedShakefive;
     QPushButton *pB_cmdFeedhome;
     QPushButton *pB_cmdFeedshakestop;
-    QPushButton *pB_cmdFeedShakefive;
-    QPushButton *pB_cmdFeedFive;
+    QSpacerItem *verticalSpacer_19;
+    QSpacerItem *verticalSpacer_3;
     QGroupBox *groupBox_5;
     QVBoxLayout *verticalLayout_10;
     QHBoxLayout *horizontalLayout;
-    QPushButton *pB_cmdScaleRead;
     QPushButton *pB_cmdScaleTire;
     QPushButton *pB_cmdScaleCalibExt;
-    QHBoxLayout *horizontalLayout_7;
-    QHBoxLayout *horizontalLayout_2;
-    QLabel *label;
-    QComboBox *cB_paraScaleSetStable;
-    QPushButton *pB_cmdScaleSetStable;
+    QSpacerItem *verticalSpacer_4;
     QHBoxLayout *horizontalLayout_5;
     QSpacerItem *horizontalSpacer_14;
     QPushButton *pB_showPrt;
     QPushButton *pB_cmdAlogtest;
     QSpacerItem *horizontalSpacer_11;
+    QSpacerItem *verticalSpacer;
     QWidget *tab_8;
     QVBoxLayout *verticalLayout;
     QFrame *frame_4;
@@ -667,12 +666,21 @@ public:
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_2->addItem(verticalSpacer_2);
+
         groupBox_9 = new QGroupBox(tab_6);
         groupBox_9->setObjectName(QString::fromUtf8("groupBox_9"));
         gridLayout_12 = new QGridLayout(groupBox_9);
         gridLayout_12->setSpacing(6);
         gridLayout_12->setContentsMargins(11, 11, 11, 11);
         gridLayout_12->setObjectName(QString::fromUtf8("gridLayout_12"));
+        pB_cmdFeedFive = new QPushButton(groupBox_9);
+        pB_cmdFeedFive->setObjectName(QString::fromUtf8("pB_cmdFeedFive"));
+
+        gridLayout_12->addWidget(pB_cmdFeedFive, 2, 1, 1, 1);
+
         pB_cmdFeedshakelevel = new QPushButton(groupBox_9);
         pB_cmdFeedshakelevel->setObjectName(QString::fromUtf8("pB_cmdFeedshakelevel"));
 
@@ -683,28 +691,31 @@ public:
 
         gridLayout_12->addWidget(pB_cmdFeedShake, 0, 0, 1, 1);
 
+        pB_cmdFeedShakefive = new QPushButton(groupBox_9);
+        pB_cmdFeedShakefive->setObjectName(QString::fromUtf8("pB_cmdFeedShakefive"));
+
+        gridLayout_12->addWidget(pB_cmdFeedShakefive, 2, 2, 1, 1);
+
         pB_cmdFeedhome = new QPushButton(groupBox_9);
         pB_cmdFeedhome->setObjectName(QString::fromUtf8("pB_cmdFeedhome"));
 
-        gridLayout_12->addWidget(pB_cmdFeedhome, 1, 0, 1, 1);
+        gridLayout_12->addWidget(pB_cmdFeedhome, 2, 0, 1, 1);
 
         pB_cmdFeedshakestop = new QPushButton(groupBox_9);
         pB_cmdFeedshakestop->setObjectName(QString::fromUtf8("pB_cmdFeedshakestop"));
 
         gridLayout_12->addWidget(pB_cmdFeedshakestop, 0, 1, 1, 1);
 
-        pB_cmdFeedShakefive = new QPushButton(groupBox_9);
-        pB_cmdFeedShakefive->setObjectName(QString::fromUtf8("pB_cmdFeedShakefive"));
+        verticalSpacer_19 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        gridLayout_12->addWidget(pB_cmdFeedShakefive, 1, 2, 1, 1);
-
-        pB_cmdFeedFive = new QPushButton(groupBox_9);
-        pB_cmdFeedFive->setObjectName(QString::fromUtf8("pB_cmdFeedFive"));
-
-        gridLayout_12->addWidget(pB_cmdFeedFive, 1, 1, 1, 1);
+        gridLayout_12->addItem(verticalSpacer_19, 1, 1, 1, 1);
 
 
         verticalLayout_2->addWidget(groupBox_9);
+
+        verticalSpacer_3 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_2->addItem(verticalSpacer_3);
 
         groupBox_5 = new QGroupBox(tab_6);
         groupBox_5->setObjectName(QString::fromUtf8("groupBox_5"));
@@ -716,11 +727,6 @@ public:
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        pB_cmdScaleRead = new QPushButton(groupBox_5);
-        pB_cmdScaleRead->setObjectName(QString::fromUtf8("pB_cmdScaleRead"));
-
-        horizontalLayout->addWidget(pB_cmdScaleRead);
-
         pB_cmdScaleTire = new QPushButton(groupBox_5);
         pB_cmdScaleTire->setObjectName(QString::fromUtf8("pB_cmdScaleTire"));
 
@@ -734,36 +740,9 @@ public:
 
         verticalLayout_10->addLayout(horizontalLayout);
 
-        horizontalLayout_7 = new QHBoxLayout();
-        horizontalLayout_7->setSpacing(6);
-        horizontalLayout_7->setObjectName(QString::fromUtf8("horizontalLayout_7"));
-        horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setSpacing(6);
-        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        label = new QLabel(groupBox_5);
-        label->setObjectName(QString::fromUtf8("label"));
+        verticalSpacer_4 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        horizontalLayout_2->addWidget(label);
-
-        cB_paraScaleSetStable = new QComboBox(groupBox_5);
-        cB_paraScaleSetStable->addItem(QString());
-        cB_paraScaleSetStable->addItem(QString());
-        cB_paraScaleSetStable->addItem(QString());
-        cB_paraScaleSetStable->addItem(QString());
-        cB_paraScaleSetStable->setObjectName(QString::fromUtf8("cB_paraScaleSetStable"));
-
-        horizontalLayout_2->addWidget(cB_paraScaleSetStable);
-
-
-        horizontalLayout_7->addLayout(horizontalLayout_2);
-
-        pB_cmdScaleSetStable = new QPushButton(groupBox_5);
-        pB_cmdScaleSetStable->setObjectName(QString::fromUtf8("pB_cmdScaleSetStable"));
-
-        horizontalLayout_7->addWidget(pB_cmdScaleSetStable);
-
-
-        verticalLayout_10->addLayout(horizontalLayout_7);
+        verticalLayout_10->addItem(verticalSpacer_4);
 
 
         verticalLayout_2->addWidget(groupBox_5);
@@ -783,6 +762,7 @@ public:
 
         pB_cmdAlogtest = new QPushButton(tab_6);
         pB_cmdAlogtest->setObjectName(QString::fromUtf8("pB_cmdAlogtest"));
+        pB_cmdAlogtest->setEnabled(false);
 
         horizontalLayout_5->addWidget(pB_cmdAlogtest);
 
@@ -792,6 +772,10 @@ public:
 
 
         verticalLayout_2->addLayout(horizontalLayout_5);
+
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_2->addItem(verticalSpacer);
 
         tabWidget->addTab(tab_6, QString());
 
@@ -2286,7 +2270,7 @@ public:
         retranslateUi(QtPLCDialogClass);
 
         tabWidget_PLC->setCurrentIndex(0);
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(2);
         cB_Feedmode->setCurrentIndex(0);
         tabWidget_Users->setCurrentIndex(-1);
         cB_ScaleStableState->setCurrentIndex(-1);
@@ -2337,23 +2321,15 @@ public:
         pB_cmdSwing->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\227\213\350\275\254\345\215\225\345\267\245\344\275\215", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_4), QString());
         groupBox_9->setTitle(QCoreApplication::translate("QtPLCDialogClass", "\344\270\213\346\226\231", nullptr));
+        pB_cmdFeedFive->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\203\266\345\233\212\350\220\275\346\226\231\344\272\224\347\262\222", nullptr));
         pB_cmdFeedshakelevel->setText(QCoreApplication::translate("QtPLCDialogClass", "\344\270\213\346\226\231\346\221\207\346\221\206\346\260\264\345\271\263", nullptr));
         pB_cmdFeedShake->setText(QCoreApplication::translate("QtPLCDialogClass", "\344\270\213\346\226\231\346\221\207\346\221\206", nullptr));
+        pB_cmdFeedShakefive->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\211\207\345\211\202\350\220\275\346\226\231\344\272\224\347\262\222", nullptr));
         pB_cmdFeedhome->setText(QCoreApplication::translate("QtPLCDialogClass", "\344\270\213\346\226\231\345\257\273\345\217\202", nullptr));
         pB_cmdFeedshakestop->setText(QCoreApplication::translate("QtPLCDialogClass", "\344\270\213\346\226\231\346\221\207\346\221\206\345\201\234\346\255\242", nullptr));
-        pB_cmdFeedShakefive->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\211\207\345\211\202\350\220\275\346\226\231\344\272\224\347\262\222", nullptr));
-        pB_cmdFeedFive->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\203\266\345\233\212\350\220\275\346\226\231\344\272\224\347\262\222", nullptr));
         groupBox_5->setTitle(QCoreApplication::translate("QtPLCDialogClass", "\347\247\260\351\207\215\350\256\276\347\275\256", nullptr));
-        pB_cmdScaleRead->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\247\244\350\257\273\346\225\260\345\221\275\344\273\244", nullptr));
         pB_cmdScaleTire->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\247\244\346\270\205\351\233\266", nullptr));
         pB_cmdScaleCalibExt->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\247\244\345\244\226\351\203\250\346\240\241\346\255\243", nullptr));
-        label->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\250\263\345\256\232\347\212\266\346\200\201\350\256\276\345\256\232\347\233\256\346\240\207:", nullptr));
-        cB_paraScaleSetStable->setItemText(0, QCoreApplication::translate("QtPLCDialogClass", "\351\235\236\345\270\270\347\250\263\345\256\232", nullptr));
-        cB_paraScaleSetStable->setItemText(1, QCoreApplication::translate("QtPLCDialogClass", "\347\250\263\345\256\232", nullptr));
-        cB_paraScaleSetStable->setItemText(2, QCoreApplication::translate("QtPLCDialogClass", "\344\270\215\347\250\263\345\256\232", nullptr));
-        cB_paraScaleSetStable->setItemText(3, QCoreApplication::translate("QtPLCDialogClass", "\351\235\236\345\270\270\344\270\215\347\250\263\345\256\232", nullptr));
-
-        pB_cmdScaleSetStable->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\256\276\345\256\232\347\247\244\347\250\263\345\256\232\347\212\266\346\200\201", nullptr));
         pB_showPrt->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\211\223\345\215\260\350\256\276\347\275\256", nullptr));
         pB_cmdAlogtest->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\250\241\346\213\237\351\207\217\350\276\223\345\207\272\346\265\213\350\257\225", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_6), QString());

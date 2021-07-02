@@ -1362,7 +1362,7 @@ void QtPLCDialogClass::on_lE_AxisFeedRelMovDistance_editingFinished()
 {
 	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
 	int i1 = configIniRead.value("DistanceSetting/AxisFeedRelMovDistance", 0).toInt();
-	if (((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedRelMovDistance->text()!=i1)
+	if (((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedRelMovDistance->text().toInt()!=i1)
 	{
 		configIniRead.setValue("DistanceSetting/AxisFeedRelMovDistance", ((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedRelMovDistance->text());//写当前模板
 		showWindowOut(QString::fromLocal8Bit("下料电机\n相对运动距离\n已更改!"));
@@ -1372,7 +1372,7 @@ void QtPLCDialogClass::on_lE_AxisSwingRelMovDistance_editingFinished()
 {
 	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
 	int i2 = configIniRead.value("DistanceSetting/AxisSwingRelMovDistance", 0).toInt();
-	if (((Ui::QtPLCDialogClass*)ui)->lE_AxisSwingRelMovDistance->text() != i2)
+	if (((Ui::QtPLCDialogClass*)ui)->lE_AxisSwingRelMovDistance->text().toInt() != i2)
 	{
 		configIniRead.setValue("DistanceSetting/AxisSwingRelMovDistance", ((Ui::QtPLCDialogClass*)ui)->lE_AxisSwingRelMovDistance->text());//写当前模板
 
