@@ -17,7 +17,7 @@ class keyBoard : public QWidget
 public:
     explicit keyBoard(QWidget *parent = 0);
     ~keyBoard();
-
+	void setp(QPoint);
 protected:
     void mouseMoveEvent(QMouseEvent *e);
     void mousePressEvent(QMouseEvent *e);
@@ -32,7 +32,7 @@ private:
     int deskHeight;                 //桌面高度
     int frmWidth;                   //窗体宽度
     int frmHeight;                  //窗体高度
-
+	QPoint cursePoint;
     QPoint mousePoint;              //鼠标拖动自定义标题栏时的坐标
     bool mousePressed;              //鼠标是否按下
     void InitWindow();              //初始化无边框窗体

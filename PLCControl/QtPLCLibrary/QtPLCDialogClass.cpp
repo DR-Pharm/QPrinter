@@ -19,11 +19,8 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	// 靠上居中显示
 	movePoint = QPoint(deskWidth / 2 - frmWidth / 2, 0);
 
-	if (key == nullptr) key = new keyBoard(this);
 
-	key->move(movePoint);
-	key->repaint();
-	key->show();
+	key = new keyBoard();
 
 	ui = new Ui::QtPLCDialogClass();
 	((Ui::QtPLCDialogClass*)ui)->setupUi(this);
@@ -138,6 +135,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	//dtCurve->setFixedSize(QSize(860, 755));//1280 800
 
 }
+
 QtPLCDialogClass::~QtPLCDialogClass()
 {
 	if (m_socket != nullptr)
@@ -679,12 +677,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_TDemand->setText(QString::number(m_data->ActData.TDemand, 'f', 3));
 	}
-	if (!((Ui::QtPLCDialogClass*)ui)->cB_TireMode->hasFocus())//0:每组去皮重,1:每次称重去皮重
-	{
-		((Ui::QtPLCDialogClass*)ui)->cB_TireMode->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->cB_TireMode->setCurrentIndex(m_data->ActData.TireMode);
-		((Ui::QtPLCDialogClass*)ui)->cB_TireMode->blockSignals(false);
-	}
+
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->hasFocus())//每组测试胶囊数量
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->setText(QString::number(m_data->ActData.GroupSet));

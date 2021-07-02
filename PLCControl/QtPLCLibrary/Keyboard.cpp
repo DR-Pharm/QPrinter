@@ -19,7 +19,7 @@ keyBoard::keyBoard(QWidget *parent) :
 	this->InitForm();
 
 	QDesktopWidget* w = QApplication::desktop();
-	deskWidth = w->screenGeometry().width();
+	deskWidth =  w->screenGeometry().width();
 	deskHeight = w->screenGeometry().height();
 	frmWidth = this->width();
 	frmHeight = this->height();
@@ -35,11 +35,16 @@ keyBoard::~keyBoard()
 {
 }
 
+void keyBoard::setp(QPoint p)
+{
+	cursePoint = p;
+}
+
 void keyBoard::mouseMoveEvent(QMouseEvent *e)
 {
 	if (mousePressed && (e->buttons() && Qt::LeftButton))
 	{
-		this->move(e->globalPos() - mousePoint);
+		this->move(e->globalPos());//-mousePoint);
 		this->repaint();
 		e->accept();
 	}
@@ -50,7 +55,7 @@ void keyBoard::mousePressEvent(QMouseEvent *e)
 	if (e->button() == Qt::LeftButton)
 	{
 		mousePressed = true;
-		mousePoint = e->globalPos() - this->pos();
+		mousePoint = e->globalPos();// -this->pos();
 		e->accept();
 	}
 }
@@ -70,9 +75,13 @@ void keyBoard::focusChanged(QWidget *, QWidget *nowWidget)
 			currentLineEdit = (QLineEdit *)nowWidget;
 
 			QPoint movePoint;
-
+			//QPoint t = mapToGlobal(QCursor::pos());
+			//t = mapToParent(QCursor::pos());
 			// 鼠标点击位置坐标
-			if (QCursor::pos().y() > deskHeight / 2)
+			//if (QCursor::pos().y() > deskHeight / 2)
+
+			int lePosY = currentLineEdit->mapToGlobal(QPoint(0, 0)).y();
+			if (lePosY > deskHeight / 2)
 			{
 				// 靠上居中显示
 				movePoint = QPoint(deskWidth / 2 - frmWidth / 2, 0);

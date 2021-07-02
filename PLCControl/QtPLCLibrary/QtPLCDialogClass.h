@@ -26,6 +26,7 @@ signals:
 	void SHOWPRT(bool);
 	void TODATACURVE(int,float, float, float, QList<qreal>);
 	void TODRAWPICTURE(QVector<float>,int);//MODE 0:one curve,1:one dataAverage,2:two curve,3:two dataAverage
+
 public:
 	QtPLCDialogClass(QDialog *parent = Q_NULLPTR);
 	~QtPLCDialogClass();
@@ -48,6 +49,7 @@ public:
 	void setStyleCommand(QPushButton*, QString, QFont, QString);
 
 private:
+	QPoint mousePoint;
 	int deskWidth;                  //桌面宽度
 	int deskHeight;                 //桌面高度
 	int frmWidth;                   //窗体宽度
