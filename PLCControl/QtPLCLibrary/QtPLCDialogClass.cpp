@@ -500,7 +500,7 @@ void QtPLCDialogClass::inittabicon()
 	((Ui::QtPLCDialogClass*)ui)->tabWidget->setIconSize(QSize(132, 33));
 	((Ui::QtPLCDialogClass*)ui)->tabWidget->setTabIcon(0, QIcon(AppPath + "/ico/fontImage/srsc.png"));
 	((Ui::QtPLCDialogClass*)ui)->tabWidget->setTabIcon(1, QIcon(AppPath + "/ico/fontImage/xlxz.png"));
-	((Ui::QtPLCDialogClass*)ui)->tabWidget->setTabIcon(2, QIcon(AppPath + "/ico/fontImage/czdy.png"));
+	((Ui::QtPLCDialogClass*)ui)->tabWidget->setTabIcon(2, QIcon(AppPath + "/ico/fontImage/others.png"));
 
 }
 void QtPLCDialogClass::initFont()
