@@ -20,9 +20,9 @@ QtLoginDlg::QtLoginDlg(QDialog* parent)
 	this->setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog);
 	this->setWindowOpacity(0.95);//透明度
 	this->setWindowModality(Qt::ApplicationModal);
-	ui.label->setPixmap(QPixmap("./ico/user.ico"));
+	ui.label->setPixmap(QPixmap(AppPath + "/ico/user.ico"));
 	ui.label->setScaledContents(true);
-	ui.label_2->setPixmap(QPixmap("./ico/sec.ico"));
+	ui.label_2->setPixmap(QPixmap(AppPath + "/ico/sec.ico"));
 	ui.label_2->setScaledContents(true);
 	ui.pB_Exit->setStyleSheet("color: rgb(0, 170, 127);font-size:20pt");
 	ui.pB_Login->setStyleSheet("font-size:20pt");
