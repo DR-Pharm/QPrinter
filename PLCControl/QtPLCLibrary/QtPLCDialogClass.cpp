@@ -855,7 +855,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 					}
 				}
 				QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
-				configIniRead.setValue("data/"+QString::number(m_data->Status.CapDataDisp.GroupNo), str);//写当前模板  此处/不可以换为两个\
+				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo)+ "/data", str);//写当前模板  此处/不可以换为两个\
 				data_One.clear();
 			}
 		}
@@ -1757,7 +1757,7 @@ void QtPLCDialogClass::on_pB_printData_clicked()//数据
 	else if (p1 == p2)
 	{
 		QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
-		QString str = configIniRead.value("data/" + QString::number(p1), 0).toString();
+		QString str = configIniRead.value(QString::number(p1)+"/data", 0).toString();
 		if (str == "0")
 		{
 			showWindowOut(QString::fromLocal8Bit("无满足条件\n打印数据!"));
@@ -1786,7 +1786,7 @@ void QtPLCDialogClass::on_pB_printData_clicked()//数据
 		QVector<QVector<float>> dataToDraw;
 		for (int i = p1; i < p2 + 1; i++)
 		{
-			QString str = configIniRead.value("data/" + QString::number(i), 0).toString();
+			QString str = configIniRead.value(QString::number(i) + "/data", 0).toString();
 			QVector<float> data_temp;
 			if (str != "0")
 			{
@@ -1804,6 +1804,11 @@ void QtPLCDialogClass::on_pB_printData_clicked()//数据
 		if (dataToDraw.size() > 0)
 		{
 			emit TODRAWPICTURE(dataToDraw, 0);
+		}
+		else
+		{
+			showWindowOut(QString::fromLocal8Bit("无打印数据!"));
+			return;
 		}
 
 	}
@@ -1833,7 +1838,7 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 	else if (p1 == p2)
 	{
 		QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
-		QString str = configIniRead.value("data/" + QString::number(p1), 0).toString();
+		QString str = configIniRead.value(QString::number(p1) + "/data", 0).toString();
 		if (str == "0")
 		{
 			showWindowOut(QString::fromLocal8Bit("无满足条件\n打印数据!"));
@@ -1862,7 +1867,7 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 		QVector<QVector<float>> dataToDraw;
 		for (int i = p1; i < p2 + 1; i++)
 		{
-			QString str = configIniRead.value("data/" + QString::number(i), 0).toString();
+			QString str = configIniRead.value(QString::number(i)+"/data" , 0).toString();
 			QVector<float> data_temp;
 			if (str != "0")
 			{
@@ -1881,7 +1886,11 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 		{
 			emit TODRAWPICTURE(dataToDraw, 1);
 		}
-
+		else
+		{
+			showWindowOut(QString::fromLocal8Bit("无打印数据!"));
+			return;
+		}
 	}
 }
 void QtPLCDialogClass::on_pB_Read1_clicked()//读取1
