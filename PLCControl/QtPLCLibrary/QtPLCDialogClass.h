@@ -14,6 +14,14 @@
 #include "Keyboard.h"
 namespace spd = spdlog;
 
+#include <QChartView>
+#include <QChart>
+#include <QSplineSeries>
+#include <QScatterSeries>
+#include <QValueAxis>
+#include <QHBoxLayout>
+using namespace QtCharts;
+
 class QtPLCDialogClass : public QDialog
 
 {
@@ -49,6 +57,27 @@ public:
 	void setStyleCommand(QPushButton*, QString, QFont, QString);
 
 private:
+	double sumNo = 0;
+	int m_row = 0;
+	double mi, ma;
+	int maxSize;  // data 最多存储 maxSize 个元素
+	int maxX;
+	int maxY;
+	int maxSizeAve;  // data 最多存储 maxSize 个元素
+	int maxXAve;
+	int maxYAve;
+
+	QChart *chart;
+	QChartView *chartView;
+	//QSplineSeries *splineSeries;
+	QLineSeries *splineSeries;
+	QLineSeries *splineSeries_Average;
+	QLineSeries *splineSeries_Average2;
+	QScatterSeries *scatterSeries;
+
+	QValueAxis *axisx;
+	QValueAxis *axisy;
+
 	QPoint mousePoint;
 	int deskWidth;                  //桌面宽度
 	int deskHeight;                 //桌面高度
@@ -81,7 +110,7 @@ private:
 
 	QLabel *lb_dataNow;
 
-	QList<qreal> data_One;
+	QList<float> data_One;
 	QVector<float> dataToDraw;
 	//弹跳特效
 	QPropertyAnimation * animation1 = nullptr;
@@ -100,7 +129,11 @@ public slots:
 	DataFromPC_typ getPCParaData();
 	DataFromPC_typ getPCRunData();
 
+	void initChartOne();
+
 	void getPLCData(void*);
+
+	QString YearMonthDay();
 
 	void setg_IUserLevel(int);
 

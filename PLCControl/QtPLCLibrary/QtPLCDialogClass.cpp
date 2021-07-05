@@ -128,10 +128,19 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	btnTimer = new QTimer();
 	connect(btnTimer, SIGNAL(timeout()), this, SLOT(startMovie()));
 
-	dtCurve = new DataCurve();	
+	((Ui::QtPLCDialogClass*)ui)->widget->move(0, 0);
+	((Ui::QtPLCDialogClass*)ui)->widget->setVisible(false);
+	initChartOne();
+	QStringList str1;
+	str1 << QString::fromLocal8Bit("重量");
+	((Ui::QtPLCDialogClass*)ui)->tableWidget->setColumnCount(1);
+	((Ui::QtPLCDialogClass*)ui)->tableWidget->setHorizontalHeaderLabels(str1);//加水平表头 每行加日期结果
+	((Ui::QtPLCDialogClass*)ui)->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);//均分填充表头
+
+	/*dtCurve = new DataCurve();	
 	connect(dtCurve, SIGNAL(rejected()), this, SLOT(dtClose()));
 	connect(this, SIGNAL(TODATACURVE(int,float, float, float, QList<qreal>)), dtCurve, SLOT(dataReceived(int, float, float, float, QList<qreal>)));
-	dtCurve->move(0, 0);
+	dtCurve->move(0, 0);*/
 	//dtCurve->setFixedSize(QSize(860, 755));//1280 800
 
 }
@@ -472,8 +481,11 @@ void QtPLCDialogClass::initUI()
 	((Ui::QtPLCDialogClass*)ui)->label_78->setScaledContents(true);	((Ui::QtPLCDialogClass*)ui)->label_80->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_80.png"));
 	((Ui::QtPLCDialogClass*)ui)->label_80->setScaledContents(true);
 	((Ui::QtPLCDialogClass*)ui)->label_10->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_10.png"));
-	((Ui::QtPLCDialogClass*)ui)->label_10->setScaledContents(true);	((Ui::QtPLCDialogClass*)ui)->label_39->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_39.png"));
+	((Ui::QtPLCDialogClass*)ui)->label_10->setScaledContents(true);
+	((Ui::QtPLCDialogClass*)ui)->label_39->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_39.png"));
 	((Ui::QtPLCDialogClass*)ui)->label_39->setScaledContents(true);
+	((Ui::QtPLCDialogClass*)ui)->label_50->setPixmap(QPixmap(AppPath + "/ico/fontImage/yxbz.png"));
+	((Ui::QtPLCDialogClass*)ui)->label_50->setScaledContents(true);
 	((Ui::QtPLCDialogClass*)ui)->label_49->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_49.png"));
 	((Ui::QtPLCDialogClass*)ui)->label_49->setScaledContents(true);
 	((Ui::QtPLCDialogClass*)ui)->label_16->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_16.png"));
@@ -591,7 +603,7 @@ DataFromPC_typ QtPLCDialogClass::getPCRunData()//4
 	tmp.ActData.WorkMode = m_data->ActData.WorkMode;				//0:片剂，1：胶囊				new8
 	tmp.ActData.GroupSet = m_data->ActData.GroupSet;				//每组测试胶囊数量				new9
 	tmp.ActData.GroupCounter = m_data->ActData.GroupCounter;			//组落料数量				     new10
-	tmp.ActData.TireMode = m_data->ActData.TireMode;				//0:每组去皮重,1:每次称重去皮重	 new11
+	tmp.ActData.TireMode = 0;				//0:每组去皮重,1:每次称重去皮重	 new11
 	tmp.ActData.TestInterval = m_data->ActData.TestInterval;			//测试间隔时间,单位s		     new12
 		
 	tmp.ActData.TOverload = m_data->ActData.TOverload;				//超重重量,单位g
@@ -629,6 +641,50 @@ DataFromPC_typ QtPLCDialogClass::getPCRunData()//4
 	strcpy(tmp.ActData.BatchName, c);
 
 	return tmp;
+}
+
+////////////////////////////////曲线
+void QtPLCDialogClass::initChartOne()
+{
+	maxX = 41;
+	maxSize = maxX - 1; // 只存储最新的 31 个数据
+	maxY = 255;
+	splineSeries = new QLineSeries();
+	splineSeries->setPointLabelsFormat("@yPoint");
+	splineSeries->setPointLabelsClipping(false);
+	splineSeries->setPointsVisible(true);
+	splineSeries->setPointLabelsVisible(false);
+	splineSeries->setName(QString::fromLocal8Bit("组重量曲线"));
+
+	chart = new QChart();
+	chart->legend()->hide();
+	chart->setTitle(QString::fromLocal8Bit("组重量曲线"));
+
+	chart->addSeries(splineSeries);
+
+	axisx = new QValueAxis;
+	axisx->setLabelFormat("%d");
+	axisx->setTickCount(2);
+	axisx->setRange(0, 1);
+	axisx->setGridLineVisible(true);
+	chart->setAxisX(axisx, splineSeries);
+	chart->addAxis(axisx, Qt::AlignBottom);
+
+	axisy = new QValueAxis;
+	//axisy->setLabelFormat("%d");
+	axisy->setLabelFormat("%.3f");
+	axisy->setTickCount(10);
+	axisy->setRange(0.210, 0.250);
+	axisy->setGridLineVisible(true);
+	chart->setAxisY(axisy, splineSeries);
+	chart->addAxis(axisy, Qt::AlignLeft);
+
+	chart->setTheme(QChart::ChartThemeBlueCerulean);
+	chartView = new QChartView(chart);
+
+	chartView->setRenderHint(QPainter::Antialiasing);
+
+	((Ui::QtPLCDialogClass*)ui)->gridLayout_One->addWidget(chartView);
 }
 void QtPLCDialogClass::getPLCData(void* data)
 {
@@ -688,7 +744,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->hasFocus())//每组测试胶囊数量
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->setText(QString::number(m_data->ActData.FeedOveride));
+		((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->setText(QString::number(m_data->ActData.FeedOveride/100));
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->hasFocus())////测试间隔时间,单位s
 	{
@@ -698,10 +754,111 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setText(QString(QLatin1String(m_data->ActData.BatchName)));//Cause kinco has a bug when input this parameter,but use PC to input,we do not have this bug,so don't need to change.
 	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_GroupNo->hasFocus())//GroupNo;				//当前组号
+
+	((Ui::QtPLCDialogClass*)ui)->lE_GroupNo->setText(QString::number(m_data->ActData.GroupNo));
+
+	((Ui::QtPLCDialogClass*)ui)->lE_GroupNo_2->setText(QString::number(m_data->Status.CapDataDisp.GroupNo));
+	((Ui::QtPLCDialogClass*)ui)->lE_GroupIndex_2->setText(QString::number(m_data->Status.CapDataDisp.GroupIndex));
+	((Ui::QtPLCDialogClass*)ui)->lE_GroupSum->setText(QString::number(m_data->ActData.GroupSum));
+	((Ui::QtPLCDialogClass*)ui)->lE_GroupAvg->setText(QString::number(m_data->Status.CapDataDisp.GroupAvg));
+	((Ui::QtPLCDialogClass*)ui)->lE_GroupMax->setText(QString::number(m_data->Status.CapDataDisp.GroupMax));
+	((Ui::QtPLCDialogClass*)ui)->lE_GroupMin->setText(QString::number(m_data->Status.CapDataDisp.GroupMin));
+	((Ui::QtPLCDialogClass*)ui)->lE_GroupMaxRatio->setText(QString::number(m_data->Status.CapDataDisp.GroupMaxRatio));
+	((Ui::QtPLCDialogClass*)ui)->lE_GroupMinRatio->setText(QString::number(m_data->Status.CapDataDisp.GroupMinRatio));
+
+	if (((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->isChecked())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_GroupNo->setText(QString::number(m_data->ActData.GroupNo));
+		if (m_data->ActData.GroupSum!=0)
+		{
+			if (m_data->ActData.GroupSum != sumNo)
+			{
+				sumNo = m_data->ActData.GroupSum - sumNo;
+				if (m_row==0)
+				{
+					mi = sumNo;
+					ma = sumNo;
+				}
+				else
+				{
+					if (mi>sumNo)
+					{
+						mi = sumNo;
+					}
+					if (ma<sumNo)
+					{
+						ma = sumNo;
+					}
+				}
+
+				data_One << sumNo;
+
+				((Ui::QtPLCDialogClass*)ui)->tableWidget->insertRow(0);
+				((Ui::QtPLCDialogClass*)ui)->tableWidget->setVerticalHeaderItem(0, new QTableWidgetItem(QString::number(++m_row)));
+				((Ui::QtPLCDialogClass*)ui)->tableWidget->setItem(0, 0, new QTableWidgetItem(QString::number(sumNo)));
+				((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->setFlags(((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->flags() & (~Qt::ItemIsEditable));
+				//((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->setFlags(((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->flags() & (~Qt::ItemIsSelectable));
+				sumNo = m_data->ActData.GroupSum;
+
+
+					if (data_One.size() < 7)
+					{
+						axisx->setTickCount(data_One.size() + 2);
+					}
+					else
+					{
+						axisx->setTickCount(9);
+					}
+					axisx->setRange(0, data_One.size() + 1);
+
+					axisy->setTickCount(9);
+					if (mi == ma)
+					{
+						axisy->setRange(0, 1);
+					}
+					else
+					{
+						axisy->setRange(mi, ma);
+					}
+
+					if (isVisible()) {
+						splineSeries->clear();
+						int dx = 1;// maxX / (maxSize - 1);
+						for (int i = 0; i < data_One.size(); i++) {
+							splineSeries->append((i + 1)*dx, data_One.at(i));
+							//scatterSeries->append(i*dx, data.at(i));
+						}
+					}
+			}
+		}
+		else
+		{
+			m_row = 0;
+			sumNo = m_data->ActData.GroupSum;
+			data_One.clear();
+		}
+		if (m_data->Status.Finished==1)
+		{
+			if (data_One.size() > 0)
+			{
+				QString str = "";
+				for (int i = 0; i < data_One.size(); i++)
+				{
+					if (i + 1 < data_One.size())
+					{
+						str += QString::number(data_One.at(i)) + ",";
+					}
+					else
+					{
+						str += QString::number(data_One.at(i));
+					}
+				}
+				QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
+				configIniRead.setValue("data/" + YearMonthDay(), str);//写当前模板  此处/不可以换为两个\
+				data_One.clear();
+			}
+		}
 	}
+
 
 	if (!((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->hasFocus())//0:每组去皮重,1:每次称重去皮重
 	{
@@ -730,7 +887,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 	//float l = m_data->Status.CapDataDisp.GroupMin;
 	if (m_data->Status.GroupIndex==0)
 	{
-		data_One.clear(); 
+		//data_One.clear(); 
 		dataToDraw.clear();
 	}
 	if (m_data->Status.GroupIndex == 1)
@@ -742,7 +899,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		if (m_data->Status.Weight > 0)
 		{
-			data_One << m_data->Status.Weight;
+			//data_One << m_data->Status.Weight;
 			dataToDraw << m_data->Status.Weight;//for draw picture CLASS
 
 			if (m_fMax< m_data->Status.Weight)
@@ -753,7 +910,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 			{
 				m_fMin = m_data->Status.Weight;
 			}
-			emit TODATACURVE(i, m_data->Status.Weight,m_fMax, m_fMin, data_One);
+			//emit TODATACURVE(i, m_data->Status.Weight,m_fMax, m_fMin, data_One);
 		}
 	}
 	if (m_data->Status.Finished==1)
@@ -791,7 +948,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 	((Ui::QtPLCDialogClass*)ui)->lE_TimeInterval->setText(QString::number(m_data->Status.TimeInterval, 'f', 2));			//测量实际间隔时间
 	((Ui::QtPLCDialogClass*)ui)->lE_AlarmStatus->setText(QString::number(m_data->Status.AlarmStatus));
 	char *str1 = (char*)(m_data->Status.Alarm);
-	((Ui::QtPLCDialogClass*)ui)->lE_Alarm16->setText(QString(QLatin1String(str1)));
+//	((Ui::QtPLCDialogClass*)ui)->lE_Alarm16->setText(QString(QLatin1String(str1)));
 #pragma endregion
 	//系统参数
 #pragma region para
@@ -1036,7 +1193,27 @@ void QtPLCDialogClass::getPLCData(void* data)
 #pragma endregion
 }//PC显示数据
 #pragma endregion
-
+QString QtPLCDialogClass::YearMonthDay()
+{
+	QString strTime;
+	QDateTime current_time = QDateTime::currentDateTime();
+	QString logYear = QString::number(current_time.date().year());
+	logYear = logYear.length() < 4 ? ("0" + logYear) : logYear;
+	QString logMonth = QString::number(current_time.date().month());
+	logMonth = logMonth.length() < 2 ? ("0" + logMonth) : logMonth;
+	QString logDay = QString::number(current_time.date().day());
+	logDay = logDay.length() < 2 ? ("0" + logDay) : logDay;
+	QString logHour = QString::number(current_time.time().hour());
+	logHour = logHour.length() < 2 ? ("0" + logHour) : logHour;
+	QString logMinute = QString::number(current_time.time().minute());
+	logMinute = logMinute.length() < 2 ? ("0" + logMinute) : logMinute;
+	strTime = logYear + "_" //z=a>b?x:y
+		+ logMonth + "_"
+		+ logDay + "_"
+		+ logHour + "_"
+		+ logMinute;
+	return strTime;
+}
 #pragma region popup window
 
 void QtPLCDialogClass::initDlg()
@@ -1253,14 +1430,14 @@ void QtPLCDialogClass::on_lE_TDemand_editingFinished()///期望重量,单位g
 
 	showWindowOut(QString::fromLocal8Bit("期望重量\n已更改!"));
 }
-void QtPLCDialogClass::on_cB_TireMode_currentIndexChanged(int index)//0:每组去皮重,1:每次称重去皮重
+void QtPLCDialogClass::on_cB_TireMode_currentIndexChanged(int index)
 {
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
 	typ.ActData.TireMode = index;
 	m_socket->Communicate_PLC(&typ, nullptr);
-	showWindowOut(QString::fromLocal8Bit("去皮方式\n已更改!"));
+	showWindowOut(QString::fromLocal8Bit("检测物\n已更改!"));
 }
 
 void QtPLCDialogClass::on_lE_GroupSet_editingFinished()///每组测试胶囊数量
@@ -1299,7 +1476,7 @@ void QtPLCDialogClass::on_lE_FeedOveride_editingFinished()///每组测试胶囊�
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
-	typ.ActData.FeedOveride = ((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->text().toInt();
+	typ.ActData.FeedOveride = ((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->text().toInt()>200?20000: ((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->text().toInt()*100;
 	m_socket->Communicate_PLC(&typ, nullptr);
 	((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->blockSignals(true);
 	((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->clearFocus();
@@ -1939,6 +2116,7 @@ void QtPLCDialogClass::on_pB_SetUp_toggled(bool checked)//设置
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIcon(pix);
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIconSize(QSize(347, 99));
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(false);
+		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setChecked(false);
 	}
 	else
 	{
@@ -1954,19 +2132,21 @@ void QtPLCDialogClass::on_pB_dtDlg_toggled(bool checked)//数据dialog
 {
 	if (checked)
 	{
-		dtCurve->show();
+		//dtCurve->show();
 		QPixmap pix;
 		bool ret = pix.load(AppPath + "/ico/data1.png");
 		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIcon(pix);
 		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIconSize(QSize(170, 140));
+		((Ui::QtPLCDialogClass*)ui)->widget->setVisible(true);
 	}
 	else
 	{
-		dtCurve->hide();
+		//dtCurve->hide();
 		QPixmap pix;
 		bool ret = pix.load(AppPath + "/ico/data2.png");
 		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIcon(pix);
 		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIconSize(QSize(170, 140));
+		((Ui::QtPLCDialogClass*)ui)->widget->setVisible(false);
 	}
 }
 void QtPLCDialogClass::dtClose()
