@@ -1734,24 +1734,31 @@ void QtPLCDialogClass::on_lE_StopSignalDelay_editingFinished()
 
 void QtPLCDialogClass::on_pB_printData_clicked()//数据
 {
-	((Ui::QtPLCDialogClass*)ui)->pB_printData->setEnabled(false);
-	((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(false);
+	//((Ui::QtPLCDialogClass*)ui)->pB_printData->setEnabled(false);
+	//((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(false);
 	int p1 = ((Ui::QtPLCDialogClass*)ui)->lE_print1->text().toInt();
 	int p2 = ((Ui::QtPLCDialogClass*)ui)->lE_print2->text().toInt();
 	((Ui::QtPLCDialogClass*)ui)->lE_print1->setText(QString::number(p1));
 	((Ui::QtPLCDialogClass*)ui)->lE_print2->setText(QString::number(p2));
-	if (p1>p2)
+	if (p1 > p2)
 	{
 		showWindowOut(QString::fromLocal8Bit("无满足条件\n打印数据!"));
 		((Ui::QtPLCDialogClass*)ui)->pB_printData->setEnabled(true);
 		((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(true);
 		return;
 	}
-	else if (p1==p2)
+	else if (p1 + 10 < p2)
+	{
+		showWindowOut(QString::fromLocal8Bit("每次至多打印\n10条数据!"));
+		((Ui::QtPLCDialogClass*)ui)->pB_printData->setEnabled(true);
+		((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(true);
+		return;
+	}
+	else if (p1 == p2)
 	{
 		QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
-		QString str=configIniRead.value("data/" + QString::number(p1), 0).toString();
-		if(str=="0")
+		QString str = configIniRead.value("data/" + QString::number(p1), 0).toString();
+		if (str == "0")
 		{
 			showWindowOut(QString::fromLocal8Bit("无满足条件\n打印数据!"));
 			((Ui::QtPLCDialogClass*)ui)->pB_printData->setEnabled(true);
@@ -1763,7 +1770,83 @@ void QtPLCDialogClass::on_pB_printData_clicked()//数据
 		QVector<QVector<float>> dataToDraw;
 
 		QStringList lst = str.split(",");
-		for (int i=0;i<lst.size();i++)
+		for (int i = 0; i < lst.size(); i++)
+		{
+			float f = lst.at(i).toFloat();
+			data_temp << f;
+			//QMessageBox::about(nullptr, "", QString::number(data_temp.at(i), 'f', 3));
+		}
+		dataToDraw << data_temp;
+		emit TODRAWPICTURE(dataToDraw, 0);
+		return;
+	}
+	else
+	{
+		QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
+		QVector<QVector<float>> dataToDraw;
+		for (int i = p1; i < p2 + 1; i++)
+		{
+			QString str = configIniRead.value("data/" + QString::number(i), 0).toString();
+			QVector<float> data_temp;
+			if (str != "0")
+			{
+				QStringList lst = str.split(",");
+				for (int i = 0; i < lst.size(); i++)
+				{
+					float f = lst.at(i).toFloat();
+					data_temp << f;
+					//QMessageBox::about(nullptr, "", QString::number(data_temp.at(i), 'f', 3));
+				}
+				dataToDraw << data_temp;
+			}
+		}
+
+		if (dataToDraw.size() > 0)
+		{
+			emit TODRAWPICTURE(dataToDraw, 0);
+		}
+
+	}
+}
+void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
+{
+	//((Ui::QtPLCDialogClass*)ui)->pB_printData->setEnabled(false);
+	//((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(false);
+	int p1 = ((Ui::QtPLCDialogClass*)ui)->lE_print1->text().toInt();
+	int p2 = ((Ui::QtPLCDialogClass*)ui)->lE_print2->text().toInt();
+	((Ui::QtPLCDialogClass*)ui)->lE_print1->setText(QString::number(p1));
+	((Ui::QtPLCDialogClass*)ui)->lE_print2->setText(QString::number(p2));
+	if (p1 > p2)
+	{
+		showWindowOut(QString::fromLocal8Bit("无满足条件\n打印数据!"));
+		((Ui::QtPLCDialogClass*)ui)->pB_printData->setEnabled(true);
+		((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(true);
+		return;
+	}
+	else if (p1 + 10 < p2)
+	{
+		showWindowOut(QString::fromLocal8Bit("每次至多打印\n10条数据!"));
+		((Ui::QtPLCDialogClass*)ui)->pB_printData->setEnabled(true);
+		((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(true);
+		return;
+	}
+	else if (p1 == p2)
+	{
+		QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
+		QString str = configIniRead.value("data/" + QString::number(p1), 0).toString();
+		if (str == "0")
+		{
+			showWindowOut(QString::fromLocal8Bit("无满足条件\n打印数据!"));
+			((Ui::QtPLCDialogClass*)ui)->pB_printData->setEnabled(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(true);
+			return;
+		}
+
+		QVector<float> data_temp;
+		QVector<QVector<float>> dataToDraw;
+
+		QStringList lst = str.split(",");
+		for (int i = 0; i < lst.size(); i++)
 		{
 			float f = lst.at(i).toFloat();
 			data_temp << f;
@@ -1775,16 +1858,31 @@ void QtPLCDialogClass::on_pB_printData_clicked()//数据
 	}
 	else
 	{
-		return;
 		QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
-		QString str = configIniRead.value("data/" + QString::number(p1), 0).toString();
-		QVector<QString> qvstr;
-		qvstr.push_back(str);
+		QVector<QVector<float>> dataToDraw;
+		for (int i = p1; i < p2 + 1; i++)
+		{
+			QString str = configIniRead.value("data/" + QString::number(i), 0).toString();
+			QVector<float> data_temp;
+			if (str != "0")
+			{
+				QStringList lst = str.split(",");
+				for (int i = 0; i < lst.size(); i++)
+				{
+					float f = lst.at(i).toFloat();
+					data_temp << f;
+					//QMessageBox::about(nullptr, "", QString::number(data_temp.at(i), 'f', 3));
+				}
+				dataToDraw << data_temp;
+			}
+		}
+
+		if (dataToDraw.size() > 0)
+		{
+			emit TODRAWPICTURE(dataToDraw, 1);
+		}
 
 	}
-}
-void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
-{
 }
 void QtPLCDialogClass::on_pB_Read1_clicked()//读取1
 {

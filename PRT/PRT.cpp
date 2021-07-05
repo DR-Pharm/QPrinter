@@ -433,15 +433,16 @@ void PRT::on_checkBox_2_toggled(bool checked)
 void PRT::on_pB_PrintDirect_clicked()
 {
 	/*直接打印*/
-	writeIni();
 
+	writeIni();
 	if (!caculateCount())return;
+
 	if (QMessageBox::Yes == showMsgBox("打印确认", "确认打印报告?", "确认", "取消"))
 	{
 		m_drawpicture->setData(data, m_iPrintCurveCount, m_iPrintAveCount);
-		wt->show();
+		//wt->show();
 		m_drawpicture->drawPic(m_prt);
-		wt->close();
+		//wt->close();
 	}
 
 }
@@ -466,7 +467,7 @@ void PRT::on_pB_Print_clicked()
 	 * drawPic(QPrinter *printer)是自定义的槽函数，图像的绘制就在这个函数里。
 	 */
 	m_drawpicture->setData(data, m_iPrintCurveCount, m_iPrintAveCount);
-	wt->setTxt(QString::fromLocal8Bit("打印预览功能正在开启..."));//打印正在进行,请稍等...
+	//wt->setTxt(QString::fromLocal8Bit("打印预览功能正在开启..."));//打印正在进行,请稍等...
 	connect(&preview, SIGNAL(paintRequested(QPrinter*)), this, SLOT(toDraw(QPrinter*)));
 	preview.exec();
 }
@@ -489,27 +490,27 @@ void PRT::getVec(QVector<QVector<float>> a,int mode)
 {
 	if (mode==0)//MODE 0:dataAverage,1:curve
 	{
-		on_cB_Curve_toggled(false);
-		on_cB_Average_toggled(true); 
+		ui.cB_Curve->setChecked(false);
+		ui.cB_Average->setChecked(true);
 		m_iDataNum = a.size();
 		//data.resize(1);
-
 		data = a;
 		//data[0] = a;
 
-		on_pB_Print_clicked();
+		on_pB_PrintDirect_clicked();
 		data.clear();
 	}
 	else if (mode == 1)
 	{
-		on_cB_Curve_toggled(true);
-		on_cB_Average_toggled(false);
+		ui.cB_Curve->setChecked(true);
+		ui.cB_Average->setChecked(false);
 		/*m_iDataNum = 1;
 		data.resize(1);*/
 		m_iDataNum = a.size();
-		//data[0] = a;
+
 		data = a;
-		on_pB_Print_clicked();
+		//data[0] = a;
+		on_pB_PrintDirect_clicked();
 		data.clear();
 	}
 	/*else if (mode == 2)
