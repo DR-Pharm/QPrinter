@@ -66,7 +66,7 @@ void PRT::initPLC()
 	b = connect(dlg, SIGNAL(SHOWPRT(bool)), this, SLOT(showPrt(bool)));
 
 	b = connect(dlg, SIGNAL(CLOSESIGNAL()), this, SLOT(on_ToClose()));
-	b = connect(dlg, SIGNAL(TODRAWPICTURE(QVector<float>,int)), this, SLOT(getVec(QVector<float>,int)));
+	b = connect(dlg, SIGNAL(TODRAWPICTURE(QVector<QVector<float>>,int)), this, SLOT(getVec(QVector<QVector<float>>,int)));
 	dlg->setParent(ui.widget);
 	dlg->move(0, 0);
 	b = connect(this, SIGNAL(MINI()), m_pPlclib, SLOT(setWinMini()));
@@ -192,14 +192,14 @@ void PRT::judgeLabelText(int index)
 }
 void PRT::writeIni()
 {
-	num1_Le = ui.lineEdit->text().toInt();
-	num2_Le_2 = ui.lineEdit_2->text().toInt();
+	num1_Le = 10;// ui.lineEdit->text().toInt();
+	num2_Le_2 = 10;// ui.lineEdit_2->text().toInt();
 
-	ui.lineEdit->setText(QString::number(num1_Le));
+	/*ui.lineEdit->setText(QString::number(num1_Le));
 	ui.lineEdit_2->setText(QString::number(num2_Le_2));
 
 	RWini->setValue("ProgramSetting/PrintCurveCount", QString::number(num1_Le));
-	RWini->setValue("ProgramSetting/PrintAveCount", QString::number(num2_Le_2));
+	RWini->setValue("ProgramSetting/PrintAveCount", QString::number(num2_Le_2));*/
 }
 #pragma endregion
 
@@ -485,33 +485,34 @@ void PRT::on_ToClose()
 				}
 }
 
-void PRT::getVec(QVector<float> a,int mode)
+void PRT::getVec(QVector<QVector<float>> a,int mode)
 {
-	if (mode==0)//MODE 0:one curve,1:one dataAverage,2:two curve,3:two dataAverage
+	if (mode==0)//MODE 0:dataAverage,1:curve
 	{
-		on_cB_Curve_toggled(true);
-		on_cB_Average_toggled(false); 
-		m_iDataNum = 1;
-		data.resize(1);
+		on_cB_Curve_toggled(false);
+		on_cB_Average_toggled(true); 
+		m_iDataNum = a.size();
+		//data.resize(1);
 
-		data[0] = a;
+		data = a;
+		//data[0] = a;
 
 		on_pB_Print_clicked();
 		data.clear();
 	}
 	else if (mode == 1)
 	{
-		on_cB_Curve_toggled(false);
-		on_cB_Average_toggled(true);
-		m_iDataNum = 1;
-		data.resize(1);
-
-		data[0] = a;
-
+		on_cB_Curve_toggled(true);
+		on_cB_Average_toggled(false);
+		/*m_iDataNum = 1;
+		data.resize(1);*/
+		m_iDataNum = a.size();
+		//data[0] = a;
+		data = a;
 		on_pB_Print_clicked();
 		data.clear();
 	}
-	else if (mode == 2)
+	/*else if (mode == 2)
 	{
 		on_cB_Curve_toggled(true);
 		on_cB_Average_toggled(false);
@@ -541,7 +542,7 @@ void PRT::getVec(QVector<float> a,int mode)
 			m_iCurrentGetDataNo = 0;
 			data.clear();
 		}
-	}
+	}*/
 	
 }
 #pragma endregion

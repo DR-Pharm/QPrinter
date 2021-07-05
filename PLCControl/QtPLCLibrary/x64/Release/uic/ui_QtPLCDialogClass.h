@@ -2452,7 +2452,7 @@ public:
         gridLayout_One->setContentsMargins(0, 0, 0, 0);
         groupBox_11 = new QGroupBox(widget);
         groupBox_11->setObjectName(QString::fromUtf8("groupBox_11"));
-        groupBox_11->setGeometry(QRect(136, 90, 701, 71));
+        groupBox_11->setGeometry(QRect(136, 90, 701, 81));
         groupBox_11->setFont(font14);
         horizontalLayout_2 = new QHBoxLayout(groupBox_11);
         horizontalLayout_2->setSpacing(6);
@@ -2486,12 +2486,16 @@ public:
 
         pB_printData = new QPushButton(groupBox_11);
         pB_printData->setObjectName(QString::fromUtf8("pB_printData"));
+        pB_printData->setMinimumSize(QSize(0, 40));
+        pB_printData->setMaximumSize(QSize(16777215, 40));
         pB_printData->setFont(font14);
 
         horizontalLayout_2->addWidget(pB_printData);
 
         pB_printCurve = new QPushButton(groupBox_11);
         pB_printCurve->setObjectName(QString::fromUtf8("pB_printCurve"));
+        pB_printCurve->setMinimumSize(QSize(0, 40));
+        pB_printCurve->setMaximumSize(QSize(16777215, 40));
         pB_printCurve->setFont(font14);
 
         horizontalLayout_2->addWidget(pB_printCurve);

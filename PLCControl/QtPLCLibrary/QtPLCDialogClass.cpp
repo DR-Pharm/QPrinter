@@ -881,65 +881,6 @@ void QtPLCDialogClass::getPLCData(void* data)
 	((Ui::QtPLCDialogClass*)ui)->lE_ScaleResult->setText(QString::number(m_data->Status.ScaleResult, 'f', 3));//天平当前读数，单位g
 	((Ui::QtPLCDialogClass*)ui)->cB_ScaleStableState->setCurrentIndex(m_data->Status.ScaleStableState);//天平当前稳定状态,0:非常稳定,1:稳定,2:不稳定,3:非常不稳定
 
-	//Group Data
-
-	int i = m_data->Status.GroupIndex;
-	int j = data_One.size();
-	//float k = m_data->Status.CapDataDisp.GroupMax;
-	//float l = m_data->Status.CapDataDisp.GroupMin;
-	if (m_data->Status.GroupIndex==0)
-	{
-		//data_One.clear(); 
-		dataToDraw.clear();
-	}
-	if (m_data->Status.GroupIndex == 1)
-	{
-		m_fMax = m_data->Status.Weight;
-		m_fMin = m_data->Status.Weight;
-	}
-	if ((m_data->Status.GroupIndex > 0) && (i-1 == j))//有数据进来
-	{
-		if (m_data->Status.Weight > 0)
-		{
-			//data_One << m_data->Status.Weight;
-			dataToDraw << m_data->Status.Weight;//for draw picture CLASS
-
-			if (m_fMax< m_data->Status.Weight)
-			{
-				m_fMax = m_data->Status.Weight;
-			}
-			if (m_fMin > m_data->Status.Weight)
-			{
-				m_fMin = m_data->Status.Weight;
-			}
-			//emit TODATACURVE(i, m_data->Status.Weight,m_fMax, m_fMin, data_One);
-		}
-	}
-	if (m_data->Status.Finished==1)
-	{
-		m_fMax = 0;
-		m_fMin = 0;
-		if (dataToDraw.size()>0)
-		{
-			/*if (0)
-			{
-				emit TODRAWPICTURE(dataToDraw, 0);//MODE 0:one curve,1:one dataAverage,2:two curve,3:two dataAverage
-			}
-			else if (1)
-			{
-				emit TODRAWPICTURE(dataToDraw, 1);
-			}
-			else if (2)
-			{
-				emit TODRAWPICTURE(dataToDraw, 2);
-			}
-			else if (3)*/
-			{
-				emit TODRAWPICTURE(dataToDraw, 2);
-			}
-			dataToDraw.clear();
-		}
-	}
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedStep->setText(QString::number(m_data->Status.AxisFeedStep));			//下料电机状态机步骤
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedErrorNo->setText(QString::number(m_data->Status.AxisFeedErrorNo));		//下料电机错误代码
 	//((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedRelMovDistance->setText(QString::number(m_data->Status.AxisFeedRelMovDistance));	//下料电机相对运动距离，单位unit
@@ -1805,6 +1746,41 @@ void QtPLCDialogClass::on_pB_printData_clicked()//数据
 		((Ui::QtPLCDialogClass*)ui)->pB_printData->setEnabled(true);
 		((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(true);
 		return;
+	}
+	else if (p1==p2)
+	{
+		QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
+		QString str=configIniRead.value("data/" + QString::number(p1), 0).toString();
+		if(str=="0")
+		{
+			showWindowOut(QString::fromLocal8Bit("无满足条件\n打印数据!"));
+			((Ui::QtPLCDialogClass*)ui)->pB_printData->setEnabled(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(true);
+			return;
+		}
+
+		QVector<float> data_temp;
+		QVector<QVector<float>> dataToDraw;
+
+		QStringList lst = str.split(",");
+		for (int i=0;i<lst.size();i++)
+		{
+			float f = lst.at(i).toFloat();
+			data_temp << f;
+			//QMessageBox::about(nullptr, "", QString::number(data_temp.at(i), 'f', 3));
+		}
+		dataToDraw << data_temp;
+		emit TODRAWPICTURE(dataToDraw, 1);
+		return;
+	}
+	else
+	{
+		return;
+		QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
+		QString str = configIniRead.value("data/" + QString::number(p1), 0).toString();
+		QVector<QString> qvstr;
+		qvstr.push_back(str);
+
 	}
 }
 void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线

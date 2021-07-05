@@ -33,7 +33,7 @@ signals:
 	void GETSTRING(QString);
 	void SHOWPRT(bool);
 	void TODATACURVE(int,float, float, float, QList<qreal>);
-	void TODRAWPICTURE(QVector<float>,int);//MODE 0:one curve,1:one dataAverage,2:two curve,3:two dataAverage
+	void TODRAWPICTURE(QVector<QVector<float>>,int);//MODE 0:one curve,1:one dataAverage,2:two curve,3:two dataAverage
 
 public:
 	QtPLCDialogClass(QDialog *parent = Q_NULLPTR);
@@ -88,8 +88,6 @@ private:
 	QString g_QSUserName;
 	int g_IUserLevel;
 
-	float m_fMax = 0;
-	float m_fMin = 0;
 	keyBoard *key=nullptr;
 	void* ui;
 	DataCurve *dtCurve;
@@ -110,8 +108,7 @@ private:
 
 	QLabel *lb_dataNow;
 
-	QList<float> data_One;
-	QVector<float> dataToDraw;
+	QVector<float> data_One;
 	//µ¯ÌøÌØÐ§
 	QPropertyAnimation * animation1 = nullptr;
 	QPropertyAnimation * animation2 = nullptr;

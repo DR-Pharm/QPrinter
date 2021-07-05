@@ -5329,7 +5329,7 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
       <x>136</x>
       <y>90</y>
       <width>701</width>
-      <height>71</height>
+      <height>81</height>
      </rect>
     </property>
     <property name="font">
@@ -5396,6 +5396,18 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
      </item>
      <item>
       <widget class="QPushButton" name="pB_printData">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>40</height>
+        </size>
+       </property>
        <property name="font">
         <font>
          <family>幼圆</family>
@@ -5409,6 +5421,18 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
      </item>
      <item>
       <widget class="QPushButton" name="pB_printCurve">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>40</height>
+        </size>
+       </property>
        <property name="font">
         <font>
          <family>幼圆</family>
