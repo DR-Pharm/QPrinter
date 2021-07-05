@@ -66,7 +66,7 @@ void PRT::initPLC()
 	b = connect(dlg, SIGNAL(SHOWPRT(bool)), this, SLOT(showPrt(bool)));
 
 	b = connect(dlg, SIGNAL(CLOSESIGNAL()), this, SLOT(on_ToClose()));
-	b = connect(dlg, SIGNAL(TODRAWPICTURE(QVector<QVector<float>>,int)), this, SLOT(getVec(QVector<QVector<float>>,int)));
+	b = connect(dlg, SIGNAL(TODRAWPICTURE(QVector<QVector<float>>, QVector<QString>,int)), this, SLOT(getVec(QVector<QVector<float>>, QVector<QString>,int)));
 	dlg->setParent(ui.widget);
 	dlg->move(0, 0);
 	b = connect(this, SIGNAL(MINI()), m_pPlclib, SLOT(setWinMini()));
@@ -439,7 +439,7 @@ void PRT::on_pB_PrintDirect_clicked()
 
 	if (QMessageBox::Yes == showMsgBox("打印确认", "确认打印报告?", "确认", "取消"))
 	{
-		m_drawpicture->setData(data, m_iPrintCurveCount, m_iPrintAveCount);
+		m_drawpicture->setData(data,gn, m_iPrintCurveCount, m_iPrintAveCount);
 		//wt->show();
 		m_drawpicture->drawPic(m_prt);
 		//wt->close();
@@ -466,7 +466,7 @@ void PRT::on_pB_Print_clicked()
 	 * 当preview.exec()执行时该信号被触发，
 	 * drawPic(QPrinter *printer)是自定义的槽函数，图像的绘制就在这个函数里。
 	 */
-	m_drawpicture->setData(data, m_iPrintCurveCount, m_iPrintAveCount);
+	m_drawpicture->setData(data,gn, m_iPrintCurveCount, m_iPrintAveCount);
 	//wt->setTxt(QString::fromLocal8Bit("打印预览功能正在开启..."));//打印正在进行,请稍等...
 	connect(&preview, SIGNAL(paintRequested(QPrinter*)), this, SLOT(toDraw(QPrinter*)));
 	preview.exec();
@@ -486,11 +486,11 @@ void PRT::on_ToClose()
 				}
 }
 
-void PRT::getVec(QVector<QVector<float>> a,int mode)
+void PRT::getVec(QVector<QVector<float>> a, QVector<QString> GN,int mode)
 {
 	if (mode==0)//MODE 0:dataAverage,1:curve
 	{
-		ui.cB_Curve->setChecked(false);
+		/*ui.cB_Curve->setChecked(false);
 		ui.cB_Average->setChecked(true);
 		m_iDataNum = a.size();
 		//data.resize(1);
@@ -498,7 +498,7 @@ void PRT::getVec(QVector<QVector<float>> a,int mode)
 		//data[0] = a;
 
 		on_pB_PrintDirect_clicked();
-		data.clear();
+		data.clear();*/
 	}
 	else if (mode == 1)
 	{
@@ -509,9 +509,11 @@ void PRT::getVec(QVector<QVector<float>> a,int mode)
 		m_iDataNum = a.size();
 
 		data = a;
+		gn = GN;
 		//data[0] = a;
 		on_pB_PrintDirect_clicked();
 		data.clear();
+		gn.clear();
 	}
 	/*else if (mode == 2)
 	{

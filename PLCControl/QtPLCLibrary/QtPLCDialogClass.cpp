@@ -18,12 +18,12 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	frmHeight = this->height();
 	// 靠上居中显示
 	movePoint = QPoint(deskWidth / 2 - frmWidth / 2, 0);
-
-
 	key = new keyBoard();
 
 	ui = new Ui::QtPLCDialogClass();
+
 	((Ui::QtPLCDialogClass*)ui)->setupUi(this);
+	((Ui::QtPLCDialogClass*)ui)->pB_printData->setVisible(false);
 	((Ui::QtPLCDialogClass*)ui)->frame->move(0, 0);
 	initFont();
 	initDlg();
@@ -1734,84 +1734,7 @@ void QtPLCDialogClass::on_lE_StopSignalDelay_editingFinished()
 
 void QtPLCDialogClass::on_pB_printData_clicked()//数据
 {
-	//((Ui::QtPLCDialogClass*)ui)->pB_printData->setEnabled(false);
-	//((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(false);
-	int p1 = ((Ui::QtPLCDialogClass*)ui)->lE_print1->text().toInt();
-	int p2 = ((Ui::QtPLCDialogClass*)ui)->lE_print2->text().toInt();
-	((Ui::QtPLCDialogClass*)ui)->lE_print1->setText(QString::number(p1));
-	((Ui::QtPLCDialogClass*)ui)->lE_print2->setText(QString::number(p2));
-	if (p1 > p2)
-	{
-		showWindowOut(QString::fromLocal8Bit("无满足条件\n打印数据!"));
-		((Ui::QtPLCDialogClass*)ui)->pB_printData->setEnabled(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(true);
-		return;
-	}
-	else if (p1 + 10 < p2)
-	{
-		showWindowOut(QString::fromLocal8Bit("每次至多打印\n10条数据!"));
-		((Ui::QtPLCDialogClass*)ui)->pB_printData->setEnabled(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(true);
-		return;
-	}
-	else if (p1 == p2)
-	{
-		QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
-		QString str = configIniRead.value(QString::number(p1)+"/data", 0).toString();
-		if (str == "0")
-		{
-			showWindowOut(QString::fromLocal8Bit("无满足条件\n打印数据!"));
-			((Ui::QtPLCDialogClass*)ui)->pB_printData->setEnabled(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(true);
-			return;
-		}
 
-		QVector<float> data_temp;
-		QVector<QVector<float>> dataToDraw;
-
-		QStringList lst = str.split(",");
-		for (int i = 0; i < lst.size(); i++)
-		{
-			float f = lst.at(i).toFloat();
-			data_temp << f;
-			//QMessageBox::about(nullptr, "", QString::number(data_temp.at(i), 'f', 3));
-		}
-		dataToDraw << data_temp;
-		emit TODRAWPICTURE(dataToDraw, 0);
-		return;
-	}
-	else
-	{
-		QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
-		QVector<QVector<float>> dataToDraw;
-		for (int i = p1; i < p2 + 1; i++)
-		{
-			QString str = configIniRead.value(QString::number(i) + "/data", 0).toString();
-			QVector<float> data_temp;
-			if (str != "0")
-			{
-				QStringList lst = str.split(",");
-				for (int i = 0; i < lst.size(); i++)
-				{
-					float f = lst.at(i).toFloat();
-					data_temp << f;
-					//QMessageBox::about(nullptr, "", QString::number(data_temp.at(i), 'f', 3));
-				}
-				dataToDraw << data_temp;
-			}
-		}
-
-		if (dataToDraw.size() > 0)
-		{
-			emit TODRAWPICTURE(dataToDraw, 0);
-		}
-		else
-		{
-			showWindowOut(QString::fromLocal8Bit("无打印数据!"));
-			return;
-		}
-
-	}
 }
 void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 {
@@ -1857,14 +1780,17 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 			data_temp << f;
 			//QMessageBox::about(nullptr, "", QString::number(data_temp.at(i), 'f', 3));
 		}
+		QVector<QString> GroupNumber;
+		GroupNumber << QString::number(p1);
 		dataToDraw << data_temp;
-		emit TODRAWPICTURE(dataToDraw, 1);
+		emit TODRAWPICTURE(dataToDraw, GroupNumber, 1);
 		return;
 	}
 	else
 	{
 		QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
 		QVector<QVector<float>> dataToDraw;
+		QVector<QString> GroupNumber;
 		for (int i = p1; i < p2 + 1; i++)
 		{
 			QString str = configIniRead.value(QString::number(i)+"/data" , 0).toString();
@@ -1878,14 +1804,16 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 					data_temp << f;
 					//QMessageBox::about(nullptr, "", QString::number(data_temp.at(i), 'f', 3));
 				}
+				GroupNumber << QString::number(i);
 				dataToDraw << data_temp;
 			}
 		}
 
 		if (dataToDraw.size() > 0)
 		{
-			emit TODRAWPICTURE(dataToDraw, 1);
+			emit TODRAWPICTURE(dataToDraw, GroupNumber,1);
 		}
+		
 		else
 		{
 			showWindowOut(QString::fromLocal8Bit("无打印数据!"));

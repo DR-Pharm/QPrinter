@@ -23,6 +23,7 @@ private:
 	QPainter painterPixmap;
 
 	QVector<QVector<float>>data;
+	QVector<QString> m_gn;
 	QVector<float> data_One[2];
 	double m_dmax[2];
 	double m_dmin[2];
@@ -47,7 +48,7 @@ public:
 
 	void setCurveChecked(bool);
 	void setAveChecked(bool);
-	void setData(QVector<QVector<float>> sourcedata, int i, int j);
+	void setData(QVector<QVector<float>> sourcedata, QVector<QString>, int i, int j);
 public slots:
 	void drawPic(QPrinter * pt);
 

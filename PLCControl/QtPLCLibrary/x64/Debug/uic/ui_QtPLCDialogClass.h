@@ -2710,8 +2710,8 @@ public:
         groupBox_11->setTitle(QCoreApplication::translate("QtPLCDialogClass", "\346\211\223\345\215\260", nullptr));
         label_35->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\273\204\345\217\267\357\274\232", nullptr));
         label_23->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\207\263", nullptr));
-        pB_printData->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\211\223\345\215\260\346\225\260\346\215\256", nullptr));
-        pB_printCurve->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\211\223\345\215\260\346\233\262\347\272\277", nullptr));
+        pB_printData->setText(QString());
+        pB_printCurve->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\211\223\345\215\260\346\225\260\346\215\256\346\233\262\347\272\277", nullptr));
     } // retranslateUi
 
 };

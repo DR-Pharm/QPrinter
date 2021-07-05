@@ -5415,7 +5415,7 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
         </font>
        </property>
        <property name="text">
-        <string>打印数据</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -5440,7 +5440,7 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
         </font>
        </property>
        <property name="text">
-        <string>打印曲线</string>
+        <string>打印数据曲线</string>
        </property>
       </widget>
      </item>
