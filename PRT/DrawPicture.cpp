@@ -93,11 +93,11 @@ void DrawPicture::drawPic(QPrinter *printer)
 			int tempInt = data.size() - m_iPrintCurveCount + pageValue * 2 + 1;
 			if (tempInt == data.size())
 			{
-				caculateData(data, data.size() - m_iPrintCurveCount + pageValue * 2, 1);
+				caculateData(data,m_gn, data.size() - m_iPrintCurveCount + pageValue * 2, 1);
 			}
 			else
 			{
-				caculateData(data, data.size() - m_iPrintCurveCount + pageValue * 2, 2);
+				caculateData(data, m_gn, data.size() - m_iPrintCurveCount + pageValue * 2, 2);
 			}
 			if (CurveChecked)
 			{
@@ -153,11 +153,11 @@ void DrawPicture::drawPic(QPrinter *printer)
 				}
 				else if (tempInt == data.size())
 				{
-					caculateData(data, data.size() - m_iPrintAveCount + tempRow * 2, 1);
+					caculateData(data, m_gn,data.size() - m_iPrintAveCount + tempRow * 2, 1);
 				}
 				else
 				{
-					caculateData(data, data.size() - m_iPrintAveCount + tempRow * 2, 2);
+					caculateData(data, m_gn, data.size() - m_iPrintAveCount + tempRow * 2, 2);
 				}
 
 				if (AveChecked)
@@ -420,7 +420,7 @@ void DrawPicture::createPixCurve(QPixmap *pix)
 		painter->drawText(edgeOffset, edgeOffset + simpleFun, 250, 70, Qt::AlignCenter, QString::fromLocal8Bit("设备型号"));
 		painter->drawText(edgeOffset + 275, edgeOffset + simpleFun, innerW * 1.0 / 2 - 250, 70, Qt::AlignVCenter, m_sName);
 		painter->drawText(edgeOffset + innerW * 1.0 / 3 * 2, edgeOffset + simpleFun, 250, 70, Qt::AlignCenter, QString::fromLocal8Bit("组号"));
-		painter->drawText(edgeOffset + innerW * 1.0 / 3 * 2 + 275, edgeOffset + simpleFun, edgeOffset + innerW * 1.0 / 3 * 2 - 250, 70, Qt::AlignVCenter, QString::number(machnum) + QString::fromLocal8Bit("#"));
+		painter->drawText(edgeOffset + innerW * 1.0 / 3 * 2 + 275, edgeOffset + simpleFun, edgeOffset + innerW * 1.0 / 3 * 2 - 250, 70, Qt::AlignVCenter, gn_One[totalMachineCount]);
 		//第二部分
 
 		painter->drawText(edgeOffset, firstLine + simpleFun, 250, 60, Qt::AlignCenter, QString::fromLocal8Bit("产品名称"));// +ui->lE_means->text());
@@ -581,7 +581,7 @@ void DrawPicture::createPixAverage(QPixmap *pix)
 	}
 }
 
-void DrawPicture::caculateData(QVector<QVector<float>> transData, int ivalue, int half)//0 1 2
+void DrawPicture::caculateData(QVector<QVector<float>> transData,QVector<QString> gn, int ivalue, int half)//0 1 2
 {
 
 	data_One[0].resize(0);
@@ -592,11 +592,14 @@ void DrawPicture::caculateData(QVector<QVector<float>> transData, int ivalue, in
 	else if (half == 1)
 	{
 		data_One[0] = transData[ivalue];
+		gn_One[0] = gn[ivalue];
 	}
 	else
 	{
 		data_One[0] = transData[ivalue];
 		data_One[1] = transData[ivalue + 1];
+		gn_One[0] = gn[ivalue];
+		gn_One[1] = gn[ivalue + 1];
 	}
 	for (int i = 0; i < 2; i++)
 	{

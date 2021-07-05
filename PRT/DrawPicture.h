@@ -25,6 +25,7 @@ private:
 	QVector<QVector<float>>data;
 	QVector<QString> m_gn;
 	QVector<float> data_One[2];
+	QString gn_One[2];
 	double m_dmax[2];
 	double m_dmin[2];
 	double m_dsum[2];
@@ -44,7 +45,7 @@ public:
 	~DrawPicture();
 	void createPixCurve(QPixmap * pix);
 	void createPixAverage(QPixmap * pix);
-	void caculateData(QVector<QVector<float>> transData, int ivalue, int half);
+	void caculateData(QVector<QVector<float>> transData,QVector<QString>, int ivalue, int half);
 
 	void setCurveChecked(bool);
 	void setAveChecked(bool);
