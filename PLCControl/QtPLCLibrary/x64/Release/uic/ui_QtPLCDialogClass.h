@@ -337,6 +337,14 @@ public:
     QTableWidget *tableWidget;
     QWidget *gridLayoutWidget;
     QGridLayout *gridLayout_One;
+    QGroupBox *groupBox_11;
+    QHBoxLayout *horizontalLayout_2;
+    QLabel *label_35;
+    QLineEdit *lE_print1;
+    QLabel *label_23;
+    QLineEdit *lE_print2;
+    QPushButton *pB_printData;
+    QPushButton *pB_printCurve;
 
     void setupUi(QDialog *QtPLCDialogClass)
     {
@@ -2306,7 +2314,7 @@ public:
         widget->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
         layoutWidget_3 = new QWidget(widget);
         layoutWidget_3->setObjectName(QString::fromUtf8("layoutWidget_3"));
-        layoutWidget_3->setGeometry(QRect(130, 10, 711, 141));
+        layoutWidget_3->setGeometry(QRect(130, 10, 711, 71));
         gridLayout_13 = new QGridLayout(layoutWidget_3);
         gridLayout_13->setSpacing(6);
         gridLayout_13->setContentsMargins(11, 11, 11, 11);
@@ -2315,33 +2323,42 @@ public:
         lE_GroupMax = new QLineEdit(layoutWidget_3);
         lE_GroupMax->setObjectName(QString::fromUtf8("lE_GroupMax"));
         lE_GroupMax->setEnabled(false);
+        QFont font14;
+        font14.setFamily(QString::fromUtf8("\345\271\274\345\234\206"));
+        font14.setPointSize(12);
+        lE_GroupMax->setFont(font14);
 
         gridLayout_13->addWidget(lE_GroupMax, 1, 1, 1, 1);
 
         lE_GroupMinRatio = new QLineEdit(layoutWidget_3);
         lE_GroupMinRatio->setObjectName(QString::fromUtf8("lE_GroupMinRatio"));
         lE_GroupMinRatio->setEnabled(false);
+        lE_GroupMinRatio->setFont(font14);
 
         gridLayout_13->addWidget(lE_GroupMinRatio, 1, 10, 1, 1);
 
         label_8 = new QLabel(layoutWidget_3);
         label_8->setObjectName(QString::fromUtf8("label_8"));
+        label_8->setFont(font14);
 
         gridLayout_13->addWidget(label_8, 1, 6, 1, 1);
 
         label_29 = new QLabel(layoutWidget_3);
         label_29->setObjectName(QString::fromUtf8("label_29"));
+        label_29->setFont(font14);
 
         gridLayout_13->addWidget(label_29, 1, 9, 1, 1);
 
         label_6 = new QLabel(layoutWidget_3);
         label_6->setObjectName(QString::fromUtf8("label_6"));
+        label_6->setFont(font14);
 
         gridLayout_13->addWidget(label_6, 1, 0, 1, 1);
 
         lE_GroupMin = new QLineEdit(layoutWidget_3);
         lE_GroupMin->setObjectName(QString::fromUtf8("lE_GroupMin"));
         lE_GroupMin->setEnabled(false);
+        lE_GroupMin->setFont(font14);
 
         gridLayout_13->addWidget(lE_GroupMin, 1, 7, 1, 1);
 
@@ -2359,56 +2376,66 @@ public:
 
         label_34 = new QLabel(layoutWidget_3);
         label_34->setObjectName(QString::fromUtf8("label_34"));
+        label_34->setFont(font14);
 
         gridLayout_13->addWidget(label_34, 1, 3, 1, 1);
 
         lE_GroupMaxRatio = new QLineEdit(layoutWidget_3);
         lE_GroupMaxRatio->setObjectName(QString::fromUtf8("lE_GroupMaxRatio"));
         lE_GroupMaxRatio->setEnabled(false);
+        lE_GroupMaxRatio->setFont(font14);
 
         gridLayout_13->addWidget(lE_GroupMaxRatio, 1, 4, 1, 1);
 
         lE_GroupAvg = new QLineEdit(layoutWidget_3);
         lE_GroupAvg->setObjectName(QString::fromUtf8("lE_GroupAvg"));
         lE_GroupAvg->setEnabled(false);
+        lE_GroupAvg->setFont(font14);
 
         gridLayout_13->addWidget(lE_GroupAvg, 0, 10, 1, 1);
 
         label_7 = new QLabel(layoutWidget_3);
         label_7->setObjectName(QString::fromUtf8("label_7"));
+        label_7->setFont(font14);
 
         gridLayout_13->addWidget(label_7, 0, 9, 1, 1);
 
         lE_GroupSum = new QLineEdit(layoutWidget_3);
         lE_GroupSum->setObjectName(QString::fromUtf8("lE_GroupSum"));
         lE_GroupSum->setEnabled(false);
+        lE_GroupSum->setFont(font14);
 
         gridLayout_13->addWidget(lE_GroupSum, 0, 7, 1, 1);
 
         label_3 = new QLabel(layoutWidget_3);
         label_3->setObjectName(QString::fromUtf8("label_3"));
+        label_3->setFont(font14);
 
         gridLayout_13->addWidget(label_3, 0, 6, 1, 1);
 
         lE_GroupIndex_2 = new QLineEdit(layoutWidget_3);
         lE_GroupIndex_2->setObjectName(QString::fromUtf8("lE_GroupIndex_2"));
         lE_GroupIndex_2->setEnabled(false);
+        lE_GroupIndex_2->setFont(font14);
 
         gridLayout_13->addWidget(lE_GroupIndex_2, 0, 4, 1, 1);
 
         label = new QLabel(layoutWidget_3);
         label->setObjectName(QString::fromUtf8("label"));
+        label->setFont(font14);
 
         gridLayout_13->addWidget(label, 0, 3, 1, 1);
 
         lE_GroupNo_2 = new QLineEdit(layoutWidget_3);
         lE_GroupNo_2->setObjectName(QString::fromUtf8("lE_GroupNo_2"));
         lE_GroupNo_2->setEnabled(false);
+        lE_GroupNo_2->setFont(font14);
 
         gridLayout_13->addWidget(lE_GroupNo_2, 0, 1, 1, 1);
 
         label_9 = new QLabel(layoutWidget_3);
         label_9->setObjectName(QString::fromUtf8("label_9"));
+        label_9->setFont(font14);
 
         gridLayout_13->addWidget(label_9, 0, 0, 1, 1);
 
@@ -2417,15 +2444,62 @@ public:
         tableWidget->setGeometry(QRect(10, 10, 111, 561));
         gridLayoutWidget = new QWidget(widget);
         gridLayoutWidget->setObjectName(QString::fromUtf8("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(120, 150, 721, 431));
+        gridLayoutWidget->setGeometry(QRect(120, 170, 721, 411));
         gridLayout_One = new QGridLayout(gridLayoutWidget);
         gridLayout_One->setSpacing(6);
         gridLayout_One->setContentsMargins(11, 11, 11, 11);
         gridLayout_One->setObjectName(QString::fromUtf8("gridLayout_One"));
         gridLayout_One->setContentsMargins(0, 0, 0, 0);
+        groupBox_11 = new QGroupBox(widget);
+        groupBox_11->setObjectName(QString::fromUtf8("groupBox_11"));
+        groupBox_11->setGeometry(QRect(136, 90, 701, 71));
+        groupBox_11->setFont(font14);
+        horizontalLayout_2 = new QHBoxLayout(groupBox_11);
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        label_35 = new QLabel(groupBox_11);
+        label_35->setObjectName(QString::fromUtf8("label_35"));
+        label_35->setFont(font14);
+
+        horizontalLayout_2->addWidget(label_35);
+
+        lE_print1 = new QLineEdit(groupBox_11);
+        lE_print1->setObjectName(QString::fromUtf8("lE_print1"));
+        lE_print1->setEnabled(true);
+        lE_print1->setFont(font14);
+
+        horizontalLayout_2->addWidget(lE_print1);
+
+        label_23 = new QLabel(groupBox_11);
+        label_23->setObjectName(QString::fromUtf8("label_23"));
+        label_23->setFont(font14);
+
+        horizontalLayout_2->addWidget(label_23);
+
+        lE_print2 = new QLineEdit(groupBox_11);
+        lE_print2->setObjectName(QString::fromUtf8("lE_print2"));
+        lE_print2->setEnabled(true);
+        lE_print2->setFont(font14);
+
+        horizontalLayout_2->addWidget(lE_print2);
+
+        pB_printData = new QPushButton(groupBox_11);
+        pB_printData->setObjectName(QString::fromUtf8("pB_printData"));
+        pB_printData->setFont(font14);
+
+        horizontalLayout_2->addWidget(pB_printData);
+
+        pB_printCurve = new QPushButton(groupBox_11);
+        pB_printCurve->setObjectName(QString::fromUtf8("pB_printCurve"));
+        pB_printCurve->setFont(font14);
+
+        horizontalLayout_2->addWidget(pB_printCurve);
+
         layoutWidget_3->raise();
         gridLayoutWidget->raise();
         tableWidget->raise();
+        groupBox_11->raise();
 
         retranslateUi(QtPLCDialogClass);
 
@@ -2629,6 +2703,11 @@ public:
         label_3->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\200\273\345\222\214(g)", nullptr));
         label->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\254\241\346\225\260", nullptr));
         label_9->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\273\204\345\217\267", nullptr));
+        groupBox_11->setTitle(QCoreApplication::translate("QtPLCDialogClass", "\346\211\223\345\215\260", nullptr));
+        label_35->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\273\204\345\217\267\357\274\232", nullptr));
+        label_23->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\207\263", nullptr));
+        pB_printData->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\211\223\345\215\260\346\225\260\346\215\256", nullptr));
+        pB_printCurve->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\211\223\345\215\260\346\233\262\347\272\277", nullptr));
     } // retranslateUi
 
 };

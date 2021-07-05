@@ -5049,7 +5049,7 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
       <x>130</x>
       <y>10</y>
       <width>711</width>
-      <height>141</height>
+      <height>71</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_13">
@@ -5058,6 +5058,12 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
        <property name="enabled">
         <bool>false</bool>
        </property>
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
       </widget>
      </item>
      <item row="1" column="10">
@@ -5065,10 +5071,22 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
        <property name="enabled">
         <bool>false</bool>
        </property>
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
       </widget>
      </item>
      <item row="1" column="6">
       <widget class="QLabel" name="label_8">
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>最小值(g)</string>
        </property>
@@ -5076,6 +5094,12 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
      </item>
      <item row="1" column="9">
       <widget class="QLabel" name="label_29">
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>差异值(小)</string>
        </property>
@@ -5083,6 +5107,12 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_6">
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>最大值(g)</string>
        </property>
@@ -5092,6 +5122,12 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
       <widget class="QLineEdit" name="lE_GroupMin">
        <property name="enabled">
         <bool>false</bool>
+       </property>
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>12</pointsize>
+        </font>
        </property>
       </widget>
      </item>
@@ -5136,6 +5172,12 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
      </item>
      <item row="1" column="3">
       <widget class="QLabel" name="label_34">
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>差异值(大)</string>
        </property>
@@ -5146,6 +5188,12 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
        <property name="enabled">
         <bool>false</bool>
        </property>
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
       </widget>
      </item>
      <item row="0" column="10">
@@ -5153,10 +5201,22 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
        <property name="enabled">
         <bool>false</bool>
        </property>
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
       </widget>
      </item>
      <item row="0" column="9">
       <widget class="QLabel" name="label_7">
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>平均值(g)</string>
        </property>
@@ -5167,10 +5227,22 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
        <property name="enabled">
         <bool>false</bool>
        </property>
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
       </widget>
      </item>
      <item row="0" column="6">
       <widget class="QLabel" name="label_3">
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>总和(g)</string>
        </property>
@@ -5181,10 +5253,22 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
        <property name="enabled">
         <bool>false</bool>
        </property>
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
       </widget>
      </item>
      <item row="0" column="3">
       <widget class="QLabel" name="label">
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>次数</string>
        </property>
@@ -5195,10 +5279,22 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
        <property name="enabled">
         <bool>false</bool>
        </property>
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
       </widget>
      </item>
      <item row="0" column="0">
       <widget class="QLabel" name="label_9">
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>组号</string>
        </property>
@@ -5220,16 +5316,116 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>150</y>
+      <y>170</y>
       <width>721</width>
-      <height>431</height>
+      <height>411</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_One"/>
    </widget>
+   <widget class="QGroupBox" name="groupBox_11">
+    <property name="geometry">
+     <rect>
+      <x>136</x>
+      <y>90</y>
+      <width>701</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>幼圆</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="title">
+     <string>打印</string>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="label_35">
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>组号：</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lE_print1">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_23">
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>至</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lE_print2">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pB_printData">
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>打印数据</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pB_printCurve">
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>打印曲线</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
    <zorder>layoutWidget_3</zorder>
    <zorder>gridLayoutWidget</zorder>
    <zorder>tableWidget</zorder>
+   <zorder>groupBox_11</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

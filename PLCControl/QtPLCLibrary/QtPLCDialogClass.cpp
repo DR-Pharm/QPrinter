@@ -187,6 +187,8 @@ void QtPLCDialogClass::initUser()
 	((Ui::QtPLCDialogClass*)ui)->cB_SetUserPermission->setEnabled(false);
 	QRegExp regx2("[0-9]+$");//正则表达式QRegExp,只允许输入中文、数字、字母、下划线以及空格,[\u4e00 - \u9fa5a - zA - Z0 - 9_] + $
 	((Ui::QtPLCDialogClass*)ui)->lE_SetUserSecretNum->setValidator(new QRegExpValidator(regx2, this));
+	((Ui::QtPLCDialogClass*)ui)->lE_print1->setValidator(new QRegExpValidator(regx2, this));
+	((Ui::QtPLCDialogClass*)ui)->lE_print2->setValidator(new QRegExpValidator(regx2, this));
 	((Ui::QtPLCDialogClass*)ui)->lE_SetUserSecretNum->setEnabled(false);
 	((Ui::QtPLCDialogClass*)ui)->pB_AddUser->setEnabled(false);
 
@@ -853,7 +855,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 					}
 				}
 				QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
-				configIniRead.setValue("data/" + YearMonthDay(), str);//写当前模板  此处/不可以换为两个\
+				configIniRead.setValue("data/"+QString::number(m_data->Status.CapDataDisp.GroupNo), str);//写当前模板  此处/不可以换为两个\
 				data_One.clear();
 			}
 		}
@@ -1788,6 +1790,26 @@ void QtPLCDialogClass::on_lE_StopSignalDelay_editingFinished()
 #pragma region ui cmd slots
 //DateTimeStructTyp		DateTimeSet;		//设定日期时间目标
 //unsigned char		cmdChangeDT;					//修改日期时间,1:执行，自动复位
+
+void QtPLCDialogClass::on_pB_printData_clicked()//数据
+{
+	((Ui::QtPLCDialogClass*)ui)->pB_printData->setEnabled(false);
+	((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(false);
+	int p1 = ((Ui::QtPLCDialogClass*)ui)->lE_print1->text().toInt();
+	int p2 = ((Ui::QtPLCDialogClass*)ui)->lE_print2->text().toInt();
+	((Ui::QtPLCDialogClass*)ui)->lE_print1->setText(QString::number(p1));
+	((Ui::QtPLCDialogClass*)ui)->lE_print2->setText(QString::number(p2));
+	if (p1>p2)
+	{
+		showWindowOut(QString::fromLocal8Bit("无满足条件\n打印数据!"));
+		((Ui::QtPLCDialogClass*)ui)->pB_printData->setEnabled(true);
+		((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(true);
+		return;
+	}
+}
+void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
+{
+}
 void QtPLCDialogClass::on_pB_Read1_clicked()//读取1
 {
 	DataFromPC_typ typ;

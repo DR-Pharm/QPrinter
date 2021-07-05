@@ -171,6 +171,10 @@ public slots:
 	void on_lE_TireWaitTime_editingFinished();
 	void on_lE_StopSignalDelay_editingFinished();
 
+	void on_pB_printData_clicked();
+
+	void on_pB_printCurve_clicked();
+
 	void on_pB_Read1_clicked();
 
 	void on_pB_Read2_clicked();
