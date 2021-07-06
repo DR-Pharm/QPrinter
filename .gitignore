@@ -17,3 +17,6 @@
 /Dongle
 /x64
 /PRT/x64
+/PLCControl/QtPLCLibrary/DataCurve.cpp
+/PLCControl/QtPLCLibrary/DataCurve.h
+/PLCControl/QtPLCLibrary/DataCurve.ui

@@ -248,7 +248,7 @@ void DrawPicture::createPixCurve(QPixmap *pix)
 	QFont font;
 	font.setPointSize(23);
 	font.setFamily("ËÎÌå");
-	font.setItalic(true);
+	//font.setItalic(true);//Ð±Ìå
 	painter->setFont(font);
 	painter->fillRect(rect, QColor(255, 255, 255));
 	painter->drawRect(rect);
