@@ -177,7 +177,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DataCurve.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="mypushbutton.cpp" />
     <ClCompile Include="QtPLCControl.cpp" />
@@ -186,7 +185,6 @@
     <ClCompile Include="WindowOut.cpp" />
     <QtMoc Include="WindowOut.h" />
     <QtMoc Include="mypushbutton.h" />
-    <QtMoc Include="DataCurve.h" />
     <QtMoc Include="Keyboard.h" />
     <ClInclude Include="PLCRelayHead.h" />
     <ClInclude Include="comm.h" />
@@ -196,7 +194,6 @@
     <QtMoc Include="QtPLCDialogClass.h" />
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="DataCurve.ui" />
     <QtUic Include="QtPLCDialogClass.ui">
       <Include Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </Include>

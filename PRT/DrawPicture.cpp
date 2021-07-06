@@ -24,11 +24,15 @@ void DrawPicture::drawPic(QPrinter *printer)
 	//printer->setPrinterName(m_sName);
 	printer->setPageSize(QPrinter::A4);
 	printer->setOrientation(QPrinter::Portrait);
-	QPagedPaintDevice::Margins marg;
+
+	printer->setFullPage(true);//first
+	QPagedPaintDevice::Margins marg;//second
 	marg.left = -2.5;
 	marg.top = 2.5;
+	marg.bottom = 0;
+	marg.right = 0;
 	printer->setMargins(marg);
-	printer->setFullPage(true);
+
 	//printer->setPrintRange(QPrinter::PageRange);//2
 	//printer->setPrintRange(QPrinter::AllPages);//0
 	int prtMode = printer->printRange();
@@ -253,7 +257,11 @@ void DrawPicture::createPixCurve(QPixmap *pix)
 	for (; totalMachineCount < 2; totalMachineCount++)
 	{
 		QStringList lst = gn_One[totalMachineCount].split(",");
-
+		if (lst.size()<3)
+		{
+			lst.clear();
+			lst << "" << "" << "";
+		}
 		int simpleFun = inner50percentH * totalMachineCount;
 		lines.append(QLine(QPoint(edgeOffset, edgeOffset), QPoint(rightW, edgeOffset)));//ио╠ъ
 		lines.append(QLine(QPoint(rightW, edgeOffset), QPoint(rightW, bottomH)));//ср╠ъ
@@ -596,6 +604,7 @@ void DrawPicture::caculateData(QVector<QVector<float>> transData,QVector<QString
 	{
 		data_One[0] = transData[ivalue];
 		gn_One[0] = gn[ivalue];
+		gn_One[1] = "";
 	}
 	else
 	{

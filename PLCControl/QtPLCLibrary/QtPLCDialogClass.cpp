@@ -493,13 +493,15 @@ void QtPLCDialogClass::initUI()
 	((Ui::QtPLCDialogClass*)ui)->label_49->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_49.png"));
 	((Ui::QtPLCDialogClass*)ui)->label_49->setScaledContents(true);
 	((Ui::QtPLCDialogClass*)ui)->label_16->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_16.png"));
-	((Ui::QtPLCDialogClass*)ui)->label_16->setScaledContents(true);	((Ui::QtPLCDialogClass*)ui)->label_45->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_45.png"));
-	((Ui::QtPLCDialogClass*)ui)->label_45->setScaledContents(true);
+	((Ui::QtPLCDialogClass*)ui)->label_16->setScaledContents(true);	
+	/*((Ui::QtPLCDialogClass*)ui)->label_45->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_45.png"));
+	((Ui::QtPLCDialogClass*)ui)->label_45->setScaledContents(true);*/
 	((Ui::QtPLCDialogClass*)ui)->label_17->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_17.png"));
 	((Ui::QtPLCDialogClass*)ui)->label_17->setScaledContents(true);
 	((Ui::QtPLCDialogClass*)ui)->label_48->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_48.png"));
-	((Ui::QtPLCDialogClass*)ui)->label_48->setScaledContents(true);	((Ui::QtPLCDialogClass*)ui)->label_43->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_43.png"));
-	((Ui::QtPLCDialogClass*)ui)->label_43->setScaledContents(true);
+	((Ui::QtPLCDialogClass*)ui)->label_48->setScaledContents(true);	
+	/*((Ui::QtPLCDialogClass*)ui)->label_43->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_43.png"));
+	((Ui::QtPLCDialogClass*)ui)->label_43->setScaledContents(true);*/
 
 	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
 	QString text1 = configIniRead.value("DistanceSetting/AxisFeedRelMovDistance", "").toString();
@@ -800,6 +802,18 @@ void QtPLCDialogClass::getPLCData(void* data)
 				((Ui::QtPLCDialogClass*)ui)->tableWidget->setVerticalHeaderItem(0, new QTableWidgetItem(QString::number(++m_row)));
 				((Ui::QtPLCDialogClass*)ui)->tableWidget->setItem(0, 0, new QTableWidgetItem(QString::number(sumNo)));
 				((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->setFlags(((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->flags() & (~Qt::ItemIsEditable));
+				if (sumNo <= m_data->ActData.TUnderload || sumNo >= m_data->ActData.TOverload)
+				{
+					((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->setBackground(QBrush(QColor(255, 0, 0)));//red
+				}
+				else if (((sumNo > m_data->ActData.TUnderload) && (sumNo < m_data->ActData.TUnderload)) || ((sumNo > m_data->ActData.TOverload) && (sumNo < m_data->ActData.TOverload)))
+				{
+					((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->setBackground(QBrush(QColor(255, 255, 0)));//yellow
+				}
+				else
+				{
+					((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->setBackground(QBrush(QColor(0, 255, 0)));//green
+				}
 				//((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->setFlags(((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->flags() & (~Qt::ItemIsSelectable));
 				sumNo = m_data->ActData.GroupSum;
 
@@ -857,7 +871,9 @@ void QtPLCDialogClass::getPLCData(void* data)
 					}
 				}
 				QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
-				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo)+ "/data", str);//写当前模板  此处/不可以换为两个\
+				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo)+ "/data", str);
+				QString lkstr = QString::number(m_data->Status.CapDataDisp.GroupNo) + "," + YearMonthDay() + "," + ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text();
+				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo)+ "/gn", lkstr);
 				data_One.clear();
 			}
 		}
@@ -879,9 +895,9 @@ void QtPLCDialogClass::getPLCData(void* data)
 #pragma region status	
 	((Ui::QtPLCDialogClass*)ui)->lE_Finished->setText(QString::number(m_data->Status.Finished));//本组结束
 	((Ui::QtPLCDialogClass*)ui)->lE_GroupIndex->setText(QString::number(m_data->Status.GroupIndex));//本组序号
-	((Ui::QtPLCDialogClass*)ui)->lE_Weight->setText(QString::number(m_data->Status.Weight, 'f', 3));//本次重量
+	//((Ui::QtPLCDialogClass*)ui)->lE_Weight->setText(QString::number(m_data->Status.Weight, 'f', 3));//本次重量
 	((Ui::QtPLCDialogClass*)ui)->lE_ScaleResult->setText(QString::number(m_data->Status.ScaleResult, 'f', 3));//天平当前读数，单位g
-	((Ui::QtPLCDialogClass*)ui)->cB_ScaleStableState->setCurrentIndex(m_data->Status.ScaleStableState);//天平当前稳定状态,0:非常稳定,1:稳定,2:不稳定,3:非常不稳定
+	//((Ui::QtPLCDialogClass*)ui)->cB_ScaleStableState->setCurrentIndex(m_data->Status.ScaleStableState);//天平当前稳定状态,0:非常稳定,1:稳定,2:不稳定,3:非常不稳定
 
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedStep->setText(QString::number(m_data->Status.AxisFeedStep));			//下料电机状态机步骤
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedErrorNo->setText(QString::number(m_data->Status.AxisFeedErrorNo));		//下料电机错误代码
@@ -1152,8 +1168,8 @@ QString QtPLCDialogClass::YearMonthDay()
 	logHour = logHour.length() < 2 ? ("0" + logHour) : logHour;
 	QString logMinute = QString::number(current_time.time().minute());
 	logMinute = logMinute.length() < 2 ? ("0" + logMinute) : logMinute;
-	strTime = logYear + "_" //z=a>b?x:y
-		+ logMonth + "_"
+	strTime = logYear + "-" //z=a>b?x:y
+		+ logMonth + "-"
 		+ logDay + "_"
 		+ logHour + "_"
 		+ logMinute;
@@ -1800,13 +1816,13 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 			if (str != "0")
 			{
 				QStringList lst = str.split(",");
-				for (int i = 0; i < lst.size(); i++)
+				for (int j = 0; j < lst.size(); j++)
 				{
-					float f = lst.at(i).toFloat();
+					float f = lst.at(j).toFloat();
 					data_temp << f;
 					//QMessageBox::about(nullptr, "", QString::number(data_temp.at(i), 'f', 3));
 				}
-				GroupNumber << configIniRead.value(QString::number(i) + "/gn", 0).toString();
+				GroupNumber << configIniRead.value(QString::number(i) + "/gn", "0").toString();
 				dataToDraw << data_temp;
 			}
 		}
