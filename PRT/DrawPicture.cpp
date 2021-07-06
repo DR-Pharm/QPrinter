@@ -1,10 +1,13 @@
 #include "DrawPicture.h"
+#include <QSettings>
 
 DrawPicture::DrawPicture(QObject *parent)
 	: QObject(parent)
 {
 	painter = new QPainter();
-
+	QString AppPath = qApp->applicationDirPath();
+	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+	m_ptnm = configIniRead.value("PrintEquipment/type", "A4 printer").toString();
 }
 DrawPicture::~DrawPicture()
 {
@@ -15,7 +18,7 @@ void DrawPicture::drawPic(QPrinter *printer)
 	//QCoreApplication::processEvents();
 	QPrinterInfo info;
 	QString ptName = info.defaultPrinterName(); // 默认打印机名字		
-	emit TOUI(QString::fromLocal8Bit("默认设备型号：\n") + ptName);
+	//emit TOUI(QString::fromLocal8Bit("默认设备型号：\n") + ptName);
 
 	m_sName = printer->printerName();
 	//QPrinter *printer = new QPrinter(QPrinter::HighResolution);
@@ -26,11 +29,10 @@ void DrawPicture::drawPic(QPrinter *printer)
 	printer->setOrientation(QPrinter::Portrait);
 
 	printer->setFullPage(true);//first
+
 	QPagedPaintDevice::Margins marg;//second
-	marg.left = -2.5;
-	marg.top = 2.5;
-	marg.bottom = 0;
-	marg.right = 0;
+	marg.left = 0;
+	marg.top = 5;
 	printer->setMargins(marg);
 
 	//printer->setPrintRange(QPrinter::PageRange);//2
@@ -87,7 +89,8 @@ void DrawPicture::drawPic(QPrinter *printer)
 
 		//纵向：Portrait 横向：Landscape
 	//获取界面的图片
-	painterPixmap.setWindow(0, 0, pix[0].width(), pix[0].height());
+	painterPixmap.setWindow(0, 0, pix[0].width()+75, pix[0].height());
+	//painterPixmap.setViewport(5, 5, pix[0].width()-10, pix[0].height()-10);
 
 	int pageValue = 0;
 	if (page1 > 0)
@@ -428,7 +431,7 @@ void DrawPicture::createPixCurve(QPixmap *pix)
 		painter->setFont(font);
 		int machnum = totalMachineCount + 1;
 		painter->drawText(edgeOffset, edgeOffset + simpleFun, 250, 70, Qt::AlignCenter, QString::fromLocal8Bit("设备型号"));
-		painter->drawText(edgeOffset + 275, edgeOffset + simpleFun, innerW * 1.0 / 2 - 250, 70, Qt::AlignVCenter, m_sName);
+		painter->drawText(edgeOffset + 275, edgeOffset + simpleFun, innerW * 1.0 / 2 - 250, 70, Qt::AlignVCenter, m_ptnm);
 		painter->drawText(edgeOffset + innerW * 1.0 / 3 * 2, edgeOffset + simpleFun, 250, 70, Qt::AlignCenter, QString::fromLocal8Bit("组号"));
 
 		painter->drawText(edgeOffset + innerW * 1.0 / 3 * 2 + 275, edgeOffset + simpleFun, edgeOffset + innerW * 1.0 / 3 * 2 - 250, 70, Qt::AlignVCenter, lst.at(0));

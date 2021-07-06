@@ -16,6 +16,7 @@ class DrawPicture : public QObject
 signals:
 	void TOUI(QString);
 private:
+	QString m_ptnm;
 	int pixWidth = 2100;
 	int pixHeight = 2970;
 	QString m_sName;
