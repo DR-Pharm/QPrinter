@@ -875,6 +875,12 @@ void QtPLCDialogClass::getPLCData(void* data)
 				QString lkstr = QString::number(m_data->Status.CapDataDisp.GroupNo) + "," + YearMonthDay() + "," + ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text();
 				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo)+ "/gn", lkstr);
 				data_One.clear();
+
+				if (!((Ui::QtPLCDialogClass*)ui)->lE_print1->hasFocus() && !((Ui::QtPLCDialogClass*)ui)->lE_print2->hasFocus())
+				{
+					((Ui::QtPLCDialogClass*)ui)->lE_print1->setText(QString::number(m_data->Status.CapDataDisp.GroupNo - 1));
+					((Ui::QtPLCDialogClass*)ui)->lE_print2->setText(QString::number(m_data->Status.CapDataDisp.GroupNo));
+				}
 			}
 		}
 	}
