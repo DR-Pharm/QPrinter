@@ -24,6 +24,8 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 
 	((Ui::QtPLCDialogClass*)ui)->setupUi(this);
 	((Ui::QtPLCDialogClass*)ui)->pB_printData->setVisible(false);
+	//((Ui::QtPLCDialogClass*)ui)->pB_showPrt->setVisible(false);
+	((Ui::QtPLCDialogClass*)ui)->pB_cmdAlogtest->setVisible(false);
 	((Ui::QtPLCDialogClass*)ui)->frame->move(0, 0);
 	initFont();
 	initDlg();
@@ -1781,7 +1783,7 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 			//QMessageBox::about(nullptr, "", QString::number(data_temp.at(i), 'f', 3));
 		}
 		QVector<QString> GroupNumber;
-		GroupNumber << QString::number(p1);
+		GroupNumber << configIniRead.value(QString::number(p1) + "/gn", 0).toString();
 		dataToDraw << data_temp;
 		emit TODRAWPICTURE(dataToDraw, GroupNumber, 1);
 		return;
@@ -1804,7 +1806,7 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 					data_temp << f;
 					//QMessageBox::about(nullptr, "", QString::number(data_temp.at(i), 'f', 3));
 				}
-				GroupNumber << QString::number(i);
+				GroupNumber << configIniRead.value(QString::number(i) + "/gn", 0).toString();
 				dataToDraw << data_temp;
 			}
 		}

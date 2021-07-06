@@ -2507,7 +2507,7 @@ public:
 
         retranslateUi(QtPLCDialogClass);
 
-        tabWidget_PLC->setCurrentIndex(1);
+        tabWidget_PLC->setCurrentIndex(0);
         tabWidget->setCurrentIndex(0);
         cB_Feedmode->setCurrentIndex(0);
         tabWidget_Users->setCurrentIndex(-1);
