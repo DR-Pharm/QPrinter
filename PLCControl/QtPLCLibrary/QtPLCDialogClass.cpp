@@ -890,6 +890,24 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->setCurrentIndex(m_data->ActData.Feedmode);
+		if (m_data->ActData.Feedmode==0)
+		{
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShake->setEnabled(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedshakestop->setEnabled(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedshakelevel->setEnabled(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedhome->setEnabled(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedFive->setEnabled(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShakefive->setEnabled(false);
+		}
+		else
+		{
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShake->setEnabled(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedshakestop->setEnabled(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedshakelevel->setEnabled(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedhome->setEnabled(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedFive->setEnabled(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShakefive->setEnabled(true);
+		}
 		((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->blockSignals(false);
 	}																						  //int				Language;				//当前语言，0：中文，1：英文
 	//float			UserAnalogoutput;		//用户模拟量输入
@@ -1595,6 +1613,29 @@ void QtPLCDialogClass::on_lE_s_trg_stop1_editingFinished()
 
 	showWindowOut(QString::fromLocal8Bit("停止位置2\n已更改!"));
 }
+
+void QtPLCDialogClass::on_lE_Feed_shakeoffset_editingFinished()
+{
+	QString oldstr = QString::number(m_data->Machine_Para.Feed_shakeoffset);
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->text();
+	if (oldstr == str)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->blockSignals(false);
+		return;
+	}
+	DataFromPC_typ typ;
+	typ = getPCParaData();
+	typ.Telegram_typ = 2;
+	typ.Machine_Para.Feed_shakeoffset = ((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->text().toFloat();
+	m_socket->Communicate_PLC(&typ, nullptr);
+	((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->blockSignals(true);
+	((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->clearFocus();
+	((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->blockSignals(false);
+
+	showWindowOut(QString::fromLocal8Bit("摆动距离\n已更改!"));
+}//lE_Feed_shakeoffset
 void QtPLCDialogClass::on_lE_FeedTimeOut_editingFinished()
 {
 	QString oldstr = QString::number(m_data->Machine_Para.FeedTimeOut);

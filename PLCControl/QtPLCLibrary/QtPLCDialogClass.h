@@ -158,6 +158,7 @@ public slots:
 	//void on_cB_enable_currentIndexChanged(int index);
 	void on_lE_s_trg_stop0_editingFinished();
 	void on_lE_s_trg_stop1_editingFinished();
+	void on_lE_Feed_shakeoffset_editingFinished();
 	void on_lE_FeedTimeOut_editingFinished();
 	void on_lE_CapPickInterval_editingFinished();
 	void on_lE_CapBackInterval_editingFinished();

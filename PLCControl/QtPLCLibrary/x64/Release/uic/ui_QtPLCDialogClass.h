@@ -78,21 +78,25 @@ public:
     QVBoxLayout *verticalLayout_5;
     QGroupBox *groupBox_2;
     QGridLayout *gridLayout_7;
-    QPushButton *pB_cmdFeedSingleStop;
     QPushButton *pB_cmdAxisFeedPosMov;
-    QPushButton *pB_cmdAxisFeedStopMov;
     QPushButton *pB_cmdFeedSingle;
-    QPushButton *pB_cmdAxisFeedRelMov;
-    QPushButton *pB_cmdAxisFeedJogPos;
+    QPushButton *pB_cmdAxisFeedStopMov;
     QPushButton *pB_cmdAxisFeedJogNeg;
+    QPushButton *pB_cmdFeedSingleStop;
+    QPushButton *pB_cmdAxisFeedJogPos;
+    QLabel *label_22;
+    QLineEdit *lE_AxisFeedRelMovDistance;
+    QPushButton *pB_cmdAxisFeedRelMov;
     QGroupBox *groupBox_3;
     QGridLayout *gridLayout_8;
     QPushButton *pB_cmdAxisSwingJogPos;
     QPushButton *pB_cmdAxisSwingJogNeg;
-    QPushButton *pB_cmdAxisSwingRelMov;
-    QPushButton *pB_cmdAxisSwingPosMov;
     QPushButton *pB_cmdAxisSwingStopMov;
+    QPushButton *pB_cmdAxisSwingPosMov;
     QPushButton *pB_cmdSwing;
+    QLabel *label_28;
+    QPushButton *pB_cmdAxisSwingRelMov;
+    QLineEdit *lE_AxisSwingRelMovDistance;
     QWidget *tab_6;
     QVBoxLayout *verticalLayout_2;
     QSpacerItem *verticalSpacer_2;
@@ -183,20 +187,16 @@ public:
     QGroupBox *groupBox_4;
     QGridLayout *gridLayout_3;
     QLabel *label_21;
-    QLineEdit *lE_AxisFeedStep;
     QLabel *label_19;
     QLineEdit *lE_AxisFeedErrorNo;
-    QLineEdit *lE_AxisFeedRelMovDistance;
-    QLabel *label_22;
+    QLineEdit *lE_AxisFeedStep;
     QSpacerItem *horizontalSpacer_2;
     QGroupBox *groupBox_6;
     QGridLayout *gridLayout_9;
     QLabel *label_24;
+    QLineEdit *lE_AxisSwingErrorNo;
     QLineEdit *lE_AxisSwingStep;
     QLabel *label_27;
-    QLineEdit *lE_AxisSwingErrorNo;
-    QLineEdit *lE_AxisSwingRelMovDistance;
-    QLabel *label_28;
     QSpacerItem *verticalSpacer_8;
     QFrame *frame_2;
     QVBoxLayout *verticalLayout_3;
@@ -607,40 +607,54 @@ public:
         gridLayout_7->setSpacing(6);
         gridLayout_7->setContentsMargins(11, 11, 11, 11);
         gridLayout_7->setObjectName(QString::fromUtf8("gridLayout_7"));
-        pB_cmdFeedSingleStop = new QPushButton(groupBox_2);
-        pB_cmdFeedSingleStop->setObjectName(QString::fromUtf8("pB_cmdFeedSingleStop"));
-
-        gridLayout_7->addWidget(pB_cmdFeedSingleStop, 2, 1, 1, 1);
-
         pB_cmdAxisFeedPosMov = new QPushButton(groupBox_2);
         pB_cmdAxisFeedPosMov->setObjectName(QString::fromUtf8("pB_cmdAxisFeedPosMov"));
 
-        gridLayout_7->addWidget(pB_cmdAxisFeedPosMov, 1, 1, 1, 1);
-
-        pB_cmdAxisFeedStopMov = new QPushButton(groupBox_2);
-        pB_cmdAxisFeedStopMov->setObjectName(QString::fromUtf8("pB_cmdAxisFeedStopMov"));
-
-        gridLayout_7->addWidget(pB_cmdAxisFeedStopMov, 1, 2, 1, 1);
+        gridLayout_7->addWidget(pB_cmdAxisFeedPosMov, 2, 1, 1, 1);
 
         pB_cmdFeedSingle = new QPushButton(groupBox_2);
         pB_cmdFeedSingle->setObjectName(QString::fromUtf8("pB_cmdFeedSingle"));
 
-        gridLayout_7->addWidget(pB_cmdFeedSingle, 2, 0, 1, 1);
+        gridLayout_7->addWidget(pB_cmdFeedSingle, 3, 0, 1, 1);
 
-        pB_cmdAxisFeedRelMov = new QPushButton(groupBox_2);
-        pB_cmdAxisFeedRelMov->setObjectName(QString::fromUtf8("pB_cmdAxisFeedRelMov"));
+        pB_cmdAxisFeedStopMov = new QPushButton(groupBox_2);
+        pB_cmdAxisFeedStopMov->setObjectName(QString::fromUtf8("pB_cmdAxisFeedStopMov"));
 
-        gridLayout_7->addWidget(pB_cmdAxisFeedRelMov, 1, 0, 1, 1);
+        gridLayout_7->addWidget(pB_cmdAxisFeedStopMov, 2, 2, 1, 1);
+
+        pB_cmdAxisFeedJogNeg = new QPushButton(groupBox_2);
+        pB_cmdAxisFeedJogNeg->setObjectName(QString::fromUtf8("pB_cmdAxisFeedJogNeg"));
+
+        gridLayout_7->addWidget(pB_cmdAxisFeedJogNeg, 0, 1, 1, 1);
+
+        pB_cmdFeedSingleStop = new QPushButton(groupBox_2);
+        pB_cmdFeedSingleStop->setObjectName(QString::fromUtf8("pB_cmdFeedSingleStop"));
+
+        gridLayout_7->addWidget(pB_cmdFeedSingleStop, 3, 1, 1, 1);
 
         pB_cmdAxisFeedJogPos = new QPushButton(groupBox_2);
         pB_cmdAxisFeedJogPos->setObjectName(QString::fromUtf8("pB_cmdAxisFeedJogPos"));
 
         gridLayout_7->addWidget(pB_cmdAxisFeedJogPos, 0, 0, 1, 1);
 
-        pB_cmdAxisFeedJogNeg = new QPushButton(groupBox_2);
-        pB_cmdAxisFeedJogNeg->setObjectName(QString::fromUtf8("pB_cmdAxisFeedJogNeg"));
+        label_22 = new QLabel(groupBox_2);
+        label_22->setObjectName(QString::fromUtf8("label_22"));
+        label_22->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout_7->addWidget(pB_cmdAxisFeedJogNeg, 0, 1, 1, 1);
+        gridLayout_7->addWidget(label_22, 1, 0, 1, 1);
+
+        lE_AxisFeedRelMovDistance = new QLineEdit(groupBox_2);
+        lE_AxisFeedRelMovDistance->setObjectName(QString::fromUtf8("lE_AxisFeedRelMovDistance"));
+        lE_AxisFeedRelMovDistance->setEnabled(true);
+        lE_AxisFeedRelMovDistance->setMinimumSize(QSize(150, 0));
+        lE_AxisFeedRelMovDistance->setMaximumSize(QSize(150, 16777215));
+
+        gridLayout_7->addWidget(lE_AxisFeedRelMovDistance, 1, 1, 1, 1);
+
+        pB_cmdAxisFeedRelMov = new QPushButton(groupBox_2);
+        pB_cmdAxisFeedRelMov->setObjectName(QString::fromUtf8("pB_cmdAxisFeedRelMov"));
+
+        gridLayout_7->addWidget(pB_cmdAxisFeedRelMov, 1, 2, 1, 1);
 
 
         verticalLayout_5->addWidget(groupBox_2);
@@ -661,25 +675,39 @@ public:
 
         gridLayout_8->addWidget(pB_cmdAxisSwingJogNeg, 0, 1, 1, 1);
 
-        pB_cmdAxisSwingRelMov = new QPushButton(groupBox_3);
-        pB_cmdAxisSwingRelMov->setObjectName(QString::fromUtf8("pB_cmdAxisSwingRelMov"));
+        pB_cmdAxisSwingStopMov = new QPushButton(groupBox_3);
+        pB_cmdAxisSwingStopMov->setObjectName(QString::fromUtf8("pB_cmdAxisSwingStopMov"));
 
-        gridLayout_8->addWidget(pB_cmdAxisSwingRelMov, 1, 0, 1, 1);
+        gridLayout_8->addWidget(pB_cmdAxisSwingStopMov, 2, 2, 1, 1);
 
         pB_cmdAxisSwingPosMov = new QPushButton(groupBox_3);
         pB_cmdAxisSwingPosMov->setObjectName(QString::fromUtf8("pB_cmdAxisSwingPosMov"));
 
-        gridLayout_8->addWidget(pB_cmdAxisSwingPosMov, 1, 1, 1, 1);
-
-        pB_cmdAxisSwingStopMov = new QPushButton(groupBox_3);
-        pB_cmdAxisSwingStopMov->setObjectName(QString::fromUtf8("pB_cmdAxisSwingStopMov"));
-
-        gridLayout_8->addWidget(pB_cmdAxisSwingStopMov, 1, 2, 1, 1);
+        gridLayout_8->addWidget(pB_cmdAxisSwingPosMov, 2, 1, 1, 1);
 
         pB_cmdSwing = new QPushButton(groupBox_3);
         pB_cmdSwing->setObjectName(QString::fromUtf8("pB_cmdSwing"));
 
-        gridLayout_8->addWidget(pB_cmdSwing, 2, 0, 1, 1);
+        gridLayout_8->addWidget(pB_cmdSwing, 3, 0, 1, 1);
+
+        label_28 = new QLabel(groupBox_3);
+        label_28->setObjectName(QString::fromUtf8("label_28"));
+        label_28->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_8->addWidget(label_28, 1, 0, 1, 1);
+
+        pB_cmdAxisSwingRelMov = new QPushButton(groupBox_3);
+        pB_cmdAxisSwingRelMov->setObjectName(QString::fromUtf8("pB_cmdAxisSwingRelMov"));
+
+        gridLayout_8->addWidget(pB_cmdAxisSwingRelMov, 1, 2, 1, 1);
+
+        lE_AxisSwingRelMovDistance = new QLineEdit(groupBox_3);
+        lE_AxisSwingRelMovDistance->setObjectName(QString::fromUtf8("lE_AxisSwingRelMovDistance"));
+        lE_AxisSwingRelMovDistance->setEnabled(true);
+        lE_AxisSwingRelMovDistance->setMinimumSize(QSize(150, 0));
+        lE_AxisSwingRelMovDistance->setMaximumSize(QSize(150, 16777215));
+
+        gridLayout_8->addWidget(lE_AxisSwingRelMovDistance, 1, 1, 1, 1);
 
 
         verticalLayout_5->addWidget(groupBox_3);
@@ -1278,14 +1306,6 @@ public:
 
         gridLayout_3->addWidget(label_21, 0, 0, 1, 1);
 
-        lE_AxisFeedStep = new QLineEdit(groupBox_4);
-        lE_AxisFeedStep->setObjectName(QString::fromUtf8("lE_AxisFeedStep"));
-        lE_AxisFeedStep->setEnabled(false);
-        lE_AxisFeedStep->setMinimumSize(QSize(150, 0));
-        lE_AxisFeedStep->setMaximumSize(QSize(150, 16777215));
-
-        gridLayout_3->addWidget(lE_AxisFeedStep, 0, 1, 1, 1);
-
         label_19 = new QLabel(groupBox_4);
         label_19->setObjectName(QString::fromUtf8("label_19"));
 
@@ -1299,18 +1319,13 @@ public:
 
         gridLayout_3->addWidget(lE_AxisFeedErrorNo, 1, 1, 1, 1);
 
-        lE_AxisFeedRelMovDistance = new QLineEdit(groupBox_4);
-        lE_AxisFeedRelMovDistance->setObjectName(QString::fromUtf8("lE_AxisFeedRelMovDistance"));
-        lE_AxisFeedRelMovDistance->setEnabled(true);
-        lE_AxisFeedRelMovDistance->setMinimumSize(QSize(150, 0));
-        lE_AxisFeedRelMovDistance->setMaximumSize(QSize(150, 16777215));
+        lE_AxisFeedStep = new QLineEdit(groupBox_4);
+        lE_AxisFeedStep->setObjectName(QString::fromUtf8("lE_AxisFeedStep"));
+        lE_AxisFeedStep->setEnabled(false);
+        lE_AxisFeedStep->setMinimumSize(QSize(150, 0));
+        lE_AxisFeedStep->setMaximumSize(QSize(150, 16777215));
 
-        gridLayout_3->addWidget(lE_AxisFeedRelMovDistance, 2, 1, 1, 1);
-
-        label_22 = new QLabel(groupBox_4);
-        label_22->setObjectName(QString::fromUtf8("label_22"));
-
-        gridLayout_3->addWidget(label_22, 2, 0, 1, 1);
+        gridLayout_3->addWidget(lE_AxisFeedStep, 0, 1, 1, 1);
 
 
         horizontalLayout_4->addWidget(groupBox_4);
@@ -1330,6 +1345,14 @@ public:
 
         gridLayout_9->addWidget(label_24, 0, 0, 1, 1);
 
+        lE_AxisSwingErrorNo = new QLineEdit(groupBox_6);
+        lE_AxisSwingErrorNo->setObjectName(QString::fromUtf8("lE_AxisSwingErrorNo"));
+        lE_AxisSwingErrorNo->setEnabled(false);
+        lE_AxisSwingErrorNo->setMinimumSize(QSize(150, 0));
+        lE_AxisSwingErrorNo->setMaximumSize(QSize(150, 16777215));
+
+        gridLayout_9->addWidget(lE_AxisSwingErrorNo, 1, 1, 1, 1);
+
         lE_AxisSwingStep = new QLineEdit(groupBox_6);
         lE_AxisSwingStep->setObjectName(QString::fromUtf8("lE_AxisSwingStep"));
         lE_AxisSwingStep->setEnabled(false);
@@ -1342,27 +1365,6 @@ public:
         label_27->setObjectName(QString::fromUtf8("label_27"));
 
         gridLayout_9->addWidget(label_27, 1, 0, 1, 1);
-
-        lE_AxisSwingErrorNo = new QLineEdit(groupBox_6);
-        lE_AxisSwingErrorNo->setObjectName(QString::fromUtf8("lE_AxisSwingErrorNo"));
-        lE_AxisSwingErrorNo->setEnabled(false);
-        lE_AxisSwingErrorNo->setMinimumSize(QSize(150, 0));
-        lE_AxisSwingErrorNo->setMaximumSize(QSize(150, 16777215));
-
-        gridLayout_9->addWidget(lE_AxisSwingErrorNo, 1, 1, 1, 1);
-
-        lE_AxisSwingRelMovDistance = new QLineEdit(groupBox_6);
-        lE_AxisSwingRelMovDistance->setObjectName(QString::fromUtf8("lE_AxisSwingRelMovDistance"));
-        lE_AxisSwingRelMovDistance->setEnabled(true);
-        lE_AxisSwingRelMovDistance->setMinimumSize(QSize(150, 0));
-        lE_AxisSwingRelMovDistance->setMaximumSize(QSize(150, 16777215));
-
-        gridLayout_9->addWidget(lE_AxisSwingRelMovDistance, 2, 1, 1, 1);
-
-        label_28 = new QLabel(groupBox_6);
-        label_28->setObjectName(QString::fromUtf8("label_28"));
-
-        gridLayout_9->addWidget(label_28, 2, 0, 1, 1);
 
 
         horizontalLayout_4->addWidget(groupBox_6);
@@ -2422,7 +2424,7 @@ public:
         retranslateUi(QtPLCDialogClass);
 
         tabWidget_PLC->setCurrentIndex(0);
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
         cB_Feedmode->setCurrentIndex(0);
         tabWidget_Users->setCurrentIndex(-1);
 
@@ -2456,20 +2458,24 @@ public:
         label_2->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\250\241\346\213\237\351\207\217\350\276\223\345\207\272", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QString());
         groupBox_2->setTitle(QCoreApplication::translate("QtPLCDialogClass", "\344\270\213\346\226\231", nullptr));
-        pB_cmdFeedSingleStop->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\215\225\347\262\222\344\270\213\346\226\231\345\201\234\346\255\242", nullptr));
         pB_cmdAxisFeedPosMov->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\255\243\345\220\221\350\277\236\347\273\255\350\277\220\345\212\250", nullptr));
-        pB_cmdAxisFeedStopMov->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\201\234\346\255\242\350\277\220\345\212\250", nullptr));
         pB_cmdFeedSingle->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\215\225\347\262\222\344\270\213\346\226\231", nullptr));
-        pB_cmdAxisFeedRelMov->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\233\270\345\257\271\350\277\220\345\212\250", nullptr));
-        pB_cmdAxisFeedJogPos->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\255\243\350\275\254\347\202\271\345\212\250", nullptr));
+        pB_cmdAxisFeedStopMov->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\201\234\346\255\242\350\277\220\345\212\250", nullptr));
         pB_cmdAxisFeedJogNeg->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\217\215\350\275\254\347\202\271\345\212\250", nullptr));
+        pB_cmdFeedSingleStop->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\215\225\347\262\222\344\270\213\346\226\231\345\201\234\346\255\242", nullptr));
+        pB_cmdAxisFeedJogPos->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\255\243\350\275\254\347\202\271\345\212\250", nullptr));
+        label_22->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\233\270\345\257\271\350\277\220\345\212\250\350\267\235\347\246\273", nullptr));
+        lE_AxisFeedRelMovDistance->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));
+        pB_cmdAxisFeedRelMov->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\233\270\345\257\271\350\277\220\345\212\250", nullptr));
         groupBox_3->setTitle(QCoreApplication::translate("QtPLCDialogClass", "\346\227\213\350\275\254", nullptr));
         pB_cmdAxisSwingJogPos->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\255\243\350\275\254\347\202\271\345\212\250", nullptr));
         pB_cmdAxisSwingJogNeg->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\217\215\350\275\254\347\202\271\345\212\250", nullptr));
-        pB_cmdAxisSwingRelMov->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\233\270\345\257\271\350\277\220\345\212\250", nullptr));
-        pB_cmdAxisSwingPosMov->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\255\243\345\220\221\350\277\236\347\273\255\350\277\220\345\212\250", nullptr));
         pB_cmdAxisSwingStopMov->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\201\234\346\255\242\350\277\220\345\212\250", nullptr));
+        pB_cmdAxisSwingPosMov->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\255\243\345\220\221\350\277\236\347\273\255\350\277\220\345\212\250", nullptr));
         pB_cmdSwing->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\227\213\350\275\254\345\215\225\345\267\245\344\275\215", nullptr));
+        label_28->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\233\270\345\257\271\350\277\220\345\212\250\350\267\235\347\246\273", nullptr));
+        pB_cmdAxisSwingRelMov->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\233\270\345\257\271\350\277\220\345\212\250", nullptr));
+        lE_AxisSwingRelMovDistance->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_4), QString());
         groupBox_9->setTitle(QCoreApplication::translate("QtPLCDialogClass", "\344\270\213\346\226\231", nullptr));
         pB_cmdFeedFive->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\203\266\345\233\212\350\220\275\346\226\231\344\272\224\347\262\222", nullptr));
@@ -2534,13 +2540,9 @@ public:
         groupBox_4->setTitle(QCoreApplication::translate("QtPLCDialogClass", "\344\270\213\346\226\231\347\224\265\346\234\272", nullptr));
         label_21->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\212\266\346\200\201\346\234\272\346\255\245\351\252\244", nullptr));
         label_19->setText(QCoreApplication::translate("QtPLCDialogClass", "\351\224\231\350\257\257\344\273\243\347\240\201", nullptr));
-        lE_AxisFeedRelMovDistance->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));
-        label_22->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\233\270\345\257\271\350\277\220\345\212\250\350\267\235\347\246\273", nullptr));
         groupBox_6->setTitle(QCoreApplication::translate("QtPLCDialogClass", "\346\227\213\350\275\254\347\224\265\346\234\272", nullptr));
         label_24->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\212\266\346\200\201\346\234\272\346\255\245\351\252\244", nullptr));
         label_27->setText(QCoreApplication::translate("QtPLCDialogClass", "\351\224\231\350\257\257\344\273\243\347\240\201", nullptr));
-        lE_AxisSwingRelMovDistance->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));
-        label_28->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\233\270\345\257\271\350\277\220\345\212\250\350\267\235\347\246\273", nullptr));
         label_33->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\265\213\351\207\217\345\256\236\351\231\205\351\227\264\351\232\224\346\227\266\351\227\264", nullptr));
         label_20->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\212\245\350\255\246\347\212\266\346\200\201", nullptr));
         tabWidget_PLC->setTabText(tabWidget_PLC->indexOf(tab_3), QString());
