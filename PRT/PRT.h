@@ -61,6 +61,7 @@ private:
 	Ui::PRTClass ui;
 	//data calculate
 	QVector<QVector<float>>data;
+	QVector<QString> gn;
 	int m_iDataNum;//数据存储数量0135...1#     2468...2#
 	int m_iCurrentGetDataNo = 0;
 	int m_iPrintCurveCount=0;
@@ -99,7 +100,7 @@ public slots:
 	void on_cB_Average_toggled(bool checked);
 	void on_cB_PrintMode_currentIndexChanged(int index);
 	void on_ToClose();
-	void getVec(QVector<float>,int);
+	void getVec(QVector<QVector<float>>, QVector<QString>,int);
 	void SuccessConnect();
 	void ErrorConnect();
 	void EmitReconnect();

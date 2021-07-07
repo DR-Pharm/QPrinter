@@ -8,11 +8,18 @@
 #include "QtSocket_Class.h"
 #include "mypushbutton.h"
 #include "WindowOut.h"
-#include "DataCurve.h"
 
 #include <windows.h>
 #include "Keyboard.h"
 namespace spd = spdlog;
+
+#include <QChartView>
+#include <QChart>
+#include <QSplineSeries>
+#include <QScatterSeries>
+#include <QValueAxis>
+#include <QHBoxLayout>
+using namespace QtCharts;
 
 class QtPLCDialogClass : public QDialog
 
@@ -25,7 +32,7 @@ signals:
 	void GETSTRING(QString);
 	void SHOWPRT(bool);
 	void TODATACURVE(int,float, float, float, QList<qreal>);
-	void TODRAWPICTURE(QVector<float>,int);//MODE 0:one curve,1:one dataAverage,2:two curve,3:two dataAverage
+	void TODRAWPICTURE(QVector<QVector<float>>,QVector<QString>,int);//MODE 0:one curve,1:one dataAverage,2:two curve,3:two dataAverage
 
 public:
 	QtPLCDialogClass(QDialog *parent = Q_NULLPTR);
@@ -49,6 +56,27 @@ public:
 	void setStyleCommand(QPushButton*, QString, QFont, QString);
 
 private:
+	double sumNo = 0;
+	int m_row = 0;
+	double mi, ma;
+	int maxSize;  // data 最多存储 maxSize 个元素
+	int maxX;
+	int maxY;
+	int maxSizeAve;  // data 最多存储 maxSize 个元素
+	int maxXAve;
+	int maxYAve;
+
+	QChart *chart;
+	QChartView *chartView;
+	//QSplineSeries *splineSeries;
+	QLineSeries *splineSeries;
+	QLineSeries *splineSeries_Average;
+	QLineSeries *splineSeries_Average2;
+	QScatterSeries *scatterSeries;
+
+	QValueAxis *axisx;
+	QValueAxis *axisy;
+
 	QPoint mousePoint;
 	int deskWidth;                  //桌面宽度
 	int deskHeight;                 //桌面高度
@@ -59,11 +87,8 @@ private:
 	QString g_QSUserName;
 	int g_IUserLevel;
 
-	float m_fMax = 0;
-	float m_fMin = 0;
 	keyBoard *key=nullptr;
 	void* ui;
-	DataCurve *dtCurve;
 	QTimer *btnTimer = nullptr;
 	//DataToPC_typ *m_data;	//获取的PLC数据
 	//WindowOut *levelOut;//show默认为非模态modal，如果是局部变量会闪现消失
@@ -81,8 +106,7 @@ private:
 
 	QLabel *lb_dataNow;
 
-	QList<qreal> data_One;
-	QVector<float> dataToDraw;
+	QVector<float> data_One;
 	//弹跳特效
 	QPropertyAnimation * animation1 = nullptr;
 	QPropertyAnimation * animation2 = nullptr;
@@ -100,7 +124,11 @@ public slots:
 	DataFromPC_typ getPCParaData();
 	DataFromPC_typ getPCRunData();
 
+	void initChartOne();
+
 	void getPLCData(void*);
+
+	QString YearMonthDay();
 
 	void setg_IUserLevel(int);
 
@@ -137,6 +165,10 @@ public slots:
 	void on_lE_ReadDelay_editingFinished();
 	void on_lE_TireWaitTime_editingFinished();
 	void on_lE_StopSignalDelay_editingFinished();
+
+	void on_pB_printData_clicked();
+
+	void on_pB_printCurve_clicked();
 
 	void on_pB_Read1_clicked();
 
