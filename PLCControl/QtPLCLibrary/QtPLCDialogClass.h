@@ -174,6 +174,7 @@ public slots:
 	void on_pB_cmdStart_toggled(bool checked);
 	void on_pB_cmdAlarmReset_clicked();
 	void on_pB_cmdCounterZero_clicked();
+	void on_pB_ChangeLanguage_toggled(bool checked);
 	void on_pB_cmdCapClean_clicked();
 	void on_pB_cmdAlogtest_clicked();
 	void on_pB_cmdFeedShake_clicked();

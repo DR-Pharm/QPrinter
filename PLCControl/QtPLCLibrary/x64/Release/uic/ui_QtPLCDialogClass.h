@@ -312,6 +312,7 @@ public:
     QFrame *frame_20;
     QPushButton *pB_SetUp;
     QPushButton *pB_cmdStart;
+    QPushButton *pB_ChangeLanguage;
 
     void setupUi(QDialog *QtPLCDialogClass)
     {
@@ -2282,6 +2283,15 @@ public:
         pB_cmdStart->setStyleSheet(QString::fromUtf8("background-color: rgb(200, 200, 100);\n"
 "font: 60pt \"\350\277\267\344\275\240\347\256\200\350\217\261\345\277\203\";"));
         pB_cmdStart->setCheckable(true);
+        pB_ChangeLanguage = new QPushButton(frame_20);
+        pB_ChangeLanguage->setObjectName(QString::fromUtf8("pB_ChangeLanguage"));
+        pB_ChangeLanguage->setEnabled(true);
+        pB_ChangeLanguage->setGeometry(QRect(10, 270, 41, 45));
+        sizePolicy.setHeightForWidth(pB_ChangeLanguage->sizePolicy().hasHeightForWidth());
+        pB_ChangeLanguage->setSizePolicy(sizePolicy);
+        pB_ChangeLanguage->setMinimumSize(QSize(0, 45));
+        pB_ChangeLanguage->setFont(font12);
+        pB_ChangeLanguage->setCheckable(true);
 
         retranslateUi(QtPLCDialogClass);
 
@@ -2485,6 +2495,7 @@ public:
         pB_dtDlg->setText(QString());
         pB_SetUp->setText(QString());
         pB_cmdStart->setText(QString());
+        pB_ChangeLanguage->setText(QString());
     } // retranslateUi
 
 };
