@@ -89,7 +89,7 @@ void DrawPicture::drawPic(QPrinter *printer)
 			{
 				caculateData(data, m_gn, data.size() - m_iPrintCurveCount + pageValue * 2, 2);
 			}
-			//if (CurveChecked)
+			if (CurveChecked)//这是我找了两天的bug点,源于如果已经checked则再次checked不会进入槽函数
 			{
 				QCoreApplication::processEvents();
 				createPixCurve(&pix[pageValue]);
@@ -98,7 +98,7 @@ void DrawPicture::drawPic(QPrinter *printer)
 			{
 				createPixAverage(&pix);
 			}*/
-			pix[0].save("c:/pt.bmp");
+			//pix[0].save("c:/pt.bmp");
 
 			if (allornot == 1 || (allornot == 0 && pageValue >= firstPg && pageValue <= endPg))
 			{

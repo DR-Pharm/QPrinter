@@ -517,8 +517,14 @@ void PRT::getVec(QVector<QVector<float>> a, QVector<QString> GN,int mode)
 	}
 	else if (mode == 1)
 	{
+		on_cB_Curve_toggled(true);
+		ui.cB_Curve->blockSignals(true);
 		ui.cB_Curve->setChecked(true);
+		ui.cB_Curve->blockSignals(false);
+		on_cB_Average_toggled(false);
+		ui.cB_Average->blockSignals(true);
 		ui.cB_Average->setChecked(false);
+		ui.cB_Average->blockSignals(false);
 		/*m_iDataNum = 1;
 		data.resize(1);*/
 		m_iDataNum = a.size();
