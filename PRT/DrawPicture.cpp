@@ -15,6 +15,7 @@ DrawPicture::~DrawPicture()
 
 void DrawPicture::drawPic(QPrinter *printer)
 {
+	
 	//QCoreApplication::processEvents();
 	QPrinterInfo info;
 	QString ptName = info.defaultPrinterName(); // 默认打印机名字		
@@ -115,7 +116,7 @@ void DrawPicture::drawPic(QPrinter *printer)
 			{
 				createPixAverage(&pix);
 			}*/
-			//pix[0].save("c:/pt.bmp");
+			pix[0].save("c:/pt.bmp");
 
 			if (allornot == 1 || (allornot == 0 && pageValue >= firstPg && pageValue <= endPg))
 			{
@@ -263,7 +264,7 @@ void DrawPicture::createPixCurve(QPixmap *pix)
 		if (lst.size()<3)
 		{
 			lst.clear();
-			lst << "" << "" << "";
+			lst << " " << " " << " ";
 		}
 		int simpleFun = inner50percentH * totalMachineCount;
 		lines.append(QLine(QPoint(edgeOffset, edgeOffset), QPoint(rightW, edgeOffset)));//上边
