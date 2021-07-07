@@ -32,7 +32,7 @@ signals:
 	void GETSTRING(QString);
 	void SHOWPRT(bool);
 	void TODATACURVE(int,float, float, float, QList<qreal>);
-	void TODRAWPICTURE(QVector<QVector<float>>,QVector<QString>,int);//MODE 0:one curve,1:one dataAverage,2:two curve,3:two dataAverage
+	void TODRAWPICTURE(QVector<QVector<float>>,QVector<QString>,int, QVector<float>);//MODE 0:one curve,1:one dataAverage,2:two curve,3:two dataAverage
 
 public:
 	QtPLCDialogClass(QDialog *parent = Q_NULLPTR);
@@ -56,6 +56,7 @@ public:
 	void setStyleCommand(QPushButton*, QString, QFont, QString);
 
 private:
+	MyPushButton *ExitBtn;
 	double sumNo = 0;
 	int m_row = 0;
 	double mi, ma;

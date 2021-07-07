@@ -31,6 +31,7 @@ private:
 	double m_dmin[2];
 	double m_dsum[2];
 	double m_dave[2];
+	QVector<float> m_ftheory;
 	double m_dtheory[2];
 	double m_dminoff[2];
 	double m_dmaxoff[2];
@@ -46,11 +47,11 @@ public:
 	~DrawPicture();
 	void createPixCurve(QPixmap * pix);
 	void createPixAverage(QPixmap * pix);
-	void caculateData(QVector<QVector<float>> transData,QVector<QString>, int ivalue, int half);
+	void caculateData(QVector<QVector<float>> transData,QVector<QString>, int ivalue, int half, QVector<float> theory);
 
 	void setCurveChecked(bool);
 	void setAveChecked(bool);
-	void setData(QVector<QVector<float>> sourcedata, QVector<QString>, int i, int j);
+	void setData(QVector<QVector<float>> sourcedata, QVector<QString>, int i, int j, QVector<float> f);
 public slots:
 	void drawPic(QPrinter * pt);
 

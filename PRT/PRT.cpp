@@ -66,7 +66,7 @@ void PRT::initPLC()
 	b = connect(dlg, SIGNAL(SHOWPRT(bool)), this, SLOT(showPrt(bool)));
 
 	b = connect(dlg, SIGNAL(CLOSESIGNAL()), this, SLOT(on_ToClose()));
-	b = connect(dlg, SIGNAL(TODRAWPICTURE(QVector<QVector<float>>, QVector<QString>,int)), this, SLOT(getVec(QVector<QVector<float>>, QVector<QString>,int)));
+	b = connect(dlg, SIGNAL(TODRAWPICTURE(QVector<QVector<float>>, QVector<QString>,int, QVector<float>)), this, SLOT(getVec(QVector<QVector<float>>, QVector<QString>,int, QVector<float>)));
 	dlg->setParent(ui.widget);
 	dlg->move(0, 0);
 	b = connect(this, SIGNAL(MINI()), m_pPlclib, SLOT(setWinMini()));
@@ -454,7 +454,7 @@ void PRT::on_pB_PrintDirect_clicked()
 
 	if (QMessageBox::Yes == showMsgBox("打印确认", "确认打印报告?", "确认", "取消"))
 	{
-		m_drawpicture->setData(data,gn, m_iPrintCurveCount, m_iPrintAveCount);
+		m_drawpicture->setData(data,gn, m_iPrintCurveCount, m_iPrintAveCount,theory);
 		//wt->show();
 		m_drawpicture->drawPic(m_prt);
 		//wt->close();
@@ -481,7 +481,7 @@ void PRT::on_pB_Print_clicked()
 	 * 当preview.exec()执行时该信号被触发，
 	 * drawPic(QPrinter *printer)是自定义的槽函数，图像的绘制就在这个函数里。
 	 */
-	m_drawpicture->setData(data,gn, m_iPrintCurveCount, m_iPrintAveCount);
+	m_drawpicture->setData(data,gn, m_iPrintCurveCount, m_iPrintAveCount, theory);
 	//wt->setTxt(QString::fromLocal8Bit("打印预览功能正在开启..."));//打印正在进行,请稍等...
 	connect(&preview, SIGNAL(paintRequested(QPrinter*)), this, SLOT(toDraw(QPrinter*)));
 	preview.exec();
@@ -501,7 +501,7 @@ void PRT::on_ToClose()
 				}
 }
 
-void PRT::getVec(QVector<QVector<float>> a, QVector<QString> GN,int mode)
+void PRT::getVec(QVector<QVector<float>> a, QVector<QString> GN,int mode, QVector<float> teo)
 {
 	if (mode==0)//MODE 0:dataAverage,1:curve
 	{
@@ -531,10 +531,12 @@ void PRT::getVec(QVector<QVector<float>> a, QVector<QString> GN,int mode)
 
 		data = a;
 		gn = GN;
+		theory = teo;
 		//data[0] = a;
 		on_pB_PrintDirect_clicked();
 		data.clear();
 		gn.clear();
+		theory.clear();
 	}
 	/*else if (mode == 2)
 	{
