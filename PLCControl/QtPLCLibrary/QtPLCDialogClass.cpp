@@ -1186,8 +1186,8 @@ QString QtPLCDialogClass::YearMonthDay()
 	logMinute = logMinute.length() < 2 ? ("0" + logMinute) : logMinute;
 	strTime = logYear + "-" //z=a>b?x:y
 		+ logMonth + "-"
-		+ logDay + "_"
-		+ logHour + "_"
+		+ logDay + " "
+		+ logHour + ":"
 		+ logMinute;
 	return strTime;
 }

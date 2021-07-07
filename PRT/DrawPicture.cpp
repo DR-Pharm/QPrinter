@@ -15,26 +15,6 @@ DrawPicture::~DrawPicture()
 
 void DrawPicture::drawPic(QPrinter *printer)
 {
-	//QCoreApplication::processEvents();
-	QPrinterInfo info;
-	QString ptName = info.defaultPrinterName(); // 默认打印机名字		
-	//emit TOUI(QString::fromLocal8Bit("默认设备型号：\n") + ptName);
-
-	m_sName = printer->printerName();
-	//QPrinter *printer = new QPrinter(QPrinter::HighResolution);
-	printer->setResolution(QPrinter::HighResolution);
-	////自定义纸张大小，特别重要，不然预览效果极差
-	//printer->setPrinterName(m_sName);
-	printer->setPageSize(QPrinter::A4);
-	printer->setOrientation(QPrinter::Portrait);
-
-	printer->setFullPage(true);//first
-
-	QPagedPaintDevice::Margins marg;//second
-	marg.left = 0;
-	marg.top = 5;
-	printer->setMargins(marg);
-
 	//printer->setPrintRange(QPrinter::PageRange);//2
 	//printer->setPrintRange(QPrinter::AllPages);//0
 	int prtMode = printer->printRange();
@@ -80,10 +60,13 @@ void DrawPicture::drawPic(QPrinter *printer)
 	int pages = page1 + page2;
 	QVector<QPixmap> pix;
 	pix.resize(pages);
+	QPixmap pixtmp(pixWidth, pixHeight);
+	pixtmp.fill(Qt::white);
 	for (int i = 0; i < pix.size(); i++)
 	{
 		QCoreApplication::processEvents();
-		pix[i] = QPixmap(pixWidth, pixHeight);
+		//pix[i] = QPixmap(pixWidth, pixHeight);
+		pix[i] = pixtmp;
 	}
 	//这个函数算是画模板的函数吧，毕竟打印时有模板的
 
@@ -106,7 +89,7 @@ void DrawPicture::drawPic(QPrinter *printer)
 			{
 				caculateData(data, m_gn, data.size() - m_iPrintCurveCount + pageValue * 2, 2);
 			}
-			if (CurveChecked)
+			if (CurveChecked)//这是我找了两天的bug点,源于如果已经checked则再次checked不会进入槽函数
 			{
 				QCoreApplication::processEvents();
 				createPixCurve(&pix[pageValue]);
@@ -199,10 +182,15 @@ void DrawPicture::drawPic(QPrinter *printer)
 
 void DrawPicture::createPixCurve(QPixmap *pix)
 {
+	//painter->setRenderHints(QPainter::SmoothPixmapTransform);//消锯齿 
 	painter->begin(pix);
-	painter->setRenderHint(QPainter::Antialiasing, true);
+
+	painter->setRenderHint(QPainter::Antialiasing, true);//反走样
+	//QRect rect(0, 0, pixWidth, pixHeight);
+	//painter->fillRect(rect, Qt::white);
+
 	// 设置画笔颜色、宽度
-	painter->setPen(QPen(QColor(255, 255, 255), 4));
+	painter->setPen(QPen(QColor(255, 255, 255), 1));
 	// 设置画刷颜色
 	painter->setBrush(QColor(255, 255, 255));
 
@@ -243,18 +231,21 @@ void DrawPicture::createPixCurve(QPixmap *pix)
 	int actualHight = actualBottom - actualTop;
 	int YActualLength = actualBottom - actualTop;
 
-	QRect rect(0, 0, pixWidth, pixHeight);
 	//整张图设置画刷白底	
 	QFont font;
 	font.setPointSize(23);
 	font.setFamily("宋体");
 	//font.setItalic(true);//斜体
 	painter->setFont(font);
-	painter->fillRect(rect, QColor(255, 255, 255));
-	painter->drawRect(rect);
+	//painter->fillRect(rect, QColor(255, 255, 255));//maybe a bug
+	//painter->drawRect(rect);
+
 	//画数据部分的线条
+
+
 	painter->setPen(QPen(QColor(0, 0, 0), 3));
 	QVector<QLine> lines;
+
 
 	int totalMachineCount = 0;
 	for (; totalMachineCount < 2; totalMachineCount++)
@@ -263,8 +254,9 @@ void DrawPicture::createPixCurve(QPixmap *pix)
 		if (lst.size()<3)
 		{
 			lst.clear();
-			lst << "" << "" << "";
+			lst << " " << " " << " ";
 		}
+
 		int simpleFun = inner50percentH * totalMachineCount;
 		lines.append(QLine(QPoint(edgeOffset, edgeOffset), QPoint(rightW, edgeOffset)));//上边
 		lines.append(QLine(QPoint(rightW, edgeOffset), QPoint(rightW, bottomH)));//右边

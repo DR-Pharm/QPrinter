@@ -217,6 +217,21 @@ void PRT::initPrinter()
 	showPrintName(QString::fromLocal8Bit("默认设备型号：\n") + ptName);
 	m_prt = new QPrinter();
 	m_prt->setPrinterName(ptName);
+
+	//emit TOUI(QString::fromLocal8Bit("默认设备型号：\n") + ptName);
+
+	m_prt->setResolution(QPrinter::HighResolution);
+	////自定义纸张大小，特别重要，不然预览效果极差
+	//printer->setPrinterName(m_sName);
+	m_prt->setPageSize(QPrinter::A4);
+	m_prt->setOrientation(QPrinter::Portrait);
+
+	m_prt->setFullPage(true);//first
+
+	QPagedPaintDevice::Margins marg;//second
+	marg.left = 0;
+	marg.top = 5;
+	m_prt->setMargins(marg);
 }
 void PRT::showPrintName(QString str)
 {
@@ -502,8 +517,14 @@ void PRT::getVec(QVector<QVector<float>> a, QVector<QString> GN,int mode)
 	}
 	else if (mode == 1)
 	{
+		on_cB_Curve_toggled(true);
+		ui.cB_Curve->blockSignals(true);
 		ui.cB_Curve->setChecked(true);
+		ui.cB_Curve->blockSignals(false);
+		on_cB_Average_toggled(false);
+		ui.cB_Average->blockSignals(true);
 		ui.cB_Average->setChecked(false);
+		ui.cB_Average->blockSignals(false);
 		/*m_iDataNum = 1;
 		data.resize(1);*/
 		m_iDataNum = a.size();
