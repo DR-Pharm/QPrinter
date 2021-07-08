@@ -55,6 +55,10 @@ public:
 	void SetSocket(QtSocket_Class*);
 	void setStyleCommand(QPushButton*, QString, QFont, QString);
 
+	void CompareYearMonthDay();
+
+	QString setYearMonthDay();
+	QString YearMonthDay();
 private:
 	MyPushButton *ExitBtn;
 	double sumNo = 0;
@@ -119,7 +123,9 @@ private:
 	QWidget *tab=nullptr;
 	QTableWidget* tableWidget= nullptr;
 	QString m_SelectedName;
-	
+
+	QString m_gn1;
+	QString m_gn2;
 public slots:
 
 	DataFromPC_typ getPCParaData();
@@ -129,16 +135,22 @@ public slots:
 
 	void getPLCData(void*);
 
-	QString YearMonthDay();
 
 	void setg_IUserLevel(int);
 
 	void on_lE_SysOveride_editingFinished();
+	void on_lE_year1_editingFinished();
+	void on_lE_month1_editingFinished();
+	void on_lE_day1_editingFinished();
+	void on_lE_hour1_editingFinished();
+	void on_lE_hour2_editingFinished();
+	void on_lE_minute1_editingFinished();
 	/*passcount
 	void on_lE_RejectCount_editingFinished();
 	void on_lE_ProdCount_editingFinished();
 	void on_lE_TOCount_editingFinished();
 	void on_lE_TUCount_editingFinished();*/
+	void on_lE_minute2_editingFinished();
 	void on_lE_TOverload_editingFinished();
 	void on_lE_TUnderload_editingFinished();
 	void on_lE_InterOverLoad_editingFinished();
@@ -168,6 +180,8 @@ public slots:
 	void on_lE_TireWaitTime_editingFinished();
 	void on_lE_StopSignalDelay_editingFinished();
 
+	void on_pB_startSearch_clicked();
+	void on_pB_copyIn_clicked();
 	void on_pB_printData_clicked();
 
 	void on_pB_printCurve_clicked();
