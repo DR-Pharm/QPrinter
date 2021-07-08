@@ -1785,7 +1785,7 @@ void QtPLCDialogClass::on_lE_TestInterval_editingFinished()///测试间隔时间
 }
 void QtPLCDialogClass::on_lE_MultiCount_editingFinished()///测试间隔时间,单位s
 {
-	QString oldstr = QString::number(m_data->ActData.TestInterval);
+	QString oldstr = QString::number(m_data->ActData.MultiCount);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->text();
 	if (oldstr == str)
 	{

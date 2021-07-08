@@ -9,7 +9,7 @@ class QPushButton;
 class QComboBox;
 
 // 按钮的边长,键盘总长度=14*BTN_SIZE,键盘总宽度=3*BTN_SIZE
-#define BTN_SIZE    40
+#define BTN_SIZE    60
 
 class keyBoard : public QWidget
 {
