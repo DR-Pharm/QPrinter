@@ -894,7 +894,8 @@ void QtPLCDialogClass::getPLCData(void* data)
 				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/theory", QString::number(m_data->ActData.TDemand, 'f', 3));
 
 				QSettings timIni(AppPath + "\\data\\time.ini", QSettings::IniFormat);
-				QString str1tmp = ymdhm.mid(10).remove("/");
+				QString str1tmp = ymdhm.mid(0, 10);
+				str1tmp.remove("/");
 				QString str2tmp = ymdhm.remove("/");
 				str2tmp.remove(" ");
 				str2tmp.remove(":");
@@ -1247,7 +1248,7 @@ void QtPLCDialogClass::CompareYearMonthDay()
 		m_gn2 = "";
 		QSettings timIni(AppPath + "\\data\\time.ini", QSettings::IniFormat);		
 		// 获取一个节点下的key值
-		timIni.beginGroup(str1.mid(8));    // 设置查找节点
+		timIni.beginGroup(str1.mid(0,8));    // 设置查找节点
 		QStringList str2 = timIni.allKeys();    // 获取所有的key
 		if (str2.size()==0)
 		{
@@ -1290,8 +1291,20 @@ void QtPLCDialogClass::CompareYearMonthDay()
 
 		if (m_gn1 == "")
 		{
-			((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("该时间段不存在符合条件的数据!"));
+			((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("不存在符合条件的数据!"));
 			((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(false);
+		}
+		else
+		{
+			if (m_gn1==m_gn2)
+			{
+				((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("符合组号为：") + m_gn1);
+			}
+			else
+			{
+				((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("符合组号为：") + m_gn1 + "-" + m_gn2);
+			}
+			((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(true);
 		}
 
 	}
