@@ -2132,6 +2132,7 @@ void QtPLCDialogClass::on_pB_ChangeLanguage_toggled(bool checked)
 		((Ui::QtPLCDialogClass*)ui)->label_18->setText("Serial");
 		((Ui::QtPLCDialogClass*)ui)->label_80->setText("Speed");
 		((Ui::QtPLCDialogClass*)ui)->label_78->setText("Batch Num");
+		((Ui::QtPLCDialogClass*)ui)->label_50->setText("Step");
 
 		//输入输出
 		((Ui::QtPLCDialogClass*)ui)->label_40->setText("Capsule Drop");
@@ -2367,6 +2368,7 @@ void QtPLCDialogClass::on_pB_ChangeLanguage_toggled(bool checked)
 		((Ui::QtPLCDialogClass*)ui)->label_18->setText(QString::fromLocal8Bit("本组序号"));
 		((Ui::QtPLCDialogClass*)ui)->label_80->setText(QString::fromLocal8Bit("运行速度"));
 		((Ui::QtPLCDialogClass*)ui)->label_78->setText(QString::fromLocal8Bit("生产批号"));
+		((Ui::QtPLCDialogClass*)ui)->label_50->setText(QString::fromLocal8Bit("步骤"));
 
 		//输入输出
 		((Ui::QtPLCDialogClass*)ui)->label_40->setText(QString::fromLocal8Bit("胶囊下落检测"));
