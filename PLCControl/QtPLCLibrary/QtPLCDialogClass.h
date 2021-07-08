@@ -32,7 +32,7 @@ signals:
 	void GETSTRING(QString);
 	void SHOWPRT(bool);
 	void TODATACURVE(int,float, float, float, QList<qreal>);
-	void TODRAWPICTURE(QVector<QVector<float>>,QVector<QString>,int);//MODE 0:one curve,1:one dataAverage,2:two curve,3:two dataAverage
+	void TODRAWPICTURE(QVector<QVector<float>>,QVector<QString>,int, QVector<float>);//MODE 0:one curve,1:one dataAverage,2:two curve,3:two dataAverage
 
 public:
 	QtPLCDialogClass(QDialog *parent = Q_NULLPTR);
@@ -56,6 +56,7 @@ public:
 	void setStyleCommand(QPushButton*, QString, QFont, QString);
 
 private:
+	MyPushButton *ExitBtn;
 	double sumNo = 0;
 	int m_row = 0;
 	double mi, ma;
@@ -158,6 +159,7 @@ public slots:
 	//void on_cB_enable_currentIndexChanged(int index);
 	void on_lE_s_trg_stop0_editingFinished();
 	void on_lE_s_trg_stop1_editingFinished();
+	void on_lE_Feed_shakeoffset_editingFinished();
 	void on_lE_FeedTimeOut_editingFinished();
 	void on_lE_CapPickInterval_editingFinished();
 	void on_lE_CapBackInterval_editingFinished();

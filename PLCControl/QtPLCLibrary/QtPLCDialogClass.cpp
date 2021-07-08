@@ -109,10 +109,10 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	connect(AlarmResetBtn, &MyPushButton::clicked, [=]() {
 		on_pB_ChangeLanguage_toggled(bool checked); });*/
 
-	AlarmResetBtn = new MyPushButton(AppPath + "/ico/exitnt.png", AppPath + "/ico/exit.png", 347, 99);
-	AlarmResetBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
-	AlarmResetBtn->move(15, 450);
-	connect(AlarmResetBtn, &MyPushButton::clicked, [=]() {
+	ExitBtn = new MyPushButton(AppPath + "/ico/exitnt.png", AppPath + "/ico/exit.png", 347, 99);
+	ExitBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
+	ExitBtn->move(15, 450);
+	connect(ExitBtn, &MyPushButton::clicked, [=]() {
 		emit CLOSESIGNAL(); });
 	//AlarmResetBtn = new MyPushButton(AppPath + "/ico/jtnt.png", AppPath + "/ico/jt.png", 347, 99);
 	/*AlarmResetBtn = new MyPushButton(AppPath + "/ico/dr_keyboard.ico", AppPath + "/ico/dr_keyboard.ico", 347, 99);
@@ -883,7 +883,9 @@ void QtPLCDialogClass::getPLCData(void* data)
 				QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
 				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo)+ "/data", str);
 				QString lkstr = QString::number(m_data->Status.CapDataDisp.GroupNo) + "," + YearMonthDay() + "," + ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text();
-				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo)+ "/gn", lkstr);
+				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/gn", lkstr);
+				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/theory", QString::number(m_data->ActData.TDemand, 'f', 3));
+
 				data_One.clear();
 
 				if (!((Ui::QtPLCDialogClass*)ui)->lE_print1->hasFocus() && !((Ui::QtPLCDialogClass*)ui)->lE_print2->hasFocus())
@@ -900,6 +902,24 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->setCurrentIndex(m_data->ActData.Feedmode);
+		if (m_data->ActData.Feedmode==0)
+		{
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShake->setEnabled(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedshakestop->setEnabled(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedshakelevel->setEnabled(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedhome->setEnabled(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedFive->setEnabled(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShakefive->setEnabled(false);
+		}
+		else
+		{
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShake->setEnabled(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedshakestop->setEnabled(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedshakelevel->setEnabled(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedhome->setEnabled(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedFive->setEnabled(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShakefive->setEnabled(true);
+		}
 		((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->blockSignals(false);
 	}																						  //int				Language;				//当前语言，0：中文，1：英文
 	//float			UserAnalogoutput;		//用户模拟量输入
@@ -1605,6 +1625,29 @@ void QtPLCDialogClass::on_lE_s_trg_stop1_editingFinished()
 
 	showWindowOut(QString::fromLocal8Bit("停止位置2\n已更改!"));
 }
+
+void QtPLCDialogClass::on_lE_Feed_shakeoffset_editingFinished()
+{
+	QString oldstr = QString::number(m_data->Machine_Para.Feed_shakeoffset);
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->text();
+	if (oldstr == str)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->blockSignals(false);
+		return;
+	}
+	DataFromPC_typ typ;
+	typ = getPCParaData();
+	typ.Telegram_typ = 2;
+	typ.Machine_Para.Feed_shakeoffset = ((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->text().toFloat();
+	m_socket->Communicate_PLC(&typ, nullptr);
+	((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->blockSignals(true);
+	((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->clearFocus();
+	((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->blockSignals(false);
+
+	showWindowOut(QString::fromLocal8Bit("摆动距离\n已更改!"));
+}//lE_Feed_shakeoffset
 void QtPLCDialogClass::on_lE_FeedTimeOut_editingFinished()
 {
 	QString oldstr = QString::number(m_data->Machine_Para.FeedTimeOut);
@@ -1816,8 +1859,10 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 		}
 		QVector<QString> GroupNumber;
 		GroupNumber << configIniRead.value(QString::number(p1) + "/gn", 0).toString();
+		QVector<float> teo;
+		teo<< configIniRead.value(QString::number(p1) + "/theory", 1).toFloat();
 		dataToDraw << data_temp;
-		emit TODRAWPICTURE(dataToDraw, GroupNumber, 1);
+		emit TODRAWPICTURE(dataToDraw, GroupNumber, 1,teo);
 		return;
 	}
 	else
@@ -1825,6 +1870,7 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 		QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
 		QVector<QVector<float>> dataToDraw;
 		QVector<QString> GroupNumber;
+		QVector<float> teo;
 		for (int i = p1; i < p2 + 1; i++)
 		{
 			QString str = configIniRead.value(QString::number(i)+"/data" , 0).toString();
@@ -1840,12 +1886,13 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 				}
 				GroupNumber << configIniRead.value(QString::number(i) + "/gn", "0").toString();
 				dataToDraw << data_temp;
+				teo << configIniRead.value(QString::number(i) + "/theory", 1).toFloat();
 			}
 		}
 
 		if (dataToDraw.size() > 0)
 		{
-			emit TODRAWPICTURE(dataToDraw, GroupNumber,1);
+			emit TODRAWPICTURE(dataToDraw, GroupNumber,1,teo);
 		}
 		
 		else
@@ -2077,6 +2124,7 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIcon(pix);
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(false);
 		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(false);
+		ExitBtn->setEnabled(false);
 		typ.Machine_Cmd.cmdStart = 1;
 		btnTimer->start(1);
 	}
@@ -2089,7 +2137,8 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 		{
 			((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(true);
 		}
-		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(true); 
+		ExitBtn->setEnabled(true);
 		typ.Machine_Cmd.cmdStop = 1;
 		btnTimer->start(1);
 	}

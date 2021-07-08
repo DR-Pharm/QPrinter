@@ -611,37 +611,37 @@
            </property>
            <layout class="QGridLayout" name="gridLayout_7">
             <item row="2" column="1">
-             <widget class="QPushButton" name="pB_cmdFeedSingleStop">
-              <property name="text">
-               <string>单粒下料停止</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
              <widget class="QPushButton" name="pB_cmdAxisFeedPosMov">
               <property name="text">
                <string>正向连续运动</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="2">
-             <widget class="QPushButton" name="pB_cmdAxisFeedStopMov">
-              <property name="text">
-               <string>停止运动</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
+            <item row="3" column="0">
              <widget class="QPushButton" name="pB_cmdFeedSingle">
               <property name="text">
                <string>单粒下料</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="0">
-             <widget class="QPushButton" name="pB_cmdAxisFeedRelMov">
+            <item row="2" column="2">
+             <widget class="QPushButton" name="pB_cmdAxisFeedStopMov">
               <property name="text">
-               <string>相对运动</string>
+               <string>停止运动</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QPushButton" name="pB_cmdAxisFeedJogNeg">
+              <property name="text">
+               <string>反转点动</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QPushButton" name="pB_cmdFeedSingleStop">
+              <property name="text">
+               <string>单粒下料停止</string>
               </property>
              </widget>
             </item>
@@ -652,10 +652,42 @@
               </property>
              </widget>
             </item>
-            <item row="0" column="1">
-             <widget class="QPushButton" name="pB_cmdAxisFeedJogNeg">
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_22">
               <property name="text">
-               <string>反转点动</string>
+               <string>相对运动距离</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="lE_AxisFeedRelMovDistance">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>150</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>150</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>0</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QPushButton" name="pB_cmdAxisFeedRelMov">
+              <property name="text">
+               <string>相对运动</string>
               </property>
              </widget>
             </item>
@@ -682,7 +714,38 @@
               </property>
              </widget>
             </item>
+            <item row="2" column="2">
+             <widget class="QPushButton" name="pB_cmdAxisSwingStopMov">
+              <property name="text">
+               <string>停止运动</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QPushButton" name="pB_cmdAxisSwingPosMov">
+              <property name="text">
+               <string>正向连续运动</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QPushButton" name="pB_cmdSwing">
+              <property name="text">
+               <string>旋转单工位</string>
+              </property>
+             </widget>
+            </item>
             <item row="1" column="0">
+             <widget class="QLabel" name="label_28">
+              <property name="text">
+               <string>相对运动距离</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
              <widget class="QPushButton" name="pB_cmdAxisSwingRelMov">
               <property name="text">
                <string>相对运动</string>
@@ -690,23 +753,24 @@
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QPushButton" name="pB_cmdAxisSwingPosMov">
-              <property name="text">
-               <string>正向连续运动</string>
+             <widget class="QLineEdit" name="lE_AxisSwingRelMovDistance">
+              <property name="enabled">
+               <bool>true</bool>
               </property>
-             </widget>
-            </item>
-            <item row="1" column="2">
-             <widget class="QPushButton" name="pB_cmdAxisSwingStopMov">
-              <property name="text">
-               <string>停止运动</string>
+              <property name="minimumSize">
+               <size>
+                <width>150</width>
+                <height>0</height>
+               </size>
               </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QPushButton" name="pB_cmdSwing">
+              <property name="maximumSize">
+               <size>
+                <width>150</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
-               <string>旋转单工位</string>
+               <string>0</string>
               </property>
              </widget>
             </item>
@@ -2285,25 +2349,6 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="1">
-           <widget class="QLineEdit" name="lE_AxisFeedStep">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>150</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>150</width>
-              <height>16777215</height>
-             </size>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_19">
             <property name="text">
@@ -2330,10 +2375,10 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="lE_AxisFeedRelMovDistance">
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="lE_AxisFeedStep">
             <property name="enabled">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
             <property name="minimumSize">
              <size>
@@ -2346,16 +2391,6 @@
               <width>150</width>
               <height>16777215</height>
              </size>
-            </property>
-            <property name="text">
-             <string>0</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_22">
-            <property name="text">
-             <string>相对运动距离</string>
             </property>
            </widget>
           </item>
@@ -2388,6 +2423,25 @@
             </property>
            </widget>
           </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="lE_AxisSwingErrorNo">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>150</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>150</width>
+              <height>16777215</height>
+             </size>
+            </property>
+           </widget>
+          </item>
           <item row="0" column="1">
            <widget class="QLineEdit" name="lE_AxisSwingStep">
             <property name="enabled">
@@ -2411,54 +2465,6 @@
            <widget class="QLabel" name="label_27">
             <property name="text">
              <string>错误代码</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QLineEdit" name="lE_AxisSwingErrorNo">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>150</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>150</width>
-              <height>16777215</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="lE_AxisSwingRelMovDistance">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>150</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>150</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>0</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_28">
-            <property name="text">
-             <string>相对运动距离</string>
             </property>
            </widget>
           </item>

@@ -83,11 +83,11 @@ void DrawPicture::drawPic(QPrinter *printer)
 			int tempInt = data.size() - m_iPrintCurveCount + pageValue * 2 + 1;
 			if (tempInt == data.size())
 			{
-				caculateData(data,m_gn, data.size() - m_iPrintCurveCount + pageValue * 2, 1);
+				caculateData(data,m_gn, data.size() - m_iPrintCurveCount + pageValue * 2, 1, m_ftheory);
 			}
 			else
 			{
-				caculateData(data, m_gn, data.size() - m_iPrintCurveCount + pageValue * 2, 2);
+				caculateData(data, m_gn, data.size() - m_iPrintCurveCount + pageValue * 2, 2, m_ftheory);
 			}
 			if (CurveChecked)//这是我找了两天的bug点,源于如果已经checked则再次checked不会进入槽函数
 			{
@@ -143,11 +143,11 @@ void DrawPicture::drawPic(QPrinter *printer)
 				}
 				else if (tempInt == data.size())
 				{
-					caculateData(data, m_gn,data.size() - m_iPrintAveCount + tempRow * 2, 1);
+					caculateData(data, m_gn,data.size() - m_iPrintAveCount + tempRow * 2, 1,m_ftheory);
 				}
 				else
 				{
-					caculateData(data, m_gn, data.size() - m_iPrintAveCount + tempRow * 2, 2);
+					caculateData(data, m_gn, data.size() - m_iPrintAveCount + tempRow * 2, 2, m_ftheory);
 				}
 
 				if (AveChecked)
@@ -587,7 +587,7 @@ void DrawPicture::createPixAverage(QPixmap *pix)
 	}
 }
 
-void DrawPicture::caculateData(QVector<QVector<float>> transData,QVector<QString> gn, int ivalue, int half)//0 1 2
+void DrawPicture::caculateData(QVector<QVector<float>> transData,QVector<QString> gn, int ivalue, int half, QVector<float> theory)//0 1 2
 {
 
 	data_One[0].resize(0);
@@ -600,6 +600,7 @@ void DrawPicture::caculateData(QVector<QVector<float>> transData,QVector<QString
 		data_One[0] = transData[ivalue];
 		gn_One[0] = gn[ivalue];
 		gn_One[1] = "";
+		m_dtheory[0] = theory[ivalue];
 	}
 	else
 	{
@@ -607,10 +608,11 @@ void DrawPicture::caculateData(QVector<QVector<float>> transData,QVector<QString
 		data_One[1] = transData[ivalue + 1];
 		gn_One[0] = gn[ivalue];
 		gn_One[1] = gn[ivalue + 1];
+		m_dtheory[0] = theory[ivalue];
+		m_dtheory[1] = theory[ivalue+1];
 	}
 	for (int i = 0; i < 2; i++)
 	{
-		m_dtheory[i] = 0.35;
 		if (data_One[i].size() == 0)
 		{
 		}
@@ -642,10 +644,11 @@ void DrawPicture::setAveChecked(bool b)
 	AveChecked = b;
 }
 
-void DrawPicture::setData(QVector<QVector<float>> sourcedata,QVector<QString> gn, int i, int j)
+void DrawPicture::setData(QVector<QVector<float>> sourcedata,QVector<QString> gn, int i, int j, QVector<float> f)
 {
 	data = sourcedata;
 	m_gn = gn;
+	m_ftheory = f;
 	m_iPrintCurveCount = i;
 	m_iPrintAveCount = j;
 }

@@ -62,6 +62,7 @@ private:
 	//data calculate
 	QVector<QVector<float>>data;
 	QVector<QString> gn;
+	QVector<float> theory;
 	int m_iDataNum;//数据存储数量0135...1#     2468...2#
 	int m_iCurrentGetDataNo = 0;
 	int m_iPrintCurveCount=0;
@@ -100,7 +101,7 @@ public slots:
 	void on_cB_Average_toggled(bool checked);
 	void on_cB_PrintMode_currentIndexChanged(int index);
 	void on_ToClose();
-	void getVec(QVector<QVector<float>>, QVector<QString>,int);
+	void getVec(QVector<QVector<float>>, QVector<QString>,int, QVector<float> teo);
 	void SuccessConnect();
 	void ErrorConnect();
 	void EmitReconnect();
