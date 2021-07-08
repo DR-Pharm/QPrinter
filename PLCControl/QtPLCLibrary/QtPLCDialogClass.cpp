@@ -481,6 +481,8 @@ void QtPLCDialogClass::initUI()
 
 	((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(false);
 
+	((Ui::QtPLCDialogClass*)ui)->lb_alm->setVisible(false);
+
 	QRegExp regx_2("[a-zA-Z0-9_]+$");
 	((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setValidator(new QRegExpValidator(regx_2, this));
 	lb_dataNow = new QLabel(((Ui::QtPLCDialogClass*)ui)->frame);
@@ -655,6 +657,7 @@ DataFromPC_typ QtPLCDialogClass::getPCRunData()//4
 	tmp.ActData.UserAnalogoutput = m_data->ActData.UserAnalogoutput;		//用户模拟量输入
 	tmp.ActData.Adjustvalue = m_data->ActData.Adjustvalue;			//自动调整系数
 	tmp.ActData.DeltaInput = m_data->ActData.DeltaInput;				//装量调整偏差值
+	tmp.ActData.MultiCount = m_data->ActData.MultiCount;
 
 	memset(tmp.ActData.BatchName, '\0', sizeof(tmp.ActData.BatchName));
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text();
@@ -772,6 +775,10 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->setText(QString::number(m_data->ActData.TestInterval));
 	}
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->hasFocus())////测试间隔时间,单位s
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->setText(QString::number(m_data->ActData.MultiCount));
+	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_BatchName->hasFocus())//BatchName[40];			//批号字符串
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setText(QString(QLatin1String(m_data->ActData.BatchName)));//Cause kinco has a bug when input this parameter,but use PC to input,we do not have this bug,so don't need to change.
@@ -864,14 +871,11 @@ void QtPLCDialogClass::getPLCData(void* data)
 					}
 			}
 		}
-		else
+
+		if (m_data->Status.Finished==1)
 		{
 			m_row = 0;
 			sumNo = m_data->ActData.GroupSum;
-			data_One.clear();
-		}
-		if (m_data->Status.Finished==1)
-		{
 			if (data_One.size() > 0)
 			{
 				QString str = "";
@@ -959,6 +963,16 @@ void QtPLCDialogClass::getPLCData(void* data)
 	((Ui::QtPLCDialogClass*)ui)->lE_MachineStep->setText(QString::number(m_data->Status.MachineStep));			//系统运行状态机步骤
 	((Ui::QtPLCDialogClass*)ui)->lE_TimeInterval->setText(QString::number(m_data->Status.TimeInterval, 'f', 2));			//测量实际间隔时间
 	((Ui::QtPLCDialogClass*)ui)->lE_AlarmStatus->setText(QString::number(m_data->Status.AlarmStatus));
+	if (m_data->Status.AlarmStatus!=0)
+	{
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setChecked(false);
+
+		((Ui::QtPLCDialogClass*)ui)->lb_alm->setVisible(true);
+	}
+	else
+	{
+		((Ui::QtPLCDialogClass*)ui)->lb_alm->setVisible(false);
+	}
 	char *str1 = (char*)(m_data->Status.Alarm);
 //	((Ui::QtPLCDialogClass*)ui)->lE_Alarm16->setText(QString(QLatin1String(str1)));
 #pragma endregion
@@ -1769,6 +1783,28 @@ void QtPLCDialogClass::on_lE_TestInterval_editingFinished()///测试间隔时间
 
 	showWindowOut(QString::fromLocal8Bit("组间隔\n已更改!"));
 }
+void QtPLCDialogClass::on_lE_MultiCount_editingFinished()///测试间隔时间,单位s
+{
+	QString oldstr = QString::number(m_data->ActData.TestInterval);
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->text();
+	if (oldstr == str)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->blockSignals(false);
+		return;
+	}
+	DataFromPC_typ typ;
+	typ = getPCRunData();
+	typ.Telegram_typ = 4;
+	typ.ActData.MultiCount = ((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->text().toInt();
+	m_socket->Communicate_PLC(&typ, nullptr);
+	((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->blockSignals(true);
+	((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->clearFocus();
+	((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->blockSignals(false);
+
+	showWindowOut(QString::fromLocal8Bit("落多粒数\n已更改!"));
+}
 void QtPLCDialogClass::on_lE_BatchName_editingFinished()//批号字符串
 {
 	QString oldstr = QString(QLatin1String(m_data->ActData.BatchName));
@@ -1836,6 +1872,8 @@ void QtPLCDialogClass::on_lE_AxisSwingRelMovDistance_editingFinished()
 //float			Adjustvalue;			//自动调整系数
 //unsigned int	DeltaInput;				//装量调整偏差值
 //int				cmdAutoPrint;			//自动打印，1:自动，0：手动
+
+
 #pragma endregion
 
 #pragma region ui para slots

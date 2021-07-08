@@ -160,6 +160,7 @@ public slots:
 	void on_lE_GroupSet_editingFinished();
 	void on_lE_FeedOveride_editingFinished();
 	void on_lE_TestInterval_editingFinished();
+	void on_lE_MultiCount_editingFinished();
 	void on_lE_BatchName_editingFinished();
 
 	void on_cB_Feedmode_currentIndexChanged(int index);

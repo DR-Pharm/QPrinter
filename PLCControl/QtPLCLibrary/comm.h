@@ -161,6 +161,7 @@ typedef struct
 	REAL		UserAnalogoutput;		//用户模拟量输入
 	REAL		Adjustvalue;		//自动调整系数
 	UDINT		DeltaInput;		//装量调整偏差值
+	UINT		MultiCount;     //下多粒
 
 	DINT				Reserve[16];			//预留空间
 }Comm_Run_Para_typ;
