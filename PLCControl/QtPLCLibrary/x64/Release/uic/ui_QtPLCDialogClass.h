@@ -307,11 +307,8 @@ public:
     QFrame *frame_20;
     QPushButton *pB_SetUp;
     QPushButton *pB_cmdStart;
-<<<<<<< HEAD
     QPushButton *pB_ChangeLanguage;
-=======
     QLabel *lb_alm;
->>>>>>> 2df381b3dffd2401949a33f826edcf840a825993
     QWidget *widget;
     QWidget *layoutWidget_3;
     QGridLayout *gridLayout_13;
@@ -2389,7 +2386,6 @@ public:
         pB_cmdStart->setStyleSheet(QString::fromUtf8("background-color: rgb(200, 200, 100);\n"
 "font: 60pt \"\350\277\267\344\275\240\347\256\200\350\217\261\345\277\203\";"));
         pB_cmdStart->setCheckable(true);
-<<<<<<< HEAD
         pB_ChangeLanguage = new QPushButton(frame_20);
         pB_ChangeLanguage->setObjectName(QString::fromUtf8("pB_ChangeLanguage"));
         pB_ChangeLanguage->setEnabled(true);
@@ -2399,7 +2395,7 @@ public:
         pB_ChangeLanguage->setMinimumSize(QSize(0, 45));
         pB_ChangeLanguage->setFont(font11);
         pB_ChangeLanguage->setCheckable(true);
-=======
+
         lb_alm = new QLabel(frame_20);
         lb_alm->setObjectName(QString::fromUtf8("lb_alm"));
         lb_alm->setGeometry(QRect(10, 550, 351, 191));
@@ -2418,7 +2414,7 @@ public:
         lb_alm->setLineWidth(6);
         lb_alm->setMidLineWidth(3);
         lb_alm->setScaledContents(false);
->>>>>>> 2df381b3dffd2401949a33f826edcf840a825993
+
         widget = new QWidget(QtPLCDialogClass);
         widget->setObjectName(QString::fromUtf8("widget"));
         widget->setGeometry(QRect(2150, 10, 851, 581));
@@ -3051,11 +3047,10 @@ public:
         pB_dtDlg->setText(QString());
         pB_SetUp->setText(QString());
         pB_cmdStart->setText(QString());
-<<<<<<< HEAD
+
         pB_ChangeLanguage->setText(QString());
-=======
+
         lb_alm->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\263\273\347\273\237\346\212\245\350\255\246\357\274\214\350\257\267\345\205\210\345\244\215\344\275\215\357\274\201", nullptr));
->>>>>>> 2df381b3dffd2401949a33f826edcf840a825993
         label_8->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\234\200\345\260\217\345\200\274(g)", nullptr));
         label_29->setText(QCoreApplication::translate("QtPLCDialogClass", "\345\267\256\345\274\202\345\200\274(\345\260\217)", nullptr));
         label_6->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\234\200\345\244\247\345\200\274(g)", nullptr));
