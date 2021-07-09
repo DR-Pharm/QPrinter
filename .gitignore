@@ -20,3 +20,5 @@
 /PLCControl/QtPLCLibrary/DataCurve.cpp
 /PLCControl/QtPLCLibrary/DataCurve.h
 /PLCControl/QtPLCLibrary/DataCurve.ui
+/PLCControl/QtPLCLibrary/QtSocket_Class.cpp
+/PLCControl/QtPLCLibrary/QtSocket_Class.h
