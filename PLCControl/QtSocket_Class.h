@@ -5,6 +5,8 @@
 #include <QTimer>
 #include <QAbstractSocket>
 #include "comm.h"
+#include <QModbusTcpClient>
+#include <QModbusReply>
 
 class QtSocket_Class : public QObject
 {
@@ -19,7 +21,11 @@ public:
 
 private:
 	QTimer *timer_beat = nullptr;
+#ifdef TCPIP
 	QTcpSocket *mp_TCPSocket = nullptr;
+#else
+	QModbusClient *mp_TCPSocket = nullptr;
+#endif
 	int m_bconnected = 0;//是否连上PLC 1连上 2没有
 	//for beat signal
 	DataToPC_typ *_ToPC = new DataToPC_typ();

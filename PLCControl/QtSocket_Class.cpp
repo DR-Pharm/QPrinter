@@ -125,11 +125,21 @@ bool QtSocket_Class::initialization()//连接初始化
 {
 	if (nullptr == mp_TCPSocket)
 	{
+#ifdef TCPIP
 		mp_TCPSocket = new QTcpSocket(this);	
 
 		bool b = connect(mp_TCPSocket, SIGNAL(connected()), this, SLOT(OnServer()));
 			 b = connect(mp_TCPSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(onConnectError(QAbstractSocket::SocketError)));
 			b = connect(mp_TCPSocket, SIGNAL(readyRead()), this, SLOT(onReadAllData()));
+#else
+		modbusDevice = new QModbusTcpClient()；
+		modbusDevice->setConnectionParameter(QModbusDevice::NetworkPortParameter, 1502);
+		modbusDevice->setConnectionParameter(QModbusDevice::NetworkAddressParameter, "127.0.0.1");
+		modbusDevice->setTimeout(2000);
+		modbusDevice->setNumberOfRetries(3);
+		modbusDevice->connectDevice();
+
+#endif
 	}
 	return true;
 }
