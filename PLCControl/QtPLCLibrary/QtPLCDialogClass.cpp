@@ -76,15 +76,6 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIconSize(QSize(347, 99));
 	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->move(15, 10);
 
-	//中英切换
-	((Ui::QtPLCDialogClass*)ui)->pB_ChangeLanguage->setFixedSize(347, 99);
-	((Ui::QtPLCDialogClass*)ui)->pB_ChangeLanguage->setStyleSheet("QPushButton{border:0px;}");
-	//QPixmap pix;
-	 ret= pix.load(AppPath + "/ico/languageCNnt.png");
-	((Ui::QtPLCDialogClass*)ui)->pB_ChangeLanguage->setIcon(pix);
-	((Ui::QtPLCDialogClass*)ui)->pB_ChangeLanguage->setIconSize(QSize(347, 99));
-	((Ui::QtPLCDialogClass*)ui)->pB_ChangeLanguage->move(15, 340);
-
 	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setFixedSize(170, 140);
 	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setStyleSheet("QPushButton{border:0px;}");
 	ret = pix.load(AppPath + "/ico/data2.png");
@@ -104,11 +95,12 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	connect(AlarmResetBtn, &MyPushButton::clicked, [=]() {
 		on_pB_cmdCounterZero_clicked(); });
 
-	/*AlarmResetBtn = new MyPushButton(AppPath + "/ico/languageCNnt.png", AppPath + "/ico/languageCN.png", 347, 99);
-	AlarmResetBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
-	AlarmResetBtn->move(15, 340);
-	connect(AlarmResetBtn, &MyPushButton::clicked, [=]() {
-		on_pB_ChangeLanguage_toggled(bool checked); });*/
+	LanguageBtn = new MyPushButton(AppPath + "/ico/languageCNnt.png", AppPath + "/ico/languageCN.png", 347, 99);
+	LanguageBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
+	LanguageBtn->move(15, 340);
+	LanguageBtn->setEnabled(false);
+	connect(LanguageBtn, &MyPushButton::clicked, [=]() {
+		on_pB_ChangeLanguage(); });
 
 	ExitBtn = new MyPushButton(AppPath + "/ico/exitnt.png", AppPath + "/ico/exit.png", 347, 99);
 	ExitBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
@@ -2489,9 +2481,9 @@ void QtPLCDialogClass::on_pB_cmdCounterZero_clicked()
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
 
-void QtPLCDialogClass::on_pB_ChangeLanguage_toggled(bool checked)
+void QtPLCDialogClass::on_pB_ChangeLanguage()
 {
-	if (checked) {
+	if (1) {
 		//初始界面
 		((Ui::QtPLCDialogClass*)ui)->label_10->setText("Count");
 		((Ui::QtPLCDialogClass*)ui)->label_39->setText("Weigh Cnt");

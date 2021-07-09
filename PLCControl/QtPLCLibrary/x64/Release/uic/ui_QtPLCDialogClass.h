@@ -306,8 +306,7 @@ public:
     QPushButton *pB_dtDlg;
     QFrame *frame_20;
     QPushButton *pB_SetUp;
-    QPushButton *pB_cmdStart;
-    QPushButton *pB_ChangeLanguage;
+	QPushButton *pB_cmdStart;
     QLabel *lb_alm;
     QWidget *widget;
     QWidget *layoutWidget_3;
@@ -2386,15 +2385,6 @@ public:
         pB_cmdStart->setStyleSheet(QString::fromUtf8("background-color: rgb(200, 200, 100);\n"
 "font: 60pt \"\350\277\267\344\275\240\347\256\200\350\217\261\345\277\203\";"));
         pB_cmdStart->setCheckable(true);
-        pB_ChangeLanguage = new QPushButton(frame_20);
-        pB_ChangeLanguage->setObjectName(QString::fromUtf8("pB_ChangeLanguage"));
-        pB_ChangeLanguage->setEnabled(true);
-        pB_ChangeLanguage->setGeometry(QRect(10, 270, 41, 45));
-        sizePolicy.setHeightForWidth(pB_ChangeLanguage->sizePolicy().hasHeightForWidth());
-        pB_ChangeLanguage->setSizePolicy(sizePolicy);
-        pB_ChangeLanguage->setMinimumSize(QSize(0, 45));
-        pB_ChangeLanguage->setFont(font11);
-        pB_ChangeLanguage->setCheckable(true);
 
         lb_alm = new QLabel(frame_20);
         lb_alm->setObjectName(QString::fromUtf8("lb_alm"));
@@ -3047,8 +3037,6 @@ public:
         pB_dtDlg->setText(QString());
         pB_SetUp->setText(QString());
         pB_cmdStart->setText(QString());
-
-        pB_ChangeLanguage->setText(QString());
 
         lb_alm->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\263\273\347\273\237\346\212\245\350\255\246\357\274\214\350\257\267\345\205\210\345\244\215\344\275\215\357\274\201", nullptr));
         label_8->setText(QCoreApplication::translate("QtPLCDialogClass", "\346\234\200\345\260\217\345\200\274(g)", nullptr));
