@@ -96,7 +96,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\QPrinter\PLCControl\QtPLCLibrary;..\..\QPrinter\Dongle;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\QPrinter\PLCControl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>QtPLCControl_LIB;$(Qt_DEFINES_);%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -194,11 +194,10 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="WindowOut.h" />
-    <QtMoc Include="..\PLCControl\QtPLCLibrary\QtPLCControl.h" />
     <QtMoc Include="DrawPicture.h" />
     <QtMoc Include="QWaiting.h" />
-    <ClInclude Include="..\Dongle\Dongle.h" />
     <QtMoc Include="QtLoginDlg.h" />
+    <QtMoc Include="..\PLCControl\QtPLCControl.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

@@ -30,9 +30,6 @@
     <ClCompile Include="PRT.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <QtMoc Include="..\PLCControl\QtPLCLibrary\QtPLCControl.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="WindowOut.h">
       <Filter>Header Files</Filter>
     </QtMoc>
@@ -43,6 +40,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="QtLoginDlg.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="..\PLCControl\QtPLCControl.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -79,9 +79,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Dongle\Dongle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

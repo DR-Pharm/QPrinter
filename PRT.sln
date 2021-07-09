@@ -8,7 +8,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PRT", "PRT\PRT.vcxproj", "{
 		{DCEA05B6-51C6-4F5B-A625-2AAC65E6EB42} = {DCEA05B6-51C6-4F5B-A625-2AAC65E6EB42}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Qt_PLC_ConnectLIB", "PLCControl\QtPLCLibrary\QtPLCLibrary.vcxproj", "{DCEA05B6-51C6-4F5B-A625-2AAC65E6EB42}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Qt_PLC_ConnectLIB", "PLCControl\QtPLCLibrary.vcxproj", "{DCEA05B6-51C6-4F5B-A625-2AAC65E6EB42}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
