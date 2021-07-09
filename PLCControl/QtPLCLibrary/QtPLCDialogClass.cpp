@@ -25,6 +25,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 
 	((Ui::QtPLCDialogClass*)ui)->setupUi(this);
 	((Ui::QtPLCDialogClass*)ui)->pB_printData->setVisible(false);
+	((Ui::QtPLCDialogClass*)ui)->pB_printData_2->setVisible(false);
 	//((Ui::QtPLCDialogClass*)ui)->pB_showPrt->setVisible(false);
 	((Ui::QtPLCDialogClass*)ui)->pB_cmdAlogtest->setVisible(false);
 	((Ui::QtPLCDialogClass*)ui)->frame->move(0, 0);
@@ -477,6 +478,21 @@ void QtPLCDialogClass::initUI()
 	//QRegExp regx("[a-zA-Z0-9_]+$");//正则表达式QRegExp,只允许输入中文、数字、字母、下划线以及空格,[\u4e00 - \u9fa5a - zA - Z0 - 9_] + $
 	QRegExp regx("[0-9]+$");
 	((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->setValidator(new QRegExpValidator(regx, this));
+	((Ui::QtPLCDialogClass*)ui)->lE_year1->setValidator(new QRegExpValidator(regx, this));
+	((Ui::QtPLCDialogClass*)ui)->lE_year2->setValidator(new QRegExpValidator(regx, this));
+	((Ui::QtPLCDialogClass*)ui)->lE_month1->setValidator(new QRegExpValidator(regx, this));
+	((Ui::QtPLCDialogClass*)ui)->lE_month2->setValidator(new QRegExpValidator(regx, this));
+	((Ui::QtPLCDialogClass*)ui)->lE_day1->setValidator(new QRegExpValidator(regx, this));
+	((Ui::QtPLCDialogClass*)ui)->lE_day2->setValidator(new QRegExpValidator(regx, this));
+	((Ui::QtPLCDialogClass*)ui)->lE_hour1->setValidator(new QRegExpValidator(regx, this));
+	((Ui::QtPLCDialogClass*)ui)->lE_hour2->setValidator(new QRegExpValidator(regx, this));
+	((Ui::QtPLCDialogClass*)ui)->lE_minute1->setValidator(new QRegExpValidator(regx, this));
+	((Ui::QtPLCDialogClass*)ui)->lE_minute2->setValidator(new QRegExpValidator(regx, this));
+
+	((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(false);
+
+	((Ui::QtPLCDialogClass*)ui)->lb_alm->setVisible(false);
+
 	QRegExp regx_2("[a-zA-Z0-9_]+$");
 	((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setValidator(new QRegExpValidator(regx_2, this));
 	lb_dataNow = new QLabel(((Ui::QtPLCDialogClass*)ui)->frame);
@@ -518,6 +534,8 @@ void QtPLCDialogClass::initUI()
 	QString text2 = configIniRead.value("DistanceSetting/AxisSwingRelMovDistance", "").toString();
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedRelMovDistance->setText(text1);	//下料电机相对运动距离，单位unit
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisSwingRelMovDistance->setText(text2);//旋转电机相对运动距离，单位unit
+
+	setYearMonthDay();
 }
 
 void QtPLCDialogClass::inittabicon()
@@ -649,6 +667,7 @@ DataFromPC_typ QtPLCDialogClass::getPCRunData()//4
 	tmp.ActData.UserAnalogoutput = m_data->ActData.UserAnalogoutput;		//用户模拟量输入
 	tmp.ActData.Adjustvalue = m_data->ActData.Adjustvalue;			//自动调整系数
 	tmp.ActData.DeltaInput = m_data->ActData.DeltaInput;				//装量调整偏差值
+	tmp.ActData.MultiCount = m_data->ActData.MultiCount;
 
 	memset(tmp.ActData.BatchName, '\0', sizeof(tmp.ActData.BatchName));
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text();
@@ -689,7 +708,7 @@ void QtPLCDialogClass::initChartOne()
 	axisy = new QValueAxis;
 	//axisy->setLabelFormat("%d");
 	axisy->setLabelFormat("%.3f");
-	axisy->setTickCount(10);
+	axisy->setTickCount(6);
 	axisy->setRange(0.210, 0.250);
 	axisy->setGridLineVisible(true);
 	chart->setAxisY(axisy, splineSeries);
@@ -766,6 +785,10 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->setText(QString::number(m_data->ActData.TestInterval));
 	}
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->hasFocus())////测试间隔时间,单位s
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->setText(QString::number(m_data->ActData.MultiCount));
+	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_BatchName->hasFocus())//BatchName[40];			//批号字符串
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setText(QString(QLatin1String(m_data->ActData.BatchName)));//Cause kinco has a bug when input this parameter,but use PC to input,we do not have this bug,so don't need to change.
@@ -838,7 +861,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 					}
 					axisx->setRange(0, data_One.size() + 1);
 
-					axisy->setTickCount(9);
+					axisy->setTickCount(6);
 					if (mi == ma)
 					{
 						axisy->setRange(0, 1);
@@ -858,14 +881,11 @@ void QtPLCDialogClass::getPLCData(void* data)
 					}
 			}
 		}
-		else
+
+		if (m_data->Status.Finished==1)
 		{
 			m_row = 0;
 			sumNo = m_data->ActData.GroupSum;
-			data_One.clear();
-		}
-		if (m_data->Status.Finished==1)
-		{
 			if (data_One.size() > 0)
 			{
 				QString str = "";
@@ -880,11 +900,20 @@ void QtPLCDialogClass::getPLCData(void* data)
 						str += QString::number(data_One.at(i));
 					}
 				}
+				QString ymdhm = YearMonthDay();
 				QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
 				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo)+ "/data", str);
-				QString lkstr = QString::number(m_data->Status.CapDataDisp.GroupNo) + "," + YearMonthDay() + "," + ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text();
+				QString lkstr = QString::number(m_data->Status.CapDataDisp.GroupNo) + "," + ymdhm + "," + ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text();
 				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/gn", lkstr);
 				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/theory", QString::number(m_data->ActData.TDemand, 'f', 3));
+
+				QSettings timIni(AppPath + "\\data\\time.ini", QSettings::IniFormat);
+				QString str1tmp = ymdhm.mid(0, 10);
+				str1tmp.remove("/");
+				QString str2tmp = ymdhm.remove("/");
+				str2tmp.remove(" ");
+				str2tmp.remove(":");
+				timIni.setValue(str1tmp + "/"+ str2tmp, QString::number(m_data->Status.CapDataDisp.GroupNo));
 
 				data_One.clear();
 
@@ -944,6 +973,16 @@ void QtPLCDialogClass::getPLCData(void* data)
 	((Ui::QtPLCDialogClass*)ui)->lE_MachineStep->setText(QString::number(m_data->Status.MachineStep));			//系统运行状态机步骤
 	((Ui::QtPLCDialogClass*)ui)->lE_TimeInterval->setText(QString::number(m_data->Status.TimeInterval, 'f', 2));			//测量实际间隔时间
 	((Ui::QtPLCDialogClass*)ui)->lE_AlarmStatus->setText(QString::number(m_data->Status.AlarmStatus));
+	if (m_data->Status.AlarmStatus!=0)
+	{
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setChecked(false);
+
+		((Ui::QtPLCDialogClass*)ui)->lb_alm->setVisible(true);
+	}
+	else
+	{
+		((Ui::QtPLCDialogClass*)ui)->lb_alm->setVisible(false);
+	}
 	char *str1 = (char*)(m_data->Status.Alarm);
 //	((Ui::QtPLCDialogClass*)ui)->lE_Alarm16->setText(QString(QLatin1String(str1)));
 #pragma endregion
@@ -1190,6 +1229,141 @@ void QtPLCDialogClass::getPLCData(void* data)
 #pragma endregion
 }//PC显示数据
 #pragma endregion
+void QtPLCDialogClass::CompareYearMonthDay()
+{
+	QString str1= ((Ui::QtPLCDialogClass*)ui)->lE_year1->text()+
+	((Ui::QtPLCDialogClass*)ui)->lE_month1->text()+
+	((Ui::QtPLCDialogClass*)ui)->lE_day1->text()+
+	((Ui::QtPLCDialogClass*)ui)->lE_hour1->text()+
+	((Ui::QtPLCDialogClass*)ui)->lE_minute1->text();
+	LONGLONG ll1 = str1.toLongLong();
+
+	QString str2 = ((Ui::QtPLCDialogClass*)ui)->lE_year2->text() +
+		((Ui::QtPLCDialogClass*)ui)->lE_month2->text() +
+		((Ui::QtPLCDialogClass*)ui)->lE_day2->text() +
+		((Ui::QtPLCDialogClass*)ui)->lE_hour2->text() +
+		((Ui::QtPLCDialogClass*)ui)->lE_minute2->text();
+	LONGLONG ll2 = str2.toLongLong();
+
+	if (ll1>ll2)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("条件有误!"));
+		((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(false);
+	}
+	else if(ll1 == ll2)
+	{
+		QSettings timIni(AppPath + "\\data\\time.ini", QSettings::IniFormat);
+		QString str=timIni.value(str1.mid(8) + "/" + str1, "0").toString();
+		if (str=="0")
+		{
+			((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("该时间不存在数据!"));
+			((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(false);
+		}
+		else
+		{
+			m_gn1 = str;
+			m_gn2 = str;
+			((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(true);
+		}
+	}
+	else
+	{
+		m_gn1 = "";
+		m_gn2 = "";
+		QSettings timIni(AppPath + "\\data\\time.ini", QSettings::IniFormat);		
+		// 获取一个节点下的key值
+		timIni.beginGroup(str1.mid(0,8));    // 设置查找节点
+		QStringList str2 = timIni.allKeys();    // 获取所有的key
+		if (str2.size()==0)
+		{
+			((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("该时间段不存在数据!"));
+			((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(false);
+			return;
+		}
+		int itemp = 0;
+		LONGLONG ltemp1;
+		LONGLONG ltemp2;
+		foreach(QString key, str2)
+		{
+			LONGLONG value = key.toLongLong();
+			if (itemp == 0)
+			{
+				itemp = 1;
+				ltemp1 = value;
+				ltemp2 = value;
+			}
+			if (ltemp1>value)
+			{
+				ltemp1 = value;
+			}
+			if (ltemp2 < value)
+			{
+				ltemp2 = value;
+			}
+			if (value>=ll1 && value<=ltemp1)
+			{
+				int finalvalue = timIni.value(key).toInt();  // 直接用 key 获取数据
+				m_gn1 = QString::number(finalvalue);
+			}
+			if (value <= ll2 && value >= ltemp2)
+			{
+				int finalvalue = timIni.value(key).toInt();  // 直接用 key 获取数据
+				m_gn2 = QString::number(finalvalue);
+			}
+		}
+		timIni.endGroup();
+
+		if (m_gn1 == "")
+		{
+			((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("不存在符合条件的数据!"));
+			((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(false);
+		}
+		else
+		{
+			if (m_gn1==m_gn2)
+			{
+				((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("符合组号为：") + m_gn1);
+			}
+			else
+			{
+				((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("符合组号为：") + m_gn1 + "-" + m_gn2);
+			}
+			((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(true);
+		}
+
+	}
+}
+QString QtPLCDialogClass::setYearMonthDay()
+{
+	QString strTime;
+	QDateTime current_time = QDateTime::currentDateTime();
+	QString logYear = QString::number(current_time.date().year());
+	logYear = logYear.length() < 4 ? ("0" + logYear) : logYear;
+	((Ui::QtPLCDialogClass*)ui)->lE_year1->setText(logYear);
+	((Ui::QtPLCDialogClass*)ui)->lE_year2->setText(logYear);
+	QString logMonth = QString::number(current_time.date().month());
+	logMonth = logMonth.length() < 2 ? ("0" + logMonth) : logMonth;
+	((Ui::QtPLCDialogClass*)ui)->lE_month1->setText(logMonth);
+	((Ui::QtPLCDialogClass*)ui)->lE_month2->setText(logMonth);
+	QString logDay = QString::number(current_time.date().day());
+	logDay = logDay.length() < 2 ? ("0" + logDay) : logDay;
+	((Ui::QtPLCDialogClass*)ui)->lE_day1->setText(logDay);
+	((Ui::QtPLCDialogClass*)ui)->lE_day2->setText(logDay);
+	QString logHour = QString::number(current_time.time().hour());
+	logHour = logHour.length() < 2 ? ("0" + logHour) : logHour;
+	((Ui::QtPLCDialogClass*)ui)->lE_hour1->setText(logHour);
+	((Ui::QtPLCDialogClass*)ui)->lE_hour2->setText(logHour);
+	QString logMinute = QString::number(current_time.time().minute());
+	logMinute = logMinute.length() < 2 ? ("0" + logMinute) : logMinute;
+	((Ui::QtPLCDialogClass*)ui)->lE_minute1->setText(logMinute);
+	((Ui::QtPLCDialogClass*)ui)->lE_minute2->setText(logMinute);
+	strTime = logYear + "/" //z=a>b?x:y
+		+ logMonth + "/"
+		+ logDay + " "
+		+ logHour + ":"
+		+ logMinute;
+	return strTime;
+}
 QString QtPLCDialogClass::YearMonthDay()
 {
 	QString strTime;
@@ -1204,8 +1378,8 @@ QString QtPLCDialogClass::YearMonthDay()
 	logHour = logHour.length() < 2 ? ("0" + logHour) : logHour;
 	QString logMinute = QString::number(current_time.time().minute());
 	logMinute = logMinute.length() < 2 ? ("0" + logMinute) : logMinute;
-	strTime = logYear + "-" //z=a>b?x:y
-		+ logMonth + "-"
+	strTime = logYear + "/" //z=a>b?x:y
+		+ logMonth + "/"
 		+ logDay + " "
 		+ logHour + ":"
 		+ logMinute;
@@ -1283,6 +1457,122 @@ void QtPLCDialogClass::on_lE_SysOveride_editingFinished()//系统速度，0-1000
 
 	showWindowOut(QString::fromLocal8Bit("运行速度\n已更改!"));
 
+}
+void QtPLCDialogClass::on_lE_year1_editingFinished()//超重重量,单位g
+{
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_year1->text();
+	int index = str.toInt();
+	if (index < 2020)
+	{
+		index = 2020;
+	}
+	if (index > 9999)
+	{
+		index = 9999;
+	}
+	str = QString::number(index);
+	str = str.length() < 4 ? ("0" + str) : str;
+	((Ui::QtPLCDialogClass*)ui)->lE_year1->setText(str);
+	((Ui::QtPLCDialogClass*)ui)->lE_year2->setText(str);
+}
+void QtPLCDialogClass::on_lE_month1_editingFinished()//超重重量,单位g
+{
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_month1->text();
+	int index = str.toInt();
+	if (index < 1)
+	{
+		index = 1;
+	}
+	if (index > 12)
+	{
+		index = 12;
+	}
+	str = QString::number(index);
+	str = str.length() < 2 ? ("0" + str) : str;
+	((Ui::QtPLCDialogClass*)ui)->lE_month1->setText(str);
+	((Ui::QtPLCDialogClass*)ui)->lE_month2->setText(str);
+}
+void QtPLCDialogClass::on_lE_day1_editingFinished()//超重重量,单位g
+{
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_day1->text();
+	int index = str.toInt();
+	if (index<1)
+	{
+		index = 1;
+	}
+	if (index>31)
+	{
+		index = 31;
+	}
+	str = QString::number(index);
+	str = str.length() < 2 ? ("0" + str) : str;
+	((Ui::QtPLCDialogClass*)ui)->lE_day1->setText(str);
+	((Ui::QtPLCDialogClass*)ui)->lE_day2->setText(str);
+}
+
+void QtPLCDialogClass::on_lE_hour1_editingFinished()//超重重量,单位g
+{
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_hour1->text();
+	int index = str.toInt();
+	if (index < 0)
+	{
+		index = 0;
+	}
+	if (index > 23)
+	{
+		index = 23;
+	}
+	str = QString::number(index);
+	str = str.length() < 2 ? ("0" + str) : str;
+	((Ui::QtPLCDialogClass*)ui)->lE_hour1->setText(str);
+}
+void QtPLCDialogClass::on_lE_hour2_editingFinished()//超重重量,单位g
+{
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_hour2->text();
+	int index = str.toInt();
+	if (index < 0)
+	{
+		index = 0;
+	}
+	if (index > 23)
+	{
+		index = 23;
+	}
+	str = QString::number(index);
+	str = str.length() < 2 ? ("0" + str) : str;
+	((Ui::QtPLCDialogClass*)ui)->lE_hour2->setText(str);
+}
+void QtPLCDialogClass::on_lE_minute1_editingFinished()//超重重量,单位g
+{
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_minute1->text();
+	int index = str.toInt();
+	if (index < 0)
+	{
+		index = 0;
+	}
+	if (index > 23)
+	{
+		index = 23;
+	}
+	str = QString::number(index);
+	str = str.length() < 2 ? ("0" + str) : str;
+	((Ui::QtPLCDialogClass*)ui)->lE_minute1->setText(str);
+}
+void QtPLCDialogClass::on_lE_minute2_editingFinished()//超重重量,单位g
+{
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_minute2->text();
+	int index = str.toInt();
+	if (index < 0)
+	{
+		index = 0;
+	}
+	if (index > 59)
+	{
+		index = 59;
+	}
+	str = QString::number(index);
+	str = str.length() < 2 ? ("0" + str) : str;
+	((Ui::QtPLCDialogClass*)ui)->lE_minute2->setText(str);
 }
 //passcount//通过计数
 /*void QtPLCDialogClass::on_lE_RejectCount_editingFinished()//剔废计数
@@ -1503,6 +1793,28 @@ void QtPLCDialogClass::on_lE_TestInterval_editingFinished()///测试间隔时间
 
 	showWindowOut(QString::fromLocal8Bit("组间隔\n已更改!"));
 }
+void QtPLCDialogClass::on_lE_MultiCount_editingFinished()///测试间隔时间,单位s
+{
+	QString oldstr = QString::number(m_data->ActData.MultiCount);
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->text();
+	if (oldstr == str)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->blockSignals(false);
+		return;
+	}
+	DataFromPC_typ typ;
+	typ = getPCRunData();
+	typ.Telegram_typ = 4;
+	typ.ActData.MultiCount = ((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->text().toInt();
+	m_socket->Communicate_PLC(&typ, nullptr);
+	((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->blockSignals(true);
+	((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->clearFocus();
+	((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->blockSignals(false);
+
+	showWindowOut(QString::fromLocal8Bit("落多粒数\n已更改!"));
+}
 void QtPLCDialogClass::on_lE_BatchName_editingFinished()//批号字符串
 {
 	QString oldstr = QString(QLatin1String(m_data->ActData.BatchName));
@@ -1570,6 +1882,8 @@ void QtPLCDialogClass::on_lE_AxisSwingRelMovDistance_editingFinished()
 //float			Adjustvalue;			//自动调整系数
 //unsigned int	DeltaInput;				//装量调整偏差值
 //int				cmdAutoPrint;			//自动打印，1:自动，0：手动
+
+
 #pragma endregion
 
 #pragma region ui para slots
@@ -1808,6 +2122,17 @@ void QtPLCDialogClass::on_lE_StopSignalDelay_editingFinished()
 #pragma region ui cmd slots
 //DateTimeStructTyp		DateTimeSet;		//设定日期时间目标
 //unsigned char		cmdChangeDT;					//修改日期时间,1:执行，自动复位
+
+void QtPLCDialogClass::on_pB_startSearch_clicked()
+{
+	CompareYearMonthDay();
+}
+void QtPLCDialogClass::on_pB_copyIn_clicked()
+{
+	((Ui::QtPLCDialogClass*)ui)->lE_print1->setText(m_gn1);
+	((Ui::QtPLCDialogClass*)ui)->lE_print2->setText(m_gn2);
+	((Ui::QtPLCDialogClass*)ui)->lE_print2->setFocus();
+}
 
 void QtPLCDialogClass::on_pB_printData_clicked()//数据
 {
