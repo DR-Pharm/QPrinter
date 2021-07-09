@@ -2851,8 +2851,8 @@ public:
 
         retranslateUi(QtPLCDialogClass);
 
-        tabWidget_PLC->setCurrentIndex(1);
-        tabWidget->setCurrentIndex(0);
+        tabWidget_PLC->setCurrentIndex(2);
+        tabWidget->setCurrentIndex(2);
         cB_Feedmode->setCurrentIndex(0);
         tabWidget_Users->setCurrentIndex(-1);
 
@@ -2906,7 +2906,7 @@ public:
         lE_AxisSwingRelMovDistance->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_4), QString());
         groupBox_9->setTitle(QCoreApplication::translate("QtPLCDialogClass", "\344\270\213\346\226\231", nullptr));
-        pB_cmdFeedFive->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\203\266\345\233\212\350\220\275\346\226\231\344\272\224\347\262\222", nullptr));
+        pB_cmdFeedFive->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\203\266\345\233\212\350\220\275\346\226\231\345\244\232\347\262\222", nullptr));
         label_62->setText(QCoreApplication::translate("QtPLCDialogClass", "\350\220\275\345\244\232\347\262\222\346\225\260", nullptr));
         pB_cmdFeedshakelevel->setText(QCoreApplication::translate("QtPLCDialogClass", "\344\270\213\346\226\231\346\221\207\346\221\206\346\260\264\345\271\263", nullptr));
         pB_cmdFeedhome->setText(QCoreApplication::translate("QtPLCDialogClass", "\344\270\213\346\226\231\345\257\273\345\217\202", nullptr));
@@ -2916,7 +2916,7 @@ public:
         pB_cmdFeedshakestop->setText(QCoreApplication::translate("QtPLCDialogClass", "\344\270\213\346\226\231\346\221\207\346\221\206\345\201\234\346\255\242", nullptr));
         lE_FeedOveride->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));
         lE_Feed_shakeoffset->setText(QCoreApplication::translate("QtPLCDialogClass", "0", nullptr));
-        pB_cmdFeedShakefive->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\211\207\345\211\202\350\220\275\346\226\231\344\272\224\347\262\222", nullptr));
+        pB_cmdFeedShakefive->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\211\207\345\211\202\350\220\275\346\226\231\345\244\232\347\262\222", nullptr));
         label_57->setText(QCoreApplication::translate("QtPLCDialogClass", "\344\270\213\346\226\231\351\200\237\345\272\246", nullptr));
         groupBox_5->setTitle(QCoreApplication::translate("QtPLCDialogClass", "\347\247\260\351\207\215\350\256\276\347\275\256", nullptr));
         pB_cmdScaleTire->setText(QCoreApplication::translate("QtPLCDialogClass", "\347\247\244\346\270\205\351\233\266", nullptr));

@@ -59,7 +59,7 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="tab_PLC_Control">
     <attribute name="title">
@@ -81,7 +81,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -1063,7 +1063,7 @@
                </size>
               </property>
               <property name="text">
-               <string>胶囊落料五粒</string>
+               <string>胶囊落料多粒</string>
               </property>
              </widget>
             </item>
@@ -1322,7 +1322,7 @@
                </size>
               </property>
               <property name="text">
-               <string>片剂落料五粒</string>
+               <string>片剂落料多粒</string>
               </property>
              </widget>
             </item>
