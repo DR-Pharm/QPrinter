@@ -5,8 +5,8 @@
 #include <QTimer>
 #include <QAbstractSocket>
 #include "comm.h"
-#include <QModbusTcpClient>
-#include <QModbusReply>
+#include <QtSerialBus/QModbusTcpClient>
+#include <QtSerialBus/QModbusReply>
 
 class QtSocket_Class : public QObject
 {
@@ -15,6 +15,10 @@ signals:
 	void signal_Connected();
 	void signal_FROMPLC(void*);
 	void signal_SOCKETERROR();
+	void statechange_on();
+	void statechange_off();
+	void my_readC_finished();
+	void my_readH_finished();
 public:
 	QtSocket_Class(QObject *parent);
 	~QtSocket_Class();
@@ -43,6 +47,7 @@ public:
 	bool slotStartWork(bool b);
 	int Getm_bconnected();//是否连上PLC 1连上 2没有
 	bool initialization(); //初始化
+
 	bool disconnect(); //断开
 	bool ResetError(); //错误复位
 	//void set_message_handler(MESSAGE_HANDLER, void*); //消息头
@@ -55,10 +60,17 @@ public:
 	//初始化任务
 	bool syncData();
 	bool AlarmReset();
+	bool read_modbus_tcp_Coils(int start_add, quint16 numbers, int Server_ID);
+	bool read_modbus_tcp_HoldingRegisters(int start_add, quint16 numbers, int Server_ID);
+	bool Write_modbus_tcp_Coils(QString str1, int star_add, int number);
+	bool Write_modbus_tcp_HoldingRegisters(QString str1, int star_add, int number);
 public slots:
 	void OnServer();
 	bool connectServer(QString, int); //连接服务器
 	void onConnectError(QAbstractSocket::SocketError);
 	void onBeatSignal();
 	void onReadAllData();
+	void ReadReady_Coils();
+	void onStateChanged();
+	void ReadReady_HoldingRegisters();
 };
