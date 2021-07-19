@@ -3072,10 +3072,15 @@ void QtPLCDialogClass::startMovie()
 //output
 void QtPLCDialogClass::on_pb_cmdReject_toggled(bool checked)//
 {
+#ifdef TCPIP
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.Outputs.Reject = checked;
 	m_socket->Communicate_PLC(&typ, nullptr);
+#endif
+#ifdef MODBUSTCP
+	m_socket->Write_modbus_tcp_Coils(QString::number(checked), 87, 1);
+#endif
 }
 void QtPLCDialogClass::on_pb_cmdChannelSwith_toggled(bool checked)//
 {

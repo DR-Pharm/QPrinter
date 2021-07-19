@@ -469,7 +469,8 @@ bool QtSocket_Class::connectServer(QString ip, int port)
 	if (mp_TCPSocket != nullptr)
 	{
 		mp_TCPSocket->connectToHost(m_sip, m_iport);
-		bool b = mp_TCPSocket->waitForConnected(100);//1000 before
+		//bool b = mp_TCPSocket->waitForConnected(100);//1000 before
+		bool b = mp_TCPSocket->waitForConnected(1000);//1000 before
 		if (!b)
 		{
 			emit signal_SOCKETERROR();

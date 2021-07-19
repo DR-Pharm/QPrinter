@@ -18,12 +18,12 @@ QtPLCControl::QtPLCControl()
 		emit signal_SUCCESSFULCONNECTED();
 	});
 	b = connect(((QtSocket_Class*)m_socket), &QtSocket_Class::signal_SOCKETERROR, [=] {
-		if (m_cnCount++<150)
-		{
-			QCoreApplication::processEvents();
-			ConnectPlc();
-		}
-		else
+		//if (m_cnCount++<150)
+		//{
+		//	QCoreApplication::processEvents();
+		//	ConnectPlc();
+		//}
+		//else
 		{ 
 			emit SOCKETERROR();
 		}
