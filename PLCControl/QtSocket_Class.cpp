@@ -144,7 +144,7 @@ bool QtSocket_Class::initialization()//连接初始化
  * 返回值：成功返回true，失败返回fasle。
 *********************************************/
 		mp_TCPSocket = new QModbusTcpClient();
-		mp_TCPSocket->setConnectionParameter(QModbusDevice::NetworkPortParameter, 1502);//端口
+		mp_TCPSocket->setConnectionParameter(QModbusDevice::NetworkPortParameter, 502);//端口
 		mp_TCPSocket->setConnectionParameter(QModbusDevice::NetworkAddressParameter, "10.86.50.210");//IP ID？
 		mp_TCPSocket->setTimeout(2000);
 		mp_TCPSocket->setNumberOfRetries(3);//重试次数
