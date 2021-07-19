@@ -588,6 +588,9 @@ void QtPLCDialogClass::SetSocket(QtSocket_Class *sc)
 {
 	m_socket = sc;
 	bool b = connect(m_socket, SIGNAL(signal_FROMPLC(void*)), this, SLOT(getPLCData(void*)));
+	b = connect(m_socket, SIGNAL(statechange_on()), this, SLOT(OnShowConnected()));
+	b = connect(m_socket, SIGNAL(statechange_off()), this, SLOT(OnShowInterrupted()));
+
 }
 #pragma endregion
 
@@ -3488,4 +3491,15 @@ void QtPLCDialogClass::onTreeItemChanged(QTreeWidgetItem* item)//利用changed�
 	}
 }
 #pragma endregion
+
+void QtPLCDialogClass::OnShowConnected()
+{
+	showWindowOut(QString::fromLocal8Bit("恭喜\n") + m_SelectedName + QString::fromLocal8Bit("\n连接PLC成功!"));
+
+}
+void QtPLCDialogClass::OnShowInterrupted()
+{
+	showMsgBox("抱歉", "连接PLC未成功!", "我知道了", "");
+
+}
 

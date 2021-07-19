@@ -146,8 +146,8 @@ bool QtSocket_Class::initialization()//连接初始化
 		mp_TCPSocket = new QModbusTcpClient();
 		mp_TCPSocket->setConnectionParameter(QModbusDevice::NetworkPortParameter, 502);//端口
 		mp_TCPSocket->setConnectionParameter(QModbusDevice::NetworkAddressParameter, "10.86.50.210");//IP ID？
-		mp_TCPSocket->setTimeout(2000);
-		mp_TCPSocket->setNumberOfRetries(3);//重试次数
+		//mp_TCPSocket->setTimeout(2000);
+		//mp_TCPSocket->setNumberOfRetries(3);//重试次数
 		connect(mp_TCPSocket, &QModbusClient::stateChanged, this, &QtSocket_Class::onStateChanged);
 		mp_TCPSocket->connectDevice();
 #endif
