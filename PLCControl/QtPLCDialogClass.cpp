@@ -3496,10 +3496,11 @@ void QtPLCDialogClass::OnShowConnected()
 {
 	showWindowOut(QString::fromLocal8Bit("恭喜\n") + m_SelectedName + QString::fromLocal8Bit("\n连接PLC成功!"));
 
+	showMsgBox("恭喜", "连接PLC成功!", "我知道了", "");
 }
 void QtPLCDialogClass::OnShowInterrupted()
 {
-	showMsgBox("抱歉", "连接PLC未成功!", "我知道了", "");
+	showMsgBox("抱歉", "连接PLC未成功~", "我知道了", "");
 
 }
 
