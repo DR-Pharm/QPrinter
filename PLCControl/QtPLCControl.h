@@ -20,7 +20,7 @@ class QtPLCControl_EXPORT QtPLCControl:public QObject
 	Q_OBJECT
 signals:
 	void signal_SUCCESSFULCONNECTED();
-	void FROMPLC(void*, int, int, int, int);
+	void FROMPLC(void*);
 	void SOCKETERROR();
 	void STARTCONNECT(QString, int);
 	void MAXBACK();
@@ -53,7 +53,7 @@ public:
 	void SetAlarm(int index);
 public slots:
 	bool ConnectPlc();
-	void connectIN_AND_OUT(void*, int, int, int, int);
+	void connectIN_AND_OUT(void*);
 	void reportSocketError();
 	void setStartWork(bool b);
 	void setWinMini();

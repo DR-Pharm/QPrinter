@@ -143,28 +143,61 @@ bool QtSocket_Class::initialization()//连接初始化
         参数2：modbus设备的端口号(一般用502)     int 类型
  * 返回值：成功返回true，失败返回fasle。
 *********************************************/
-		mp_TCPSocket = new QModbusTcpClient();
+		mp_TCPSocket = new QModbusTcpClient();		
+
+		mp_TCPSocket->setTimeout(1000);
+		mp_TCPSocket->setNumberOfRetries(3);//重试次数
+		int k=mp_TCPSocket->timeout();
 		mp_TCPSocket->setConnectionParameter(QModbusDevice::NetworkPortParameter, 502);//端口
 		mp_TCPSocket->setConnectionParameter(QModbusDevice::NetworkAddressParameter, "10.86.50.210");//IP ID？
-		//mp_TCPSocket->setTimeout(2000);
-		//mp_TCPSocket->setNumberOfRetries(3);//重试次数
+
 		connect(mp_TCPSocket, &QModbusClient::stateChanged, this, &QtSocket_Class::onStateChanged);
-		mp_TCPSocket->connectDevice();
+		connect(mp_TCPSocket, &QModbusClient::errorOccurred,this, &QtSocket_Class::onErrorOccurred);
 #endif
 	}
 	return true;
 }
+void QtSocket_Class::onErrorOccurred()
+{
+	/*NoError,
+		ReadError,
+		WriteError,
+		ConnectionError,
+		ConfigurationError,
+		TimeoutError,
+		ProtocolError,
+		ReplyAbortedError,
+		UnknownError*/
+	if (mp_TCPSocket->error() == QModbusDevice::TimeoutError)
+	{
+		int i;
+	}
+	else if (mp_TCPSocket->error() == QModbusDevice::ConnectionError)
+	{
+		int i;
+	}
+}
 void QtSocket_Class::onStateChanged()
 { //连接状态改变时的槽函数
+
 #ifdef MODBUSTCP
 	if (mp_TCPSocket->state() == QModbusDevice::ConnectedState)
 	{
-		emit statechange_on();
+		emit statechange_Connected();
 	}
 
-	else
+	else if (mp_TCPSocket->state() == QModbusDevice::ConnectingState)
 	{
-		emit statechange_off();
+		emit statechange_Connecting();
+	}
+
+	else if (mp_TCPSocket->state() == QModbusDevice::UnconnectedState)
+	{
+		emit statechange_Unconnected();
+	}
+	else if (mp_TCPSocket->state() == QModbusDevice::ClosingState)
+	{
+		emit statechange_Closing();
 	}
 #endif
 }
@@ -476,6 +509,13 @@ bool QtSocket_Class::connectServer(QString ip, int port)
 			emit signal_SOCKETERROR();
 			//mp_TCPSocket = nullptr;
 		}
+		return true;
+	}
+#endif
+#ifdef MODBUSTCP
+	if (mp_TCPSocket != nullptr)
+	{
+		bool b=mp_TCPSocket->connectDevice();
 		return true;
 	}
 #endif

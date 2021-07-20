@@ -15,8 +15,10 @@ signals:
 	void signal_Connected();
 	void signal_FROMPLC(void*);
 	void signal_SOCKETERROR();
-	void statechange_on();
-	void statechange_off();
+	void statechange_Connected();
+	void statechange_Connecting();
+	void statechange_Unconnected();
+	void statechange_Closing();
 	void my_readC_finished();
 	void my_readH_finished();
 public:
@@ -48,6 +50,7 @@ public:
 	int Getm_bconnected();//是否连上PLC 1连上 2没有
 	bool initialization(); //初始化
 
+
 	bool disconnect(); //断开
 	bool ResetError(); //错误复位
 	//void set_message_handler(MESSAGE_HANDLER, void*); //消息头
@@ -73,4 +76,5 @@ public slots:
 	void ReadReady_Coils();
 	void onStateChanged();
 	void ReadReady_HoldingRegisters();
+	void onErrorOccurred();
 };

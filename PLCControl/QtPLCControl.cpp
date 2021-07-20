@@ -13,7 +13,7 @@ QtPLCControl::QtPLCControl()
 	m_socket = new QtSocket_Class(nullptr);
 	((QtSocket_Class*)m_socket)->initialization();
 	bool b = connect(this, SIGNAL(STARTCONNECT(QString, int)), ((QtSocket_Class*)m_socket), SLOT(connectServer(QString, int)));
-	b = connect(((QtSocket_Class*)m_socket), SIGNAL(signal_FROMPLC(void*, int, int, int, int)), this, SLOT(connectIN_AND_OUT(void*, int, int, int, int)));
+	b = connect(((QtSocket_Class*)m_socket), SIGNAL(signal_FROMPLC(void*)), this, SLOT(connectIN_AND_OUT(void*)));
 	b = connect(((QtSocket_Class*)m_socket), &QtSocket_Class::signal_Connected, [=] {
 		emit signal_SUCCESSFULCONNECTED();
 	});
@@ -102,9 +102,9 @@ int QtPLCControl::Getm_bconnected()
 	}
 	return -1;
 }
-void QtPLCControl::connectIN_AND_OUT(void * d,int type,int home,int kickOpen,int kickMode)
+void QtPLCControl::connectIN_AND_OUT(void * d)
 {
-	emit FROMPLC(d,type,home,kickOpen,kickMode);
+	emit FROMPLC(d);
 }
 void QtPLCControl::reportSocketError()
 {

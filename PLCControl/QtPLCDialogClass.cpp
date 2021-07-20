@@ -588,9 +588,10 @@ void QtPLCDialogClass::SetSocket(QtSocket_Class *sc)
 {
 	m_socket = sc;
 	bool b = connect(m_socket, SIGNAL(signal_FROMPLC(void*)), this, SLOT(getPLCData(void*)));
-	b = connect(m_socket, SIGNAL(statechange_on()), this, SLOT(OnShowConnected()));
-	b = connect(m_socket, SIGNAL(statechange_off()), this, SLOT(OnShowInterrupted()));
-
+	b = connect(m_socket, SIGNAL(statechange_Connected()), this, SLOT(OnConnectedState()));
+	b = connect(m_socket, SIGNAL(statechange_Connecting()), this, SLOT(OnConnectingState()));
+	b = connect(m_socket, SIGNAL(statechange_Unconnected()), this, SLOT(OnUnconnectedState()));
+	b = connect(m_socket, SIGNAL(statechange_Closing()), this, SLOT(OnClosingState()));
 }
 #pragma endregion
 
@@ -3082,7 +3083,7 @@ void QtPLCDialogClass::on_pb_cmdReject_toggled(bool checked)//
 	m_socket->Communicate_PLC(&typ, nullptr);
 #endif
 #ifdef MODBUSTCP
-	m_socket->Write_modbus_tcp_Coils(QString::number(checked), 87, 1);
+	m_socket->Write_modbus_tcp_Coils(QString::number(checked), 92, 1);
 #endif
 }
 void QtPLCDialogClass::on_pb_cmdChannelSwith_toggled(bool checked)//
@@ -3492,15 +3493,21 @@ void QtPLCDialogClass::onTreeItemChanged(QTreeWidgetItem* item)//利用changed�
 }
 #pragma endregion
 
-void QtPLCDialogClass::OnShowConnected()
+void QtPLCDialogClass::OnUnconnectedState()
 {
-	showWindowOut(QString::fromLocal8Bit("恭喜\n") + m_SelectedName + QString::fromLocal8Bit("\n连接PLC成功!"));
-
-	showMsgBox("恭喜", "连接PLC成功!", "我知道了", "");
+	showMsgBox("提示", "PLC Unconnected!", "我知道了", "");
 }
-void QtPLCDialogClass::OnShowInterrupted()
+void QtPLCDialogClass::OnConnectingState()
 {
-	showMsgBox("抱歉", "连接PLC未成功~", "我知道了", "");
-
+	showWindowOut(QString::fromLocal8Bit("Connecting"));
+}
+void QtPLCDialogClass::OnConnectedState()
+{
+	showWindowOut(QString::fromLocal8Bit("Connected!"));
+	//showMsgBox("恭喜", "Connected!", "我知道了", "");
+}
+void QtPLCDialogClass::OnClosingState()
+{
+	showMsgBox("提示", "PLC Closing!", "我知道了", "");
 }
 

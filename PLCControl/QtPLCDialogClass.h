@@ -262,8 +262,10 @@ public slots:
 	void on_lE_SetUserSecretNum_textChanged(const QString &arg1);
 	void updateParentItem(QTreeWidgetItem* item);
 	void onTreeItemChanged(QTreeWidgetItem * item);
-	void OnShowConnected();
-	void OnShowInterrupted();
+	void OnUnconnectedState();
+	void OnConnectingState();
+	void OnConnectedState();
+	void OnClosingState();
 };
 
 #pragma once
