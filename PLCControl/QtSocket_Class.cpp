@@ -387,7 +387,7 @@ bool QtSocket_Class::Write_modbus_tcp_Coils(QString str1, int star_add, int numb
 
 	for (uint i1 = 0; i1 < writeUnit.valueCount(); i1++) {
 		int j1 = 2 * i1;
-		QString stt = str1.mid(j1, 1);
+		QString stt = str1.mid(j1, 2);
 		bool ok;
 		quint16 hex1 = stt.toInt(&ok, 16);//将textedit中读取到的数据转换为16进制发送
 		writeUnit.setValue(i1, hex1);//设置发送数据
