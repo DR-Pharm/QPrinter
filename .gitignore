@@ -23,3 +23,6 @@
 /PLCControl/QtPLCLibrary/QtSocket_Class.cpp
 /PLCControl/QtPLCLibrary/QtSocket_Class.h
 /PLCControl/comm.h
+/PLCControl/QtPLCDialogClass.h
+/PLCControl/QtPLCDialogClass.cpp
+/PLCControl/QtPLCDialogClass.ui
