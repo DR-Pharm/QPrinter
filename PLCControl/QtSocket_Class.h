@@ -41,6 +41,8 @@ private:
 	QString m_sip;//IP 10.86.50.210
 	int m_iport;//port 5000
 
+	char Coils_Bufer[100];//读取到的数据
+
 	DataToPC_typ *m_Dmsg_ToPC; //PC接收
 	DataFromPC_typ	*m_Dmsg_FromPC; //PC发送
 

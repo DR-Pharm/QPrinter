@@ -127,6 +127,8 @@ private:
 
 	QString m_gn1;
 	QString m_gn2;
+
+	char *m_Coils_Bufer=new char[100];
 public slots:
 
 	DataFromPC_typ getPCParaData();
@@ -238,12 +240,9 @@ public slots:
 	void dtClose();
 	void startMovie();
 
-	void on_pb_cmdReject_toggled(bool checked);
-	void on_pb_cmdChannelSwith_toggled(bool checked);
-	void on_pb_cmdVaccum_toggled(bool checked);
 	void on_pb_cmdCapGet_toggled(bool checked);
-	void on_pb_cmdCapGetValve_toggled(bool checked);
-	void on_pb_cmdCapBackValve_toggled(bool checked);
+	void on_pb_cmdCapTurnValve_toggled(bool checked);
+	void on_pb_cmdCapThickValve_toggled(bool checked);
 	void on_pb_cmdAlarmOut_toggled(bool checked);
 	void on_pb_cmdStopSignal_toggled(bool checked);
 	void on_pb_cmdAlarmSignal_toggled(bool checked);

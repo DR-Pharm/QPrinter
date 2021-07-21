@@ -184,6 +184,7 @@ void QtSocket_Class::onStateChanged()
 	if (mp_TCPSocket->state() == QModbusDevice::ConnectedState)
 	{
 		emit statechange_Connected();
+		OnServer();
 	}
 
 	else if (mp_TCPSocket->state() == QModbusDevice::ConnectingState)
@@ -272,7 +273,7 @@ void QtSocket_Class::ReadReady_Coils()
 	{
 		qDebug() << "接收数据";
 		const QModbusDataUnit unit = reply->result();
-		char Coils_Bufer[23];//23?
+
 		for (uint16_t i = 0; i < unit.valueCount(); i++)
 		{
 			/*
@@ -680,6 +681,11 @@ void QtSocket_Class::onConnectError(QAbstractSocket::SocketError err)
 }
 void QtSocket_Class::onBeatSignal()
 {
+#ifdef MODBUSTCP
+	read_modbus_tcp_Coils(0, 100, 1);
+	emit signal_FROMPLC((void*)Coils_Bufer);
+#endif 
+
 #ifdef TCPIP
 	memset(_ctoPC, 0, sizeof(DataToPC_typ));
 	memset(_ToPC, 0, sizeof(DataToPC_typ));

@@ -73,18 +73,14 @@ typedef struct
 //output
 typedef	struct
 {
-	bool		Reject;					//排废电磁铁
-	bool		ChannelSwith;			//胶囊通道切换
-	bool		Vaccum;					//真空发生器
-	bool		CapGet;					//取料电磁铁
-	bool		CapGetValve;			//取料电磁阀
-	bool		CapBackValve;			//回料电磁阀
-	bool		AlarmOut;				//报警蜂鸣器
-	bool		StopSignal;				//停机信号
-	bool		AlarmSignal;			//报警输出
-	bool        YellowAlarmout;			//黄灯报警
-	bool		Baffle;					//挡板
-	INT			Analogoutput;			//模拟量输出
+	bool         CapGet;				//取料电磁铁    		86,1
+	bool         AlarmOut;				//报警蜂鸣器    		87,1
+	bool         StopSignal;			//停机信号    	    88,1
+	bool         AlarmSignal;			//报警输出    		89,1
+	bool         YellowAlarmout;		//黄灯报警    	    90,1
+	bool         Baffle;				//挡板     			91,1
+	bool         CapTurnValve;			//整形升降气缸    	92,
+	bool         CapThickValve;			//测厚升降气缸    	93,
 }Output_typ;
 
 
