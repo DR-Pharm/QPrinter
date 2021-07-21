@@ -129,6 +129,8 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	//指示灯部分
 	((Ui::QtPLCDialogClass*)ui)->lb_00->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
 	((Ui::QtPLCDialogClass*)ui)->lb_10->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
+	((Ui::QtPLCDialogClass*)ui)->lb_20->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
+	((Ui::QtPLCDialogClass*)ui)->lb_30->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
 
 	btnTimer = new QTimer();
 	connect(btnTimer, SIGNAL(timeout()), this, SLOT(startMovie()));
@@ -721,6 +723,47 @@ void QtPLCDialogClass::getPLCData(void* data)
 {
 #ifdef MODBUSTCP
 	m_Coils_Bufer = (char*)data;
+	//输入点
+#pragma region input
+	if (m_Coils_Bufer[78]==1)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lb_00->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
+	}
+	else
+	{
+		((Ui::QtPLCDialogClass*)ui)->lb_00->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
+
+	}
+
+	if (m_Coils_Bufer[79] == 1)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lb_20->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
+	}
+	else
+	{
+		((Ui::QtPLCDialogClass*)ui)->lb_20->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
+
+	}
+	if (m_Coils_Bufer[82] == 1)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lb_10->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
+	}
+	else
+	{
+		((Ui::QtPLCDialogClass*)ui)->lb_10->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
+
+	}
+
+	if (m_Coils_Bufer[84] == 1)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lb_30->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
+	}
+	else
+	{
+		((Ui::QtPLCDialogClass*)ui)->lb_30->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
+
+	}
+#pragma endregion
 	//输出点
 #pragma region output
 
@@ -2338,6 +2381,31 @@ void QtPLCDialogClass::on_pB_Write2_clicked()//写入2
 	m_socket->Communicate_PLC(&typ, nullptr);
 	showWindowOut(QString::fromLocal8Bit("PLC默认参数\n已保存!"));
 }
+void QtPLCDialogClass::on_pB_cmdRollingOverNeg_clicked()
+{
+#ifdef MODBUSTCP
+	m_socket->Write_modbus_tcp_Coils("01", 103, 1);
+#endif
+}
+void QtPLCDialogClass::on_pB_cmdRollingOverPos_clicked()
+{
+#ifdef MODBUSTCP
+	m_socket->Write_modbus_tcp_Coils("01", 104, 1);
+#endif
+}
+void QtPLCDialogClass::on_pB_cmdPushNeg_clicked()
+{
+#ifdef MODBUSTCP
+	m_socket->Write_modbus_tcp_Coils("01", 105, 1);
+#endif
+}
+void QtPLCDialogClass::on_pB_cmdPushPos_clicked()
+{
+#ifdef MODBUSTCP
+	m_socket->Write_modbus_tcp_Coils("01", 106, 1);
+#endif
+}
+
 void QtPLCDialogClass::on_pB_cmdScaleRead_clicked()//秤读数命令,1:执行，自动复位
 {
 	DataFromPC_typ typ;
@@ -2347,10 +2415,14 @@ void QtPLCDialogClass::on_pB_cmdScaleRead_clicked()//秤读数命令,1:执行，
 }
 void QtPLCDialogClass::on_pB_cmdScaleTire_clicked()//秤清零,1:执行，自动复位
 {
+#ifdef MODBUSTCP
+	m_socket->Write_modbus_tcp_Coils("01", 64, 1);
+#else
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdScaleTire = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
+#endif
 }
 void QtPLCDialogClass::on_pB_cmdScaleSetStable_clicked()//设定秤稳定状态,1:执行，自动复位
 {
@@ -2368,48 +2440,71 @@ void QtPLCDialogClass::on_pB_cmdScaleSetStable_clicked()//设定秤稳定状态,
 //}
 void QtPLCDialogClass::on_pB_cmdScaleCalibExt_clicked()//秤外部校正,1:执行，自动复位
 {
+#ifdef MODBUSTCP
+	m_socket->Write_modbus_tcp_Coils("01", 65, 1);
+#else
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdScaleCalibExt = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
+#endif
 }
 void QtPLCDialogClass::on_pB_cmdAxisFeedJogPos_pressed()//下料正转点动，1:执行，0:停止
 {
+#ifdef MODBUSTCP
+	m_socket->Write_modbus_tcp_Coils("01", 94, 1);
+#else
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisFeedJogPos = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
+#endif
 }
 void QtPLCDialogClass::on_pB_cmdAxisFeedJogPos_released()//下料正转点动，1:执行，0:停止 
 {
+#ifdef MODBUSTCP
+	m_socket->Write_modbus_tcp_Coils("00", 94, 1);
+#else
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisFeedJogPos = 0;
 	m_socket->Communicate_PLC(&typ, nullptr);
+#endif
 }
 void QtPLCDialogClass::on_pB_cmdAxisFeedJogNeg_pressed()//下料反转点动，1:执行，0:停止
 {
+#ifdef MODBUSTCP
+	m_socket->Write_modbus_tcp_Coils("01", 95, 1);
+#else
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisFeedJogNeg = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
+#endif
 }
 void QtPLCDialogClass::on_pB_cmdAxisFeedJogNeg_released()//下料反转点动，1:执行，0:停止
 {
+#ifdef MODBUSTCP
+	m_socket->Write_modbus_tcp_Coils("00", 95, 1);
+#else
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisFeedJogNeg = 0;
 	m_socket->Communicate_PLC(&typ, nullptr);
+#endif
 }
 void QtPLCDialogClass::on_pB_cmdAxisFeedRelMov_clicked()//下料相对运动启动，1:执行，自动复位
 {
+#ifdef MODBUSTCP
+	m_socket->Write_modbus_tcp_Coils("01", 93, 1);
+#else
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisFeedRelMov = 1;
 	typ.Machine_Cmd.AxisFeedRelMovDistance = ((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedRelMovDistance->text().toInt();
 	m_socket->Communicate_PLC(&typ, nullptr);
 
-
+#endif
 	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
 
 	configIniRead.setValue("DistanceSetting/AxisFeedRelMovDistance", ((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedRelMovDistance->text());//写当前模板
@@ -2417,48 +2512,75 @@ void QtPLCDialogClass::on_pB_cmdAxisFeedRelMov_clicked()//下料相对运动启�
 }
 void QtPLCDialogClass::on_pB_cmdAxisFeedPosMov_clicked()//下料正向连续运动启动，1:执行，自动复位
 {
+#ifdef MODBUSTCP
+	m_socket->Write_modbus_tcp_Coils("01", 96, 1);
+#else
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisFeedPosMov = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
+#endif
 }
 void QtPLCDialogClass::on_pB_cmdAxisFeedStopMov_clicked()//下料停止运动，1:执行，自动复位
 {
+#ifdef MODBUSTCP
+	m_socket->Write_modbus_tcp_Coils("01", 97, 1);
+#else
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisFeedStopMov = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
+#endif
 }
 void QtPLCDialogClass::on_pB_cmdAxisSwingJogPos_pressed()//旋转正转点动，1:执行，0:停止
 {
+#ifdef MODBUSTCP
+	m_socket->Write_modbus_tcp_Coils("01", 99, 1);
+#else
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisSwingJogPos = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
+#endif
 }
 void QtPLCDialogClass::on_pB_cmdAxisSwingJogPos_released()//旋转正转点动，1:执行，0:停止
 {
+#ifdef MODBUSTCP
+	m_socket->Write_modbus_tcp_Coils("00", 99, 1);
+#else
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisSwingJogPos = 0;
 	m_socket->Communicate_PLC(&typ, nullptr);
+#endif
 }
 void QtPLCDialogClass::on_pB_cmdAxisSwingJogNeg_pressed()//旋转反转点动，1:执行，0:停止
 {
+#ifdef MODBUSTCP
+	m_socket->Write_modbus_tcp_Coils("01", 100, 1);
+#else
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisSwingJogNeg = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
+#endif
 }
 void QtPLCDialogClass::on_pB_cmdAxisSwingJogNeg_released()//旋转反转点动，1:执行，0:停止
 {
+#ifdef MODBUSTCP
+	m_socket->Write_modbus_tcp_Coils("00", 100, 1);
+#else
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisSwingJogNeg = 0;
 	m_socket->Communicate_PLC(&typ, nullptr);
+#endif
 }
 void QtPLCDialogClass::on_pB_cmdAxisSwingRelMov_clicked()//旋转相对运动启动，1:执行，自动复位
 {
+#ifdef MODBUSTCP
+	m_socket->Write_modbus_tcp_Coils("01", 98, 1);
+#else
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisSwingRelMov = 1;
@@ -2466,7 +2588,7 @@ void QtPLCDialogClass::on_pB_cmdAxisSwingRelMov_clicked()//旋转相对运动启
 	typ.Machine_Cmd.AxisSwingRelMovDistance = ((Ui::QtPLCDialogClass*)ui)->lE_AxisSwingRelMovDistance->text().toInt();
 	m_socket->Communicate_PLC(&typ, nullptr);
 
-
+#endif
 	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
 
 	configIniRead.setValue("DistanceSetting/AxisFeedRelMovDistance", ((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedRelMovDistance->text());//写当前模板
@@ -2474,38 +2596,58 @@ void QtPLCDialogClass::on_pB_cmdAxisSwingRelMov_clicked()//旋转相对运动启
 }
 void QtPLCDialogClass::on_pB_cmdAxisSwingPosMov_clicked()//旋转正向连续运动启动，1:执行，自动复位
 {
+#ifdef MODBUSTCP
+	m_socket->Write_modbus_tcp_Coils("01", 101, 1);
+#else
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisSwingPosMov = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
+#endif
 }
 void QtPLCDialogClass::on_pB_cmdAxisSwingStopMov_clicked()//旋转停止运动，1:执行，自动复位
 {
+#ifdef MODBUSTCP
+	m_socket->Write_modbus_tcp_Coils("01", 102, 1);
+#else
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisSwingStopMov = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
+#endif
 }
 void QtPLCDialogClass::on_pB_cmdFeedSingle_clicked()//单粒下料，1:执行，自动复位
 {
+#ifdef MODBUSTCP
+	m_socket->Write_modbus_tcp_Coils("01", 67, 1);
+#else
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdFeedSingle = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
+#endif
 }
 void QtPLCDialogClass::on_pB_cmdFeedSingleStop_clicked()//单粒下料停止，1:执行，自动复位
 {
+#ifdef MODBUSTCP
+	m_socket->Write_modbus_tcp_Coils("01", 69, 1);
+#else
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdFeedSingleStop = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
+#endif
 }
 void QtPLCDialogClass::on_pB_cmdSwing_clicked()//旋转单工位,1:执行，自动复位
 {
+#ifdef MODBUSTCP
+	m_socket->Write_modbus_tcp_Coils("01", 70, 1);
+#else
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdSwing = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
+#endif
 }
 void QtPLCDialogClass::on_pB_showPrt_toggled(bool checked)//
 {
@@ -2542,7 +2684,11 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 		typ.Machine_Cmd.cmdStop = 1;
 		btnTimer->start(1);
 	}
+#ifdef MODBUSTCP
+	m_socket->Write_modbus_tcp_Coils(checked ? "0100" : "0001", 60, 2);
+#else
 	m_socket->Communicate_PLC(&typ, nullptr);
+#endif
 }
 //unsigned char		cmdStart;						//启动称重，1:执行，自动复位
 //unsigned char		cmdEStop;						//急停，1:执行，自动复位
@@ -2551,17 +2697,25 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 //unsigned char		cmdInit;						//初始化，1:执行，自动复位
 void QtPLCDialogClass::on_pB_cmdAlarmReset_clicked()
 {
+#ifdef MODBUSTCP
+	m_socket->Write_modbus_tcp_Coils("01", 66, 1);
+#else
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAlarmReset = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
+#endif
 }
 void QtPLCDialogClass::on_pB_cmdCounterZero_clicked()
 {
+#ifdef MODBUSTCP
+	m_socket->Write_modbus_tcp_Coils("01", 71, 1);
+#else
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdCounterZero = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
+#endif
 }
 
 void QtPLCDialogClass::on_pB_ChangeLanguage()
@@ -3079,10 +3233,14 @@ void QtPLCDialogClass::on_pB_cmdFeedhome_clicked()//下料寻参
 }
 void QtPLCDialogClass::on_pB_cmdFeedFive_clicked()//胶囊落料五粒
 {
+#ifdef MODBUSTCP
+	m_socket->Write_modbus_tcp_Coils("01", 68, 1);
+#else
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdFeedFive = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
+#endif
 }
 void QtPLCDialogClass::on_pB_cmdFeedShakefive_clicked()//片剂落料五粒
 {
@@ -3160,7 +3318,7 @@ void QtPLCDialogClass::on_pb_cmdCapGet_toggled(bool checked)//
 void QtPLCDialogClass::on_pb_cmdCapTurnValve_toggled(bool checked)//
 {
 #ifdef MODBUSTCP
-	m_socket->Write_modbus_tcp_Coils(QString::number(checked), 91, 1);
+	m_socket->Write_modbus_tcp_Coils(checked ? "01" : "00", 91, 1);
 #else
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
@@ -3171,7 +3329,7 @@ void QtPLCDialogClass::on_pb_cmdCapTurnValve_toggled(bool checked)//
 void QtPLCDialogClass::on_pb_cmdCapThickValve_toggled(bool checked)//
 {
 #ifdef MODBUSTCP
-	m_socket->Write_modbus_tcp_Coils(QString::number(checked), 92, 1);
+	m_socket->Write_modbus_tcp_Coils(checked ? "01" : "00", 92, 1);
 #else
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;

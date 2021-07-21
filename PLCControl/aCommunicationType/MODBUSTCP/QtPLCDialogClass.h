@@ -128,7 +128,7 @@ private:
 	QString m_gn1;
 	QString m_gn2;
 
-	char *m_Coils_Bufer=new char[100];
+	char *m_Coils_Bufer = new char[100];
 public slots:
 
 	DataFromPC_typ getPCParaData();
@@ -197,6 +197,14 @@ public slots:
 	void on_pB_Write1_clicked();
 
 	void on_pB_Write2_clicked();
+
+	void on_pB_cmdRollingOverNeg_clicked();
+
+	void on_pB_cmdRollingOverPos_clicked();
+
+	void on_pB_cmdPushNeg_clicked();
+
+	void on_pB_cmdPushPos_clicked();
 
 	void on_pB_cmdScaleRead_clicked();
 	void on_pB_cmdScaleTire_clicked();
