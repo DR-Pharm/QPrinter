@@ -20,6 +20,7 @@ namespace spd = spdlog;
 #include <QValueAxis>
 #include <QHBoxLayout>
 using namespace QtCharts;
+#include "textticker.h"
 
 class QtPLCDialogClass : public QDialog
 
@@ -33,10 +34,12 @@ signals:
 	void SHOWPRT(bool);
 	void TODATACURVE(int,float, float, float, QList<qreal>);
 	void TODRAWPICTURE(QVector<QVector<float>>,QVector<QString>,int, QVector<float>);//MODE 0:one curve,1:one dataAverage,2:two curve,3:two dataAverage
-
+	void showWindowOut(QString str);
 public:
 	QtPLCDialogClass(QDialog *parent = Q_NULLPTR);
 	~QtPLCDialogClass();
+
+	bool event(QEvent *event);
 	void initUser();
 	void initTableOfUserPermission();
 	void checkPermission();
@@ -50,7 +53,7 @@ public:
 	void setWindowMinimized();
 
 	int showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str);
-	void showWindowOut(QString str);
+	/*void showWindowOut(QString str);*/
 	//全是中文
 	void SetSocket(QtSocket_Class*);
 	void setStyleCommand(QPushButton*, QString, QFont, QString);
@@ -197,14 +200,6 @@ public slots:
 	void on_pB_Write1_clicked();
 
 	void on_pB_Write2_clicked();
-
-	void on_pB_cmdRollingOverNeg_clicked();
-
-	void on_pB_cmdRollingOverPos_clicked();
-
-	void on_pB_cmdPushNeg_clicked();
-
-	void on_pB_cmdPushPos_clicked();
 
 	void on_pB_cmdScaleRead_clicked();
 	void on_pB_cmdScaleTire_clicked();

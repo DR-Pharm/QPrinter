@@ -19,8 +19,10 @@ PRT::PRT(QWidget *parent)
 	wt = new QWaiting();
 	//initDog(); //remeber to note off
 	setWindowFlags(Qt::FramelessWindowHint);//无边框  
-	//setAttribute(Qt::WA_AcceptTouchEvents);
 	setWindowIcon(QIcon("./ico/dr.ico"));
+
+	setAttribute(Qt::WA_AcceptTouchEvents, true);
+
 	AppPath = qApp->applicationDirPath();//exe所在目录
 	RWini = new QSettings(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
 	initData();
@@ -63,8 +65,8 @@ void PRT::initPLC()
 
 	wt->setTxt(QString::fromLocal8Bit("正在连接PLC,请稍等..."));
 	dlg = (QDialog *)(m_pPlclib->QtCreateDialog(1));
-	b = connect(dlg, SIGNAL(SHOWPRT(bool)), this, SLOT(showPrt(bool)));
-
+	b = connect(dlg, SIGNAL(SHOWPRT(bool)), this, SLOT(showPrt(bool))); 
+	b = connect(dlg, SIGNAL(showWindowOut(QString)), this, SLOT(showWindowOut(QString)));
 	b = connect(dlg, SIGNAL(CLOSESIGNAL()), this, SLOT(on_ToClose()));
 	b = connect(dlg, SIGNAL(TODRAWPICTURE(QVector<QVector<float>>, QVector<QString>,int, QVector<float>)), this, SLOT(getVec(QVector<QVector<float>>, QVector<QString>,int, QVector<float>)));
 	dlg->setParent(ui.widget);

@@ -53,7 +53,7 @@ public:
 	void judgeLabelText(int index);
 	//popup window
 	int showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str);
-	void showWindowOut(QString str);
+
 	//event
 	bool eventFilter(QObject*, QEvent*);
 	QLabel *lbDr = nullptr;
@@ -88,7 +88,8 @@ private:
 	bool m_bAltKeyPressed = false;
 	QWaiting *wt;
 	WindowOut *levelOut;//show默认为非模态modal，如果是局部变量会闪现消失
-public slots:
+public slots:	
+	void showWindowOut(QString str);
 	//printer
 	void showPrintName(QString str);
 	void toDraw(QPrinter * p);

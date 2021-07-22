@@ -182,7 +182,9 @@
     <ClCompile Include="QtPLCControl.cpp" />
     <ClCompile Include="QtPLCDialogClass.cpp" />
     <ClCompile Include="QtSocket_Class.cpp" />
+    <ClCompile Include="textticker.cpp" />
     <ClCompile Include="WindowOut.cpp" />
+    <QtMoc Include="textticker.h" />
     <QtMoc Include="WindowOut.h" />
     <QtMoc Include="mypushbutton.h" />
     <QtMoc Include="Keyboard.h" />

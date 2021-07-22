@@ -22,6 +22,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	key = new keyBoard();
 
 	ui = new Ui::QtPLCDialogClass();
+	setAttribute(Qt::WA_AcceptTouchEvents, true);
 
 	((Ui::QtPLCDialogClass*)ui)->setupUi(this);
 	((Ui::QtPLCDialogClass*)ui)->pB_printData->setVisible(false);
@@ -85,26 +86,26 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 
 	MyPushButton * AlarmResetBtn = new MyPushButton(AppPath + "/ico/bjfwnt.png", AppPath + "/ico/bjfw.png", 347, 99);
 	AlarmResetBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
-	AlarmResetBtn->move(15, 120);
+	AlarmResetBtn->move(15, 110);
 	connect(AlarmResetBtn, &MyPushButton::clicked, [=]() {
 		on_pB_cmdAlarmReset_clicked(); });
 
 	AlarmResetBtn = new MyPushButton(AppPath + "/ico/jsqlnt.png", AppPath + "/ico/jsql.png", 347, 99);
 	AlarmResetBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
-	AlarmResetBtn->move(15, 230);
+	AlarmResetBtn->move(15, 210);
 	connect(AlarmResetBtn, &MyPushButton::clicked, [=]() {
 		on_pB_cmdCounterZero_clicked(); });
 
 	LanguageBtn = new MyPushButton(AppPath + "/ico/languageCNnt.png", AppPath + "/ico/languageCN.png", 347, 99);
 	LanguageBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
-	LanguageBtn->move(15, 340);
+	LanguageBtn->move(15, 310);
 	LanguageBtn->setEnabled(false);
 	connect(LanguageBtn, &MyPushButton::clicked, [=]() {
 		on_pB_ChangeLanguage(); });
 
 	ExitBtn = new MyPushButton(AppPath + "/ico/exitnt.png", AppPath + "/ico/exit.png", 347, 99);
 	ExitBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
-	ExitBtn->move(15, 450);
+	ExitBtn->move(15, 410);
 	connect(ExitBtn, &MyPushButton::clicked, [=]() {
 		emit CLOSESIGNAL(); });
 	//AlarmResetBtn = new MyPushButton(AppPath + "/ico/jtnt.png", AppPath + "/ico/jt.png", 347, 99);
@@ -149,7 +150,6 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	connect(this, SIGNAL(TODATACURVE(int,float, float, float, QList<qreal>)), dtCurve, SLOT(dataReceived(int, float, float, float, QList<qreal>)));
 	dtCurve->move(0, 0);*/
 	//dtCurve->setFixedSize(QSize(860, 755));//1280 800
-
 }
 
 QtPLCDialogClass::~QtPLCDialogClass()
@@ -173,7 +173,66 @@ QtPLCDialogClass::~QtPLCDialogClass()
 		m_data = nullptr;
 	}
 }
+bool QtPLCDialogClass::event(QEvent *event)
+{
 
+	switch (event->type())
+	{
+	case QEvent::TouchBegin:
+	{
+		QTouchEvent* touch = static_cast<QTouchEvent*>(event);
+		QList<QTouchEvent::TouchPoint> touch_list = touch->touchPoints();
+		float x = touch_list.at(0).pos().x();
+		float y = touch_list.at(0).pos().y();
+		((Ui::QtPLCDialogClass*)ui)->lb_x->setText("X:"+QString::number(x, 'f', 0));
+		((Ui::QtPLCDialogClass*)ui)->lb_y->setText("Y:"+QString::number(y, 'f', 0));
+		if (((Ui::QtPLCDialogClass*)ui)->pB_cmdRollingOverNeg->hasFocus())
+		{
+			m_socket->Write_modbus_tcp_Coils("01", 103, 1);
+		}
+		if (((Ui::QtPLCDialogClass*)ui)->pB_cmdRollingOverPos->hasFocus())
+		{
+			m_socket->Write_modbus_tcp_Coils("01", 104, 1);
+		}
+		if (((Ui::QtPLCDialogClass*)ui)->pB_cmdPushNeg->hasFocus())
+		{
+			m_socket->Write_modbus_tcp_Coils("01", 105, 1);
+		}
+		if (((Ui::QtPLCDialogClass*)ui)->pB_cmdPushPos->hasFocus())
+		{
+			m_socket->Write_modbus_tcp_Coils("01", 106, 1);
+		}
+		event->accept(); 
+		return true;
+
+	}
+	case QEvent::TouchUpdate:
+	{
+		QTouchEvent* touch = static_cast<QTouchEvent*>(event);
+
+		QList<QTouchEvent::TouchPoint> touch_list = touch->touchPoints();
+		float x = touch_list.at(0).pos().x();
+		float y = touch_list.at(0).pos().y();
+		((Ui::QtPLCDialogClass*)ui)->lb_x->setText("X:"+QString::number(x, 'f', 0));
+		((Ui::QtPLCDialogClass*)ui)->lb_y->setText("Y:"+QString::number(y, 'f', 0));
+		if (touch->touchPointStates() & Qt::TouchPointPressed) {
+			//判断是否有触摸点处于TouchPointPressed或TouchPointMoved或TouchPointStationary或TouchPointReleased
+			
+		}
+		event->accept();
+		return true;
+	}
+	case QEvent::TouchEnd:
+	{
+		QTouchEvent* touch = static_cast<QTouchEvent*>(event);
+		m_socket->Write_modbus_tcp_Coils("00000000", 103, 4);
+		event->accept();
+		return true;
+	}
+	return QWidget::event(event);
+	}
+	return false;
+}
 #pragma region ui stylesheet
 
 void QtPLCDialogClass::initUser()
@@ -721,6 +780,9 @@ void QtPLCDialogClass::initChartOne()
 }
 void QtPLCDialogClass::getPLCData(void* data)
 {
+	QDateTime time = QDateTime::currentDateTime();
+	QString strtm = time.toString("hh:mm:ss");
+	((Ui::QtPLCDialogClass*)ui)->lb_tm->setText(strtm);
 #ifdef MODBUSTCP
 	m_Coils_Bufer = (char*)data;
 	//输入点
@@ -1541,13 +1603,13 @@ int QtPLCDialogClass::showMsgBox(const char* titleStr, const char* contentStr, c
 	//	QMessageBox::Warning
 	//	QMessageBox::Critical
 }
-void QtPLCDialogClass::showWindowOut(QString str)
-{
-	levelOut = new WindowOut(this);
-	levelOut->setWindowCount(0);
-	levelOut->getString(str, 2000);
-	levelOut->show();
-}
+//void QtPLCDialogClass::emit showWindowOut(QString str)
+//{
+//	levelOut = new WindowOut(this);
+//	levelOut->setWindowCount(0);
+//	levelOut->getString(str, 2000);
+//	levelOut->show();
+//}
 #pragma endregion
 
 #pragma region ui run slots
@@ -1573,7 +1635,7 @@ void QtPLCDialogClass::on_lE_SysOveride_editingFinished()//系统速度，0-1000
 	((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("运行速度\n已更改!"));
+	emit showWindowOut(QString::fromLocal8Bit("运行速度\n已更改!"));
 
 }
 void QtPLCDialogClass::on_lE_year1_editingFinished()//超重重量,单位g
@@ -1745,7 +1807,7 @@ void QtPLCDialogClass::on_lE_TOverload_editingFinished()//超重重量,单位g
 	((Ui::QtPLCDialogClass*)ui)->lE_TOverload->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_TOverload->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("超重重量\n已更改!"));
+	emit showWindowOut(QString::fromLocal8Bit("超重重量\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_TUnderload_editingFinished()//超轻重量,单位g
 {
@@ -1767,7 +1829,7 @@ void QtPLCDialogClass::on_lE_TUnderload_editingFinished()//超轻重量,单位g
 	((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("超轻重量\n已更改!"));
+	emit showWindowOut(QString::fromLocal8Bit("超轻重量\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_InterOverLoad_editingFinished()//内控线，上限,单位g
 {
@@ -1789,7 +1851,7 @@ void QtPLCDialogClass::on_lE_InterOverLoad_editingFinished()//内控线，上限
 	((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("内控上限\n已更改!"));
+	emit showWindowOut(QString::fromLocal8Bit("内控上限\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_InterUnderLoad_editingFinished()//内控线，下限,单位g
 {
@@ -1811,7 +1873,7 @@ void QtPLCDialogClass::on_lE_InterUnderLoad_editingFinished()//内控线，下�
 	((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("内控下限\n已更改!"));
+	emit showWindowOut(QString::fromLocal8Bit("内控下限\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_TDemand_editingFinished()///期望重量,单位g	
 {
@@ -1833,7 +1895,7 @@ void QtPLCDialogClass::on_lE_TDemand_editingFinished()///期望重量,单位g
 	((Ui::QtPLCDialogClass*)ui)->lE_TDemand->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_TDemand->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("期望重量\n已更改!"));
+	emit showWindowOut(QString::fromLocal8Bit("期望重量\n已更改!"));
 }
 void QtPLCDialogClass::on_cB_TireMode_currentIndexChanged(int index)
 {
@@ -1842,7 +1904,7 @@ void QtPLCDialogClass::on_cB_TireMode_currentIndexChanged(int index)
 	typ.Telegram_typ = 4;
 	typ.ActData.TireMode = index;
 	m_socket->Communicate_PLC(&typ, nullptr);
-	showWindowOut(QString::fromLocal8Bit("检测物\n已更改!"));
+	emit showWindowOut(QString::fromLocal8Bit("检测物\n已更改!"));
 }
 
 void QtPLCDialogClass::on_lE_GroupSet_editingFinished()///每组测试胶囊数量
@@ -1865,7 +1927,7 @@ void QtPLCDialogClass::on_lE_GroupSet_editingFinished()///每组测试胶囊数�
 	((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("每组检测数\n已更改!"));
+	emit showWindowOut(QString::fromLocal8Bit("每组检测数\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_FeedOveride_editingFinished()///每组测试胶囊数量
 {
@@ -1887,7 +1949,7 @@ void QtPLCDialogClass::on_lE_FeedOveride_editingFinished()///每组测试胶囊�
 	((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("下料速度\n已更改!"));
+	emit showWindowOut(QString::fromLocal8Bit("下料速度\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_TestInterval_editingFinished()///测试间隔时间,单位s
 {
@@ -1909,7 +1971,7 @@ void QtPLCDialogClass::on_lE_TestInterval_editingFinished()///测试间隔时间
 	((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("组间隔\n已更改!"));
+	emit showWindowOut(QString::fromLocal8Bit("组间隔\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_MultiCount_editingFinished()///测试间隔时间,单位s
 {
@@ -1931,7 +1993,7 @@ void QtPLCDialogClass::on_lE_MultiCount_editingFinished()///测试间隔时间,�
 	((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("落多粒数\n已更改!"));
+	emit showWindowOut(QString::fromLocal8Bit("落多粒数\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_BatchName_editingFinished()//批号字符串
 {
@@ -1955,7 +2017,7 @@ void QtPLCDialogClass::on_lE_BatchName_editingFinished()//批号字符串
 	((Ui::QtPLCDialogClass*)ui)->lE_BatchName->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_BatchName->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("生产批号\n已更改!"));
+	emit showWindowOut(QString::fromLocal8Bit("生产批号\n已更改!"));
 }
 void QtPLCDialogClass::on_cB_Feedmode_currentIndexChanged(int index)//0:每组去皮重,1:每次称重去皮重
 {
@@ -1964,7 +2026,7 @@ void QtPLCDialogClass::on_cB_Feedmode_currentIndexChanged(int index)//0:每组�
 	typ.Telegram_typ = 4;
 	typ.ActData.Feedmode = index;
 	m_socket->Communicate_PLC(&typ, nullptr);
-	showWindowOut(QString::fromLocal8Bit("去皮方式\n已更改!"));
+	emit showWindowOut(QString::fromLocal8Bit("去皮方式\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_AxisFeedRelMovDistance_editingFinished()
 {
@@ -1973,7 +2035,7 @@ void QtPLCDialogClass::on_lE_AxisFeedRelMovDistance_editingFinished()
 	if (((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedRelMovDistance->text().toInt()!=i1)
 	{
 		configIniRead.setValue("DistanceSetting/AxisFeedRelMovDistance", ((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedRelMovDistance->text());//写当前模板
-		showWindowOut(QString::fromLocal8Bit("下料电机\n相对运动距离\n已更改!"));
+		emit showWindowOut(QString::fromLocal8Bit("下料电机\n相对运动距离\n已更改!"));
 	}
 }
 void QtPLCDialogClass::on_lE_AxisSwingRelMovDistance_editingFinished()
@@ -1984,7 +2046,7 @@ void QtPLCDialogClass::on_lE_AxisSwingRelMovDistance_editingFinished()
 	{
 		configIniRead.setValue("DistanceSetting/AxisSwingRelMovDistance", ((Ui::QtPLCDialogClass*)ui)->lE_AxisSwingRelMovDistance->text());//写当前模板
 
-		showWindowOut(QString::fromLocal8Bit("旋转电机\n相对运动距离\n已更改!"));
+		emit showWindowOut(QString::fromLocal8Bit("旋转电机\n相对运动距离\n已更改!"));
 	}
 }
 /*void QtPLCDialogClass::on_lE_GroupNo_editingFinished()//当前组号,单位s
@@ -2033,7 +2095,7 @@ void QtPLCDialogClass::on_lE_s_trg_stop0_editingFinished()
 	((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("停止位置1\n已更改!"));
+	emit showWindowOut(QString::fromLocal8Bit("停止位置1\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_s_trg_stop1_editingFinished()
 {
@@ -2055,7 +2117,7 @@ void QtPLCDialogClass::on_lE_s_trg_stop1_editingFinished()
 	((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("停止位置2\n已更改!"));
+	emit showWindowOut(QString::fromLocal8Bit("停止位置2\n已更改!"));
 }
 
 void QtPLCDialogClass::on_lE_Feed_shakeoffset_editingFinished()
@@ -2078,7 +2140,7 @@ void QtPLCDialogClass::on_lE_Feed_shakeoffset_editingFinished()
 	((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("摆动距离\n已更改!"));
+	emit showWindowOut(QString::fromLocal8Bit("摆动距离\n已更改!"));
 }//lE_Feed_shakeoffset
 void QtPLCDialogClass::on_lE_FeedTimeOut_editingFinished()
 {
@@ -2100,7 +2162,7 @@ void QtPLCDialogClass::on_lE_FeedTimeOut_editingFinished()
 	((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("下料超时时间\n已更改!"));
+	emit showWindowOut(QString::fromLocal8Bit("下料超时时间\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_CapPickInterval_editingFinished()
 {
@@ -2122,7 +2184,7 @@ void QtPLCDialogClass::on_lE_CapPickInterval_editingFinished()
 	((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("自动取料周期\n已更改!"));
+	emit showWindowOut(QString::fromLocal8Bit("自动取料周期\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_CapBackInterval_editingFinished()
 {
@@ -2144,7 +2206,7 @@ void QtPLCDialogClass::on_lE_CapBackInterval_editingFinished()
 	((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("成品返还周期\n已更改!"));
+	emit showWindowOut(QString::fromLocal8Bit("成品返还周期\n已更改!"));
 }
 
 void QtPLCDialogClass::on_lE_TireDelay_editingFinished()
@@ -2167,7 +2229,7 @@ void QtPLCDialogClass::on_lE_TireDelay_editingFinished()
 	((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("去皮延迟启动时间\n已更改!"));
+	emit showWindowOut(QString::fromLocal8Bit("去皮延迟启动时间\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_ReadDelay_editingFinished()
 {
@@ -2189,7 +2251,7 @@ void QtPLCDialogClass::on_lE_ReadDelay_editingFinished()
 	((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("读数延迟启动时间\n已更改!"));
+	emit showWindowOut(QString::fromLocal8Bit("读数延迟启动时间\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_TireWaitTime_editingFinished()
 {
@@ -2211,7 +2273,7 @@ void QtPLCDialogClass::on_lE_TireWaitTime_editingFinished()
 	((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("去皮等待时间\n已更改!"));
+	emit showWindowOut(QString::fromLocal8Bit("去皮等待时间\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_StopSignalDelay_editingFinished()
 {
@@ -2233,7 +2295,7 @@ void QtPLCDialogClass::on_lE_StopSignalDelay_editingFinished()
 	((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->blockSignals(false);
 
-	showWindowOut(QString::fromLocal8Bit("连续超限停机数\n已更改!"));
+	emit showWindowOut(QString::fromLocal8Bit("连续超限停机数\n已更改!"));
 }
 #pragma endregion
 
@@ -2266,14 +2328,14 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 	((Ui::QtPLCDialogClass*)ui)->lE_print2->setText(QString::number(p2));
 	if (p1 > p2)
 	{
-		showWindowOut(QString::fromLocal8Bit("无满足条件\n打印数据!"));
+		emit showWindowOut(QString::fromLocal8Bit("无满足条件\n打印数据!"));
 		((Ui::QtPLCDialogClass*)ui)->pB_printData->setEnabled(true);
 		((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(true);
 		return;
 	}
 	else if (p1 + 10 < p2)
 	{
-		showWindowOut(QString::fromLocal8Bit("每次至多打印\n10条数据!"));
+		emit showWindowOut(QString::fromLocal8Bit("每次至多打印\n10条数据!"));
 		((Ui::QtPLCDialogClass*)ui)->pB_printData->setEnabled(true);
 		((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(true);
 		return;
@@ -2284,7 +2346,7 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 		QString str = configIniRead.value(QString::number(p1) + "/data", 0).toString();
 		if (str == "0")
 		{
-			showWindowOut(QString::fromLocal8Bit("无满足条件\n打印数据!"));
+			emit showWindowOut(QString::fromLocal8Bit("无满足条件\n打印数据!"));
 			((Ui::QtPLCDialogClass*)ui)->pB_printData->setEnabled(true);
 			((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(true);
 			return;
@@ -2340,7 +2402,7 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 		
 		else
 		{
-			showWindowOut(QString::fromLocal8Bit("无打印数据!"));
+			emit showWindowOut(QString::fromLocal8Bit("无打印数据!"));
 			return;
 		}
 	}
@@ -2352,7 +2414,7 @@ void QtPLCDialogClass::on_pB_Read1_clicked()//读取1
 	typ.Telegram_typ = 2;
 	typ.Machine_Para.enable = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
-	showWindowOut(QString::fromLocal8Bit("PLC默认参数\n已读取!"));
+	emit showWindowOut(QString::fromLocal8Bit("PLC默认参数\n已读取!"));
 }
 void QtPLCDialogClass::on_pB_Read2_clicked()//读取2
 {
@@ -2361,7 +2423,7 @@ void QtPLCDialogClass::on_pB_Read2_clicked()//读取2
 	typ.Telegram_typ = 2;
 	typ.Machine_Para.enable = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
-	showWindowOut(QString::fromLocal8Bit("PLC默认参数\n已读取!"));
+	emit showWindowOut(QString::fromLocal8Bit("PLC默认参数\n已读取!"));
 }
 void QtPLCDialogClass::on_pB_Write1_clicked()//写入1
 {
@@ -2370,7 +2432,7 @@ void QtPLCDialogClass::on_pB_Write1_clicked()//写入1
 	typ.Telegram_typ = 2;
 	typ.Machine_Para.enable = 2;
 	m_socket->Communicate_PLC(&typ, nullptr);
-	showWindowOut(QString::fromLocal8Bit("PLC默认参数\n已保存!"));
+	emit showWindowOut(QString::fromLocal8Bit("PLC默认参数\n已保存!"));
 }
 void QtPLCDialogClass::on_pB_Write2_clicked()//写入2
 {
@@ -2379,31 +2441,7 @@ void QtPLCDialogClass::on_pB_Write2_clicked()//写入2
 	typ.Telegram_typ = 2;
 	typ.Machine_Para.enable = 2;
 	m_socket->Communicate_PLC(&typ, nullptr);
-	showWindowOut(QString::fromLocal8Bit("PLC默认参数\n已保存!"));
-}
-void QtPLCDialogClass::on_pB_cmdRollingOverNeg_clicked()
-{
-#ifdef MODBUSTCP
-	m_socket->Write_modbus_tcp_Coils("01", 103, 1);
-#endif
-}
-void QtPLCDialogClass::on_pB_cmdRollingOverPos_clicked()
-{
-#ifdef MODBUSTCP
-	m_socket->Write_modbus_tcp_Coils("01", 104, 1);
-#endif
-}
-void QtPLCDialogClass::on_pB_cmdPushNeg_clicked()
-{
-#ifdef MODBUSTCP
-	m_socket->Write_modbus_tcp_Coils("01", 105, 1);
-#endif
-}
-void QtPLCDialogClass::on_pB_cmdPushPos_clicked()
-{
-#ifdef MODBUSTCP
-	m_socket->Write_modbus_tcp_Coils("01", 106, 1);
-#endif
+	emit showWindowOut(QString::fromLocal8Bit("PLC默认参数\n已保存!"));
 }
 
 void QtPLCDialogClass::on_pB_cmdScaleRead_clicked()//秤读数命令,1:执行，自动复位
@@ -3567,12 +3605,12 @@ void QtPLCDialogClass::on_pB_Users_Delete_clicked()
 {
 	if (m_SelectedName == "")
 	{
-		showWindowOut(QString::fromLocal8Bit("请先选择用户\n然后进行删除！"));
+		emit showWindowOut(QString::fromLocal8Bit("请先选择用户\n然后进行删除！"));
 		return;
 	}
 	else if (m_SelectedName == "Admin")
 	{
-		showWindowOut(QString::fromLocal8Bit("管理员账户\n不可删除！"));
+		emit showWindowOut(QString::fromLocal8Bit("管理员账户\n不可删除！"));
 		return;
 	}
 	else
@@ -3583,7 +3621,7 @@ void QtPLCDialogClass::on_pB_Users_Delete_clicked()
 			QString path = AppPath + "/ModelFile/ProgramSet.ini";
 			QString fullName = "USER_" + m_SelectedName;
 			Dir.remove(fullName);
-			showWindowOut(QString::fromLocal8Bit("恭喜\n") + m_SelectedName + QString::fromLocal8Bit("\n删除成功!"));
+			emit showWindowOut(QString::fromLocal8Bit("恭喜\n") + m_SelectedName + QString::fromLocal8Bit("\n删除成功!"));
 			initTableWidget();
 			((Ui::QtPLCDialogClass*)ui)->tabWidget_Users->removeTab(1);
 			m_SelectedName = "";
@@ -3613,7 +3651,7 @@ void QtPLCDialogClass::addUser()
 				{
 					Dir.setValue("USER_" + ((Ui::QtPLCDialogClass*)ui)->lE_SetUserName->text() + "/Password", ((Ui::QtPLCDialogClass*)ui)->lE_SetUserSecretNum->text());//写当前模板
 					Dir.setValue("USER_" + ((Ui::QtPLCDialogClass*)ui)->lE_SetUserName->text() + "/Level", QString::number(((Ui::QtPLCDialogClass*)ui)->cB_SetUserPermission->currentIndex()));//写当前模板
-					showWindowOut(QString::fromLocal8Bit("恭喜\n用户更新成功!"));
+					emit showWindowOut(QString::fromLocal8Bit("恭喜\n用户更新成功!"));
 					initTableWidget();
 					((Ui::QtPLCDialogClass*)ui)->tabWidget_Users->removeTab(1);
 					return;
@@ -3627,7 +3665,7 @@ void QtPLCDialogClass::addUser()
 	}
 	Dir.setValue("USER_" + ((Ui::QtPLCDialogClass*)ui)->lE_SetUserName->text() + "/Password", ((Ui::QtPLCDialogClass*)ui)->lE_SetUserSecretNum->text());//写当前模板
 	Dir.setValue("USER_" + ((Ui::QtPLCDialogClass*)ui)->lE_SetUserName->text() + "/Level", QString::number(((Ui::QtPLCDialogClass*)ui)->cB_SetUserPermission->currentIndex()));//写当前模板
-	showWindowOut(QString::fromLocal8Bit("恭喜\n新建用户成功!"));
+	emit showWindowOut(QString::fromLocal8Bit("恭喜\n新建用户成功!"));
 	initTableWidget();
 	((Ui::QtPLCDialogClass*)ui)->tabWidget_Users->removeTab(1);
 }
@@ -3735,11 +3773,11 @@ void QtPLCDialogClass::OnUnconnectedState()
 }
 void QtPLCDialogClass::OnConnectingState()
 {
-	showWindowOut(QString::fromLocal8Bit("Connecting"));
+	emit showWindowOut(QString::fromLocal8Bit("Connecting"));
 }
 void QtPLCDialogClass::OnConnectedState()
 {
-	showWindowOut(QString::fromLocal8Bit("Connected!"));
+	emit showWindowOut(QString::fromLocal8Bit("Connected!"));
 	//showMsgBox("恭喜", "Connected!", "我知道了", "");
 }
 void QtPLCDialogClass::OnClosingState()

@@ -179,11 +179,11 @@ void QtSocket_Class::onErrorOccurred()
 }
 void QtSocket_Class::onStateChanged()
 { //连接状态改变时的槽函数
-/*
+
 #ifdef MODBUSTCP
 	if (mp_TCPSocket->state() == QModbusDevice::ConnectedState)
 	{
-		emit statechange_Connected();
+		//emit statechange_Connected();
 		OnServer();
 	}
 
@@ -201,7 +201,7 @@ void QtSocket_Class::onStateChanged()
 		emit statechange_Closing();
 	}
 #endif
-*/
+
 }
 /********************************************
  * 函数名称：read_modbus_tcp_Coils(int start_add,quint16 numbers ,int Server_ID)
