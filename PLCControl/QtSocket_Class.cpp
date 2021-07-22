@@ -294,6 +294,8 @@ void QtSocket_Class::ReadReady_Coils()
 
 	reply->deleteLater(); // delete the reply
 	emit my_readC_finished();	//coils读取完成后emit 读取完成的信号；
+
+	read_modbus_tcp_HoldingRegisters(0, 100, 1);
 #endif
 }
 /********************************************
@@ -351,7 +353,6 @@ void QtSocket_Class::ReadReady_HoldingRegisters()
 	if (reply->error() == QModbusDevice::NoError)
 	{
 		const QModbusDataUnit unit = reply->result();
-		char Input_Bufer[23];//23?
 		for (uint16_t i = 0; i < unit.valueCount(); )
 		{
 			uint16_t res = unit.value(i);
@@ -491,7 +492,7 @@ void QtSocket_Class::OnServer()
 	{
 		timer_beat = new QTimer(this);
 		connect(timer_beat, SIGNAL(timeout()), this, SLOT(onBeatSignal()));
-		timer_beat->start(200);
+		timer_beat->start(300);
 	}
 	emit signal_Connected();
 }
@@ -684,6 +685,7 @@ void QtSocket_Class::onBeatSignal()
 {
 #ifdef MODBUSTCP
 	read_modbus_tcp_Coils(0, 100, 1);
+	strcat(Coils_Bufer, Input_Bufer);
 	emit signal_FROMPLC((void*)Coils_Bufer);
 #endif 
 
