@@ -14,6 +14,7 @@ class QtSocket_Class : public QObject
 signals:
 	void signal_Connected();
 	void signal_FROMPLC(void*);
+	void signal_FROMPLCHLODING(void*);
 	void signal_SOCKETERROR();
 	void statechange_Connected();
 	void statechange_Connecting();
@@ -21,11 +22,14 @@ signals:
 	void statechange_Closing();
 	void my_readC_finished();
 	void my_readH_finished();
+	void WRITECOILS();
+	void WRITEHOLDINGREGISTERS();
 public:
 	QtSocket_Class(QObject *parent);
 	~QtSocket_Class();
 
 private:
+	int m_iCircleFlag = 0;
 	QTimer *timer_beat = nullptr;
 #ifdef TCPIP
 	QTcpSocket *mp_TCPSocket = nullptr;
@@ -41,8 +45,8 @@ private:
 	QString m_sip;//IP 10.86.50.210
 	int m_iport;//port 5000
 
-	char Coils_Bufer[100];//读取到的数据
-	char Input_Bufer[100];//寄存器
+	char Coils_Bufer[120];//读取到的数据
+	char Input_Bufer[120];//寄存器
 
 	DataToPC_typ *m_Dmsg_ToPC; //PC接收
 	DataFromPC_typ	*m_Dmsg_FromPC; //PC发送

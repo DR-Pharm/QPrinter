@@ -145,7 +145,7 @@ bool QtSocket_Class::initialization()//连接初始化
 *********************************************/
 		mp_TCPSocket = new QModbusTcpClient();		
 
-		mp_TCPSocket->setTimeout(1000);
+		mp_TCPSocket->setTimeout(40);//4个200ms
 		mp_TCPSocket->setNumberOfRetries(3);//重试次数
 		int k=mp_TCPSocket->timeout();
 		mp_TCPSocket->setConnectionParameter(QModbusDevice::NetworkPortParameter, 502);//端口
@@ -284,8 +284,8 @@ void QtSocket_Class::ReadReady_Coils()
 			uint16_t res = unit.value(i);			//一个一个读
 			Coils_Bufer[i] = static_cast<uint8_t>(res);
 			//读完将数据存储起来  Coils_Bufer[i] 自定的数组 用来存放数据
-
 		}
+		emit signal_FROMPLC((void*)Coils_Bufer);
 
 	}
 	else
@@ -294,8 +294,6 @@ void QtSocket_Class::ReadReady_Coils()
 
 	reply->deleteLater(); // delete the reply
 	emit my_readC_finished();	//coils读取完成后emit 读取完成的信号；
-
-	read_modbus_tcp_HoldingRegisters(0, 100, 1);
 #endif
 }
 /********************************************
@@ -359,7 +357,7 @@ void QtSocket_Class::ReadReady_HoldingRegisters()
 			Input_Bufer[i] = static_cast<uint8_t>(res);
 			i++;
 		}
-
+		emit signal_FROMPLCHLODING((void*)Input_Bufer);
 	}
 	else
 	{
@@ -492,7 +490,7 @@ void QtSocket_Class::OnServer()
 	{
 		timer_beat = new QTimer(this);
 		connect(timer_beat, SIGNAL(timeout()), this, SLOT(onBeatSignal()));
-		timer_beat->start(300);
+		timer_beat->start(50);
 	}
 	emit signal_Connected();
 }
@@ -684,9 +682,27 @@ void QtSocket_Class::onConnectError(QAbstractSocket::SocketError err)
 void QtSocket_Class::onBeatSignal()
 {
 #ifdef MODBUSTCP
-	read_modbus_tcp_Coils(0, 100, 1);
-	strcat(Coils_Bufer, Input_Bufer);
-	emit signal_FROMPLC((void*)Coils_Bufer);
+	if (m_iCircleFlag == 0)
+	{
+		read_modbus_tcp_Coils(0, 120, 1);
+	}
+	else if (m_iCircleFlag == 1)
+	{
+		emit WRITECOILS();
+	}
+	else if (m_iCircleFlag == 2)
+	{
+		read_modbus_tcp_HoldingRegisters(0, 120, 1);
+	}
+	else if (m_iCircleFlag == 3)
+	{
+		emit WRITEHOLDINGREGISTERS();
+	}
+
+	if (++m_iCircleFlag == 4)
+	{
+		m_iCircleFlag = 0;
+	}
 #endif 
 
 #ifdef TCPIP
@@ -703,15 +719,15 @@ void QtSocket_Class::onBeatSignal()
 		// 		_ToPC->Status.HomeOK = 1;
 		// 		memcpy(_ctoPC, _ToPC, sizeof(DataFromPC_typ));
 
-		if (mp_TCPSocket!=nullptr)
+		if (mp_TCPSocket != nullptr)
 		{
-		if (mp_TCPSocket->write(_cfromPC, sizeof(DataFromPC_typ)))
-		{
-			// 			while (sizeof(DataToPC_typ) == mp_TCPSocket->read(_ctoPC, sizeof(DataToPC_typ)))
-			// 				memcpy(_ToPC, _ctoPC, sizeof(DataToPC_typ));
-		}
+			if (mp_TCPSocket->write(_cfromPC, sizeof(DataFromPC_typ)))
+			{
+				// 			while (sizeof(DataToPC_typ) == mp_TCPSocket->read(_ctoPC, sizeof(DataToPC_typ)))
+				// 				memcpy(_ToPC, _ctoPC, sizeof(DataToPC_typ));
+	}
 
-		}
+}
 		memset(_ToPC, 0, sizeof(DataToPC_typ));
 		memset(_ctoPC, 0, sizeof(DataToPC_typ));
 	}
