@@ -385,14 +385,19 @@ bool QtSocket_Class::Write_modbus_tcp_Coils(QString str1, int star_add, int numb
 	quint16 number1 = static_cast<quint16>(number); //C++中的数据类型转换
 	QModbusDataUnit writeUnit(QModbusDataUnit::Coils, star_add, number1);
 
-	for (uint i1 = 0; i1 < writeUnit.valueCount(); i1++) {
+	/*for (uint i1 = 0; i1 < writeUnit.valueCount(); i1++) {
 		int j1 = 2 * i1;
 		QString stt = str1.mid(j1, 2);
 		bool ok;
 		quint16 hex1 = stt.toInt(&ok, 16);//将textedit中读取到的数据转换为16进制发送
 		writeUnit.setValue(i1, hex1);//设置发送数据
+	}*/
+	for (uint i1 = 0; i1 < writeUnit.valueCount(); i1++) {
+		QString stt = str1.mid(i1, 1);
+		bool ok;
+		quint16 hex1 = stt.toInt(&ok, 16);//将textedit中读取到的数据转换为16进制发送
+		writeUnit.setValue(i1, hex1);//设置发送数据
 	}
-
 	if (auto *reply = mp_TCPSocket->sendWriteRequest(writeUnit, 1)) {// ui->spinBox_SerAddress->value()是server address   sendWriteRequest是向服务器写数据
 		if (!reply->isFinished()) {   //reply Returns true when the reply has finished or was aborted.
 			connect(reply, &QModbusReply::finished, this, [this, reply]() {
@@ -403,7 +408,7 @@ bool QtSocket_Class::Write_modbus_tcp_Coils(QString str1, int star_add, int numb
 				}
 				else if (reply->error() != QModbusDevice::NoError) {
 					qDebug() << (tr("Write response error: %1 (code: 0x%2)").
-						arg(reply->errorString()).arg(reply->error(), -1, 16), 5000);
+						arg(reply->errorString()).arg(reply->error(), -1, 16), 5000);//case,此处debug输出5000
 				}
 				reply->deleteLater();
 			});
