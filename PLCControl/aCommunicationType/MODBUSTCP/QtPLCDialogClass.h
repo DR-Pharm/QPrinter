@@ -63,6 +63,7 @@ public:
 	QString setYearMonthDay();
 	QString YearMonthDay();
 private:
+	int m_flag = 0;
 	MyPushButton *LanguageBtn;
 	MyPushButton *ExitBtn;
 	double sumNo = 0;
@@ -131,7 +132,17 @@ private:
 	QString m_gn1;
 	QString m_gn2;
 
-	char *m_Coils_Bufer = new char[100];
+	char *m_Coils_Bufer = new char[121];
+	char *m_Input_Bufer = new char[241];
+
+	int m_InputFlag = 0;
+	int m_CoilsFlag = 0;
+	QString m_str_registers = "_";
+	QString m_str_sendRegisters = "";
+	QString m_str_coils = "_";
+	QString m_str_sendCoils = "";
+
+	int m_iDontReadFlag = 0;
 public slots:
 
 	DataFromPC_typ getPCParaData();
@@ -139,8 +150,10 @@ public slots:
 
 	void initChartOne();
 
-	void getPLCData(void*);
-
+	void getPLCData(void*); 
+	void getPLCHolding(void*);
+	void on_WriteCoils();
+	void on_WriteHolding();
 
 	void setg_IUserLevel(int);
 
@@ -206,17 +219,9 @@ public slots:
 	void on_pB_cmdScaleSetStable_clicked();
 	/*void on_cB_paraScaleSetStable_currentIndexChanged(int index);*/
 	void on_pB_cmdScaleCalibExt_clicked();
-	void on_pB_cmdAxisFeedJogPos_pressed();
-	void on_pB_cmdAxisFeedJogPos_released();
-	void on_pB_cmdAxisFeedJogNeg_pressed();
-	void on_pB_cmdAxisFeedJogNeg_released();
 	void on_pB_cmdAxisFeedRelMov_clicked();
 	void on_pB_cmdAxisFeedPosMov_clicked();
 	void on_pB_cmdAxisFeedStopMov_clicked();
-	void on_pB_cmdAxisSwingJogPos_pressed();
-	void on_pB_cmdAxisSwingJogPos_released();
-	void on_pB_cmdAxisSwingJogNeg_pressed();
-	void on_pB_cmdAxisSwingJogNeg_released();
 	void on_pB_cmdAxisSwingRelMov_clicked();
 	void on_pB_cmdAxisSwingPosMov_clicked();
 	void on_pB_cmdAxisSwingStopMov_clicked();
@@ -247,8 +252,8 @@ public slots:
 	void on_pb_cmdCapTurnValve_toggled(bool checked);
 	void on_pb_cmdCapThickValve_toggled(bool checked);
 	void on_pb_cmdAlarmOut_toggled(bool checked);
-	void on_pb_cmdStopSignal_toggled(bool checked);
-	void on_pb_cmdAlarmSignal_toggled(bool checked);
+	void on_pb_cmdStopSignal_clicked();
+	void on_pb_cmdAlarmSignal_clicked();
 	void on_pb_cmdYellowAlarmout_toggled(bool checked);
 	void on_pb_cmdBaffle_toggled(bool checked);
 	void on_tabWidget_currentChanged(int index);

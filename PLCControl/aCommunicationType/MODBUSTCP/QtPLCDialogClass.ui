@@ -81,7 +81,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -364,7 +364,7 @@
                  <string>停机信号</string>
                 </property>
                 <property name="checkable">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -474,7 +474,7 @@
                  <string>报警输出</string>
                 </property>
                 <property name="checkable">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -5391,6 +5391,7 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
    </property>
    <property name="font">
     <font>
+     <family>幼圆</family>
      <pointsize>14</pointsize>
     </font>
    </property>
@@ -5538,15 +5539,16 @@ font: 19pt &quot;锐字真言体免费商用&quot;;</string>
    <widget class="QFrame" name="frame_8">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>510</y>
+      <x>285</x>
+      <y>524</y>
       <width>81</width>
-      <height>71</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Arial Narrow</family>
+      <pointsize>14</pointsize>
      </font>
     </property>
     <property name="frameShape">
@@ -5555,7 +5557,7 @@ font: 19pt &quot;锐字真言体免费商用&quot;;</string>
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_22">
+    <layout class="QHBoxLayout" name="horizontalLayout_9">
      <property name="spacing">
       <number>0</number>
      </property>
@@ -5572,79 +5574,27 @@ font: 19pt &quot;锐字真言体免费商用&quot;;</string>
       <number>0</number>
      </property>
      <item>
-      <widget class="QLineEdit" name="lb_x">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial Narrow</family>
-         <pointsize>14</pointsize>
-         <weight>9</weight>
-         <italic>false</italic>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="autoFillBackground">
-        <bool>false</bool>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">font: 75 14pt &quot;Arial Narrow&quot;;
-background-color: rgb(240, 240, 240);</string>
-       </property>
-       <property name="text">
-        <string>X:123</string>
-       </property>
-       <property name="frame">
-        <bool>false</bool>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="lb_y">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial Narrow</family>
-         <pointsize>14</pointsize>
-         <weight>9</weight>
-         <italic>false</italic>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="autoFillBackground">
-        <bool>false</bool>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">font: 75 14pt &quot;Arial Narrow&quot;;
-background-color: rgb(240, 240, 240);</string>
-       </property>
-       <property name="text">
-        <string>Y:123</string>
-       </property>
-       <property name="frame">
-        <bool>false</bool>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QLineEdit" name="lb_tm">
        <property name="enabled">
         <bool>false</bool>
        </property>
+       <property name="minimumSize">
+        <size>
+         <width>70</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>70</width>
+         <height>36</height>
+        </size>
+       </property>
        <property name="font">
         <font>
-         <family>Arial Narrow</family>
-         <pointsize>14</pointsize>
-         <weight>9</weight>
+         <family>Onyx</family>
+         <pointsize>26</pointsize>
+         <weight>50</weight>
          <italic>false</italic>
          <bold>false</bold>
         </font>
@@ -5653,17 +5603,17 @@ background-color: rgb(240, 240, 240);</string>
         <bool>false</bool>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 75 14pt &quot;Arial Narrow&quot;;
-background-color: rgb(240, 240, 240);</string>
+        <string notr="true">background-color: rgb(240, 240, 240);
+font: 26pt &quot;Onyx&quot;;</string>
        </property>
        <property name="text">
-        <string>12:31:23</string>
+        <string>88:88:88</string>
        </property>
        <property name="frame">
         <bool>false</bool>
        </property>
        <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
        </property>
        <property name="readOnly">
         <bool>false</bool>
@@ -5675,9 +5625,9 @@ background-color: rgb(240, 240, 240);</string>
    <widget class="TextTicker" name="lb_Alarm">
     <property name="geometry">
      <rect>
-      <x>5</x>
-      <y>525</y>
-      <width>271</width>
+      <x>6</x>
+      <y>526</y>
+      <width>277</width>
       <height>50</height>
      </rect>
     </property>
@@ -5689,13 +5639,13 @@ background-color: rgb(240, 240, 240);</string>
     </property>
     <property name="minimumSize">
      <size>
-      <width>0</width>
+      <width>277</width>
       <height>50</height>
      </size>
     </property>
     <property name="maximumSize">
      <size>
-      <width>16777215</width>
+      <width>277</width>
       <height>50</height>
      </size>
     </property>

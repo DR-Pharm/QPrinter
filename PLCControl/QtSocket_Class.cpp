@@ -205,7 +205,7 @@ void QtSocket_Class::onStateChanged()
 }
 /********************************************
  * 函数名称：read_modbus_tcp_Coils(int start_add,quint16 numbers ,int Server_ID)
- * 功能：发送读取modbus设备线圈数据请求
+ * 功能：发送读取modbus设备线圈数据请求 每一行一个字节 8位
  * 工作方式：
  * 参数：
  *      参数1：int start_add           读取的起始地址
@@ -249,7 +249,7 @@ bool QtSocket_Class::read_modbus_tcp_Coils(int start_add, quint16 numbers, int S
 #endif
 	return true;
 }
-//处理请求
+//处理请求//
 /********************************************
  * 函数名称：ReadReady_Coils()
  * 功能：接收到读取请求后执行的槽函数
@@ -298,7 +298,7 @@ void QtSocket_Class::ReadReady_Coils()
 }
 /********************************************
  * 函数名称：read_modbus_tcp_HoldingRegisters(int start_add,quint16 numbers ,int Server_ID)
- * 功能：发送读取modbus设备HoldingRegisters数据请求
+ * 功能：发送读取modbus设备HoldingRegisters数据请求//每一行一个字 16位
  * 工作方式：
  * 参数
  * 		参数1：读取数据的起始地址
@@ -354,7 +354,10 @@ void QtSocket_Class::ReadReady_HoldingRegisters()
 		for (uint16_t i = 0; i < unit.valueCount(); )
 		{
 			uint16_t res = unit.value(i);
-			Input_Bufer[i] = static_cast<uint8_t>(res);
+			uint8_t a = (res >> 8) & 0x00FF;
+			uint8_t b = res & 0x00FF;
+			Input_Bufer[2 * i] = a;
+			Input_Bufer[2 * i + 1] = b;
 			i++;
 		}
 		emit signal_FROMPLCHLODING((void*)Input_Bufer);
@@ -383,7 +386,7 @@ bool QtSocket_Class::Write_modbus_tcp_Coils(QString str1, int star_add, int numb
 {
 #ifdef MODBUSTCP
 	quint16 number1 = static_cast<quint16>(number); //C++中的数据类型转换
-	QModbusDataUnit writeUnit(QModbusDataUnit::Coils, star_add, number1);
+	QModbusDataUnit writeUnit(QModbusDataUnit::Coils, star_add-1, number1);
 
 	/*for (uint i1 = 0; i1 < writeUnit.valueCount(); i1++) {
 		int j1 = 2 * i1;
@@ -701,7 +704,7 @@ void QtSocket_Class::onBeatSignal()
 	}
 	else if (m_iCircleFlag == 3)
 	{
-		emit WRITEHOLDINGREGISTERS();
+		//emit WRITEHOLDINGREGISTERS();
 	}
 
 	if (++m_iCircleFlag == 4)
