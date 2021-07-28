@@ -142,7 +142,8 @@ private:
 	QString m_str_coils = "_";
 	QString m_str_sendCoils = "";
 
-	int m_iDontReadFlag = 0;
+	int m_iDontReadCoilsFlag = 0;
+	int m_iDontReadRegistersFlag = 0;
 public slots:
 
 	DataFromPC_typ getPCParaData();
@@ -191,7 +192,6 @@ public slots:
 	//void on_cB_enable_currentIndexChanged(int index);
 	void on_lE_s_trg_stop0_editingFinished();
 	void on_lE_s_trg_stop1_editingFinished();
-	void on_lE_Feed_shakeoffset_editingFinished();
 	void on_lE_FeedTimeOut_editingFinished();
 	void on_lE_CapPickInterval_editingFinished();
 	void on_lE_CapBackInterval_editingFinished();
@@ -231,15 +231,31 @@ public slots:
 
 	void on_pB_showPrt_toggled(bool checked);
 
+	void on_pB_HMUStart_clicked();
+
+	void on_pB_HMUStop_clicked();
+
+	void on_pB_HMUHome_clicked();
+
+	void on_pB_HMUZero_clicked();
+
+	void on_pB_HMUCalibStd_clicked();
+
+	void on_pB_HMUTurn_clicked();
+
+	void on_pB_HMUReject_clicked();
+
 	void on_pB_cmdStart_toggled(bool checked);
+	void on_pB_TMUStart_clicked();
+	void on_pB_TMUStop_clicked();
+	void on_pB_TMUZero_clicked();
+	void on_pB_TMUCalib_clicked();
 	void on_pB_cmdAlarmReset_clicked();
 	void on_pB_cmdCounterZero_clicked();
 	void on_pB_ChangeLanguage();
 	void on_pB_cmdCapClean_clicked();
-	void on_pB_cmdAlogtest_clicked();
-	void on_pB_cmdFeedShake_clicked();
-	void on_pB_cmdFeedshakestop_clicked();
-	void on_pB_cmdFeedshakelevel_clicked();
+	void on_pB_cmdGetCap_clicked();
+	void on_pB_cmdFeedAmount_clicked();
 	void on_pB_cmdFeedhome_clicked();
 	void on_pB_cmdFeedFive_clicked();
 	void on_pB_cmdFeedShakefive_clicked();
@@ -248,14 +264,18 @@ public slots:
 	void dtClose();
 	void startMovie();
 
-	void on_pb_cmdCapGet_toggled(bool checked);
-	void on_pb_cmdCapTurnValve_toggled(bool checked);
-	void on_pb_cmdCapThickValve_toggled(bool checked);
-	void on_pb_cmdAlarmOut_toggled(bool checked);
-	void on_pb_cmdStopSignal_clicked();
-	void on_pb_cmdAlarmSignal_clicked();
-	void on_pb_cmdYellowAlarmout_toggled(bool checked);
-	void on_pb_cmdBaffle_toggled(bool checked);
+	void on_pB_enHMU_toggled(bool checked);
+
+	void on_pB_enTMU_toggled(bool checked);
+
+	void on_pB_cmdCapGet_toggled(bool checked);
+	void on_pB_cmdCapTurnValve_toggled(bool checked);
+	void on_pB_cmdCapThickValve_toggled(bool checked);
+	void on_pB_cmdAlarmOut_toggled(bool checked);
+	void on_pB_cmdStopSignal_clicked();
+	void on_pB_cmdAlarmSignal_clicked();
+	void on_pB_cmdYellowAlarmout_toggled(bool checked);
+	void on_pB_cmdBaffle_toggled(bool checked);
 	void on_tabWidget_currentChanged(int index);
 	void on_tabWidget_PLC_currentChanged(int index);
 	void updateCheckPermission(const QString & str);
