@@ -120,6 +120,13 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 		key->repaint();
 		key->show();});
 		*/
+
+	m_Input_Bufer[0] = 0;
+	m_Coils_Bufer[0] = 0;
+	dtcoils = new quint16[COILS];
+	memset(dtcoils, 0, COILS * 2);
+	dtregisters = new quint16[REGISTERS];
+	memset(dtregisters, 0, REGISTERS * 2);
 	//开始
 
 	((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setFixedSize(347, 200);
@@ -165,7 +172,9 @@ QtPLCDialogClass::~QtPLCDialogClass()
 	}
 	//disconnect(this, SIGNAL(SHOWEVERYPLCVALUE(DataToPC_typ)), this, SLOT(getPLCData(DataToPC_typ)));
 	bool b = disconnect(m_socket, SIGNAL(signal_FROMPLC(void*)), this, SLOT(getPLCData(void*)));
-
+	b = disconnect(m_socket, SIGNAL(signal_FROMPLCHLODING(void*)), this, SLOT(getPLCHolding(void*)));//();
+	b = disconnect(m_socket, SIGNAL(WRITECOILS()), this, SLOT(on_WriteCoils()));
+	b = disconnect(m_socket, SIGNAL(WRITEHOLDINGREGISTERS()), this, SLOT(on_WriteHolding()));
 	if (btnTimer != nullptr)
 	{
 		delete btnTimer;
@@ -780,6 +789,112 @@ void QtPLCDialogClass::setStyleCommand(QPushButton*btn, QString bg, QFont ft, QS
 		btn->setText(tt);
 	}
 }
+void QtPLCDialogClass::CompareYearMonthDay()
+{
+	QString str1 = ((Ui::QtPLCDialogClass*)ui)->lE_year1->text() +
+		((Ui::QtPLCDialogClass*)ui)->lE_month1->text() +
+		((Ui::QtPLCDialogClass*)ui)->lE_day1->text() +
+		((Ui::QtPLCDialogClass*)ui)->lE_hour1->text() +
+		((Ui::QtPLCDialogClass*)ui)->lE_minute1->text();
+	LONGLONG ll1 = str1.toLongLong();
+
+	QString str2 = ((Ui::QtPLCDialogClass*)ui)->lE_year2->text() +
+		((Ui::QtPLCDialogClass*)ui)->lE_month2->text() +
+		((Ui::QtPLCDialogClass*)ui)->lE_day2->text() +
+		((Ui::QtPLCDialogClass*)ui)->lE_hour2->text() +
+		((Ui::QtPLCDialogClass*)ui)->lE_minute2->text();
+	LONGLONG ll2 = str2.toLongLong();
+
+	if (ll1 > ll2)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("条件有误!"));
+		((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(false);
+	}
+	else if (ll1 == ll2)
+	{
+		QSettings timIni(AppPath + "\\data\\time.ini", QSettings::IniFormat);
+		QString str = timIni.value(str1.mid(8) + "/" + str1, "0").toString();
+		if (str == "0")
+		{
+			((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("该时间不存在数据!"));
+			((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(false);
+		}
+		else
+		{
+			m_gn1 = str;
+			m_gn2 = str;
+			((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(true);
+		}
+	}
+	else
+	{
+		m_gn1 = "";
+		m_gn2 = "";
+		QSettings timIni(AppPath + "\\data\\time.ini", QSettings::IniFormat);
+		// 获取一个节点下的key值
+		timIni.beginGroup(str1.mid(0, 8));    // 设置查找节点
+		QStringList str2 = timIni.allKeys();    // 获取所有的key
+		if (str2.size() == 0)
+		{
+			((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("该时间段不存在数据!"));
+			((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(false);
+			return;
+		}
+		int itemp = 0;
+		LONGLONG ltemp1;
+		LONGLONG ltemp2;
+		QString key;
+		for (int i=0;i<str2.size();i++)//foreach may case bug
+		{
+			key = str2.at(i);
+			LONGLONG value = key.toLongLong();
+			if (itemp == 0)
+			{
+				itemp = 1;
+				ltemp1 = value;
+				ltemp2 = value;
+			}
+			if (ltemp1 > value)
+			{
+				ltemp1 = value;
+			}
+			if (ltemp2 < value)
+			{
+				ltemp2 = value;
+			}
+			if (value >= ll1 && value <= ltemp1)
+			{
+				int finalvalue = timIni.value(key).toInt();  // 直接用 key 获取数据
+				m_gn1 = QString::number(finalvalue);
+			}
+			if (value <= ll2 && value >= ltemp2)
+			{
+				int finalvalue = timIni.value(key).toInt();  // 直接用 key 获取数据
+				m_gn2 = QString::number(finalvalue);
+			}
+		}
+		timIni.endGroup();
+
+		if (m_gn1 == "")
+		{
+			((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("不存在符合条件的数据!"));
+			((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(false);
+		}
+		else
+		{
+			if (m_gn1 == m_gn2)
+			{
+				((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("符合组号为：") + m_gn1);
+			}
+			else
+			{
+				((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("符合组号为：") + m_gn1 + "-" + m_gn2);
+			}
+			((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(true);
+		}
+
+	}
+}
 void QtPLCDialogClass::setg_IUserLevel(int index)
 {
 	g_IUserLevel = index;	
@@ -807,10 +922,9 @@ void QtPLCDialogClass::SetSocket(QtSocket_Class *sc)
 	b = connect(m_socket, SIGNAL(signal_FROMPLCHLODING(void*)), this, SLOT(getPLCHolding(void*)));//();
 	b = connect(m_socket, SIGNAL(WRITECOILS()), this, SLOT(on_WriteCoils()));
 	b = connect(m_socket, SIGNAL(WRITEHOLDINGREGISTERS()), this, SLOT(on_WriteHolding()));
-	b = connect(m_socket, SIGNAL(statechange_Connected()), this, SLOT(OnConnectedState()));
-	b = connect(m_socket, SIGNAL(statechange_Connecting()), this, SLOT(OnConnectingState()));
 	b = connect(m_socket, SIGNAL(statechange_Unconnected()), this, SLOT(OnUnconnectedState()));
 	b = connect(m_socket, SIGNAL(statechange_Closing()), this, SLOT(OnClosingState()));
+	b = connect(m_socket, SIGNAL(SHOWSTATUS(QString)), this, SLOT(OnShowState(QString)));
 }
 #pragma endregion
 
@@ -938,47 +1052,60 @@ void QtPLCDialogClass::initChartOne()
 }
 void QtPLCDialogClass::getPLCHolding(void*data)
 {
-	if (m_iDontReadCoilsFlag == 1)
+	if (m_iDontReadRegistersFlag == 1)
 	{
 		return;
 	}
+	memcpy(dtregisters, (quint16*)data, REGISTERS);//主界面用
 #ifdef MODBUSTCP
-
-	char *dttemp = (char*)data;
-	m_Input_Bufer[0] = '0';
-	for (int i = 0; i < 240; i++)
+	m_str_registers = "_-_-";
+	for (int i = 0; i < REGISTERS; i++)
 	{
-		m_Input_Bufer[i + 1] = dttemp[i];
-		uint8_t a = m_Input_Bufer[i + 1];
-		QString strtmp = QString::number(a,16);
-		if (strtmp.length()<2)
-		{
-			strtmp = "0" + strtmp;
-		}
+		m_Input_Bufer[i + 1] = dtregisters[i];
+		quint16 a = dtregisters[i];
+		QString strtmp = QString("%1").arg(a, 4, 16, QLatin1Char('0'));
+
+		//arg中第二个参数表示字符串的位数，第三个参数表示int的进制，第4个参数表示自动补全的字符；
+
 		m_str_registers += strtmp;
 	}
+	m_str_registers = m_str_registers.mid(0, 30);
+	OnShowState(m_str_registers);
 	if (m_InputFlag == 0)//第一次赋值
 	{
 		m_str_sendRegisters = m_str_registers;
 	}
 	m_InputFlag = 1;
+
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->hasFocus())
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->setText(QString::number(m_Input_Bufer[9]/100));
+	}
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_BatchName->hasFocus())
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setText(QString::number(m_Input_Bufer[1]));
+	}
 #endif
+}
+void QtPLCDialogClass::on_WriteHolding()
+{
+	return;
+	if (m_InputFlag == 1 && m_iDontReadRegistersFlag == 1)//已经读过(第一次即可) 且 请求写入
+	{
+		QString strSend = m_str_sendRegisters.mid(9*4, 91*4);
+		m_socket->Write_modbus_tcp_HoldingRegisters(strSend, 9*4, 91*4);
+		m_iDontReadRegistersFlag = 0;
+	}
 }
 void QtPLCDialogClass::on_WriteCoils()
 {
-	if (m_CoilsFlag == 1 && m_iDontReadCoilsFlag == 1)//已经读过 且 请求写入
+	if (m_CoilsFlag == 1 && m_iDontReadCoilsFlag == 1)//已经读过(第一次即可) 且 请求写入
 	{
 		QString strSend = m_str_sendCoils.mid(58, 50);
 		m_socket->Write_modbus_tcp_Coils(strSend, 58, 50);
 		m_iDontReadCoilsFlag = 0;
 	}
-	
-}
-void QtPLCDialogClass::on_WriteHolding()
-{
-	if (m_InputFlag == 1)//已经读过
-	{
-	}
+
 }
 void QtPLCDialogClass::getPLCData(void* data)
 {
@@ -990,13 +1117,13 @@ void QtPLCDialogClass::getPLCData(void* data)
 		return;
 	}
 #ifdef MODBUSTCP
-
-	char *dttemp = (char*)data;
-	m_Coils_Bufer[0] = '0';
-	for (int i = 0; i < 120; i++)
+	
+	memcpy(dtcoils, (quint16*)data, COILS);//主界面用
+	m_str_coils = "_";
+	for (int i = 0; i < COILS; i++)
 	{
-		m_Coils_Bufer[i + 1] = dttemp[i];
-		uint8_t a = m_Coils_Bufer[i + 1];
+		m_Coils_Bufer[i + 1] = dtcoils[i];
+		quint16 a = dtcoils[i];
 		QString strtmp = QString::number(a,16);
 		m_str_coils += strtmp;
 	}
@@ -2381,110 +2508,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 #endif
 }//PC显示数据
 #pragma endregion
-void QtPLCDialogClass::CompareYearMonthDay()
-{
-	QString str1= ((Ui::QtPLCDialogClass*)ui)->lE_year1->text()+
-	((Ui::QtPLCDialogClass*)ui)->lE_month1->text()+
-	((Ui::QtPLCDialogClass*)ui)->lE_day1->text()+
-	((Ui::QtPLCDialogClass*)ui)->lE_hour1->text()+
-	((Ui::QtPLCDialogClass*)ui)->lE_minute1->text();
-	LONGLONG ll1 = str1.toLongLong();
 
-	QString str2 = ((Ui::QtPLCDialogClass*)ui)->lE_year2->text() +
-		((Ui::QtPLCDialogClass*)ui)->lE_month2->text() +
-		((Ui::QtPLCDialogClass*)ui)->lE_day2->text() +
-		((Ui::QtPLCDialogClass*)ui)->lE_hour2->text() +
-		((Ui::QtPLCDialogClass*)ui)->lE_minute2->text();
-	LONGLONG ll2 = str2.toLongLong();
-
-	if (ll1>ll2)
-	{
-		((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("条件有误!"));
-		((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(false);
-	}
-	else if(ll1 == ll2)
-	{
-		QSettings timIni(AppPath + "\\data\\time.ini", QSettings::IniFormat);
-		QString str=timIni.value(str1.mid(8) + "/" + str1, "0").toString();
-		if (str=="0")
-		{
-			((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("该时间不存在数据!"));
-			((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(false);
-		}
-		else
-		{
-			m_gn1 = str;
-			m_gn2 = str;
-			((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(true);
-		}
-	}
-	else
-	{
-		m_gn1 = "";
-		m_gn2 = "";
-		QSettings timIni(AppPath + "\\data\\time.ini", QSettings::IniFormat);		
-		// 获取一个节点下的key值
-		timIni.beginGroup(str1.mid(0,8));    // 设置查找节点
-		QStringList str2 = timIni.allKeys();    // 获取所有的key
-		if (str2.size()==0)
-		{
-			((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("该时间段不存在数据!"));
-			((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(false);
-			return;
-		}
-		int itemp = 0;
-		LONGLONG ltemp1;
-		LONGLONG ltemp2;
-		foreach(QString key, str2)
-		{
-			LONGLONG value = key.toLongLong();
-			if (itemp == 0)
-			{
-				itemp = 1;
-				ltemp1 = value;
-				ltemp2 = value;
-			}
-			if (ltemp1>value)
-			{
-				ltemp1 = value;
-			}
-			if (ltemp2 < value)
-			{
-				ltemp2 = value;
-			}
-			if (value>=ll1 && value<=ltemp1)
-			{
-				int finalvalue = timIni.value(key).toInt();  // 直接用 key 获取数据
-				m_gn1 = QString::number(finalvalue);
-			}
-			if (value <= ll2 && value >= ltemp2)
-			{
-				int finalvalue = timIni.value(key).toInt();  // 直接用 key 获取数据
-				m_gn2 = QString::number(finalvalue);
-			}
-		}
-		timIni.endGroup();
-
-		if (m_gn1 == "")
-		{
-			((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("不存在符合条件的数据!"));
-			((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(false);
-		}
-		else
-		{
-			if (m_gn1==m_gn2)
-			{
-				((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("符合组号为：") + m_gn1);
-			}
-			else
-			{
-				((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("符合组号为：") + m_gn1 + "-" + m_gn2);
-			}
-			((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(true);
-		}
-
-	}
-}
 QString QtPLCDialogClass::setYearMonthDay()
 {
 	QString strTime;
@@ -2587,6 +2611,7 @@ int QtPLCDialogClass::showMsgBox(const char* titleStr, const char* contentStr, c
 #pragma region ui run slots
 void QtPLCDialogClass::on_lE_SysOveride_editingFinished()//系统速度，0-10000对应0-100%
 {
+	/*
 	QString oldstr = QString::number(m_data->ActData.SysOveride / 100);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->text();
 	if (oldstr == str)
@@ -2608,7 +2633,7 @@ void QtPLCDialogClass::on_lE_SysOveride_editingFinished()//系统速度，0-1000
 	((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->blockSignals(false);
 
 	emit showWindowOut(QString::fromLocal8Bit("运行速度\n已更改!"));
-
+	*/
 }
 void QtPLCDialogClass::on_lE_year1_editingFinished()//超重重量,单位g
 {
@@ -3573,14 +3598,6 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 #ifdef MODBUSTCP
 	m_iDontReadCoilsFlag = 1;
 	m_str_sendCoils.replace(68, 2, checked ? "10" : "01");
-	if (checked)
-	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
-	}
-	else
-	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setStyleSheet("font: bold;font-size:20pt");
-	}
 #else
 	m_socket->Communicate_PLC(&typ, nullptr);
 #endif
@@ -4273,16 +4290,15 @@ void QtPLCDialogClass::onTreeItemChanged(QTreeWidgetItem* item)//利用changed�
 
 void QtPLCDialogClass::OnUnconnectedState()
 {
+	((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setChecked(false);
+	((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(false);
+	((Ui::QtPLCDialogClass*)ui)->lb_Alarm->setStyleSheet("color: rgb(255, 0,0);font-size:20pt");
+	((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("设备未就绪~");
 	showMsgBox("提示", "PLC Unconnected!", "我知道了", "");
 }
-void QtPLCDialogClass::OnConnectingState()
+void QtPLCDialogClass::OnShowState(QString str)
 {
-	emit showWindowOut(QString::fromLocal8Bit("Connecting"));
-}
-void QtPLCDialogClass::OnConnectedState()
-{
-	emit showWindowOut(QString::fromLocal8Bit("Connected!"));
-	//showMsgBox("恭喜", "Connected!", "我知道了", "");
+	emit showWindowOut(str);
 }
 void QtPLCDialogClass::OnClosingState()
 {
@@ -4770,7 +4786,10 @@ void QtPLCDialogClass::on_pB_SetUp_toggled(bool checked)//设置
 		bool ret = pix.load(AppPath + "/ico/sznt.png");
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIcon(pix);
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIconSize(QSize(347, 99));
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(true);
+		if (((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText == QString::fromLocal8Bit("设备运行正常~"))
+		{
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(true);
+		}
 	}
 }
 void QtPLCDialogClass::on_pB_dtDlg_toggled(bool checked)//数据dialog

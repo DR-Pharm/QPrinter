@@ -13,11 +13,11 @@
 #include "Keyboard.h"
 namespace spd = spdlog;
 
-#include <QChartView>
-#include <QChart>
-#include <QSplineSeries>
-#include <QScatterSeries>
-#include <QValueAxis>
+#include <QtCharts/QChartView>
+#include <QtCharts/QChart>
+#include <QtCharts/QSplineSeries>
+#include <QtCharts/QScatterSeries>
+#include <QtCharts/QValueAxis>
 #include <QHBoxLayout>
 using namespace QtCharts;
 #include "textticker.h"
@@ -132,14 +132,18 @@ private:
 	QString m_gn1;
 	QString m_gn2;
 
-	char *m_Coils_Bufer = new char[121];
-	char *m_Input_Bufer = new char[241];
+	int COILS = 120;
+	int REGISTERS = 240;
+	quint16 *dtcoils;
+	quint16 *dtregisters;
+	quint16 *m_Coils_Bufer = new quint16[COILS+1];
+	quint16 *m_Input_Bufer = new quint16[REGISTERS+1];
 
 	int m_InputFlag = 0;
 	int m_CoilsFlag = 0;
-	QString m_str_registers = "_";
+	QString m_str_registers = "_-_-";//row four byte
 	QString m_str_sendRegisters = "";
-	QString m_str_coils = "_";
+	QString m_str_coils = "_";//row 2byte but used 1byte,case bool
 	QString m_str_sendCoils = "";
 
 	int m_iDontReadCoilsFlag = 0;
@@ -165,8 +169,8 @@ public slots:
 	void on_lE_hour1_editingFinished();
 	void on_lE_hour2_editingFinished();
 	void on_lE_minute1_editingFinished();
-	/*passcount
-	void on_lE_RejectCount_editingFinished();
+
+	/*void on_lE_RejectCount_editingFinished();
 	void on_lE_ProdCount_editingFinished();
 	void on_lE_TOCount_editingFinished();
 	void on_lE_TUCount_editingFinished();*/
@@ -290,8 +294,7 @@ public slots:
 	void updateParentItem(QTreeWidgetItem* item);
 	void onTreeItemChanged(QTreeWidgetItem * item);
 	void OnUnconnectedState();
-	void OnConnectingState();
-	void OnConnectedState();
+	void OnShowState(QString str);
 	void OnClosingState();
 };
 

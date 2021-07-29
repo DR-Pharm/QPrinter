@@ -285,13 +285,9 @@ void QtSocket_Class::ReadReady_Coils()
 	if (reply->error() == QModbusDevice::NoError)
 	{
 		const QModbusDataUnit unit = reply->result();
-		for (uint16_t i = 0; i < unit.valueCount(); i++)
+		for (quint16 i = 0; i < unit.valueCount(); i++)
 		{
-			/*
-			 QByteArray  AllData =unit.values();	//一次性读完
-			*/
-			uint16_t res = unit.value(i);			//一个一个读
-			Coils_Bufer[i] = static_cast<uint8_t>(res);
+			Coils_Bufer[i] = unit.value(i);
 		}
 		emit signal_FROMPLC((void*)Coils_Bufer);
 	}
@@ -358,13 +354,10 @@ void QtSocket_Class::ReadReady_HoldingRegisters()
 	if (reply->error() == QModbusDevice::NoError)
 	{
 		const QModbusDataUnit unit = reply->result();
-		for (uint16_t i = 0; i < unit.valueCount(); i++)
+		QString str;
+		for (quint16 i = 0; i < unit.valueCount(); i++)
 		{
-			uint16_t res = unit.value(i);
-			uint8_t a = (res >> 8) & 0x00FF;
-			uint8_t b = res & 0x00FF;
-			Input_Bufer[2 * i] = a;
-			Input_Bufer[2 * i + 1] = b;
+			Input_Bufer[i] = unit.value(i);
 		}
 		emit signal_FROMPLCHLODING((void*)Input_Bufer);
 	}
@@ -466,7 +459,7 @@ void QtSocket_Class::OnServer()
 	{
 		timer_beat = new QTimer(this);
 		connect(timer_beat, SIGNAL(timeout()), this, SLOT(onBeatSignal()));
-		timer_beat->start(50);
+		timer_beat->start(500);
 	}
 	emit signal_Connected();
 }
@@ -660,7 +653,7 @@ void QtSocket_Class::onBeatSignal()
 #ifdef MODBUSTCP
 	if (m_iCircleFlag == 0)
 	{
-		read_modbus_tcp_Coils(0, 120, 1);
+		read_modbus_tcp_Coils(0, COILS, 1);
 	}
 	else if (m_iCircleFlag == 1)
 	{
@@ -668,11 +661,11 @@ void QtSocket_Class::onBeatSignal()
 	}
 	else if (m_iCircleFlag == 2)
 	{
-		read_modbus_tcp_HoldingRegisters(0, 120, 1);
+		read_modbus_tcp_HoldingRegisters(0, REGISTERS, 1);
 	}
 	else if (m_iCircleFlag == 3)
 	{
-		emit WRITEHOLDINGREGISTERS();
+		//emit WRITEHOLDINGREGISTERS();
 	}
 
 	if (++m_iCircleFlag == 4)
