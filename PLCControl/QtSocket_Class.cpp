@@ -145,9 +145,8 @@ bool QtSocket_Class::initialization()//连接初始化
 *********************************************/
 		mp_TCPSocket = new QModbusTcpClient();		
 
-		mp_TCPSocket->setTimeout(40);//4个200ms
-		mp_TCPSocket->setNumberOfRetries(3);//重试次数
-		int k=mp_TCPSocket->timeout();
+		mp_TCPSocket->setTimeout(40);//
+		//mp_TCPSocket->setNumberOfRetries(3);//重试次数
 		mp_TCPSocket->setConnectionParameter(QModbusDevice::NetworkPortParameter, 502);//端口
 		mp_TCPSocket->setConnectionParameter(QModbusDevice::NetworkAddressParameter, "10.86.50.210");//IP ID？
 
@@ -168,13 +167,37 @@ void QtSocket_Class::onErrorOccurred()
 		ProtocolError,
 		ReplyAbortedError,
 		UnknownError*/
-	if (mp_TCPSocket->error() == QModbusDevice::TimeoutError)
+	if (mp_TCPSocket->error() == QModbusDevice::ReadError)
 	{
-		int i;
+		emit SHOWSTATUS("ReadError");
+	}
+	else if (mp_TCPSocket->error() == QModbusDevice::WriteError)
+	{
+		emit SHOWSTATUS("WriteError");
 	}
 	else if (mp_TCPSocket->error() == QModbusDevice::ConnectionError)
 	{
-		int i;
+		emit SHOWSTATUS("ConnectionError");
+	}
+	else if (mp_TCPSocket->error() == QModbusDevice::ConfigurationError)
+	{
+		emit SHOWSTATUS("ConfigurationError");
+	}
+	else if (mp_TCPSocket->error() == QModbusDevice::TimeoutError)
+	{
+		emit SHOWSTATUS("TimeoutError");
+	}
+	else if (mp_TCPSocket->error() == QModbusDevice::ProtocolError)
+	{
+		emit SHOWSTATUS("ProtocolError");
+	}
+	else if (mp_TCPSocket->error() == QModbusDevice::ReplyAbortedError)
+	{
+		emit SHOWSTATUS("ReplyAbortedError");
+	}
+	else if (mp_TCPSocket->error() == QModbusDevice::UnknownError)
+	{
+		emit SHOWSTATUS("UnknownError");
 	}
 }
 void QtSocket_Class::onStateChanged()
@@ -183,13 +206,12 @@ void QtSocket_Class::onStateChanged()
 #ifdef MODBUSTCP
 	if (mp_TCPSocket->state() == QModbusDevice::ConnectedState)
 	{
-		//emit statechange_Connected();
 		OnServer();
 	}
 
 	else if (mp_TCPSocket->state() == QModbusDevice::ConnectingState)
 	{
-		emit statechange_Connecting();
+		emit SHOWSTATUS("Connecting");
 	}
 
 	else if (mp_TCPSocket->state() == QModbusDevice::UnconnectedState)
@@ -218,34 +240,25 @@ void QtSocket_Class::onStateChanged()
 bool QtSocket_Class::read_modbus_tcp_Coils(int start_add, quint16 numbers, int Server_ID)
 {
 #ifdef MODBUSTCP
-	if (!(mp_TCPSocket->state() == QModbusDevice::ConnectedState)) {//!后面的括号不能去掉，否则先！后==
-		return false;
-	}
-
-	QModbusDataUnit ReadUnit(QModbusDataUnit::Coils, start_add, numbers);
-	qDebug() << "配置ReadUnit完成";
-	if (auto *reply = mp_TCPSocket->sendReadRequest(ReadUnit, Server_ID))     //1是Server_ID
+	if (!(mp_TCPSocket->state() == QModbusDevice::ConnectedState)) //!后面的括号不能去掉，否则先！后==
 	{
-		if (!reply->isFinished())
-		{
-			qDebug() << "准备进行信号与槽连接";
-			QObject::connect(reply, &QModbusReply::finished, this, &QtSocket_Class::ReadReady_Coils);
-			qDebug() << "进入读取的槽函数 ";
-			return true;
-		}
-		else
-		{
-			qDebug() << "提前delete reply";
-			delete reply;
-			return false;
-		}
-
-	}
-
-	else {
-		qDebug() << "提前退出";
 		return false;
 	}
+	QModbusDataUnit ReadUnit(QModbusDataUnit::Coils, start_add, numbers);	//配置ReadUnit
+	auto *reply = mp_TCPSocket->sendReadRequest(ReadUnit, Server_ID);   //1是Server_ID
+	
+	if (!reply->isFinished())
+	{
+		QObject::connect(reply, &QModbusReply::finished, this, &QtSocket_Class::ReadReady_Coils);
+		return true;
+	}
+	else
+	{
+		delete reply;
+		return false;
+	}
+
+	
 #endif
 	return true;
 }
@@ -264,36 +277,25 @@ QModbusDataUnit ReadUnit(QModbusDataUnit::DiscreteInputs,start_add,numbers);
 void QtSocket_Class::ReadReady_Coils()
 {
 #ifdef MODBUSTCP
-	qDebug() << "开始执行槽函数";
 	QModbusReply *reply = qobject_cast<QModbusReply *>(sender());
-	if (!reply) {
-		qDebug() << "提前退出";
+	if (!reply) 
+	{
 		return;
 	}
 	if (reply->error() == QModbusDevice::NoError)
 	{
-		qDebug() << "接收数据";
 		const QModbusDataUnit unit = reply->result();
-
 		for (uint16_t i = 0; i < unit.valueCount(); i++)
 		{
 			/*
 			 QByteArray  AllData =unit.values();	//一次性读完
 			*/
-
 			uint16_t res = unit.value(i);			//一个一个读
 			Coils_Bufer[i] = static_cast<uint8_t>(res);
-			//读完将数据存储起来  Coils_Bufer[i] 自定的数组 用来存放数据
 		}
 		emit signal_FROMPLC((void*)Coils_Bufer);
-
 	}
-	else
-	{
-	}
-
 	reply->deleteLater(); // delete the reply
-	emit my_readC_finished();	//coils读取完成后emit 读取完成的信号；
 #endif
 }
 /********************************************
@@ -314,21 +316,25 @@ void QtSocket_Class::ReadReady_Coils()
 bool QtSocket_Class::read_modbus_tcp_HoldingRegisters(int start_add, quint16 numbers, int Server_ID)
 {
 #ifdef MODBUSTCP
-	QModbusDataUnit ReadUnit(QModbusDataUnit::HoldingRegisters, start_add, numbers);
-
-	if (auto *reply = mp_TCPSocket->sendReadRequest(ReadUnit, Server_ID))     //1是Server_ID
+	if (!(mp_TCPSocket->state() == QModbusDevice::ConnectedState))
 	{
-		if (!reply->isFinished())
-		{
-			QObject::connect(reply, &QModbusReply::finished, this, &QtSocket_Class::ReadReady_HoldingRegisters);
-
-		}
-		else
-		{
-			delete reply;
-		}
-
+		return false;
 	}
+	QModbusDataUnit ReadUnit(QModbusDataUnit::HoldingRegisters, start_add, numbers);
+	auto *reply = mp_TCPSocket->sendReadRequest(ReadUnit, Server_ID);    //1是Server_ID
+
+	if (!reply->isFinished())
+	{
+		QObject::connect(reply, &QModbusReply::finished, this, &QtSocket_Class::ReadReady_HoldingRegisters);
+		return true;
+	}
+	else
+	{
+		delete reply;
+		return false;
+	}
+
+
 #endif
 	return true;
 }
@@ -345,29 +351,24 @@ void QtSocket_Class::ReadReady_HoldingRegisters()
 {
 #ifdef MODBUSTCP
 	QModbusReply *reply = qobject_cast<QModbusReply *>(sender());
-	if (!reply) {
+	if (!reply)
+	{
 		return;
 	}
 	if (reply->error() == QModbusDevice::NoError)
 	{
 		const QModbusDataUnit unit = reply->result();
-		for (uint16_t i = 0; i < unit.valueCount(); )
+		for (uint16_t i = 0; i < unit.valueCount(); i++)
 		{
 			uint16_t res = unit.value(i);
 			uint8_t a = (res >> 8) & 0x00FF;
 			uint8_t b = res & 0x00FF;
 			Input_Bufer[2 * i] = a;
 			Input_Bufer[2 * i + 1] = b;
-			i++;
 		}
 		emit signal_FROMPLCHLODING((void*)Input_Bufer);
 	}
-	else
-	{
-	}
-
 	reply->deleteLater(); // delete the reply
-	emit my_readH_finished();		//自定义的信号
 #endif
 }
 /********************************************
@@ -388,13 +389,6 @@ bool QtSocket_Class::Write_modbus_tcp_Coils(QString str1, int star_add, int numb
 	quint16 number1 = static_cast<quint16>(number); //C++中的数据类型转换
 	QModbusDataUnit writeUnit(QModbusDataUnit::Coils, star_add-1, number1);
 
-	/*for (uint i1 = 0; i1 < writeUnit.valueCount(); i1++) {
-		int j1 = 2 * i1;
-		QString stt = str1.mid(j1, 2);
-		bool ok;
-		quint16 hex1 = stt.toInt(&ok, 16);//将textedit中读取到的数据转换为16进制发送
-		writeUnit.setValue(i1, hex1);//设置发送数据
-	}*/
 	for (uint i1 = 0; i1 < writeUnit.valueCount(); i1++) {
 		QString stt = str1.mid(i1, 1);
 		bool ok;
@@ -404,25 +398,12 @@ bool QtSocket_Class::Write_modbus_tcp_Coils(QString str1, int star_add, int numb
 	if (auto *reply = mp_TCPSocket->sendWriteRequest(writeUnit, 1)) {// ui->spinBox_SerAddress->value()是server address   sendWriteRequest是向服务器写数据
 		if (!reply->isFinished()) {   //reply Returns true when the reply has finished or was aborted.
 			connect(reply, &QModbusReply::finished, this, [this, reply]() {
-				if (reply->error() == QModbusDevice::ProtocolError) {
-					qDebug() << (tr("Write response error: %1 (Mobus exception: 0x%2)")
-						.arg(reply->errorString()).arg(reply->rawResult().exceptionCode(), -1, 16),
-						5000);
-				}
-				else if (reply->error() != QModbusDevice::NoError) {
-					qDebug() << (tr("Write response error: %1 (code: 0x%2)").
-						arg(reply->errorString()).arg(reply->error(), -1, 16), 5000);//case,此处debug输出5000
-				}
 				reply->deleteLater();
 			});
 		}
 		else {
-			// broadcast replies return immediately
 			reply->deleteLater();
 		}
-	}
-	else {
-		qDebug() << (tr("Write error: ") + mp_TCPSocket->errorString(), 5000);
 	}
 #endif
 	return true;
@@ -466,25 +447,12 @@ bool QtSocket_Class::Write_modbus_tcp_HoldingRegisters(QString str1, int star_ad
 	if (auto *reply = mp_TCPSocket->sendWriteRequest(writeUnit, 1)) {// ui->spinBox_SerAddress->value()是server address   sendWriteRequest是向服务器写数据
 		if (!reply->isFinished()) {   //reply Returns true when the reply has finished or was aborted.
 			connect(reply, &QModbusReply::finished, this, [this, reply]() {
-				if (reply->error() == QModbusDevice::ProtocolError) {
-					qDebug() << (tr("Write response error: %1 (Mobus exception: 0x%2)")
-						.arg(reply->errorString()).arg(reply->rawResult().exceptionCode(), -1, 16),
-						5000);
-				}
-				else if (reply->error() != QModbusDevice::NoError) {
-					qDebug() << (tr("Write response error: %1 (code: 0x%2)").
-						arg(reply->errorString()).arg(reply->error(), -1, 16), 5000);
-				}
 				reply->deleteLater();
 			});
 		}
 		else {
-			// broadcast replies return immediately
 			reply->deleteLater();
 		}
-	}
-	else {
-		qDebug() << (tr("Write error: ") + mp_TCPSocket->errorString(), 5000);
 	}
 #endif
 	return true;
@@ -704,7 +672,7 @@ void QtSocket_Class::onBeatSignal()
 	}
 	else if (m_iCircleFlag == 3)
 	{
-		//emit WRITEHOLDINGREGISTERS();
+		emit WRITEHOLDINGREGISTERS();
 	}
 
 	if (++m_iCircleFlag == 4)

@@ -15,6 +15,7 @@ signals:
 	void signal_Connected();
 	void signal_FROMPLC(void*);
 	void signal_FROMPLCHLODING(void*);
+	void SHOWSTATUS(QString);
 	void signal_SOCKETERROR();
 	void statechange_Connected();
 	void statechange_Connecting();
