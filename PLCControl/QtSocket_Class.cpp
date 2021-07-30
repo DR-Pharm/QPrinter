@@ -381,7 +381,6 @@ bool QtSocket_Class::Write_modbus_tcp_Coils(QString str1, int star_add, int numb
 #ifdef MODBUSTCP
 	quint16 number1 = static_cast<quint16>(number); //C++中的数据类型转换
 	QModbusDataUnit writeUnit(QModbusDataUnit::Coils, star_add-1, number1);
-
 	for (uint i1 = 0; i1 < writeUnit.valueCount(); i1++) {
 		QString stt = str1.mid(i1, 1);
 		bool ok;
@@ -416,27 +415,15 @@ bool QtSocket_Class::Write_modbus_tcp_Coils(QString str1, int star_add, int numb
 bool QtSocket_Class::Write_modbus_tcp_HoldingRegisters(QString str1, int star_add, int number)
 {
 #ifdef MODBUSTCP
-	qDebug() << "准备写holding数据：：";
-	QByteArray str2 = QByteArray::fromHex(str1.toLatin1().data());//按十六进制编码接入文本
-	QString str3 = str2.toHex().data();//以十六进制显示
 
 	quint16 number1 = static_cast<quint16>(number);
-	QModbusDataUnit writeUnit(QModbusDataUnit::HoldingRegisters, star_add, number1);
-	int j1 = 0;
+	QModbusDataUnit writeUnit(QModbusDataUnit::HoldingRegisters, star_add-1, number1);
 	for (uint i1 = 0; i1 < writeUnit.valueCount(); i1++) {
-
-		if (i1 == 0) {
-			j1 = static_cast<int>(2 * i1);
-		}
-		else {
-			j1 = j1 + 3;
-		}
-		QString stt = str1.mid(j1, 2);
+		QString stt = str1.mid(i1, 4);
 		bool ok;
-		quint16 hex1 = static_cast<quint16>(stt.toInt(&ok, 16));//将textedit中读取到的数据转换为16进制发送
-		writeUnit.setValue(static_cast<int>(i1), hex1);//设置发送数据
+		quint16 hex1 = stt.toInt(&ok, 16);//16进制转为10进制
+		writeUnit.setValue(i1, hex1);//设置发送数据
 	}
-
 	if (auto *reply = mp_TCPSocket->sendWriteRequest(writeUnit, 1)) {// ui->spinBox_SerAddress->value()是server address   sendWriteRequest是向服务器写数据
 		if (!reply->isFinished()) {   //reply Returns true when the reply has finished or was aborted.
 			connect(reply, &QModbusReply::finished, this, [this, reply]() {
@@ -459,7 +446,7 @@ void QtSocket_Class::OnServer()
 	{
 		timer_beat = new QTimer(this);
 		connect(timer_beat, SIGNAL(timeout()), this, SLOT(onBeatSignal()));
-		timer_beat->start(500);
+		timer_beat->start(50);
 	}
 	emit signal_Connected();
 }
@@ -665,7 +652,7 @@ void QtSocket_Class::onBeatSignal()
 	}
 	else if (m_iCircleFlag == 3)
 	{
-		//emit WRITEHOLDINGREGISTERS();
+		emit WRITEHOLDINGREGISTERS();
 	}
 
 	if (++m_iCircleFlag == 4)

@@ -254,9 +254,9 @@ public slots:
 	void on_pB_TMUStop_clicked();
 	void on_pB_TMUZero_clicked();
 	void on_pB_TMUCalib_clicked();
-	void on_pB_cmdAlarmReset_clicked();
-	void on_pB_cmdCounterZero_clicked();
-	void on_pB_ChangeLanguage();
+	void pB_cmdAlarmReset();
+	void pB_cmdCounterZero();
+	void pB_ChangeLanguage();
 	void on_pB_cmdCapClean_clicked();
 	void on_pB_cmdGetCap_clicked();
 	void on_pB_cmdFeedAmount_clicked();
