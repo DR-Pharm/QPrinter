@@ -141,9 +141,9 @@ private:
 
 	int m_InputFlag = 0;
 	int m_CoilsFlag = 0;
-	QString m_str_registers = "_-_-";//row four byte
+	QString m_str_registers = ",,,,";//row four byte
 	QString m_str_sendRegisters = "";
-	QString m_str_coils = "_";//row 2byte but used 1byte,case bool
+	QString m_str_coils = ",";//row 2byte but used 1byte,case bool
 	QString m_str_sendCoils = "";
 
 	int m_iDontReadCoilsFlag = 0;
@@ -182,6 +182,9 @@ public slots:
 	void on_lE_TDemand_editingFinished();
 	void on_cB_TireMode_currentIndexChanged(int index);
 	void on_lE_GroupSet_editingFinished();
+	void on_lE_RecipeNo_editingFinished();
+	void on_lE_ThickUpperLimit_editingFinished();
+	void on_lE_ThickUnderLimit_editingFinished();
 	void on_lE_FeedOveride_editingFinished();
 	void on_lE_TestInterval_editingFinished();
 	void on_lE_MultiCount_editingFinished();

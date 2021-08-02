@@ -211,7 +211,6 @@ void QtSocket_Class::onStateChanged()
 
 	else if (mp_TCPSocket->state() == QModbusDevice::ConnectingState)
 	{
-		emit SHOWSTATUS("Connecting");
 	}
 
 	else if (mp_TCPSocket->state() == QModbusDevice::UnconnectedState)
@@ -282,6 +281,8 @@ void QtSocket_Class::ReadReady_Coils()
 	{
 		return;
 	}
+	int k = reply->error();
+	int b = QModbusDevice::NoError;
 	if (reply->error() == QModbusDevice::NoError)
 	{
 		const QModbusDataUnit unit = reply->result();
