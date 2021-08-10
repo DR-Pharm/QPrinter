@@ -149,19 +149,15 @@ private:
 	int m_iDontReadCoilsFlag = 0;
 	int m_iDontReadRegistersFlag = 0;
 public slots:
-
 	DataFromPC_typ getPCParaData();
 	DataFromPC_typ getPCRunData();
 
 	void initChartOne();
-
 	void getPLCData(void*); 
 	void getPLCHolding(void*);
 	void on_WriteCoils();
 	void on_WriteHolding();
-
 	void setg_IUserLevel(int);
-
 	void on_lE_SysOveride_editingFinished();
 	void on_lE_year1_editingFinished();
 	void on_lE_month1_editingFinished();
@@ -169,7 +165,6 @@ public slots:
 	void on_lE_hour1_editingFinished();
 	void on_lE_hour2_editingFinished();
 	void on_lE_minute1_editingFinished();
-
 	/*void on_lE_RejectCount_editingFinished();
 	void on_lE_ProdCount_editingFinished();
 	void on_lE_TOCount_editingFinished();
@@ -180,7 +175,6 @@ public slots:
 	void on_lE_InterOverLoad_editingFinished();
 	void on_lE_InterUnderLoad_editingFinished();
 	void on_lE_TDemand_editingFinished();
-	void on_cB_TireMode_currentIndexChanged(int index);
 	void on_lE_GroupSet_editingFinished();
 	void on_lE_RecipeNo_editingFinished();
 	void on_lE_ThickUpperLimit_editingFinished();
@@ -189,13 +183,9 @@ public slots:
 	void on_lE_TestInterval_editingFinished();
 	void on_lE_MultiCount_editingFinished();
 	void on_lE_BatchName_editingFinished();
-
-	void on_cB_Feedmode_currentIndexChanged(int index);
-
 	void on_lE_AxisFeedRelMovDistance_editingFinished();
 	void on_lE_AxisSwingRelMovDistance_editingFinished();
 	//void on_lE_GroupNo_editingFinished();
-
 	//void on_cB_enable_currentIndexChanged(int index);
 	void on_lE_s_trg_stop0_editingFinished();
 	void on_lE_s_trg_stop1_editingFinished();
@@ -206,24 +196,15 @@ public slots:
 	void on_lE_ReadDelay_editingFinished();
 	void on_lE_TireWaitTime_editingFinished();
 	void on_lE_StopSignalDelay_editingFinished();
-
 	void on_pB_startSearch_clicked();
 	void on_pB_copyIn_clicked();
 	void on_pB_printData_clicked();
-
 	void on_pB_printCurve_clicked();
-
 	void on_pB_Read1_clicked();
-
 	void on_pB_Read2_clicked();
-
 	void on_pB_Write1_clicked();
-
 	void on_pB_Write2_clicked();
-
-	void on_pB_cmdScaleRead_clicked();
 	void on_pB_cmdScaleTire_clicked();
-	void on_pB_cmdScaleSetStable_clicked();
 	/*void on_cB_paraScaleSetStable_currentIndexChanged(int index);*/
 	void on_pB_cmdScaleCalibExt_clicked();
 	void on_pB_cmdAxisFeedRelMov_clicked();
@@ -235,23 +216,14 @@ public slots:
 	void on_pB_cmdFeedSingle_clicked();
 	void on_pB_cmdFeedSingleStop_clicked();
 	void on_pB_cmdSwing_clicked();
-
 	void on_pB_showPrt_toggled(bool checked);
-
 	void on_pB_HMUStart_clicked();
-
 	void on_pB_HMUStop_clicked();
-
 	void on_pB_HMUHome_clicked();
-
 	void on_pB_HMUZero_clicked();
-
 	void on_pB_HMUCalibStd_clicked();
-
 	void on_pB_HMUTurn_clicked();
-
 	void on_pB_HMUReject_clicked();
-
 	void on_pB_cmdStart_toggled(bool checked);
 	void on_pB_TMUStart_clicked();
 	void on_pB_TMUStop_clicked();
@@ -263,18 +235,13 @@ public slots:
 	void on_pB_cmdCapClean_clicked();
 	void on_pB_cmdGetCap_clicked();
 	void on_pB_cmdFeedAmount_clicked();
-	void on_pB_cmdFeedhome_clicked();
 	void on_pB_cmdFeedFive_clicked();
-	void on_pB_cmdFeedShakefive_clicked();
 	void on_pB_SetUp_toggled(bool checked);
 	void on_pB_dtDlg_toggled(bool checked); 
 	void dtClose();
 	void startMovie();
-
 	void on_pB_enHMU_toggled(bool checked);
-
 	void on_pB_enTMU_toggled(bool checked);
-
 	void on_pB_cmdCapGet_toggled(bool checked);
 	void on_pB_cmdCapTurnValve_toggled(bool checked);
 	void on_pB_cmdCapThickValve_toggled(bool checked);
