@@ -961,19 +961,36 @@ void QtPLCDialogClass::getPLCData(void* data)
 	((Ui::QtPLCDialogClass*)ui)->lE_MachineStep->setText(QString::number(m_data->Status.MachineStep));			//系统运行状态机步骤
 	((Ui::QtPLCDialogClass*)ui)->lE_TimeInterval->setText(QString::number(m_data->Status.TimeInterval, 'f', 2));			//测量实际间隔时间
 	((Ui::QtPLCDialogClass*)ui)->lE_AlarmStatus->setText(QString::number(m_data->Status.AlarmStatus));
-	if (m_data->Status.AlarmStatus!=0)
+
+	if (m_data->Status.Alarm[0] >> 0 & 1 == 1)
 	{
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(false);		
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(false);
 		((Ui::QtPLCDialogClass*)ui)->lb_Alarm->setStyleSheet("color: rgb(255,0,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("设备报警! 请复位!");
+		((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("落料步进报警! 请复位!");
+	}
+	else if (m_data->Status.Alarm[0] >> 1 & 1 == 1)
+	{
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setChecked(false);
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(false);
+		((Ui::QtPLCDialogClass*)ui)->lb_Alarm->setStyleSheet("color: rgb(255,0,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("旋转步进报警! 请复位!");
+	}
+	else if (m_data->Status.Alarm[0] >> 2 & 1 == 1)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lb_Alarm->setStyleSheet("color: rgb(255,0,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("落料超时!");
+	}
+	else if (m_data->Status.Alarm[0] >> 3 & 1 == 1)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lb_Alarm->setStyleSheet("color: rgb(255,0,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("秤读数超时!");
 	}
 	else
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(true);		
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(true);
 		((Ui::QtPLCDialogClass*)ui)->lb_Alarm->setStyleSheet("color: rgb(0, 170, 127);font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("设备运行正常~");
-
 	}
 	char *str1 = (char*)(m_data->Status.Alarm);
 //	((Ui::QtPLCDialogClass*)ui)->lE_Alarm16->setText(QString(QLatin1String(str1)));
