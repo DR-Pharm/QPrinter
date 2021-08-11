@@ -559,10 +559,6 @@ void QtPLCDialogClass::checkPermission()
 	group213->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
 	group213->setText(0, QString::fromLocal8Bit("其它"));
 	group213->setCheckState(0, Qt::Checked);
-	QTreeWidgetItem* group2131 = new QTreeWidgetItem(group213);
-	group2131->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
-	group2131->setText(0, QString::fromLocal8Bit("下料"));
-	group2131->setCheckState(0, Qt::Checked);
 	QTreeWidgetItem* group2132 = new QTreeWidgetItem(group213);
 	group2132->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
 	group2132->setText(0, QString::fromLocal8Bit("称重设置"));
@@ -1124,31 +1120,36 @@ void QtPLCDialogClass::getPLCHolding(void*data)
 	scd = bt++;
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_GroupAvg->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_GroupAvg->setText(QString::number(m_Input_Bufer[fst] + m_Input_Bufer[scd] * 256));
+		float hex_res = hexTofloat(fst);
+		((Ui::QtPLCDialogClass*)ui)->lE_GroupAvg->setText(QString::number(hex_res));
 	}
 	fst = bt++;
 	scd = bt++;
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_GroupMax->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_GroupMax->setText(QString::number(m_Input_Bufer[fst] + m_Input_Bufer[scd] * 256));
+		float hex_res = hexTofloat(fst);
+		((Ui::QtPLCDialogClass*)ui)->lE_GroupMax->setText(QString::number(hex_res));
 	}
 	fst = bt++;
 	scd = bt++;
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_GroupMin->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_GroupMin->setText(QString::number(m_Input_Bufer[fst] + m_Input_Bufer[scd] * 256));
+		float hex_res = hexTofloat(fst);
+		((Ui::QtPLCDialogClass*)ui)->lE_GroupMin->setText(QString::number(hex_res));
 	}
 	fst = bt++;
 	scd = bt++;
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_GroupMaxRatio->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_GroupMaxRatio->setText(QString::number(m_Input_Bufer[fst] + m_Input_Bufer[scd] * 256));
+		float hex_res = hexTofloat(fst);
+		((Ui::QtPLCDialogClass*)ui)->lE_GroupMaxRatio->setText(QString::number(hex_res));
 	}
 	fst = bt++;
 	scd = bt++;
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_GroupMinRatio->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_GroupMinRatio->setText(QString::number(m_Input_Bufer[fst] + m_Input_Bufer[scd] * 256));
+		float hex_res = hexTofloat(fst);
+		((Ui::QtPLCDialogClass*)ui)->lE_GroupMinRatio->setText(QString::number(hex_res));
 	}
 	fst = bt++;//40
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_HardnessChkCnt->hasFocus())
@@ -1159,19 +1160,22 @@ void QtPLCDialogClass::getPLCHolding(void*data)
 	scd = bt++;
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_ResultForce->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_ResultForce->setText(QString::number(m_Input_Bufer[fst] + m_Input_Bufer[scd] * 256));
+		float hex_res = hexTofloat(fst);
+		((Ui::QtPLCDialogClass*)ui)->lE_ResultForce->setText(QString::number(hex_res));
 	}
 	fst = bt++;
 	scd = bt++;
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_ResultDiam->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_ResultDiam->setText(QString::number(m_Input_Bufer[fst] + m_Input_Bufer[scd] * 256));
+		float hex_res = hexTofloat(fst);
+		((Ui::QtPLCDialogClass*)ui)->lE_ResultDiam->setText(QString::number(hex_res));
 	}
 	fst = bt++;
 	scd = bt++;
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_ActForce->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_ActForce->setText(QString::number(m_Input_Bufer[fst] + m_Input_Bufer[scd] * 256));
+		float hex_res = hexTofloat(fst);
+		((Ui::QtPLCDialogClass*)ui)->lE_ActForce->setText(QString::number(hex_res));
 	}
 	fst = bt++;
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_MachineStep->hasFocus())
@@ -1182,7 +1186,8 @@ void QtPLCDialogClass::getPLCHolding(void*data)
 	scd = bt++;
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_ThicknessResult->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_ThicknessResult->setText(QString::number(m_Input_Bufer[fst] + m_Input_Bufer[scd] * 256));
+		float hex_res = hexTofloat(fst);
+		((Ui::QtPLCDialogClass*)ui)->lE_ThicknessResult->setText(QString::number(hex_res));
 	}
 	bt+=3;//52
 
@@ -1207,11 +1212,7 @@ void QtPLCDialogClass::getPLCHolding(void*data)
 	scd = bt++;
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_TOverload->hasFocus())
 	{
-		QString a = QString("%1").arg(m_Input_Bufer[fst], 4, 16, QLatin1Char('0'));
-		QString b = QString("%1").arg(m_Input_Bufer[scd], 4, 16, QLatin1Char('0'));
-		QString hex_float = b + a;
-		int hex_uint = hex_float.toInt(nullptr, 16);
-		float hex_res = *(float*)&hex_uint;
+		float hex_res = hexTofloat(fst);
 		((Ui::QtPLCDialogClass*)ui)->lE_TOverload->setText(QString::number(hex_res));
 
 	}
@@ -1219,11 +1220,7 @@ void QtPLCDialogClass::getPLCHolding(void*data)
 	scd = bt++;//60
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->hasFocus())
 	{
-		QString a = QString("%1").arg(m_Input_Bufer[fst], 4, 16, QLatin1Char('0'));
-		QString b = QString("%1").arg(m_Input_Bufer[scd], 4, 16, QLatin1Char('0'));
-		QString hex_float = b + a;
-		int hex_uint = hex_float.toInt(nullptr, 16);
-		float hex_res = *(float*)&hex_uint;
+		float hex_res = hexTofloat(fst);
 		((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->setText(QString::number(hex_res));
 	}
 	/////////////////////////////////////////////////////////////////////////////////////////
@@ -1231,33 +1228,21 @@ void QtPLCDialogClass::getPLCHolding(void*data)
 	scd = bt++;
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_TDemand->hasFocus())
 	{
-		QString a = QString("%1").arg(m_Input_Bufer[fst], 4, 16, QLatin1Char('0'));
-		QString b = QString("%1").arg(m_Input_Bufer[scd], 4, 16, QLatin1Char('0'));
-		QString hex_float = b + a;
-		int hex_uint = hex_float.toInt(nullptr, 16);
-		float hex_res = *(float*)&hex_uint;
+		float hex_res = hexTofloat(fst);
 		((Ui::QtPLCDialogClass*)ui)->lE_TDemand->setText(QString::number(hex_res));
 	}
 	fst = bt++;
 	scd = bt++;
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->hasFocus())
 	{
-		QString a = QString("%1").arg(m_Input_Bufer[fst], 4, 16, QLatin1Char('0'));
-		QString b = QString("%1").arg(m_Input_Bufer[scd], 4, 16, QLatin1Char('0'));
-		QString hex_float = b + a;
-		int hex_uint = hex_float.toInt(nullptr, 16);
-		float hex_res = *(float*)&hex_uint;
+		float hex_res = hexTofloat(fst);
 		((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->setText(QString::number(hex_res));
 	}
 	fst = bt++;
 	scd = bt++;//66
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->hasFocus())
 	{
-		QString a = QString("%1").arg(m_Input_Bufer[fst], 4, 16, QLatin1Char('0'));
-		QString b = QString("%1").arg(m_Input_Bufer[scd], 4, 16, QLatin1Char('0'));
-		QString hex_float = b + a;
-		int hex_uint = hex_float.toInt(nullptr, 16);
-		float hex_res = *(float*)&hex_uint;
+		float hex_res = hexTofloat(fst);
 		((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->setText(QString::number(hex_res));
 	}
 	bt += 14;//UserAnalogoutput 80
@@ -1265,22 +1250,14 @@ void QtPLCDialogClass::getPLCHolding(void*data)
 	scd = bt++;
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_SetPillDiam->hasFocus())
 	{
-		QString a = QString("%1").arg(m_Input_Bufer[fst], 4, 16, QLatin1Char('0'));
-		QString b = QString("%1").arg(m_Input_Bufer[scd], 4, 16, QLatin1Char('0'));
-		QString hex_float = b + a;
-		int hex_uint = hex_float.toInt(nullptr, 16);
-		float hex_res = *(float*)&hex_uint;
+		float hex_res = hexTofloat(fst);
 		((Ui::QtPLCDialogClass*)ui)->lE_SetPillDiam->setText(QString::number(hex_res));
 	}
 	fst = bt++;
 	scd = bt++;//84
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_PillDiamOffset->hasFocus())
 	{
-		QString a = QString("%1").arg(m_Input_Bufer[fst], 4, 16, QLatin1Char('0'));
-		QString b = QString("%1").arg(m_Input_Bufer[scd], 4, 16, QLatin1Char('0'));
-		QString hex_float = b + a;
-		int hex_uint = hex_float.toInt(nullptr, 16);
-		float hex_res = *(float*)&hex_uint;
+		float hex_res = hexTofloat(fst);
 		((Ui::QtPLCDialogClass*)ui)->lE_PillDiamOffset->setText(QString::number(hex_res));
 	}
 	fst = bt++;
@@ -1298,29 +1275,31 @@ void QtPLCDialogClass::getPLCHolding(void*data)
 	scd = bt++;//89
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_ThickUpperLimit->hasFocus())
 	{
-		QString a = QString("%1").arg(m_Input_Bufer[fst], 4, 16, QLatin1Char('0'));
-		QString b = QString("%1").arg(m_Input_Bufer[scd], 4, 16, QLatin1Char('0'));
-		QString hex_float = b + a;
-		int hex_uint = hex_float.toInt(nullptr, 16);
-		float hex_res = *(float*)&hex_uint;
+		float hex_res = hexTofloat(fst);
 		((Ui::QtPLCDialogClass*)ui)->lE_ThickUpperLimit->setText(QString::number(hex_res));
 	}
 	fst = bt++;
 	scd = bt++;
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_ThickUnderLimit->hasFocus())
 	{
-		QString a = QString("%1").arg(m_Input_Bufer[fst], 4, 16, QLatin1Char('0'));
-		QString b = QString("%1").arg(m_Input_Bufer[scd], 4, 16, QLatin1Char('0'));
-		QString hex_float = b + a;
-		int hex_uint = hex_float.toInt(nullptr, 16);
-		float hex_res = *(float*)&hex_uint;
+		float hex_res = hexTofloat(fst);
 		((Ui::QtPLCDialogClass*)ui)->lE_ThickUnderLimit->setText(QString::number(hex_res));
 	}
 	bt += 4;
 #endif
 }
+float QtPLCDialogClass::hexTofloat(int i)
+{
+	QString a = QString("%1").arg(m_Input_Bufer[i], 4, 16, QLatin1Char('0'));
+	QString b = QString("%1").arg(m_Input_Bufer[i+1], 4, 16, QLatin1Char('0'));
+	QString hex_float = b + a;
+	int hex_uint = hex_float.toInt(nullptr, 16);
+	float hex_res = *(float*)&hex_uint;
+	return hex_res;
+}
 void QtPLCDialogClass::on_WriteHolding()
 {
+	return;
 	if (m_InputFlag == 1 && m_iDontReadRegistersFlag == 1)//已经读过(第一次即可) 且 请求写入
 	{
 		QString strSend = m_str_sendRegisters.mid(53*4, 43 * 4);
@@ -1376,8 +1355,19 @@ void QtPLCDialogClass::getPLCData(void* data)
 		|| m_Coils_Bufer[31] == 1//剔废盒满
 		)
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(false);
+		if (m_Coils_Bufer[1] == 1 //落料步进报警
+			|| m_Coils_Bufer[2] == 1//旋转步进报警
+			|| m_Coils_Bufer[3] == 1//翻转步进报警
+			|| m_Coils_Bufer[4] == 1//测硬度步进报警
+			|| m_Coils_Bufer[5] == 1//落料超时
+			|| m_Coils_Bufer[6] == 1//秤读数超时
+			|| m_Coils_Bufer[7] == 1//硬度检测失败
+			|| m_Coils_Bufer[31] == 1//剔废盒满
+			)
+		{
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setChecked(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(false);
+		}
 		((Ui::QtPLCDialogClass*)ui)->lb_Alarm->setStyleSheet("color: rgb(255,0,0);font-size:20pt");
 		if (m_Coils_Bufer[1] == 1)
 		{
@@ -2274,87 +2264,6 @@ void QtPLCDialogClass::getPLCData(void* data)
 #pragma endregion
 
 #else
-	memcpy(m_data, (DataToPC_typ*)data, sizeof(DataToPC_typ));//主界面用
-
-	//运行数据
-#pragma region run
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->hasFocus())//系统速度，0-10000对应0-100%
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->setText(QString::number(m_data->ActData.SysOveride / 100));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_PassCount->hasFocus())//通过计数
-	{
-		//((Ui::QtPLCDialogClass*)ui)->lE_PassCount->setText(QString::number(m_data->ActData.PassCount));
-		((Ui::QtPLCDialogClass*)ui)->lE_PassCount->setText(QString::number(m_data->ActData.ProdCount - m_data->ActData.RejectCount));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_RejectCount->hasFocus())//剔废计数
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_RejectCount->setText(QString::number(m_data->ActData.RejectCount));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_ProdCount->hasFocus())//称重计数
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_ProdCount->setText(QString::number(m_data->ActData.ProdCount));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_TOCount->hasFocus())//过重计数,单位g
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_TOCount->setText(QString::number(m_data->ActData.TOCount));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_TUCount->hasFocus())//过轻计数,单位g
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_TUCount->setText(QString::number(m_data->ActData.TUCount));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_TOverload->hasFocus())//超重重量,单位g
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_TOverload->setText(QString::number(m_data->ActData.TOverload, 'f', 3));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->hasFocus())//超轻重量,单位g
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->setText(QString::number(m_data->ActData.TUnderload, 'f', 3));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->hasFocus())//内控线，上限,单位g
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->setText(QString::number(m_data->ActData.InterOverLoad, 'f', 3));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->hasFocus())//内控线，下限,单位g
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->setText(QString::number(m_data->ActData.InterUnderLoad, 'f', 3));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_TDemand->hasFocus())//期望重量, 单位g
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_TDemand->setText(QString::number(m_data->ActData.TDemand, 'f', 3));
-	}
-
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->hasFocus())//每组测试胶囊数量
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->setText(QString::number(m_data->ActData.GroupSet));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->hasFocus())//每组测试胶囊数量
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->setText(QString::number(m_data->ActData.FeedOveride/100));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->hasFocus())////测试间隔时间,单位s
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->setText(QString::number(m_data->ActData.TestInterval));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->hasFocus())////测试间隔时间,单位s
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->setText(QString::number(m_data->ActData.MultiCount));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_BatchName->hasFocus())//BatchName[40];			//批号字符串
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setText(QString(QLatin1String(m_data->ActData.BatchName)));//Cause kinco has a bug when input this parameter,but use PC to input,we do not have this bug,so don't need to change.
-	}
-
-	((Ui::QtPLCDialogClass*)ui)->lE_GroupNo->setText(QString::number(m_data->ActData.GroupNo));
-
-	((Ui::QtPLCDialogClass*)ui)->lE_GroupNo_2->setText(QString::number(m_data->Status.CapDataDisp.GroupNo));
-	((Ui::QtPLCDialogClass*)ui)->lE_GroupIndex_2->setText(QString::number(m_data->Status.CapDataDisp.GroupIndex));
-	((Ui::QtPLCDialogClass*)ui)->lE_GroupSum->setText(QString::number(m_data->ActData.GroupSum));
-	((Ui::QtPLCDialogClass*)ui)->lE_GroupAvg->setText(QString::number(m_data->Status.CapDataDisp.GroupAvg));
-	((Ui::QtPLCDialogClass*)ui)->lE_GroupMax->setText(QString::number(m_data->Status.CapDataDisp.GroupMax));
-	((Ui::QtPLCDialogClass*)ui)->lE_GroupMin->setText(QString::number(m_data->Status.CapDataDisp.GroupMin));
-	((Ui::QtPLCDialogClass*)ui)->lE_GroupMaxRatio->setText(QString::number(m_data->Status.CapDataDisp.GroupMaxRatio));
-	((Ui::QtPLCDialogClass*)ui)->lE_GroupMinRatio->setText(QString::number(m_data->Status.CapDataDisp.GroupMinRatio));
 
 	if (((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->isChecked())
 	{
@@ -2476,266 +2385,6 @@ void QtPLCDialogClass::getPLCData(void* data)
 			}
 		}
 	}
-
-
-	if (!((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->hasFocus())//0:每组去皮重,1:每次称重去皮重
-	{
-		((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->setCurrentIndex(m_data->ActData.Feedmode);
-		if (m_data->ActData.Feedmode==0)
-		{
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShake->setEnabled(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedshakestop->setEnabled(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedshakelevel->setEnabled(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedhome->setEnabled(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedFive->setEnabled(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShakefive->setEnabled(false);
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShake->setEnabled(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedshakestop->setEnabled(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedshakelevel->setEnabled(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedhome->setEnabled(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedFive->setEnabled(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShakefive->setEnabled(true);
-		}
-		((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->blockSignals(false);
-	}																						  //int				Language;				//当前语言，0：中文，1：英文
-	//float			UserAnalogoutput;		//用户模拟量输入
-	//float			Adjustvalue;			//自动调整系数
-	//unsigned int	DeltaInput;				//装量调整偏差值
-	//int				cmdAutoPrint;			//自动打印，1:自动，0：手动
-#pragma endregion
-	//系统状态	
-#pragma region status	
-	((Ui::QtPLCDialogClass*)ui)->lE_Finished->setText(QString::number(m_data->Status.Finished));//本组结束
-	((Ui::QtPLCDialogClass*)ui)->lE_GroupIndex->setText(QString::number(m_data->Status.GroupIndex));//本组序号
-	//((Ui::QtPLCDialogClass*)ui)->lE_Weight->setText(QString::number(m_data->Status.Weight, 'f', 3));//本次重量
-	((Ui::QtPLCDialogClass*)ui)->lE_ScaleResult->setText(QString::number(m_data->Status.ScaleResult, 'f', 3));//天平当前读数，单位g
-	//((Ui::QtPLCDialogClass*)ui)->cB_ScaleStableState->setCurrentIndex(m_data->Status.ScaleStableState);//天平当前稳定状态,0:非常稳定,1:稳定,2:不稳定,3:非常不稳定
-
-	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedStep->setText(QString::number(m_data->Status.AxisFeedStep));			//下料电机状态机步骤
-	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedErrorNo->setText(QString::number(m_data->Status.AxisFeedErrorNo));		//下料电机错误代码
-	//((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedRelMovDistance->setText(QString::number(m_data->Status.AxisFeedRelMovDistance));	//下料电机相对运动距离，单位unit
-	((Ui::QtPLCDialogClass*)ui)->lE_AxisSwingStep->setText(QString::number(m_data->Status.AxisSwingStep));			//旋转电机状态机步骤
-	((Ui::QtPLCDialogClass*)ui)->lE_AxisSwingErrorNo->setText(QString::number(m_data->Status.AxisSwingErrorNo));		//旋转电机错误代码
-	//((Ui::QtPLCDialogClass*)ui)->lE_AxisSwingRelMovDistance->setText(QString::number(m_data->Status.AxisSwingRelMovDistance));//旋转电机相对运动距离，单位unit
-	((Ui::QtPLCDialogClass*)ui)->lE_MachineStep->setText(QString::number(m_data->Status.MachineStep));			//系统运行状态机步骤
-	((Ui::QtPLCDialogClass*)ui)->lE_TimeInterval->setText(QString::number(m_data->Status.TimeInterval, 'f', 2));			//测量实际间隔时间
-	((Ui::QtPLCDialogClass*)ui)->lE_AlarmStatus->setText(QString::number(m_data->Status.AlarmStatus));
-	if (m_data->Status.AlarmStatus!=0)
-	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setChecked(false);
-
-		((Ui::QtPLCDialogClass*)ui)->lb_alm->setVisible(true);
-	}
-	else
-	{
-		((Ui::QtPLCDialogClass*)ui)->lb_alm->setVisible(false);
-	}
-	char *str1 = (char*)(m_data->Status.Alarm);
-//	((Ui::QtPLCDialogClass*)ui)->lE_Alarm16->setText(QString(QLatin1String(str1)));
-#pragma endregion
-	//系统参数
-#pragma region para
-/*	if (!((Ui::QtPLCDialogClass*)ui)->cB_enable->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->cB_enable->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->cB_enable->setCurrentIndex(m_data->Machine_Para.enable);
-		((Ui::QtPLCDialogClass*)ui)->cB_enable->blockSignals(false);
-	}*/
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->setText(QString::number(m_data->Machine_Para.s_trg_stop[0]));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->setText(QString::number(m_data->Machine_Para.s_trg_stop[1]));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->setText(QString::number(m_data->Machine_Para.Feed_shakeoffset));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_FeedTimeOut->setText(QString::number(m_data->Machine_Para.FeedTimeOut));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->setText(QString::number(m_data->Machine_Para.CapPickInterval, 'f', 2));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->setText(QString::number(m_data->Machine_Para.CapBackInterval, 'f', 2));
-	}
-
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->setText(QString::number(m_data->Machine_Para.TireDelay, 'f', 2));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->setText(QString::number(m_data->Machine_Para.ReadDelay, 'f', 2));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->setText(QString::number(m_data->Machine_Para.TireWaitTime, 'f', 2));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->setText(QString::number(m_data->Machine_Para.StopSignalDelay));
-	}
-#pragma endregion
-	//输入点
-#pragma region input
-	if (!m_data->Inputs.FeedTrigger)
-	{
-		((Ui::QtPLCDialogClass*)ui)->lb_00->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
-	}
-	else
-	{
-		((Ui::QtPLCDialogClass*)ui)->lb_00->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
-
-	}
-
-	if (!m_data->Inputs.SwingTrigger)
-	{
-		((Ui::QtPLCDialogClass*)ui)->lb_10->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
-	}
-	else
-	{
-		((Ui::QtPLCDialogClass*)ui)->lb_10->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
-
-	}
-
-	if (!m_data->Inputs.FeedTrigger1)
-	{
-		((Ui::QtPLCDialogClass*)ui)->lb_20->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
-	}
-	else
-	{
-		((Ui::QtPLCDialogClass*)ui)->lb_20->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
-
-	}
-#pragma endregion
-	//输出点
-#pragma region output
-
-	if (m_data->Outputs.CapGet)//取料电磁铁
-	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGet->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGet->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGet->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGet->blockSignals(false);
-	}
-	else
-	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGet->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGet->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGet->setStyleSheet("font: bold;font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGet->blockSignals(false);
-	}
-	if (m_data->Outputs.CapTurnValve)//取料电磁阀
-	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValve->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValve->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValve->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValve->blockSignals(false);
-	}
-	else
-	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValve->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValve->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValve->setStyleSheet("font: bold;font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValve->blockSignals(false);
-	}
-	if (m_data->Outputs.CapThickValve)//回料电磁阀
-	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValve->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValve->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValve->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValve->blockSignals(false);
-	}
-	else
-	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValve->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValve->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValve->setStyleSheet("font: bold;font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValve->blockSignals(false);
-	}
-	if (m_data->Outputs.AlarmOut)//报警蜂鸣器
-	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOut->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOut->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOut->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOut->blockSignals(false);
-	}
-	else
-	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOut->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOut->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOut->setStyleSheet("font: bold;font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOut->blockSignals(false);
-	}
-	if (m_data->Outputs.StopSignal)//停机信号
-	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStopSignal->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStopSignal->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStopSignal->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStopSignal->blockSignals(false);
-	}
-	else
-	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStopSignal->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStopSignal->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStopSignal->setStyleSheet("font: bold;font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStopSignal->blockSignals(false);
-	}
-	if (m_data->Outputs.AlarmSignal)//报警输出
-	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmSignal->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmSignal->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmSignal->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmSignal->blockSignals(false);
-	}
-	else
-	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmSignal->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmSignal->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmSignal->setStyleSheet("font: bold;font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmSignal->blockSignals(false);
-	}
-	if (m_data->Outputs.YellowAlarmout)//黄灯报警
-	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmout->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmout->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmout->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmout->blockSignals(false);
-	}
-	else
-	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmout->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmout->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmout->setStyleSheet("font: bold;font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmout->blockSignals(false);
-	}
-	if (m_data->Outputs.Baffle)//挡板
-	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdBaffle->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdBaffle->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdBaffle->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdBaffle->blockSignals(false);
-	}
-	else
-	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdBaffle->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdBaffle->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdBaffle->setStyleSheet("font: bold;font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdBaffle->blockSignals(false);
-	}
-
-#pragma endregion
 #endif
 }//PC显示数据
 #pragma endregion

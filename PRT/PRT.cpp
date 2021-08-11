@@ -260,6 +260,7 @@ void PRT::mousePressEvent(QMouseEvent* p)
 }
 void PRT::mouseMoveEvent(QMouseEvent * event)
 {
+	return;
 	if (event->buttons() & Qt::LeftButton) {      // 这里必须使用buttons()
 		QPoint temp;
 		temp = event->globalPos() - m_offset;// 使用鼠标指针当前的位置减去差值，就得到了窗口应该移动的位置

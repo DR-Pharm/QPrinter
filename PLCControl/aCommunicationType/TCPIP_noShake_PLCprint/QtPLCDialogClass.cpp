@@ -761,10 +761,10 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->setText(QString::number(m_data->ActData.GroupSet));
 	}
-	//if (!((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->hasFocus())//每组测试胶囊数量
-	//{
-	//	((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->setText(QString::number(m_data->ActData.FeedOveride/100));
-	//}
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->hasFocus())//每组测试胶囊数量
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->setText(QString::number(m_data->ActData.FeedOveride/100));
+	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->hasFocus())////测试间隔时间,单位s
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->setText(QString::number(m_data->ActData.TestInterval));
@@ -1470,7 +1470,7 @@ void QtPLCDialogClass::on_lE_GroupSet_editingFinished()///每组测试胶囊数�
 }
 void QtPLCDialogClass::on_lE_FeedOveride_editingFinished()///每组测试胶囊数量
 {
-	/*QString oldstr = QString::number(m_data->ActData.FeedOveride);
+	QString oldstr = QString::number(m_data->ActData.FeedOveride);
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->text();
 	if (oldstr == str)
 	{
@@ -1482,13 +1482,13 @@ void QtPLCDialogClass::on_lE_FeedOveride_editingFinished()///每组测试胶囊�
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
-	typ.ActData.FeedOveride = ((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->text().toInt()>200?20000: ((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->text().toInt()*100;
+	typ.ActData.FeedOveride = ((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->text().toInt() > 200 ? 20000 : ((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->text().toInt() * 100;
 	m_socket->Communicate_PLC(&typ, nullptr);
 	((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->blockSignals(true);
 	((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->blockSignals(false);
 
-	emit showWindowOut(QString::fromLocal8Bit("下料速度\n已更改!"));*/
+	emit showWindowOut(QString::fromLocal8Bit("下料速度\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_TestInterval_editingFinished()///测试间隔时间,单位s
 {

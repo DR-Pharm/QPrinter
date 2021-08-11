@@ -62,6 +62,7 @@ public:
 
 	QString setYearMonthDay();
 	QString YearMonthDay();
+	float hexTofloat(int i);
 private:
 	int m_flag = 0;
 	MyPushButton *LanguageBtn;
