@@ -945,7 +945,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 	QString str_year = QString("%1").arg(m_data->Status.PLCTimeNow.year, 4, 10, QLatin1Char('0'));
 	QString str_time = QString::fromLocal8Bit("PLC时间：")
 		+ str_year + "-" + str_mon + "-" + str_day + " " + str_hour + ":"+ str_min + ":"+ str_sec;
-	
+	((Ui::QtPLCDialogClass*)ui)->lb_time->setText(str_time);
 	((Ui::QtPLCDialogClass*)ui)->lE_Finished->setText(QString::number(m_data->Status.Finished));//本组结束
 	((Ui::QtPLCDialogClass*)ui)->lE_GroupIndex->setText(QString::number(m_data->Status.GroupIndex));//本组序号
 	//((Ui::QtPLCDialogClass*)ui)->lE_Weight->setText(QString::number(m_data->Status.Weight, 'f', 3));//本次重量
@@ -1634,7 +1634,7 @@ void QtPLCDialogClass::on_lE_s_trg_stop0_editingFinished()
 	((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop0->blockSignals(false);
 
-	emit showWindowOut(QString::fromLocal8Bit("停止位置1\n已更改!"));
+	emit showWindowOut(QString::fromLocal8Bit("下料定位偏移\n已更改!"));
 }
 void QtPLCDialogClass::on_lE_s_trg_stop1_editingFinished()
 {
@@ -1656,7 +1656,7 @@ void QtPLCDialogClass::on_lE_s_trg_stop1_editingFinished()
 	((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_s_trg_stop1->blockSignals(false);
 
-	emit showWindowOut(QString::fromLocal8Bit("停止位置2\n已更改!"));
+	emit showWindowOut(QString::fromLocal8Bit("转盘定位偏移\n已更改!"));
 }
 
 /*void QtPLCDialogClass::on_lE_Feed_shakeoffset_editingFinished()

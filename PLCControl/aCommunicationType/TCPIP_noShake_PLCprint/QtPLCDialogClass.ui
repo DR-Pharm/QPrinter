@@ -59,7 +59,7 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="tab_PLC_Control">
     <attribute name="title">
@@ -81,7 +81,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -1073,7 +1073,7 @@
                </size>
               </property>
               <property name="text">
-               <string>旋转单工位</string>
+               <string>转盘定位</string>
               </property>
              </widget>
             </item>
@@ -1354,7 +1354,7 @@
             <string notr="true"/>
            </property>
            <property name="text">
-            <string>停止位置2 mm</string>
+            <string>转盘定位偏移p</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1698,7 +1698,7 @@
             <string notr="true"/>
            </property>
            <property name="text">
-            <string>停止位置1 mm</string>
+            <string>下料定位偏移p</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
