@@ -59,7 +59,7 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>4</number>
    </property>
    <widget class="QWidget" name="tab_PLC_Control">
     <attribute name="title">
@@ -81,7 +81,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -124,7 +124,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>胶囊下落检测</string>
+                 <string>下落检测</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -146,7 +146,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>胶囊下落检测1</string>
+                 <string>下落检测1</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -317,7 +317,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>胶囊通道切换</string>
+                 <string>通道切换</string>
                 </property>
                 <property name="checkable">
                  <bool>true</bool>

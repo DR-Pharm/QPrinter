@@ -2078,7 +2078,6 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 		QPixmap pix;
 		bool ret = pix.load(AppPath + "/ico/stop.png");
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIcon(pix);
-		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(false);
 		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(false);
 		ExitBtn->setEnabled(false);
 		typ.Machine_Cmd.cmdStart = 1;
@@ -2089,10 +2088,6 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 		QPixmap pix;
 		bool ret = pix.load(AppPath + "/ico/start.png");
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIcon(pix);
-		if (g_IUserLevel!=2)
-		{
-			((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(true);
-		}
 		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(true); 
 		ExitBtn->setEnabled(true);
 		typ.Machine_Cmd.cmdStop = 1;
@@ -2682,7 +2677,6 @@ void QtPLCDialogClass::on_pB_SetUp_toggled(bool checked)//设置
 		bool ret = pix.load(AppPath + "/ico/sz.png");
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIcon(pix);
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIconSize(QSize(347, 99));
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(false);
 		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setChecked(false);
 	}
 	else
@@ -2692,7 +2686,6 @@ void QtPLCDialogClass::on_pB_SetUp_toggled(bool checked)//设置
 		bool ret = pix.load(AppPath + "/ico/sznt.png");
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIcon(pix);
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIconSize(QSize(347, 99));
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(true);
 	}
 }
 void QtPLCDialogClass::on_pB_dtDlg_toggled(bool checked)//数据dialog
