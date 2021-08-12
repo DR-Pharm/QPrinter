@@ -2,6 +2,7 @@
 /* 通讯数据 */
 /**********************************************************/
 #define TCPIP
+#define TCPIP_noShake_PLCprint
 //unsigned int == UDINT 4个字节
 //int == DINT 4个字节 和long一样是4个字节 
 //float == REAL 4个字节 double和longlong是8个字节
