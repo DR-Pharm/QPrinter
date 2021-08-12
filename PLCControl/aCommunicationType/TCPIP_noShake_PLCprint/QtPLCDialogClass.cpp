@@ -25,7 +25,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 
 	((Ui::QtPLCDialogClass*)ui)->setupUi(this);
 	//((Ui::QtPLCDialogClass*)ui)->pB_showPrt->setVisible(false);
-	((Ui::QtPLCDialogClass*)ui)->pB_cmdAlogtest->setVisible(false);
+	//((Ui::QtPLCDialogClass*)ui)->pB_cmdAlogtest->setVisible(false);
 	((Ui::QtPLCDialogClass*)ui)->frame->move(0, 0);
 	initFont();
 	initDlg();
@@ -129,7 +129,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	//指示灯部分
 	((Ui::QtPLCDialogClass*)ui)->lb_00->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
 	((Ui::QtPLCDialogClass*)ui)->lb_10->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
-	((Ui::QtPLCDialogClass*)ui)->lb_20->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
+	//((Ui::QtPLCDialogClass*)ui)->lb_20->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
 
 	btnTimer = new QTimer();
 	connect(btnTimer, SIGNAL(timeout()), this, SLOT(startMovie()));
@@ -328,22 +328,22 @@ void QtPLCDialogClass::checkPermission()
 	group212->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
 	group212->setText(0, QString::fromLocal8Bit("下料旋转"));
 	group212->setCheckState(0, Qt::Checked);
-	QTreeWidgetItem* group213 = new QTreeWidgetItem(group21);
-	group213->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
-	group213->setText(0, QString::fromLocal8Bit("其它"));
-	group213->setCheckState(0, Qt::Checked);
-	QTreeWidgetItem* group2131 = new QTreeWidgetItem(group213);
-	group2131->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
-	group2131->setText(0, QString::fromLocal8Bit("下料"));
-	group2131->setCheckState(0, Qt::Checked);
-	QTreeWidgetItem* group2132 = new QTreeWidgetItem(group213);
-	group2132->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
-	group2132->setText(0, QString::fromLocal8Bit("称重设置"));
-	group2132->setCheckState(0, Qt::Checked);
-	QTreeWidgetItem* group2133 = new QTreeWidgetItem(group213);
-	group2133->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
-	group2133->setText(0, QString::fromLocal8Bit("打印设置"));
-	group2133->setCheckState(0, Qt::Checked);
+	//QTreeWidgetItem* group213 = new QTreeWidgetItem(group21);
+	//group213->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
+	//group213->setText(0, QString::fromLocal8Bit("其它"));
+	//group213->setCheckState(0, Qt::Checked);
+	//QTreeWidgetItem* group2131 = new QTreeWidgetItem(group213);
+	//group2131->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
+	//group2131->setText(0, QString::fromLocal8Bit("下料"));
+	//group2131->setCheckState(0, Qt::Checked);
+	//QTreeWidgetItem* group2132 = new QTreeWidgetItem(group213);
+	//group2132->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
+	//group2132->setText(0, QString::fromLocal8Bit("称重设置"));
+	//group2132->setCheckState(0, Qt::Checked);
+	//QTreeWidgetItem* group2133 = new QTreeWidgetItem(group213);
+	//group2133->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
+	//group2133->setText(0, QString::fromLocal8Bit("打印设置"));
+	//group2133->setCheckState(0, Qt::Checked);
 	/*QTreeWidgetItem* group214 = new QTreeWidgetItem(group21);
 	group214->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
 	group214->setText(0, QString::fromLocal8Bit("修改名称"));
@@ -379,11 +379,11 @@ void QtPLCDialogClass::checkPermission()
 	group234->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
 	group234->setCheckState(0, Qt::Checked);*/
 	//孙子项4
-	QTreeWidgetItem* group241 = new QTreeWidgetItem(group24);
+	QTreeWidgetItem* group241 = new QTreeWidgetItem(group25);
 	group241->setText(0, QString::fromLocal8Bit("添加用户"));
 	group241->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
 	group241->setCheckState(0, Qt::Checked);
-	QTreeWidgetItem* group242 = new QTreeWidgetItem(group24);
+	QTreeWidgetItem* group242 = new QTreeWidgetItem(group25);
 	group242->setText(0, QString::fromLocal8Bit("删除用户"));
 	group242->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
 	group242->setCheckState(0, Qt::Checked);
@@ -554,7 +554,7 @@ void QtPLCDialogClass::setg_IUserLevel(int index)
 	//user part
 	if (g_IUserLevel == 0)
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_showPrt->setEnabled(false);
+		//((Ui::QtPLCDialogClass*)ui)->pB_showPrt->setEnabled(false);
 	}
 	else if (g_IUserLevel == 1)
 	{
@@ -1067,19 +1067,19 @@ void QtPLCDialogClass::getPLCData(void* data)
 
 	}
 
-	if (!m_data->Inputs.FeedTrigger1)
-	{
-		((Ui::QtPLCDialogClass*)ui)->lb_20->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
-	}
-	else
-	{
-		((Ui::QtPLCDialogClass*)ui)->lb_20->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
+	//if (!m_data->Inputs.FeedTrigger1)
+	//{
+	//	((Ui::QtPLCDialogClass*)ui)->lb_20->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
+	//}
+	//else
+	//{
+	//	((Ui::QtPLCDialogClass*)ui)->lb_20->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
 
-	}
+	//}
 #pragma endregion
 	//输出点
 #pragma region output
-	((Ui::QtPLCDialogClass*)ui)->lE_Analogoutput->setText(QString::number(m_data->Outputs.Analogoutput));		//模拟量输出
+	//((Ui::QtPLCDialogClass*)ui)->lE_Analogoutput->setText(QString::number(m_data->Outputs.Analogoutput));		//模拟量输出
 	if (m_data->Outputs.Reject)			//排废电磁铁
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->blockSignals(true);
@@ -1206,20 +1206,20 @@ void QtPLCDialogClass::getPLCData(void* data)
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->setStyleSheet("font: bold;font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->blockSignals(false);
 	}
-	if (m_data->Outputs.YellowAlarmout)//黄灯报警
-	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->blockSignals(false);
-	}
-	else
-	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->setStyleSheet("font: bold;font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->blockSignals(false);
-	}
+	//if (m_data->Outputs.YellowAlarmout)//黄灯报警
+	//{
+	//	((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->blockSignals(true);
+	//	((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->setChecked(true);
+	//	((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
+	//	((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->blockSignals(false);
+	//}
+	//else
+	//{
+	//	((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->blockSignals(true);
+	//	((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->setChecked(false);
+	//	((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->setStyleSheet("font: bold;font-size:20pt");
+	//	((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->blockSignals(false);
+	//}
 	if (m_data->Outputs.Baffle)//挡板
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->blockSignals(true);
@@ -2137,7 +2137,7 @@ void QtPLCDialogClass::on_pB_ChangeLanguage()
 		//输入输出
 		((Ui::QtPLCDialogClass*)ui)->label_40->setText("Capsule Drop");
 		((Ui::QtPLCDialogClass*)ui)->label_11->setText("Swing Arm");
-		((Ui::QtPLCDialogClass*)ui)->label_46->setText("Capsule Drop1");
+		//((Ui::QtPLCDialogClass*)ui)->label_46->setText("Capsule Drop1");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->setText("Reject");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->setText("ChannelSwith");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->setText("Vaccum");
@@ -2147,9 +2147,9 @@ void QtPLCDialogClass::on_pB_ChangeLanguage()
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->setText("AlarmOut");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->setText("StopSignal");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->setText("AlarmSignal");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->setText("YellowAlarmout");
+		//((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->setText("YellowAlarmout");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->setText("Baffle");
-		((Ui::QtPLCDialogClass*)ui)->label_2->setText("Analog Output");
+		//((Ui::QtPLCDialogClass*)ui)->label_2->setText("Analog Output");
 
 		//下料旋转
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdAxisFeedJogPos->setText("AxisFeedJogPos");
@@ -2178,8 +2178,8 @@ void QtPLCDialogClass::on_pB_ChangeLanguage()
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdScaleCalibExt->setText("ScaleCalibExt");
 		((Ui::QtPLCDialogClass*)ui)->label->setText("Stable State");
 		//((Ui::QtPLCDialogClass*)ui)->pB_cmdScaleSetStable->setText("ScaleSetStable");
-		((Ui::QtPLCDialogClass*)ui)->pB_showPrt->setText("showPrt");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdAlogtest->setText("Alogtest");
+		//((Ui::QtPLCDialogClass*)ui)->pB_showPrt->setText("showPrt");
+		//((Ui::QtPLCDialogClass*)ui)->pB_cmdAlogtest->setText("Alogtest");
 
 		//系统参数
 		((Ui::QtPLCDialogClass*)ui)->label_26->setText("Stop Pos");
@@ -2205,8 +2205,8 @@ void QtPLCDialogClass::on_pB_ChangeLanguage()
 		//((Ui::QtPLCDialogClass*)ui)->label_57->setText("Cutting Speed");
 		//((Ui::QtPLCDialogClass*)ui)->label_58->setText("Test Sub.");
 		((Ui::QtPLCDialogClass*)ui)->label_56->setText("Interval Time");
-		((Ui::QtPLCDialogClass*)ui)->pB_Read2->setText("Read");
-		((Ui::QtPLCDialogClass*)ui)->pB_Write2->setText("Write");
+		/*((Ui::QtPLCDialogClass*)ui)->pB_Read2->setText("Read");
+		((Ui::QtPLCDialogClass*)ui)->pB_Write2->setText("Write");*/
 
 		//运行状态
 		((Ui::QtPLCDialogClass*)ui)->label_21->setText("State Mac.");
@@ -2236,7 +2236,7 @@ void QtPLCDialogClass::on_pB_ChangeLanguage()
 		((Ui::QtPLCDialogClass*)ui)->groupBox_2->setTitle("Cutting");
 		((Ui::QtPLCDialogClass*)ui)->groupBox_3->setTitle("Rotate");
 		//((Ui::QtPLCDialogClass*)ui)->groupBox_9->setTitle("Cutting");
-		((Ui::QtPLCDialogClass*)ui)->groupBox_5->setTitle("Weighing settings");
+		//((Ui::QtPLCDialogClass*)ui)->groupBox_5->setTitle("Weighing settings");
 
 		//权限描述
 		((Ui::QtPLCDialogClass*)ui)->treeWidget_2->clear();    //初始化树形控件
@@ -2373,7 +2373,7 @@ void QtPLCDialogClass::on_pB_ChangeLanguage()
 		//输入输出
 		((Ui::QtPLCDialogClass*)ui)->label_40->setText(QString::fromLocal8Bit("胶囊下落检测"));
 		((Ui::QtPLCDialogClass*)ui)->label_11->setText(QString::fromLocal8Bit("摆臂位置检测"));
-		((Ui::QtPLCDialogClass*)ui)->label_46->setText(QString::fromLocal8Bit("胶囊下落检测1"));
+		//((Ui::QtPLCDialogClass*)ui)->label_46->setText(QString::fromLocal8Bit("胶囊下落检测1"));
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->setText(QString::fromLocal8Bit("排废电磁铁"));
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->setText(QString::fromLocal8Bit("胶囊通道切换"));
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->setText(QString::fromLocal8Bit("真空发生器"));
@@ -2383,9 +2383,9 @@ void QtPLCDialogClass::on_pB_ChangeLanguage()
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->setText(QString::fromLocal8Bit("报警蜂鸣器"));
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->setText(QString::fromLocal8Bit("停机信号"));
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignal->setText(QString::fromLocal8Bit("报警输出"));
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->setText(QString::fromLocal8Bit("黄灯报警"));
+		//((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->setText(QString::fromLocal8Bit("黄灯报警"));
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->setText(QString::fromLocal8Bit("挡    板"));
-		((Ui::QtPLCDialogClass*)ui)->label_2->setText(QString::fromLocal8Bit("模拟量输出"));
+		//((Ui::QtPLCDialogClass*)ui)->label_2->setText(QString::fromLocal8Bit("模拟量输出"));
 
 		//下料旋转
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdAxisFeedJogPos->setText(QString::fromLocal8Bit("正转点动"));
@@ -2414,8 +2414,8 @@ void QtPLCDialogClass::on_pB_ChangeLanguage()
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdScaleCalibExt->setText(QString::fromLocal8Bit("秤外部校正"));
 		((Ui::QtPLCDialogClass*)ui)->label->setText(QString::fromLocal8Bit("稳定状态设定目标:"));
 		//((Ui::QtPLCDialogClass*)ui)->pB_cmdScaleSetStable->setText(QString::fromLocal8Bit("设定秤稳定状态"));
-		((Ui::QtPLCDialogClass*)ui)->pB_showPrt->setText(QString::fromLocal8Bit("打印设置"));
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdAlogtest->setText(QString::fromLocal8Bit("模拟量输出测试"));
+		//((Ui::QtPLCDialogClass*)ui)->pB_showPrt->setText(QString::fromLocal8Bit("打印设置"));
+		//((Ui::QtPLCDialogClass*)ui)->pB_cmdAlogtest->setText(QString::fromLocal8Bit("模拟量输出测试"));
 
 		//系统参数
 		((Ui::QtPLCDialogClass*)ui)->label_26->setText(QString::fromLocal8Bit("停止位置1 mm"));
@@ -2441,8 +2441,8 @@ void QtPLCDialogClass::on_pB_ChangeLanguage()
 		//((Ui::QtPLCDialogClass*)ui)->label_57->setText(QString::fromLocal8Bit("下料速度"));
 		//((Ui::QtPLCDialogClass*)ui)->label_58->setText(QString::fromLocal8Bit("检测物"));
 		((Ui::QtPLCDialogClass*)ui)->label_56->setText(QString::fromLocal8Bit("间隔时间(s)"));
-		((Ui::QtPLCDialogClass*)ui)->pB_Read2->setText(QString::fromLocal8Bit("读取"));
-		((Ui::QtPLCDialogClass*)ui)->pB_Write2->setText(QString::fromLocal8Bit("写入"));
+		/*((Ui::QtPLCDialogClass*)ui)->pB_Read2->setText(QString::fromLocal8Bit("读取"));
+		((Ui::QtPLCDialogClass*)ui)->pB_Write2->setText(QString::fromLocal8Bit("写入"));*/
 
 		//运行状态
 		((Ui::QtPLCDialogClass*)ui)->label_21->setText(QString::fromLocal8Bit("状态机步骤"));
@@ -2472,7 +2472,7 @@ void QtPLCDialogClass::on_pB_ChangeLanguage()
 		((Ui::QtPLCDialogClass*)ui)->groupBox_2->setTitle(QString::fromLocal8Bit("下料"));
 		((Ui::QtPLCDialogClass*)ui)->groupBox_3->setTitle(QString::fromLocal8Bit("旋转"));
 		//((Ui::QtPLCDialogClass*)ui)->groupBox_9->setTitle(QString::fromLocal8Bit("下料"));
-		((Ui::QtPLCDialogClass*)ui)->groupBox_5->setTitle(QString::fromLocal8Bit("称重设置"));
+		//((Ui::QtPLCDialogClass*)ui)->groupBox_5->setTitle(QString::fromLocal8Bit("称重设置"));
 
 		//权限描述
 		((Ui::QtPLCDialogClass*)ui)->treeWidget_2->clear();    //初始化树形控件
@@ -2728,9 +2728,6 @@ void QtPLCDialogClass::on_pb_cmdReject_toggled(bool checked)//
 	typ.Machine_Cmd.Outputs.Reject = checked;
 	m_socket->Communicate_PLC(&typ, nullptr);
 #endif
-#ifdef MODBUSTCP
-	m_socket->Write_modbus_tcp_Coils(QString::number(checked), 92, 1);
-#endif
 }
 void QtPLCDialogClass::on_pb_cmdChannelSwith_toggled(bool checked)//
 {
@@ -2805,11 +2802,11 @@ void QtPLCDialogClass::on_pb_cmdBaffle_toggled(bool checked)//
 
 void QtPLCDialogClass::on_tabWidget_currentChanged(int index)
 {
-	((Ui::QtPLCDialogClass*)ui)->pB_showPrt->setChecked(false);
+	//((Ui::QtPLCDialogClass*)ui)->pB_showPrt->setChecked(false);
 }
 void QtPLCDialogClass::on_tabWidget_PLC_currentChanged(int index)
 {
-	((Ui::QtPLCDialogClass*)ui)->pB_showPrt->setChecked(false);
+	//((Ui::QtPLCDialogClass*)ui)->pB_showPrt->setChecked(false);
 }
 
 
