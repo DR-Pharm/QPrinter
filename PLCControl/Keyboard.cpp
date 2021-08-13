@@ -85,12 +85,14 @@ void keyBoard::focusChanged(QWidget *, QWidget *nowWidget)
 			if (lePosY > deskHeight / 2)
 			{
 				// 靠上居中显示
-				movePoint = QPoint(deskWidth / 2 - frmWidth / 2, 0);
+				//movePoint = QPoint(deskWidth / 2 - frmWidth / 2, 0);
+				movePoint = QPoint(25, 5);
 			}
 			else
 			{
 				// 靠下居中显示
-				movePoint = QPoint(deskWidth / 2 - frmWidth / 2, deskHeight - frmHeight);
+				//movePoint = QPoint(deskWidth / 2 - frmWidth / 2, deskHeight - frmHeight);
+				movePoint = QPoint(25, deskHeight - frmHeight-5);
 			}
 
 			this->move(movePoint);
