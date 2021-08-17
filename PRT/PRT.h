@@ -88,6 +88,7 @@ private:
 	bool m_bAltKeyPressed = false;
 	QWaiting *wt;
 	WindowOut *levelOut;//show默认为非模态modal，如果是局部变量会闪现消失
+	int lg = 0;
 public slots:	
 	void showWindowOut(QString str);
 	//printer

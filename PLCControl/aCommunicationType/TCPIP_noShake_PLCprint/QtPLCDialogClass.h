@@ -46,7 +46,7 @@ public:
 	void inittabicon();
 	void initFont();
 	void initDlg();
-
+	void ChangeLanguage();
 	void setWindowMinimized();
 
 	int showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str);
@@ -124,6 +124,7 @@ private:
 
 	QString m_gn1;
 	QString m_gn2;
+	int lg = 0;
 public slots:
 
 	DataFromPC_typ getPCParaData();

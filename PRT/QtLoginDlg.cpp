@@ -71,7 +71,16 @@ QtLoginDlg::QtLoginDlg(QDialog* parent)
 	ui.cB_turnOff->setVisible(false);
 	ui.pB_more->setVisible(false);
 	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
-	QString text = configIniRead.value("ProgramSetting/Style", "").toString();
+	QString text = configIniRead.value("ProgramSetting/Style", "").toString();	
+	lg = configIniRead.value("Language/currentLanguage", "").toInt();
+	if (lg == 1)
+	{
+		ui.label_3->setFont(QFont("Times", 30, QFont::Black));
+		ui.label_3->setText("Welcome");
+		ui.lE_Password->setPlaceholderText("Password");
+		ui.pB_Login->setText("Entry");
+		ui.pB_Exit->setText("Quit");
+	}
 	if (text == "Default Style")
 	{
 		ui.cB_style->setCurrentIndex(0);
@@ -167,7 +176,7 @@ QtLoginDlg::QtLoginDlg(QDialog* parent)
 	connect(ui.cB_ListUser, SIGNAL(currentTextChanged(QString)), this, SLOT(onUserListChange(QString)));
 	connect(ui.lE_Password, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(onLineeditChanged()));
 	connect(ui.pB_Exit, &QPushButton::clicked, [=]() {
-		if (ui.pB_Exit->text()== QString::fromLocal8Bit("退出"))
+		if (ui.pB_Exit->text() == QString::fromLocal8Bit("退出")||ui.pB_Exit->text() == QString::fromLocal8Bit("Quit"))
 		{
 			close();
 		}
@@ -232,11 +241,25 @@ void QtLoginDlg::onLineeditChanged()
 	int i = ui.lE_Password->text().length();
 	if (i>0)
 	{
-		ui.pB_Exit->setText(QString::fromLocal8Bit("清空"));
+		if (lg==0)
+		{
+			ui.pB_Exit->setText(QString::fromLocal8Bit("清空"));
+		}
+		else
+		{
+			ui.pB_Exit->setText(QString::fromLocal8Bit("Empty"));
+		}
 	}
 	if (i == 0)
 	{
-		ui.pB_Exit->setText(QString::fromLocal8Bit("退出"));
+		if (lg == 0)
+		{
+			ui.pB_Exit->setText(QString::fromLocal8Bit("退出"));
+		}
+		else
+		{
+			ui.pB_Exit->setText(QString::fromLocal8Bit("Quit"));
+		}
 		ui.pB_Login->setEnabled(false);
 		ui.pB_Login->setStyleSheet("font-size:20pt");
 	}
@@ -273,14 +296,17 @@ void QtLoginDlg::onEnsure()
 	if (password != ui.lE_Password->text())
 	{
 		static int i = 1;
-		QString str = QString::fromLocal8Bit("密码输入错误") + QString::number(i++) + QString::fromLocal8Bit("次!");
+		QString str;
+		if (lg == 0) str = QString::fromLocal8Bit("密码输入错误") + QString::number(i++) + QString::fromLocal8Bit("次!");
+		if (lg == 1) str = QString::fromLocal8Bit("Input password ") + QString::number(i++) + QString::fromLocal8Bit(" times!");
 		if (i==100)
 		{
 			showMsgBox(QMessageBox::Question, "系统退出", "<img src = './ico/critical.png'/>\t密码连续101次输入错误，系统自动退出!", "我知道了", "");
 			this->close();
 		}
 		levelOut = new WindowOut;
-		levelOut->getString(QString::fromLocal8Bit("密码输入错误，请确认后重新输入！"), 2000);
+		if (lg == 0) levelOut->getString(QString::fromLocal8Bit("密码输入错误，请确认后重新输入！"), 2000);
+		if (lg == 1) levelOut->getString(QString::fromLocal8Bit("Password is incorrect,please try again!"), 2000);
 		levelOut->setWindowCount(0);
 		levelOut->show();
 		ui.lE_Password->setText("");

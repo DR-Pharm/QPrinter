@@ -1125,7 +1125,7 @@
          <rect>
           <x>3</x>
           <y>13</y>
-          <width>847</width>
+          <width>811</width>
           <height>561</height>
          </rect>
         </property>
@@ -1140,13 +1140,13 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>230</width>
+             <width>250</width>
              <height>30</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>230</width>
+             <width>250</width>
              <height>30</height>
             </size>
            </property>
@@ -1180,13 +1180,13 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>230</width>
+             <width>250</width>
              <height>30</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>230</width>
+             <width>250</width>
              <height>30</height>
             </size>
            </property>
@@ -1214,13 +1214,13 @@
           <widget class="QLineEdit" name="lE_FeedTimeOut">
            <property name="minimumSize">
             <size>
-             <width>150</width>
+             <width>130</width>
              <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>150</width>
+             <width>130</width>
              <height>35</height>
             </size>
            </property>
@@ -1261,13 +1261,13 @@
           <widget class="QLineEdit" name="lE_CapBackInterval">
            <property name="minimumSize">
             <size>
-             <width>150</width>
+             <width>130</width>
              <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>150</width>
+             <width>130</width>
              <height>35</height>
             </size>
            </property>
@@ -1311,13 +1311,13 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>230</width>
+             <width>250</width>
              <height>30</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>230</width>
+             <width>250</width>
              <height>30</height>
             </size>
            </property>
@@ -1345,13 +1345,13 @@
           <widget class="QLineEdit" name="lE_ReadDelay">
            <property name="minimumSize">
             <size>
-             <width>150</width>
+             <width>130</width>
              <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>150</width>
+             <width>130</width>
              <height>35</height>
             </size>
            </property>
@@ -1382,13 +1382,13 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>230</width>
+             <width>250</width>
              <height>30</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>230</width>
+             <width>250</width>
              <height>30</height>
             </size>
            </property>
@@ -1416,13 +1416,13 @@
           <widget class="QLineEdit" name="lE_s_trg_stop1">
            <property name="minimumSize">
             <size>
-             <width>150</width>
+             <width>130</width>
              <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>150</width>
+             <width>130</width>
              <height>35</height>
             </size>
            </property>
@@ -1447,13 +1447,13 @@
           <widget class="QLineEdit" name="lE_s_trg_stop0">
            <property name="minimumSize">
             <size>
-             <width>150</width>
+             <width>130</width>
              <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>150</width>
+             <width>130</width>
              <height>35</height>
             </size>
            </property>
@@ -1558,13 +1558,13 @@
           <widget class="QLineEdit" name="lE_CapPickInterval">
            <property name="minimumSize">
             <size>
-             <width>150</width>
+             <width>130</width>
              <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>150</width>
+             <width>130</width>
              <height>35</height>
             </size>
            </property>
@@ -1629,13 +1629,13 @@
           <widget class="QLineEdit" name="lE_TireDelay">
            <property name="minimumSize">
             <size>
-             <width>150</width>
+             <width>130</width>
              <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>150</width>
+             <width>130</width>
              <height>35</height>
             </size>
            </property>
@@ -1700,13 +1700,13 @@
           <widget class="QLineEdit" name="lE_TireWaitTime">
            <property name="minimumSize">
             <size>
-             <width>150</width>
+             <width>130</width>
              <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>150</width>
+             <width>130</width>
              <height>35</height>
             </size>
            </property>
@@ -1731,13 +1731,13 @@
           <widget class="QLineEdit" name="lE_StopSignalDelay">
            <property name="minimumSize">
             <size>
-             <width>150</width>
+             <width>130</width>
              <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>150</width>
+             <width>130</width>
              <height>35</height>
             </size>
            </property>
@@ -1768,13 +1768,13 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>240</width>
+             <width>250</width>
              <height>30</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>240</width>
+             <width>250</width>
              <height>30</height>
             </size>
            </property>
@@ -1842,13 +1842,13 @@
           <widget class="QLineEdit" name="lE_FeedOveride">
            <property name="minimumSize">
             <size>
-             <width>150</width>
+             <width>130</width>
              <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>150</width>
+             <width>130</width>
              <height>35</height>
             </size>
            </property>
@@ -1914,13 +1914,13 @@
           <widget class="QLabel" name="label_53">
            <property name="minimumSize">
             <size>
-             <width>200</width>
+             <width>240</width>
              <height>0</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>200</width>
+             <width>240</width>
              <height>232323</height>
             </size>
            </property>
@@ -1945,13 +1945,13 @@
           <widget class="QLineEdit" name="lE_GroupSet">
            <property name="minimumSize">
             <size>
-             <width>150</width>
+             <width>120</width>
              <height>0</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>150</width>
+             <width>120</width>
              <height>16777215</height>
             </size>
            </property>
@@ -1979,13 +1979,13 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>150</width>
+             <width>120</width>
              <height>42</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>150</width>
+             <width>120</width>
              <height>42</height>
             </size>
            </property>
@@ -2029,13 +2029,13 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>150</width>
+             <width>120</width>
              <height>42</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>150</width>
+             <width>120</width>
              <height>42</height>
             </size>
            </property>
@@ -2057,13 +2057,13 @@
           <widget class="QLabel" name="label_14">
            <property name="minimumSize">
             <size>
-             <width>200</width>
+             <width>240</width>
              <height>0</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>200</width>
+             <width>240</width>
              <height>232323</height>
             </size>
            </property>
@@ -2094,13 +2094,13 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>150</width>
+             <width>120</width>
              <height>42</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>150</width>
+             <width>120</width>
              <height>42</height>
             </size>
            </property>
@@ -2128,13 +2128,13 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>150</width>
+             <width>120</width>
              <height>42</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>150</width>
+             <width>120</width>
              <height>42</height>
             </size>
            </property>
@@ -2156,13 +2156,13 @@
           <widget class="QLabel" name="label_52">
            <property name="minimumSize">
             <size>
-             <width>200</width>
+             <width>240</width>
              <height>0</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>200</width>
+             <width>240</width>
              <height>16777215</height>
             </size>
            </property>
@@ -2200,13 +2200,13 @@
           <widget class="QLabel" name="label_12">
            <property name="minimumSize">
             <size>
-             <width>200</width>
+             <width>240</width>
              <height>0</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>200</width>
+             <width>240</width>
              <height>232323</height>
             </size>
            </property>
@@ -2231,13 +2231,13 @@
           <widget class="QLabel" name="label_54">
            <property name="minimumSize">
             <size>
-             <width>200</width>
+             <width>240</width>
              <height>0</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>200</width>
+             <width>240</width>
              <height>232323</height>
             </size>
            </property>
@@ -2262,13 +2262,13 @@
           <widget class="QLabel" name="label_13">
            <property name="minimumSize">
             <size>
-             <width>200</width>
+             <width>240</width>
              <height>0</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>200</width>
+             <width>240</width>
              <height>232323</height>
             </size>
            </property>
@@ -2299,13 +2299,13 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>150</width>
+             <width>120</width>
              <height>42</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>150</width>
+             <width>120</width>
              <height>42</height>
             </size>
            </property>
@@ -2327,13 +2327,13 @@
           <widget class="QLabel" name="label_56">
            <property name="minimumSize">
             <size>
-             <width>200</width>
+             <width>240</width>
              <height>0</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>200</width>
+             <width>240</width>
              <height>232323</height>
             </size>
            </property>
@@ -2364,13 +2364,13 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>150</width>
+             <width>120</width>
              <height>42</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>150</width>
+             <width>120</width>
              <height>42</height>
             </size>
            </property>
@@ -2680,13 +2680,13 @@
            <widget class="QLabel" name="label_20">
             <property name="minimumSize">
              <size>
-              <width>220</width>
+              <width>300</width>
               <height>0</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>220</width>
+              <width>300</width>
               <height>16777215</height>
              </size>
             </property>
@@ -2734,13 +2734,13 @@
            <widget class="QLabel" name="label_33">
             <property name="minimumSize">
              <size>
-              <width>220</width>
+              <width>300</width>
               <height>0</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>220</width>
+              <width>300</width>
               <height>16777215</height>
              </size>
             </property>
@@ -2915,26 +2915,6 @@ font: 18pt &quot;幼圆&quot;;</string>
         <property name="styleSheet">
          <string notr="true">font: 18pt &quot;幼圆&quot;;</string>
         </property>
-        <item>
-         <property name="text">
-          <string>管理员：0</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>工程师：1</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>操作员：2</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>代码人员：3</string>
-         </property>
-        </item>
        </widget>
       </item>
       <item>
@@ -3146,26 +3126,6 @@ font: 18pt &quot;幼圆&quot;;</string>
         <property name="styleSheet">
          <string notr="true">font: 18pt &quot;幼圆&quot;;</string>
         </property>
-        <item>
-         <property name="text">
-          <string>管理员</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>工程师</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>操作员</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>代码人员</string>
-         </property>
-        </item>
        </widget>
       </item>
       <item>
@@ -3462,11 +3422,11 @@ font: 18pt &quot;幼圆&quot;;</string>
         <bold>true</bold>
        </font>
       </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
       <property name="styleSheet">
        <string notr="true"/>
-      </property>
-      <property name="title">
-       <string>          .                          </string>
       </property>
       <property name="flat">
        <bool>false</bool>
@@ -5452,7 +5412,7 @@ font: 26pt &quot;Onyx&quot;;</string>
         </font>
        </property>
        <property name="text">
-        <string>English Print</string>
+        <string>英文打印</string>
        </property>
       </widget>
      </item>

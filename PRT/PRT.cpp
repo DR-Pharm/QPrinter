@@ -25,6 +25,8 @@ PRT::PRT(QWidget *parent)
 
 	AppPath = qApp->applicationDirPath();//exe所在目录
 	RWini = new QSettings(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+	lg = configIniRead.value("Language/currentLanguage", "").toInt();
 	initData();
 	initPrinter();
 	initUI();
@@ -368,7 +370,8 @@ void PRT::showWindowOut(QString str)
 void PRT::SuccessConnect()
 {
 	wt->close();
-	showWindowOut(QString::fromLocal8Bit("PLC连接正常"));
+	if (lg == 0)showWindowOut(QString::fromLocal8Bit("PLC连接正常"));
+	if (lg == 1)showWindowOut(QString::fromLocal8Bit("PLC Connect Success"));
 
 	//bool b = connect(m_pPlclib, SIGNAL(SOCKETERROR()), this, SLOT(ErrorConnect()));
 	//b = disconnect(m_pPlclib, SIGNAL(signal_SUCCESSFULCONNECTED()), this, SLOT(SuccessConnect()));
@@ -376,7 +379,8 @@ void PRT::SuccessConnect()
 void PRT::ErrorConnect()
 {
 	wt->close();
-	showMsgBox("通讯错误", "连接PLC出错,请修复后重启程序!", "我去查查", "");
+	if (lg == 0)showMsgBox("通讯错误", "连接PLC出错,请修复后重启程序!", "我去查查", "");
+	if (lg == 1)showMsgBox("Communication Error", "Connect PLC timeout,Please fix and restart the software!", "check", "");
 
 }
 void PRT::EmitReconnect()
@@ -497,11 +501,22 @@ void PRT::on_cB_PrintMode_currentIndexChanged(int index)
 }
 void PRT::on_ToClose()
 {
-	if (QMessageBox::Yes == showMsgBox("退出确认", "是否确认退出该系统?", "确认", "取消"))
-				{
-					m_bCloseSignal = true;
-					close();
-				}
+	if (lg==0)
+	{
+		if (QMessageBox::Yes == showMsgBox("退出确认", "是否确认退出该系统?", "确认", "取消"))
+		{
+			m_bCloseSignal = true;
+			close();
+		}
+	}
+	else if (lg==1)
+	{
+		if (QMessageBox::Yes == showMsgBox("Information", "Quit the System?", "Yes", "Cancel"))
+		{
+			m_bCloseSignal = true;
+			close();
+		}
+	}
 }
 
 void PRT::getVec(QVector<QVector<float>> a, QVector<QString> GN,int mode, QVector<float> teo)

@@ -23,7 +23,8 @@ private:
 	Ui::QtLoginDlg ui;
 	WindowOut *levelOut;//show默认为非模态modal，如果是局部变量会闪现消失
 	QString m_autoStartPath;
-	QString AppPath;
+	QString AppPath; 
+	int lg = 0;
 public:
 	bool deleteDir(const QString& path);
 	bool copyDirectoryFiles(const QString& fromDir, const QString& toDir, bool coverFileIfExist);
