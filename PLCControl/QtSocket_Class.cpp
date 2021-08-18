@@ -420,7 +420,7 @@ bool QtSocket_Class::Write_modbus_tcp_HoldingRegisters(QString str1, int star_ad
 	quint16 number1 = static_cast<quint16>(number);
 	QModbusDataUnit writeUnit(QModbusDataUnit::HoldingRegisters, star_add-1, number1);
 	for (uint i1 = 0; i1 < writeUnit.valueCount(); i1++) {
-		QString stt = str1.mid(i1, 4);
+		QString stt = str1.mid(i1*4, 4);
 		bool ok;
 		quint16 hex1 = stt.toInt(&ok, 16);//16进制转为10进制
 		writeUnit.setValue(i1, hex1);//设置发送数据
