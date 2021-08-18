@@ -149,6 +149,7 @@ private:
 
 	int m_iDontReadCoilsFlag = 0;
 	int m_iDontReadRegistersFlag = 0;
+	int lg = 0;
 public slots:
 	DataFromPC_typ getPCParaData();
 	DataFromPC_typ getPCRunData();
@@ -175,8 +176,12 @@ public slots:
 	void on_lE_TUnderload_editingFinished();
 	void on_lE_InterOverLoad_editingFinished();
 	void on_lE_InterUnderLoad_editingFinished();
+	void on_lE_SetPillDiam_editingFinished();
+	void on_lE_PillDiamOffset_editingFinished();
+	void on_lE_HardnessChkNum_editingFinished();
 	void on_lE_TDemand_editingFinished();
 	void on_lE_GroupSet_editingFinished();
+	void on_lE_GroupCounter_editingFinished();
 	void on_lE_RecipeNo_editingFinished();
 	void on_lE_ThickUpperLimit_editingFinished();
 	void on_lE_ThickUnderLimit_editingFinished();
@@ -202,9 +207,7 @@ public slots:
 	void on_pB_printData_clicked();
 	void on_pB_printCurve_clicked();
 	void on_pB_Read1_clicked();
-	void on_pB_Read2_clicked();
 	void on_pB_Write1_clicked();
-	void on_pB_Write2_clicked();
 	void on_pB_cmdScaleTire_clicked();
 	/*void on_cB_paraScaleSetStable_currentIndexChanged(int index);*/
 	void on_pB_cmdScaleCalibExt_clicked();
@@ -232,7 +235,7 @@ public slots:
 	void on_pB_TMUCalib_clicked();
 	void pB_cmdAlarmReset();
 	void pB_cmdCounterZero();
-	void pB_ChangeLanguage();
+	void ChangeLanguage();
 	void on_pB_cmdCapClean_clicked();
 	void on_pB_cmdGetCap_clicked();
 	void on_pB_cmdFeedAmount_clicked();
@@ -241,6 +244,7 @@ public slots:
 	void on_pB_dtDlg_toggled(bool checked); 
 	void dtClose();
 	void startMovie();
+	void pB_ChangeLanguage();
 	void on_pB_enHMU_toggled(bool checked);
 	void on_pB_enTMU_toggled(bool checked);
 	void on_pB_cmdCapGet_toggled(bool checked);

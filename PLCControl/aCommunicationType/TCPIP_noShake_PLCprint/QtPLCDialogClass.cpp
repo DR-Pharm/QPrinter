@@ -2300,7 +2300,6 @@ void QtPLCDialogClass::ChangeLanguage()
 		((Ui::QtPLCDialogClass*)ui)->label_27->setText("error code");
 		((Ui::QtPLCDialogClass*)ui)->label_28->setText("MovDistance(p)");
 		((Ui::QtPLCDialogClass*)ui)->label_20->setText("Alarm status");
-		((Ui::QtPLCDialogClass*)ui)->label_3->setText("Alarm bit");
 		((Ui::QtPLCDialogClass*)ui)->label_33->setText("Actual Interval Time");
 
 		//用户管理

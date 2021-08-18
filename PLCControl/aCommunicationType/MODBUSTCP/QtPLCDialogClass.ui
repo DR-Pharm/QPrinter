@@ -59,7 +59,7 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="tab_PLC_Control">
     <attribute name="title">
@@ -81,7 +81,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -2829,7 +2829,7 @@
           <x>13</x>
           <y>13</y>
           <width>801</width>
-          <height>561</height>
+          <height>671</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout_2">
@@ -3695,29 +3695,62 @@
            </property>
           </widget>
          </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="layoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>590</y>
-          <width>801</width>
-          <height>44</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_10">
-         <item>
-          <widget class="QPushButton" name="pB_Read2">
+         <item row="7" column="3">
+          <widget class="QLabel" name="label_75">
+           <property name="minimumSize">
+            <size>
+             <width>200</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>200</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>宋体</family>
+             <pointsize>20</pointsize>
+             <weight>75</weight>
+             <italic>false</italic>
+             <bold>true</bold>
+            </font>
+           </property>
            <property name="text">
-            <string>读取</string>
+            <string>组落料数量</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QPushButton" name="pB_Write2">
+         <item row="7" column="4">
+          <widget class="QLineEdit" name="lE_GroupCounter">
+           <property name="minimumSize">
+            <size>
+             <width>150</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>150</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>宋体</family>
+             <pointsize>20</pointsize>
+             <weight>75</weight>
+             <italic>false</italic>
+             <bold>true</bold>
+            </font>
+           </property>
            <property name="text">
-            <string>写入</string>
+            <string/>
            </property>
           </widget>
          </item>
@@ -3870,26 +3903,6 @@ font: 18pt &quot;幼圆&quot;;</string>
         <property name="styleSheet">
          <string notr="true">font: 18pt &quot;幼圆&quot;;</string>
         </property>
-        <item>
-         <property name="text">
-          <string>管理员：0</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>工程师：1</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>操作员：2</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>代码人员：3</string>
-         </property>
-        </item>
        </widget>
       </item>
       <item>
@@ -4101,26 +4114,6 @@ font: 18pt &quot;幼圆&quot;;</string>
         <property name="styleSheet">
          <string notr="true">font: 18pt &quot;幼圆&quot;;</string>
         </property>
-        <item>
-         <property name="text">
-          <string>管理员</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>工程师</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>操作员</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>代码人员</string>
-         </property>
-        </item>
        </widget>
       </item>
       <item>
@@ -6140,6 +6133,9 @@ font: 26pt &quot;Onyx&quot;;</string>
        <property name="text">
         <string>最小值(g)</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
       </widget>
      </item>
      <item row="1" column="9">
@@ -6153,6 +6149,9 @@ font: 26pt &quot;Onyx&quot;;</string>
        <property name="text">
         <string>差异值(小)</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
       </widget>
      </item>
      <item row="1" column="0">
@@ -6165,6 +6164,9 @@ font: 26pt &quot;Onyx&quot;;</string>
        </property>
        <property name="text">
         <string>最大值(g)</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
@@ -6231,6 +6233,9 @@ font: 26pt &quot;Onyx&quot;;</string>
        <property name="text">
         <string>差异值(大)</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
       </widget>
      </item>
      <item row="1" column="4">
@@ -6270,6 +6275,9 @@ font: 26pt &quot;Onyx&quot;;</string>
        <property name="text">
         <string>平均值(g)</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
       </widget>
      </item>
      <item row="0" column="7">
@@ -6295,6 +6303,9 @@ font: 26pt &quot;Onyx&quot;;</string>
        </property>
        <property name="text">
         <string>总和(g)</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
@@ -6322,6 +6333,9 @@ font: 26pt &quot;Onyx&quot;;</string>
        <property name="text">
         <string>次数</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
       </widget>
      </item>
      <item row="0" column="1">
@@ -6347,6 +6361,9 @@ font: 26pt &quot;Onyx&quot;;</string>
        </property>
        <property name="text">
         <string>组号</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
