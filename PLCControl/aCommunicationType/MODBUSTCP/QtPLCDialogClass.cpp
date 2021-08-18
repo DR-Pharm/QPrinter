@@ -1129,7 +1129,7 @@ void QtPLCDialogClass::getPLCHolding(void*data)
 	}
 	memcpy(dtregisters, (quint16*)data, REGISTERS*2);//主界面用
 #ifdef MODBUSTCP
-	m_str_registers = "____";//no this cause bug
+	m_str_registers = "0000";//no this cause bug
 	for (int i = 0; i < REGISTERS; i++)
 	{
 		m_Input_Bufer[i + 1] = dtregisters[i];
@@ -1138,11 +1138,6 @@ void QtPLCDialogClass::getPLCHolding(void*data)
 
 		//arg中第二个参数表示字符串的位数，第三个参数表示int的进制，第4个参数表示自动补全的字符；
 		m_str_registers += strtmp;
-	}
-
-	//if (m_InputFlag == 0)//第一次赋值
-	{
-		m_str_sendRegisters = m_str_registers;
 	}
 	m_InputFlag = 1;
 
@@ -1277,7 +1272,11 @@ void QtPLCDialogClass::getPLCHolding(void*data)
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->setText(QString::number(m_Input_Bufer[fst]));
 	}
-	bt++;//GroupCounter
+	fst = bt++;
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_GroupCounter->hasFocus())
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_GroupCounter->setText(QString::number(m_Input_Bufer[fst]));
+	}
 	fst = bt++;
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->hasFocus())
 	{
@@ -1333,7 +1332,7 @@ void QtPLCDialogClass::getPLCHolding(void*data)
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_PillDiamOffset->hasFocus())
 	{
 		float hex_res = hexTofloat(fst);
-		((Ui::QtPLCDialogClass*)ui)->lE_PillDiamOffset->setText(QString::number(hex_res));
+		((Ui::QtPLCDialogClass*)ui)->lE_PillDiamOffset->setText(QString::number(hex_res/1000));
 	}
 	fst = bt++;
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_HardnessChkNum->hasFocus())
@@ -1376,7 +1375,7 @@ void QtPLCDialogClass::on_WriteHolding()
 {
 	if (m_InputFlag == 1 && m_iDontReadRegistersFlag == 1)//已经读过(第一次即可) 且 请求写入
 	{
-		QString strSend = m_str_sendRegisters.mid(53*4, 43 * 4);
+		QString strSend = m_str_sendRegisters.mid(53 * 4, 43 * 4);
 		m_socket->Write_modbus_tcp_HoldingRegisters(strSend, 53, 43);
 		m_iDontReadRegistersFlag = 0;
 	}
@@ -2684,6 +2683,7 @@ void QtPLCDialogClass::on_lE_minute2_editingFinished()//超重重量,单位g
 
 void QtPLCDialogClass::on_lE_SysOveride_editingFinished()//系统速度，0-10000对应0-100%
 {
+	m_str_sendRegisters = m_str_registers;
 	if (((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->text().toUShort() < 0)
 		((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->setText("0");
 	else if (((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->text().toUShort() > 100)
@@ -2691,7 +2691,7 @@ void QtPLCDialogClass::on_lE_SysOveride_editingFinished()//系统速度，0-1000
 #ifdef MODBUSTCP
 	m_iDontReadRegistersFlag = 1;
 	QString oldstr = m_str_sendRegisters.mid(53 * 4, 4);
-	int a = ((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->text().toUShort() * 100;
+	ushort a = ((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->text().toUShort() * 100;
 	QString str = QString("%1").arg(a, 4, 16, QLatin1Char('0'));
 	if (oldstr == str)
 	{
@@ -2708,14 +2708,15 @@ void QtPLCDialogClass::on_lE_SysOveride_editingFinished()//系统速度，0-1000
 }
 void QtPLCDialogClass::on_lE_GroupSet_editingFinished()
 {
+	m_str_sendRegisters = m_str_registers;
 	if (((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->text().toUShort() < 0)
 		((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->setText("0");
 	else if (((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->text().toUShort() > 100)
 		((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->setText("100");
-#ifdef MODBUSTCP
+
 	m_iDontReadRegistersFlag = 1;
 	QString oldstr = m_str_sendRegisters.mid(54 * 4, 4);
-	int a = ((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->text().toUShort();
+	ushort a = ((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->text().toUShort();
 	QString str = QString("%1").arg(a, 4, 16, QLatin1Char('0'));
 	if (oldstr == str)
 	{
@@ -2728,11 +2729,11 @@ void QtPLCDialogClass::on_lE_GroupSet_editingFinished()
 	((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->blockSignals(true);
 	((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_GroupSet->blockSignals(false);
-#endif
 }
 
 void QtPLCDialogClass::on_lE_GroupCounter_editingFinished()
 {
+	m_str_sendRegisters = m_str_registers;
 	if (((Ui::QtPLCDialogClass*)ui)->lE_GroupCounter->text().toUShort() < 0)
 		((Ui::QtPLCDialogClass*)ui)->lE_GroupCounter->setText("0");
 	else if (((Ui::QtPLCDialogClass*)ui)->lE_GroupCounter->text().toUShort() > 100)
@@ -2740,7 +2741,7 @@ void QtPLCDialogClass::on_lE_GroupCounter_editingFinished()
 #ifdef MODBUSTCP
 	m_iDontReadRegistersFlag = 1;
 	QString oldstr = m_str_sendRegisters.mid(55 * 4, 4);
-	int a = ((Ui::QtPLCDialogClass*)ui)->lE_GroupCounter->text().toUShort();
+	ushort a = ((Ui::QtPLCDialogClass*)ui)->lE_GroupCounter->text().toUShort();
 	QString str = QString("%1").arg(a, 4, 16, QLatin1Char('0'));
 	if (oldstr == str)
 	{
@@ -2757,10 +2758,10 @@ void QtPLCDialogClass::on_lE_GroupCounter_editingFinished()
 }
 void QtPLCDialogClass::on_lE_TestInterval_editingFinished()///测试间隔时间,单位s
 {
-#ifdef MODBUSTCP
+	m_str_sendRegisters = m_str_registers;
 	m_iDontReadRegistersFlag = 1;
 	QString oldstr = m_str_sendRegisters.mid(56 * 4, 4);
-	int a = ((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->text().toShort();
+	ushort a = ((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->text().toUShort();
 	QString str = QString("%1").arg(a, 4, 16, QLatin1Char('0'));
 	if (oldstr == str)
 	{
@@ -2770,7 +2771,7 @@ void QtPLCDialogClass::on_lE_TestInterval_editingFinished()///测试间隔时间
 		return;
 	}
 	m_str_sendRegisters.replace(56 * 4, 4, str);
-#endif
+
 	((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->blockSignals(true);
 	((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->blockSignals(false);
@@ -2778,7 +2779,7 @@ void QtPLCDialogClass::on_lE_TestInterval_editingFinished()///测试间隔时间
 
 void QtPLCDialogClass::on_lE_TOverload_editingFinished()//超重重量,单位g
 {
-#ifdef MODBUSTCP
+	m_str_sendRegisters = m_str_registers;
 	m_iDontReadRegistersFlag = 1;
 
 	float f = ((Ui::QtPLCDialogClass*)ui)->lE_TOverload->text().toFloat();
@@ -2797,7 +2798,7 @@ void QtPLCDialogClass::on_lE_TOverload_editingFinished()//超重重量,单位g
 	}
 	m_str_sendRegisters.replace(57 * 4, 4, f_hex.mid(4, 4));
 	m_str_sendRegisters.replace(58 * 4, 4, f_hex.mid(0, 4));
-#endif
+
 	((Ui::QtPLCDialogClass*)ui)->lE_TOverload->blockSignals(true);
 	((Ui::QtPLCDialogClass*)ui)->lE_TOverload->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_TOverload->blockSignals(false);
@@ -2805,6 +2806,7 @@ void QtPLCDialogClass::on_lE_TOverload_editingFinished()//超重重量,单位g
 
 void QtPLCDialogClass::on_lE_TUnderload_editingFinished()//超轻重量,单位g
 {
+	m_str_sendRegisters = m_str_registers;
 	m_iDontReadRegistersFlag = 1;
 
 	float f = ((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->text().toFloat();
@@ -2830,6 +2832,7 @@ void QtPLCDialogClass::on_lE_TUnderload_editingFinished()//超轻重量,单位g
 }
 void QtPLCDialogClass::on_lE_TDemand_editingFinished()///期望重量,单位g	
 {
+	m_str_sendRegisters = m_str_registers;
 	m_iDontReadRegistersFlag = 1;
 
 	float f = ((Ui::QtPLCDialogClass*)ui)->lE_TDemand->text().toFloat();
@@ -2855,6 +2858,7 @@ void QtPLCDialogClass::on_lE_TDemand_editingFinished()///期望重量,单位g
 }
 void QtPLCDialogClass::on_lE_InterOverLoad_editingFinished()//内控线，上限,单位g
 {
+	m_str_sendRegisters = m_str_registers;
 	m_iDontReadRegistersFlag = 1;
 
 	float f = ((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->text().toFloat();
@@ -2880,6 +2884,7 @@ void QtPLCDialogClass::on_lE_InterOverLoad_editingFinished()//内控线，上限
 }
 void QtPLCDialogClass::on_lE_InterUnderLoad_editingFinished()//内控线，下限,单位g
 {
+	m_str_sendRegisters = m_str_registers;
 	m_iDontReadRegistersFlag = 1;
 
 	float f = ((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->text().toFloat();
@@ -2905,6 +2910,7 @@ void QtPLCDialogClass::on_lE_InterUnderLoad_editingFinished()//内控线，下�
 }
 void QtPLCDialogClass::on_lE_SetPillDiam_editingFinished()
 {
+	m_str_sendRegisters = m_str_registers;
 	m_iDontReadRegistersFlag = 1;
 
 	float f = ((Ui::QtPLCDialogClass*)ui)->lE_SetPillDiam->text().toFloat();
@@ -2930,9 +2936,10 @@ void QtPLCDialogClass::on_lE_SetPillDiam_editingFinished()
 }
 void QtPLCDialogClass::on_lE_PillDiamOffset_editingFinished()//内控线，下限,单位g
 {
+	m_str_sendRegisters = m_str_registers;
 	m_iDontReadRegistersFlag = 1;
 
-	float f = ((Ui::QtPLCDialogClass*)ui)->lE_PillDiamOffset->text().toFloat();
+	float f = ((Ui::QtPLCDialogClass*)ui)->lE_PillDiamOffset->text().toFloat()*1000;
 	uint f_uint = *(uint*)&f;
 	QString f_hex = QString("%1").arg(f_uint, 8, 16, QLatin1Char('0'));
 
@@ -2955,14 +2962,11 @@ void QtPLCDialogClass::on_lE_PillDiamOffset_editingFinished()//内控线，下�
 }
 void QtPLCDialogClass::on_lE_HardnessChkNum_editingFinished()
 {
-	if (((Ui::QtPLCDialogClass*)ui)->lE_HardnessChkNum->text().toUShort() < 0)
-		((Ui::QtPLCDialogClass*)ui)->lE_HardnessChkNum->setText("0");
-	else if (((Ui::QtPLCDialogClass*)ui)->lE_HardnessChkNum->text().toUShort() > 100)
-		((Ui::QtPLCDialogClass*)ui)->lE_HardnessChkNum->setText("100");
-#ifdef MODBUSTCP
+	m_str_sendRegisters = m_str_registers;
+
 	m_iDontReadRegistersFlag = 1;
 	QString oldstr = m_str_sendRegisters.mid(85 * 4, 4);
-	int a = ((Ui::QtPLCDialogClass*)ui)->lE_HardnessChkNum->text().toUShort() * 100;
+	int a = ((Ui::QtPLCDialogClass*)ui)->lE_HardnessChkNum->text().toUShort();
 	QString str = QString("%1").arg(a, 4, 16, QLatin1Char('0'));
 	if (oldstr == str)
 	{
@@ -2972,13 +2976,14 @@ void QtPLCDialogClass::on_lE_HardnessChkNum_editingFinished()
 		return;
 	}
 	m_str_sendRegisters.replace(85 * 4, 4, str);
-#endif
+
 	((Ui::QtPLCDialogClass*)ui)->lE_HardnessChkNum->blockSignals(true);
 	((Ui::QtPLCDialogClass*)ui)->lE_HardnessChkNum->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_HardnessChkNum->blockSignals(false);
 }
 void QtPLCDialogClass::on_lE_RecipeNo_editingFinished()
 {
+	m_str_sendRegisters = m_str_registers;
 	if (((Ui::QtPLCDialogClass*)ui)->lE_RecipeNo->text().toInt() < 0)
 		((Ui::QtPLCDialogClass*)ui)->lE_RecipeNo->setText("0");
 #ifdef MODBUSTCP
@@ -3002,6 +3007,7 @@ void QtPLCDialogClass::on_lE_RecipeNo_editingFinished()
 void QtPLCDialogClass::on_lE_ThickUpperLimit_editingFinished()
 {
 
+	m_str_sendRegisters = m_str_registers;
 	m_iDontReadRegistersFlag = 1;
 
 	float f = ((Ui::QtPLCDialogClass*)ui)->lE_ThickUpperLimit->text().toFloat();
@@ -3028,6 +3034,7 @@ void QtPLCDialogClass::on_lE_ThickUpperLimit_editingFinished()
 void QtPLCDialogClass::on_lE_ThickUnderLimit_editingFinished()
 {
 
+	m_str_sendRegisters = m_str_registers;
 	m_iDontReadRegistersFlag = 1;
 
 	float f = ((Ui::QtPLCDialogClass*)ui)->lE_ThickUnderLimit->text().toFloat();
