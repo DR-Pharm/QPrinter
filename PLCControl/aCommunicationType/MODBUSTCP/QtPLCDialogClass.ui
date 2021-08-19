@@ -59,7 +59,7 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="tab_PLC_Control">
     <attribute name="title">
@@ -4383,7 +4383,7 @@
            </font>
           </property>
           <property name="text">
-           <string>厚度检测</string>
+           <string>厚度检测K值</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -4612,7 +4612,7 @@
            </font>
           </property>
           <property name="text">
-           <string>硬度检测</string>
+           <string>硬度检测K值</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

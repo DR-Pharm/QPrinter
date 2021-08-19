@@ -1474,8 +1474,8 @@ void QtPLCDialogClass::on_WriteHolding()
 {
 	if (m_InputFlag == 1 && m_iDontReadRegistersFlag == 1)//已经读过(第一次即可) 且 请求写入
 	{
-		QString strSend = m_str_sendRegisters.mid(53 * 4, 43 * 4);
-		m_socket->Write_modbus_tcp_HoldingRegisters(strSend, 53, 43);
+		QString strSend = m_str_sendRegisters.mid(52 * 4, 103 * 4);
+		m_socket->Write_modbus_tcp_HoldingRegisters(strSend, 52, 103);
 		m_iDontReadRegistersFlag = 0;
 	}
 }
