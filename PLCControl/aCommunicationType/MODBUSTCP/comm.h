@@ -31,6 +31,245 @@
 #define	_COMM_H_
 
 #pragma pack(4)
+enum MODBUSTCPREGISTERS
+{
+	DTPLC_second = 1,    // UINT
+	DTPLC_minute,    // UINT
+	DTPLC_hour,    // UINT
+	DTPLC_day,    // UINT
+	DTPLC_month,    // UINT
+	DTPLC_year,    // UINT
+	DTPLC_weekday,    // UINT
+	FeedCounter,   //已经落料数量，针对cmdFeedFive命令 UINT
+	ActData_ThickRejectCount,   //厚度剔废计数器 UDINT
+	ActData_ThickRejectCount_Reserve,
+	ActData_RejectBoxCnt,   //剔废盒内数量 UDINT
+	ActData_RejectBoxCnt_Reserve,
+	ActData_FeedAmount,   //n片数量 UINT
+	
+	ActData_GroupNo,   // UDINT
+	ActData_GroupNo_Reserve,
+	ActData_GroupIndex,   // UDINT
+	ActData_GroupIndex_Reserve,
+	Machine_step,  //步骤 UINT
+	ActData_PassCount,   //通过计数 UDINT
+	ActData_PassCount_Reserve,
+	ActData_ProdCount,   //称重计数 UDINT
+	ActData_ProdCount_Reserve,
+	ActData_TOCount,   //过重计数 UDINT
+	ActData_TOCount_Reserve,
+	ActData_TUCount,   //过轻计数 UDINT
+	ActData_TUCount_Reserve,
+	ActData_RejectCount,   //剔废计数 UDINT
+	ActData_RejectCount_Reserve,
+	ActData_GroupAvg,   //组平均重量g REAL
+	ActData_GroupAvg_Reserve,
+	ActData_GroupMax,   // REAL
+	ActData_GroupMax_Reserve,
+	ActData_GroupMin,   // REAL
+	ActData_GroupMin_Reserve,
+	ActData_GroupMaxRatio,   // REAL
+	ActData_GroupMaxRatio_Reserve,
+	ActData_GroupMinRatio,   // REAL
+	ActData_GroupMinRatio_Reserve,
+	ActData_HardnessChkCnt,   //硬度检测计数 UINT
+	HMU_ResultForce,   //测量结果硬度单位N REAL
+	HMU_ResultForce_Reserve,
+	HMU_ResultDiam,   //测量结果直径 REAL
+	HMU_ResultDiam_Reserve,
+	HMU_ActForce,   //当前硬度单位N REAL
+	HMU_ActForce_Reserve,
+	Machine_step2,   //运行步骤 UINT changed from EStop zxc
+	TMU_ThicknessResult,   //厚度结果 REAL
+	TMU_ThicknessResult_Reserve,
+	WeightResult,   //曲线料重值 REAL
+	WeightResult_Reserve,
+	AlarmStatus,   //报警状态 UINT
+
+	ActData_SysOveride,   //系统速度 UINT
+	ActData_GroupSet,   //每组测试胶囊数量 UINT
+	ActData_GroupCounter,   //组落料数量 UINT
+	ActData_TestInterval,   //测试间隔时间单位s UINT
+	ActData_TOverload,   //超重重量g REAL
+	ActData_TOverload_Reserve,
+	ActData_TUnderload,   //超轻重量g REAL
+	ActData_TUnderload_Reserve,
+	ActData_TDemand,   //期望重量g REAL
+	ActData_TDemand_Reserve,
+	ActData_InterOverLoad,   //内控线，上限 REAL
+	ActData_InterOverLoad_Reserve,
+	ActData_InterUnderLoad,   //内控线，下限 REAL
+	ActData_InterUnderLoad_Reserve,
+
+	ActData_UserAnalogoutput,   //用户模拟量输入 REAL
+	ActData_UserAnalogoutput_Reserve,
+	ActData_Adjustvalue,   //自动调整系数 REAL
+	ActData_Adjustvalue_Reserve,
+	ActData_DeltaInput,   //装量调整偏差值 UDINT
+	ActData_DeltaInput_Reserve,
+
+	ActData_HMU_Zero,   //硬度测试传感器零点 DINT
+	ActData_HMU_Zero_Reserve,
+	ActData_HMU_K,   //硬度测试K REAL
+	ActData_HMU_K_Reserve,
+	ActData_TMU_Zero,   //厚度测试传感器零点 DINT
+	ActData_TMU_Zero_Reserve,
+	ActData_TMU_K,   //厚度测试K REAL
+	ActData_TMU_K_Reserve,
+
+	ActData_SetPillDiam,   //设定片径 REAL
+	ActData_SetPillDiam_Reserve,
+	ActData_PillDiamOffset,   //片径计算偏差 REAL
+	ActData_PillDiamOffset_Reserve,
+
+	ActData_HardnessChkNum,   //硬度检测设定数量 UINT
+	ActData_RecipeNo,   //配方号 UINT
+	ActData_reserve,   // UINT
+	ActData_ThickUpperLimit,   //厚度上限 REAL
+	ActData_ThickUpperLimit_Reserve,
+	ActData_ThickUnderLimit,   //厚度下限 REAL
+	ActData_ThickUnderLimit_Reserve,
+
+	HMU_paraCalibForce,   //校正推力 REAL
+	HMU_paraCalibForce_Reserve,
+	TMU_calibThickness,   //校正厚度单位mm REAL
+	TMU_calibThickness_Reserve,
+
+	System_enable,    //读取与保存 UINT
+	System_StopSignalDelay,    //连续几次超重或超轻后输出停机信号 UINT
+	System_paraTurnUpSpd,    //翻板上速度 UINT
+	System_paraTurnDnSpd,    //翻板下速度 UINT
+	System_s_trg_stop0,    //落料零点偏移 REAL
+	System_s_trg_stop0_Reserve,
+	System_s_trg_stop1,    //转盘零点偏移 REAL
+	System_s_trg_stop1_Reserve,
+	System_s_trg_stop2,    //翻板零点偏移 REAL
+	System_s_trg_stop2_Reserve,
+	System_s_trg_stop3,    //推杆零点偏移 REAL
+	System_s_trg_stop3_Reserve,
+
+	System_FeedTimeOut,    //下料超时时间,单位s REAL
+	System_FeedTimeOut_Reserve,
+	System_CapPickInterval,    //自动取料周期,单位s REAL
+	System_CapPickInterval_Reserve,
+	System_CapBackInterval,    //成品返还周期,单位s REAL
+	System_CapBackInterval_Reserve,
+	System_TireDelay,    //去皮延迟启动时间,单位s REAL
+	System_TireDelay_Reserve,
+	System_ReadDelay,    //读数延迟启动时间,单位s REAL
+	System_ReadDelay_Reserve,
+	System_TireWaitTime,    //去皮等待时间,单位s REAL
+	System_TireWaitTime_Reserve,
+	System_paraTurnUpPosition,    //翻板上位置 DINT
+	System_paraTurnUpPosition_Reserve,
+	System_paraTurnDnPosition,    //翻板下位置 DINT
+	System_paraTurnDnPosition_Reserve,
+	System_paraPushDestPosition,    //压片送进最大位置 DINT
+	System_paraPushDestPosition_Reserve,
+	System_ForceThresholdSlow,    //压力阈值1,检测到此压力后,减速 REAL
+	System_ForceThresholdSlow_Reserve,
+	System_CapThickValve_t1,    //测厚气缸动作延迟 REAL
+	System_CapThickValve_t1_Reserve,
+	System_CapThickValve_t2,    //测厚气缸复位延迟 REAL
+	System_CapThickValve_t2_Reserve,
+	System_CapTurnValve_t1,    //整形升降气缸动作延迟 REAL
+	System_CapTurnValve_t1_Reserve,
+	System_CapTurnValve_t2,    //整形升降气缸复位延迟 REAL
+	System_CapTurnValve_t2_Reserve,
+	
+	System_HMU_Zero,    //硬度测试传感器零点 DINT
+	System_HMU_Zero_Reserve,
+	System_HMU_K,    //硬度测试K REAL
+	System_HMU_K_Reserve,
+	System_TMU_Zero,    //厚度测试传感器零点 DINT
+	System_TMU_Zero_Reserve,
+	System_TMU_K,    //厚度测试K REAL
+	System_TMU_K_Reserve,
+	System_SetPillDiam,    //设定片径 REAL
+	System_SetPillDiam_Reserve,
+	System_PillDiamOffset,    //片径计算偏差 REAL
+	System_PillDiamOffset_Reserve,
+
+	System_HMU_PressStopPercent,    //硬度测量，停止压片比例，百分比10-100 REAL
+	System_HMU_PressStopPercent_Reserve,
+	System_PrintIntervel,    //用户定义打印时间间隔(分钟) REAL
+	System_PrintIntervel_Reserve,
+	System_RejectBoxFullNum,    //剔废盒满数量 DINT
+	System_RejectBoxFullNum_Reserve,
+	Scale_Result,  //读数 REAL
+	Scale_Result_Reserve,
+};
+
+enum MODBUSTCPCOILS
+{
+	Alarm1 = 1, Alarm2, Alarm3, Alarm4, Alarm5, Alarm6, Alarm7, Alarm8, Alarm9, Alarm10,
+	Alarm11, Alarm12, Alarm13, Alarm14, Alarm15, Alarm16, Alarm17, Alarm18, Alarm19, Alarm20,
+	Alarm21, Alarm22, Alarm23, Alarm24, Alarm25, Alarm26, Alarm27, Alarm28, Alarm29, Alarm30,
+	Alarm31, Alarm32, Alarm33, Alarm34, Alarm35, Alarm36, Alarm37, Alarm38, Alarm39, Alarm40,
+	Alarm41, Alarm42, Alarm43, Alarm44, Alarm45, Alarm46, Alarm47, Alarm48, Alarm49, Alarm50,
+
+	Input_FeedTrigger,    //胶囊下落检测 BOOL
+	Input_PressTrigger,    //硬度检测位置零位 BOOL
+	Input_stCapThickValve,     //厚度气缸BOOL
+	Input_stCapTurnValve,     //硬度气缸BOOL
+	Input_SwingTrigger,    //摆臂位置检测 BOOL
+	Input_TouchCalib,    //启动触摸屏校正 BOOL
+	Input_TurnTrigger,    //翻板位置零位 BOOL
+	
+	DTChanged,  //HMI设定更改时间
+	ActData_enHMU,   //硬度检测使能 BOOL
+	ActData_enTMU,   //厚度检测使能 BOOL
+	HMU_cmdStart,   //启动硬度测试 BOOL
+	HMU_cmdStop,   //停止 BOOL
+	HMU_cmdHome,   //硬度测试系统寻参 BOOL
+	HMU_cmdZero,   //设定零点 BOOL
+	HMU_cmdCalibStd,   //校正标准 BOOL
+	HMU_cmdTurn,   //翻片 BOOL
+	HMU_cmdReject,   //剔废用 BOOL
+	Machine_cmdStart,   //启动 BOOL
+	Machine_cmdEStop,   //停止 BOOL
+	TMU_cmdStart,   //启动厚度测试 BOOL
+	TMU_cmdStop,   //停止 BOOL
+	TMU_cmdZero,   //设定零点 BOOL
+	TMU_cmdCalib,   //校正标准 BOOL
+	AlarmReset,    //BOOL
+	cmdFeedSingle,   //落料 BOOL
+	cmdFeedFive,   //连续落料5 BOOL
+	cmdFeedSingleStop,   //落料停止 BOOL
+	cmdSwing,   //转盘旋转一工位 BOOL
+	SetCounterZero,   //计数清零 BOOL
+	cmdCapClean,   //胶囊返还 BOOL
+	cmdGetCap,   //取囊，返囊动作 BOOL
+	cmdSetIP,   //设定ip命令 BOOL
+	FeedDone,    //BOOL
+	CmdAlogtest,   //模拟量测试 BOOL
+	cmdFeedAmount,   //下N粒命令 BOOL
+	
+	
+	Output_CapGet,       //取料电磁铁    BOOL
+	Output_AlarmOut,       //报警蜂鸣器    BOOL
+	Output_StopSignal,       //停机信号    BOOL
+	Output_AlarmSignal,       //报警输出    BOOL
+	Output_YellowAlarmout,       //黄灯报警    BOOL
+	Output_Baffle,       //挡板    BOOL
+	Output_CapTurnValve,       //整形升降气缸    BOOL
+	Output_CapThickValve,       //测厚升降气缸    BOOL
+	
+	axis_fun_axis0_com_rel_pos_start,     //落料步进
+	axis_fun_axis0_com_jog_pos,     //落料正向点动
+	axis_fun_axis0_com_jog_neg,     //落料反向点动
+	axis_fun_axis0_com_pos_move,     //落料正向连续
+	cmdFeedStop,     //落料停止 changed from cmdFeedSingleStop zxc
+	axis_fun_axis1_com_rel_pos_start,     //转盘步进
+	axis_fun_axis1_com_jog_pos,     //转盘正向点动
+	axis_fun_axis1_com_jog_neg,     //转盘反向点动
+	axis_fun_axis1_com_pos_move,     //转盘正向连续
+	axis_fun_axis1_com_stop_move,     //转盘停止
+	axis_fun_axis2_com_jog_neg,     //翻转反转
+	axis_fun_axis2_com_jog_pos,     //翻转正转
+	axis_fun_axis3_com_jog_neg,     //压片反转
+	axis_fun_axis3_com_jog_pos,     //压片正转
+};
 #define			MAX_PULSE_SERVO		2
 typedef struct
 {
@@ -231,7 +470,7 @@ typedef struct
 	unsigned char		cmdAxisSwingStopMov;			//旋转停止运动，1:执行，自动复位
 
 	unsigned char		cmdFeedSingle;					//单粒下料，1:执行，自动复位
-	unsigned char		cmdFeedSingleStop;				//单粒下料停止，1:执行，自动复位
+	//unsigned char		cmdFeedSingleStop;				//单粒下料停止，1:执行，自动复位
 
 	unsigned char		cmdSwing;						//旋转单工位,1:执行，自动复位
 	unsigned char		cmdStart;						//启动称重，1:执行，自动复位
