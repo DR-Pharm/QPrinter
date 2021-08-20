@@ -133,8 +133,8 @@ private:
 	QString m_gn1;
 	QString m_gn2;
 
-	int COILS = 120;
-	int REGISTERS = 240;
+	int COILS = 120;//字节数
+	int REGISTERS = 240;//字节数
 	quint16 *dtcoils;
 	quint16 *dtregisters;
 	quint16 *m_Coils_Bufer = new quint16[COILS+1];
