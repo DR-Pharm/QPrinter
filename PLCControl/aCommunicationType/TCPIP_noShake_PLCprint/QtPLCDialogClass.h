@@ -175,7 +175,6 @@ public slots:
 	//void on_lE_Feed_shakeoffset_editingFinished();
 	void on_lE_FeedTimeOut_editingFinished();
 	void on_lE_CapPickInterval_editingFinished();
-	void on_lE_CapBackInterval_editingFinished();
 	void on_lE_TireDelay_editingFinished();
 	void on_lE_ReadDelay_editingFinished();
 	void on_lE_TireWaitTime_editingFinished();

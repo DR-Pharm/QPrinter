@@ -1114,10 +1114,6 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->setText(QString::number(m_data->Machine_Para.CapPickInterval, 'f', 2));
 	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->setText(QString::number(m_data->Machine_Para.CapBackInterval, 'f', 2));
-	}
 
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->hasFocus())
 	{
@@ -1779,26 +1775,6 @@ void QtPLCDialogClass::on_lE_CapPickInterval_editingFinished()
 	((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->blockSignals(false);
 }
-void QtPLCDialogClass::on_lE_CapBackInterval_editingFinished()
-{
-	QString oldstr = QString::number(m_data->Machine_Para.CapBackInterval, 'f', 2);
-	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->text();
-	if (oldstr == str)
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->clearFocus();
-		((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->blockSignals(false);
-		return;
-	}
-	DataFromPC_typ typ;
-	typ = getPCParaData();
-	typ.Telegram_typ = 2;
-	typ.Machine_Para.CapBackInterval = ((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->text().toFloat();
-	m_socket->Communicate_PLC(&typ, nullptr);
-	((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->blockSignals(true);
-	((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->clearFocus();
-	((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->blockSignals(false);
-}
 
 void QtPLCDialogClass::on_lE_TireDelay_editingFinished()
 {
@@ -2263,7 +2239,6 @@ void QtPLCDialogClass::ChangeLanguage()
 		((Ui::QtPLCDialogClass*)ui)->label_42->setText("Wait(s)");
 		((Ui::QtPLCDialogClass*)ui)->label_31->setText("Rotate Offset(p)");
 		((Ui::QtPLCDialogClass*)ui)->label_4->setText("Overtime(s)");
-		((Ui::QtPLCDialogClass*)ui)->label_5->setText("Return(s)");
 		((Ui::QtPLCDialogClass*)ui)->label_41->setText("Read Delay(s)");
 		((Ui::QtPLCDialogClass*)ui)->label_44->setText("Overrun Shutdown");
 		((Ui::QtPLCDialogClass*)ui)->pB_Read1->setText("Read");
