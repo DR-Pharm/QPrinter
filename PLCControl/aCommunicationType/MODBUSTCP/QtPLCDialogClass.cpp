@@ -1141,6 +1141,15 @@ void QtPLCDialogClass::getPLCHolding(void*data)
 	}
 	m_InputFlag = 1;
 
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_Finished->hasFocus())
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_Finished->setText(QString::number(m_Input_Bufer[GroupDone]));
+	}
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_GroupSum->hasFocus())
+	{
+		float hex_res = hexTofloat(ActData_GroupSum);
+		((Ui::QtPLCDialogClass*)ui)->lE_GroupSum->setText(QString::number(hex_res));
+	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_FeedCounter->hasFocus())
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_FeedCounter->setText(QString::number(m_Input_Bufer[FeedCounter]));
@@ -2442,13 +2451,14 @@ void QtPLCDialogClass::getPLCData(void* data)
 		}
 	}
 
+	float f_Groupsum = hexTofloat(ActData_GroupSum);
 	if (((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->isChecked())
 	{
-		if (m_data->ActData.GroupSum!=0)
+		if (f_Groupsum !=0)
 		{
-			if (m_data->ActData.GroupSum != sumNo)
+			if (f_Groupsum != sumNo)
 			{
-				sumNo = m_data->ActData.GroupSum - sumNo;
+				sumNo = f_Groupsum - sumNo;
 				if (m_row==0)
 				{
 					mi = sumNo;
@@ -2490,7 +2500,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 					((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->setBackground(QBrush(QColor(0, 255, 0)));//green
 				}
 				//((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->setFlags(((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->flags() & (~Qt::ItemIsSelectable));
-				sumNo = m_data->ActData.GroupSum;
+				sumNo = f_Groupsum;
 
 
 					if (data_One.size() < 7)
@@ -2524,10 +2534,10 @@ void QtPLCDialogClass::getPLCData(void* data)
 			}
 		}
 
-		if (m_data->Status.Finished==1)
+		if (m_Input_Bufer[GroupDone] ==1)
 		{
 			m_row = 0;
-			sumNo = m_data->ActData.GroupSum;
+			sumNo = f_Groupsum;
 			if (data_One.size() > 0)
 			{
 				QString str = "";
@@ -2542,12 +2552,13 @@ void QtPLCDialogClass::getPLCData(void* data)
 						str += QString::number(data_One.at(i));
 					}
 				}
+				QString s_GroupNo = ((Ui::QtPLCDialogClass*)ui)->lE_GroupNo->text();
 				QString ymdhm = YearMonthDay();
 				QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
-				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo)+ "/data", str);
-				QString lkstr = QString::number(m_data->Status.CapDataDisp.GroupNo) + "," + ymdhm + "," + ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text();
-				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/gn", lkstr);
-				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/theory", QString::number(m_data->ActData.TDemand, 'f', 3));
+				configIniRead.setValue(s_GroupNo + "/data", str);
+				QString lkstr = s_GroupNo + "," + ymdhm + "," + ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text();
+				configIniRead.setValue(s_GroupNo + "/gn", lkstr);
+				configIniRead.setValue(s_GroupNo + "/theory", QString::number(((Ui::QtPLCDialogClass*)ui)->lE_TDemand->text().toFloat(), 'f', 3));
 
 				QSettings timIni(AppPath + "\\data\\time.ini", QSettings::IniFormat);
 				QString str1tmp = ymdhm.mid(0, 10);
@@ -2555,14 +2566,14 @@ void QtPLCDialogClass::getPLCData(void* data)
 				QString str2tmp = ymdhm.remove("/");
 				str2tmp.remove(" ");
 				str2tmp.remove(":");
-				timIni.setValue(str1tmp + "/"+ str2tmp, QString::number(m_data->Status.CapDataDisp.GroupNo));
+				timIni.setValue(str1tmp + "/"+ str2tmp, s_GroupNo);
 
 				data_One.clear();
 
 				if (!((Ui::QtPLCDialogClass*)ui)->lE_print1->hasFocus() && !((Ui::QtPLCDialogClass*)ui)->lE_print2->hasFocus())
 				{
-					((Ui::QtPLCDialogClass*)ui)->lE_print1->setText(QString::number(m_data->Status.CapDataDisp.GroupNo - 1));
-					((Ui::QtPLCDialogClass*)ui)->lE_print2->setText(QString::number(m_data->Status.CapDataDisp.GroupNo));
+					((Ui::QtPLCDialogClass*)ui)->lE_print1->setText(QString::number(s_GroupNo.toInt() - 1));
+					((Ui::QtPLCDialogClass*)ui)->lE_print2->setText(s_GroupNo);
 				}
 			}
 		}

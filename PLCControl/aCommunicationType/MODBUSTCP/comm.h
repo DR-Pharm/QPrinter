@@ -40,6 +40,11 @@ enum MODBUSTCPREGISTERS
 	DTPLC_month,    // UINT
 	DTPLC_year,    // UINT
 	DTPLC_weekday,    // UINT
+	GroupDone, //本组结束 UINT
+	ActData_GroupSum,    //总重 LREAL
+	ActData_GroupSum_Reserve1,    //总重 LREAL
+	ActData_GroupSum_Reserve2,    //总重 LREAL
+	ActData_GroupSum_Reserve3,    //总重 LREAL
 	FeedCounter,   //已经落料数量，针对cmdFeedFive命令 UINT
 	ActData_ThickRejectCount,   //厚度剔废计数器 UDINT
 	ActData_ThickRejectCount_Reserve,
@@ -79,11 +84,8 @@ enum MODBUSTCPREGISTERS
 	HMU_ResultDiam_Reserve,
 	HMU_ActForce,   //当前硬度单位N REAL
 	HMU_ActForce_Reserve,
-	Machine_step2,   //运行步骤 UINT changed from EStop zxc
 	TMU_ThicknessResult,   //厚度结果 REAL
 	TMU_ThicknessResult_Reserve,
-	WeightResult,   //曲线料重值 REAL
-	WeightResult_Reserve,
 	AlarmStatus,   //报警状态 UINT
 
 	ActData_SysOveride,   //系统速度 UINT

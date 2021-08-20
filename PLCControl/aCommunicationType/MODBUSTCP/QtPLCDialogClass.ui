@@ -6446,7 +6446,7 @@ font: 18pt &quot;幼圆&quot;;</string>
             <number>0</number>
            </property>
            <item>
-            <widget class="QLineEdit" name="lE_Finished_2">
+            <widget class="QLineEdit" name="lE_Finished">
              <property name="enabled">
               <bool>false</bool>
              </property>
