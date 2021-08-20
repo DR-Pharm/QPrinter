@@ -831,11 +831,11 @@ void QtPLCDialogClass::getPLCData(void* data)
 				((Ui::QtPLCDialogClass*)ui)->tableWidget->setVerticalHeaderItem(0, new QTableWidgetItem(QString::number(++m_row)));
 				((Ui::QtPLCDialogClass*)ui)->tableWidget->setItem(0, 0, new QTableWidgetItem(QString::number(sumNo)));
 				((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->setFlags(((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->flags() & (~Qt::ItemIsEditable));
-				if (sumNo <= m_data->ActData.TUnderload || sumNo >= m_data->ActData.TOverload)
+				if (sumNo < m_data->ActData.TUnderload || sumNo > m_data->ActData.TOverload)
 				{
 					((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->setBackground(QBrush(QColor(255, 0, 0)));//red
 				}
-				else if (((sumNo > m_data->ActData.TUnderload) && (sumNo < m_data->ActData.TUnderload)) || ((sumNo > m_data->ActData.TOverload) && (sumNo < m_data->ActData.TOverload)))
+				else if (((sumNo >= m_data->ActData.TUnderload) && (sumNo < m_data->ActData.InterUnderLoad)) || ((sumNo >= m_data->ActData.InterOverLoad) && (sumNo < m_data->ActData.TOverload)))
 				{
 					((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->setBackground(QBrush(QColor(255, 255, 0)));//yellow
 				}

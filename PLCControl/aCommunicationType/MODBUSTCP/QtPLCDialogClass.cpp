@@ -1159,11 +1159,19 @@ void QtPLCDialogClass::getPLCHolding(void*data)
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_GroupNo->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_GroupNo->setText(QString::number(m_Input_Bufer[ActData_GroupNo] + m_Input_Bufer[ActData_GroupNo+1] * 256));
+		((Ui::QtPLCDialogClass*)ui)->lE_GroupNo->setText(QString::number(m_Input_Bufer[ActData_GroupNo] + m_Input_Bufer[ActData_GroupNo + 1] * 256));
+	}
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_GroupNo_2->hasFocus())
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_GroupNo_2->setText(QString::number(m_Input_Bufer[ActData_GroupNo] + m_Input_Bufer[ActData_GroupNo + 1] * 256));
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_GroupIndex->hasFocus())
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_GroupIndex->setText(QString::number(m_Input_Bufer[ActData_GroupIndex] + m_Input_Bufer[ActData_GroupIndex + 1] * 256));
+	}
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_GroupIndex_2->hasFocus())
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_GroupIndex_2->setText(QString::number(m_Input_Bufer[ActData_GroupIndex] + m_Input_Bufer[ActData_GroupIndex + 1] * 256));
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_MachineStep->hasFocus())
 	{
@@ -2433,9 +2441,6 @@ void QtPLCDialogClass::getPLCData(void* data)
 			m_str_sendCoils.replace(axis_fun_axis3_com_jog_pos, 1, "0");
 		}
 	}
-#pragma endregion
-
-#else
 
 	if (((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->isChecked())
 	{
@@ -2467,11 +2472,16 @@ void QtPLCDialogClass::getPLCData(void* data)
 				((Ui::QtPLCDialogClass*)ui)->tableWidget->setVerticalHeaderItem(0, new QTableWidgetItem(QString::number(++m_row)));
 				((Ui::QtPLCDialogClass*)ui)->tableWidget->setItem(0, 0, new QTableWidgetItem(QString::number(sumNo)));
 				((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->setFlags(((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->flags() & (~Qt::ItemIsEditable));
-				if (sumNo <= m_data->ActData.TUnderload || sumNo >= m_data->ActData.TOverload)
+
+				float f1 = ((Ui::QtPLCDialogClass*)ui)->lE_TUnderload->text().toFloat();
+				float f2 = ((Ui::QtPLCDialogClass*)ui)->lE_TOverload->text().toFloat();
+				float f3 = ((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->text().toFloat();
+				float f4 = ((Ui::QtPLCDialogClass*)ui)->lE_InterOverLoad->text().toFloat();
+				if (sumNo < f1 || sumNo > f2)
 				{
 					((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->setBackground(QBrush(QColor(255, 0, 0)));//red
 				}
-				else if (((sumNo > m_data->ActData.TUnderload) && (sumNo < m_data->ActData.TUnderload)) || ((sumNo > m_data->ActData.TOverload) && (sumNo < m_data->ActData.TOverload)))
+				else if (((sumNo >= f1) && (sumNo < f3)) || ((sumNo > m_data->f4) && (sumNo <= f2)))
 				{
 					((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->setBackground(QBrush(QColor(255, 255, 0)));//yellow
 				}
