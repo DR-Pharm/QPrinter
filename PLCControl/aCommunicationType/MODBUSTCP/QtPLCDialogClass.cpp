@@ -2481,7 +2481,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 				{
 					((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->setBackground(QBrush(QColor(255, 0, 0)));//red
 				}
-				else if (((sumNo >= f1) && (sumNo < f3)) || ((sumNo > m_data->f4) && (sumNo <= f2)))
+				else if (((sumNo >= f1) && (sumNo < f3)) || ((sumNo >f4) && (sumNo <= f2)))
 				{
 					((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->setBackground(QBrush(QColor(255, 255, 0)));//yellow
 				}
