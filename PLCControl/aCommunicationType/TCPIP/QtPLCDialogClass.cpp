@@ -1811,29 +1811,55 @@ void QtPLCDialogClass::on_lE_MultiCount_editingFinished()///测试间隔时间,�
 
 	showWindowOut(QString::fromLocal8Bit("落多粒数\n已更改!"));
 }
+void QtPLCDialogClass::on_lE_BatchName_textChanged(const QString &arg1)
+{
+	if (arg1=="")
+	{
+		QString oldstr = QString(QLatin1String(m_data->ActData.BatchName));
+		QString str = ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text();
+			if (oldstr == str)
+			{
+				((Ui::QtPLCDialogClass*)ui)->lE_BatchName->blockSignals(true);
+				((Ui::QtPLCDialogClass*)ui)->lE_BatchName->clearFocus();
+				((Ui::QtPLCDialogClass*)ui)->lE_BatchName->blockSignals(false);
+				return;
+			}
+			DataFromPC_typ typ;
+			typ = getPCRunData();
+			typ.Telegram_typ = 4;
+			QByteArray ba = str.toLatin1();
+			char *c = ba.data();
+			strcpy(typ.ActData.BatchName, c);
+			m_socket->Communicate_PLC(&typ, nullptr);
+		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->blockSignals(false);
+	}
+}
 void QtPLCDialogClass::on_lE_BatchName_editingFinished()//批号字符串
 {
 	QString oldstr = QString(QLatin1String(m_data->ActData.BatchName));
 	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text();
-	if (oldstr == str)
+	if (str != "")
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->clearFocus();
-		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->blockSignals(false);
-		return;
+		if (oldstr == str)
+		{
+			((Ui::QtPLCDialogClass*)ui)->lE_BatchName->blockSignals(true);
+			((Ui::QtPLCDialogClass*)ui)->lE_BatchName->clearFocus();
+			((Ui::QtPLCDialogClass*)ui)->lE_BatchName->blockSignals(false);
+			return;
+		}
+		DataFromPC_typ typ;
+		typ = getPCRunData();
+		typ.Telegram_typ = 4;
+		QByteArray ba = str.toLatin1();
+		char *c = ba.data();
+		strcpy(typ.ActData.BatchName, c);
+		m_socket->Communicate_PLC(&typ, nullptr);
 	}
-	DataFromPC_typ typ;
-	typ = getPCRunData();
-	typ.Telegram_typ = 4;
-	QByteArray ba = str.toLatin1();
-	char *c = ba.data();
-	strcpy(typ.ActData.BatchName, c);
-	m_socket->Communicate_PLC(&typ, nullptr);
 	((Ui::QtPLCDialogClass*)ui)->lE_BatchName->blockSignals(true);
 	((Ui::QtPLCDialogClass*)ui)->lE_BatchName->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_BatchName->blockSignals(false);
-
-	showWindowOut(QString::fromLocal8Bit("生产批号\n已更改!"));
 }
 void QtPLCDialogClass::on_cB_Feedmode_currentIndexChanged(int index)//0:每组去皮重,1:每次称重去皮重
 {
