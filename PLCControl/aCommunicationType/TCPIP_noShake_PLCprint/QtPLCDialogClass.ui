@@ -301,50 +301,6 @@
                </widget>
               </item>
               <item row="0" column="1">
-               <widget class="QPushButton" name="pb_cmdChannelSwith">
-                <property name="minimumSize">
-                 <size>
-                  <width>250</width>
-                  <height>44</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>127</width>
-                  <height>44</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>通道切换</string>
-                </property>
-                <property name="checkable">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="2">
-               <widget class="QPushButton" name="pb_cmdVaccum">
-                <property name="minimumSize">
-                 <size>
-                  <width>250</width>
-                  <height>44</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>127</width>
-                  <height>44</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>真空发生器</string>
-                </property>
-                <property name="checkable">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
                <widget class="QPushButton" name="pb_cmdCapGet">
                 <property name="minimumSize">
                  <size>
@@ -366,7 +322,7 @@
                 </property>
                </widget>
               </item>
-              <item row="1" column="1">
+              <item row="0" column="2">
                <widget class="QPushButton" name="pb_cmdCapGetValve">
                 <property name="minimumSize">
                  <size>
@@ -388,7 +344,7 @@
                 </property>
                </widget>
               </item>
-              <item row="1" column="2">
+              <item row="1" column="0">
                <widget class="QPushButton" name="pb_cmdCapBackValve">
                 <property name="minimumSize">
                  <size>
@@ -410,7 +366,7 @@
                 </property>
                </widget>
               </item>
-              <item row="2" column="0">
+              <item row="1" column="1">
                <widget class="QPushButton" name="pb_cmdAlarmOut">
                 <property name="minimumSize">
                  <size>
@@ -432,7 +388,7 @@
                 </property>
                </widget>
               </item>
-              <item row="2" column="1">
+              <item row="1" column="2">
                <widget class="QPushButton" name="pb_cmdStopSignal">
                 <property name="minimumSize">
                  <size>
@@ -454,7 +410,7 @@
                 </property>
                </widget>
               </item>
-              <item row="2" column="2">
+              <item row="2" column="0">
                <widget class="QPushButton" name="pb_cmdAlarmSignal">
                 <property name="minimumSize">
                  <size>
@@ -476,7 +432,7 @@
                 </property>
                </widget>
               </item>
-              <item row="3" column="0">
+              <item row="2" column="1">
                <widget class="QPushButton" name="pb_cmdBaffle">
                 <property name="minimumSize">
                  <size>
@@ -3462,7 +3418,7 @@ font: 18pt &quot;幼圆&quot;;</string>
        </property>
        <layout class="QGridLayout" name="gridLayout_10">
         <item row="1" column="0">
-         <widget class="QLabel" name="label_10">
+         <widget class="QLabel" name="label_39">
           <property name="minimumSize">
            <size>
             <width>140</width>
@@ -3484,68 +3440,8 @@ font: 18pt &quot;幼圆&quot;;</string>
            </font>
           </property>
           <property name="text">
-           <string>通过计数</string>
+           <string>称重计数</string>
           </property>
-         </widget>
-        </item>
-        <item row="3" column="6">
-         <widget class="QFrame" name="frame_22">
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(235, 235, 235);</string>
-          </property>
-          <property name="frameShape">
-           <enum>QFrame::Panel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <property name="lineWidth">
-           <number>3</number>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_27">
-           <property name="leftMargin">
-            <number>0</number>
-           </property>
-           <property name="topMargin">
-            <number>0</number>
-           </property>
-           <property name="rightMargin">
-            <number>0</number>
-           </property>
-           <property name="bottomMargin">
-            <number>0</number>
-           </property>
-           <item>
-            <widget class="QLineEdit" name="lE_MachineStep">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <family>Arial Black</family>
-               <pointsize>19</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
-             <property name="text">
-              <string>0</string>
-             </property>
-             <property name="frame">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-          </layout>
          </widget>
         </item>
         <item row="11" column="6">
@@ -3663,7 +3559,7 @@ font: 18pt &quot;幼圆&quot;;</string>
             <number>0</number>
            </property>
            <item>
-            <widget class="QLineEdit" name="lE_ProdCount">
+            <widget class="QLineEdit" name="lE_MachineStep">
              <property name="enabled">
               <bool>false</bool>
              </property>
@@ -3693,33 +3589,6 @@ font: 18pt &quot;幼圆&quot;;</string>
             </widget>
            </item>
           </layout>
-         </widget>
-        </item>
-        <item row="3" column="4">
-         <widget class="QLabel" name="label_50">
-          <property name="minimumSize">
-           <size>
-            <width>140</width>
-            <height>35</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>140</width>
-            <height>35</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>宋体</family>
-            <pointsize>20</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>步骤</string>
-          </property>
          </widget>
         </item>
         <item row="6" column="2">
@@ -3763,7 +3632,7 @@ font: 18pt &quot;幼圆&quot;;</string>
             <number>0</number>
            </property>
            <item>
-            <widget class="QLineEdit" name="lE_PassCount">
+            <widget class="QLineEdit" name="lE_ProdCount">
              <property name="enabled">
               <bool>false</bool>
              </property>
@@ -4073,7 +3942,7 @@ font: 18pt &quot;幼圆&quot;;</string>
          </spacer>
         </item>
         <item row="3" column="0">
-         <widget class="QLabel" name="label_39">
+         <widget class="QLabel" name="label_50">
           <property name="minimumSize">
            <size>
             <width>140</width>
@@ -4095,7 +3964,7 @@ font: 18pt &quot;幼圆&quot;;</string>
            </font>
           </property>
           <property name="text">
-           <string>称重计数</string>
+           <string>步骤</string>
           </property>
          </widget>
         </item>

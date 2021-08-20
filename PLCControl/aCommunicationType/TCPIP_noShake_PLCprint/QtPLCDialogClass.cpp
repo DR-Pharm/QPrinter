@@ -546,7 +546,6 @@ void QtPLCDialogClass::initUI()
 		((Ui::QtPLCDialogClass*)ui)->label_79->setPixmap(QPixmap(AppPath + "/ico/fontImage/dqzh.png"));
 		((Ui::QtPLCDialogClass*)ui)->label_78->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_78.png"));
 		((Ui::QtPLCDialogClass*)ui)->label_80->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_80.png"));
-		((Ui::QtPLCDialogClass*)ui)->label_10->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_10.png"));
 		((Ui::QtPLCDialogClass*)ui)->label_39->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_39.png"));
 		((Ui::QtPLCDialogClass*)ui)->label_50->setPixmap(QPixmap(AppPath + "/ico/fontImage/yxbz.png"));
 		((Ui::QtPLCDialogClass*)ui)->label_49->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_49.png")); 
@@ -561,7 +560,6 @@ void QtPLCDialogClass::initUI()
 		((Ui::QtPLCDialogClass*)ui)->label_79->setPixmap(QPixmap(AppPath + "/ico/fontImage/E/dqzh.png"));
 		((Ui::QtPLCDialogClass*)ui)->label_78->setPixmap(QPixmap(AppPath + "/ico/fontImage/E/label_78.png"));
 		((Ui::QtPLCDialogClass*)ui)->label_80->setPixmap(QPixmap(AppPath + "/ico/fontImage/E/label_80.png"));
-		((Ui::QtPLCDialogClass*)ui)->label_10->setPixmap(QPixmap(AppPath + "/ico/fontImage/E/label_10.png"));
 		((Ui::QtPLCDialogClass*)ui)->label_39->setPixmap(QPixmap(AppPath + "/ico/fontImage/E/label_39.png"));
 		((Ui::QtPLCDialogClass*)ui)->label_50->setPixmap(QPixmap(AppPath + "/ico/fontImage/E/yxbz.png"));
 		((Ui::QtPLCDialogClass*)ui)->label_49->setPixmap(QPixmap(AppPath + "/ico/fontImage/E/label_49.png"));
@@ -574,7 +572,6 @@ void QtPLCDialogClass::initUI()
 	((Ui::QtPLCDialogClass*)ui)->label_79->setScaledContents(true);
 	((Ui::QtPLCDialogClass*)ui)->label_78->setScaledContents(true);
 	((Ui::QtPLCDialogClass*)ui)->label_80->setScaledContents(true);
-	((Ui::QtPLCDialogClass*)ui)->label_10->setScaledContents(true);
 	((Ui::QtPLCDialogClass*)ui)->label_39->setScaledContents(true);
 	((Ui::QtPLCDialogClass*)ui)->label_50->setScaledContents(true);
 	((Ui::QtPLCDialogClass*)ui)->label_49->setScaledContents(true);
@@ -803,11 +800,6 @@ void QtPLCDialogClass::getPLCData(void* data)
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->hasFocus())//系统速度，0-10000对应0-100%
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->setText(QString::number(m_data->ActData.SysOveride / 100));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_PassCount->hasFocus())//通过计数
-	{
-		//((Ui::QtPLCDialogClass*)ui)->lE_PassCount->setText(QString::number(m_data->ActData.PassCount));
-		((Ui::QtPLCDialogClass*)ui)->lE_PassCount->setText(QString::number(m_data->ActData.ProdCount - m_data->ActData.RejectCount));
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_RejectCount->hasFocus())//剔废计数
 	{
@@ -1192,34 +1184,6 @@ void QtPLCDialogClass::getPLCData(void* data)
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->setChecked(false);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->setStyleSheet("font: bold;font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->blockSignals(false);
-	}
-	if (m_data->Outputs.ChannelSwith)	//胶囊通道切换
-	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->blockSignals(false);
-	}
-	else
-	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->setStyleSheet("font: bold;font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->blockSignals(false);
-	}
-	if (m_data->Outputs.Vaccum)//真空发生器
-	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->blockSignals(false);
-	}
-	else
-	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->setStyleSheet("font: bold;font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->blockSignals(false);
 	}
 	if (m_data->Outputs.CapGet)//取料电磁铁
 	{
@@ -2251,8 +2215,6 @@ void QtPLCDialogClass::ChangeLanguage()
 		((Ui::QtPLCDialogClass*)ui)->label_11->setText("Swing Arm");
 		//((Ui::QtPLCDialogClass*)ui)->label_46->setText("Capsule Drop1");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->setText("Reject");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwith->setText("ChannelSwith");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccum->setText("Vaccum");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->setText("CapGet");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->setText("CapGetValve");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValve->setText("CapBackValve");
