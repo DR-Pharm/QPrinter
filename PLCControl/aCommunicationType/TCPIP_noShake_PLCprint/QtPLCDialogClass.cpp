@@ -1195,20 +1195,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->setStyleSheet("font: bold;font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->blockSignals(false);
 	}
-	if (m_data->Outputs.CapGetValve)//取料电磁阀
-	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->blockSignals(false);
-	}
-	else
-	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->setStyleSheet("font: bold;font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->blockSignals(false);
-	}
+
 	if (m_data->Outputs.CapBackValve)//回料电磁阀
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValve->blockSignals(true);
@@ -2192,7 +2179,6 @@ void QtPLCDialogClass::ChangeLanguage()
 		//((Ui::QtPLCDialogClass*)ui)->label_46->setText("Capsule Drop1");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdReject->setText("Reject");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGet->setText("CapGet");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValve->setText("CapGetValve");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValve->setText("CapBackValve");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOut->setText("AlarmOut");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignal->setText("StopSignal");
