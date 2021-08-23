@@ -761,6 +761,7 @@ void QtPLCDialogClass::initUI()
 	{
 		((Ui::QtPLCDialogClass*)ui)->label_15->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_15.png"));
 		((Ui::QtPLCDialogClass*)ui)->label_18->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_18.png"));
+		((Ui::QtPLCDialogClass*)ui)->label_20->setPixmap(QPixmap(AppPath + "/ico/fontImage/tfh.png"));
 		((Ui::QtPLCDialogClass*)ui)->label_79->setPixmap(QPixmap(AppPath + "/ico/fontImage/dqzh.png"));
 		((Ui::QtPLCDialogClass*)ui)->label_78->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_78.png"));
 		((Ui::QtPLCDialogClass*)ui)->label_80->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_80.png"));
@@ -776,6 +777,7 @@ void QtPLCDialogClass::initUI()
 	{
 		((Ui::QtPLCDialogClass*)ui)->label_15->setPixmap(QPixmap(AppPath + "/ico/fontImage/E/label_15.png"));
 		((Ui::QtPLCDialogClass*)ui)->label_18->setPixmap(QPixmap(AppPath + "/ico/fontImage/E/label_18.png"));
+		((Ui::QtPLCDialogClass*)ui)->label_20->setPixmap(QPixmap(AppPath + "/ico/fontImage/E/tfh.png"));
 		((Ui::QtPLCDialogClass*)ui)->label_79->setPixmap(QPixmap(AppPath + "/ico/fontImage/E/dqzh.png"));
 		((Ui::QtPLCDialogClass*)ui)->label_78->setPixmap(QPixmap(AppPath + "/ico/fontImage/E/label_78.png"));
 		((Ui::QtPLCDialogClass*)ui)->label_80->setPixmap(QPixmap(AppPath + "/ico/fontImage/E/label_80.png"));
@@ -789,6 +791,7 @@ void QtPLCDialogClass::initUI()
 	}
 	((Ui::QtPLCDialogClass*)ui)->label_15->setScaledContents(true);
 	((Ui::QtPLCDialogClass*)ui)->label_18->setScaledContents(true);
+	((Ui::QtPLCDialogClass*)ui)->label_20->setScaledContents(true);
 	((Ui::QtPLCDialogClass*)ui)->label_79->setScaledContents(true);
 	((Ui::QtPLCDialogClass*)ui)->label_78->setScaledContents(true);
 	((Ui::QtPLCDialogClass*)ui)->label_80->setScaledContents(true);
@@ -878,7 +881,8 @@ void QtPLCDialogClass::CompareYearMonthDay()
 
 	if (ll1 > ll2)
 	{
-		((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("条件有误!"));
+		if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("条件有误!"));
+		if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("Wrong condition!"));
 		((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(false);
 	}
 	else if (ll1 == ll2)
@@ -887,7 +891,8 @@ void QtPLCDialogClass::CompareYearMonthDay()
 		QString str = timIni.value(str1.mid(8) + "/" + str1, "0").toString();
 		if (str == "0")
 		{
-			((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("该时间不存在数据!"));
+			if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("该时间不存在数据!"));
+			if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("No data exists at this time!"));
 			((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(false);
 		}
 		else
@@ -907,7 +912,8 @@ void QtPLCDialogClass::CompareYearMonthDay()
 		QStringList str2 = timIni.allKeys();    // 获取所有的key
 		if (str2.size() == 0)
 		{
-			((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("该时间段不存在数据!"));
+			if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("该时间段不存在数据!"));
+			if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("No data in the time period!"));
 			((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(false);
 			return;
 		}
@@ -948,18 +954,21 @@ void QtPLCDialogClass::CompareYearMonthDay()
 
 		if (m_gn1 == "")
 		{
-			((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("不存在符合条件的数据!"));
+			if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("不存在符合条件的数据!"));
+			if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("No eligible data!"));
 			((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(false);
 		}
 		else
 		{
 			if (m_gn1 == m_gn2)
 			{
-				((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("符合组号为：") + m_gn1);
+				if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("符合组号为：\n") + m_gn1);
+				if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("Matching group number:\n") + m_gn1);
 			}
 			else
 			{
-				((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("符合组号为：") + m_gn1 + "-" + m_gn2);
+				if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("符合组号为：\n") + m_gn1 + "-" + m_gn2);
+				if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("Matching group number:\n") + m_gn1 + "-" + m_gn2);
 			}
 			((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(true);
 		}
@@ -1089,11 +1098,15 @@ void QtPLCDialogClass::initChartOne()
 	splineSeries->setPointLabelsClipping(false);
 	splineSeries->setPointsVisible(true);
 	splineSeries->setPointLabelsVisible(false);
-	splineSeries->setName(QString::fromLocal8Bit("组重量曲线"));
+	if (lg == 0) splineSeries->setName(QString::fromLocal8Bit("组重量曲线"));
+	if (lg == 1) splineSeries->setName(QString::fromLocal8Bit("Group Data & Curve"));
 
 	chart = new QChart();
 	chart->legend()->hide();
-	chart->setTitle(QString::fromLocal8Bit("组重量曲线"));
+
+	if (lg == 0) chart->setTitle(QString::fromLocal8Bit("组重量曲线"));
+	if (lg == 1) chart->setTitle(QString::fromLocal8Bit("Group Data & Curve"));
+
 
 	chart->addSeries(splineSeries);
 
@@ -4610,7 +4623,7 @@ void QtPLCDialogClass::addUser()
 				if (!((Ui::QtPLCDialogClass*)ui)->lE_SetUserName->text().compare(ad, Qt::CaseInsensitive))
 				{
 					if (lg == 0)showMsgBox("非法修改", "管理员账号不可修改！", "我知道了", "");
-					if (lg == 1)showMsgBox("illegal change", "Admin account can't be changed!", "I know", "");
+					if (lg == 1)showMsgBox("illegal change", "Admin account can't be changed!", "I see", "");
 					return;
 				}
 				if (lg == 0)
@@ -4787,7 +4800,7 @@ void QtPLCDialogClass::pB_ChangeLanguage()
 	if (langu == 0)
 	{
 		configIniRead.setValue("Language/currentLanguage", 1);
-		showMsgBox("Information", "Change to English,\nRestart software then worked!", "I know", "");
+		showMsgBox("Information", "Change to English,\nRestart software then work!", "I see", "");
 	}
 	else
 	{
@@ -4798,6 +4811,16 @@ void QtPLCDialogClass::pB_ChangeLanguage()
 }
 void QtPLCDialogClass::ChangeLanguage()
 {
+	((Ui::QtPLCDialogClass*)ui)->groupBox_11->setTitle("Print");
+	((Ui::QtPLCDialogClass*)ui)->label_36->setText("Search:");
+	((Ui::QtPLCDialogClass*)ui)->label_61->setText("Result:");
+	((Ui::QtPLCDialogClass*)ui)->label_35->setText("GroupNum:");
+	((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setText("Copy in"+QString::fromLocal8Bit("↓"));
+	((Ui::QtPLCDialogClass*)ui)->pB_startSearch->setText("Start Search");
+	((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setText("Print Data&&Curve");
+	((Ui::QtPLCDialogClass*)ui)->label_37->setText("to");
+	((Ui::QtPLCDialogClass*)ui)->label_23->setText("to");
+
 		((Ui::QtPLCDialogClass*)ui)->label_9->setText("GroupNum");
 		((Ui::QtPLCDialogClass*)ui)->label->setText("Times");
 		((Ui::QtPLCDialogClass*)ui)->label_3->setText("Total(g)");
@@ -4806,12 +4829,24 @@ void QtPLCDialogClass::ChangeLanguage()
 		((Ui::QtPLCDialogClass*)ui)->label_34->setText("MaxRatio(%)");
 		((Ui::QtPLCDialogClass*)ui)->label_8->setText("Min(g)");
 		((Ui::QtPLCDialogClass*)ui)->label_29->setText("MinRatio(%)");
+	
 		//输入输出
-		((Ui::QtPLCDialogClass*)ui)->label_40->setText("Drop Check");
+		((Ui::QtPLCDialogClass*)ui)->label_40->setText("Drop detection");
 		((Ui::QtPLCDialogClass*)ui)->label_11->setText("Swing Arm");
+		((Ui::QtPLCDialogClass*)ui)->label_46->setText("Zero position of\nhardness test");
+		//((Ui::QtPLCDialogClass*)ui)->pB_cmdReject->setText("Reject");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGet->setText("CapGet");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValve->setText("Shaping cylinder");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValve->setText("Thickness cylinder");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOut->setText("AlarmOut");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStopSignal->setText("StopSignal");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmSignal->setText("AlarmSignal");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmout->setText("YellowAlarmout");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdBaffle->setText("Baffle");
+		//((Ui::QtPLCDialogClass*)ui)->label_2->setText("Analog Output");
 
 		//下料旋转
-		((Ui::QtPLCDialogClass*)ui)->label_62->setText("Feed Count");
+		((Ui::QtPLCDialogClass*)ui)->label_62->setText("Feed count");
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdAxisFeedJogPos->setText("JogPos");
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdAxisFeedJogNeg->setText("JogNeg");
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdAxisFeedRelMov->setText("RelMov");
@@ -4842,13 +4877,15 @@ void QtPLCDialogClass::ChangeLanguage()
 
 		//系统参数
 		((Ui::QtPLCDialogClass*)ui)->label_26->setText("Feed Offset(p)");
-		((Ui::QtPLCDialogClass*)ui)->label_30->setText("Feed Speed(%)");
+		((Ui::QtPLCDialogClass*)ui)->label_71->setText("Thickness cylinder");
+		((Ui::QtPLCDialogClass*)ui)->label_70->setText("Zero position of\nFlap");
+		((Ui::QtPLCDialogClass*)ui)->label_30->setText("Shaping cylinder");
+		((Ui::QtPLCDialogClass*)ui)->label_64->setText("Swing arm");
 		((Ui::QtPLCDialogClass*)ui)->label_25->setText("Rec Cycle(s)");
 		((Ui::QtPLCDialogClass*)ui)->label_32->setText("Delay(s)");
 		((Ui::QtPLCDialogClass*)ui)->label_42->setText("Wait(s)");
 		((Ui::QtPLCDialogClass*)ui)->label_31->setText("Rotate Offset(p)");
 		((Ui::QtPLCDialogClass*)ui)->label_4->setText("Overtime(s)");
-		((Ui::QtPLCDialogClass*)ui)->label_5->setText("Return(s)");
 		((Ui::QtPLCDialogClass*)ui)->label_41->setText("Read Delay(s)");
 		((Ui::QtPLCDialogClass*)ui)->label_44->setText("Overrun Shutdown");
 		((Ui::QtPLCDialogClass*)ui)->pB_Read1->setText("Read");
@@ -4868,8 +4905,11 @@ void QtPLCDialogClass::ChangeLanguage()
 		((Ui::QtPLCDialogClass*)ui)->pB_Write2->setText("Write");*/
 
 		//运行状态
+		((Ui::QtPLCDialogClass*)ui)->label_19->setText("error code");
 		((Ui::QtPLCDialogClass*)ui)->label_22->setText("MovDistance(p)");
+		((Ui::QtPLCDialogClass*)ui)->label_27->setText("error code");
 		((Ui::QtPLCDialogClass*)ui)->label_28->setText("MovDistance(p)");
+		((Ui::QtPLCDialogClass*)ui)->label_33->setText("Actual Interval Time");
 
 		//用户管理
 		((Ui::QtPLCDialogClass*)ui)->label_68->setText("Permission name");
@@ -4886,6 +4926,7 @@ void QtPLCDialogClass::ChangeLanguage()
 		((Ui::QtPLCDialogClass*)ui)->groupBox_3->setTitle("Rotate");
 		//((Ui::QtPLCDialogClass*)ui)->groupBox_9->setTitle("Cutting");
 		//((Ui::QtPLCDialogClass*)ui)->groupBox_5->setTitle("Weighing settings");
+
 
 
 }
