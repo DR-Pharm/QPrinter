@@ -200,6 +200,10 @@ enum MODBUSTCPREGISTERS
 	System_RejectBoxFullNum_Reserve,
 	Scale_Result,  //读数 REAL
 	Scale_Result_Reserve,
+	axis0_s_rel,  //落料步进数
+	axis0_s_rel_Reserve,
+	axis1_s_rel,  //转盘步进数
+	axis1_s_rel_Reserve,
 };
 
 enum MODBUSTCPCOILS
@@ -261,7 +265,6 @@ enum MODBUSTCPCOILS
 	axis_fun_axis0_com_jog_pos,     //落料正向点动
 	axis_fun_axis0_com_jog_neg,     //落料反向点动
 	axis_fun_axis0_com_pos_move,     //落料正向连续
-	cmdFeedStop,     //落料停止 changed from cmdFeedSingleStop zxc
 	axis_fun_axis1_com_rel_pos_start,     //转盘步进
 	axis_fun_axis1_com_jog_pos,     //转盘正向点动
 	axis_fun_axis1_com_jog_neg,     //转盘反向点动

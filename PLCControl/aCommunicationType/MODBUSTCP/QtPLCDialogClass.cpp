@@ -1513,8 +1513,9 @@ void QtPLCDialogClass::on_WriteCoils()
 {
 	if (m_CoilsFlag == 1 && m_iDontReadCoilsFlag == 1)//已经读过(第一次即可) 且 请求写入
 	{
-		QString strSend = m_str_sendCoils.mid(58, 41);
-		m_socket->Write_modbus_tcp_Coils(strSend, 58, 41);
+		QString strSend = m_str_sendCoils.mid(58, 49);
+
+		m_socket->Write_modbus_tcp_Coils(strSend, 58, 49);
 		m_iDontReadCoilsFlag = 0;
 	}
 
@@ -2301,22 +2302,6 @@ void QtPLCDialogClass::getPLCData(void* data)
 		if (m_str_sendCoils.mid(axis_fun_axis0_com_pos_move, 1) == "1")
 		{
 			m_str_sendCoils.replace(axis_fun_axis0_com_pos_move, 1, "0");
-		}
-	}
-	if (m_Coils_Bufer[cmdFeedStop] == 1)
-	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdAxisFeedStopMov->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
-		if (m_str_sendCoils.mid(cmdFeedStop, 1) == "0")
-		{
-			m_str_sendCoils.replace(cmdFeedStop, 1, "1");
-		}
-	}
-	else
-	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdAxisFeedStopMov->setStyleSheet("font: bold;font-size:20pt");
-		if (m_str_sendCoils.mid(cmdFeedStop, 1) == "1")
-		{
-			m_str_sendCoils.replace(cmdFeedStop, 1, "0");
 		}
 	}
 	if (m_Coils_Bufer[axis_fun_axis1_com_rel_pos_start] == 1)
@@ -4333,7 +4318,7 @@ void QtPLCDialogClass::on_pB_cmdAxisFeedPosMov_clicked()//下料正向连续运�
 void QtPLCDialogClass::on_pB_cmdAxisFeedStopMov_clicked()//下料停止运动，1:执行，自动复位
 {
 	m_iDontReadCoilsFlag = 1;
-	m_str_sendCoils.replace(cmdFeedStop, 1, "1");
+	m_str_sendCoils.replace(cmdFeedSingleStop, 1, "1");
 }
 
 void QtPLCDialogClass::on_pB_cmdAxisSwingRelMov_clicked()//旋转相对运动启动，1:执行，自动复位
