@@ -33,7 +33,7 @@ signals:
 	void SHOWPRT(bool);
 	void TODATACURVE(int,float, float, float, QList<qreal>);
 	void TODRAWPICTURE(QVector<QVector<float>>,QVector<QString>,int, QVector<float>);//MODE 0:one curve,1:one dataAverage,2:two curve,3:two dataAverage
-
+	void showWindowOut(QString str);
 public:
 	QtPLCDialogClass(QDialog *parent = Q_NULLPTR);
 	~QtPLCDialogClass();
@@ -50,7 +50,7 @@ public:
 	void setWindowMinimized();
 
 	int showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str);
-	void showWindowOut(QString str);
+	//void showWindowOut(QString str);
 	//全是中文
 	void SetSocket(QtSocket_Class*);
 	void setStyleCommand(QPushButton*, QString, QFont, QString);
@@ -127,6 +127,7 @@ private:
 
 	QString m_gn1;
 	QString m_gn2;
+	int lg = 0;
 public slots:
 
 	DataFromPC_typ getPCParaData();
@@ -219,13 +220,13 @@ public slots:
 	void on_pB_cmdFeedSingle_clicked();
 	void on_pB_cmdFeedSingleStop_clicked();
 	void on_pB_cmdSwing_clicked();
-
+	void on_pB_ChangeLanguage();
 	void on_pB_showPrt_toggled(bool checked);
 
 	void on_pB_cmdStart_toggled(bool checked);
 	void on_pB_cmdAlarmReset_clicked();
 	void on_pB_cmdCounterZero_clicked();
-	void on_pB_ChangeLanguage();
+	void ChangeLanguage();
 	void on_pB_cmdCapClean_clicked();
 	void on_pB_cmdAlogtest_clicked();
 	void on_pB_cmdFeedShake_clicked();
