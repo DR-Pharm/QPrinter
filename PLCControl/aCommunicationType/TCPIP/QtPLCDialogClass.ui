@@ -5790,158 +5790,29 @@ font: 26pt &quot;Onyx&quot;;</string>
     <property name="title">
      <string>打印</string>
     </property>
-    <layout class="QGridLayout" name="gridLayout_14">
-     <item row="2" column="4">
-      <widget class="QPushButton" name="pB_printCurve">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>40</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>40</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>幼圆</family>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>打印数据曲线</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="QLabel" name="label_37">
-       <property name="font">
-        <font>
-         <family>幼圆</family>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>至</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="2">
-      <widget class="QLabel" name="label_23">
-       <property name="font">
-        <font>
-         <family>幼圆</family>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>至</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="4">
-      <widget class="QPushButton" name="pB_startSearch">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>40</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>40</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>幼圆</family>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>开始搜索</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_36">
-       <property name="font">
-        <font>
-         <family>幼圆</family>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>搜索：</string>
-       </property>
-      </widget>
-     </item>
+    <layout class="QGridLayout" name="gridLayout_14" columnstretch="1,5,1,5,3">
      <item row="0" column="3">
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <property name="spacing">
         <number>0</number>
        </property>
        <item>
-        <widget class="QLineEdit" name="lE_year2">
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lE_hour1">
          <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>50</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>50</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <family>幼圆</family>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>2021</string>
-         </property>
-         <property name="maxLength">
-          <number>4</number>
-         </property>
-         <property name="frame">
           <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_51">
-         <property name="font">
-          <font>
-           <family>幼圆</family>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>/</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="lE_month2">
-         <property name="enabled">
-          <bool>false</bool>
          </property>
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -5979,7 +5850,7 @@ font: 26pt &quot;Onyx&quot;;</string>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_55">
+        <widget class="QLabel" name="label_45">
          <property name="font">
           <font>
            <family>幼圆</family>
@@ -5987,14 +5858,14 @@ font: 26pt &quot;Onyx&quot;;</string>
           </font>
          </property>
          <property name="text">
-          <string>/</string>
+          <string>:</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lE_day2">
+        <widget class="QLineEdit" name="lE_minute1">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -6032,7 +5903,20 @@ font: 26pt &quot;Onyx&quot;;</string>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_59">
+        <spacer name="horizontalSpacer_16">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_37">
          <property name="font">
           <font>
            <family>幼圆</family>
@@ -6040,9 +5924,25 @@ font: 26pt &quot;Onyx&quot;;</string>
           </font>
          </property>
          <property name="text">
-          <string/>
+          <string>至</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_14">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
        <item>
         <widget class="QLineEdit" name="lE_hour2">
@@ -6137,20 +6037,20 @@ font: 26pt &quot;Onyx&quot;;</string>
          </property>
         </widget>
        </item>
+       <item>
+        <spacer name="horizontalSpacer_13">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
       </layout>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_35">
-       <property name="font">
-        <font>
-         <family>幼圆</family>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>组号：</string>
-       </property>
-      </widget>
      </item>
      <item row="0" column="1">
       <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -6317,26 +6217,17 @@ font: 26pt &quot;Onyx&quot;;</string>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lE_hour1">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
+        <widget class="QPushButton" name="pB_inquire">
          <property name="minimumSize">
           <size>
-           <width>25</width>
-           <height>0</height>
+           <width>0</width>
+           <height>40</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>25</width>
-           <height>16777215</height>
+           <width>16777215</width>
+           <height>40</height>
           </size>
          </property>
          <property name="font">
@@ -6346,73 +6237,42 @@ font: 26pt &quot;Onyx&quot;;</string>
           </font>
          </property>
          <property name="text">
-          <string>06</string>
+          <string>查询</string>
          </property>
-         <property name="maxLength">
-          <number>2</number>
-         </property>
-         <property name="frame">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_45">
-         <property name="font">
-          <font>
-           <family>幼圆</family>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="lE_minute1">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>25</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>25</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <family>幼圆</family>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>06</string>
-         </property>
-         <property name="maxLength">
-          <number>2</number>
-         </property>
-         <property name="frame">
+         <property name="checkable">
           <bool>true</bool>
          </property>
         </widget>
        </item>
       </layout>
      </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="lE_print1">
+     <item row="2" column="4">
+      <widget class="QPushButton" name="pB_printCurve">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>打印数据曲线</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="3">
+      <widget class="QLineEdit" name="lE_print2">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -6424,8 +6284,8 @@ font: 26pt &quot;Onyx&quot;;</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="5">
-      <widget class="QPushButton" name="pB_printData">
+     <item row="0" column="4">
+      <widget class="QPushButton" name="pB_startSearch">
        <property name="minimumSize">
         <size>
          <width>0</width>
@@ -6445,24 +6305,12 @@ font: 26pt &quot;Onyx&quot;;</string>
         </font>
        </property>
        <property name="text">
-        <string/>
+        <string>开始搜索</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="5">
-      <widget class="QPushButton" name="pB_printData_2">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>40</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>40</height>
-        </size>
-       </property>
+     <item row="2" column="2">
+      <widget class="QLabel" name="label_23">
        <property name="font">
         <font>
          <family>幼圆</family>
@@ -6470,12 +6318,15 @@ font: 26pt &quot;Onyx&quot;;</string>
         </font>
        </property>
        <property name="text">
-        <string/>
+        <string>至</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
-     <item row="2" column="3">
-      <widget class="QLineEdit" name="lE_print2">
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="lE_print1">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -6497,19 +6348,6 @@ font: 26pt &quot;Onyx&quot;;</string>
        </property>
        <property name="text">
         <string>结果：</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLabel" name="lb_searchResult">
-       <property name="font">
-        <font>
-         <family>幼圆</family>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string/>
        </property>
       </widget>
      </item>
@@ -6538,12 +6376,72 @@ font: 26pt &quot;Onyx&quot;;</string>
        </property>
       </widget>
      </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_36">
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>搜索：</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="lb_searchResult">
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_35">
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>组号：</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="4">
+      <widget class="QCheckBox" name="cB_kb">
+       <property name="text">
+        <string>打印时弹出键盘</string>
+       </property>
+      </widget>
+     </item>
     </layout>
+   </widget>
+   <widget class="QListWidget" name="lW_data">
+    <property name="geometry">
+     <rect>
+      <x>135</x>
+      <y>171</y>
+      <width>281</width>
+      <height>401</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 20pt &quot;Arial&quot;;</string>
+    </property>
    </widget>
    <zorder>layoutWidget_3</zorder>
    <zorder>gridLayoutWidget</zorder>
    <zorder>tableWidget</zorder>
    <zorder>groupBox_11</zorder>
+   <zorder>lW_data</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

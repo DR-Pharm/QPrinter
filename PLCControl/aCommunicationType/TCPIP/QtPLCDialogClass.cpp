@@ -24,8 +24,6 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	ui = new Ui::QtPLCDialogClass();
 
 	((Ui::QtPLCDialogClass*)ui)->setupUi(this);
-	((Ui::QtPLCDialogClass*)ui)->pB_printData->setVisible(false);
-	((Ui::QtPLCDialogClass*)ui)->pB_printData_2->setVisible(false);
 	((Ui::QtPLCDialogClass*)ui)->frame->move(0, 0);
 
 	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
@@ -164,6 +162,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	dtCurve->move(0, 0);*/
 	//dtCurve->setFixedSize(QSize(860, 755));//1280 800
 
+	((Ui::QtPLCDialogClass*)ui)->lW_data->setVisible(false);
 }
 
 QtPLCDialogClass::~QtPLCDialogClass()
@@ -523,11 +522,8 @@ void QtPLCDialogClass::initUI()
 	QRegExp regx("[0-9]+$");
 	((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->setValidator(new QRegExpValidator(regx, this));
 	((Ui::QtPLCDialogClass*)ui)->lE_year1->setValidator(new QRegExpValidator(regx, this));
-	((Ui::QtPLCDialogClass*)ui)->lE_year2->setValidator(new QRegExpValidator(regx, this));
 	((Ui::QtPLCDialogClass*)ui)->lE_month1->setValidator(new QRegExpValidator(regx, this));
-	((Ui::QtPLCDialogClass*)ui)->lE_month2->setValidator(new QRegExpValidator(regx, this));
 	((Ui::QtPLCDialogClass*)ui)->lE_day1->setValidator(new QRegExpValidator(regx, this));
-	((Ui::QtPLCDialogClass*)ui)->lE_day2->setValidator(new QRegExpValidator(regx, this));
 	((Ui::QtPLCDialogClass*)ui)->lE_hour1->setValidator(new QRegExpValidator(regx, this));
 	((Ui::QtPLCDialogClass*)ui)->lE_hour2->setValidator(new QRegExpValidator(regx, this));
 	((Ui::QtPLCDialogClass*)ui)->lE_minute1->setValidator(new QRegExpValidator(regx, this));
@@ -999,6 +995,19 @@ void QtPLCDialogClass::getPLCData(void* data)
 				str2tmp.remove(":");
 				timIni.setValue(str1tmp + "/"+ str2tmp, QString::number(m_data->Status.CapDataDisp.GroupNo));
 
+				QSettings inq(AppPath + "\\data\\inquire.ini", QSettings::IniFormat);
+				QString strinqu = inq.value("alldt/data", "").toString();
+				if (strinqu.mid(0, 8) != str1tmp);
+				{
+					if (strinqu!="")
+					{
+						inq.setValue("alldt/data", str1tmp + "," + strinqu);
+					}
+					else
+					{
+						inq.setValue("alldt/data", str1tmp);
+					}
+				}
 				data_One.clear();
 
 				if (!((Ui::QtPLCDialogClass*)ui)->lE_print1->hasFocus() && !((Ui::QtPLCDialogClass*)ui)->lE_print2->hasFocus())
@@ -1337,7 +1346,13 @@ void QtPLCDialogClass::getPLCData(void* data)
 
 #pragma endregion
 }//PC显示数据
-#pragma endregion
+
+void QtPLCDialogClass::SWITCHOSK()//快捷键
+{
+	QProcess pro;
+	QString strPath = "C:\\Windows\\System32\\osk.exe";
+	pro.startDetached(strPath);
+}
 void QtPLCDialogClass::CompareYearMonthDay()
 {
 	QString str1= ((Ui::QtPLCDialogClass*)ui)->lE_year1->text()+
@@ -1347,9 +1362,9 @@ void QtPLCDialogClass::CompareYearMonthDay()
 	((Ui::QtPLCDialogClass*)ui)->lE_minute1->text();
 	LONGLONG ll1 = str1.toLongLong();
 
-	QString str2 = ((Ui::QtPLCDialogClass*)ui)->lE_year2->text() +
-		((Ui::QtPLCDialogClass*)ui)->lE_month2->text() +
-		((Ui::QtPLCDialogClass*)ui)->lE_day2->text() +
+	QString str2 = ((Ui::QtPLCDialogClass*)ui)->lE_year1->text() +
+		((Ui::QtPLCDialogClass*)ui)->lE_month1->text() +
+		((Ui::QtPLCDialogClass*)ui)->lE_day1->text() +
 		((Ui::QtPLCDialogClass*)ui)->lE_hour2->text() +
 		((Ui::QtPLCDialogClass*)ui)->lE_minute2->text();
 	LONGLONG ll2 = str2.toLongLong();
@@ -1455,23 +1470,20 @@ QString QtPLCDialogClass::setYearMonthDay()
 	QString logYear = QString::number(current_time.date().year());
 	logYear = logYear.length() < 4 ? ("0" + logYear) : logYear;
 	((Ui::QtPLCDialogClass*)ui)->lE_year1->setText(logYear);
-	((Ui::QtPLCDialogClass*)ui)->lE_year2->setText(logYear);
 	QString logMonth = QString::number(current_time.date().month());
 	logMonth = logMonth.length() < 2 ? ("0" + logMonth) : logMonth;
 	((Ui::QtPLCDialogClass*)ui)->lE_month1->setText(logMonth);
-	((Ui::QtPLCDialogClass*)ui)->lE_month2->setText(logMonth);
 	QString logDay = QString::number(current_time.date().day());
 	logDay = logDay.length() < 2 ? ("0" + logDay) : logDay;
 	((Ui::QtPLCDialogClass*)ui)->lE_day1->setText(logDay);
-	((Ui::QtPLCDialogClass*)ui)->lE_day2->setText(logDay);
 	QString logHour = QString::number(current_time.time().hour());
 	logHour = logHour.length() < 2 ? ("0" + logHour) : logHour;
-	((Ui::QtPLCDialogClass*)ui)->lE_hour1->setText(logHour);
-	((Ui::QtPLCDialogClass*)ui)->lE_hour2->setText(logHour);
+	((Ui::QtPLCDialogClass*)ui)->lE_hour1->setText("00");
+	((Ui::QtPLCDialogClass*)ui)->lE_hour2->setText("23");
 	QString logMinute = QString::number(current_time.time().minute());
 	logMinute = logMinute.length() < 2 ? ("0" + logMinute) : logMinute;
-	((Ui::QtPLCDialogClass*)ui)->lE_minute1->setText(logMinute);
-	((Ui::QtPLCDialogClass*)ui)->lE_minute2->setText(logMinute);
+	((Ui::QtPLCDialogClass*)ui)->lE_minute1->setText("00");
+	((Ui::QtPLCDialogClass*)ui)->lE_minute2->setText("59");
 	strTime = logYear + "/" //z=a>b?x:y
 		+ logMonth + "/"
 		+ logDay + " "
@@ -1586,7 +1598,6 @@ void QtPLCDialogClass::on_lE_year1_editingFinished()//超重重量,单位g
 	str = QString::number(index);
 	str = str.length() < 4 ? ("0" + str) : str;
 	((Ui::QtPLCDialogClass*)ui)->lE_year1->setText(str);
-	((Ui::QtPLCDialogClass*)ui)->lE_year2->setText(str);
 }
 void QtPLCDialogClass::on_lE_month1_editingFinished()//超重重量,单位g
 {
@@ -1603,7 +1614,6 @@ void QtPLCDialogClass::on_lE_month1_editingFinished()//超重重量,单位g
 	str = QString::number(index);
 	str = str.length() < 2 ? ("0" + str) : str;
 	((Ui::QtPLCDialogClass*)ui)->lE_month1->setText(str);
-	((Ui::QtPLCDialogClass*)ui)->lE_month2->setText(str);
 }
 void QtPLCDialogClass::on_lE_day1_editingFinished()//超重重量,单位g
 {
@@ -1620,7 +1630,6 @@ void QtPLCDialogClass::on_lE_day1_editingFinished()//超重重量,单位g
 	str = QString::number(index);
 	str = str.length() < 2 ? ("0" + str) : str;
 	((Ui::QtPLCDialogClass*)ui)->lE_day1->setText(str);
-	((Ui::QtPLCDialogClass*)ui)->lE_day2->setText(str);
 }
 
 void QtPLCDialogClass::on_lE_hour1_editingFinished()//超重重量,单位g
@@ -2221,7 +2230,23 @@ void QtPLCDialogClass::on_lE_StopSignalDelay_editingFinished()
 
 void QtPLCDialogClass::on_pB_startSearch_clicked()
 {
+	((Ui::QtPLCDialogClass*)ui)->pB_inquire->setChecked(false);
+	on_lE_year1_editingFinished();
+	on_lE_month1_editingFinished();
+	on_lE_day1_editingFinished();
+	on_lE_hour1_editingFinished();
+	on_lE_minute1_editingFinished();
+	on_lE_hour2_editingFinished();
+	on_lE_minute2_editingFinished();
 	CompareYearMonthDay();
+}
+void QtPLCDialogClass::on_lW_data_itemDoubleClicked(QListWidgetItem *item)
+{
+	((Ui::QtPLCDialogClass*)ui)->pB_inquire->setChecked(false);
+	QString str = item->text();
+	((Ui::QtPLCDialogClass*)ui)->lE_year1->setText(str.mid(0, 4));
+	((Ui::QtPLCDialogClass*)ui)->lE_month1->setText(str.mid(4, 2));
+	((Ui::QtPLCDialogClass*)ui)->lE_day1->setText(str.mid(6, 2));
 }
 void QtPLCDialogClass::on_pB_copyIn_clicked()
 {
@@ -2245,14 +2270,12 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 	if (p1 > p2)
 	{
 		emit showWindowOut(QString::fromLocal8Bit("无满足条件\n打印数据!"));
-		((Ui::QtPLCDialogClass*)ui)->pB_printData->setEnabled(true);
 		((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(true);
 		return;
 	}
 	else if (p1 + 10 < p2)
 	{
 		emit showWindowOut(QString::fromLocal8Bit("每次至多打印\n10条数据!"));
-		((Ui::QtPLCDialogClass*)ui)->pB_printData->setEnabled(true);
 		((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(true);
 		return;
 	}
@@ -2263,7 +2286,6 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 		if (str == "0")
 		{
 			emit showWindowOut(QString::fromLocal8Bit("无满足条件\n打印数据!"));
-			((Ui::QtPLCDialogClass*)ui)->pB_printData->setEnabled(true);
 			((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(true);
 			return;
 		}
@@ -2282,8 +2304,14 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 		GroupNumber << configIniRead.value(QString::number(p1) + "/gn", 0).toString();
 		QVector<float> teo;
 		teo<< configIniRead.value(QString::number(p1) + "/theory", 1).toFloat();
-		dataToDraw << data_temp;
-		emit TODRAWPICTURE(dataToDraw, GroupNumber, 1,teo);
+		dataToDraw << data_temp;	
+		QString cb="0";
+		if (((Ui::QtPLCDialogClass*)ui)->cB_kb->isChecked())
+		{
+			cb="1";
+		}
+		emit TODRAWPICTURE(dataToDraw, GroupNumber, 1,teo,cb);
+	
 		return;
 	}
 	else
@@ -2313,7 +2341,13 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 
 		if (dataToDraw.size() > 0)
 		{
-			emit TODRAWPICTURE(dataToDraw, GroupNumber,1,teo);
+			QString cb = "0";
+			if (((Ui::QtPLCDialogClass*)ui)->cB_kb->isChecked())
+			{
+				cb = "1";
+			}
+			emit TODRAWPICTURE(dataToDraw, GroupNumber, 1, teo,cb);	
+			
 		}
 		
 		else
@@ -2528,6 +2562,23 @@ void QtPLCDialogClass::on_pB_cmdSwing_clicked()//旋转单工位,1:执行，自�
 	typ.Machine_Cmd.cmdSwing = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
+
+void QtPLCDialogClass::on_pB_inquire_toggled(bool checked)//
+{
+	((Ui::QtPLCDialogClass*)ui)->lW_data->setVisible(checked);
+	if (checked)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lW_data->clear();
+		QSettings inq(AppPath + "\\data\\inquire.ini", QSettings::IniFormat);
+		QString strinqu = inq.value("alldt/data", "").toString();
+		if (strinqu=="")
+		{
+			return;
+		}
+		QStringList lst = strinqu.split(",");
+		((Ui::QtPLCDialogClass*)ui)->lW_data->addItems(lst);
+	}
+}
 void QtPLCDialogClass::on_pB_showPrt_toggled(bool checked)//
 {
 	emit SHOWPRT(checked);
@@ -2606,6 +2657,7 @@ void QtPLCDialogClass::ChangeLanguage()
 		((Ui::QtPLCDialogClass*)ui)->label_35->setText("GroupNum:");
 		((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setText("Copy in" + QString::fromLocal8Bit("↓"));
 		((Ui::QtPLCDialogClass*)ui)->pB_startSearch->setText("Start Search");
+		((Ui::QtPLCDialogClass*)ui)->pB_inquire->setText("Inquire");
 		((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setText("Print Data&&Curve");
 		((Ui::QtPLCDialogClass*)ui)->label_37->setText("to");
 		((Ui::QtPLCDialogClass*)ui)->label_23->setText("to");

@@ -70,7 +70,7 @@ void PRT::initPLC()
 	b = connect(dlg, SIGNAL(SHOWPRT(bool)), this, SLOT(showPrt(bool))); 
 	b = connect(dlg, SIGNAL(showWindowOut(QString)), this, SLOT(showWindowOut(QString)));
 	b = connect(dlg, SIGNAL(CLOSESIGNAL()), this, SLOT(on_ToClose()));
-	b = connect(dlg, SIGNAL(TODRAWPICTURE(QVector<QVector<float>>, QVector<QString>,int, QVector<float>)), this, SLOT(getVec(QVector<QVector<float>>, QVector<QString>,int, QVector<float>)));
+	b = connect(dlg, SIGNAL(TODRAWPICTURE(QVector<QVector<float>>, QVector<QString>,int, QVector<float>,QString)), this, SLOT(getVec(QVector<QVector<float>>, QVector<QString>,int, QVector<float>,QString)));
 	dlg->setParent(ui.widget);
 	dlg->move(0, 0);
 	b = connect(this, SIGNAL(MINI()), m_pPlclib, SLOT(setWinMini()));
@@ -452,6 +452,12 @@ void PRT::on_checkBox_2_toggled(bool checked)
 	QSettings WriteIni(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
 	WriteIni.setValue("ProgramSetting/PrintAveAllOrNot", QString::number(checked));
 }
+void PRT::SWITCHOSK()//快捷键
+{
+	QProcess pro;
+	QString strPath = "C:\\Windows\\System32\\osk.exe";
+	pro.startDetached(strPath);
+}
 void PRT::on_pB_PrintDirect_clicked()
 {
 	/*直接打印*/
@@ -461,6 +467,10 @@ void PRT::on_pB_PrintDirect_clicked()
 
 	if (QMessageBox::Yes == showMsgBox("打印确认", "确认打印报告?", "确认", "取消"))
 	{
+		if (m_cb=="1")
+		{
+			SWITCHOSK();
+		}
 		m_drawpicture->setData(data,gn, m_iPrintCurveCount, m_iPrintAveCount,theory);
 		//wt->show();
 		m_drawpicture->drawPic(m_prt);
@@ -519,7 +529,7 @@ void PRT::on_ToClose()
 	}
 }
 
-void PRT::getVec(QVector<QVector<float>> a, QVector<QString> GN,int mode, QVector<float> teo)
+void PRT::getVec(QVector<QVector<float>> a, QVector<QString> GN,int mode, QVector<float> teo,QString strCb)
 {
 	if (mode==0)//MODE 0:dataAverage,1:curve
 	{
@@ -551,6 +561,7 @@ void PRT::getVec(QVector<QVector<float>> a, QVector<QString> GN,int mode, QVecto
 		gn = GN;
 		theory = teo;
 		//data[0] = a;
+		m_cb = strCb;
 		on_pB_PrintDirect_clicked();
 		data.clear();
 		gn.clear();

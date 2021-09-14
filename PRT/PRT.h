@@ -54,16 +54,18 @@ public:
 	//popup window
 	int showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str);
 
+	void SWITCHOSK();
 	//event
 	bool eventFilter(QObject*, QEvent*);
-	QLabel *lbDr = nullptr;
 private:
+	QLabel *lbDr = nullptr;
 	Ui::PRTClass ui;
 	//data calculate
 	QVector<QVector<float>>data;
 	QVector<QString> gn;
 	QVector<float> theory;
 	int m_iDataNum;//数据存储数量0135...1#     2468...2#
+	QString m_cb;
 	int m_iCurrentGetDataNo = 0;
 	int m_iPrintCurveCount=0;
 	int m_iPrintAveCount=0;
@@ -103,7 +105,7 @@ public slots:
 	void on_cB_Average_toggled(bool checked);
 	void on_cB_PrintMode_currentIndexChanged(int index);
 	void on_ToClose();
-	void getVec(QVector<QVector<float>>, QVector<QString>,int, QVector<float> teo);
+	void getVec(QVector<QVector<float>>, QVector<QString>,int, QVector<float> teo,QString strCb);
 	void SuccessConnect();
 	void ErrorConnect();
 	void EmitReconnect();

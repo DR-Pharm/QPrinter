@@ -13,12 +13,13 @@
 #include "Keyboard.h"
 namespace spd = spdlog;
 
-#include <QChartView>
-#include <QChart>
-#include <QSplineSeries>
-#include <QScatterSeries>
-#include <QValueAxis>
+#include <QtCharts/QChartView>
+#include <QtCharts/QChart>
+#include <QtCharts/QSplineSeries>
+#include <QtCharts/QScatterSeries>
+#include <QtCharts/QValueAxis>
 #include <QHBoxLayout>
+#include <QListWidgetItem>
 using namespace QtCharts;
 
 class QtPLCDialogClass : public QDialog
@@ -32,7 +33,7 @@ signals:
 	void GETSTRING(QString);
 	void SHOWPRT(bool);
 	void TODATACURVE(int,float, float, float, QList<qreal>);
-	void TODRAWPICTURE(QVector<QVector<float>>,QVector<QString>,int, QVector<float>);//MODE 0:one curve,1:one dataAverage,2:two curve,3:two dataAverage
+	void TODRAWPICTURE(QVector<QVector<float>>,QVector<QString>,int, QVector<float>,QString);//MODE 0:one curve,1:one dataAverage,2:two curve,3:two dataAverage
 	void showWindowOut(QString str);
 public:
 	QtPLCDialogClass(QDialog *parent = Q_NULLPTR);
@@ -59,6 +60,8 @@ public:
 
 	QString setYearMonthDay();
 	QString YearMonthDay();
+	void SWITCHOSK();//¿ì½Ý¼ü
+
 private:
 	MyPushButton *LanguageBtn;
 	MyPushButton *ExitBtn;
@@ -185,6 +188,7 @@ public slots:
 	void on_lE_StopSignalDelay_editingFinished();
 
 	void on_pB_startSearch_clicked();
+	void on_lW_data_itemDoubleClicked(QListWidgetItem * item);
 	void on_pB_copyIn_clicked();
 	void on_pB_printData_clicked();
 
@@ -221,6 +225,7 @@ public slots:
 	void on_pB_cmdFeedSingleStop_clicked();
 	void on_pB_cmdSwing_clicked();
 	void on_pB_ChangeLanguage();
+	void on_pB_inquire_toggled(bool checked);
 	void on_pB_showPrt_toggled(bool checked);
 
 	void on_pB_cmdStart_toggled(bool checked);
