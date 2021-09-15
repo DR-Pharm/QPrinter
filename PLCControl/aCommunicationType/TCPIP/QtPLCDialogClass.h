@@ -228,6 +228,8 @@ public slots:
 	void on_pB_inquire_toggled(bool checked);
 	void on_pB_showPrt_toggled(bool checked);
 
+	void on_gB_update_toggled(bool arg1);
+
 	void on_pB_cmdStart_toggled(bool checked);
 	void on_pB_cmdAlarmReset_clicked();
 	void on_pB_cmdCounterZero_clicked();

@@ -2250,6 +2250,15 @@ void QtPLCDialogClass::on_lW_data_itemDoubleClicked(QListWidgetItem *item)
 }
 void QtPLCDialogClass::on_pB_copyIn_clicked()
 {
+	if (((Ui::QtPLCDialogClass*)ui)->gB_update->isChecked() == false)
+	{
+		int i = showMsgBox("冲突提示", "此操作需要将组号由实时更新更改为人工输入，是否更改？", "是", "否");
+		if (i == QMessageBox::No)
+		{
+			return;
+		}
+		((Ui::QtPLCDialogClass*)ui)->gB_update->setChecked(true);
+	}
 	((Ui::QtPLCDialogClass*)ui)->lE_print1->setText(m_gn1);
 	((Ui::QtPLCDialogClass*)ui)->lE_print2->setText(m_gn2);
 	((Ui::QtPLCDialogClass*)ui)->lE_print2->setFocus();
@@ -2582,6 +2591,21 @@ void QtPLCDialogClass::on_pB_inquire_toggled(bool checked)//
 void QtPLCDialogClass::on_pB_showPrt_toggled(bool checked)//
 {
 	emit SHOWPRT(checked);
+}
+void QtPLCDialogClass::on_gB_update_toggled(bool arg1)
+{
+	if (arg1)
+	{
+		((Ui::QtPLCDialogClass*)ui)->gB_update->setTitle(QString::fromLocal8Bit("人工输入"));
+		((Ui::QtPLCDialogClass*)ui)->lE_print1->setEnabled(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_print2->setEnabled(true);
+	}
+	else
+	{
+		((Ui::QtPLCDialogClass*)ui)->gB_update->setTitle(QString::fromLocal8Bit("实时更新"));
+		((Ui::QtPLCDialogClass*)ui)->lE_print1->setEnabled(false);
+		((Ui::QtPLCDialogClass*)ui)->lE_print2->setEnabled(false);
+	}
 }
 void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 {
