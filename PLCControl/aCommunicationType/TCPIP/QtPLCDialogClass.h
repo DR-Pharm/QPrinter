@@ -63,6 +63,7 @@ public:
 	void SWITCHOSK();//¿ì½Ý¼ü
 
 private:
+	int m_iAutoUpdateFlag = 0;
 	MyPushButton *LanguageBtn;
 	MyPushButton *ExitBtn;
 	double sumNo = 0;

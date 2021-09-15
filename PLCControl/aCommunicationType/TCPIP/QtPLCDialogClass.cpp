@@ -1010,10 +1010,22 @@ void QtPLCDialogClass::getPLCData(void* data)
 				}
 				data_One.clear();
 
-				if (!((Ui::QtPLCDialogClass*)ui)->lE_print1->hasFocus() && !((Ui::QtPLCDialogClass*)ui)->lE_print2->hasFocus())
+				if (((Ui::QtPLCDialogClass*)ui)->gB_update->isChecked() == false)
 				{
-					((Ui::QtPLCDialogClass*)ui)->lE_print1->setText(QString::number(m_data->Status.CapDataDisp.GroupNo - 1));
-					((Ui::QtPLCDialogClass*)ui)->lE_print2->setText(QString::number(m_data->Status.CapDataDisp.GroupNo));
+					if (!((Ui::QtPLCDialogClass*)ui)->lE_print1->hasFocus() && !((Ui::QtPLCDialogClass*)ui)->lE_print2->hasFocus())
+					{
+						if (m_iAutoUpdateFlag == 0)
+						{
+							((Ui::QtPLCDialogClass*)ui)->lE_print1->setText(QString::number(m_data->Status.CapDataDisp.GroupNo));
+							m_iAutoUpdateFlag = 1;
+						}
+						//((Ui::QtPLCDialogClass*)ui)->lE_print1->setText(QString::number(m_data->Status.CapDataDisp.GroupNo - 1));
+						((Ui::QtPLCDialogClass*)ui)->lE_print2->setText(QString::number(m_data->Status.CapDataDisp.GroupNo));
+					}
+				}
+				else
+				{
+					m_iAutoUpdateFlag = 0;
 				}
 			}
 		}
