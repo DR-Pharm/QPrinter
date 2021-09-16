@@ -2264,11 +2264,11 @@ void QtPLCDialogClass::on_pB_copyIn_clicked()
 {
 	if (((Ui::QtPLCDialogClass*)ui)->gB_update->isChecked() == false)
 	{
-		int i = showMsgBox("冲突提示", "此操作需要将组号由实时更新更改为人工输入，是否更改？", "是", "否");
+		/*int i = showMsgBox("冲突提示", "此操作需要将组号由实时更新更改为人工输入，是否更改？", "是", "否");
 		if (i == QMessageBox::No)
 		{
 			return;
-		}
+		}*/
 		((Ui::QtPLCDialogClass*)ui)->gB_update->setChecked(true);
 	}
 	((Ui::QtPLCDialogClass*)ui)->lE_print1->setText(m_gn1);
@@ -2280,10 +2280,10 @@ void QtPLCDialogClass::on_pB_printData_clicked()//数据
 {
 
 }
-void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
+void QtPLCDialogClass::BeforePrint()
 {
 	//((Ui::QtPLCDialogClass*)ui)->pB_printData->setEnabled(false);
-	//((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(false);
+//((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(false);
 	int p1 = ((Ui::QtPLCDialogClass*)ui)->lE_print1->text().toInt();
 	int p2 = ((Ui::QtPLCDialogClass*)ui)->lE_print2->text().toInt();
 	((Ui::QtPLCDialogClass*)ui)->lE_print1->setText(QString::number(p1));
@@ -2324,16 +2324,10 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 		QVector<QString> GroupNumber;
 		GroupNumber << configIniRead.value(QString::number(p1) + "/gn", 0).toString();
 		QVector<float> teo;
-		teo<< configIniRead.value(QString::number(p1) + "/theory", 1).toFloat();
-		dataToDraw << data_temp;	
-		QString cb="0";
-		if (((Ui::QtPLCDialogClass*)ui)->cB_kb->isChecked())
-		{
-			cb="1";
-		}
-		emit TODRAWPICTURE(dataToDraw, GroupNumber, 1,teo,cb);
+		teo << configIniRead.value(QString::number(p1) + "/theory", 1).toFloat();
+		dataToDraw << data_temp;
+		emit TODRAWPICTURE(dataToDraw, GroupNumber, 1, teo, cb);
 	
-		return;
 	}
 	else
 	{
@@ -2343,7 +2337,7 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 		QVector<float> teo;
 		for (int i = p1; i < p2 + 1; i++)
 		{
-			QString str = configIniRead.value(QString::number(i)+"/data" , 0).toString();
+			QString str = configIniRead.value(QString::number(i) + "/data", 0).toString();
 			QVector<float> data_temp;
 			if (str != "0")
 			{
@@ -2362,21 +2356,35 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 
 		if (dataToDraw.size() > 0)
 		{
-			QString cb = "0";
-			if (((Ui::QtPLCDialogClass*)ui)->cB_kb->isChecked())
-			{
-				cb = "1";
-			}
-			emit TODRAWPICTURE(dataToDraw, GroupNumber, 1, teo,cb);	
-			
+			emit TODRAWPICTURE(dataToDraw, GroupNumber, 1, teo, cb);
 		}
-		
+
 		else
 		{
 			emit showWindowOut(QString::fromLocal8Bit("无打印数据!"));
 			return;
 		}
 	}
+}
+void QtPLCDialogClass::on_pB_printTestingRecords_clicked()//记录
+{
+	cb = "0";
+	if (((Ui::QtPLCDialogClass*)ui)->cB_kb->isChecked())
+	{
+		cb = "1";
+	}
+	cb = "1" + cb;
+	BeforePrint();
+}
+void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
+{
+	cb = "0";
+	if (((Ui::QtPLCDialogClass*)ui)->cB_kb->isChecked())
+	{
+		cb = "1";
+	}
+	cb = "0" + cb;
+	BeforePrint();
 }
 void QtPLCDialogClass::on_pB_Read1_clicked()//读取1
 {
@@ -2614,7 +2622,7 @@ void QtPLCDialogClass::on_gB_update_toggled(bool arg1)
 	}
 	else
 	{
-		((Ui::QtPLCDialogClass*)ui)->gB_update->setTitle(QString::fromLocal8Bit("实时更新"));
+		((Ui::QtPLCDialogClass*)ui)->gB_update->setTitle(QString::fromLocal8Bit("自动更新"));
 		((Ui::QtPLCDialogClass*)ui)->lE_print1->setEnabled(false);
 		((Ui::QtPLCDialogClass*)ui)->lE_print2->setEnabled(false);
 	}

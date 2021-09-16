@@ -58,11 +58,12 @@ public:
 
 	void CompareYearMonthDay();
 
+	void BeforePrint();
 	QString setYearMonthDay();
 	QString YearMonthDay();
 	void SWITCHOSK();//¿ì½Ý¼ü
-
 private:
+	QString cb;
 	int m_iAutoUpdateFlag = 0;
 	MyPushButton *LanguageBtn;
 	MyPushButton *ExitBtn;
@@ -192,6 +193,9 @@ public slots:
 	void on_lW_data_itemDoubleClicked(QListWidgetItem * item);
 	void on_pB_copyIn_clicked();
 	void on_pB_printData_clicked();
+
+
+	void on_pB_printTestingRecords_clicked();
 
 	void on_pB_printCurve_clicked();
 

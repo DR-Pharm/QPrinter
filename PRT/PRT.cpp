@@ -465,16 +465,31 @@ void PRT::on_pB_PrintDirect_clicked()
 	writeIni();
 	if (!caculateCount())return;
 
-	if (QMessageBox::Yes == showMsgBox("打印确认", "确认打印报告?", "确认", "取消"))
+	if (m_cb.mid(0, 1) == "0")
 	{
-		if (m_cb=="1")
+		if (QMessageBox::Yes == showMsgBox("打印确认", "确认打印数据曲线?", "确认", "取消"))
 		{
-			SWITCHOSK();
+			if (m_cb.mid(1) == "1")
+			{
+				SWITCHOSK();
+			}
+			m_drawpicture->setData(data, gn, m_iPrintCurveCount, m_iPrintAveCount, theory);
+			m_drawpicture->drawPic(m_prt);
 		}
-		m_drawpicture->setData(data,gn, m_iPrintCurveCount, m_iPrintAveCount,theory);
-		//wt->show();
-		m_drawpicture->drawPic(m_prt);
-		//wt->close();
+	}
+	else if (m_cb.mid(0, 1) == "1")
+	{
+		if (QMessageBox::Yes == showMsgBox("打印确认", "确认打印试机记录?", "确认", "取消"))
+		{
+			if (m_cb.mid(1) == "1")
+			{
+				SWITCHOSK();
+			}
+			m_drawpicture->setData(data, gn, m_iPrintCurveCount, m_iPrintAveCount, theory);
+			//wt->show();
+			m_drawpicture->drawPic2(m_prt);
+			//wt->close();
+		}
 	}
 
 }

@@ -12,7 +12,77 @@ DrawPicture::DrawPicture(QObject *parent)
 DrawPicture::~DrawPicture()
 {
 }
+void DrawPicture::drawPic2(QPrinter *printer)
+{	
+	int prtMode = printer->printRange();
+	int firstPg = printer->fromPage();
+	int endPg = printer->toPage();
+	int allornot;
+	if (prtMode == 0)
+	{
+		allornot = 1;
+	}
+	else
+	{
+		if (firstPg == 0 && endPg == 0)
+		{
+			printer->setFromTo(1, 1);
+			firstPg = 1;
+			endPg = 1;
+		}
+		firstPg -= 1;
+		endPg -= 1;
+		allornot = 0;
+	}
+	painterPixmap.begin(printer);
+	int page1 = m_iPrintCurveCount / 6 < 1 ? 1 : m_iPrintCurveCount / 6 + (m_iPrintCurveCount % 6 == 0 ? 0 : 1);
+	QVector<QPixmap> pix;
+	pix.resize(page1);
+	QPixmap pixtmp(pixWidth, pixHeight);
+	pixtmp.fill(Qt::white);
+	for (int i = 0; i < pix.size(); i++)
+	{
+		QCoreApplication::processEvents();
+		pix[i] = pixtmp;
+	}
+	painterPixmap.setWindow(0, 0, pix[0].width() + 75, pix[0].height());
 
+	int pageValue = 0;
+
+	for (int i = 0; i < page1; i++)
+	{
+		int tempInt = data.size() - m_iPrintCurveCount + pageValue * 2 + 1;
+		if (tempInt == data.size())
+		{
+			caculateData(data, m_gn, data.size() - m_iPrintCurveCount + pageValue * 2, 1, m_ftheory);
+		}
+		else
+		{
+			caculateData(data, m_gn, data.size() - m_iPrintCurveCount + pageValue * 2, 2, m_ftheory);
+		}
+		if (CurveChecked)//这是我找了两天的bug点,源于如果已经checked则再次checked不会进入槽函数
+		{
+			QCoreApplication::processEvents();
+			createPixCurve(&pix[pageValue]);
+		}
+		if (allornot == 1 || (allornot == 0 && pageValue >= firstPg && pageValue <= endPg))
+		{
+			QCoreApplication::processEvents();
+			painterPixmap.drawPixmap(0, 0, pix[pageValue]);
+			if (pageValue + 1 < page1)
+			{
+				if ((allornot == 0 && pageValue < endPg) || allornot == 1)
+				{
+					printer->newPage();
+				}
+			}
+
+		}
+		pageValue++;
+	}
+
+	painterPixmap.end();
+}
 void DrawPicture::drawPic(QPrinter *printer)
 {
 	//printer->setPrintRange(QPrinter::PageRange);//2

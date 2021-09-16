@@ -45,6 +45,7 @@ private:
 public:
 	DrawPicture(QObject *parent);
 	~DrawPicture();
+	void drawPic2(QPrinter * printer);
 	void createPixCurve(QPixmap * pix);
 	void createPixAverage(QPixmap * pix);
 	void caculateData(QVector<QVector<float>> transData,QVector<QString>, int ivalue, int half, QVector<float> theory);

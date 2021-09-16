@@ -6408,7 +6408,7 @@ font: 26pt &quot;Onyx&quot;;</string>
         </font>
        </property>
        <property name="title">
-        <string>实时更新</string>
+        <string>自动更新</string>
        </property>
        <property name="flat">
         <bool>false</bool>
