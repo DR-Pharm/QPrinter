@@ -13,7 +13,7 @@ DrawPicture::~DrawPicture()
 {
 }
 void DrawPicture::drawPic2(QPrinter *printer)
-{	
+{
 	int prtMode = printer->printRange();
 	int firstPg = printer->fromPage();
 	int endPg = printer->toPage();
@@ -35,9 +35,11 @@ void DrawPicture::drawPic2(QPrinter *printer)
 		allornot = 0;
 	}
 	painterPixmap.begin(printer);
-	int page1 = m_iPrintCurveCount / 6 < 1 ? 1 : m_iPrintCurveCount / 6 + (m_iPrintCurveCount % 6 == 0 ? 0 : 1);
+	int page2= m_iTestingRecords / 6 < 1 ? 1 : m_iTestingRecords / 6 + (m_iTestingRecords % 6 == 0 ? 0 : 1);
+
+	int pages = page2;
 	QVector<QPixmap> pix;
-	pix.resize(page1);
+	pix.resize(pages);
 	QPixmap pixtmp(pixWidth, pixHeight);
 	pixtmp.fill(Qt::white);
 	for (int i = 0; i < pix.size(); i++)
@@ -46,41 +48,60 @@ void DrawPicture::drawPic2(QPrinter *printer)
 		pix[i] = pixtmp;
 	}
 	painterPixmap.setWindow(0, 0, pix[0].width() + 75, pix[0].height());
-
 	int pageValue = 0;
 
-	for (int i = 0; i < page1; i++)
+	for (int i = 0; i < page2; i++)
 	{
-		int tempInt = data.size() - m_iPrintCurveCount + pageValue * 2 + 1;
-		if (tempInt == data.size())
+		m_iTestingCount = 0;
+		painter->begin(&pix[pageValue]);
+		painter->setRenderHint(QPainter::Antialiasing, true);
+		// 设置画笔颜色、宽度
+		painter->setPen(QPen(QColor(255, 255, 255), 4));
+		// 设置画刷颜色
+		painter->setBrush(QColor(255, 255, 255));
+		QRect rect(0, 0, pixWidth, pixHeight);
+		//整张图设置画刷白底	
+
+		painter->fillRect(rect, QColor(255, 255, 255));
+		painter->drawRect(rect);
+		int tempRow = 0;
+		for (; m_iTestingCount < 6; m_iTestingCount++)
 		{
-			caculateData(data, m_gn, data.size() - m_iPrintCurveCount + pageValue * 2, 1, m_ftheory);
-		}
-		else
-		{
-			caculateData(data, m_gn, data.size() - m_iPrintCurveCount + pageValue * 2, 2, m_ftheory);
-		}
-		if (CurveChecked)//这是我找了两天的bug点,源于如果已经checked则再次checked不会进入槽函数
-		{
+			int tempInt = data.size() - m_iTestingRecords + tempRow * 2 + 1;
+			if (tempInt > data.size())
+			{
+				break;
+			}
+			else if (tempInt == data.size())
+			{
+				caculateData(data, m_gn, data.size() - m_iTestingRecords + tempRow * 2, 1, m_ftheory);
+			}
+			else
+			{
+				caculateData(data, m_gn, data.size() - m_iTestingRecords + tempRow * 2, 2, m_ftheory);
+			}
+
+
 			QCoreApplication::processEvents();
-			createPixCurve(&pix[pageValue]);
+			createTestingRecords(&pix[pageValue]);
+
+			tempRow++;
 		}
+		painter->end();
 		if (allornot == 1 || (allornot == 0 && pageValue >= firstPg && pageValue <= endPg))
 		{
 			QCoreApplication::processEvents();
 			painterPixmap.drawPixmap(0, 0, pix[pageValue]);
-			if (pageValue + 1 < page1)
+			if (pageValue + 1 < pages)
 			{
 				if ((allornot == 0 && pageValue < endPg) || allornot == 1)
 				{
 					printer->newPage();
 				}
 			}
-
 		}
 		pageValue++;
 	}
-
 	painterPixmap.end();
 }
 void DrawPicture::drawPic(QPrinter *printer)
@@ -249,7 +270,111 @@ void DrawPicture::drawPic(QPrinter *printer)
 	//pix[0].save("c:/pt.bmp");
 	painterPixmap.end();
 }
+void DrawPicture::createTestingRecords(QPixmap *pix)
+{
 
+	QFont font;
+	font.setPointSize(23);
+	font.setFamily("宋体");
+	font.setItalic(true);
+	painter->setFont(font);
+
+	int edgeOffset = 50;
+	int innerW = pixWidth - 2 * edgeOffset;
+	int inner50percentW = innerW / 2;
+	int innerH = pixHeight - 2 * edgeOffset;
+	int inner50percentH = innerH / 2;
+	int rightW = pixWidth - edgeOffset;
+	int bottomH = pixHeight - edgeOffset + 10;
+	int firstLine = 110;//大标题下面
+	int secondLine = firstLine + 60;
+
+	int wthOff = 25;
+	int firstwth = 125;
+	int secondPoint = edgeOffset + firstwth;
+	int secondwth = 400;
+	int thirdPoint = secondPoint + secondwth;
+	int thirdwth = firstwth;
+	int forthPoint = thirdPoint + thirdwth;
+	int forthwth = secondwth;
+	int fifthPoint = forthPoint + forthwth;
+	int fifthwth = 250;
+	float sixthPoint = fifthPoint + fifthwth;
+	float sixthwth = (innerW - firstwth - secondwth - thirdwth - forthwth - fifthwth * 2)*1.0 / 2;
+	float sevenPoint = sixthPoint + sixthwth;
+	float sevenwth = fifthwth;
+	float eightPoint = sevenPoint + sevenwth;
+	float eightWidth = sixthwth;
+
+
+
+	//画数据部分的线条
+	painter->setPen(QPen(QColor(0, 0, 0), 3));
+	QVector<QLine> lines;
+
+
+	int simpleFun = 480 * m_iTestingCount;
+	lines.append(QLine(QPoint(edgeOffset, edgeOffset), QPoint(rightW, edgeOffset)));//上边
+	lines.append(QLine(QPoint(rightW, edgeOffset), QPoint(rightW, bottomH)));//右边
+	lines.append(QLine(QPoint(edgeOffset, bottomH), QPoint(rightW, bottomH)));//下边
+	lines.append(QLine(QPoint(edgeOffset, edgeOffset), QPoint(edgeOffset, bottomH)));//左边
+
+	lines.append(QLine(QPoint(edgeOffset, firstLine + simpleFun), QPoint(rightW, firstLine + simpleFun)));
+	lines.append(QLine(QPoint(edgeOffset, secondLine + simpleFun), QPoint(rightW, secondLine + simpleFun)));
+	lines.append(QLine(QPoint(edgeOffset, secondLine + 360 + simpleFun), QPoint(rightW, secondLine + 360 + simpleFun)));
+
+	painter->drawLines(lines);
+	lines.clear();
+
+	painter->setPen(QPen(QColor(0, 0, 0), 1));
+
+	//画打印机和站号
+
+	lines.append(QLine(QPoint(secondPoint, edgeOffset + simpleFun), QPoint(secondPoint, firstLine + simpleFun)));
+	lines.append(QLine(QPoint(forthPoint, edgeOffset + simpleFun), QPoint(forthPoint, firstLine + simpleFun)));
+	lines.append(QLine(QPoint(sixthPoint, edgeOffset + simpleFun), QPoint(sixthPoint, firstLine + simpleFun)));
+	lines.append(QLine(QPoint(eightPoint, edgeOffset + simpleFun), QPoint(eightPoint, firstLine + simpleFun)));
+	painter->drawLines(lines);
+	lines.clear();
+
+	painter->setPen(QPen(QColor(0, 0, 0), 3));
+	lines.append(QLine(QPoint(thirdPoint, edgeOffset + simpleFun), QPoint(thirdPoint, firstLine + simpleFun)));
+	lines.append(QLine(QPoint(fifthPoint, edgeOffset + simpleFun), QPoint(fifthPoint, firstLine + simpleFun)));
+	lines.append(QLine(QPoint(sevenPoint, edgeOffset + simpleFun), QPoint(sevenPoint, firstLine + simpleFun)));
+
+	painter->drawLines(lines);
+	lines.clear();
+
+	//第一部分
+	if (m_iTestingCount == 0)
+	{
+		font.setPointSize(20);
+		painter->setFont(font);
+		painter->drawText(100, 0, innerW, 50, Qt::AlignVCenter, QString::fromLocal8Bit("版权所有:Dr.Pharm"));// ui->lE_unit->text());//单位名称	
+		painter->drawText(50, 0, innerW - 50, 50, Qt::AlignRight | Qt::AlignVCenter, QString::fromLocal8Bit("设备型号:") + m_sName);
+	}
+	font.setPointSize(23);
+	painter->setFont(font);
+
+	//第二部分
+
+	painter->drawText(edgeOffset, secondLine + simpleFun, 250, 300, Qt::AlignCenter, QString::fromLocal8Bit("签名:"));
+	painter->drawText(edgeOffset, edgeOffset + simpleFun, firstwth, 60, Qt::AlignCenter, QString::fromLocal8Bit("日期"));
+	painter->drawText(secondPoint + 25, edgeOffset + simpleFun, secondwth, 60, Qt::AlignVCenter, QString::fromLocal8Bit(""));
+	painter->drawText(thirdPoint, edgeOffset + simpleFun, thirdwth, 60, Qt::AlignCenter, QString::fromLocal8Bit("批号"));
+	painter->drawText(forthPoint + 25, edgeOffset + simpleFun, forthwth, 60, Qt::AlignVCenter, QString::fromLocal8Bit(""));
+	painter->drawText(fifthPoint, edgeOffset + simpleFun, fifthwth, 60, Qt::AlignCenter, QString::fromLocal8Bit("1#站平均重量"));
+	painter->drawText(sixthPoint + 25, edgeOffset + simpleFun, sixthwth, 60, Qt::AlignVCenter, QString::number(m_dave[0], 'f', 4) + "g");
+	painter->drawText(sevenPoint, edgeOffset + simpleFun, sevenwth, 60, Qt::AlignCenter, QString::fromLocal8Bit("2#站平均重量"));
+	if (data_One[1].size() == 0)
+	{
+		painter->drawText(eightPoint + 25, edgeOffset + simpleFun, eightWidth, 60, Qt::AlignVCenter, "-");
+	}
+	else
+	{
+		painter->drawText(eightPoint + 25, edgeOffset + simpleFun, eightWidth, 60, Qt::AlignVCenter, QString::number(m_dave[1], 'f', 4) + "g");
+	}
+}
 void DrawPicture::createPixCurve(QPixmap *pix)
 {
 	//painter->setRenderHints(QPainter::SmoothPixmapTransform);//消锯齿 
@@ -720,5 +845,6 @@ void DrawPicture::setData(QVector<QVector<float>> sourcedata,QVector<QString> gn
 	m_gn = gn;
 	m_ftheory = f;
 	m_iPrintCurveCount = i;
-	m_iPrintAveCount = j;
+	m_iPrintAveCount = 0;
+	m_iTestingRecords = j;
 }

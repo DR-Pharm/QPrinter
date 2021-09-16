@@ -485,7 +485,8 @@ void PRT::on_pB_PrintDirect_clicked()
 			{
 				SWITCHOSK();
 			}
-			m_drawpicture->setData(data, gn, m_iPrintCurveCount, m_iPrintAveCount, theory);
+			int sz = data.size();
+			m_drawpicture->setData(data, gn, m_iPrintCurveCount, sz, theory);
 			//wt->show();
 			m_drawpicture->drawPic2(m_prt);
 			//wt->close();

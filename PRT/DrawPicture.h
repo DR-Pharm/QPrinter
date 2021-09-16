@@ -37,15 +37,18 @@ private:
 	double m_dmaxoff[2];
 
 	int totalMachineCount;
+	int m_iTestingCount;
 	int m_iPrintCurveCount = 0;
 	int m_iPrintAveCount = 0;
 
 	bool CurveChecked;
-	bool AveChecked;
+	bool AveChecked; 
+	int m_iTestingRecords;
 public:
 	DrawPicture(QObject *parent);
 	~DrawPicture();
 	void drawPic2(QPrinter * printer);
+	void createTestingRecords(QPixmap * pix);
 	void createPixCurve(QPixmap * pix);
 	void createPixAverage(QPixmap * pix);
 	void caculateData(QVector<QVector<float>> transData,QVector<QString>, int ivalue, int half, QVector<float> theory);
