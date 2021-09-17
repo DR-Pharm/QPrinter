@@ -310,8 +310,8 @@ void DrawPicture::createTestingRecords(QPixmap *pix)
 	//画数据部分的线条
 	QVector<QLine> lines;
 	int simpleFun = 480 * m_iTestingCount;
-	int tbl = edgeOffset + 220;
-	float everyRow = (bottomH - tbl) / 31.0;
+	int tbl = edgeOffset + 120;
+	float everyRow = (bottomH - tbl) / 32.0;
 	float everyColumn = (rightW - edgeOffset) / 13.0;
 	if (m_iTestingCount == 0)
 	{
@@ -322,10 +322,15 @@ void DrawPicture::createTestingRecords(QPixmap *pix)
 		lines.append(QLine(QPoint(edgeOffset, tbl), QPoint(edgeOffset, bottomH)));//左边
 		lines.append(QLine(QPoint(edgeOffset, secondLine), QPoint(rightW, secondLine)));//细
 
-		for (int i=0;i<6;i++)
+		for (int i = 0; i < 3; i++)
 		{
-			lines.append(QLine(QPoint(edgeOffset + everyColumn * (1 + 2 * i), tbl), QPoint(edgeOffset + everyColumn * (1 + 2 * i), bottomH)));
-			lines.append(QLine(QPoint(edgeOffset + everyColumn * (2 * (i+1)), tbl+everyRow), QPoint(edgeOffset + everyColumn * (2 * (1+i)), bottomH-4* everyRow)));
+			lines.append(QLine(QPoint(edgeOffset + everyColumn * (1 + 4 * i), tbl), QPoint(edgeOffset + everyColumn * (1 + 4 * i), bottomH)));//最长
+			lines.append(QLine(QPoint(edgeOffset + everyColumn * (4 * (i + 1) - 1), tbl + everyRow), QPoint(edgeOffset + everyColumn * (4 * (i + 1) - 1), bottomH - 5 * everyRow)));//最短中间
+			painter->drawText(edgeOffset + everyColumn * (1 + 4 * i), tbl, everyColumn*4, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("第")+QString::number(i+1)+QString::fromLocal8Bit("次"));
+		}
+		for (int i = 0; i < 6; i++)
+		{
+			lines.append(QLine(QPoint(edgeOffset + everyColumn * (2 * (i+1)), tbl+everyRow), QPoint(edgeOffset + everyColumn * (2 * (1+i)), bottomH-5* everyRow)));//最短两边
 		}
 		for (int i = 0; i < 28; i++)
 		{
@@ -337,9 +342,8 @@ void DrawPicture::createTestingRecords(QPixmap *pix)
 			}
 		}
 		painter->drawText(edgeOffset + 20, tbl + everyRow * 27, everyColumn, everyRow, Qt::AlignLeft | Qt::AlignVCenter, QString::fromLocal8Bit("带壳"));
-		painter->drawText(edgeOffset + 20, tbl + everyRow * 28, everyColumn, everyRow, Qt::AlignLeft | Qt::AlignVCenter, QString::fromLocal8Bit("去壳"));
-		painter->drawText(edgeOffset + 20, tbl + everyRow * 29, everyColumn, everyRow, Qt::AlignLeft | Qt::AlignVCenter, QString::fromLocal8Bit("均重"));
-		painter->drawText(edgeOffset + 20, tbl + everyRow * 30, everyColumn, everyRow, Qt::AlignLeft | Qt::AlignVCenter, QString::fromLocal8Bit("装差"));
+		painter->drawText(edgeOffset + 20, tbl + everyRow * 29, everyColumn, everyRow, Qt::AlignLeft | Qt::AlignVCenter, QString::fromLocal8Bit("去壳"));
+		painter->drawText(edgeOffset + 20, tbl + everyRow * 30, everyColumn, everyRow, Qt::AlignLeft | Qt::AlignVCenter, QString::fromLocal8Bit("73mg"));
 
 		painter->drawLines(lines);
 		lines.clear();
@@ -353,16 +357,13 @@ void DrawPicture::createTestingRecords(QPixmap *pix)
 		painter->setFont(font);
 		painter->drawText(edgeOffset, 0, innerW, 100, Qt::AlignHCenter | Qt::AlignVCenter, QString::fromLocal8Bit("翰林航宇科技发展股份公司"));
 
-		font.setPointSize(40);
+		font.setPointSize(35);
 		painter->setFont(font);
-		painter->drawText(edgeOffset, secondLine, innerW, 80, Qt::AlignHCenter | Qt::AlignVCenter, QString::fromLocal8Bit("随机抽检计量盘1周或模块1周的机器称量、存储、打印数据(带壳)"));
+		painter->drawText(edgeOffset, 0, innerW, 90, Qt::AlignRight | Qt::AlignBottom, QString::fromLocal8Bit("日期：2021年9月17日"));
+		painter->drawText(edgeOffset, secondLine, innerW / 2, tbl-secondLine, Qt::AlignLeft | Qt::AlignVCenter, QString::fromLocal8Bit("试机厂家:北京圣永"));
+		painter->drawText(edgeOffset + innerW / 3, secondLine, innerW / 2, tbl - secondLine, Qt::AlignLeft | Qt::AlignVCenter, QString::fromLocal8Bit("药品名称:感冒清热颗粒"));
+		painter->drawText(edgeOffset + 2 * innerW / 3, secondLine, innerW / 2, tbl - secondLine, Qt::AlignLeft | Qt::AlignVCenter, QString::fromLocal8Bit("要求净重范围:(100mg-200mg)"));
 
-		font.setPointSize(35);
-		painter->setFont(font);
-		painter->drawText(edgeOffset, secondLine + 80, innerW / 2, 80, Qt::AlignLeft | Qt::AlignVCenter, QString::fromLocal8Bit("试机厂家:"));
-		font.setPointSize(35);
-		painter->setFont(font);
-		painter->drawText(edgeOffset+ innerW / 2, secondLine + 80, innerW / 2, 80, Qt::AlignLeft | Qt::AlignVCenter, QString::fromLocal8Bit("药品名称:"));
 	}
 	font.setPointSize(23);
 	painter->setFont(font);

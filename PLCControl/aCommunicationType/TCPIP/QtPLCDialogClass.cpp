@@ -2638,13 +2638,15 @@ void QtPLCDialogClass::on_gB_update_toggled(bool arg1)
 {
 	if (arg1)
 	{
-		((Ui::QtPLCDialogClass*)ui)->gB_update->setTitle(QString::fromLocal8Bit("人工输入"));
+		if (lg == 0) ((Ui::QtPLCDialogClass*)ui)->gB_update->setTitle(QString::fromLocal8Bit("人工输入"));
+		if (lg == 1) ((Ui::QtPLCDialogClass*)ui)->gB_update->setTitle(QString::fromLocal8Bit("Manual Input"));
 		((Ui::QtPLCDialogClass*)ui)->lE_print1->setEnabled(true);
 		((Ui::QtPLCDialogClass*)ui)->lE_print2->setEnabled(true);
 	}
 	else
 	{
-		((Ui::QtPLCDialogClass*)ui)->gB_update->setTitle(QString::fromLocal8Bit("自动更新"));
+		if (lg == 0) ((Ui::QtPLCDialogClass*)ui)->gB_update->setTitle(QString::fromLocal8Bit("自动更新"));
+		if (lg == 1) ((Ui::QtPLCDialogClass*)ui)->gB_update->setTitle(QString::fromLocal8Bit("Auto Update"));
 		((Ui::QtPLCDialogClass*)ui)->lE_print1->setEnabled(false);
 		((Ui::QtPLCDialogClass*)ui)->lE_print2->setEnabled(false);
 	}
@@ -2736,6 +2738,16 @@ void QtPLCDialogClass::on_pB_ChangeLanguage()
 void QtPLCDialogClass::ChangeLanguage()
 {
 	if (1) {
+
+		((Ui::QtPLCDialogClass*)ui)->gB_update->setTitle(QString::fromLocal8Bit("Auto Update"));
+		((Ui::QtPLCDialogClass*)ui)->pB_keyboard->setText("Keyboard");
+		((Ui::QtPLCDialogClass*)ui)->label_51->setText("Customer");
+		((Ui::QtPLCDialogClass*)ui)->label_59->setText("Qualified");
+		((Ui::QtPLCDialogClass*)ui)->label_55->setText("Medicine");
+		((Ui::QtPLCDialogClass*)ui)->label_63->setText("to");
+		((Ui::QtPLCDialogClass*)ui)->label_70->setText("Shell Weight"); 
+		((Ui::QtPLCDialogClass*)ui)->pB_printTestingRecords->setText("Print Testing Records");
+
 		((Ui::QtPLCDialogClass*)ui)->groupBox_11->setTitle("Print");
 		((Ui::QtPLCDialogClass*)ui)->label_36->setText("Search:");
 		((Ui::QtPLCDialogClass*)ui)->label_61->setText("Result:");
@@ -2798,7 +2810,6 @@ void QtPLCDialogClass::ChangeLanguage()
 		//((Ui::QtPLCDialogClass*)ui)->pB_cmdScaleRead->setText("ScaleRead");
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdScaleTire->setText("ScaleTire");
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdScaleCalibExt->setText("ScaleCalibExt");
-		((Ui::QtPLCDialogClass*)ui)->label->setText("Stable State");
 		//((Ui::QtPLCDialogClass*)ui)->pB_cmdScaleSetStable->setText("ScaleSetStable");
 
 
@@ -2837,7 +2848,6 @@ void QtPLCDialogClass::ChangeLanguage()
 		((Ui::QtPLCDialogClass*)ui)->label_27->setText("error code");
 		((Ui::QtPLCDialogClass*)ui)->label_28->setText("RelMovDistance");
 		((Ui::QtPLCDialogClass*)ui)->label_20->setText("Alarm status");
-		((Ui::QtPLCDialogClass*)ui)->label_3->setText("Alarm bit");
 		((Ui::QtPLCDialogClass*)ui)->label_33->setText("Actual Interval Time(s)");
 
 		//用户管理

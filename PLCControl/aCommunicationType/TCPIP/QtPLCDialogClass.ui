@@ -5765,9 +5765,9 @@ font: 26pt &quot;Onyx&quot;;</string>
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>320</y>
+      <y>330</y>
       <width>731</width>
-      <height>261</height>
+      <height>251</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_One"/>
@@ -5778,7 +5778,7 @@ font: 26pt &quot;Onyx&quot;;</string>
       <x>130</x>
       <y>90</y>
       <width>711</width>
-      <height>241</height>
+      <height>251</height>
      </rect>
     </property>
     <property name="font">
