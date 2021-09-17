@@ -284,7 +284,7 @@ void DrawPicture::createTestingRecords(QPixmap *pix)
 	int innerH = pixHeight - 2 * edgeOffset;
 	int inner50percentH = innerH / 2;
 	int rightW = pixWidth - edgeOffset;
-	int bottomH = pixHeight - edgeOffset;
+	int bottomH = pixHeight - edgeOffset-50;//为下面预留50
 	int firstLine = edgeOffset+20;//大标题下面
 	int secondLine = firstLine + 8;
 
@@ -321,6 +321,7 @@ void DrawPicture::createTestingRecords(QPixmap *pix)
 		lines.append(QLine(QPoint(edgeOffset, bottomH), QPoint(rightW, bottomH)));//下边
 		lines.append(QLine(QPoint(edgeOffset, tbl), QPoint(edgeOffset, bottomH)));//左边
 		lines.append(QLine(QPoint(edgeOffset, secondLine), QPoint(rightW, secondLine)));//细
+		lines.append(QLine(QPoint(edgeOffset, bottomH+30), QPoint(rightW, bottomH + 30)));//细
 
 		for (int i = 0; i < 3; i++)
 		{
@@ -337,21 +338,29 @@ void DrawPicture::createTestingRecords(QPixmap *pix)
 			lines.append(QLine(QPoint(edgeOffset, tbl + (everyRow*(1 + i))), QPoint(rightW, tbl + (everyRow*(1 + i)))));
 			if (i<26)
 			{
-				painter->drawText(edgeOffset+20, tbl + (everyRow*(1 + i)), everyColumn, everyRow, Qt::AlignLeft | Qt::AlignVCenter, QString::number(i + 1));
+				painter->drawText(edgeOffset, tbl + (everyRow*(1 + i)), everyColumn, everyRow, Qt::AlignCenter, QString::number(i + 1));
 
 			}
 		}
-		painter->drawText(edgeOffset + 20, tbl + everyRow * 27, everyColumn, everyRow, Qt::AlignLeft | Qt::AlignVCenter, QString::fromLocal8Bit("带壳"));
-		painter->drawText(edgeOffset + 20, tbl + everyRow * 29, everyColumn, everyRow, Qt::AlignLeft | Qt::AlignVCenter, QString::fromLocal8Bit("去壳"));
-		painter->drawText(edgeOffset + 20, tbl + everyRow * 30, everyColumn, everyRow, Qt::AlignLeft | Qt::AlignVCenter, QString::fromLocal8Bit("73mg"));
+		painter->setBrush(QBrush(Qt::gray, Qt::SolidPattern));//设置画刷形式 
+		painter->drawRect(edgeOffset, tbl + everyRow * 27, everyColumn, everyRow);
+		painter->drawText(edgeOffset, tbl + everyRow * 27, everyColumn, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("带壳"));
+		painter->drawText(edgeOffset, tbl + everyRow * 29, everyColumn, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("去壳"));
+		painter->drawText(edgeOffset, tbl + everyRow * 30, everyColumn, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("73mg"));
 
 		painter->drawLines(lines);
 		lines.clear();
 
 		painter->setPen(QPen(QColor(0, 0, 0), 5));
 		lines.append(QLine(QPoint(edgeOffset, firstLine), QPoint(rightW, firstLine)));//粗
+		lines.append(QLine(QPoint(edgeOffset, bottomH + 38), QPoint(rightW, bottomH + 38)));//粗
 		painter->drawLines(lines);
 		lines.clear();
+
+
+		font.setPointSize(30);
+		painter->setFont(font);
+		painter->drawText(edgeOffset, bottomH + 38, innerW, 60, Qt::AlignCenter, "2");
 
 		font.setPointSize(50);
 		painter->setFont(font);
