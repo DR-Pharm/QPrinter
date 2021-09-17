@@ -278,14 +278,14 @@ void DrawPicture::createTestingRecords(QPixmap *pix)
 	//font.setItalic(true);//斜体
 	painter->setFont(font);
 
-	int edgeOffset = 60;
+	int edgeOffset = 80;
 	int innerW = pixWidth - 2 * edgeOffset;
 	int inner50percentW = innerW / 2;
 	int innerH = pixHeight - 2 * edgeOffset;
 	int inner50percentH = innerH / 2;
 	int rightW = pixWidth - edgeOffset;
 	int bottomH = pixHeight - edgeOffset;
-	int firstLine = 100;//大标题下面
+	int firstLine = edgeOffset+20;//大标题下面
 	int secondLine = firstLine + 8;
 
 	int wthOff = 25;
