@@ -220,6 +220,23 @@ void QtPLCDialogClass::initUser()
 	((Ui::QtPLCDialogClass*)ui)->lE_SetUserSecretNum->setEnabled(false);
 	((Ui::QtPLCDialogClass*)ui)->pB_AddUser->setEnabled(false);
 
+	((Ui::QtPLCDialogClass*)ui)->lE_low->setValidator(new QRegExpValidator(regx2, this));
+	((Ui::QtPLCDialogClass*)ui)->lE_high->setValidator(new QRegExpValidator(regx2, this));
+	((Ui::QtPLCDialogClass*)ui)->lE_pure->setValidator(new QRegExpValidator(regx2, this));
+
+	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+	m_cn = configIniRead.value("Customer/CustomerName", "").toString();
+	m_mn = configIniRead.value("Customer/MedicineName", "").toString();
+	m_l = configIniRead.value("Customer/Low", 0).toInt();
+	m_h = configIniRead.value("Customer/High", 0).toInt();
+	m_ps = configIniRead.value("Customer/PureShell", 0).toInt();
+
+	((Ui::QtPLCDialogClass*)ui)->lE_customer->setText(m_cn);
+	((Ui::QtPLCDialogClass*)ui)->lE_medicineName->setText(m_mn);
+	((Ui::QtPLCDialogClass*)ui)->lE_low->setText(QString::number(m_l));
+	((Ui::QtPLCDialogClass*)ui)->lE_high->setText(QString::number(m_h));
+	((Ui::QtPLCDialogClass*)ui)->lE_pure->setText(QString::number(m_ps));
+
 	connect(((Ui::QtPLCDialogClass*)ui)->treeWidget_2, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(onTreeItemChanged(QTreeWidgetItem*)));
 
 	if (lg == 0)updateCheckPermission(QString::fromLocal8Bit("管理员"));
@@ -2288,6 +2305,7 @@ void QtPLCDialogClass::BeforePrint()
 	int p2 = ((Ui::QtPLCDialogClass*)ui)->lE_print2->text().toInt();
 	((Ui::QtPLCDialogClass*)ui)->lE_print1->setText(QString::number(p1));
 	((Ui::QtPLCDialogClass*)ui)->lE_print2->setText(QString::number(p2));
+
 	if (p1 > p2)
 	{
 		emit showWindowOut(QString::fromLocal8Bit("无满足条件\n打印数据!"));
@@ -2366,23 +2384,27 @@ void QtPLCDialogClass::BeforePrint()
 		}
 	}
 }
+void QtPLCDialogClass::on_pB_keyboard_clicked()
+{
+	SWITCHOSK();
+}
 void QtPLCDialogClass::on_pB_printTestingRecords_clicked()//记录
 {
 	cb = "0";
-	if (((Ui::QtPLCDialogClass*)ui)->cB_kb->isChecked())
-	{
-		cb = "1";
-	}
+	//if (((Ui::QtPLCDialogClass*)ui)->cB_kb->isChecked())
+	//{
+	//	cb = "1";
+	//}
 	cb = "1" + cb;
 	BeforePrint();
 }
 void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 {
 	cb = "0";
-	if (((Ui::QtPLCDialogClass*)ui)->cB_kb->isChecked())
+	/*if (((Ui::QtPLCDialogClass*)ui)->cB_kb->isChecked())
 	{
 		cb = "1";
-	}
+	}*/
 	cb = "0" + cb;
 	BeforePrint();
 }
@@ -2643,6 +2665,25 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 		ExitBtn->setEnabled(false);
 		typ.Machine_Cmd.cmdStart = 1;
 		btnTimer->start(1);
+
+
+		((Ui::QtPLCDialogClass*)ui)->lE_low->setText(QString::number(((Ui::QtPLCDialogClass*)ui)->lE_low->text().toInt()));
+		((Ui::QtPLCDialogClass*)ui)->lE_high->setText(QString::number(((Ui::QtPLCDialogClass*)ui)->lE_high->text().toInt()));
+		((Ui::QtPLCDialogClass*)ui)->lE_pure->setText(QString::number(((Ui::QtPLCDialogClass*)ui)->lE_pure->text().toInt()));
+
+		QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+
+		configIniRead.setValue("Customer/CustomerName", (((Ui::QtPLCDialogClass*)ui)->lE_customer->text()));
+		configIniRead.setValue("Customer/MedicineName", (((Ui::QtPLCDialogClass*)ui)->lE_medicineName->text()));
+		configIniRead.setValue("Customer/Low", (((Ui::QtPLCDialogClass*)ui)->lE_low->text()));
+		configIniRead.setValue("Customer/High", (((Ui::QtPLCDialogClass*)ui)->lE_high->text()));
+		configIniRead.setValue("Customer/PureShell", (((Ui::QtPLCDialogClass*)ui)->lE_pure->text()));
+
+		m_cn = configIniRead.value("Customer/CustomerName", "").toString();
+		m_mn = configIniRead.value("Customer/MedicineName", "").toString();
+		m_l = configIniRead.value("Customer/Low", 0).toInt();
+		m_h = configIniRead.value("Customer/High", 0).toInt();
+		m_ps = configIniRead.value("Customer/PureShell", 0).toInt();
 	}
 	else
 	{

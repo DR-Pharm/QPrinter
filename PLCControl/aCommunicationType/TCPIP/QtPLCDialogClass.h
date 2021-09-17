@@ -63,6 +63,12 @@ public:
 	QString YearMonthDay();
 	void SWITCHOSK();//¿ì½Ý¼ü
 private:
+	QString m_cn;
+	QString m_mn;
+	int m_l;
+	int m_h;
+	int m_ps;
+
 	QString cb;
 	int m_iAutoUpdateFlag = 0;
 	MyPushButton *LanguageBtn;
@@ -142,6 +148,7 @@ public slots:
 
 	void getPLCData(void*);
 
+	void on_pB_keyboard_clicked();
 
 	void setg_IUserLevel(int);
 
