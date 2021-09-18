@@ -91,6 +91,12 @@ private:
 	QWaiting *wt;
 	WindowOut *levelOut;//show默认为非模态modal，如果是局部变量会闪现消失
 	int lg = 0;
+
+	QVector<QString> m_CustomerName;
+	QVector<QString> m_MedicineName;
+	QVector<int> m_Low;
+	QVector<int> m_High;
+	QVector<int> m_PureShell;
 public slots:	
 	void showWindowOut(QString str);
 	//printer
@@ -105,7 +111,7 @@ public slots:
 	void on_cB_Average_toggled(bool checked);
 	void on_cB_PrintMode_currentIndexChanged(int index);
 	void on_ToClose();
-	void getVec(QVector<QVector<float>>, QVector<QString>,int, QVector<float> teo,QString strCb);
+	void getVec(QVector<QVector<float>>, QVector<QString>,int, QVector<float> teo,QString strCb, QVector<QString> CustomerName, QVector<QString> MedicineName, QVector<int> lo, QVector<int> hi, QVector<int> pureshell);
 	void SuccessConnect();
 	void ErrorConnect();
 	void EmitReconnect();

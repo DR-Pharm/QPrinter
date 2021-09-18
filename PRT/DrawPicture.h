@@ -44,20 +44,26 @@ private:
 	bool CurveChecked;
 	bool AveChecked; 
 	int m_iTestingRecords;
+
+	QVector<QString> m_CustomerName;
+	QVector<QString> m_MedicineName;
+	QVector<int> m_Low;
+	QVector<int> m_High;
+	QVector<int> m_PureShell;
 public:
 	DrawPicture(QObject *parent);
 	~DrawPicture();
 	void drawPic2(QPrinter * printer);
 	void createTestingRecordsOnePage(QPixmap * pix);
 	QString YearMonthDay();
-	void createTestingRecords(QPixmap * pix);
+	void createTestingRecords(QPixmap * pix,int pagei);
 	void createPixCurve(QPixmap * pix);
 	void createPixAverage(QPixmap * pix);
 	void caculateData(QVector<QVector<float>> transData,QVector<QString>, int ivalue, int half, QVector<float> theory);
 
 	void setCurveChecked(bool);
 	void setAveChecked(bool);
-	void setData(QVector<QVector<float>> sourcedata, QVector<QString>, int i, int j, QVector<float> f);
+	void setData(QVector<QVector<float>> sourcedata, QVector<QString>, int i, int j, QVector<float> f, QVector<QString>, QVector<QString>, QVector<int>, QVector<int>, QVector<int>);
 public slots:
 	void drawPic(QPrinter * pt);
 

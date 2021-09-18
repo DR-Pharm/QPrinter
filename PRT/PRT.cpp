@@ -70,7 +70,7 @@ void PRT::initPLC()
 	b = connect(dlg, SIGNAL(SHOWPRT(bool)), this, SLOT(showPrt(bool))); 
 	b = connect(dlg, SIGNAL(showWindowOut(QString)), this, SLOT(showWindowOut(QString)));
 	b = connect(dlg, SIGNAL(CLOSESIGNAL()), this, SLOT(on_ToClose()));
-	b = connect(dlg, SIGNAL(TODRAWPICTURE(QVector<QVector<float>>, QVector<QString>,int, QVector<float>,QString)), this, SLOT(getVec(QVector<QVector<float>>, QVector<QString>,int, QVector<float>,QString)));
+	b = connect(dlg, SIGNAL(TODRAWPICTURE(QVector<QVector<float>>, QVector<QString>,int, QVector<float>,QString, QVector<QString>, QVector<QString>, QVector<int>, QVector<int>, QVector<int>)), this, SLOT(getVec(QVector<QVector<float>>, QVector<QString>,int, QVector<float>,QString, QVector<QString>, QVector<QString>, QVector<int>, QVector<int>, QVector<int>)));
 	dlg->setParent(ui.widget);
 	dlg->move(0, 0);
 	b = connect(this, SIGNAL(MINI()), m_pPlclib, SLOT(setWinMini()));
@@ -473,7 +473,7 @@ void PRT::on_pB_PrintDirect_clicked()
 			{
 				SWITCHOSK();
 			}
-			m_drawpicture->setData(data, gn, m_iPrintCurveCount, m_iPrintAveCount, theory);
+			m_drawpicture->setData(data, gn, m_iPrintCurveCount, m_iPrintAveCount, theory,m_CustomerName,m_MedicineName,m_Low,m_High,m_PureShell);
 			m_drawpicture->drawPic(m_prt);
 		}
 	}
@@ -486,7 +486,7 @@ void PRT::on_pB_PrintDirect_clicked()
 				SWITCHOSK();
 			}
 			int sz = data.size();
-			m_drawpicture->setData(data, gn, m_iPrintCurveCount, sz, theory);
+			m_drawpicture->setData(data, gn, m_iPrintCurveCount, sz, theory, m_CustomerName, m_MedicineName, m_Low, m_High, m_PureShell);
 			//wt->show();
 			m_drawpicture->drawPic2(m_prt);
 			//wt->close();
@@ -514,7 +514,7 @@ void PRT::on_pB_Print_clicked()
 	 * 当preview.exec()执行时该信号被触发，
 	 * drawPic(QPrinter *printer)是自定义的槽函数，图像的绘制就在这个函数里。
 	 */
-	m_drawpicture->setData(data,gn, m_iPrintCurveCount, m_iPrintAveCount, theory);
+	m_drawpicture->setData(data,gn, m_iPrintCurveCount, m_iPrintAveCount, theory, m_CustomerName, m_MedicineName, m_Low, m_High, m_PureShell);
 	//wt->setTxt(QString::fromLocal8Bit("打印预览功能正在开启..."));//打印正在进行,请稍等...
 	connect(&preview, SIGNAL(paintRequested(QPrinter*)), this, SLOT(toDraw(QPrinter*)));
 	preview.exec();
@@ -545,7 +545,7 @@ void PRT::on_ToClose()
 	}
 }
 
-void PRT::getVec(QVector<QVector<float>> a, QVector<QString> GN,int mode, QVector<float> teo,QString strCb)
+void PRT::getVec(QVector<QVector<float>> a, QVector<QString> GN,int mode, QVector<float> teo,QString strCb, QVector<QString> CustomerName, QVector<QString> MedicineName, QVector<int> lo, QVector<int> hi, QVector<int> pureshell)
 {
 	if (mode==0)//MODE 0:dataAverage,1:curve
 	{
@@ -578,6 +578,13 @@ void PRT::getVec(QVector<QVector<float>> a, QVector<QString> GN,int mode, QVecto
 		theory = teo;
 		//data[0] = a;
 		m_cb = strCb;
+
+		m_CustomerName= CustomerName;
+		m_MedicineName= MedicineName;
+		m_Low=lo;
+		m_High=hi;
+		m_PureShell= pureshell;
+
 		on_pB_PrintDirect_clicked();
 		data.clear();
 		gn.clear();
