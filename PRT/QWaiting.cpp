@@ -24,36 +24,36 @@ QWaiting::~QWaiting()
 
 bool QWaiting::eventFilter(QObject* obj, QEvent* event)
 {
-	if (obj == this)
-	{
-		switch (event->type())
-		{
-		case QKeyEvent::KeyPress:
-		{
-			int key_type = static_cast<QKeyEvent*>(event)->key();
-			if (key_type == Qt::Key_Alt)
-				m_bAltKeyPressed = true;
-			break;
-		}
-		case QEvent::KeyRelease:
-		{
-			int key_type = static_cast<QKeyEvent*>(event)->key();
-			if (key_type == Qt::Key_Alt)
-				m_bAltKeyPressed = false;
-			break;
-		}
-		case QEvent::Close:
-		{
-			if (m_bAltKeyPressed)
-			{//ÆÁ±ÎALT+F4
-				event->ignore();
-				return true;
-				break;
-			}
-		}
-		default:break;
-		}
-	}
+//	if (obj == this)
+//	{
+//		switch (event->type())
+//		{
+//		case QKeyEvent::KeyPress:
+//		{
+//			int key_type = static_cast<QKeyEvent*>(event)->key();
+//			if (key_type == Qt::Key_Alt)
+//				m_bAltKeyPressed = true;
+//			break;
+//		}
+//		case QEvent::KeyRelease:
+//		{
+//			int key_type = static_cast<QKeyEvent*>(event)->key();
+//			if (key_type == Qt::Key_Alt)
+//				m_bAltKeyPressed = false;
+//			break;
+//		}
+//		case QEvent::Close:
+//		{
+//			if (m_bAltKeyPressed)
+//			{//ÆÁ±ÎALT+F4
+//				event->ignore();
+//				return true;
+//				break;
+//			}
+//		}
+//		default:break;
+//		}
+//	}
 	return QObject::eventFilter(obj, event);
 }
 

@@ -9,7 +9,7 @@
 #include <QThread>
 #include <QCoreApplication>
 #include <QMessageBox>
-
+#include <QDateTime>
 class DrawPicture : public QObject
 {
 	Q_OBJECT
@@ -48,6 +48,8 @@ public:
 	DrawPicture(QObject *parent);
 	~DrawPicture();
 	void drawPic2(QPrinter * printer);
+	void createTestingRecordsOnePage(QPixmap * pix);
+	QString YearMonthDay();
 	void createTestingRecords(QPixmap * pix);
 	void createPixCurve(QPixmap * pix);
 	void createPixAverage(QPixmap * pix);

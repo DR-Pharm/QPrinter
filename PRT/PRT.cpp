@@ -284,13 +284,13 @@ void PRT::mouseMoveEvent(QMouseEvent * event)
 	}
 }
 void PRT::closeEvent(QCloseEvent *event)
-{
+{/*
 	if (!m_bCloseSignal)
 	{
 		event->ignore();
 		return;
 	}
-
+*/
 	if (m_pPlclib != nullptr)
 	{
 		m_pPlclib->QtDestroyDlg();
@@ -299,36 +299,36 @@ void PRT::closeEvent(QCloseEvent *event)
 
 bool PRT::eventFilter(QObject* obj, QEvent* event)
 {
-	if (obj == this)
-	{
-		switch (event->type())
-		{
-		case QKeyEvent::KeyPress:
-		{
-			int key_type = static_cast<QKeyEvent*>(event)->key();
-			if (key_type == Qt::Key_Alt)
-				m_bAltKeyPressed = true;
-			break;
-		}
-		case QEvent::KeyRelease:
-		{
-			int key_type = static_cast<QKeyEvent*>(event)->key();
-			if (key_type == Qt::Key_Alt)
-				m_bAltKeyPressed = false;
-			break;
-		}
-		case QEvent::Close:
-		{
-			if (m_bAltKeyPressed)
-			{//屏蔽ALT+F4
-				event->ignore();
-				return true;
-				break;
-			}
-		}
-		default:break;
-		}
-	}
+	//if (obj == this)
+	//{
+	//	switch (event->type())
+	//	{
+	//	case QKeyEvent::KeyPress:
+	//	{
+	//		int key_type = static_cast<QKeyEvent*>(event)->key();
+	//		if (key_type == Qt::Key_Alt)
+	//			m_bAltKeyPressed = true;
+	//		break;
+	//	}
+	//	case QEvent::KeyRelease:
+	//	{
+	//		int key_type = static_cast<QKeyEvent*>(event)->key();
+	//		if (key_type == Qt::Key_Alt)
+	//			m_bAltKeyPressed = false;
+	//		break;
+	//	}
+	//	case QEvent::Close:
+	//	{
+	//		if (m_bAltKeyPressed)
+	//		{//屏蔽ALT+F4
+	//			event->ignore();
+	//			return true;
+	//			break;
+	//		}
+	//	}
+	//	default:break;
+	//	}
+	//}
 	return QObject::eventFilter(obj, event);
 }
 #pragma endregion
@@ -531,7 +531,7 @@ void PRT::on_ToClose()
 	{
 		if (QMessageBox::Yes == showMsgBox("退出确认", "是否确认退出该系统?", "确认", "取消"))
 		{
-			m_bCloseSignal = true;
+			//m_bCloseSignal = true;
 			close();
 		}
 	}
@@ -539,7 +539,7 @@ void PRT::on_ToClose()
 	{
 		if (QMessageBox::Yes == showMsgBox("Information", "Quit the System?", "Yes", "Cancel"))
 		{
-			m_bCloseSignal = true;
+			//m_bCloseSignal = true;
 			close();
 		}
 	}
