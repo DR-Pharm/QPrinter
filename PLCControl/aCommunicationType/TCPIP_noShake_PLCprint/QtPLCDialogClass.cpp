@@ -2161,6 +2161,8 @@ void QtPLCDialogClass::ChangeLanguage()
 		//((Ui::QtPLCDialogClass*)ui)->label_78->setText("Batch Num");
 		//((Ui::QtPLCDialogClass*)ui)->label_50->setText("Step");
 
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapClean->setText("Empty");
+
 		((Ui::QtPLCDialogClass*)ui)->label_9->setText("Group Num");
 		((Ui::QtPLCDialogClass*)ui)->label->setText("Times");
 		((Ui::QtPLCDialogClass*)ui)->label_3->setText("Total(g)");
