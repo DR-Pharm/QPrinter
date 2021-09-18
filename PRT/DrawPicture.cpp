@@ -613,7 +613,23 @@ void DrawPicture::createTestingRecords(QPixmap *pix,int pagei)
 		float fave2 = (fsum * 1000 - m_PureShell[j]) / d.size();
 		str = QString::fromLocal8Bit("均重：") + QString::number(fave2, 'f', 1) + "mg";
 		painter->drawText(edgeOffset + everyColumn * (1 + 4 * (k % 3)), tbl + (everyRow * 28), everyColumn * 4, everyRow, Qt::AlignCenter, str);
-		str = QString::fromLocal8Bit("RSD：") + QString::number(fave, 'f', 1) + "%";
+		float SD = 0.0;
+		float RSD = 0.0;
+		if (d.size()==1||fave2==0)
+		{
+
+		}
+		else
+		{
+			for (int i = 0; i < d.size(); i++)
+			{
+				SD += (d[i] * 1000 - fave2)* (d[i] * 1000 - fave2);
+			}
+			SD = SD / d.size();
+			SD = sqrt(SD);
+			RSD = SD / fave2*100;
+		}
+		str = QString::fromLocal8Bit("RSD：") + QString::number(RSD, 'f', 1) + "%";
 		painter->drawText(edgeOffset + everyColumn * (1 + 4 * (k % 3)), tbl + (everyRow * 29), everyColumn * 4, everyRow, Qt::AlignCenter, str);
 		str = QString::fromLocal8Bit("最重：") + QString::number(imax- m_PureShell[j]) + "mg";
 		painter->drawText(edgeOffset + everyColumn * (1 + 4 * (k % 3)), tbl + (everyRow * 30), everyColumn * 4, everyRow, Qt::AlignCenter, str);
