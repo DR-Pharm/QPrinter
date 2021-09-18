@@ -1003,6 +1003,11 @@ void QtPLCDialogClass::getPLCData(void* data)
 				QString lkstr = QString::number(m_data->Status.CapDataDisp.GroupNo) + "," + ymdhm + "," + ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text();
 				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/gn", lkstr);
 				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/theory", QString::number(m_data->ActData.TDemand, 'f', 3));
+				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/CustomerName", (((Ui::QtPLCDialogClass*)ui)->lE_customer->text()));
+				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/MedicineName", (((Ui::QtPLCDialogClass*)ui)->lE_medicineName->text()));
+				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/Low", (((Ui::QtPLCDialogClass*)ui)->lE_low->text()));
+				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/High", (((Ui::QtPLCDialogClass*)ui)->lE_high->text()));
+				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/PureShell", (((Ui::QtPLCDialogClass*)ui)->lE_pure->text()));
 
 				QSettings timIni(AppPath + "\\data\\time.ini", QSettings::IniFormat);
 				QString str1tmp = ymdhm.mid(0, 10);
@@ -2346,7 +2351,17 @@ void QtPLCDialogClass::BeforePrint()
 		QVector<float> teo;
 		teo << configIniRead.value(QString::number(p1) + "/theory", 1).toFloat();
 		dataToDraw << data_temp;
-		emit TODRAWPICTURE(dataToDraw, GroupNumber, 1, teo, cb);
+		QVector<QString> CustomerName;
+		CustomerName << configIniRead.value(QString::number(p1) + "/CustomerName", "").toString();
+		QVector<QString> MedicineName;
+		MedicineName << configIniRead.value(QString::number(p1) + "/MedicineName", "").toString();
+		QVector<int> lo;
+		lo << configIniRead.value(QString::number(p1) + "/Low", 0).toInt();
+		QVector<int> hi;
+		hi << configIniRead.value(QString::number(p1) + "/High", 0).toInt();
+		QVector<int> PureShell;
+		PureShell << configIniRead.value(QString::number(p1) + "/PureShell", 0).toInt();
+		emit TODRAWPICTURE(dataToDraw, GroupNumber, 1, teo, cb, CustomerName, MedicineName, lo,hi,PureShell);
 	
 	}
 	else
@@ -2355,6 +2370,11 @@ void QtPLCDialogClass::BeforePrint()
 		QVector<QVector<float>> dataToDraw;
 		QVector<QString> GroupNumber;
 		QVector<float> teo;
+		QVector<QString> CustomerName;
+		QVector<QString> MedicineName;
+		QVector<int> lo;
+		QVector<int> hi;
+		QVector<int> PureShell;
 		for (int i = p1; i < p2 + 1; i++)
 		{
 			QString str = configIniRead.value(QString::number(i) + "/data", 0).toString();
@@ -2371,12 +2391,17 @@ void QtPLCDialogClass::BeforePrint()
 				GroupNumber << configIniRead.value(QString::number(i) + "/gn", "0").toString();
 				dataToDraw << data_temp;
 				teo << configIniRead.value(QString::number(i) + "/theory", 1).toFloat();
+				CustomerName << configIniRead.value(QString::number(i) + "/CustomerName", "").toString();
+				MedicineName << configIniRead.value(QString::number(i) + "/MedicineName", "").toString();
+				lo << configIniRead.value(QString::number(i) + "/Low", 0).toInt();
+				hi << configIniRead.value(QString::number(i) + "/High", 0).toInt();
+				PureShell << configIniRead.value(QString::number(i) + "/PureShell", 0).toInt();
 			}
 		}
 
 		if (dataToDraw.size() > 0)
 		{
-			emit TODRAWPICTURE(dataToDraw, GroupNumber, 1, teo, cb);
+			emit TODRAWPICTURE(dataToDraw, GroupNumber, 1, teo, cb, CustomerName, MedicineName, lo, hi, PureShell);
 		}
 
 		else
