@@ -1061,6 +1061,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedhome->setEnabled(false);
 			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedFive->setEnabled(true);
 			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShakefive->setEnabled(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapClean->setEnabled(true);
 		}
 		else
 		{
@@ -1070,6 +1071,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedhome->setEnabled(true);
 			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedFive->setEnabled(false);
 			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShakefive->setEnabled(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapClean->setEnabled(false);
 		}
 		((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->blockSignals(false);
 	}																						  //int				Language;				//当前语言，0：中文，1：英文
