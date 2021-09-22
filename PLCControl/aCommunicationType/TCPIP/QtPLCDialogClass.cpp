@@ -616,6 +616,13 @@ void QtPLCDialogClass::initUI()
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedRelMovDistance->setText(text1);	//下料电机相对运动距离，单位unit
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisSwingRelMovDistance->setText(text2);//旋转电机相对运动距离，单位unit
 
+
+	int i_feedMode = configIniRead.value("ProgramSetting/FeedModeEnabled", 0).toInt();
+	if (i_feedMode==0)
+	{
+		((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->setEnabled(false);
+	}
+
 	setYearMonthDay();
 }
 
@@ -1022,7 +1029,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 
 				QSettings inq(AppPath + "\\data\\inquire.ini", QSettings::IniFormat);
 				QString strinqu = inq.value("alldt/data", "").toString();
-				if (strinqu.mid(0, 8) != str1tmp);
+				if (strinqu.mid(0, 8) != str1tmp)
 				{
 					if (strinqu!="")
 					{
@@ -1173,24 +1180,24 @@ void QtPLCDialogClass::getPLCData(void* data)
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->setText(QString::number(m_data->Machine_Para.CapPickInterval, 'f', 2));
+		((Ui::QtPLCDialogClass*)ui)->lE_CapPickInterval->setText(QString::number(m_data->Machine_Para.CapPickInterval, 'f', 1));
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->setText(QString::number(m_data->Machine_Para.CapBackInterval, 'f', 2));
+		((Ui::QtPLCDialogClass*)ui)->lE_CapBackInterval->setText(QString::number(m_data->Machine_Para.CapBackInterval, 'f', 1));
 	}
 
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->setText(QString::number(m_data->Machine_Para.TireDelay, 'f', 2));
+		((Ui::QtPLCDialogClass*)ui)->lE_TireDelay->setText(QString::number(m_data->Machine_Para.TireDelay, 'f', 1));
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->setText(QString::number(m_data->Machine_Para.ReadDelay, 'f', 2));
+		((Ui::QtPLCDialogClass*)ui)->lE_ReadDelay->setText(QString::number(m_data->Machine_Para.ReadDelay, 'f', 1));
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->hasFocus())
 	{
-		((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->setText(QString::number(m_data->Machine_Para.TireWaitTime, 'f', 2));
+		((Ui::QtPLCDialogClass*)ui)->lE_TireWaitTime->setText(QString::number(m_data->Machine_Para.TireWaitTime, 'f', 1));
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_StopSignalDelay->hasFocus())
 	{
@@ -1548,6 +1555,8 @@ QString QtPLCDialogClass::YearMonthDay()
 	logHour = logHour.length() < 2 ? ("0" + logHour) : logHour;
 	QString logMinute = QString::number(current_time.time().minute());
 	logMinute = logMinute.length() < 2 ? ("0" + logMinute) : logMinute;
+	QString logSecond = QString::number(current_time.time().second());
+	logSecond = logSecond.length() < 2 ? ("0" + logSecond) : logSecond;
 	strTime = logYear + "/" //z=a>b?x:y
 		+ logMonth + "/"
 		+ logDay + " "
@@ -1935,7 +1944,13 @@ void QtPLCDialogClass::on_lE_TestInterval_editingFinished()///测试间隔时间
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
-	typ.ActData.TestInterval = ((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->text().toInt();
+	int i= ((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->text().toInt();
+	if (i<60)
+	{
+		i = 60;
+	}
+	typ.ActData.TestInterval = i;
+
 	m_socket->Communicate_PLC(&typ, nullptr);
 	((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->blockSignals(true);
 	((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->clearFocus();
