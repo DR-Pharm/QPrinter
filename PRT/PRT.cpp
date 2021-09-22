@@ -469,10 +469,6 @@ void PRT::on_pB_PrintDirect_clicked()
 	{
 		if (QMessageBox::Yes == showMsgBox("打印确认", "确认打印数据曲线?", "确认", "取消"))
 		{
-			if (m_cb.mid(1) == "1")
-			{
-				SWITCHOSK();
-			}
 			m_drawpicture->setData(data, gn, m_iPrintCurveCount, m_iPrintAveCount, theory,m_CustomerName,m_MedicineName,m_Low,m_High,m_PureShell);
 			m_drawpicture->drawPic(m_prt);
 		}
@@ -481,10 +477,6 @@ void PRT::on_pB_PrintDirect_clicked()
 	{
 		if (QMessageBox::Yes == showMsgBox("打印确认", "确认打印试机记录?", "确认", "取消"))
 		{
-			if (m_cb.mid(1) == "1")
-			{
-				SWITCHOSK();
-			}
 			int sz = data.size();
 			m_drawpicture->setData(data, gn, m_iPrintCurveCount, sz, theory, m_CustomerName, m_MedicineName, m_Low, m_High, m_PureShell);
 			//wt->show();
