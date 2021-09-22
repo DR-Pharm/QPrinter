@@ -71,7 +71,7 @@ private:
 	int m_h;
 	int m_ps;
 
-	QString cb;
+	QString cb;//第一位打印哪个 0曲线 1试机记录；第二位打印哪种试机记录 0胶囊 1片剂
 	int m_iAutoUpdateFlag = 0;
 	MyPushButton *LanguageBtn;
 	MyPushButton *ExitBtn;

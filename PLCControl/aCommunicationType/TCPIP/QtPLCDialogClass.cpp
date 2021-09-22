@@ -2424,21 +2424,27 @@ void QtPLCDialogClass::on_pB_keyboard_clicked()
 }
 void QtPLCDialogClass::on_pB_printTestingRecords_clicked()//记录
 {
-	cb = "0";
-	//if (((Ui::QtPLCDialogClass*)ui)->cB_kb->isChecked())
-	//{
-	//	cb = "1";
-	//}
+	if (m_data->ActData.Feedmode==0)
+	{
+		cb = "0";
+	}
+	else
+	{
+		cb = "1";
+	}
 	cb = "1" + cb;
 	BeforePrint();
 }
 void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 {
-	cb = "0";
-	/*if (((Ui::QtPLCDialogClass*)ui)->cB_kb->isChecked())
+	if (m_data->ActData.Feedmode == 0)
+	{
+		cb = "0";
+	}
+	else
 	{
 		cb = "1";
-	}*/
+	}
 	cb = "0" + cb;
 	BeforePrint();
 }
