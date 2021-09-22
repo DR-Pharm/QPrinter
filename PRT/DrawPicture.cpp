@@ -1102,7 +1102,7 @@ void DrawPicture::setAveChecked(bool b)
 	AveChecked = b;
 }
 
-void DrawPicture::setData(QVector<QVector<float>> sourcedata,QVector<QString> gn, int i, int j, QVector<float> f,QVector<QString> CustomerName, QVector<QString> MedicineName, QVector<int> lo, QVector<int> hi, QVector<int> pureshell)
+void DrawPicture::setData(QVector<QVector<float>> sourcedata,QVector<QString> gn, int i, int j, QVector<float> f,QVector<QString> CustomerName, QVector<QString> MedicineName, QVector<int> lo, QVector<int> hi, QVector<int> pureshell, QString cb)
 {
 	data = sourcedata;
 	m_gn = gn;
@@ -1116,4 +1116,5 @@ void DrawPicture::setData(QVector<QVector<float>> sourcedata,QVector<QString> gn
 	m_Low = lo;
 	m_High = hi;
 	m_PureShell = pureshell;
+	m_cb = cb;
 }

@@ -50,6 +50,7 @@ private:
 	QVector<int> m_Low;
 	QVector<int> m_High;
 	QVector<int> m_PureShell;
+	QString m_cb;
 public:
 	DrawPicture(QObject *parent);
 	~DrawPicture();
@@ -63,7 +64,7 @@ public:
 
 	void setCurveChecked(bool);
 	void setAveChecked(bool);
-	void setData(QVector<QVector<float>> sourcedata, QVector<QString>, int i, int j, QVector<float> f, QVector<QString>, QVector<QString>, QVector<int>, QVector<int>, QVector<int>);
+	void setData(QVector<QVector<float>> sourcedata, QVector<QString>, int i, int j, QVector<float> f, QVector<QString>, QVector<QString>, QVector<int>, QVector<int>, QVector<int>,QString cb);
 public slots:
 	void drawPic(QPrinter * pt);
 
