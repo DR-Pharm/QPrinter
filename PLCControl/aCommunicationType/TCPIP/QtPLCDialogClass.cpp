@@ -820,6 +820,9 @@ void QtPLCDialogClass::initChartOne()
 }
 void QtPLCDialogClass::getPLCData(void* data)
 {
+	QDateTime time = QDateTime::currentDateTime();
+	QString strtm = time.toString("hh:mm:ss");
+	((Ui::QtPLCDialogClass*)ui)->lb_tm->setText(strtm);
 	memcpy(m_data, (DataToPC_typ*)data, sizeof(DataToPC_typ));//主界面用
 
 	//运行数据
@@ -1058,8 +1061,11 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->setCurrentIndex(m_data->ActData.Feedmode);
-		if (m_data->ActData.Feedmode==0)
+		((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->blockSignals(false);
+		if (m_data->ActData.Feedmode==0 && m_bFeedModeFlag1 == 0)
 		{
+			m_bFeedModeFlag1 = 1;
+			m_bFeedModeFlag2 = 0;
 			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShake->setEnabled(false);
 			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedshakestop->setEnabled(false);
 			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedshakelevel->setEnabled(false);
@@ -1068,8 +1074,10 @@ void QtPLCDialogClass::getPLCData(void* data)
 			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShakefive->setEnabled(false);
 			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapClean->setEnabled(true);
 		}
-		else
+		else if(m_data->ActData.Feedmode == 1 && m_bFeedModeFlag2 == 0)
 		{
+			m_bFeedModeFlag1 = 0;
+			m_bFeedModeFlag2 = 1;
 			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShake->setEnabled(true);
 			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedshakestop->setEnabled(true);
 			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedshakelevel->setEnabled(true);
@@ -1078,7 +1086,6 @@ void QtPLCDialogClass::getPLCData(void* data)
 			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShakefive->setEnabled(true);
 			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapClean->setEnabled(false);
 		}
-		((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->blockSignals(false);
 	}																						  //int				Language;				//当前语言，0：中文，1：英文
 	//float			UserAnalogoutput;		//用户模拟量输入
 	//float			Adjustvalue;			//自动调整系数

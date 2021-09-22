@@ -63,6 +63,8 @@ public:
 	QString YearMonthDay();
 	void SWITCHOSK();//¿ì½Ý¼ü
 private:
+	bool m_bFeedModeFlag1 = 0;
+	bool m_bFeedModeFlag2 = 0;
 	QString m_cn;
 	QString m_mn;
 	int m_l;
