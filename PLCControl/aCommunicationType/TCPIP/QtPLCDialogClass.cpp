@@ -618,10 +618,11 @@ void QtPLCDialogClass::initUI()
 
 
 	int i_feedMode = configIniRead.value("ProgramSetting/FeedModeEnabled", 0).toInt();
-	if (i_feedMode==0)
-	{
-		((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->setEnabled(false);
-	}
+	if (i_feedMode==0) ((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->setEnabled(false);
+
+	int i_hideprint1 = configIniRead.value("ProgramSetting/HidePrint1", 0).toInt();
+	if (i_hideprint1 == 1) ((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setVisible(false);
+	//int i_hideprint2 = configIniRead.value("ProgramSetting/HidePrint2", 0).toInt();
 
 	setYearMonthDay();
 }
@@ -2892,8 +2893,6 @@ void QtPLCDialogClass::ChangeLanguage()
 		((Ui::QtPLCDialogClass*)ui)->label_57->setText("Cutting Speed");
 		((Ui::QtPLCDialogClass*)ui)->label_58->setText("Test Sub.(s)");
 		((Ui::QtPLCDialogClass*)ui)->label_56->setText("Interval Time");
-		((Ui::QtPLCDialogClass*)ui)->pB_Read2->setText("Read");
-		((Ui::QtPLCDialogClass*)ui)->pB_Write2->setText("Write");
 
 		//运行状态
 		((Ui::QtPLCDialogClass*)ui)->label_21->setText("State Mac.");

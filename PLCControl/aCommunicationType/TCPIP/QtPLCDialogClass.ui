@@ -2247,7 +2247,7 @@
           <x>13</x>
           <y>13</y>
           <width>801</width>
-          <height>561</height>
+          <height>661</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout_2">
@@ -2769,32 +2769,6 @@
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="layoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>590</y>
-          <width>801</width>
-          <height>44</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_10">
-         <item>
-          <widget class="QPushButton" name="pB_Read2">
-           <property name="text">
-            <string>读取</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pB_Write2">
-           <property name="text">
-            <string>写入</string>
            </property>
           </widget>
          </item>
