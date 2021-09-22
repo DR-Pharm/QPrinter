@@ -26,6 +26,11 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	((Ui::QtPLCDialogClass*)ui)->setupUi(this);
 	((Ui::QtPLCDialogClass*)ui)->frame->move(0, 0);
 
+	m_data = new DataToPC_typ;
+	memset(m_data, 0, sizeof(DataToPC_typ));//主界面用
+	//int jdd = sizeof(m_data->ActData.BatchName);//40
+	memset(m_data->ActData.BatchName, '\0', sizeof(m_data->ActData.BatchName));
+
 	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
 	lg = configIniRead.value("Language/currentLanguage", "").toInt();
 
@@ -36,10 +41,6 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	inittabicon();
 	initUser();
 	if (lg == 1) ChangeLanguage();
-	m_data = new DataToPC_typ;
-	memset(m_data, 0, sizeof(DataToPC_typ));//主界面用
-	//int jdd = sizeof(m_data->ActData.BatchName);//40
-	memset(m_data->ActData.BatchName, '\0', sizeof(m_data->ActData.BatchName));
 	short za;
 	int aaa = sizeof(za);
 	DataToPC_typ dt1;

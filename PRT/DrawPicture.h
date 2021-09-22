@@ -56,8 +56,10 @@ public:
 	~DrawPicture();
 	void drawPic2(QPrinter * printer);
 	void createTestingRecordsOnePage(QPixmap * pix);
+	void createTestingRecordsOnePage2(QPixmap * pix);
 	QString YearMonthDay();
 	void createTestingRecords(QPixmap * pix,int pagei);
+	void createTestingRecords2(QPixmap * pix, int pagei);
 	void createPixCurve(QPixmap * pix);
 	void createPixAverage(QPixmap * pix);
 	void caculateData(QVector<QVector<float>> transData,QVector<QString>, int ivalue, int half, QVector<float> theory);
