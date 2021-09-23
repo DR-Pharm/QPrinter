@@ -1576,12 +1576,12 @@ void QtPLCDialogClass::CompareYearMonthDay()
 			{
 				ltemp2 = value;
 			}
-			if (value>=ll1 && value<=ltemp1)
+			if (value>=ll1 && value <= ll2 && value<=ltemp1)
 			{
 				int finalvalue = timIni.value(key).toInt();  // 直接用 key 获取数据
 				m_gn1 = QString::number(finalvalue);
 			}
-			if (value <= ll2 && value >= ltemp2)
+			if (value >= ll1 && value <= ll2 && value >= ltemp2)
 			{
 				int finalvalue = timIni.value(key).toInt();  // 直接用 key 获取数据
 				m_gn2 = QString::number(finalvalue);

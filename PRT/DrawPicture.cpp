@@ -39,8 +39,7 @@ void DrawPicture::drawPic2(QPrinter *printer)
 	int page2;
 	if (m_cb.mid(1, 1) == "0")
 	{
-		//page2 = m_iTestingRecords / 3 < 1 ? 1 : m_iTestingRecords / 3 + (m_iTestingRecords % 3 == 0 ? 0 : 1);
-		page2 = m_iTestingRecords / 4 < 1 ? 1 : m_iTestingRecords / 4 + (m_iTestingRecords % 4 == 0 ? 0 : 1);
+		page2 = m_iTestingRecords / 3 < 1 ? 1 : m_iTestingRecords / 3 + (m_iTestingRecords % 3 == 0 ? 0 : 1);
 	}
 	else
 	{
@@ -63,7 +62,7 @@ void DrawPicture::drawPic2(QPrinter *printer)
 	painter->begin(&pix[pageValue]);
 	if (m_cb.mid(1,1)== "0")
 	{
-		createTestingRecordsOnePage2(&pix[pageValue]);
+		createTestingRecordsOnePage(&pix[pageValue]);
 	}
 	else
 	{
@@ -93,7 +92,7 @@ void DrawPicture::drawPic2(QPrinter *printer)
 		QCoreApplication::processEvents();	
 		if (m_cb.mid(1, 1) == "0")
 		{
-			createTestingRecords2(&pix[pageValue], m_iTestingCount);
+			createTestingRecords(&pix[pageValue], m_iTestingCount);
 		}
 		else
 		{
