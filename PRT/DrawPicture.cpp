@@ -1356,10 +1356,30 @@ void DrawPicture::createPixCurve(QPixmap *pix)
 			for (int i = 0; i < data_One[totalMachineCount].size(); i++) {
 				painter->drawText(edgeOffset + i % weightColumnCount * weightColumnAve, weightMiddle + simpleFun + i / weightColumnCount % weightRowCount * weightRowAve, 60, weightRowAve, Qt::AlignCenter, QString::number(i + 1));
 			}
+			float fsum = 0;
 			for (int i = 0; i < data_One[totalMachineCount].size(); i++) {
 				painter->drawText(edgeOffset + i % weightColumnCount * weightColumnAve + 70, weightMiddle + simpleFun + i / weightColumnCount % weightRowCount * weightRowAve, weightColumnAve - 60, weightRowAve, Qt::AlignVCenter, QString::number(data_One[totalMachineCount].at(i), 'f', 3));
+				fsum += data_One[totalMachineCount].at(i);
 			}
+			QString str;
+			float SD = 0.0;
+			float RSD = 0.0;
+			if (data_One[totalMachineCount].size() == 1 || m_dave[totalMachineCount] == 0)
+			{
 
+			}
+			else
+			{
+				for (int i = 0; i < data_One[totalMachineCount].size(); i++)
+				{
+					SD += (data_One[totalMachineCount].at(i) * 1000 - m_dave[totalMachineCount] * 1000)* (data_One[totalMachineCount].at(i) * 1000 - m_dave[totalMachineCount]*1000);
+				}
+				SD = SD / (data_One[totalMachineCount].size() - 1);
+				SD = sqrt(SD);
+				RSD = SD / (m_dave[totalMachineCount] * 1000) * 100;
+			}
+			str = QString::fromLocal8Bit("RSD = ") + QString::number(RSD, 'f', 2) + "%"; 
+			painter->drawText(innerW-300, YTop - 50 + simpleFun, 300, 50, Qt::AlignCenter, str);//重量
 		}
 		//第五部分
 		painter->drawText(50, pixHeight / 2 - 80 + simpleFun, 1900, 80, Qt::AlignCenter, QString::fromLocal8Bit("签字:"));// +ui->lE_code->text());
