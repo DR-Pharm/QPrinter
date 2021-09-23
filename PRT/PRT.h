@@ -97,6 +97,9 @@ private:
 	QVector<int> m_Low;
 	QVector<int> m_High;
 	QVector<int> m_PureShell;
+	QVector<int> m_Yield;
+	QVector<int> m_Pressure;
+	QVector<int> m_Speed;
 public slots:	
 	void showWindowOut(QString str);
 	//printer
@@ -111,7 +114,7 @@ public slots:
 	void on_cB_Average_toggled(bool checked);
 	void on_cB_PrintMode_currentIndexChanged(int index);
 	void on_ToClose();
-	void getVec(QVector<QVector<float>>, QVector<QString>,int, QVector<float> teo,QString strCb, QVector<QString> CustomerName, QVector<QString> MedicineName, QVector<int> lo, QVector<int> hi, QVector<int> pureshell);
+	void getVec(QVector<QVector<float>>, QVector<QString>,int, QVector<float> teo,QString strCb, QVector<QString> CustomerName, QVector<QString> MedicineName, QVector<int> lo, QVector<int> hi, QVector<int> pureshell, QVector<int> yld, QVector<int> pres, QVector<int> spd);
 	void SuccessConnect();
 	void ErrorConnect();
 	void EmitReconnect();

@@ -33,7 +33,7 @@ signals:
 	void GETSTRING(QString);
 	void SHOWPRT(bool);
 	void TODATACURVE(int,float, float, float, QList<qreal>);
-	void TODRAWPICTURE(QVector<QVector<float>>,QVector<QString>,int, QVector<float>,QString, QVector<QString>, QVector<QString>, QVector<int>, QVector<int>, QVector<int>);//MODE 0:one curve,1:one dataAverage,2:two curve,3:two dataAverage
+	void TODRAWPICTURE(QVector<QVector<float>>,QVector<QString>,int, QVector<float>,QString, QVector<QString>, QVector<QString>, QVector<int>, QVector<int>, QVector<int>, QVector<int>, QVector<int>, QVector<int>);//MODE 0:one curve,1:one dataAverage,2:two curve,3:two dataAverage
 	void showWindowOut(QString str);
 public:
 	QtPLCDialogClass(QDialog *parent = Q_NULLPTR);
@@ -69,7 +69,13 @@ private:
 	QString m_mn;
 	int m_l;
 	int m_h;
-	int m_ps;
+	int m_ps; 
+	int m_speed;
+	int	m_yield;
+	int m_pressure;
+
+	int m_iHideprint1;
+	int m_iHideprint2;
 
 	QString cb;//第一位打印哪个 0曲线 1试机记录；第二位打印哪种试机记录 0胶囊 1片剂
 	int m_iAutoUpdateFlag = 0;

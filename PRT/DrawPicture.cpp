@@ -35,7 +35,17 @@ void DrawPicture::drawPic2(QPrinter *printer)
 		allornot = 0;
 	}
 	painterPixmap.begin(printer);
-	int page2= m_iTestingRecords / 3 < 1 ? 1 : m_iTestingRecords / 3 + (m_iTestingRecords % 3 == 0 ? 0 : 1);
+
+	int page2;
+	if (m_cb.mid(1, 1) == "0")
+	{
+		//page2 = m_iTestingRecords / 3 < 1 ? 1 : m_iTestingRecords / 3 + (m_iTestingRecords % 3 == 0 ? 0 : 1);
+		page2 = m_iTestingRecords / 4 < 1 ? 1 : m_iTestingRecords / 4 + (m_iTestingRecords % 4 == 0 ? 0 : 1);
+	}
+	else
+	{
+		page2 = m_iTestingRecords / 4 < 1 ? 1 : m_iTestingRecords / 4 + (m_iTestingRecords % 4 == 0 ? 0 : 1);
+	}
 
 	int pages = page2+1;//有个首页
 	QVector<QPixmap> pix;
@@ -53,7 +63,7 @@ void DrawPicture::drawPic2(QPrinter *printer)
 	painter->begin(&pix[pageValue]);
 	if (m_cb.mid(1,1)== "0")
 	{
-		createTestingRecordsOnePage(&pix[pageValue]);
+		createTestingRecordsOnePage2(&pix[pageValue]);
 	}
 	else
 	{
@@ -83,7 +93,7 @@ void DrawPicture::drawPic2(QPrinter *printer)
 		QCoreApplication::processEvents();	
 		if (m_cb.mid(1, 1) == "0")
 		{
-			createTestingRecords(&pix[pageValue], m_iTestingCount);
+			createTestingRecords2(&pix[pageValue], m_iTestingCount);
 		}
 		else
 		{
@@ -921,7 +931,7 @@ void DrawPicture::createTestingRecords2(QPixmap *pix, int pagei)
 	//画数据部分的线条
 	QVector<QLine> lines;
 	int tbl = edgeOffset + 120;
-	float everyRow = (bottomH - tbl) / 32.0;
+	float everyRow = (bottomH - tbl) / 38.0;
 	float everyColumn = (rightW - edgeOffset) / 13.0;
 
 	painter->setPen(QPen(QColor(0, 0, 0), 2));
@@ -932,29 +942,46 @@ void DrawPicture::createTestingRecords2(QPixmap *pix, int pagei)
 	lines.append(QLine(QPoint(edgeOffset, secondLine), QPoint(rightW, secondLine)));//细
 	lines.append(QLine(QPoint(edgeOffset, bottomH + 30), QPoint(rightW, bottomH + 30)));//细
 
-	for (int i = 0; i < 3; i++)
+	painter->drawText(edgeOffset, tbl, everyColumn, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("产量"));
+	painter->drawText(edgeOffset, tbl + everyRow, everyColumn, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("压力"));
+	painter->drawText(edgeOffset, tbl + everyRow * 2, everyColumn, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("转速"));
+	painter->drawText(edgeOffset, tbl + everyRow * 3, everyColumn, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("取样"));
+
+	for (int i = 0; i < 4; i++)
 	{
-		lines.append(QLine(QPoint(edgeOffset + everyColumn * (1 + 4 * i), tbl), QPoint(edgeOffset + everyColumn * (1 + 4 * i), bottomH)));//最长
-		lines.append(QLine(QPoint(edgeOffset + everyColumn * (4 * (i + 1) - 1), tbl + everyRow), QPoint(edgeOffset + everyColumn * (4 * (i + 1) - 1), bottomH - 5 * everyRow)));//最短中间
-		painter->drawText(edgeOffset + everyColumn * (1 + 4 * i), tbl, everyColumn * 4, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("第") + QString::number(i + pagei * 3 + 1) + QString::fromLocal8Bit("次"));
+		int j = pagei * 4 + i;
+		lines.append(QLine(QPoint(edgeOffset + everyColumn * (1 + 3 * i), tbl), QPoint(edgeOffset + everyColumn * (1 + 3 * i), bottomH)));//最长
+		lines.append(QLine(QPoint(edgeOffset + everyColumn * (3 * (i + 1) - 1), tbl + 4 * everyRow), QPoint(edgeOffset + everyColumn * (3 * (i + 1) - 1), bottomH - 4 * everyRow)));//最短左
+		lines.append(QLine(QPoint(edgeOffset + everyColumn * (3 * (i + 1)), tbl + 4 * everyRow), QPoint(edgeOffset + everyColumn * (3 * (i + 1)), bottomH - 4 * everyRow)));//最短右
+		painter->drawText(edgeOffset + everyColumn * (1 + 3 * i), tbl, everyColumn * 3, everyRow, Qt::AlignCenter, QString::number(m_Yield[j]) + QString::fromLocal8Bit("万片/小时"));
+		painter->drawText(edgeOffset + everyColumn * (1 + 3 * i), tbl + everyRow, everyColumn * 3, everyRow, Qt::AlignCenter, QString::number(m_Pressure[j]) + "KN");
+		painter->drawText(edgeOffset + everyColumn * (1 + 3 * i), tbl + everyRow*2, everyColumn * 3, everyRow, Qt::AlignCenter, QString::number(m_Speed[j]) + QString::fromLocal8Bit("转/分"));
+		if (i%2==0)
+		{
+			painter->drawText(edgeOffset + everyColumn * (1 + 3 * i), tbl + everyRow * 3, everyColumn * 3, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("第") + QString::number(i+pagei * 3 + 1) + QString::fromLocal8Bit("次(双出料左站)"));
+		}
+		else
+		{
+			painter->drawText(edgeOffset + everyColumn * (1 + 3 * i), tbl + everyRow * 3, everyColumn * 3, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("第") + QString::number(i+pagei * 3 + 1) + QString::fromLocal8Bit("次(双出料右站)"));
+		}
 	}
-	for (int i = 0; i < 6; i++)
-	{
-		lines.append(QLine(QPoint(edgeOffset + everyColumn * (2 * (i + 1)), tbl + everyRow), QPoint(edgeOffset + everyColumn * (2 * (1 + i)), bottomH - 5 * everyRow)));//最短两边
-	}
-	for (int i = 0; i < 28; i++)
+
+	for (int i = 0; i < 37; i++)
 	{
 		lines.append(QLine(QPoint(edgeOffset, tbl + (everyRow*(1 + i))), QPoint(rightW, tbl + (everyRow*(1 + i)))));
-		if (i < 26)
+		if (i <= 32 && i>=3)
 		{
-			painter->drawText(edgeOffset, tbl + (everyRow*(1 + i)), everyColumn, everyRow, Qt::AlignCenter, QString::number(i + 1));
+			painter->drawText(edgeOffset, tbl + (everyRow*(1 + i)), everyColumn, everyRow, Qt::AlignCenter, QString::number(i-2));
 
 		}
 	}
-	//painter->drawText(edgeOffset, tbl + everyRow * 27, everyColumn, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("带壳"));
-	painter->drawText(edgeOffset, tbl + everyRow * 29, everyColumn, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("去壳"));
-	QString s = QString::number(m_PureShell[pagei * 3]) + "mg";
-	painter->drawText(edgeOffset, tbl + everyRow * 30, everyColumn, everyRow, Qt::AlignCenter, s);
+	painter->drawText(edgeOffset, tbl + everyRow * 34, everyColumn, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("均重"));
+	painter->drawText(edgeOffset, tbl + everyRow * 35, everyColumn, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("RSD"));
+	painter->drawText(edgeOffset, tbl + everyRow * 36, everyColumn, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("最重"));
+	painter->drawText(edgeOffset, tbl + everyRow * 37, everyColumn, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("最轻"));
+
+	QString s;
+	/*painter->drawText(edgeOffset, tbl + everyRow * 30, everyColumn, everyRow, Qt::AlignCenter, s);*/
 
 	painter->drawLines(lines);
 	lines.clear();
@@ -981,13 +1008,13 @@ void DrawPicture::createTestingRecords2(QPixmap *pix, int pagei)
 	painter->drawText(edgeOffset, secondLine, innerW / 2, tbl - secondLine, Qt::AlignLeft | Qt::AlignVCenter, s);
 	s = QString::fromLocal8Bit("药品名称:") + m_MedicineName[pagei * 3];
 	painter->drawText(edgeOffset + innerW / 3 + 100, secondLine, innerW / 2, tbl - secondLine, Qt::AlignLeft | Qt::AlignVCenter, s);
-	s = QString::fromLocal8Bit("要求净重范围:") + QString::number(m_Low[pagei * 3]) + "mg - " + QString::number(m_High[pagei * 3]) + "mg";
+	s = QString::fromLocal8Bit("要求片重范围:") + QString::number(m_Low[pagei * 3]) + "mg - " + QString::number(m_High[pagei * 3]) + "mg";
 	painter->drawText(edgeOffset + 2 * innerW / 3 + 50, secondLine, innerW / 2, tbl - secondLine, Qt::AlignLeft | Qt::AlignVCenter, s);
 
 	painter->setBrush(QBrush(Qt::gray, Qt::SolidPattern));//设置画刷形式 
-	for (int k = 0; k < 3; k++)
+	for (int k = 0; k < 4; k++)
 	{
-		int j = pagei * 3 + k;
+		int j = pagei * 4 + k;
 		if (j >= data.size())
 		{
 			break;
@@ -1005,17 +1032,18 @@ void DrawPicture::createTestingRecords2(QPixmap *pix, int pagei)
 			int id = d[i] * 1000;
 			if (id == imin || id == imax)
 			{
-				painter->drawRect(edgeOffset + everyColumn * (1 + i / 26 + 4 * (k % 3)), tbl + (everyRow*(1 + i % 26)), everyColumn, everyRow);
+				painter->drawRect(edgeOffset + everyColumn * (1 + i / 30 + 3 * (k % 4)), tbl + (everyRow*(4 + i % 30)), everyColumn, everyRow);
 			}
-			painter->drawText(edgeOffset + everyColumn * (1 + i / 26 + 4 * (k % 3)), tbl + (everyRow*(1 + i % 26)), everyColumn, everyRow, Qt::AlignCenter, QString::number(id));
+			painter->drawText(edgeOffset + everyColumn * (1 + i / 30 + 3 * (k % 4)), tbl + (everyRow*(4 + i % 30)), everyColumn, everyRow, Qt::AlignCenter, QString::number(id));
 			fsum += d[i];
 		}
-		float fave = fsum * 1000 / d.size();
-		QString str = QString::fromLocal8Bit("带壳均重：") + QString::number(fave, 'f', 1) + "mg";
-		painter->drawText(edgeOffset + everyColumn * (1 + 4 * (k % 3)), tbl + (everyRow * 27), everyColumn * 4, everyRow, Qt::AlignCenter, str);
-		float fave2 = fsum * 1000 / d.size() - m_PureShell[j];
-		str = QString::fromLocal8Bit("均重：") + QString::number(fave2, 'f', 1) + "mg";
-		painter->drawText(edgeOffset + everyColumn * (1 + 4 * (k % 3)), tbl + (everyRow * 28), everyColumn * 4, everyRow, Qt::AlignCenter, str);
+		QString str;
+		/*float fave = fsum * 1000 / d.size();
+		str = QString::fromLocal8Bit("带壳均重：") + QString::number(fave, 'f', 1) + "mg";
+		painter->drawText(edgeOffset + everyColumn * (1 + 4 * (k % 4)), tbl + (everyRow * 34), everyColumn * 3, everyRow, Qt::AlignCenter, str);*/
+		float fave2 = fsum * 1000 / d.size();
+		str = /*QString::fromLocal8Bit("均重：") + */QString::number(fave2, 'f', 1) + "mg";
+		painter->drawText(edgeOffset + everyColumn * (1 + 3 * (k % 4)), tbl + (everyRow * 34), everyColumn * 3, everyRow, Qt::AlignCenter, str);
 		float SD = 0.0;
 		float RSD = 0.0;
 		if (d.size() == 1 || fave2 == 0)
@@ -1026,18 +1054,18 @@ void DrawPicture::createTestingRecords2(QPixmap *pix, int pagei)
 		{
 			for (int i = 0; i < d.size(); i++)
 			{
-				SD += (d[i] * 1000 - m_PureShell[pagei * 3] - fave2)* (d[i] * 1000 - m_PureShell[pagei * 3] - fave2);
+				SD += (d[i] * 1000 - fave2)* (d[i] * 1000- fave2);
 			}
 			SD = SD / (d.size() - 1);
 			SD = sqrt(SD);
 			RSD = SD / fave2 * 100;
 		}
-		str = QString::fromLocal8Bit("RSD：") + QString::number(RSD, 'f', 2) + "%";
-		painter->drawText(edgeOffset + everyColumn * (1 + 4 * (k % 3)), tbl + (everyRow * 29), everyColumn * 4, everyRow, Qt::AlignCenter, str);
-		str = QString::fromLocal8Bit("最重：") + QString::number(imax - m_PureShell[j]) + "mg";
-		painter->drawText(edgeOffset + everyColumn * (1 + 4 * (k % 3)), tbl + (everyRow * 30), everyColumn * 4, everyRow, Qt::AlignCenter, str);
-		str = QString::fromLocal8Bit("最轻：") + QString::number(imin - m_PureShell[j]) + "mg";
-		painter->drawText(edgeOffset + everyColumn * (1 + 4 * (k % 3)), tbl + (everyRow * 31), everyColumn * 4, everyRow, Qt::AlignCenter, str);
+		str = /*QString::fromLocal8Bit("RSD：") + */QString::number(RSD, 'f', 2) + "%";
+		painter->drawText(edgeOffset + everyColumn * (1 + 3 * (k % 4)), tbl + (everyRow * 35), everyColumn * 3, everyRow, Qt::AlignCenter, str);
+		str = /*QString::fromLocal8Bit("最重：") + */QString::number(imax) + "mg";
+		painter->drawText(edgeOffset + everyColumn * (1 + 3 * (k % 4)), tbl + (everyRow * 36), everyColumn * 3, everyRow, Qt::AlignCenter, str);
+		str =/* QString::fromLocal8Bit("最轻：") + */QString::number(imin) + "mg";
+		painter->drawText(edgeOffset + everyColumn * (1 + 3 * (k % 4)), tbl + (everyRow * 37), everyColumn * 3, everyRow, Qt::AlignCenter, str);
 	}
 
 }
@@ -1505,7 +1533,7 @@ void DrawPicture::setAveChecked(bool b)
 	AveChecked = b;
 }
 
-void DrawPicture::setData(QVector<QVector<float>> sourcedata,QVector<QString> gn, int i, int j, QVector<float> f,QVector<QString> CustomerName, QVector<QString> MedicineName, QVector<int> lo, QVector<int> hi, QVector<int> pureshell, QString cb)
+void DrawPicture::setData(QVector<QVector<float>> sourcedata,QVector<QString> gn, int i, int j, QVector<float> f,QVector<QString> CustomerName, QVector<QString> MedicineName, QVector<int> lo, QVector<int> hi, QVector<int> pureshell, QString cb, QVector<int> yed, QVector<int> pre, QVector<int> spd)
 {
 	data = sourcedata;
 	m_gn = gn;
@@ -1520,4 +1548,9 @@ void DrawPicture::setData(QVector<QVector<float>> sourcedata,QVector<QString> gn
 	m_High = hi;
 	m_PureShell = pureshell;
 	m_cb = cb;
+
+
+	m_Yield = yed;
+	m_Pressure = pre;
+	m_Speed = spd;
 }

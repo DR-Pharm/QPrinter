@@ -216,27 +216,9 @@ void QtPLCDialogClass::initUser()
 	((Ui::QtPLCDialogClass*)ui)->cB_Users->addItems(strlst2);
 	QRegExp regx2("[0-9]+$");//正则表达式QRegExp,只允许输入中文、数字、字母、下划线以及空格,[\u4e00 - \u9fa5a - zA - Z0 - 9_] + $
 	((Ui::QtPLCDialogClass*)ui)->lE_SetUserSecretNum->setValidator(new QRegExpValidator(regx2, this));
-	((Ui::QtPLCDialogClass*)ui)->lE_print1->setValidator(new QRegExpValidator(regx2, this));
-	((Ui::QtPLCDialogClass*)ui)->lE_print2->setValidator(new QRegExpValidator(regx2, this));
+
 	((Ui::QtPLCDialogClass*)ui)->lE_SetUserSecretNum->setEnabled(false);
 	((Ui::QtPLCDialogClass*)ui)->pB_AddUser->setEnabled(false);
-
-	((Ui::QtPLCDialogClass*)ui)->lE_low->setValidator(new QRegExpValidator(regx2, this));
-	((Ui::QtPLCDialogClass*)ui)->lE_high->setValidator(new QRegExpValidator(regx2, this));
-	((Ui::QtPLCDialogClass*)ui)->lE_pure->setValidator(new QRegExpValidator(regx2, this));
-
-	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
-	m_cn = configIniRead.value("Customer/CustomerName", "").toString();
-	m_mn = configIniRead.value("Customer/MedicineName", "").toString();
-	m_l = configIniRead.value("Customer/Low", 0).toInt();
-	m_h = configIniRead.value("Customer/High", 0).toInt();
-	m_ps = configIniRead.value("Customer/PureShell", 0).toInt();
-
-	((Ui::QtPLCDialogClass*)ui)->lE_customer->setText(m_cn);
-	((Ui::QtPLCDialogClass*)ui)->lE_medicineName->setText(m_mn);
-	((Ui::QtPLCDialogClass*)ui)->lE_low->setText(QString::number(m_l));
-	((Ui::QtPLCDialogClass*)ui)->lE_high->setText(QString::number(m_h));
-	((Ui::QtPLCDialogClass*)ui)->lE_pure->setText(QString::number(m_ps));
 
 	connect(((Ui::QtPLCDialogClass*)ui)->treeWidget_2, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(onTreeItemChanged(QTreeWidgetItem*)));
 
@@ -529,6 +511,16 @@ void QtPLCDialogClass::initMovie()
 }
 void QtPLCDialogClass::initUI()
 {
+	//((Ui::QtPLCDialogClass*)ui)->lb_speed->setVisible(false);
+	//((Ui::QtPLCDialogClass*)ui)->lE_speed->setVisible(false);
+	//((Ui::QtPLCDialogClass*)ui)->label_speed->setVisible(false);
+	//((Ui::QtPLCDialogClass*)ui)->lb_yield->setVisible(false);
+	//((Ui::QtPLCDialogClass*)ui)->lE_yield->setVisible(false);
+	//((Ui::QtPLCDialogClass*)ui)->label_yield->setVisible(false);
+	//((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(211);//211 241
+	//((Ui::QtPLCDialogClass*)ui)->widget_2->move(((Ui::QtPLCDialogClass*)ui)->widget_2->x(),279);//279 309 
+	//((Ui::QtPLCDialogClass*)ui)->widget_2->setFixedHeight(311);//311 281
+
 	QStringList strlst;
 	if (lg == 0) strlst << QString::fromLocal8Bit("胶囊") << QString::fromLocal8Bit("片剂");
 	if (lg == 1) strlst << QString::fromLocal8Bit("Capsule") << QString::fromLocal8Bit("Tablet");
@@ -547,6 +539,71 @@ void QtPLCDialogClass::initUI()
 	((Ui::QtPLCDialogClass*)ui)->lE_minute1->setValidator(new QRegExpValidator(regx, this));
 	((Ui::QtPLCDialogClass*)ui)->lE_minute2->setValidator(new QRegExpValidator(regx, this));
 
+	((Ui::QtPLCDialogClass*)ui)->lE_print1->setValidator(new QRegExpValidator(regx, this));
+	((Ui::QtPLCDialogClass*)ui)->lE_print2->setValidator(new QRegExpValidator(regx, this));
+
+
+	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+	m_iHideprint1 = configIniRead.value("ProgramSetting/HidePrint1", 0).toInt();
+	m_iHideprint2 = configIniRead.value("ProgramSetting/HidePrint2", 0).toInt();
+
+	if (m_iHideprint1==1)
+	{
+		((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setVisible(false);
+	}
+	if (m_iHideprint2 == 0)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_low->setValidator(new QRegExpValidator(regx, this));
+		((Ui::QtPLCDialogClass*)ui)->lE_high->setValidator(new QRegExpValidator(regx, this));
+		((Ui::QtPLCDialogClass*)ui)->lE_pure->setValidator(new QRegExpValidator(regx, this));
+		((Ui::QtPLCDialogClass*)ui)->lE_speed->setValidator(new QRegExpValidator(regx, this));
+		((Ui::QtPLCDialogClass*)ui)->lE_yield->setValidator(new QRegExpValidator(regx, this));
+
+		m_cn = configIniRead.value("Customer/CustomerName", "").toString();
+		m_mn = configIniRead.value("Customer/MedicineName", "").toString();
+		m_l = configIniRead.value("Customer/Low", 0).toInt();
+		m_h = configIniRead.value("Customer/High", 0).toInt();
+		m_ps = configIniRead.value("Customer/PureShell", 0).toInt();
+		m_speed = configIniRead.value("Customer/Speed", 0).toInt();
+		m_yield = configIniRead.value("Customer/Yield", 0).toInt();
+		m_pressure = configIniRead.value("Customer/Pressure", 0).toInt();
+
+		((Ui::QtPLCDialogClass*)ui)->lE_customer->setText(m_cn);
+		((Ui::QtPLCDialogClass*)ui)->lE_medicineName->setText(m_mn);
+		((Ui::QtPLCDialogClass*)ui)->lE_low->setText(QString::number(m_l));
+		((Ui::QtPLCDialogClass*)ui)->lE_high->setText(QString::number(m_h));
+		//((Ui::QtPLCDialogClass*)ui)->lE_pure->setText(QString::number(m_ps));
+		((Ui::QtPLCDialogClass*)ui)->lE_speed->setText(QString::number(m_speed));
+		((Ui::QtPLCDialogClass*)ui)->lE_yield->setText(QString::number(m_yield));
+	}
+	else
+	{
+		((Ui::QtPLCDialogClass*)ui)->lb_speed->setVisible(false);
+		((Ui::QtPLCDialogClass*)ui)->lE_speed->setVisible(false);
+		((Ui::QtPLCDialogClass*)ui)->label_speed->setVisible(false);
+		((Ui::QtPLCDialogClass*)ui)->lb_yield->setVisible(false);
+		((Ui::QtPLCDialogClass*)ui)->lE_yield->setVisible(false);
+		((Ui::QtPLCDialogClass*)ui)->label_yield->setVisible(false);
+
+		((Ui::QtPLCDialogClass*)ui)->label_51->setVisible(false);
+		((Ui::QtPLCDialogClass*)ui)->label_55->setVisible(false);
+		((Ui::QtPLCDialogClass*)ui)->lE_customer->setVisible(false);
+		((Ui::QtPLCDialogClass*)ui)->lE_medicineName->setVisible(false);
+		((Ui::QtPLCDialogClass*)ui)->label_59->setVisible(false);
+		((Ui::QtPLCDialogClass*)ui)->label_70->setVisible(false);
+		((Ui::QtPLCDialogClass*)ui)->lE_low->setVisible(false);
+		((Ui::QtPLCDialogClass*)ui)->label_63->setVisible(false);
+		((Ui::QtPLCDialogClass*)ui)->lE_high->setVisible(false);
+		((Ui::QtPLCDialogClass*)ui)->lE_pure->setVisible(false);
+		((Ui::QtPLCDialogClass*)ui)->label_64->setVisible(false);
+		((Ui::QtPLCDialogClass*)ui)->label_71->setVisible(false);
+		((Ui::QtPLCDialogClass*)ui)->label_72->setVisible(false);
+		((Ui::QtPLCDialogClass*)ui)->pB_printTestingRecords->setVisible(false);
+
+		((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(151);//211 241
+		((Ui::QtPLCDialogClass*)ui)->widget_2->move(((Ui::QtPLCDialogClass*)ui)->widget_2->x(), 219);//279 309 
+		((Ui::QtPLCDialogClass*)ui)->widget_2->setFixedHeight(371);//311 281
+	}
 	((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(false);
 
 	QRegExp regx_2("[a-zA-Z0-9_]+$");
@@ -611,7 +668,6 @@ void QtPLCDialogClass::initUI()
 	((Ui::QtPLCDialogClass*)ui)->label_17->setScaledContents(true);
 	((Ui::QtPLCDialogClass*)ui)->label_48->setScaledContents(true);
 
-	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
 	QString text1 = configIniRead.value("DistanceSetting/AxisFeedRelMovDistance", "").toString();
 	QString text2 = configIniRead.value("DistanceSetting/AxisSwingRelMovDistance", "").toString();
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedRelMovDistance->setText(text1);	//下料电机相对运动距离，单位unit
@@ -621,9 +677,6 @@ void QtPLCDialogClass::initUI()
 	int i_feedMode = configIniRead.value("ProgramSetting/FeedModeEnabled", 0).toInt();
 	if (i_feedMode==0) ((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->setEnabled(false);
 
-	int i_hideprint1 = configIniRead.value("ProgramSetting/HidePrint1", 0).toInt();
-	if (i_hideprint1 == 1) ((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setVisible(false);
-	//int i_hideprint2 = configIniRead.value("ProgramSetting/HidePrint2", 0).toInt();
 
 	setYearMonthDay();
 }
@@ -1015,11 +1068,23 @@ void QtPLCDialogClass::getPLCData(void* data)
 				QString lkstr = QString::number(m_data->Status.CapDataDisp.GroupNo) + "," + ymdhm + "," + ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text();
 				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/gn", lkstr);
 				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/theory", QString::number(m_data->ActData.TDemand, 'f', 3));
-				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/CustomerName", (((Ui::QtPLCDialogClass*)ui)->lE_customer->text()));
-				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/MedicineName", (((Ui::QtPLCDialogClass*)ui)->lE_medicineName->text()));
-				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/Low", (((Ui::QtPLCDialogClass*)ui)->lE_low->text()));
-				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/High", (((Ui::QtPLCDialogClass*)ui)->lE_high->text()));
-				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/PureShell", (((Ui::QtPLCDialogClass*)ui)->lE_pure->text()));
+				if (m_iHideprint2 == 0)
+				{
+					configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/CustomerName", m_cn);
+					configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/MedicineName", m_mn);
+					configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/Low", m_l);
+					configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/High", m_h);
+					if (m_data->ActData.Feedmode == 0)
+					{
+						configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/PureShell", m_ps);
+					}
+					else
+					{
+						configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/Pressure", m_pressure);
+					}
+					configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/Yield", m_yield);
+					configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/Speed", m_speed);
+				}
 
 				QSettings timIni(AppPath + "\\data\\time.ini", QSettings::IniFormat);
 				QString str1tmp = ymdhm.mid(0, 10);
@@ -1082,6 +1147,22 @@ void QtPLCDialogClass::getPLCData(void* data)
 			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedFive->setEnabled(true);
 			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShakefive->setEnabled(false);
 			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapClean->setEnabled(true);
+
+			((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(211);//241
+			((Ui::QtPLCDialogClass*)ui)->lb_speed->setVisible(false);
+			((Ui::QtPLCDialogClass*)ui)->lE_speed->setVisible(false);
+			((Ui::QtPLCDialogClass*)ui)->label_speed->setVisible(false);
+			((Ui::QtPLCDialogClass*)ui)->lb_yield->setVisible(false);
+			((Ui::QtPLCDialogClass*)ui)->lE_yield->setVisible(false);
+			((Ui::QtPLCDialogClass*)ui)->label_yield->setVisible(false);
+
+			((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(211);//211 241
+			((Ui::QtPLCDialogClass*)ui)->widget_2->move(((Ui::QtPLCDialogClass*)ui)->widget_2->x(), 279);//279 309
+			((Ui::QtPLCDialogClass*)ui)->widget_2->setFixedHeight(311);//311 281
+
+			((Ui::QtPLCDialogClass*)ui)->label_70->setText(QString::fromLocal8Bit("壳    重："));
+			((Ui::QtPLCDialogClass*)ui)->label_71->setText(QString::fromLocal8Bit("mg"));
+			((Ui::QtPLCDialogClass*)ui)->lE_pure->setText(QString::number(m_ps));
 		}
 		else if(m_data->ActData.Feedmode == 1 && m_bFeedModeFlag2 == 0)
 		{
@@ -1094,6 +1175,22 @@ void QtPLCDialogClass::getPLCData(void* data)
 			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedFive->setEnabled(false);
 			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShakefive->setEnabled(true);
 			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapClean->setEnabled(false);
+
+			((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(241);
+			((Ui::QtPLCDialogClass*)ui)->lb_speed->setVisible(true);
+			((Ui::QtPLCDialogClass*)ui)->lE_speed->setVisible(true);
+			((Ui::QtPLCDialogClass*)ui)->label_speed->setVisible(true);
+			((Ui::QtPLCDialogClass*)ui)->lb_yield->setVisible(true);
+			((Ui::QtPLCDialogClass*)ui)->lE_yield->setVisible(true);
+			((Ui::QtPLCDialogClass*)ui)->label_yield->setVisible(true);
+
+			((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(241);//211 241
+			((Ui::QtPLCDialogClass*)ui)->widget_2->move(((Ui::QtPLCDialogClass*)ui)->widget_2->x(), 309);//279 309
+			((Ui::QtPLCDialogClass*)ui)->widget_2->setFixedHeight(281);//311 281
+
+			((Ui::QtPLCDialogClass*)ui)->label_70->setText(QString::fromLocal8Bit("平均压力："));
+			((Ui::QtPLCDialogClass*)ui)->label_71->setText(QString::fromLocal8Bit("KN"));
+			((Ui::QtPLCDialogClass*)ui)->lE_pure->setText(QString::number(m_pressure));
 		}
 	}																						  //int				Language;				//当前语言，0：中文，1：英文
 	//float			UserAnalogoutput;		//用户模拟量输入
@@ -2385,8 +2482,14 @@ void QtPLCDialogClass::BeforePrint()
 		hi << configIniRead.value(QString::number(p1) + "/High", 0).toInt();
 		QVector<int> PureShell;
 		PureShell << configIniRead.value(QString::number(p1) + "/PureShell", 0).toInt();
-		emit TODRAWPICTURE(dataToDraw, GroupNumber, 1, teo, cb, CustomerName, MedicineName, lo,hi,PureShell);
-	
+		QVector<int> yld;
+		PureShell << configIniRead.value(QString::number(p1) + "/Yield", 0).toInt();
+		QVector<int> pres;
+		PureShell << configIniRead.value(QString::number(p1) + "/Pressure", 0).toInt();
+		QVector<int> spd;
+		PureShell << configIniRead.value(QString::number(p1) + "/Speed", 0).toInt();
+		emit TODRAWPICTURE(dataToDraw, GroupNumber, 1, teo, cb, CustomerName, MedicineName, lo,hi,PureShell, yld,pres,spd);
+
 	}
 	else
 	{
@@ -2399,6 +2502,9 @@ void QtPLCDialogClass::BeforePrint()
 		QVector<int> lo;
 		QVector<int> hi;
 		QVector<int> PureShell;
+		QVector<int> yld;
+		QVector<int> pres;
+		QVector<int> spd;
 		for (int i = p1; i < p2 + 1; i++)
 		{
 			QString str = configIniRead.value(QString::number(i) + "/data", 0).toString();
@@ -2420,12 +2526,15 @@ void QtPLCDialogClass::BeforePrint()
 				lo << configIniRead.value(QString::number(i) + "/Low", 0).toInt();
 				hi << configIniRead.value(QString::number(i) + "/High", 0).toInt();
 				PureShell << configIniRead.value(QString::number(i) + "/PureShell", 0).toInt();
+				yld<< configIniRead.value(QString::number(i) + "/Yield", 0).toInt();
+				pres<< configIniRead.value(QString::number(i) + "/Pressure", 0).toInt();
+				spd<< configIniRead.value(QString::number(i) + "/Speed", 0).toInt();
 			}
 		}
 
 		if (dataToDraw.size() > 0)
 		{
-			emit TODRAWPICTURE(dataToDraw, GroupNumber, 1, teo, cb, CustomerName, MedicineName, lo, hi, PureShell);
+			emit TODRAWPICTURE(dataToDraw, GroupNumber, 1, teo, cb, CustomerName, MedicineName, lo, hi, PureShell, yld, pres, spd);
 		}
 
 		else
@@ -2725,24 +2834,43 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 		typ.Machine_Cmd.cmdStart = 1;
 		btnTimer->start(1);
 
+		if (m_iHideprint2 == 0)
+		{
+			((Ui::QtPLCDialogClass*)ui)->lE_low->setText(QString::number(((Ui::QtPLCDialogClass*)ui)->lE_low->text().toInt()));
+			((Ui::QtPLCDialogClass*)ui)->lE_high->setText(QString::number(((Ui::QtPLCDialogClass*)ui)->lE_high->text().toInt()));
+			((Ui::QtPLCDialogClass*)ui)->lE_pure->setText(QString::number(((Ui::QtPLCDialogClass*)ui)->lE_pure->text().toInt()));//两个功能
+			((Ui::QtPLCDialogClass*)ui)->lE_yield->setText(QString::number(((Ui::QtPLCDialogClass*)ui)->lE_yield->text().toInt()));
+			((Ui::QtPLCDialogClass*)ui)->lE_speed->setText(QString::number(((Ui::QtPLCDialogClass*)ui)->lE_speed->text().toInt()));
 
-		((Ui::QtPLCDialogClass*)ui)->lE_low->setText(QString::number(((Ui::QtPLCDialogClass*)ui)->lE_low->text().toInt()));
-		((Ui::QtPLCDialogClass*)ui)->lE_high->setText(QString::number(((Ui::QtPLCDialogClass*)ui)->lE_high->text().toInt()));
-		((Ui::QtPLCDialogClass*)ui)->lE_pure->setText(QString::number(((Ui::QtPLCDialogClass*)ui)->lE_pure->text().toInt()));
+			QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
 
-		QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+			configIniRead.setValue("Customer/CustomerName", (((Ui::QtPLCDialogClass*)ui)->lE_customer->text()));
+			configIniRead.setValue("Customer/MedicineName", (((Ui::QtPLCDialogClass*)ui)->lE_medicineName->text()));
+			configIniRead.setValue("Customer/Low", (((Ui::QtPLCDialogClass*)ui)->lE_low->text()));
+			configIniRead.setValue("Customer/High", (((Ui::QtPLCDialogClass*)ui)->lE_high->text()));
+			if (m_data->ActData.Feedmode==0)
+			{
+				configIniRead.setValue("Customer/PureShell", (((Ui::QtPLCDialogClass*)ui)->lE_pure->text()));
+			}
+			else
+			{
+				configIniRead.setValue("Customer/Pressure", (((Ui::QtPLCDialogClass*)ui)->lE_pure->text()));
+			}
+			configIniRead.setValue("Customer/Yield", (((Ui::QtPLCDialogClass*)ui)->lE_yield->text()));
+			configIniRead.setValue("Customer/Speed", (((Ui::QtPLCDialogClass*)ui)->lE_speed->text()));
 
-		configIniRead.setValue("Customer/CustomerName", (((Ui::QtPLCDialogClass*)ui)->lE_customer->text()));
-		configIniRead.setValue("Customer/MedicineName", (((Ui::QtPLCDialogClass*)ui)->lE_medicineName->text()));
-		configIniRead.setValue("Customer/Low", (((Ui::QtPLCDialogClass*)ui)->lE_low->text()));
-		configIniRead.setValue("Customer/High", (((Ui::QtPLCDialogClass*)ui)->lE_high->text()));
-		configIniRead.setValue("Customer/PureShell", (((Ui::QtPLCDialogClass*)ui)->lE_pure->text()));
 
-		m_cn = configIniRead.value("Customer/CustomerName", "").toString();
-		m_mn = configIniRead.value("Customer/MedicineName", "").toString();
-		m_l = configIniRead.value("Customer/Low", 0).toInt();
-		m_h = configIniRead.value("Customer/High", 0).toInt();
-		m_ps = configIniRead.value("Customer/PureShell", 0).toInt();
+			m_speed = configIniRead.value("Customer/Speed", 0).toInt();
+			m_yield = configIniRead.value("Customer/Yield", 0).toInt();
+			m_pressure = configIniRead.value("Customer/Pressure", 0).toInt();
+
+
+			m_cn = configIniRead.value("Customer/CustomerName", "").toString();
+			m_mn = configIniRead.value("Customer/MedicineName", "").toString();
+			m_l = configIniRead.value("Customer/Low", 0).toInt();
+			m_h = configIniRead.value("Customer/High", 0).toInt();
+			m_ps = configIniRead.value("Customer/PureShell", 0).toInt();
+		}
 	}
 	else
 	{

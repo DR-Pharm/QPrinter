@@ -50,6 +50,10 @@ private:
 	QVector<int> m_Low;
 	QVector<int> m_High;
 	QVector<int> m_PureShell;
+
+	QVector<int> m_Pressure;//平均压力
+	QVector<int> m_Yield;//产量
+	QVector<int> m_Speed;//压片机速度
 	QString m_cb;
 public:
 	DrawPicture(QObject *parent);
@@ -66,7 +70,7 @@ public:
 
 	void setCurveChecked(bool);
 	void setAveChecked(bool);
-	void setData(QVector<QVector<float>> sourcedata, QVector<QString>, int i, int j, QVector<float> f, QVector<QString>, QVector<QString>, QVector<int>, QVector<int>, QVector<int>,QString cb);
+	void setData(QVector<QVector<float>> sourcedata, QVector<QString>, int i, int j, QVector<float> f, QVector<QString>, QVector<QString>, QVector<int>, QVector<int>, QVector<int>,QString cb, QVector<int>, QVector<int>, QVector<int>);
 public slots:
 	void drawPic(QPrinter * pt);
 
