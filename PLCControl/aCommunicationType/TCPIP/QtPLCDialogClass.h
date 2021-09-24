@@ -147,6 +147,7 @@ private:
 	QString m_gn1;
 	QString m_gn2;
 	int lg = 0;
+	bool leflag = 0;
 public slots:
 
 	DataFromPC_typ getPCParaData();
@@ -206,6 +207,7 @@ public slots:
 
 	void on_pB_startSearch_clicked();
 	void on_lW_data_itemDoubleClicked(QListWidgetItem * item);
+	void on_lW_data_itemClicked(QListWidgetItem * item);
 	void on_pB_copyIn_clicked();
 	void on_pB_printData_clicked();
 

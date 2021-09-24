@@ -1160,7 +1160,15 @@ void QtPLCDialogClass::getPLCData(void* data)
 			((Ui::QtPLCDialogClass*)ui)->widget_2->move(((Ui::QtPLCDialogClass*)ui)->widget_2->x(), 279);//279 309
 			((Ui::QtPLCDialogClass*)ui)->widget_2->setFixedHeight(311);//311 281
 
-			((Ui::QtPLCDialogClass*)ui)->label_70->setText(QString::fromLocal8Bit("壳    重："));
+			if (lg == 0)
+			{
+				((Ui::QtPLCDialogClass*)ui)->label_70->setText(QString::fromLocal8Bit("壳    重："));
+			}
+			else
+			{
+				((Ui::QtPLCDialogClass*)ui)->label_70->setText("Shell Weight:");
+
+			}
 			((Ui::QtPLCDialogClass*)ui)->label_71->setText(QString::fromLocal8Bit("mg"));
 			((Ui::QtPLCDialogClass*)ui)->lE_pure->setText(QString::number(m_ps));
 		}
@@ -1187,8 +1195,14 @@ void QtPLCDialogClass::getPLCData(void* data)
 			((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(241);//211 241
 			((Ui::QtPLCDialogClass*)ui)->widget_2->move(((Ui::QtPLCDialogClass*)ui)->widget_2->x(), 309);//279 309
 			((Ui::QtPLCDialogClass*)ui)->widget_2->setFixedHeight(281);//311 281
-
-			((Ui::QtPLCDialogClass*)ui)->label_70->setText(QString::fromLocal8Bit("平均压力："));
+			if (lg == 0)
+			{
+				((Ui::QtPLCDialogClass*)ui)->label_70->setText(QString::fromLocal8Bit("平均压力："));
+			}
+			else
+			{
+				((Ui::QtPLCDialogClass*)ui)->label_70->setText("Pressure:");	
+			}
 			((Ui::QtPLCDialogClass*)ui)->label_71->setText(QString::fromLocal8Bit("KN"));
 			((Ui::QtPLCDialogClass*)ui)->lE_pure->setText(QString::number(m_pressure));
 		}
@@ -1495,7 +1509,10 @@ void QtPLCDialogClass::getPLCData(void* data)
 
 #pragma endregion
 }//PC显示数据
-
+bool sortImgLists(QString a, QString b)//排序方法
+{
+	return a.toLongLong() > b.toLongLong();
+}
 void QtPLCDialogClass::SWITCHOSK()//快捷键
 {
 	QProcess pro;
@@ -1504,6 +1521,10 @@ void QtPLCDialogClass::SWITCHOSK()//快捷键
 }
 void QtPLCDialogClass::CompareYearMonthDay()
 {
+	QStringList lst;
+	if (lg == 0)lst << QString::fromLocal8Bit("符合组号");
+	if (lg == 1)lst << QString::fromLocal8Bit("Matched");
+
 	QString str1= ((Ui::QtPLCDialogClass*)ui)->lE_year1->text()+
 	((Ui::QtPLCDialogClass*)ui)->lE_month1->text()+
 	((Ui::QtPLCDialogClass*)ui)->lE_day1->text()+
@@ -1548,7 +1569,9 @@ void QtPLCDialogClass::CompareYearMonthDay()
 		QSettings timIni(AppPath + "\\data\\time.ini", QSettings::IniFormat);		
 		// 获取一个节点下的key值
 		timIni.beginGroup(str1.mid(0,8));    // 设置查找节点
-		QStringList str2 = timIni.allKeys();    // 获取所有的key
+		QStringList str2 = timIni.allKeys();    // 获取所有的key 已经排序完成，小到大不许再次排序
+		qSort(str2.begin(), str2.end(), sortImgLists);
+
 		if (str2.size()==0)
 		{
 			if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("该时间段不存在数据!"));
@@ -1562,6 +1585,7 @@ void QtPLCDialogClass::CompareYearMonthDay()
 		foreach(QString key, str2)
 		{
 			LONGLONG value = key.toLongLong();
+			lst << timIni.value(key, "0").toString();
 			if (itemp == 0)
 			{
 				itemp = 1;
@@ -1570,7 +1594,7 @@ void QtPLCDialogClass::CompareYearMonthDay()
 			}
 			if (ltemp1>value)
 			{
-				ltemp1 = value;
+				ltemp1 = value; 
 			}
 			if (ltemp2 < value)
 			{
@@ -1600,12 +1624,19 @@ void QtPLCDialogClass::CompareYearMonthDay()
 			if (m_gn1 == m_gn2)
 			{
 				if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("符合组号为：(共1组)\n") + m_gn1);
-				if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("Matching group number:\n") + m_gn1);
+				if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("Matched group number:\n") + m_gn1);
 			}
 			else
 			{
 				if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("符合组号为：(实际共")+QString::number(str2.size())+QString::fromLocal8Bit("组)\n") + m_gn1 + "-" + m_gn2);
-				if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("Matching group number:\n") + m_gn1 + "-" + m_gn2);
+				if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("Matched group number:\n") + m_gn1 + "-" + m_gn2);
+
+				((Ui::QtPLCDialogClass*)ui)->lW_data->setVisible(true);
+
+				((Ui::QtPLCDialogClass*)ui)->lW_data->clear();
+
+				((Ui::QtPLCDialogClass*)ui)->lW_data->addItems(lst);
+
 			}
 			((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(true);
 		}
@@ -2399,11 +2430,41 @@ void QtPLCDialogClass::on_pB_startSearch_clicked()
 }
 void QtPLCDialogClass::on_lW_data_itemDoubleClicked(QListWidgetItem *item)
 {
-	((Ui::QtPLCDialogClass*)ui)->pB_inquire->setChecked(false);
 	QString str = item->text();
+	if (((Ui::QtPLCDialogClass*)ui)->lW_data->item(0)->text()==QString::fromLocal8Bit("符合组号")|| ((Ui::QtPLCDialogClass*)ui)->lW_data->item(0)->text() == QString::fromLocal8Bit("Matched"))
+	{
+		if (str== QString::fromLocal8Bit("符合组号") ||str == QString::fromLocal8Bit("Matched"))
+		{
+			((Ui::QtPLCDialogClass*)ui)->lW_data->setVisible(false);
+		}
+		return;
+	}
+	((Ui::QtPLCDialogClass*)ui)->pB_inquire->setChecked(false);
 	((Ui::QtPLCDialogClass*)ui)->lE_year1->setText(str.mid(0, 4));
 	((Ui::QtPLCDialogClass*)ui)->lE_month1->setText(str.mid(4, 2));
 	((Ui::QtPLCDialogClass*)ui)->lE_day1->setText(str.mid(6, 2));
+}
+void QtPLCDialogClass::on_lW_data_itemClicked(QListWidgetItem *item)
+{
+	if (((Ui::QtPLCDialogClass*)ui)->lW_data->item(0)->text() != QString::fromLocal8Bit("符合组号")&& ((Ui::QtPLCDialogClass*)ui)->lW_data->item(0)->text() != QString::fromLocal8Bit("Matched"))
+	{
+		return;
+	}
+	QString str = item->text();
+	if (str!= QString::fromLocal8Bit("符合组号") && str != QString::fromLocal8Bit("Matched"))
+	{
+		((Ui::QtPLCDialogClass*)ui)->gB_update->setChecked(true);
+		if (leflag==0)
+		{
+			leflag = 1;
+			((Ui::QtPLCDialogClass*)ui)->lE_print1->setText(str);
+		}
+		else
+		{
+			leflag = 0;
+			((Ui::QtPLCDialogClass*)ui)->lE_print2->setText(str);
+		}
+	}
 }
 void QtPLCDialogClass::on_pB_copyIn_clicked()
 {
@@ -2821,6 +2882,9 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 {
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
+
+	((Ui::QtPLCDialogClass*)ui)->lW_data->setVisible(false);
+
 	if (checked)
 	{
 		data_One.clear();
@@ -2923,14 +2987,25 @@ void QtPLCDialogClass::on_pB_ChangeLanguage()
 void QtPLCDialogClass::ChangeLanguage()
 {
 	if (1) {
+		((Ui::QtPLCDialogClass*)ui)->label_yield->setText("Ten Thousand/h");
+		((Ui::QtPLCDialogClass*)ui)->lb_yield->setText("Yield:");
+		((Ui::QtPLCDialogClass*)ui)->label_speed->setText("r/min");
+		((Ui::QtPLCDialogClass*)ui)->lb_speed->setText("Speed:");
 
 		((Ui::QtPLCDialogClass*)ui)->gB_update->setTitle(QString::fromLocal8Bit("Auto Update"));
 		((Ui::QtPLCDialogClass*)ui)->pB_keyboard->setText("Keyboard");
-		((Ui::QtPLCDialogClass*)ui)->label_51->setText("Customer");
-		((Ui::QtPLCDialogClass*)ui)->label_59->setText("Qualified");
-		((Ui::QtPLCDialogClass*)ui)->label_55->setText("Medicine");
+		((Ui::QtPLCDialogClass*)ui)->label_51->setText("Customer:");
+		((Ui::QtPLCDialogClass*)ui)->label_59->setText("Qualified:");
+		((Ui::QtPLCDialogClass*)ui)->label_55->setText("Medicine:");
 		((Ui::QtPLCDialogClass*)ui)->label_63->setText("to");
-		((Ui::QtPLCDialogClass*)ui)->label_70->setText("Shell Weight"); 
+		if (m_data->ActData.Feedmode == 0)
+		{
+			((Ui::QtPLCDialogClass*)ui)->label_70->setText("Shell Weight:");
+		}
+		else
+		{
+			((Ui::QtPLCDialogClass*)ui)->label_70->setText("Pressure:");
+		}
 		((Ui::QtPLCDialogClass*)ui)->pB_printTestingRecords->setText("Print Testing Records");
 
 		((Ui::QtPLCDialogClass*)ui)->groupBox_11->setTitle("Print");
