@@ -1015,6 +1015,10 @@ void QtPLCDialogClass::getPLCData(void* data)
 	//float			Adjustvalue;			//自动调整系数
 	//unsigned int	DeltaInput;				//装量调整偏差值
 	//int				cmdAutoPrint;			//自动打印，1:自动，0：手动
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_usertime->hasFocus())
+	{
+	((Ui::QtPLCDialogClass*)ui)->lE_usertime->setText(QString::number(m_data->ActData.usertime));
+	}
 #pragma endregion
 	//系统状态	
 #pragma region status	
@@ -1265,7 +1269,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 	//	((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->setChecked(false);
 	//	((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->setStyleSheet("font: bold;font-size:20pt");
 	//	((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmout->blockSignals(false);
-	//}
+	//}pb_cmdautoprint
 	if (m_data->Outputs.Baffle)//挡板
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->blockSignals(true);
@@ -1280,7 +1284,20 @@ void QtPLCDialogClass::getPLCData(void* data)
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->setStyleSheet("font: bold;font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdBaffle->blockSignals(false);
 	}
-
+	if (m_data->Status.cmdautoprintflg==1)
+	{
+		((Ui::QtPLCDialogClass*)ui)->pB_AutoPrint->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->pB_AutoPrint->setChecked(true);
+		((Ui::QtPLCDialogClass*)ui)->pB_AutoPrint->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pB_AutoPrint->blockSignals(false);
+	}
+	else
+	{
+		((Ui::QtPLCDialogClass*)ui)->pB_AutoPrint->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->pB_AutoPrint->setChecked(false);
+		((Ui::QtPLCDialogClass*)ui)->pB_AutoPrint->setStyleSheet("font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pB_AutoPrint->blockSignals(false);
+	}
 #pragma endregion
 }//PC显示数据
 
@@ -1558,6 +1575,53 @@ void QtPLCDialogClass::on_lE_MultiCount_editingFinished()///测试间隔时间,�
 	((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->blockSignals(true);
 	((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->blockSignals(false);
+}
+//lE_usertime
+void QtPLCDialogClass::on_lE_usertime_textChanged(const QString &arg1)
+{
+	if (arg1 == "")
+	{
+		QString oldstr = QString::number(m_data->ActData.usertime);
+		QString str = ((Ui::QtPLCDialogClass*)ui)->lE_usertime->text();
+		if (oldstr == str)
+		{
+			((Ui::QtPLCDialogClass*)ui)->lE_usertime->blockSignals(true);
+			((Ui::QtPLCDialogClass*)ui)->lE_usertime->clearFocus();
+			((Ui::QtPLCDialogClass*)ui)->lE_usertime->blockSignals(false);
+			return;
+		}
+		DataFromPC_typ typ;
+		typ = getPCRunData();
+		typ.Telegram_typ = 4;
+		typ.ActData.usertime=str.toUInt();
+		m_socket->Communicate_PLC(&typ, nullptr);
+		((Ui::QtPLCDialogClass*)ui)->lE_usertime->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_usertime->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_usertime->blockSignals(false);
+	}
+}
+void QtPLCDialogClass::on_lE_usertime_editingFinished()//批号字符串
+{
+	QString oldstr = QString::number(m_data->ActData.usertime);
+	QString str = ((Ui::QtPLCDialogClass*)ui)->lE_usertime->text();
+	if (str != "")
+	{
+		if (oldstr == str)
+		{
+			((Ui::QtPLCDialogClass*)ui)->lE_usertime->blockSignals(true);
+			((Ui::QtPLCDialogClass*)ui)->lE_usertime->clearFocus();
+			((Ui::QtPLCDialogClass*)ui)->lE_usertime->blockSignals(false);
+			return;
+		}
+		DataFromPC_typ typ;
+		typ = getPCRunData();
+		typ.Telegram_typ = 4;
+		typ.ActData.usertime = str.toUInt();
+		m_socket->Communicate_PLC(&typ, nullptr);
+	}
+	((Ui::QtPLCDialogClass*)ui)->lE_usertime->blockSignals(true);
+	((Ui::QtPLCDialogClass*)ui)->lE_usertime->clearFocus();
+	((Ui::QtPLCDialogClass*)ui)->lE_usertime->blockSignals(false);
 }
 void QtPLCDialogClass::on_lE_BatchName_textChanged(const QString &arg1)
 {
@@ -2160,6 +2224,9 @@ void QtPLCDialogClass::ChangeLanguage()
 		//((Ui::QtPLCDialogClass*)ui)->label_80->setText("Speed");
 		//((Ui::QtPLCDialogClass*)ui)->label_78->setText("Batch Num");
 		//((Ui::QtPLCDialogClass*)ui)->label_50->setText("Step");
+		((Ui::QtPLCDialogClass*)ui)->pB_AutoPrint->setText("Auto Print");
+		((Ui::QtPLCDialogClass*)ui)->lb_AutoPrint->setText("Period:");
+		((Ui::QtPLCDialogClass*)ui)->lb_pAutoPrt->setText("min");
 
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapClean->setText("Empty");
 
@@ -2467,6 +2534,13 @@ void QtPLCDialogClass::on_pB_cmdPrintStartE_clicked()
 	typ.Machine_Cmd.cmdPrintStartE = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
 #endif
+}
+void QtPLCDialogClass::on_pB_AutoPrint_toggled(bool checked)//设置
+{
+	DataFromPC_typ typ;
+	typ.Telegram_typ = 1;
+	typ.Machine_Cmd.cmdautoprint = 1;
+	m_socket->Communicate_PLC(&typ, nullptr);
 }
 void QtPLCDialogClass::on_pB_SetUp_toggled(bool checked)//设置
 {

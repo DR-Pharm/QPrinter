@@ -164,6 +164,8 @@ typedef struct
 	REAL		Adjustvalue;		//自动调整系数
 	UDINT		DeltaInput;		//装量调整偏差值
 	UINT		MultiCount;     //下多粒
+	UINT		usertime;			//用户定义打印时间间隔(分钟)
+
 
 	DINT				Reserve[16];			//预留空间
 }Comm_Run_Para_typ;
@@ -204,7 +206,7 @@ typedef struct
 
 	DINT				usertime;				//用户定义打印时间间隔(分钟)
 	REAL				Rsd;					//相对标准偏差值
-
+	UINT				cmdautoprintflg;		 //自动打印命令
 
 	DINT				Reserve[31];			//预留空间
 }Comm_Status_typ;
@@ -266,6 +268,8 @@ typedef struct
 	bool		cmdFeedhome;					//下料寻参
 	bool		cmdFeedFive;					//胶囊落料5粒
 	bool		cmdFeedShakefive;				//片剂落料5粒
+
+	bool		cmdautoprint;		//自动打印命令
 
 	DINT				AxisFeedRelMovDistance;	//下料电机相对运动距离，单位unit
 
