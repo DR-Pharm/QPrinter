@@ -1599,12 +1599,12 @@ void QtPLCDialogClass::CompareYearMonthDay()
 		{
 			if (m_gn1 == m_gn2)
 			{
-				if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("符合组号为：\n") + m_gn1);
+				if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("符合组号为：(共1组)\n") + m_gn1);
 				if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("Matching group number:\n") + m_gn1);
 			}
 			else
 			{
-				if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("符合组号为：\n") + m_gn1 + "-" + m_gn2);
+				if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("符合组号为：(实际共")+QString::number(str2.size())+QString::fromLocal8Bit("组)\n") + m_gn1 + "-" + m_gn2);
 				if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("Matching group number:\n") + m_gn1 + "-" + m_gn2);
 			}
 			((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(true);
@@ -2440,9 +2440,9 @@ void QtPLCDialogClass::BeforePrint()
 		((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(true);
 		return;
 	}
-	else if (p1 + 10 < p2)
+	else if (p1 + 20 < p2)
 	{
-		emit showWindowOut(QString::fromLocal8Bit("每次至多打印\n10条数据!"));
+		emit showWindowOut(QString::fromLocal8Bit("选择区间不得\n大于20!"));
 		((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(true);
 		return;
 	}

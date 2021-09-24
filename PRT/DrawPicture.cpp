@@ -92,7 +92,7 @@ void DrawPicture::drawPic2(QPrinter *printer)
 		QCoreApplication::processEvents();	
 		if (m_cb.mid(1, 1) == "0")
 		{
-			createTestingRecords2(&pix[pageValue], m_iTestingCount);//test
+			createTestingRecords(&pix[pageValue], m_iTestingCount);//test
 		}
 		else
 		{
