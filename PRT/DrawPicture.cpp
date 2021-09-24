@@ -45,7 +45,7 @@ void DrawPicture::drawPic2(QPrinter *printer)
 	{
 		page2 = m_iTestingRecords / 4 < 1 ? 1 : m_iTestingRecords / 4 + (m_iTestingRecords % 4 == 0 ? 0 : 1);
 	}
-
+	if (page2 > 2) page2 = 2;
 	int pages = page2+1;//有个首页
 	QVector<QPixmap> pix;
 	pix.resize(pages);
@@ -92,7 +92,7 @@ void DrawPicture::drawPic2(QPrinter *printer)
 		QCoreApplication::processEvents();	
 		if (m_cb.mid(1, 1) == "0")
 		{
-			createTestingRecords(&pix[pageValue], m_iTestingCount);
+			createTestingRecords2(&pix[pageValue], m_iTestingCount);//test
 		}
 		else
 		{
@@ -784,7 +784,6 @@ void DrawPicture::createTestingRecords(QPixmap *pix,int pagei)
 		{
 			lines.append(QLine(QPoint(edgeOffset + everyColumn * (1 + 4 * i), tbl), QPoint(edgeOffset + everyColumn * (1 + 4 * i), bottomH)));//最长
 			lines.append(QLine(QPoint(edgeOffset + everyColumn * (4 * (i + 1) - 1), tbl + everyRow), QPoint(edgeOffset + everyColumn * (4 * (i + 1) - 1), bottomH - 5 * everyRow)));//最短中间
-			painter->drawText(edgeOffset + everyColumn * (1 + 4 * i), tbl, everyColumn*4, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("第")+QString::number(i+ pagei*3+1)+QString::fromLocal8Bit("次"));
 		}
 		for (int i = 0; i < 6; i++)
 		{
@@ -886,6 +885,9 @@ void DrawPicture::createTestingRecords(QPixmap *pix,int pagei)
 		painter->drawText(edgeOffset + everyColumn * (1 + 4 * (k % 3)), tbl + (everyRow * 30), everyColumn * 4, everyRow, Qt::AlignCenter, str);
 		str = QString::fromLocal8Bit("最轻：") + QString::number(imin- m_PureShell[j]) + "mg";
 		painter->drawText(edgeOffset + everyColumn * (1 + 4 * (k % 3)), tbl + (everyRow * 31), everyColumn * 4, everyRow, Qt::AlignCenter, str);
+
+		QStringList gnum = m_gn[k + pagei * 3].split(",");
+		painter->drawText(edgeOffset + everyColumn * (1 + 4 * (k % 3)), tbl, everyColumn * 4, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("第") + QString::number(k + pagei * 3 + 1) + QString::fromLocal8Bit("次 (ID:") +gnum.at(0) + ")");
 	}
 
 }
@@ -930,7 +932,7 @@ void DrawPicture::createTestingRecords2(QPixmap *pix, int pagei)
 	//画数据部分的线条
 	QVector<QLine> lines;
 	int tbl = edgeOffset + 120;
-	float everyRow = (bottomH - tbl) / 38.0;
+	float everyRow = (bottomH - tbl) / 39.0;
 	float everyColumn = (rightW - edgeOffset) / 13.0;
 
 	painter->setPen(QPen(QColor(0, 0, 0), 2));
@@ -945,39 +947,30 @@ void DrawPicture::createTestingRecords2(QPixmap *pix, int pagei)
 	painter->drawText(edgeOffset, tbl + everyRow, everyColumn, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("压力"));
 	painter->drawText(edgeOffset, tbl + everyRow * 2, everyColumn, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("转速"));
 	painter->drawText(edgeOffset, tbl + everyRow * 3, everyColumn, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("取样"));
+	painter->drawText(edgeOffset, tbl + everyRow * 4, everyColumn, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("组号"));
 
 	for (int i = 0; i < 4; i++)
 	{
 		int j = pagei * 4 + i;
 		lines.append(QLine(QPoint(edgeOffset + everyColumn * (1 + 3 * i), tbl), QPoint(edgeOffset + everyColumn * (1 + 3 * i), bottomH)));//最长
-		lines.append(QLine(QPoint(edgeOffset + everyColumn * (3 * (i + 1) - 1), tbl + 4 * everyRow), QPoint(edgeOffset + everyColumn * (3 * (i + 1) - 1), bottomH - 4 * everyRow)));//最短左
-		lines.append(QLine(QPoint(edgeOffset + everyColumn * (3 * (i + 1)), tbl + 4 * everyRow), QPoint(edgeOffset + everyColumn * (3 * (i + 1)), bottomH - 4 * everyRow)));//最短右
-		painter->drawText(edgeOffset + everyColumn * (1 + 3 * i), tbl, everyColumn * 3, everyRow, Qt::AlignCenter, QString::number(m_Yield[j]) + QString::fromLocal8Bit("万片/小时"));
-		painter->drawText(edgeOffset + everyColumn * (1 + 3 * i), tbl + everyRow, everyColumn * 3, everyRow, Qt::AlignCenter, QString::number(m_Pressure[j]) + "KN");
-		painter->drawText(edgeOffset + everyColumn * (1 + 3 * i), tbl + everyRow*2, everyColumn * 3, everyRow, Qt::AlignCenter, QString::number(m_Speed[j]) + QString::fromLocal8Bit("转/分"));
-		if (i%2==0)
-		{
-			painter->drawText(edgeOffset + everyColumn * (1 + 3 * i), tbl + everyRow * 3, everyColumn * 3, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("第") + QString::number(i+pagei * 3 + 1) + QString::fromLocal8Bit("次(双出料左站)"));
-		}
-		else
-		{
-			painter->drawText(edgeOffset + everyColumn * (1 + 3 * i), tbl + everyRow * 3, everyColumn * 3, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("第") + QString::number(i+pagei * 3 + 1) + QString::fromLocal8Bit("次(双出料右站)"));
-		}
+		lines.append(QLine(QPoint(edgeOffset + everyColumn * (3 * (i + 1) - 1), tbl + 5 * everyRow), QPoint(edgeOffset + everyColumn * (3 * (i + 1) - 1), bottomH - 4 * everyRow)));//最短左
+		lines.append(QLine(QPoint(edgeOffset + everyColumn * (3 * (i + 1)), tbl + 5 * everyRow), QPoint(edgeOffset + everyColumn * (3 * (i + 1)), bottomH - 4 * everyRow)));//最短右
+
 	}
 
-	for (int i = 0; i < 37; i++)
+	for (int i = 0; i < 38; i++)
 	{
 		lines.append(QLine(QPoint(edgeOffset, tbl + (everyRow*(1 + i))), QPoint(rightW, tbl + (everyRow*(1 + i)))));
-		if (i <= 32 && i>=3)
+		if (i <= 33 && i>=4)
 		{
-			painter->drawText(edgeOffset, tbl + (everyRow*(1 + i)), everyColumn, everyRow, Qt::AlignCenter, QString::number(i-2));
+			painter->drawText(edgeOffset, tbl + (everyRow*(1 + i)), everyColumn, everyRow, Qt::AlignCenter, QString::number(i-3));
 
 		}
 	}
-	painter->drawText(edgeOffset, tbl + everyRow * 34, everyColumn, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("均重"));
-	painter->drawText(edgeOffset, tbl + everyRow * 35, everyColumn, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("RSD"));
-	painter->drawText(edgeOffset, tbl + everyRow * 36, everyColumn, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("最重"));
-	painter->drawText(edgeOffset, tbl + everyRow * 37, everyColumn, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("最轻"));
+	painter->drawText(edgeOffset, tbl + everyRow * 35, everyColumn, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("均重"));
+	painter->drawText(edgeOffset, tbl + everyRow * 36, everyColumn, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("RSD"));
+	painter->drawText(edgeOffset, tbl + everyRow * 37, everyColumn, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("最重"));
+	painter->drawText(edgeOffset, tbl + everyRow * 38, everyColumn, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("最轻"));
 
 	QString s;
 	/*painter->drawText(edgeOffset, tbl + everyRow * 30, everyColumn, everyRow, Qt::AlignCenter, s);*/
@@ -1031,9 +1024,9 @@ void DrawPicture::createTestingRecords2(QPixmap *pix, int pagei)
 			int id = d[i] * 1000;
 			if (id == imin || id == imax)
 			{
-				painter->drawRect(edgeOffset + everyColumn * (1 + i / 30 + 3 * (k % 4)), tbl + (everyRow*(4 + i % 30)), everyColumn, everyRow);
+				painter->drawRect(edgeOffset + everyColumn * (1 + i / 30 + 3 * (k % 4)), tbl + (everyRow*(5 + i % 30)), everyColumn, everyRow);
 			}
-			painter->drawText(edgeOffset + everyColumn * (1 + i / 30 + 3 * (k % 4)), tbl + (everyRow*(4 + i % 30)), everyColumn, everyRow, Qt::AlignCenter, QString::number(id));
+			painter->drawText(edgeOffset + everyColumn * (1 + i / 30 + 3 * (k % 4)), tbl + (everyRow*(5 + i % 30)), everyColumn, everyRow, Qt::AlignCenter, QString::number(id));
 			fsum += d[i];
 		}
 		QString str;
@@ -1042,7 +1035,7 @@ void DrawPicture::createTestingRecords2(QPixmap *pix, int pagei)
 		painter->drawText(edgeOffset + everyColumn * (1 + 4 * (k % 4)), tbl + (everyRow * 34), everyColumn * 3, everyRow, Qt::AlignCenter, str);*/
 		float fave2 = fsum * 1000 / d.size();
 		str = /*QString::fromLocal8Bit("均重：") + */QString::number(fave2, 'f', 1) + "mg";
-		painter->drawText(edgeOffset + everyColumn * (1 + 3 * (k % 4)), tbl + (everyRow * 34), everyColumn * 3, everyRow, Qt::AlignCenter, str);
+		painter->drawText(edgeOffset + everyColumn * (1 + 3 * (k % 4)), tbl + (everyRow * 35), everyColumn * 3, everyRow, Qt::AlignCenter, str);
 		float SD = 0.0;
 		float RSD = 0.0;
 		if (d.size() == 1 || fave2 == 0)
@@ -1060,11 +1053,26 @@ void DrawPicture::createTestingRecords2(QPixmap *pix, int pagei)
 			RSD = SD / fave2 * 100;
 		}
 		str = /*QString::fromLocal8Bit("RSD：") + */QString::number(RSD, 'f', 2) + "%";
-		painter->drawText(edgeOffset + everyColumn * (1 + 3 * (k % 4)), tbl + (everyRow * 35), everyColumn * 3, everyRow, Qt::AlignCenter, str);
-		str = /*QString::fromLocal8Bit("最重：") + */QString::number(imax) + "mg";
 		painter->drawText(edgeOffset + everyColumn * (1 + 3 * (k % 4)), tbl + (everyRow * 36), everyColumn * 3, everyRow, Qt::AlignCenter, str);
-		str =/* QString::fromLocal8Bit("最轻：") + */QString::number(imin) + "mg";
+		str = /*QString::fromLocal8Bit("最重：") + */QString::number(imax) + "mg";
 		painter->drawText(edgeOffset + everyColumn * (1 + 3 * (k % 4)), tbl + (everyRow * 37), everyColumn * 3, everyRow, Qt::AlignCenter, str);
+		str =/* QString::fromLocal8Bit("最轻：") + */QString::number(imin) + "mg";
+		painter->drawText(edgeOffset + everyColumn * (1 + 3 * (k % 4)), tbl + (everyRow * 38), everyColumn * 3, everyRow, Qt::AlignCenter, str);		
+		
+		painter->drawText(edgeOffset + everyColumn * (1 + 3 * (k % 4)), tbl, everyColumn * 3, everyRow, Qt::AlignCenter, QString::number(m_Yield[j]) + QString::fromLocal8Bit("万片/小时"));
+		painter->drawText(edgeOffset + everyColumn * (1 + 3 * (k % 4)), tbl + everyRow, everyColumn * 3, everyRow, Qt::AlignCenter, QString::number(m_Pressure[j]) + "KN");
+		painter->drawText(edgeOffset + everyColumn * (1 + 3 * (k % 4)), tbl + everyRow * 2, everyColumn * 3, everyRow, Qt::AlignCenter, QString::number(m_Speed[j]) + QString::fromLocal8Bit("转/分"));
+		if (k % 2 == 0)
+		{
+			painter->drawText(edgeOffset + everyColumn * (1 + 3 * (k % 4)), tbl + everyRow * 3, everyColumn * 3, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("第") + QString::number(k + pagei * 3 + 1) + QString::fromLocal8Bit("次(双出料左站)"));
+		}
+		else
+		{
+			painter->drawText(edgeOffset + everyColumn * (1 + 3 * (k % 4)), tbl + everyRow * 3, everyColumn * 3, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("第") + QString::number(k + pagei * 3 + 1) + QString::fromLocal8Bit("次(双出料右站)"));
+		}		
+		QStringList gnum = m_gn[k + pagei * 4].split(",");
+		painter->drawText(edgeOffset + everyColumn * (1 + 3 * (k % 4)), tbl + everyRow * 4, everyColumn * 3, everyRow, Qt::AlignCenter, gnum.at(0));
+
 	}
 
 }
