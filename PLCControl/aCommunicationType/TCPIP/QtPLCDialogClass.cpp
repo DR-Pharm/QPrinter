@@ -675,8 +675,10 @@ void QtPLCDialogClass::initUI()
 
 
 	int i_feedMode = configIniRead.value("ProgramSetting/FeedModeEnabled", 0).toInt();
-	if (i_feedMode==0) ((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->setEnabled(false);
-
+	int i_showAO= configIniRead.value("ProgramSetting/i_showAO", 0).toInt();
+	if (i_feedMode == 0) ((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->setEnabled(false);
+	if (i_showAO == 0) ((Ui::QtPLCDialogClass*)ui)->groupBox_8->setVisible(false);
+	
 
 	setYearMonthDay();
 }
