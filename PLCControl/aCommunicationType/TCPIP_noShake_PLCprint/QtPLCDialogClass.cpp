@@ -1953,6 +1953,10 @@ void QtPLCDialogClass::on_pB_synctime_clicked()
 	typ.Machine_Cmd.DateTimeSet.month = current_datetime.date().month();
 	typ.Machine_Cmd.DateTimeSet.year = current_datetime.date().year();
 	typ.Machine_Cmd.DateTimeSet.weekday = current_datetime.date().dayOfWeek();
+	if (typ.Machine_Cmd.DateTimeSet.weekday == 7)
+	{
+		typ.Machine_Cmd.DateTimeSet.weekday = 0;
+	}
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdChangeDT = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
