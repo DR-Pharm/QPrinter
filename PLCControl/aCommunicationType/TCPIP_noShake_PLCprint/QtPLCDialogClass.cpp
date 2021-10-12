@@ -1288,14 +1288,14 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		((Ui::QtPLCDialogClass*)ui)->pB_AutoPrint->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pB_AutoPrint->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_AutoPrint->setStyleSheet("background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pB_AutoPrint->setStyleSheet("background: rgb(0,255,0);font-size:12pt");
 		((Ui::QtPLCDialogClass*)ui)->pB_AutoPrint->blockSignals(false);
 	}
 	else
 	{
 		((Ui::QtPLCDialogClass*)ui)->pB_AutoPrint->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->pB_AutoPrint->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pB_AutoPrint->setStyleSheet("font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pB_AutoPrint->setStyleSheet("font-size:12pt");
 		((Ui::QtPLCDialogClass*)ui)->pB_AutoPrint->blockSignals(false);
 	}
 #pragma endregion
@@ -2539,7 +2539,7 @@ void QtPLCDialogClass::on_pB_AutoPrint_toggled(bool checked)//设置
 {
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
-	typ.Machine_Cmd.cmdautoprint = 1;
+	typ.Machine_Cmd.cmdautoprint = checked;
 	m_socket->Communicate_PLC(&typ, nullptr);
 }
 void QtPLCDialogClass::on_pB_SetUp_toggled(bool checked)//设置
