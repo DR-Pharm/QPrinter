@@ -60,6 +60,7 @@ private:
 	MyPushButton *LanguageBtn;
 	MyPushButton *ExitBtn;
 	double sumNo = 0;
+	int m_id;
 	int m_row = 0;
 	double mi, ma;
 	int maxSize;  // data 最多存储 maxSize 个元素

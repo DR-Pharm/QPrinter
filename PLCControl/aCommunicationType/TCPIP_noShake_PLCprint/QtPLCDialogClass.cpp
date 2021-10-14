@@ -870,13 +870,18 @@ void QtPLCDialogClass::getPLCData(void* data)
 	((Ui::QtPLCDialogClass*)ui)->lE_GroupMaxRatio->setText(QString::number(m_data->Status.CapDataDisp.GroupMaxRatio));
 	((Ui::QtPLCDialogClass*)ui)->lE_GroupMinRatio->setText(QString::number(m_data->Status.CapDataDisp.GroupMinRatio));
 
-	if (((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->isChecked())
+	if (!((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->isChecked())
 	{
-		if (m_data->ActData.GroupSum!=0)
+		m_id=m_data->Status.GroupIndex;
+	}
+	else
+	{
+		if (m_data->ActData.GroupSum!=0 || m_id != m_data->Status.GroupIndex)
 		{
 			if (m_data->ActData.GroupSum != sumNo)
 			{
 				sumNo = m_data->ActData.GroupSum - sumNo;
+				m_id = m_data->Status.GroupIndex;
 				if (m_row==0)
 				{
 					mi = sumNo;
@@ -951,6 +956,8 @@ void QtPLCDialogClass::getPLCData(void* data)
 		{
 			m_row = 0;
 			sumNo = m_data->ActData.GroupSum;
+			m_id = m_data->Status.GroupIndex;
+
 			if (data_One.size() > 0)
 			{
 				QString str = "";
