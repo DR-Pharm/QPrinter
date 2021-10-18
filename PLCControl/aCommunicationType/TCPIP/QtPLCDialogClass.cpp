@@ -971,11 +971,11 @@ void QtPLCDialogClass::getPLCData(void* data)
 
 	if (((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->isChecked())
 	{
-		if (m_data->ActData.GroupSum!=0)
+		if (/*m_data->ActData.GroupSum!=0 || */m_index != m_data->Status.GroupIndex && m_data->Status.GroupIndex!=0)
 		{
-			if (m_data->ActData.GroupSum != sumNo)
-			{
-				sumNo = m_data->ActData.GroupSum - sumNo;
+			/*if (m_data->ActData.GroupSum != sumNo || m_index != m_data->Status.GroupIndex)
+			{*/
+				sumNo = m_data->ActData.GroupSum-sumNo;
 				if (m_row==0)
 				{
 					mi = sumNo;
@@ -1013,7 +1013,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 				}
 				//((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->setFlags(((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->flags() & (~Qt::ItemIsSelectable));
 				sumNo = m_data->ActData.GroupSum;
-
+				m_index = m_data->Status.GroupIndex;
 
 					if (data_One.size() < 7)
 					{
@@ -1043,13 +1043,16 @@ void QtPLCDialogClass::getPLCData(void* data)
 							//scatterSeries->append(i*dx, data.at(i));
 						}
 					}
-			}
+			/*}*/
 		}
 
 		if (m_data->Status.Finished==1)
 		{
 			m_row = 0;
-			sumNo = m_data->ActData.GroupSum;
+			sumNo = 0;
+			/*sumNo = m_data->ActData.GroupSum;*/
+			m_index = m_data->Status.GroupIndex;
+
 			if (data_One.size() > 0)
 			{
 				QString str = "";
@@ -1130,6 +1133,14 @@ void QtPLCDialogClass::getPLCData(void* data)
 				}
 			}
 		}
+	}
+	else
+	{
+		data_One.clear();
+		m_row = 0;
+		sumNo = 0;
+		/*sumNo = m_data->ActData.GroupSum;*/
+		m_index = m_data->Status.GroupIndex;
 	}
 
 
