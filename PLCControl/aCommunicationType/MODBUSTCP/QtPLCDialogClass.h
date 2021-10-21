@@ -187,6 +187,10 @@ public slots:
 	void on_lE_ThickUnderLimit_editingFinished();
 	void on_lE_HMU_paraCalibForce_editingFinished();
 	void on_lE_TMU_calibThickness_editingFinished();
+	void on_lE_HMU_Zero_editingFinished();
+	void on_lE_HMU_K_editingFinished();
+	void on_lE_TMU_Zero_editingFinished();
+	void on_lE_TMU_K_editingFinished();
 	void on_lE_FeedOveride_editingFinished();
 	void on_lE_TestInterval_editingFinished();
 	void on_lE_MultiCount_editingFinished();

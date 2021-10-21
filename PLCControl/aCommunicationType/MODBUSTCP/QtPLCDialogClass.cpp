@@ -3207,7 +3207,6 @@ void QtPLCDialogClass::on_lE_HMU_paraCalibForce_editingFinished()
 }
 void QtPLCDialogClass::on_lE_TMU_calibThickness_editingFinished()
 {
-
 	m_str_sendRegisters = m_str_registers;
 	m_iDontReadRegistersFlag = 1;
 
@@ -3231,6 +3230,101 @@ void QtPLCDialogClass::on_lE_TMU_calibThickness_editingFinished()
 	((Ui::QtPLCDialogClass*)ui)->lE_TMU_calibThickness->blockSignals(true);
 	((Ui::QtPLCDialogClass*)ui)->lE_TMU_calibThickness->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_TMU_calibThickness->blockSignals(false);
+}	
+void QtPLCDialogClass::on_lE_HMU_Zero_editingFinished()
+{
+	m_str_sendRegisters = m_str_registers;
+
+	m_iDontReadRegistersFlag = 1;
+	QString oldstr = m_str_sendRegisters.mid(ActData_HMU_Zero * 4, 4);
+	int a = ((Ui::QtPLCDialogClass*)ui)->lE_HMU_Zero->text().toUShort();
+	QString str = QString("%1").arg(a, 4, 16, QLatin1Char('0'));
+	if (oldstr == str)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_HMU_Zero->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_HMU_Zero->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_HMU_Zero->blockSignals(false);
+		return;
+	}
+	m_str_sendRegisters.replace(ActData_HMU_Zero * 4, 4, str);
+
+	((Ui::QtPLCDialogClass*)ui)->lE_HMU_Zero->blockSignals(true);
+	((Ui::QtPLCDialogClass*)ui)->lE_HMU_Zero->clearFocus();
+	((Ui::QtPLCDialogClass*)ui)->lE_HMU_Zero->blockSignals(false);
+}
+
+void QtPLCDialogClass::on_lE_HMU_K_editingFinished()
+{
+	m_str_sendRegisters = m_str_registers;
+	m_iDontReadRegistersFlag = 1;
+
+	float f = ((Ui::QtPLCDialogClass*)ui)->lE_HMU_K->text().toFloat();
+	uint f_uint = *(uint*)&f;
+	QString f_hex = QString("%1").arg(f_uint, 8, 16, QLatin1Char('0'));
+
+	QString str1 = m_str_sendRegisters.mid(ActData_HMU_K * 4, 4);
+	QString str2 = m_str_sendRegisters.mid(ActData_HMU_K_Reserve * 4, 4);
+	QString str = str2 + str1;
+	if (f_hex == str)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_HMU_K->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_HMU_K->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_HMU_K->blockSignals(false);
+		return;
+	}
+	m_str_sendRegisters.replace(ActData_HMU_K * 4, 4, f_hex.mid(4, 4));
+	m_str_sendRegisters.replace(ActData_HMU_K_Reserve * 4, 4, f_hex.mid(0, 4));
+
+	((Ui::QtPLCDialogClass*)ui)->lE_HMU_K->blockSignals(true);
+	((Ui::QtPLCDialogClass*)ui)->lE_HMU_K->clearFocus();
+	((Ui::QtPLCDialogClass*)ui)->lE_HMU_K->blockSignals(false);
+}
+void QtPLCDialogClass::on_lE_TMU_Zero_editingFinished()
+{
+	m_str_sendRegisters = m_str_registers;
+
+	m_iDontReadRegistersFlag = 1;
+	QString oldstr = m_str_sendRegisters.mid(ActData_TMU_Zero * 4, 4);
+	int a = ((Ui::QtPLCDialogClass*)ui)->lE_TMU_Zero->text().toUShort();
+	QString str = QString("%1").arg(a, 4, 16, QLatin1Char('0'));
+	if (oldstr == str)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_TMU_Zero->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_TMU_Zero->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_TMU_Zero->blockSignals(false);
+		return;
+	}
+	m_str_sendRegisters.replace(ActData_TMU_Zero * 4, 4, str);
+
+	((Ui::QtPLCDialogClass*)ui)->lE_TMU_Zero->blockSignals(true);
+	((Ui::QtPLCDialogClass*)ui)->lE_TMU_Zero->clearFocus();
+	((Ui::QtPLCDialogClass*)ui)->lE_TMU_Zero->blockSignals(false);
+}
+void QtPLCDialogClass::on_lE_TMU_K_editingFinished()
+{
+	m_str_sendRegisters = m_str_registers;
+	m_iDontReadRegistersFlag = 1;
+
+	float f = ((Ui::QtPLCDialogClass*)ui)->lE_TMU_K->text().toFloat();
+	uint f_uint = *(uint*)&f;
+	QString f_hex = QString("%1").arg(f_uint, 8, 16, QLatin1Char('0'));
+
+	QString str1 = m_str_sendRegisters.mid(ActData_TMU_K * 4, 4);
+	QString str2 = m_str_sendRegisters.mid(ActData_TMU_K_Reserve * 4, 4);
+	QString str = str2 + str1;
+	if (f_hex == str)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_TMU_K->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_TMU_K->clearFocus();
+		((Ui::QtPLCDialogClass*)ui)->lE_TMU_K->blockSignals(false);
+		return;
+	}
+	m_str_sendRegisters.replace(ActData_TMU_K * 4, 4, f_hex.mid(4, 4));
+	m_str_sendRegisters.replace(ActData_TMU_K_Reserve * 4, 4, f_hex.mid(0, 4));
+
+	((Ui::QtPLCDialogClass*)ui)->lE_TMU_K->blockSignals(true);
+	((Ui::QtPLCDialogClass*)ui)->lE_TMU_K->clearFocus();
+	((Ui::QtPLCDialogClass*)ui)->lE_TMU_K->blockSignals(false);
 }
 void QtPLCDialogClass::on_pB_Read1_clicked()//读取1
 {
