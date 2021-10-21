@@ -164,6 +164,9 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	//dtCurve->setFixedSize(QSize(860, 755));//1280 800
 
 	((Ui::QtPLCDialogClass*)ui)->lW_data->setVisible(false);
+
+	QSettings WriteIni(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+	m_iFeedMode = WriteIni.value("ProgramSetting/FeedMode", 23).toInt();
 }
 
 QtPLCDialogClass::~QtPLCDialogClass()
@@ -1146,9 +1149,10 @@ void QtPLCDialogClass::getPLCData(void* data)
 
 	if (!((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->hasFocus())//0:每组去皮重,1:每次称重去皮重
 	{
-		((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->setCurrentIndex(m_data->ActData.Feedmode);
-		((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->blockSignals(false);
+		if (m_iFeedMode<3)
+		{
+			((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->setCurrentIndex(m_iFeedMode);
+		}
 		if (m_data->ActData.Feedmode==0 && m_bFeedModeFlag1 == 0)
 		{
 			m_bFeedModeFlag1 = 1;

@@ -31,14 +31,6 @@ QtPLCControl::QtPLCControl()
 
 }
 
-void QtPLCControl::setFeedMode(int i)
-{
-	if (dlg != nullptr)
-	{
-		((QtPLCDialogClass*)dlg)->on_cB_Feedmode_currentIndexChanged(i);
-	}
-}
-
 void* QtPLCControl::QtCreateDialog(int index)
 {
 	dlg = new QtPLCDialogClass();

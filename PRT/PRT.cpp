@@ -373,9 +373,7 @@ void PRT::SuccessConnect()
 	if (lg == 0)showWindowOut(QString::fromLocal8Bit("PLC连接正常"));
 	if (lg == 1)showWindowOut(QString::fromLocal8Bit("PLC Connect Success"));
 
-	QSettings WriteIni(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
-	int i = WriteIni.value("ProgramSetting/FeedMode", 23).toInt();
-	m_pPlclib->setFeedMode(i);//0 cap 1 tab		others:nothing,Feedmode should be enabled
+
 	//bool b = connect(m_pPlclib, SIGNAL(SOCKETERROR()), this, SLOT(ErrorConnect()));
 	//b = disconnect(m_pPlclib, SIGNAL(signal_SUCCESSFULCONNECTED()), this, SLOT(SuccessConnect()));
 }

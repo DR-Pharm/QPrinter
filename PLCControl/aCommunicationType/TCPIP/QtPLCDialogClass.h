@@ -149,6 +149,7 @@ private:
 	QString m_gn2;
 	int lg = 0;
 	bool leflag = 0;
+	int m_iFeedMode = 23;
 public slots:
 
 	DataFromPC_typ getPCParaData();
