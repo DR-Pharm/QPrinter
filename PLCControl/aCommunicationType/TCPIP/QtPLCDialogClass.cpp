@@ -2169,7 +2169,7 @@ void QtPLCDialogClass::on_lE_BatchName_editingFinished()//批号字符串
 	((Ui::QtPLCDialogClass*)ui)->lE_BatchName->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_BatchName->blockSignals(false);
 }
-void QtPLCDialogClass::on_cB_Feedmode_currentIndexChanged(int index)//0:每组去皮重,1:每次称重去皮重
+void QtPLCDialogClass::on_cB_Feedmode_currentIndexChanged(int index)
 {
 	DataFromPC_typ typ;
 	typ = getPCRunData();

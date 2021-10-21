@@ -54,6 +54,7 @@ void PRT::initPLC()
 	m_pPlclib->moveToThread(lib_PLCThread);
 	lib_PLCThread->start();
 
+	dlg = (QDialog *)(m_pPlclib->QtCreateDialog(1));
 	bool b = connect(this, SIGNAL(STARTCONNECTPLC()), m_pPlclib, SLOT(ConnectPlc()));
 	//emit STARTCONNECTPLC();
 	b = connect(m_pPlclib, SIGNAL(SOCKETERROR()), this, SLOT(ErrorConnect()));
@@ -66,7 +67,6 @@ void PRT::initPLC()
 	tm_ReConnect->start(10);
 
 	wt->setTxt(QString::fromLocal8Bit("正在连接PLC,请稍等..."));
-	dlg = (QDialog *)(m_pPlclib->QtCreateDialog(1));
 	b = connect(dlg, SIGNAL(SHOWPRT(bool)), this, SLOT(showPrt(bool))); 
 	b = connect(dlg, SIGNAL(showWindowOut(QString)), this, SLOT(showWindowOut(QString)));
 	b = connect(dlg, SIGNAL(CLOSESIGNAL()), this, SLOT(on_ToClose()));
@@ -373,6 +373,9 @@ void PRT::SuccessConnect()
 	if (lg == 0)showWindowOut(QString::fromLocal8Bit("PLC连接正常"));
 	if (lg == 1)showWindowOut(QString::fromLocal8Bit("PLC Connect Success"));
 
+	QSettings WriteIni(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+	int i = WriteIni.value("ProgramSetting/FeedMode", 23).toInt();
+	m_pPlclib->setFeedMode(i);//0 cap 1 tab		others:nothing,Feedmode should be enabled
 	//bool b = connect(m_pPlclib, SIGNAL(SOCKETERROR()), this, SLOT(ErrorConnect()));
 	//b = disconnect(m_pPlclib, SIGNAL(signal_SUCCESSFULCONNECTED()), this, SLOT(SuccessConnect()));
 }

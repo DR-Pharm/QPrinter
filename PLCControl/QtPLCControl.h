@@ -31,6 +31,7 @@ private:
 	int m_cnCount = 0;
 public:
 	QtPLCControl();
+	void setFeedMode(int);
 	void* QtCreateDialog(int);
 	void ProgramSetCloseEvent();
 	void syncData();
