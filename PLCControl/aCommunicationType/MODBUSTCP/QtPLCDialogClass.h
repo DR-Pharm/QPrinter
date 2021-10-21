@@ -132,19 +132,19 @@ private:
 
 	QString m_gn1;
 	QString m_gn2;
-
-	int COILS = 120;//字节数
-	int REGISTERS = 240;//字节数
+	int m_index = 0;//socket数
+	int COILS = 106;//字节数
+	int REGISTERS = 160;//个数
 	quint16 *dtcoils;
 	quint16 *dtregisters;
-	quint16 *m_Coils_Bufer = new quint16[COILS+1];
-	quint16 *m_Input_Bufer = new quint16[REGISTERS+1];
+	quint16 *m_Coils_Bufer = new quint16[COILS + 1];
+	quint16 *m_Input_Bufer = new quint16[REGISTERS + 1];
 
 	int m_InputFlag = 0;
 	int m_CoilsFlag = 0;
-	QString m_str_registers = ",,,,";//row four byte
+	QString m_str_registers = ",,,,";//row 2 byte ，16bit
 	QString m_str_sendRegisters = "";
-	QString m_str_coils = ",";//row 2byte but used 1byte,case bool
+	QString m_str_coils = ",";//row 8bit but use 4bit,case bool
 	QString m_str_sendCoils = "";
 
 	int m_iDontReadCoilsFlag = 0;
@@ -210,6 +210,10 @@ public slots:
 	void on_lE_paraTurnDnPosition_editingFinished();
 	void on_lE_paraPushDestPosition_editingFinished();
 	void on_lE_ForceThresholdSlow_editingFinished();
+	void on_lE_CapThickValve_t1_editingFinished();
+	void on_lE_CapThickValve_t2_editingFinished();
+	void on_lE_CapTurnValve_t1_editingFinished();
+	void on_lE_CapTurnValve_t2_editingFinished();
 	void on_lE_StopSignalDelay_editingFinished();
 	void on_lE_paraTurnUpSpd_editingFinished();
 	void on_lE_paraTurnDnSpd_editingFinished();
@@ -283,6 +287,7 @@ public slots:
 	void onTreeItemChanged(QTreeWidgetItem * item);
 	void OnUnconnectedState();
 	void OnShowState(QString str);
+	void OnShowValueCountFlag(int index);
 	void OnClosingState();
 };
 

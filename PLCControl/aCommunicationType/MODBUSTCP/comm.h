@@ -30,7 +30,6 @@
 
 #define	_COMM_H_
 
-#pragma pack(4)
 enum MODBUSTCPREGISTERS
 {
 	DTPLC_second = 1,    // UINT
@@ -119,9 +118,9 @@ enum MODBUSTCPREGISTERS
 	ActData_TMU_K,   //厚度测试K REAL
 	ActData_TMU_K_Reserve,
 
-	ActData_SetPillDiam,   //设定片径 REAL
+	ActData_SetPillDiam,   //设定片径 DINT
 	ActData_SetPillDiam_Reserve,
-	ActData_PillDiamOffset,   //片径计算偏差 REAL
+	ActData_PillDiamOffset,   //片径计算偏差 DINT
 	ActData_PillDiamOffset_Reserve,
 
 	ActData_HardnessChkNum,   //硬度检测设定数量 UINT
@@ -276,6 +275,7 @@ enum MODBUSTCPCOILS
 	axis_fun_axis3_com_jog_pos,     //压片正转
 };
 #define			MAX_PULSE_SERVO		2
+#pragma pack(4)
 typedef struct
 {
 	unsigned short		second;

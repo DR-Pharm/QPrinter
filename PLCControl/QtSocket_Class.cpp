@@ -146,7 +146,7 @@ bool QtSocket_Class::initialization()//连接初始化
 		mp_TCPSocket = new QModbusTcpClient();		
 
 		mp_TCPSocket->setTimeout(40);//
-		//mp_TCPSocket->setNumberOfRetries(3);//重试次数
+		mp_TCPSocket->setNumberOfRetries(3);//重试次数
 		mp_TCPSocket->setConnectionParameter(QModbusDevice::NetworkPortParameter, 502);//端口
 		mp_TCPSocket->setConnectionParameter(QModbusDevice::NetworkAddressParameter, "10.86.50.210");//IP ID？
 
@@ -226,7 +226,7 @@ void QtSocket_Class::onStateChanged()
 }
 /********************************************
  * 函数名称：read_modbus_tcp_Coils(int start_add,quint16 numbers ,int Server_ID)
- * 功能：发送读取modbus设备线圈数据请求 每一行一个字节 8位
+ * 功能：发送读取modbus设备线圈数据请求 每一行一个字节 8位 （F可以代替4bit）
  * 工作方式：
  * 参数：
  *      参数1：int start_add           读取的起始地址
@@ -281,8 +281,6 @@ void QtSocket_Class::ReadReady_Coils()
 	{
 		return;
 	}
-	int k = reply->error();
-	int b = QModbusDevice::NoError;
 	if (reply->error() == QModbusDevice::NoError)
 	{
 		const QModbusDataUnit unit = reply->result();
@@ -318,17 +316,18 @@ bool QtSocket_Class::read_modbus_tcp_HoldingRegisters(int start_add, quint16 num
 		return false;
 	}
 	QModbusDataUnit ReadUnit(QModbusDataUnit::HoldingRegisters, start_add, numbers);
-	auto *reply = mp_TCPSocket->sendReadRequest(ReadUnit, Server_ID);    //1是Server_ID
-
-	if (!reply->isFinished())
+	if (auto *reply = mp_TCPSocket->sendReadRequest(ReadUnit, Server_ID))//1是Server_ID
 	{
-		QObject::connect(reply, &QModbusReply::finished, this, &QtSocket_Class::ReadReady_HoldingRegisters);
-		return true;
-	}
-	else
-	{
-		delete reply;
-		return false;
+		if (!reply->isFinished())
+		{
+			QObject::connect(reply, &QModbusReply::finished, this, &QtSocket_Class::ReadReady_HoldingRegisters);
+			return true;
+		}
+		else
+		{
+			delete reply;
+			return false;
+		}
 	}
 
 
@@ -355,12 +354,22 @@ void QtSocket_Class::ReadReady_HoldingRegisters()
 	if (reply->error() == QModbusDevice::NoError)
 	{
 		const QModbusDataUnit unit = reply->result();
-		QString str;
-		for (quint16 i = 0; i < unit.valueCount(); i++)
+		if (unit.valueCount() == 122)
 		{
-			Input_Bufer[i] = unit.value(i);
+			for (quint16 i = 0; i < unit.valueCount(); i++)
+			{
+				Input_Bufer[i] = unit.value(i);
+			}
 		}
-		emit signal_FROMPLCHLODING((void*)Input_Bufer);
+		else
+		{
+			for (quint16 i = 122; i < (unit.valueCount()+122); i++)
+			{
+				Input_Bufer[i] = unit.value(i-122);
+			}
+			emit signal_FROMPLCHLODING((void*)Input_Bufer);
+		}
+		//emit ValueCountFlag(unit.valueCount());
 	}
 	reply->deleteLater(); // delete the reply
 #endif
@@ -649,14 +658,18 @@ void QtSocket_Class::onBeatSignal()
 	}
 	else if (m_iCircleFlag == 2)
 	{
-		read_modbus_tcp_HoldingRegisters(0, REGISTERS, 1);
+		read_modbus_tcp_HoldingRegisters(0, 122, 1);
 	}
 	else if (m_iCircleFlag == 3)
+	{
+		read_modbus_tcp_HoldingRegisters(122, REGISTERS-121, 1);
+	}
+	else if (m_iCircleFlag == 4)
 	{
 		emit WRITEHOLDINGREGISTERS();
 	}
 
-	if (++m_iCircleFlag == 4)
+	if (++m_iCircleFlag == 5)
 	{
 		m_iCircleFlag = 0;
 	}

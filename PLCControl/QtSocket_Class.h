@@ -25,6 +25,7 @@ signals:
 	void my_readH_finished();
 	void WRITECOILS();
 	void WRITEHOLDINGREGISTERS();
+	void ValueCountFlag(int);
 public:
 	QtSocket_Class(QObject *parent);
 	~QtSocket_Class();
@@ -46,8 +47,8 @@ private:
 	QString m_sip;//IP 10.86.50.210
 	int m_iport;//port 5000
 
-	int COILS = 120;
-	int REGISTERS = 120;
+	int COILS = 106;//个数 单字节
+	int REGISTERS = 160;//个数 双字节
 
 	quint16 *Coils_Bufer = new quint16[COILS];//读取到的数据
 	quint16 *Input_Bufer = new quint16[REGISTERS];//寄存器
