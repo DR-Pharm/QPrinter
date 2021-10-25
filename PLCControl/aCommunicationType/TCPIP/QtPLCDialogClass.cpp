@@ -2123,6 +2123,8 @@ void QtPLCDialogClass::on_cB_Feedmode_currentIndexChanged(int index)
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedFive->setEnabled(true);
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShakefive->setEnabled(false);
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapClean->setEnabled(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->setVisible(false);
+		((Ui::QtPLCDialogClass*)ui)->label_30->setVisible(false);
 
 		((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(211);//241
 		((Ui::QtPLCDialogClass*)ui)->lb_speed->setVisible(false);
@@ -2159,6 +2161,8 @@ void QtPLCDialogClass::on_cB_Feedmode_currentIndexChanged(int index)
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedFive->setEnabled(false);
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShakefive->setEnabled(true);
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapClean->setEnabled(false);
+		((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->setVisible(true);
+		((Ui::QtPLCDialogClass*)ui)->label_30->setVisible(true);
 
 		((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(241);
 		((Ui::QtPLCDialogClass*)ui)->lb_speed->setVisible(true);
