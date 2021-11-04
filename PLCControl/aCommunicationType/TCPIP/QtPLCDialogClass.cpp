@@ -1006,7 +1006,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 				{
 					((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->setBackground(QBrush(QColor(255, 0, 0)));//red
 				}
-				else if (((sumNo >= m_data->ActData.TUnderload) && (sumNo < m_data->ActData.InterUnderLoad)) || ((sumNo >= m_data->ActData.InterOverLoad) && (sumNo < m_data->ActData.TOverload)))
+				else if (((sumNo >= m_data->ActData.TUnderload) && (sumNo < m_data->ActData.InterUnderLoad)) || ((sumNo >= m_data->ActData.InterOverLoad) && (sumNo <= m_data->ActData.TOverload)))
 				{
 					((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->setBackground(QBrush(QColor(255, 255, 0)));//yellow
 				}
