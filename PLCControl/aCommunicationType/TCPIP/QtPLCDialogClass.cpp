@@ -778,6 +778,19 @@ DataFromPC_typ QtPLCDialogClass::getPCParaData()//2
 	tmp.Machine_Para.TireWaitTime = m_data->Machine_Para.TireWaitTime;				//去皮等待时间,单位s
 	tmp.Machine_Para.StopSignalDelay = m_data->Machine_Para.StopSignalDelay;		//连续几次超重或超轻后输出停机信号
 
+	
+	tmp.Machine_Cmd.Outputs.Reject = m_data->Outputs.Reject;					//排废电磁铁
+	tmp.Machine_Cmd.Outputs.ChannelSwith = m_data->Outputs.ChannelSwith;			//胶囊通道切换
+	tmp.Machine_Cmd.Outputs.Vaccum = m_data->Outputs.Vaccum;					//真空发生器
+	tmp.Machine_Cmd.Outputs.CapGet = m_data->Outputs.CapGet;					//取料电磁铁
+	tmp.Machine_Cmd.Outputs.CapGetValve = m_data->Outputs.CapGetValve;			//取料电磁阀
+	tmp.Machine_Cmd.Outputs.CapBackValve = m_data->Outputs.CapBackValve;			//回料电磁阀
+	tmp.Machine_Cmd.Outputs.AlarmOut = m_data->Outputs.AlarmOut;				//报警蜂鸣器
+	tmp.Machine_Cmd.Outputs.StopSignal = m_data->Outputs.StopSignal;				//停机信号
+	tmp.Machine_Cmd.Outputs.AlarmSignal = m_data->Outputs.AlarmSignal;			//报警输出
+	tmp.Machine_Cmd.Outputs.YellowAlarmout = m_data->Outputs.YellowAlarmout;			//黄灯报警
+	tmp.Machine_Cmd.Outputs.Baffle = m_data->Outputs.Baffle;					//挡板
+	tmp.Machine_Cmd.Outputs.Analogoutput = m_data->Outputs.Analogoutput;			//模拟量输出
 	return tmp;
 }
 DataFromPC_typ QtPLCDialogClass::getPCRunData()//4
@@ -2708,6 +2721,7 @@ void QtPLCDialogClass::on_pB_Write2_clicked()//写入2
 void QtPLCDialogClass::on_pB_cmdScaleRead_clicked()//秤读数命令,1:执行，自动复位
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdScaleRead = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -2715,6 +2729,7 @@ void QtPLCDialogClass::on_pB_cmdScaleRead_clicked()//秤读数命令,1:执行，
 void QtPLCDialogClass::on_pB_cmdScaleTire_clicked()//秤清零,1:执行，自动复位
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdScaleTire = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -2722,6 +2737,7 @@ void QtPLCDialogClass::on_pB_cmdScaleTire_clicked()//秤清零,1:执行，自动
 void QtPLCDialogClass::on_pB_cmdScaleSetStable_clicked()//设定秤稳定状态,1:执行，自动复位
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdScaleSetStable = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -2729,13 +2745,15 @@ void QtPLCDialogClass::on_pB_cmdScaleSetStable_clicked()//设定秤稳定状态,
 //void QtPLCDialogClass::on_cB_paraScaleSetStable_currentIndexChanged(int index)//稳定状态设定目标，0:非常稳定,1:稳定,2:不稳定,3:非常不稳定
 //{
 //	DataFromPC_typ typ;
-//	typ.Telegram_typ = 1;
+//	typ = getPCParaData();
+//typ.Telegram_typ = 1;
 //	typ.Machine_Cmd.cmdScaleSetStable = index;
 //	m_socket->Communicate_PLC(&typ, nullptr);
 //}
 void QtPLCDialogClass::on_pB_cmdScaleCalibExt_clicked()//秤外部校正,1:执行，自动复位
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdScaleCalibExt = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -2743,6 +2761,7 @@ void QtPLCDialogClass::on_pB_cmdScaleCalibExt_clicked()//秤外部校正,1:执�
 void QtPLCDialogClass::on_pB_cmdAxisFeedJogPos_pressed()//下料正转点动，1:执行，0:停止
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisFeedJogPos = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -2750,6 +2769,7 @@ void QtPLCDialogClass::on_pB_cmdAxisFeedJogPos_pressed()//下料正转点动，1
 void QtPLCDialogClass::on_pB_cmdAxisFeedJogPos_released()//下料正转点动，1:执行，0:停止 
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisFeedJogPos = 0;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -2757,6 +2777,7 @@ void QtPLCDialogClass::on_pB_cmdAxisFeedJogPos_released()//下料正转点动，
 void QtPLCDialogClass::on_pB_cmdAxisFeedJogNeg_pressed()//下料反转点动，1:执行，0:停止
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisFeedJogNeg = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -2764,6 +2785,7 @@ void QtPLCDialogClass::on_pB_cmdAxisFeedJogNeg_pressed()//下料反转点动，1
 void QtPLCDialogClass::on_pB_cmdAxisFeedJogNeg_released()//下料反转点动，1:执行，0:停止
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisFeedJogNeg = 0;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -2771,6 +2793,7 @@ void QtPLCDialogClass::on_pB_cmdAxisFeedJogNeg_released()//下料反转点动，
 void QtPLCDialogClass::on_pB_cmdAxisFeedRelMov_clicked()//下料相对运动启动，1:执行，自动复位
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisFeedRelMov = 1;
 	typ.Machine_Cmd.AxisFeedRelMovDistance = ((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedRelMovDistance->text().toInt();
@@ -2785,6 +2808,7 @@ void QtPLCDialogClass::on_pB_cmdAxisFeedRelMov_clicked()//下料相对运动启�
 void QtPLCDialogClass::on_pB_cmdAxisFeedPosMov_clicked()//下料正向连续运动启动，1:执行，自动复位
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisFeedPosMov = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -2792,6 +2816,7 @@ void QtPLCDialogClass::on_pB_cmdAxisFeedPosMov_clicked()//下料正向连续运�
 void QtPLCDialogClass::on_pB_cmdAxisFeedStopMov_clicked()//下料停止运动，1:执行，自动复位
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisFeedStopMov = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -2799,6 +2824,7 @@ void QtPLCDialogClass::on_pB_cmdAxisFeedStopMov_clicked()//下料停止运动，
 void QtPLCDialogClass::on_pB_cmdAxisSwingJogPos_pressed()//旋转正转点动，1:执行，0:停止
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisSwingJogPos = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -2806,6 +2832,7 @@ void QtPLCDialogClass::on_pB_cmdAxisSwingJogPos_pressed()//旋转正转点动，
 void QtPLCDialogClass::on_pB_cmdAxisSwingJogPos_released()//旋转正转点动，1:执行，0:停止
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisSwingJogPos = 0;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -2813,6 +2840,7 @@ void QtPLCDialogClass::on_pB_cmdAxisSwingJogPos_released()//旋转正转点动�
 void QtPLCDialogClass::on_pB_cmdAxisSwingJogNeg_pressed()//旋转反转点动，1:执行，0:停止
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisSwingJogNeg = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -2820,6 +2848,7 @@ void QtPLCDialogClass::on_pB_cmdAxisSwingJogNeg_pressed()//旋转反转点动，
 void QtPLCDialogClass::on_pB_cmdAxisSwingJogNeg_released()//旋转反转点动，1:执行，0:停止
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisSwingJogNeg = 0;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -2827,6 +2856,7 @@ void QtPLCDialogClass::on_pB_cmdAxisSwingJogNeg_released()//旋转反转点动�
 void QtPLCDialogClass::on_pB_cmdAxisSwingRelMov_clicked()//旋转相对运动启动，1:执行，自动复位
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisSwingRelMov = 1;
 	
@@ -2842,6 +2872,7 @@ void QtPLCDialogClass::on_pB_cmdAxisSwingRelMov_clicked()//旋转相对运动启
 void QtPLCDialogClass::on_pB_cmdAxisSwingPosMov_clicked()//旋转正向连续运动启动，1:执行，自动复位
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisSwingPosMov = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -2849,6 +2880,7 @@ void QtPLCDialogClass::on_pB_cmdAxisSwingPosMov_clicked()//旋转正向连续运
 void QtPLCDialogClass::on_pB_cmdAxisSwingStopMov_clicked()//旋转停止运动，1:执行，自动复位
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAxisSwingStopMov = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -2856,6 +2888,7 @@ void QtPLCDialogClass::on_pB_cmdAxisSwingStopMov_clicked()//旋转停止运动�
 void QtPLCDialogClass::on_pB_cmdFeedSingle_clicked()//单粒下料，1:执行，自动复位
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdFeedSingle = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -2863,6 +2896,7 @@ void QtPLCDialogClass::on_pB_cmdFeedSingle_clicked()//单粒下料，1:执行，
 void QtPLCDialogClass::on_pB_cmdFeedSingleStop_clicked()//单粒下料停止，1:执行，自动复位
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdFeedSingleStop = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -2870,6 +2904,7 @@ void QtPLCDialogClass::on_pB_cmdFeedSingleStop_clicked()//单粒下料停止，1
 void QtPLCDialogClass::on_pB_cmdSwing_clicked()//旋转单工位,1:执行，自动复位
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdSwing = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -2915,6 +2950,7 @@ void QtPLCDialogClass::on_gB_update_toggled(bool arg1)
 void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 
 	((Ui::QtPLCDialogClass*)ui)->lW_data->setVisible(false);
@@ -2991,6 +3027,7 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 void QtPLCDialogClass::on_pB_cmdAlarmReset_clicked()
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAlarmReset = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -2998,6 +3035,7 @@ void QtPLCDialogClass::on_pB_cmdAlarmReset_clicked()
 void QtPLCDialogClass::on_pB_cmdCounterZero_clicked()
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdCounterZero = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -3170,6 +3208,7 @@ void QtPLCDialogClass::ChangeLanguage()
 void QtPLCDialogClass::on_pB_cmdCapClean_clicked()
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdCapClean = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -3177,6 +3216,7 @@ void QtPLCDialogClass::on_pB_cmdCapClean_clicked()
 void QtPLCDialogClass::on_pB_cmdAlogtest_clicked()//模拟量输出测试,1:执行，自动复位
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdAlogtest = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -3184,6 +3224,7 @@ void QtPLCDialogClass::on_pB_cmdAlogtest_clicked()//模拟量输出测试,1:执�
 void QtPLCDialogClass::on_pB_cmdFeedShake_clicked()//下料摇摆
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdFeedShake = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -3191,6 +3232,7 @@ void QtPLCDialogClass::on_pB_cmdFeedShake_clicked()//下料摇摆
 void QtPLCDialogClass::on_pB_cmdFeedshakestop_clicked()//下料摇摆停止
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdFeedshakestop = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -3198,6 +3240,7 @@ void QtPLCDialogClass::on_pB_cmdFeedshakestop_clicked()//下料摇摆停止
 void QtPLCDialogClass::on_pB_cmdFeedshakelevel_clicked()//下料摇摆水平
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdFeedshakelevel = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -3205,6 +3248,7 @@ void QtPLCDialogClass::on_pB_cmdFeedshakelevel_clicked()//下料摇摆水平
 void QtPLCDialogClass::on_pB_cmdFeedhome_clicked()//下料寻参
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdFeedhome = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -3212,6 +3256,7 @@ void QtPLCDialogClass::on_pB_cmdFeedhome_clicked()//下料寻参
 void QtPLCDialogClass::on_pB_cmdFeedFive_clicked()//胶囊落料五粒
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdFeedFive = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -3219,6 +3264,7 @@ void QtPLCDialogClass::on_pB_cmdFeedFive_clicked()//胶囊落料五粒
 void QtPLCDialogClass::on_pB_cmdFeedShakefive_clicked()//片剂落料五粒
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.cmdFeedShakefive = 1;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -3283,6 +3329,7 @@ void QtPLCDialogClass::on_pb_cmdReject_toggled(bool checked)//
 {
 #ifdef TCPIP
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.Outputs.Reject = checked;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -3294,6 +3341,7 @@ void QtPLCDialogClass::on_pb_cmdReject_toggled(bool checked)//
 void QtPLCDialogClass::on_pb_cmdChannelSwith_toggled(bool checked)//
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.Outputs.ChannelSwith = checked;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -3301,6 +3349,7 @@ void QtPLCDialogClass::on_pb_cmdChannelSwith_toggled(bool checked)//
 void QtPLCDialogClass::on_pb_cmdVaccum_toggled(bool checked)//
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.Outputs.Vaccum = checked;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -3308,6 +3357,7 @@ void QtPLCDialogClass::on_pb_cmdVaccum_toggled(bool checked)//
 void QtPLCDialogClass::on_pb_cmdCapGet_toggled(bool checked)//
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.Outputs.CapGet = checked;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -3315,6 +3365,7 @@ void QtPLCDialogClass::on_pb_cmdCapGet_toggled(bool checked)//
 void QtPLCDialogClass::on_pb_cmdCapGetValve_toggled(bool checked)//
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.Outputs.CapGetValve = checked;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -3322,6 +3373,7 @@ void QtPLCDialogClass::on_pb_cmdCapGetValve_toggled(bool checked)//
 void QtPLCDialogClass::on_pb_cmdCapBackValve_toggled(bool checked)//
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.Outputs.CapBackValve = checked;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -3329,6 +3381,7 @@ void QtPLCDialogClass::on_pb_cmdCapBackValve_toggled(bool checked)//
 void QtPLCDialogClass::on_pb_cmdAlarmOut_toggled(bool checked)//
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.Outputs.AlarmOut = checked;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -3336,6 +3389,7 @@ void QtPLCDialogClass::on_pb_cmdAlarmOut_toggled(bool checked)//
 void QtPLCDialogClass::on_pb_cmdStopSignal_toggled(bool checked)//
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.Outputs.StopSignal = checked;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -3343,6 +3397,7 @@ void QtPLCDialogClass::on_pb_cmdStopSignal_toggled(bool checked)//
 void QtPLCDialogClass::on_pb_cmdAlarmSignal_toggled(bool checked)//
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.Outputs.AlarmSignal = checked;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -3350,6 +3405,7 @@ void QtPLCDialogClass::on_pb_cmdAlarmSignal_toggled(bool checked)//
 void QtPLCDialogClass::on_pb_cmdYellowAlarmout_toggled(bool checked)//
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.Outputs.YellowAlarmout = checked;
 	m_socket->Communicate_PLC(&typ, nullptr);
@@ -3357,6 +3413,7 @@ void QtPLCDialogClass::on_pb_cmdYellowAlarmout_toggled(bool checked)//
 void QtPLCDialogClass::on_pb_cmdBaffle_toggled(bool checked)//
 {
 	DataFromPC_typ typ;
+	typ = getPCParaData();
 	typ.Telegram_typ = 1;
 	typ.Machine_Cmd.Outputs.Baffle = checked;
 	m_socket->Communicate_PLC(&typ, nullptr);
