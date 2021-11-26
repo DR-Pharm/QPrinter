@@ -153,6 +153,10 @@ void keyBoard::slotBtnClicked()
 	}
 	else if (objectName == "closeBtn")
 	{
+		if (currentLineEdit != 0)
+		{
+			currentLineEdit->clearFocus();
+		}
 #ifdef Q_OS_WIN     //如果是windows系统
 		this->move(-500, -500);
 #else
@@ -224,18 +228,18 @@ void keyBoard::InitWindow()
 	closeBtn->setFixedSize(BTN_SIZE, BTN_SIZE);
 	closeBtn->setFocusPolicy(Qt::NoFocus);
 
-	okBtn = new QPushButton(this);
-	okBtn->setObjectName("okBtn");
-	okBtn->setProperty("function", true);
-	okBtn->setText(tr("OK"));
-	okBtn->setFixedSize(BTN_SIZE, BTN_SIZE);
-	okBtn->setFocusPolicy(Qt::NoFocus);
+	//okBtn = new QPushButton(this);
+	//okBtn->setObjectName("okBtn");
+	//okBtn->setProperty("function", true);
+	//okBtn->setText(tr("OK"));
+	//okBtn->setFixedSize(BTN_SIZE, BTN_SIZE);
+	//okBtn->setFocusPolicy(Qt::NoFocus);
 	// 删除一个字符
 	delBtn = new QPushButton(this);
 	delBtn->setObjectName("delBtn");
 	delBtn->setProperty("function", true);
-	delBtn->setText(tr("D"));
-	delBtn->setFixedSize(BTN_SIZE, BTN_SIZE);
+	delBtn->setText(tr("DELETE"));
+	delBtn->setFixedSize(2 * BTN_SIZE, BTN_SIZE);
 	delBtn->setFocusPolicy(Qt::NoFocus);
 	// 改变输法类型:大写,小写,字符
 	typeBtn = new QPushButton(this);
@@ -470,32 +474,32 @@ void keyBoard::InitWindow()
 	btnZ->setText(tr("z"));
 
 	QGridLayout *letterLayout = new QGridLayout;
-	letterLayout->addWidget(btnA, 0, 0, 1, 1);
-	letterLayout->addWidget(btnB, 0, 1, 1, 1);
-	letterLayout->addWidget(btnC, 0, 2, 1, 1);
-	letterLayout->addWidget(btnD, 0, 3, 1, 1);
-	letterLayout->addWidget(btnE, 0, 4, 1, 1);
-	letterLayout->addWidget(btnF, 0, 5, 1, 1);
-	letterLayout->addWidget(btnG, 0, 6, 1, 1);
-	letterLayout->addWidget(btnH, 0, 7, 1, 1);
-	letterLayout->addWidget(btnI, 0, 8, 1, 1);
-	letterLayout->addWidget(btnJ, 0, 9, 1, 1);
-	letterLayout->addWidget(btnK, 0, 10, 1, 1);
-	letterLayout->addWidget(btnL, 0, 11, 1, 1);
-	letterLayout->addWidget(btnM, 0, 12, 1, 1);
-	letterLayout->addWidget(btnN, 1, 0, 1, 1);
-	letterLayout->addWidget(btnO, 1, 1, 1, 1);
-	letterLayout->addWidget(btnP, 1, 2, 1, 1);
-	letterLayout->addWidget(btnQ, 1, 3, 1, 1);
-	letterLayout->addWidget(btnR, 1, 4, 1, 1);
-	letterLayout->addWidget(btnS, 1, 5, 1, 1);
-	letterLayout->addWidget(btnT, 1, 6, 1, 1);
-	letterLayout->addWidget(btnU, 1, 7, 1, 1);
-	letterLayout->addWidget(btnV, 1, 8, 1, 1);
-	letterLayout->addWidget(btnW, 1, 9, 1, 1);
-	letterLayout->addWidget(btnX, 1, 10, 1, 1);
-	letterLayout->addWidget(btnY, 1, 11, 1, 1);
-	letterLayout->addWidget(btnZ, 1, 12, 1, 1);
+	letterLayout->addWidget(btnQ, 0, 0, 1, 1);
+	letterLayout->addWidget(btnW, 0, 1, 1, 1);
+	letterLayout->addWidget(btnE, 0, 2, 1, 1);
+	letterLayout->addWidget(btnR, 0, 3, 1, 1);
+	letterLayout->addWidget(btnT, 0, 4, 1, 1);
+	letterLayout->addWidget(btnY, 0, 5, 1, 1);
+	letterLayout->addWidget(btnU, 0, 6, 1, 1);
+	letterLayout->addWidget(btnI, 0, 7, 1, 1);
+	letterLayout->addWidget(btnO, 0, 8, 1, 1);
+	letterLayout->addWidget(btnP, 0, 9, 1, 1);
+	letterLayout->addWidget(btnA, 0, 10, 1, 1);
+	letterLayout->addWidget(btnS, 0, 11, 1, 1);
+	letterLayout->addWidget(btnD, 0, 12, 1, 1);
+	letterLayout->addWidget(btnF, 1, 0, 1, 1);
+	letterLayout->addWidget(btnG, 1, 1, 1, 1);
+	letterLayout->addWidget(btnH, 1, 2, 1, 1);
+	letterLayout->addWidget(btnJ, 1, 3, 1, 1);
+	letterLayout->addWidget(btnK, 1, 4, 1, 1);
+	letterLayout->addWidget(btnL, 1, 5, 1, 1);
+	letterLayout->addWidget(btnZ, 1, 6, 1, 1);
+	letterLayout->addWidget(btnX, 1, 7, 1, 1);
+	letterLayout->addWidget(btnC, 1, 8, 1, 1);
+	letterLayout->addWidget(btnV, 1, 9, 1, 1);
+	letterLayout->addWidget(btnB, 1, 10, 1, 1);
+	letterLayout->addWidget(btnN, 1, 11, 1, 1);
+	letterLayout->addWidget(btnM, 1, 12, 1, 1);
 
 	// 设置行和列间距
 	letterLayout->setSpacing(0);
@@ -628,9 +632,9 @@ void keyBoard::InitWindow()
 	layout->addWidget(btn7, 0, 8, 1, 1);
 	layout->addWidget(btn8, 0, 9, 1, 1);
 	layout->addWidget(btn9, 0, 10, 1, 1);
-	layout->addWidget(delBtn, 0, 11, 1, 1);
+	layout->addWidget(delBtn, 0, 11, 1, 2);
 	layout->addWidget(closeBtn, 0, 13, 1, 1);
-	layout->addWidget(okBtn, 0, 12, 1, 1);
+	//layout->addWidget(okBtn, 0, 12, 1, 1);
 	layout->addWidget(typeBtn, 1, 13, 1, 1);
 	layout->addWidget(styleBtn, 2, 13, 1, 1);
 	layout->addWidget(keyWindow, 1, 0, 2, 13);
