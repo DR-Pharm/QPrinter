@@ -244,20 +244,19 @@ bool QtSocket_Class::read_modbus_tcp_Coils(int start_add, quint16 numbers, int S
 		return false;
 	}
 	QModbusDataUnit ReadUnit(QModbusDataUnit::Coils, start_add, numbers);	//ÅäÖÃReadUnit
-	auto *reply = mp_TCPSocket->sendReadRequest(ReadUnit, Server_ID);   //1ÊÇServer_ID
-	
-	if (!reply->isFinished())
+	if (auto *reply = mp_TCPSocket->sendReadRequest(ReadUnit, Server_ID))   //1ÊÇServer_ID Õâ¿éhengle
 	{
-		QObject::connect(reply, &QModbusReply::finished, this, &QtSocket_Class::ReadReady_Coils);
-		return true;
-	}
-	else
-	{
-		delete reply;
-		return false;
-	}
-
-	
+		if (!reply->isFinished())
+		{
+			QObject::connect(reply, &QModbusReply::finished, this, &QtSocket_Class::ReadReady_Coils);
+			return true;
+		}
+		else
+		{
+			delete reply;
+			return false;
+		}
+	}	
 #endif
 	return true;
 }
@@ -284,9 +283,10 @@ void QtSocket_Class::ReadReady_Coils()
 	if (reply->error() == QModbusDevice::NoError)
 	{
 		const QModbusDataUnit unit = reply->result();
+		int k = unit.valueCount();
 		for (quint16 i = 0; i < unit.valueCount(); i++)
 		{
-			Coils_Bufer[i] = unit.value(i);
+			Coils_Bufer[i] =static_cast<quint8>(unit.value(i));
 		}
 		emit signal_FROMPLC((void*)Coils_Bufer);
 	}
@@ -329,8 +329,6 @@ bool QtSocket_Class::read_modbus_tcp_HoldingRegisters(int start_add, quint16 num
 			return false;
 		}
 	}
-
-
 #endif
 	return true;
 }
@@ -354,6 +352,7 @@ void QtSocket_Class::ReadReady_HoldingRegisters()
 	if (reply->error() == QModbusDevice::NoError)
 	{
 		const QModbusDataUnit unit = reply->result();
+		int k = unit.valueCount();
 		if (unit.valueCount() == 122)
 		{
 			for (quint16 i = 0; i < unit.valueCount(); i++)
@@ -652,7 +651,8 @@ void QtSocket_Class::onBeatSignal()
 	{
 		read_modbus_tcp_Coils(0, COILS, 1);
 	}
-	else if (m_iCircleFlag == 1)
+
+	if (m_iCircleFlag == 1)
 	{
 		emit WRITECOILS();
 	}

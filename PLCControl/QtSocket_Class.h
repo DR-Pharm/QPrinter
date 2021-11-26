@@ -50,7 +50,7 @@ private:
 	int COILS = 106;//个数 单字节
 	int REGISTERS = 160;//个数 双字节
 
-	quint16 *Coils_Bufer = new quint16[COILS];//读取到的数据
+	quint8 *Coils_Bufer = new quint8[COILS];//读取到的数据
 	quint16 *Input_Bufer = new quint16[REGISTERS];//寄存器
 
 	DataToPC_typ *m_Dmsg_ToPC; //PC接收

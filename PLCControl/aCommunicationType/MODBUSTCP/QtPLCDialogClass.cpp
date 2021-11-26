@@ -135,7 +135,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 
 	m_Input_Bufer[0] = 0;
 	m_Coils_Bufer[0] = 0;
-	dtcoils = new quint16[COILS];
+	dtcoils = new quint8[COILS];
 	memset(dtcoils, 0, COILS);
 	dtregisters = new quint16[REGISTERS];
 	memset(dtregisters, 0, REGISTERS*2);
@@ -1536,17 +1536,28 @@ void QtPLCDialogClass::getPLCData(void* data)
 	}
 #ifdef MODBUSTCP
 	
-	memcpy(dtcoils, (quint16*)data, COILS);//主界面用
+	memcpy(dtcoils, (quint8*)data, COILS);//主界面用
 	m_str_coils = "0";
+	QString st = "0";
 	for (int i = 0; i < COILS; i++)
 	{
 		m_Coils_Bufer[i + 1] = dtcoils[i];
-		quint16 a = dtcoils[i];
+		quint8 a = dtcoils[i];
 		QString strtmp = QString::number(a,16);
 		m_str_coils += strtmp;
+		st += strtmp;
+		if (i%10==0 && i!=0)
+		{
+			st += "_";
+		}
+		if (i%90==0 && i != 0)
+		{
+			st += "\n";
+		}
 	}
 	//if (m_CoilsFlag == 0)//第一次赋值
 	{
+		((Ui::QtPLCDialogClass*)ui)->label_21->setText(st);
 		m_str_sendCoils = m_str_coils;
 	}
 

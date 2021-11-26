@@ -135,9 +135,9 @@ private:
 	int m_index = 0;//socket数
 	int COILS = 106;//字节数
 	int REGISTERS = 160;//个数
-	quint16 *dtcoils;
+	quint8 *dtcoils;
 	quint16 *dtregisters;
-	quint16 *m_Coils_Bufer = new quint16[COILS + 1];
+	quint8 *m_Coils_Bufer = new quint8[COILS + 1];
 	quint16 *m_Input_Bufer = new quint16[REGISTERS + 1];
 
 	int m_InputFlag = 0;
