@@ -548,46 +548,56 @@ void QtPLCDialogClass::checkPermission()
 	QTreeWidgetItem* group1 = new QTreeWidgetItem(checkPermissionGroup);
 	// 	QFont headFont("Times", 16,QFont::Bold);
 	group1->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
-	group1->setText(0, QString::fromLocal8Bit("设备运行"));  //设置子项显示的文本
+	if (lg == 0)group1->setText(0, QString::fromLocal8Bit("设备运行"));
+	if (lg == 1)group1->setText(0, QString::fromLocal8Bit("Operation"));
 	group1->setCheckState(0, Qt::Checked); //设置子选项的显示格式和状态
 	QTreeWidgetItem* group2 = new QTreeWidgetItem(checkPermissionGroup);
 	group2->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
-	group2->setText(0, QString::fromLocal8Bit("设置"));
+	if (lg == 0)group2->setText(0, QString::fromLocal8Bit("设置"));
+	if (lg == 1)group2->setText(0, QString::fromLocal8Bit("Setup"));
 	group2->setCheckState(0, Qt::Checked);
 	//设置蓝色group2->setBackground(0, QBrush(QColor("#0000FF")));
 	//父亲项
 	QTreeWidgetItem* group21 = new QTreeWidgetItem(group2);
-	group21->setText(0, QString::fromLocal8Bit("系统监控"));
+	if (lg == 0)group21->setText(0, QString::fromLocal8Bit("系统监控"));
+	if (lg == 1)group21->setText(0, QString::fromLocal8Bit("Monitor"));
 	group21->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
 	group21->setCheckState(0, Qt::Checked);
 	QTreeWidgetItem* group22 = new QTreeWidgetItem(group2);
-	group22->setText(0, QString::fromLocal8Bit("系统参数"));
+	if (lg == 0)group22->setText(0, QString::fromLocal8Bit("系统参数"));
+	if (lg == 1)group22->setText(0, QString::fromLocal8Bit("Sys Para"));
 	group22->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
 	group22->setCheckState(0, Qt::Checked);
 	QTreeWidgetItem* group23 = new QTreeWidgetItem(group2);
-	group23->setText(0, QString::fromLocal8Bit("运行参数"));
+	if (lg == 0)group23->setText(0, QString::fromLocal8Bit("运行参数"));
+	if (lg == 1)group23->setText(0, QString::fromLocal8Bit("Run Para"));
 	group23->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
 	group23->setCheckState(0, Qt::Checked);
 	QTreeWidgetItem* group24 = new QTreeWidgetItem(group2);
-	group24->setText(0, QString::fromLocal8Bit("用户管理"));
+	if (lg == 0)group24->setText(0, QString::fromLocal8Bit("用户管理"));
+	if (lg == 1)group24->setText(0, QString::fromLocal8Bit("Users"));
 	group24->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
 	group24->setCheckState(0, Qt::Checked);
 	//孙子项1
 	QTreeWidgetItem* group211 = new QTreeWidgetItem(group21);   //指定子项属于哪一个父项
 	group211->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
-	group211->setText(0, QString::fromLocal8Bit("输入输出"));
+	if (lg == 0)group211->setText(0, QString::fromLocal8Bit("输入输出"));
+	if (lg == 1)group211->setText(0, QString::fromLocal8Bit("IO"));
 	group211->setCheckState(0, Qt::Checked);
 	QTreeWidgetItem* group212 = new QTreeWidgetItem(group21);
 	group212->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
-	group212->setText(0, QString::fromLocal8Bit("下料旋转"));
+	if (lg == 0)group212->setText(0, QString::fromLocal8Bit("下料旋转"));
+	if (lg == 1)group212->setText(0, QString::fromLocal8Bit("Motors"));
 	group212->setCheckState(0, Qt::Checked);
 	QTreeWidgetItem* group213 = new QTreeWidgetItem(group21);
 	group213->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
-	group213->setText(0, QString::fromLocal8Bit("检测单元"));
+	if (lg == 0)group213->setText(0, QString::fromLocal8Bit("检测单元"));
+	if (lg == 1)group213->setText(0, QString::fromLocal8Bit("Units"));
 	group213->setCheckState(0, Qt::Checked);
 	QTreeWidgetItem* group214 = new QTreeWidgetItem(group21);
 	group214->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
-	group214->setText(0, QString::fromLocal8Bit("其它"));
+	if (lg == 0)group214->setText(0, QString::fromLocal8Bit("其它"));
+	if (lg == 1)group214->setText(0, QString::fromLocal8Bit("Others"));
 	group214->setCheckState(0, Qt::Checked);
 	/*QTreeWidgetItem* group2133 = new QTreeWidgetItem(group213);
 	group2133->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
@@ -629,11 +639,13 @@ void QtPLCDialogClass::checkPermission()
 	group234->setCheckState(0, Qt::Checked);*/
 	//孙子项4
 	QTreeWidgetItem* group241 = new QTreeWidgetItem(group24);
-	group241->setText(0, QString::fromLocal8Bit("添加用户"));
+	if (lg == 0)group241->setText(0, QString::fromLocal8Bit("添加用户"));
+	if (lg == 1)group241->setText(0, QString::fromLocal8Bit("Add user"));
 	group241->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
 	group241->setCheckState(0, Qt::Checked);
 	QTreeWidgetItem* group242 = new QTreeWidgetItem(group24);
-	group242->setText(0, QString::fromLocal8Bit("删除用户"));
+	if (lg == 0)group242->setText(0, QString::fromLocal8Bit("删除用户"));
+	if (lg == 1)group242->setText(0, QString::fromLocal8Bit("Delete user"));
 	group242->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
 	group242->setCheckState(0, Qt::Checked);
 	((Ui::QtPLCDialogClass*)ui)->treeWidget_2->expandAll();  //展开树
@@ -1586,42 +1598,51 @@ void QtPLCDialogClass::getPLCData(void* data)
 		((Ui::QtPLCDialogClass*)ui)->lb_Alarm->setStyleSheet("color: rgb(255,0,0);font-size:20pt");
 		if (m_Coils_Bufer[Alarm1] == 1)
 		{
-			((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("落料步进报警!");
+			if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("落料步进报警! ");
+			if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("F-Motor err!");
 		}
 		else if (m_Coils_Bufer[Alarm2] == 1)
 		{
-			((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("旋转步进报警!");
+			if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("旋转步进报警!");
+			if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("R-Motor err!");
 		}
 		else if (m_Coils_Bufer[Alarm3] == 1)
 		{
-			((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("翻转步进报警!");
+			if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("旋转步进报警!");
+			if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("T-Motor err!");
 		}
 		else if (m_Coils_Bufer[Alarm4] == 1)
 		{
-			((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("测硬度步进报警!");
+			if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("测硬度步进报警!");
+			if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("H-Motor err!");
 		}
 		else if (m_Coils_Bufer[Alarm5] == 1)
 		{
-			((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("落料超时!");
+			if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("落料超时!");
+			if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("Feeding err!");
 		}
 		else if (m_Coils_Bufer[Alarm6] == 1)
 		{
-			((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("秤读数超时!");
+			if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("秤读数超时!");
+			if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("Weighing err!");
 		}
 		else if (m_Coils_Bufer[Alarm7] == 1)
 		{
-			((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("硬度检测失败!");
+			if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("硬度检测失败!");
+			if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("HardNess err!");
 		}
 		else if (m_Coils_Bufer[Alarm31] == 1)
 		{
-			((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("剔废盒满!");
+			if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("剔废盒满!");
+			if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("Box full!");
 		}
 	}
 	else
 	{
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(true);
 		((Ui::QtPLCDialogClass*)ui)->lb_Alarm->setStyleSheet("color: rgb(0, 170, 127);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("设备运行正常~");
+		if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("设备运行正常~");
+		if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("System normal");
 	}
 #pragma endregion
 	//输入点
@@ -4958,8 +4979,16 @@ void QtPLCDialogClass::OnUnconnectedState()
 	((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setChecked(false);
 	((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(false);
 	((Ui::QtPLCDialogClass*)ui)->lb_Alarm->setStyleSheet("color: rgb(255, 0,0);font-size:20pt");
-	((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("设备未就绪~");
-	showMsgBox("提示", "PLC Unconnected!", "我知道了", "");
+	if (lg == 0)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("设备未就绪~");
+		showMsgBox("提示", "PLC未连接!", "我知道了", "");
+	}
+	if (lg == 1)
+	{
+		((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("Not Ready~");
+		showMsgBox("Warning", "PLC Unconnected!", "I Know", "");
+	}
 }
 void QtPLCDialogClass::OnShowState(QString str)
 {
@@ -5031,7 +5060,6 @@ void QtPLCDialogClass::ChangeLanguage()
 	
 		//输入输出
 		((Ui::QtPLCDialogClass*)ui)->label_40->setText("Drop detection");
-		((Ui::QtPLCDialogClass*)ui)->label_11->setText("Swing Arm");
 		((Ui::QtPLCDialogClass*)ui)->label_46->setText("Zero position of\nhardness test");
 		//((Ui::QtPLCDialogClass*)ui)->pB_cmdReject->setText("Reject");
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGet->setText("CapGet");
@@ -5065,7 +5093,8 @@ void QtPLCDialogClass::ChangeLanguage()
 		//((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedshakestop->setText("Feedshakestop");
 		//((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedshakelevel->setText("Feedshakelevel");
 		//((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedhome->setText("Feedhome");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedFive->setText("Multi-Feed");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedAmount->setText("FeedAmount");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedFive->setText("FeedFive");
 		//((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShakefive->setText("FeedShakefive");
 		//((Ui::QtPLCDialogClass*)ui)->pB_cmdScaleRead->setText("ScaleRead");
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdScaleTire->setText("ScaleTire");
@@ -5073,20 +5102,49 @@ void QtPLCDialogClass::ChangeLanguage()
 		//((Ui::QtPLCDialogClass*)ui)->pB_cmdScaleSetStable->setText("ScaleSetStable");
 		//((Ui::QtPLCDialogClass*)ui)->pB_showPrt->setText("showPrt");
 		//((Ui::QtPLCDialogClass*)ui)->pB_cmdAlogtest->setText("Alogtest");
+		((Ui::QtPLCDialogClass*)ui)->groupBox_12->setTitle("Hardness Testing Unit");
+		((Ui::QtPLCDialogClass*)ui)->pB_enHMU->setText("Enable");
+		((Ui::QtPLCDialogClass*)ui)->pB_HMUStart->setText("Start");
+		((Ui::QtPLCDialogClass*)ui)->pB_HMUStop->setText("Stop");
+		((Ui::QtPLCDialogClass*)ui)->pB_HMUZero->setText("Zero");
+		((Ui::QtPLCDialogClass*)ui)->pB_HMUCalibStd->setText("CalibStd");
 
+		((Ui::QtPLCDialogClass*)ui)->pB_HMUHome->setText("Home");
+		((Ui::QtPLCDialogClass*)ui)->pB_HMUTurn->setText("Turn");
+		((Ui::QtPLCDialogClass*)ui)->pB_HMUReject->setText("Reject");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdRollingOverNeg->setText("RollingOverNeg");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdRollingOverPos->setText("RollingOverPos");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdPushNeg->setText("PushNeg");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdPushPos->setText("PushPos");
+		
+
+		((Ui::QtPLCDialogClass*)ui)->label_2->setText("HardnessChkCnt");
+		((Ui::QtPLCDialogClass*)ui)->label_19->setText("ResultForce");
+		((Ui::QtPLCDialogClass*)ui)->label_11->setText("ResultDiam");
+		((Ui::QtPLCDialogClass*)ui)->label_84->setText("ActForce");
+		
+
+		((Ui::QtPLCDialogClass*)ui)->groupBox_13->setTitle("Thickness Testing Unit");
+		((Ui::QtPLCDialogClass*)ui)->pB_enTMU->setText("Enable");
+		((Ui::QtPLCDialogClass*)ui)->pB_TMUStart->setText("Start");
+		((Ui::QtPLCDialogClass*)ui)->pB_TMUStop->setText("Stop");
+		((Ui::QtPLCDialogClass*)ui)->pB_TMUZero->setText("Zero"); 
+		((Ui::QtPLCDialogClass*)ui)->pB_TMUCalib->setText("CalibStd"); 
+
+		((Ui::QtPLCDialogClass*)ui)->label_74->setText("ThicknessResult");
+		((Ui::QtPLCDialogClass*)ui)->label_103->setText("ThickRejectCount");
+
+
+		((Ui::QtPLCDialogClass*)ui)->groupBox_8->setTitle("GetCap && CapClean");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdGetCap->setText("GetCap");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapClean->setText("CapClean");
+		((Ui::QtPLCDialogClass*)ui)->label_63->setText("FeedDone");
+		((Ui::QtPLCDialogClass*)ui)->groupBox_5->setTitle("ThickRejectCount");
 		//系统参数
-		((Ui::QtPLCDialogClass*)ui)->label_26->setText("Feed Offset(p)");
 		((Ui::QtPLCDialogClass*)ui)->label_71->setText("Thickness cylinder");
 		((Ui::QtPLCDialogClass*)ui)->label_70->setText("Zero position of\nFlap");
 		((Ui::QtPLCDialogClass*)ui)->label_30->setText("Shaping cylinder");
 		((Ui::QtPLCDialogClass*)ui)->label_64->setText("Swing arm");
-		((Ui::QtPLCDialogClass*)ui)->label_25->setText("Rec Cycle(s)");
-		((Ui::QtPLCDialogClass*)ui)->label_32->setText("Delay(s)");
-		((Ui::QtPLCDialogClass*)ui)->label_42->setText("Wait(s)");
-		((Ui::QtPLCDialogClass*)ui)->label_31->setText("Rotate Offset(p)");
-		((Ui::QtPLCDialogClass*)ui)->label_4->setText("Overtime(s)");
-		((Ui::QtPLCDialogClass*)ui)->label_41->setText("Read Delay(s)");
-		((Ui::QtPLCDialogClass*)ui)->label_44->setText("Overrun Shutdown");
 		((Ui::QtPLCDialogClass*)ui)->pB_Read1->setText("Read");
 		((Ui::QtPLCDialogClass*)ui)->pB_Write1->setText("Write");
 
@@ -5096,19 +5154,56 @@ void QtPLCDialogClass::ChangeLanguage()
 		((Ui::QtPLCDialogClass*)ui)->label_12->setText("Under Limit(g)");
 		((Ui::QtPLCDialogClass*)ui)->label_53->setText("Over Weight(g)");
 		((Ui::QtPLCDialogClass*)ui)->label_54->setText("Under Light(g)");
-		((Ui::QtPLCDialogClass*)ui)->label_52->setText("Number");
-		//((Ui::QtPLCDialogClass*)ui)->label_57->setText("Cutting Speed");
+		((Ui::QtPLCDialogClass*)ui)->label_57->setText("Speed");
+		
+		((Ui::QtPLCDialogClass*)ui)->label_76->setText("SetPillDiam");
+		((Ui::QtPLCDialogClass*)ui)->label_82->setText("HardnessChkNum");
+		((Ui::QtPLCDialogClass*)ui)->label_86->setText("HMU_Zero");
+		((Ui::QtPLCDialogClass*)ui)->label_99->setText("TMU_Zero");
+		((Ui::QtPLCDialogClass*)ui)->label_107->setText("HMUparaCalibForce");
+		((Ui::QtPLCDialogClass*)ui)->label_72->setText("RecipeNo"); 
+		((Ui::QtPLCDialogClass*)ui)->label_52->setText("GroupSet");
+		((Ui::QtPLCDialogClass*)ui)->label_58->setText("TestInterval");
+		((Ui::QtPLCDialogClass*)ui)->label_56->setText("ThickUpperLimit");
+		((Ui::QtPLCDialogClass*)ui)->label_73->setText("ThickUnderLimit");
+		((Ui::QtPLCDialogClass*)ui)->label_77->setText("PillDiamOffset");
+		((Ui::QtPLCDialogClass*)ui)->label_75->setText("GroupCounter");
+		((Ui::QtPLCDialogClass*)ui)->label_100->setText("HMU_K");
+		((Ui::QtPLCDialogClass*)ui)->label_101->setText("TMU_K");
+		((Ui::QtPLCDialogClass*)ui)->label_106->setText("TMUcalibThickness");
 		//((Ui::QtPLCDialogClass*)ui)->label_58->setText("Test Sub.");
-		((Ui::QtPLCDialogClass*)ui)->label_56->setText("Interval Time(s)");
 		/*((Ui::QtPLCDialogClass*)ui)->pB_Read2->setText("Read");
 		((Ui::QtPLCDialogClass*)ui)->pB_Write2->setText("Write");*/
 
+		((Ui::QtPLCDialogClass*)ui)->label_26->setText("FeedOffset(p)");
+		((Ui::QtPLCDialogClass*)ui)->label_31->setText("RotateOffset(p)");
+		((Ui::QtPLCDialogClass*)ui)->label_27->setText("TurnOffset(p)");
+		((Ui::QtPLCDialogClass*)ui)->label_33->setText("PushOffset(p)");
+		((Ui::QtPLCDialogClass*)ui)->label_25->setText("CapPickInterval(s)");
+		((Ui::QtPLCDialogClass*)ui)->label_4->setText("FeedTimeOut(s)");
+		((Ui::QtPLCDialogClass*)ui)->label_32->setText("TireDelay(s)");
+		((Ui::QtPLCDialogClass*)ui)->label_5->setText("CapBackInterval");
+		((Ui::QtPLCDialogClass*)ui)->label_42->setText("TireWaitTime(s)");
+		((Ui::QtPLCDialogClass*)ui)->label_41->setText("ReadDelay(s)");
+		((Ui::QtPLCDialogClass*)ui)->label_97->setText("HMU_PressStopPercent");
+		((Ui::QtPLCDialogClass*)ui)->label_44->setText("StopSignalDelay");
+
+
+		((Ui::QtPLCDialogClass*)ui)->label_87->setText("paraTurnUpSpd");
+		((Ui::QtPLCDialogClass*)ui)->label_88->setText("paraTurnDnSpd");
+		((Ui::QtPLCDialogClass*)ui)->label_89->setText("paraTurnUpPosition");
+		((Ui::QtPLCDialogClass*)ui)->label_90->setText("paraTurnDnPosition");
+		((Ui::QtPLCDialogClass*)ui)->label_91->setText("paraPushDestPosition");
+		((Ui::QtPLCDialogClass*)ui)->label_92->setText("ForceThresholdSlow");
+		((Ui::QtPLCDialogClass*)ui)->label_93->setText("CapThickValve_t1");
+		((Ui::QtPLCDialogClass*)ui)->label_96->setText("CapThickValve_t2");
+		((Ui::QtPLCDialogClass*)ui)->label_94->setText("CapTurnValve_t1");
+		((Ui::QtPLCDialogClass*)ui)->label_95->setText("CapTurnValve_t2");
+		((Ui::QtPLCDialogClass*)ui)->label_98->setText("RejectBoxFullNum");
+
 		//运行状态
-		((Ui::QtPLCDialogClass*)ui)->label_19->setText("error code");
 		((Ui::QtPLCDialogClass*)ui)->label_22->setText("MovDistance(p)");
-		((Ui::QtPLCDialogClass*)ui)->label_27->setText("error code");
 		((Ui::QtPLCDialogClass*)ui)->label_28->setText("MovDistance(p)");
-		((Ui::QtPLCDialogClass*)ui)->label_33->setText("Actual Interval Time");
 
 		//用户管理
 		((Ui::QtPLCDialogClass*)ui)->label_68->setText("Permission name");
