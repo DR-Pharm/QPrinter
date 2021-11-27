@@ -167,38 +167,38 @@ void QtSocket_Class::onErrorOccurred()
 		ProtocolError,
 		ReplyAbortedError,
 		UnknownError*/
-	if (mp_TCPSocket->error() == QModbusDevice::ReadError)
-	{
-		emit SHOWSTATUS("ReadError");
-	}
-	else if (mp_TCPSocket->error() == QModbusDevice::WriteError)
-	{
-		emit SHOWSTATUS("WriteError");
-	}
-	else if (mp_TCPSocket->error() == QModbusDevice::ConnectionError)
-	{
-		emit SHOWSTATUS("ConnectionError");
-	}
-	else if (mp_TCPSocket->error() == QModbusDevice::ConfigurationError)
-	{
-		emit SHOWSTATUS("ConfigurationError");
-	}
-	else if (mp_TCPSocket->error() == QModbusDevice::TimeoutError)
-	{
-		emit SHOWSTATUS("TimeoutError");
-	}
-	else if (mp_TCPSocket->error() == QModbusDevice::ProtocolError)
-	{
-		emit SHOWSTATUS("ProtocolError");
-	}
-	else if (mp_TCPSocket->error() == QModbusDevice::ReplyAbortedError)
-	{
-		emit SHOWSTATUS("ReplyAbortedError");
-	}
-	else if (mp_TCPSocket->error() == QModbusDevice::UnknownError)
-	{
-		emit SHOWSTATUS("UnknownError");
-	}
+		/*if (mp_TCPSocket->error() == QModbusDevice::ReadError)
+		{
+			emit SHOWSTATUS("ReadError");
+		}
+		else if (mp_TCPSocket->error() == QModbusDevice::WriteError)
+		{
+			emit SHOWSTATUS("WriteError");
+		}
+		else if (mp_TCPSocket->error() == QModbusDevice::ConnectionError)
+		{
+			emit SHOWSTATUS("ConnectionError");
+		}
+		else if (mp_TCPSocket->error() == QModbusDevice::ConfigurationError)
+		{
+			emit SHOWSTATUS("ConfigurationError");
+		}
+		else if (mp_TCPSocket->error() == QModbusDevice::TimeoutError)
+		{
+			emit SHOWSTATUS("TimeoutError");
+		}
+		else if (mp_TCPSocket->error() == QModbusDevice::ProtocolError)
+		{
+			emit SHOWSTATUS("ProtocolError");
+		}
+		else if (mp_TCPSocket->error() == QModbusDevice::ReplyAbortedError)
+		{
+			emit SHOWSTATUS("ReplyAbortedError");
+		}
+		else if (mp_TCPSocket->error() == QModbusDevice::UnknownError)
+		{
+			emit SHOWSTATUS("UnknownError");
+		}*/
 }
 void QtSocket_Class::onStateChanged()
 { //连接状态改变时的槽函数
@@ -209,18 +209,18 @@ void QtSocket_Class::onStateChanged()
 		OnServer();
 	}
 
-	else if (mp_TCPSocket->state() == QModbusDevice::ConnectingState)
-	{
-	}
+	//else if (mp_TCPSocket->state() == QModbusDevice::ConnectingState)
+	//{
+	//}
 
-	else if (mp_TCPSocket->state() == QModbusDevice::UnconnectedState)
-	{
-		emit statechange_Unconnected();
-	}
-	else if (mp_TCPSocket->state() == QModbusDevice::ClosingState)
-	{
-		emit statechange_Closing();
-	}
+	//else if (mp_TCPSocket->state() == QModbusDevice::UnconnectedState)
+	//{
+	//	emit statechange_Unconnected();
+	//}
+	//else if (mp_TCPSocket->state() == QModbusDevice::ClosingState)
+	//{
+	//	emit statechange_Closing();
+	//}
 #endif
 
 }
