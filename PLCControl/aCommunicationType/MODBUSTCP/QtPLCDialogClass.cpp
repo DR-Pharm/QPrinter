@@ -4094,14 +4094,16 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 	((Ui::QtPLCDialogClass*)ui)->lE_print2->setText(QString::number(p2));
 	if (p1 > p2)
 	{
-		emit showWindowOut(QString::fromLocal8Bit("无满足条件\n打印数据!"));
+		if (lg == 0)emit showWindowOut(QString::fromLocal8Bit("无满足条件\n打印数据!"));
+		if (lg == 1)emit showWindowOut(QString::fromLocal8Bit("No Data!"));
 		((Ui::QtPLCDialogClass*)ui)->pB_printData->setEnabled(true);
 		((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(true);
 		return;
 	}
-	else if (p1 + 10 < p2)
+	else if (p1 + 20 < p2)
 	{
-		emit showWindowOut(QString::fromLocal8Bit("每次至多打印\n10条数据!"));
+		if (lg == 0)emit showWindowOut(QString::fromLocal8Bit("选择区间不得\n大于20!")); 
+		if (lg == 1)emit showWindowOut(QString::fromLocal8Bit("The Interval\nShould <=20!"));
 		((Ui::QtPLCDialogClass*)ui)->pB_printData->setEnabled(true);
 		((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(true);
 		return;
@@ -4112,7 +4114,8 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 		QString str = configIniRead.value(QString::number(p1) + "/data", 0).toString();
 		if (str == "0")
 		{
-			emit showWindowOut(QString::fromLocal8Bit("无满足条件\n打印数据!"));
+			if (lg == 0)emit showWindowOut(QString::fromLocal8Bit("无满足条件\n打印数据!"));
+			if (lg == 1)emit showWindowOut(QString::fromLocal8Bit("No Data!"));
 			((Ui::QtPLCDialogClass*)ui)->pB_printData->setEnabled(true);
 			((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(true);
 			return;
@@ -4168,7 +4171,8 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 		
 		else
 		{
-			emit showWindowOut(QString::fromLocal8Bit("无打印数据!"));
+			if (lg == 0)emit showWindowOut(QString::fromLocal8Bit("无打印数据!"));
+			if (lg == 1)emit showWindowOut(QString::fromLocal8Bit("No Data!"));
 			return;
 		}
 	}
