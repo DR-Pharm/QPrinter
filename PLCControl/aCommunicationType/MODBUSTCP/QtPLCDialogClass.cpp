@@ -1557,7 +1557,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 	}
 	//if (m_CoilsFlag == 0)//第一次赋值
 	{
-		((Ui::QtPLCDialogClass*)ui)->label_21->setText(st);
+		//((Ui::QtPLCDialogClass*)ui)->label_21->setText(st);
 		m_str_sendCoils = m_str_coils;
 	}
 
