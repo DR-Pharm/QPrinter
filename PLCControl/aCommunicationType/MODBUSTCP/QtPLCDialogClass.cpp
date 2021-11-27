@@ -27,7 +27,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	((Ui::QtPLCDialogClass*)ui)->setupUi(this);
 	((Ui::QtPLCDialogClass*)ui)->pB_printData->setVisible(false);
 	((Ui::QtPLCDialogClass*)ui)->pB_printData_2->setVisible(false);
-	//((Ui::QtPLCDialogClass*)ui)->pB_showPrt->setVisible(false);
+	((Ui::QtPLCDialogClass*)ui)->pB_showPrt->setVisible(false);
 	((Ui::QtPLCDialogClass*)ui)->pB_cmdAlogtest->setVisible(false);
 	((Ui::QtPLCDialogClass*)ui)->frame->move(0, 0);
 
@@ -569,13 +569,9 @@ void QtPLCDialogClass::checkPermission()
 	group23->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
 	group23->setCheckState(0, Qt::Checked);
 	QTreeWidgetItem* group24 = new QTreeWidgetItem(group2);
-	group24->setText(0, QString::fromLocal8Bit("运行状态"));
+	group24->setText(0, QString::fromLocal8Bit("用户管理"));
 	group24->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
 	group24->setCheckState(0, Qt::Checked);
-	QTreeWidgetItem* group25 = new QTreeWidgetItem(group2);
-	group25->setText(0, QString::fromLocal8Bit("用户管理"));
-	group25->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
-	group25->setCheckState(0, Qt::Checked);
 	//孙子项1
 	QTreeWidgetItem* group211 = new QTreeWidgetItem(group21);   //指定子项属于哪一个父项
 	group211->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
@@ -587,16 +583,16 @@ void QtPLCDialogClass::checkPermission()
 	group212->setCheckState(0, Qt::Checked);
 	QTreeWidgetItem* group213 = new QTreeWidgetItem(group21);
 	group213->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
-	group213->setText(0, QString::fromLocal8Bit("其它"));
+	group213->setText(0, QString::fromLocal8Bit("检测单元"));
 	group213->setCheckState(0, Qt::Checked);
-	QTreeWidgetItem* group2132 = new QTreeWidgetItem(group213);
-	group2132->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
-	group2132->setText(0, QString::fromLocal8Bit("称重设置"));
-	group2132->setCheckState(0, Qt::Checked);
-	QTreeWidgetItem* group2133 = new QTreeWidgetItem(group213);
+	QTreeWidgetItem* group214 = new QTreeWidgetItem(group21);
+	group214->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
+	group214->setText(0, QString::fromLocal8Bit("其它"));
+	group214->setCheckState(0, Qt::Checked);
+	/*QTreeWidgetItem* group2133 = new QTreeWidgetItem(group213);
 	group2133->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
 	group2133->setText(0, QString::fromLocal8Bit("打印设置"));
-	group2133->setCheckState(0, Qt::Checked);
+	group2133->setCheckState(0, Qt::Checked);*/
 	/*QTreeWidgetItem* group214 = new QTreeWidgetItem(group21);
 	group214->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
 	group214->setText(0, QString::fromLocal8Bit("修改名称"));
@@ -985,7 +981,7 @@ void QtPLCDialogClass::setg_IUserLevel(int index)
 	}
 	else if (g_IUserLevel == 1)
 	{
-		((Ui::QtPLCDialogClass*)ui)->tabWidget_PLC->removeTab(4);
+		((Ui::QtPLCDialogClass*)ui)->tabWidget_PLC->removeTab(3);
 	}
 	else if (g_IUserLevel == 2)
 	{
@@ -4286,7 +4282,7 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 		if (lg == 0) pix.load(AppPath + "/ico/stop.png");
 		if (lg == 1) pix.load(AppPath + "/ico/E/stop.png");
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIcon(pix);
-		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(false);
+		//((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(false);
 		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(false);
 		ExitBtn->setEnabled(false);
 		typ.Machine_Cmd.cmdStart = 1;
@@ -4300,7 +4296,7 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIcon(pix);
 		if (g_IUserLevel != 2)
 		{
-			((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(true);
+			//((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(true);
 		}
 		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(true);
 		ExitBtn->setEnabled(true);
@@ -4968,7 +4964,7 @@ void QtPLCDialogClass::OnUnconnectedState()
 void QtPLCDialogClass::OnShowState(QString str)
 {
 	emit showWindowOut(str);
-	QMessageBox::about(nullptr, str,str);
+	//QMessageBox::about(nullptr, str,str);
 }
 void QtPLCDialogClass::OnShowValueCountFlag(int index)
 {
@@ -5144,7 +5140,7 @@ void QtPLCDialogClass::on_pB_SetUp_toggled(bool checked)//设置
 		if (lg == 1) pix.load(AppPath + "/ico/E/sz.png");
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIcon(pix);
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIconSize(QSize(347, 99));
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(false);
+		//((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(false);
 		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setChecked(false);
 	}
 	else
@@ -5157,7 +5153,7 @@ void QtPLCDialogClass::on_pB_SetUp_toggled(bool checked)//设置
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIconSize(QSize(347, 99));
 		if (((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText == QString::fromLocal8Bit("设备运行正常~"))
 		{
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(true);
+			//((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(true);
 		}
 	}
 }
