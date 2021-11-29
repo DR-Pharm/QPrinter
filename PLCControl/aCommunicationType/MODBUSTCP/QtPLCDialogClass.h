@@ -3,6 +3,7 @@
 #include <QLabel>
 #include <QPainter>
 #include <QTreeWidgetItem>
+#include <QListWidgetItem>
 
 #include "PLCRelayHead.h"
 #include "QtSocket_Class.h"
@@ -59,6 +60,7 @@ public:
 	void setStyleCommand(QPushButton*, QString, QFont, QString);
 
 	void CompareYearMonthDay();
+
 
 	QString setYearMonthDay();
 	QString YearMonthDay();
@@ -150,6 +152,9 @@ private:
 	int m_iDontReadCoilsFlag = 0;
 	int m_iDontReadRegistersFlag = 0;
 	int lg = 0;
+
+	int m_iAutoUpdateFlag = 0;
+	bool leflag = 0;
 public slots:
 	DataFromPC_typ getPCParaData();
 	DataFromPC_typ getPCRunData();
@@ -167,6 +172,7 @@ public slots:
 	void on_lE_hour1_editingFinished();
 	void on_lE_hour2_editingFinished();
 	void on_lE_minute1_editingFinished();
+	void on_lW_data_itemDoubleClicked(QListWidgetItem * item);
 	/*void on_lE_RejectCount_editingFinished();
 	void on_lE_ProdCount_editingFinished();
 	void on_lE_TOCount_editingFinished();
@@ -229,6 +235,7 @@ public slots:
 	void on_pB_printCurve_clicked();
 	void on_pB_Read1_clicked();
 	void on_pB_Write1_clicked();
+	void on_gB_update_toggled(bool arg1);
 	void on_pB_cmdScaleTire_clicked();
 	/*void on_cB_paraScaleSetStable_currentIndexChanged(int index);*/
 	void on_pB_cmdScaleCalibExt_clicked();
@@ -241,6 +248,7 @@ public slots:
 	void on_pB_cmdFeedSingle_clicked();
 	void on_pB_cmdFeedSingleStop_clicked();
 	void on_pB_cmdSwing_clicked();
+	void on_pB_inquire_toggled(bool checked);
 	void on_pB_showPrt_toggled(bool checked);
 	void on_pB_HMUStart_clicked();
 	void on_pB_HMUStop_clicked();
@@ -292,6 +300,7 @@ public slots:
 	void OnUnconnectedState();
 	void OnShowState(QString str);
 	void OnShowValueCountFlag(int index);
+	void on_lW_data_itemClicked(QListWidgetItem * item);
 	void OnClosingState();
 };
 
