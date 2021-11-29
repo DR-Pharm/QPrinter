@@ -50,7 +50,7 @@ private:
     QStackedWidget *keyWindow;      // 键盘窗口,可以翻页显示
     QWidget *letterWindow;          // 字母键盘
     QWidget *signWindow;            // 字母键盘
-    QLabel *infoLabel;              // 显示键盘信息
+    //QLabel *infoLabel;              // 显示键盘信息
 
 	QPushButton *closeBtn;
 	QPushButton *okBtn;
@@ -108,8 +108,9 @@ private:
     QPushButton *btnSign8;
     QPushButton *btnSign9;
     QPushButton *btnSign10;
-    QPushButton *btnSign11;
-    QPushButton *btnSign12;
+	QPushButton *btnSign11;
+	QPushButton *btnSign12;
+	QPushButton *btnSign13;
 };
 
 #endif // KEYBOARD_H

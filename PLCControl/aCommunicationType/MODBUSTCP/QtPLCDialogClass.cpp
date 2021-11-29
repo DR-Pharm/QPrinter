@@ -729,6 +729,8 @@ void QtPLCDialogClass::initMovie()
 }
 void QtPLCDialogClass::initUI()
 {
+	((Ui::QtPLCDialogClass*)ui)->pB_TMUStop->setVisible(false);
+	((Ui::QtPLCDialogClass*)ui)->pB_HMUZero->setVisible(false);
 	//QRegExp regx("[a-zA-Z0-9_]+$");//正则表达式QRegExp,只允许输入中文、数字、字母、下划线以及空格,[\u4e00 - \u9fa5a - zA - Z0 - 9_] + $
 	QRegExp regx("[0-9]+$");
 	((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->setValidator(new QRegExpValidator(regx, this));
@@ -1342,7 +1344,7 @@ void QtPLCDialogClass::getPLCHolding(void*data)
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_TMU_K->hasFocus())
 	{
 		float hex_res = hexTofloat(ActData_TMU_K);
-		((Ui::QtPLCDialogClass*)ui)->lE_TMU_K->setText(QString::number(hex_res));
+		((Ui::QtPLCDialogClass*)ui)->lE_TMU_K->setText(QString::number(hex_res, 'f', 5));
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_SetPillDiam->hasFocus())
 	{
@@ -1574,7 +1576,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 #pragma region alarm
 	if (m_Coils_Bufer[Alarm1] == 1 //落料步进报警
 		|| m_Coils_Bufer[Alarm2] == 1//旋转步进报警
-		|| m_Coils_Bufer[Alarm3] == 1//翻转步进报警
+		|| m_Coils_Bufer[Alarm3] == 1//翻板步进报警
 		|| m_Coils_Bufer[Alarm4] == 1//测硬度步进报警
 		|| m_Coils_Bufer[Alarm5] == 1//落料超时
 		|| m_Coils_Bufer[Alarm6] == 1//秤读数超时
@@ -1584,7 +1586,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		if (m_Coils_Bufer[Alarm1] == 1 //落料步进报警
 			|| m_Coils_Bufer[Alarm2] == 1//旋转步进报警
-			|| m_Coils_Bufer[Alarm3] == 1//翻转步进报警
+			|| m_Coils_Bufer[Alarm3] == 1//翻板步进报警
 			|| m_Coils_Bufer[Alarm4] == 1//测硬度步进报警
 			|| m_Coils_Bufer[Alarm5] == 1//落料超时
 			|| m_Coils_Bufer[Alarm6] == 1//秤读数超时
@@ -1608,7 +1610,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 		}
 		else if (m_Coils_Bufer[Alarm3] == 1)
 		{
-			if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("旋转步进报警!");
+			if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("翻板步进报警!");
 			if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("T-Motor err!");
 		}
 		else if (m_Coils_Bufer[Alarm4] == 1)

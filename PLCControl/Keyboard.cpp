@@ -513,19 +513,19 @@ void keyBoard::InitWindow()
 	btnSign0->setFixedSize(BTN_SIZE, BTN_SIZE);
 	btnSign0->setFocusPolicy(Qt::NoFocus);
 	btnSign0->setProperty("sign", true);
-	btnSign0->setText(tr("!"));
+	btnSign0->setText(tr("-"));
 
 	btnSign1 = new QPushButton(signWindow);
 	btnSign1->setFixedSize(BTN_SIZE, BTN_SIZE);
 	btnSign1->setFocusPolicy(Qt::NoFocus);
 	btnSign1->setProperty("sign", true);
-	btnSign1->setText(tr("@"));
+	btnSign1->setText(tr("."));
 
 	btnSign2 = new QPushButton(signWindow);
 	btnSign2->setFixedSize(BTN_SIZE, BTN_SIZE);
 	btnSign2->setFocusPolicy(Qt::NoFocus);
 	btnSign2->setProperty("sign", true);
-	btnSign2->setText(tr("#"));
+	btnSign2->setText(tr("_"));
 
 	btnSign3 = new QPushButton(signWindow);
 	btnSign3->setFixedSize(BTN_SIZE, BTN_SIZE);
@@ -579,7 +579,7 @@ void keyBoard::InitWindow()
 	btnSign11->setFixedSize(BTN_SIZE, BTN_SIZE);
 	btnSign11->setFocusPolicy(Qt::NoFocus);
 	btnSign11->setProperty("sign", true);
-	btnSign11->setText(tr("."));
+	btnSign11->setText(tr("!"));
 
 	btnSign12 = new QPushButton(signWindow);
 	btnSign12->setFixedSize(BTN_SIZE, BTN_SIZE);
@@ -587,9 +587,11 @@ void keyBoard::InitWindow()
 	btnSign12->setProperty("sign", true);
 	btnSign12->setText(tr("?"));
 
-	infoLabel = new QLabel(signWindow);
-	infoLabel->setFocusPolicy(Qt::NoFocus);
-	infoLabel->setProperty("sign", true);
+	btnSign13 = new QPushButton(signWindow);
+	btnSign13->setFixedSize(13*BTN_SIZE, BTN_SIZE);
+	btnSign13->setFocusPolicy(Qt::NoFocus);
+	btnSign13->setProperty("sign", true);
+	btnSign13->setText(tr(" "));
 
 	QGridLayout *signLayout = new QGridLayout;
 	signLayout->addWidget(btnSign0, 0, 0, 1, 1);
@@ -605,7 +607,7 @@ void keyBoard::InitWindow()
 	signLayout->addWidget(btnSign10, 0, 10, 1, 1);
 	signLayout->addWidget(btnSign11, 0, 11, 1, 1);
 	signLayout->addWidget(btnSign12, 0, 12, 1, 1);
-	signLayout->addWidget(infoLabel, 1, 0, 1, 13, Qt::AlignCenter);
+	signLayout->addWidget(btnSign13, 1, 0, 1, 13/*, Qt::AlignCenter*/);
 
 	// 设置行和列间距
 	signLayout->setSpacing(0);
