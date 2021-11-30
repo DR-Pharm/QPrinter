@@ -48,7 +48,7 @@ private:
 	int m_iport;//port 5000
 
 	int COILS = 106;//个数 单字节
-	int REGISTERS = 160;//个数 双字节
+	int REGISTERS = 162;//个数 双字节
 
 	quint8 *Coils_Bufer = new quint8[COILS];//读取到的数据
 	quint16 *Input_Bufer = new quint16[REGISTERS];//寄存器

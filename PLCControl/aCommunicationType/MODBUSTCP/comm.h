@@ -203,6 +203,8 @@ enum MODBUSTCPREGISTERS
 	axis0_s_rel_Reserve,
 	axis1_s_rel,  //转盘步进数
 	axis1_s_rel_Reserve,
+	Recipe_enable,//配方读取1,2保存 UDINT
+	Recipe_enable_Reserve
 };
 
 enum MODBUSTCPCOILS
@@ -272,7 +274,7 @@ enum MODBUSTCPCOILS
 	axis_fun_axis2_com_jog_neg,     //翻转反转
 	axis_fun_axis2_com_jog_pos,     //翻转正转
 	axis_fun_axis3_com_jog_neg,     //压片反转
-	axis_fun_axis3_com_jog_pos,     //压片正转
+	axis_fun_axis3_com_jog_pos     //压片正转
 };
 #define			MAX_PULSE_SERVO		2
 #pragma pack(4)

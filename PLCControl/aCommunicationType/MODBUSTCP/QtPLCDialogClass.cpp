@@ -3431,13 +3431,35 @@ void QtPLCDialogClass::on_pB_Read1_clicked()//读取1
 
 void QtPLCDialogClass::on_pB_Write1_clicked()//写入1
 {
-	m_str_sendRegisters = m_str_registers;
-	m_iDontReadRegistersFlag = 1;
-	m_str_sendRegisters.replace(System_enable * 4, 4, "0002");
+	QTimer *tm = new QTimer();
+	connect(tm, &QTimer::timeout, this, [=] {
+		m_str_sendRegisters = m_str_registers;
+		m_iDontReadRegistersFlag = 1;
+		m_str_sendRegisters.replace(System_enable * 4, 4, "0002");
+		tm->stop();
+		delete tm;
+	}); 
+	tm->start(500);
 	if (lg == 0)emit showWindowOut(QString::fromLocal8Bit("PLC默认参数\n已保存!"));
 	if (lg == 1)emit showWindowOut(QString::fromLocal8Bit("PLC default Parameters are saved!"));
 
 }
+void QtPLCDialogClass::on_pB_Recipe_enable_clicked()//配方保存
+{
+	QTimer *tm = new QTimer();
+	connect(tm, &QTimer::timeout, this, [=] {
+		m_str_sendRegisters = m_str_registers;
+		m_iDontReadRegistersFlag = 1;
+		m_str_sendRegisters.replace(Recipe_enable * 4, 4, "0002");
+		tm->stop();
+		delete tm;
+	});
+	tm->start(500);
+	if (lg == 0)emit showWindowOut(QString::fromLocal8Bit("配方\n已保存!"));
+	if (lg == 1)emit showWindowOut(QString::fromLocal8Bit("Recipe are saved!"));
+
+}
+
 void QtPLCDialogClass::on_lE_StopSignalDelay_editingFinished()
 {
 	m_str_sendRegisters = m_str_registers;
@@ -5167,6 +5189,8 @@ void QtPLCDialogClass::pB_ChangeLanguage()
 }
 void QtPLCDialogClass::ChangeLanguage()
 {
+	((Ui::QtPLCDialogClass*)ui)->pB_Recipe_enable->setText("Save");
+
 	((Ui::QtPLCDialogClass*)ui)->gB_update->setTitle(QString::fromLocal8Bit("Auto Update"));
 
 	((Ui::QtPLCDialogClass*)ui)->pB_inquire->setText("Inquire");

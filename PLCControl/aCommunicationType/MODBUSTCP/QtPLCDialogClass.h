@@ -136,7 +136,7 @@ private:
 	QString m_gn2;
 	int m_index = 0;//socket数
 	int COILS = 106;//字节数
-	int REGISTERS = 160;//个数
+	int REGISTERS = 162;//个数
 	quint8 *dtcoils;
 	quint16 *dtregisters;
 	quint8 *m_Coils_Bufer = new quint8[COILS + 1];
@@ -235,6 +235,7 @@ public slots:
 	void on_pB_printCurve_clicked();
 	void on_pB_Read1_clicked();
 	void on_pB_Write1_clicked();
+	void on_pB_Recipe_enable_clicked();
 	void on_gB_update_toggled(bool arg1);
 	void on_pB_cmdScaleTire_clicked();
 	/*void on_cB_paraScaleSetStable_currentIndexChanged(int index);*/
