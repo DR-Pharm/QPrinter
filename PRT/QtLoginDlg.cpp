@@ -24,8 +24,7 @@ QtLoginDlg::QtLoginDlg(QDialog* parent)
 	ui.label->setScaledContents(true);
 	ui.label_2->setPixmap(QPixmap(AppPath + "/ico/sec.ico"));
 	ui.label_2->setScaledContents(true);
-	ui.pB_Exit->setStyleSheet("color: rgb(0, 170, 127);font-size:20pt");
-	ui.pB_Login->setStyleSheet("font-size:20pt");
+
 	// 	QMovie *movie = new QMovie("./ico/capsule.gif");
 	// 	movie->setScaledSize(QSize(50, 60));
 	// 	ui.label_4->setMovie(movie);
@@ -261,27 +260,73 @@ void QtLoginDlg::onLineeditChanged()
 			ui.pB_Exit->setText(QString::fromLocal8Bit("Quit"));
 		}
 		ui.pB_Login->setEnabled(false);
-		ui.pB_Login->setStyleSheet("font-size:20pt");
+		QString st = "\
+		QPushButton\
+		{\
+		font-size:20pt;\
+		border:2px groove gray;\
+		border-radius:15px;\
+		}\
+		";
+		ui.pB_Login->setStyleSheet(st);//no space before or after -;
 	}
 	else if (i == 1)
 	{
 		ui.pB_Login->setEnabled(false);
-		ui.pB_Login->setStyleSheet("font-size:23pt");
+		QString st = "\
+		QPushButton\
+		{\
+		font-size:23pt;\
+		border:2px groove gray;\
+		border-radius:15px;\
+		}\
+		";
+		ui.pB_Login->setStyleSheet(st);//no space before or after -;
 	}
 	else if (i == 2)
 	{
 		ui.pB_Login->setEnabled(false);
-		ui.pB_Login->setStyleSheet("font-size:26pt");
+		QString st = "\
+		QPushButton\
+		{\
+		font-size:26pt;\
+		border:2px groove gray;\
+		border-radius:15px;\
+		}\
+		";
+		ui.pB_Login->setStyleSheet(st);//no space before or after -;
 	}
 	else if (i == 3)
 	{
-		ui.pB_Login->setEnabled(false);
-		ui.pB_Login->setStyleSheet("font-size:29pt");
+		ui.pB_Login->setEnabled(false);		
+		QString st = "\
+		QPushButton\
+		{\
+		font-size:29pt;\
+		border:2px groove gray;\
+		border-radius:15px;\
+		}\
+		";
+		ui.pB_Login->setStyleSheet(st);//no space before or after -;
 	}
 	else
 	{
 		ui.pB_Login->setEnabled(true);
-		ui.pB_Login->setStyleSheet("background-color: rgba(0, 170, 0, 125);font-size:29pt");
+		QString st = "\
+		QPushButton\
+		{\
+		font-size:29pt;\
+		background-color: rgba(0, 170, 0,125);\
+		border:2px groove gray;\
+		border-radius:15px;\
+		}\
+		QPushButton::pressed\
+		{\
+		padding-left:3px;\
+		padding-top:3px;\
+		}\
+		";
+		ui.pB_Login->setStyleSheet(st);//no space before or after -;
 	}
 }
 void QtLoginDlg::keyPressEvent(QKeyEvent* ev)

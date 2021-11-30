@@ -177,6 +177,27 @@
          <pointsize>26</pointsize>
         </font>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QComboBox
+{
+border:2px groove gray;
+border-radius:15px;
+}
+QComboBox::drop-down
+{
+border-style:solid;
+margin-right:15px;
+}
+QComboBox::down-arrow
+{
+image:url(./ico/125.png);
+}
+QComboBox::down-arrow:pressed
+{
+padding-top:3px;
+padding-left:3px;
+}</string>
+       </property>
       </widget>
      </item>
      <item row="1" column="2">
@@ -198,6 +219,13 @@
          <family>幼圆</family>
          <pointsize>21</pointsize>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLineEdit
+{
+border:2px groove gray;
+border-radius:15px;
+}</string>
        </property>
        <property name="maxLength">
         <number>8</number>
@@ -267,7 +295,24 @@
         <font>
          <family>Arial</family>
          <pointsize>30</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton
+{
+font:30pt &quot;Arial&quot;;
+border:2px groove gray;
+border-radius:15px;
+}
+QPushButton::pressed
+{
+Padding-left:3px;
+Padding-top:3px;
+} 
+</string>
        </property>
        <property name="text">
         <string>1</string>
@@ -295,7 +340,24 @@
         <font>
          <family>Arial</family>
          <pointsize>30</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton
+{
+font:30pt &quot;Arial&quot;;
+border:2px groove gray;
+border-radius:15px;
+}
+QPushButton::pressed
+{
+Padding-left:3px;
+Padding-top:3px;
+} 
+</string>
        </property>
        <property name="text">
         <string>2</string>
@@ -323,7 +385,24 @@
         <font>
          <family>Arial</family>
          <pointsize>30</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton
+{
+font:30pt &quot;Arial&quot;;
+border:2px groove gray;
+border-radius:15px;
+}
+QPushButton::pressed
+{
+Padding-left:3px;
+Padding-top:3px;
+} 
+</string>
        </property>
        <property name="text">
         <string>3</string>
@@ -351,7 +430,24 @@
         <font>
          <family>Arial</family>
          <pointsize>30</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton
+{
+font:30pt &quot;Arial&quot;;
+border:2px groove gray;
+border-radius:15px;
+}
+QPushButton::pressed
+{
+Padding-left:3px;
+Padding-top:3px;
+} 
+</string>
        </property>
        <property name="text">
         <string>4</string>
@@ -379,7 +475,24 @@
         <font>
          <family>Arial</family>
          <pointsize>30</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton
+{
+font:30pt &quot;Arial&quot;;
+border:2px groove gray;
+border-radius:15px;
+}
+QPushButton::pressed
+{
+Padding-left:3px;
+Padding-top:3px;
+} 
+</string>
        </property>
        <property name="text">
         <string>5</string>
@@ -407,7 +520,24 @@
         <font>
          <family>Arial</family>
          <pointsize>30</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton
+{
+font:30pt &quot;Arial&quot;;
+border:2px groove gray;
+border-radius:15px;
+}
+QPushButton::pressed
+{
+Padding-left:3px;
+Padding-top:3px;
+} 
+</string>
        </property>
        <property name="text">
         <string>6</string>
@@ -435,7 +565,24 @@
         <font>
          <family>Arial</family>
          <pointsize>30</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton
+{
+font:30pt &quot;Arial&quot;;
+border:2px groove gray;
+border-radius:15px;
+}
+QPushButton::pressed
+{
+Padding-left:3px;
+Padding-top:3px;
+} 
+</string>
        </property>
        <property name="text">
         <string>7</string>
@@ -463,7 +610,24 @@
         <font>
          <family>Arial</family>
          <pointsize>30</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton
+{
+font:30pt &quot;Arial&quot;;
+border:2px groove gray;
+border-radius:15px;
+}
+QPushButton::pressed
+{
+Padding-left:3px;
+Padding-top:3px;
+} 
+</string>
        </property>
        <property name="text">
         <string>8</string>
@@ -491,7 +655,24 @@
         <font>
          <family>Arial</family>
          <pointsize>30</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton
+{
+font:30pt &quot;Arial&quot;;
+border:2px groove gray;
+border-radius:15px;
+}
+QPushButton::pressed
+{
+Padding-left:3px;
+Padding-top:3px;
+} 
+</string>
        </property>
        <property name="text">
         <string>9</string>
@@ -519,7 +700,23 @@
         <font>
          <family>禅意雪松体</family>
          <pointsize>20</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton
+{
+font: 20pt &quot;禅意雪松体&quot;;
+border:2px groove gray;
+border-radius:15px;
+}
+QPushButton::pressed
+{
+Padding-left:3px;
+Padding-top:3px;
+} </string>
        </property>
        <property name="text">
         <string>登录</string>
@@ -544,7 +741,24 @@
         <font>
          <family>Arial</family>
          <pointsize>30</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton
+{
+font:30pt &quot;Arial&quot;;
+border:2px groove gray;
+border-radius:15px;
+}
+QPushButton::pressed
+{
+Padding-left:3px;
+Padding-top:3px;
+} 
+</string>
        </property>
        <property name="text">
         <string>0</string>
@@ -572,13 +786,33 @@
         <font>
          <family>禅意雪松体</family>
          <pointsize>20</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
         </font>
        </property>
+       <property name="contextMenuPolicy">
+        <enum>Qt::DefaultContextMenu</enum>
+       </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(0, 170, 127);</string>
+        <string notr="true">QPushButton
+{
+font: 20pt &quot;禅意雪松体&quot;;
+color: rgb(0, 170, 127);
+border:2px groove gray;
+border-radius:15px;
+}
+QPushButton::pressed
+{
+Padding-left:3px;
+Padding-top:3px;
+} </string>
        </property>
        <property name="text">
         <string>退出</string>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
        </property>
       </widget>
      </item>
