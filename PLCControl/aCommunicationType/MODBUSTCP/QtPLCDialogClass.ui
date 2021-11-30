@@ -7779,7 +7779,7 @@ font: 26pt &quot;Onyx&quot;;</string>
         <string>最小值(g)</string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
@@ -7795,7 +7795,7 @@ font: 26pt &quot;Onyx&quot;;</string>
         <string>差异值(小)</string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
@@ -7811,7 +7811,7 @@ font: 26pt &quot;Onyx&quot;;</string>
         <string>最大值(g)</string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
@@ -7833,9 +7833,12 @@ font: 26pt &quot;Onyx&quot;;</string>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>40</width>
+         <width>10</width>
          <height>20</height>
         </size>
        </property>
@@ -7846,9 +7849,12 @@ font: 26pt &quot;Onyx&quot;;</string>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>40</width>
+         <width>10</width>
          <height>20</height>
         </size>
        </property>
@@ -7859,9 +7865,12 @@ font: 26pt &quot;Onyx&quot;;</string>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>40</width>
+         <width>10</width>
          <height>20</height>
         </size>
        </property>
@@ -7879,7 +7888,7 @@ font: 26pt &quot;Onyx&quot;;</string>
         <string>差异值(大)</string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
@@ -7921,7 +7930,7 @@ font: 26pt &quot;Onyx&quot;;</string>
         <string>平均值(g)</string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
@@ -7950,7 +7959,7 @@ font: 26pt &quot;Onyx&quot;;</string>
         <string>总和(g)</string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
@@ -7979,7 +7988,7 @@ font: 26pt &quot;Onyx&quot;;</string>
         <string>次数</string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
@@ -8008,7 +8017,7 @@ font: 26pt &quot;Onyx&quot;;</string>
         <string>组号</string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
@@ -8040,9 +8049,9 @@ font: 26pt &quot;Onyx&quot;;</string>
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>260</y>
+      <y>240</y>
       <width>731</width>
-      <height>321</height>
+      <height>341</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_One"/>
@@ -8053,7 +8062,7 @@ font: 26pt &quot;Onyx&quot;;</string>
       <x>130</x>
       <y>90</y>
       <width>711</width>
-      <height>181</height>
+      <height>161</height>
      </rect>
     </property>
     <property name="font">
@@ -8066,6 +8075,9 @@ font: 26pt &quot;Onyx&quot;;</string>
      <string>打印</string>
     </property>
     <layout class="QGridLayout" name="gridLayout_12">
+     <property name="topMargin">
+      <number>0</number>
+     </property>
      <item row="0" column="0" colspan="2">
       <widget class="QLabel" name="label_36">
        <property name="font">
@@ -8575,6 +8587,9 @@ font: 26pt &quot;Onyx&quot;;</string>
      </item>
      <item row="1" column="2">
       <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1">
+       <property name="spacing">
+        <number>6</number>
+       </property>
        <item>
         <widget class="QLabel" name="lb_searchResult">
          <property name="font">
