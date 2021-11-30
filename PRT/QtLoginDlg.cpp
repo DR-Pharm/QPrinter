@@ -40,7 +40,7 @@ QtLoginDlg::QtLoginDlg(QDialog* parent)
 		QPainter p(&bmp);
 		p.setPen(Qt::NoPen);
 		p.setBrush(Qt::black);
-		p.drawRoundedRect(bmp.rect(), 5, 5);
+		p.drawRoundedRect(bmp.rect(), 15, 15);
 		setMask(bmp);
 		//👆👆👆
 		ui.cB_style->setVisible(true);
@@ -57,7 +57,7 @@ QtLoginDlg::QtLoginDlg(QDialog* parent)
 			QPainter p(&bmp);
 			p.setPen(Qt::NoPen);
 			p.setBrush(Qt::black);
-			p.drawRoundedRect(bmp.rect(), 5, 5);
+			p.drawRoundedRect(bmp.rect(), 15, 15);
 			setMask(bmp);
 			//👆👆👆
 			ui.cB_style->setVisible(false);
@@ -142,7 +142,7 @@ QtLoginDlg::QtLoginDlg(QDialog* parent)
 	QPainter p(&bmp);
 	p.setPen(Qt::NoPen);
 	p.setBrush(Qt::black);
-	p.drawRoundedRect(bmp.rect(), 5, 5);
+	p.drawRoundedRect(bmp.rect(), 20, 20);
 	setMask(bmp);
 	//👆👆👆
 	char* configpath = new char[256];
