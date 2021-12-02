@@ -18,6 +18,16 @@ public:
 		lb = new QLabel(parent);
 		lb->setVisible(false);
 		pa = parent;
+		//movie = new QMovie("D:/5.gif");
+		movie = new QMovie(AppPath+"/ico/5.gif");
+		movie->setSpeed(100);
+		lb->setFixedSize(483, 366);
+		lb->move(0, -200);
+		lb->setAlignment(Qt::AlignCenter);
+		lb->setMovie(movie);
+		movie->start();
+		//lb->setScaledContents(true);
+		lb->lower();
 	};
 	QWidget *pa;
 public slots:
@@ -28,13 +38,8 @@ public slots:
 	{
 		//this->setText(QString::fromLocal8Bit("»¶Ó­Ê¹ÓÃ"));
 
-		lb->setFixedHeight(this->height()*1.9);
-		lb->move(pa->width()/2-lb->width()/2, 0);
-		lb->setAlignment(Qt::AlignCenter);
-		lb->setPixmap(QPixmap(AppPath + "/ico/dr.ico"));
-		lb->setScaledContents(true);
-		lb->setVisible(true);
-		lb->lower();
+
+		lb->setVisible(true);		
 	}
 	void leaveEvent(QEvent *e)
 	{

@@ -96,6 +96,8 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="qss.qss" />
+    <None Include="qss.qss">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

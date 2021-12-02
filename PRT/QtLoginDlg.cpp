@@ -222,7 +222,7 @@ QtLoginDlg::QtLoginDlg(QDialog* parent)
 	logo->setAttribute(Qt::WA_TransparentForMouseEvents);
 	logo->move(0, 200);
 
-	QFile fl("qss.qss");
+	QFile fl(AppPath+"/ico/qss.qss");
 	if(fl.open(QFile::ReadOnly))
 	{
 	QString ss = fl.readAll();
