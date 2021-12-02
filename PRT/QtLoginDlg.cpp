@@ -190,6 +190,13 @@ QtLoginDlg::QtLoginDlg(QDialog* parent)
 	ui.cB_ListUser->installEventFilter(this);
 	ui.lE_Password->installEventFilter(this);
 	ui.lE_Password->setFocus();
+
+	QLabel *logo = new QLabel(this);
+	logo->setFixedSize(this->width(), this->width() * 703 / 1124);
+	logo->setPixmap(AppPath + "/ico/dr.png");
+	logo->setScaledContents(true);
+	logo->setAttribute(Qt::WA_TransparentForMouseEvents);
+	logo->move(0, 200);
 }
 bool QtLoginDlg::eventFilter(QObject* obj, QEvent* event)
 {
