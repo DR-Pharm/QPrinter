@@ -33,6 +33,7 @@ public slots:
 	void onUserListChange(QString);
 	void onLineeditChanged();
 	void keyPressEvent(QKeyEvent*);
+	void on_Input(bool checked);
 	bool eventFilter(QObject * obj, QEvent * event);
 	void setAutoRun(bool isAutoRun);
 	void setAutoClose(bool isAutoClose);

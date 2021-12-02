@@ -278,7 +278,7 @@ border-radius:15px;
    <item>
     <layout class="QGridLayout" name="gridLayout_2">
      <item row="0" column="0">
-      <widget class="QPushButton" name="pB_1">
+      <widget class="QPushButton" name="pB_num1">
        <property name="minimumSize">
         <size>
          <width>100</width>
@@ -307,23 +307,25 @@ font:30pt &quot;Arial&quot;;
 border:2px groove gray;
 border-radius:15px;
 }
-QPushButton::pressed
+QPushButton::checked
 {
 Padding-left:3px;
 Padding-top:3px;
-} 
-</string>
+} </string>
        </property>
        <property name="text">
         <string>1</string>
        </property>
-       <attribute name="buttonGroup">
-        <string notr="true">btn_Group</string>
-       </attribute>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QPushButton" name="pB_2">
+      <widget class="QPushButton" name="pB_num2">
        <property name="minimumSize">
         <size>
          <width>100</width>
@@ -352,7 +354,7 @@ font:30pt &quot;Arial&quot;;
 border:2px groove gray;
 border-radius:15px;
 }
-QPushButton::pressed
+QPushButton::checked
 {
 Padding-left:3px;
 Padding-top:3px;
@@ -362,13 +364,13 @@ Padding-top:3px;
        <property name="text">
         <string>2</string>
        </property>
-       <attribute name="buttonGroup">
-        <string notr="true">btn_Group</string>
-       </attribute>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item row="0" column="2">
-      <widget class="QPushButton" name="pB_3">
+      <widget class="QPushButton" name="pB_num3">
        <property name="minimumSize">
         <size>
          <width>100</width>
@@ -397,7 +399,7 @@ font:30pt &quot;Arial&quot;;
 border:2px groove gray;
 border-radius:15px;
 }
-QPushButton::pressed
+QPushButton::checked
 {
 Padding-left:3px;
 Padding-top:3px;
@@ -407,13 +409,13 @@ Padding-top:3px;
        <property name="text">
         <string>3</string>
        </property>
-       <attribute name="buttonGroup">
-        <string notr="true">btn_Group</string>
-       </attribute>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QPushButton" name="pB_4">
+      <widget class="QPushButton" name="pB_num4">
        <property name="minimumSize">
         <size>
          <width>100</width>
@@ -442,7 +444,7 @@ font:30pt &quot;Arial&quot;;
 border:2px groove gray;
 border-radius:15px;
 }
-QPushButton::pressed
+QPushButton::checked
 {
 Padding-left:3px;
 Padding-top:3px;
@@ -452,13 +454,13 @@ Padding-top:3px;
        <property name="text">
         <string>4</string>
        </property>
-       <attribute name="buttonGroup">
-        <string notr="true">btn_Group</string>
-       </attribute>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QPushButton" name="pB_5">
+      <widget class="QPushButton" name="pB_num5">
        <property name="minimumSize">
         <size>
          <width>100</width>
@@ -487,7 +489,7 @@ font:30pt &quot;Arial&quot;;
 border:2px groove gray;
 border-radius:15px;
 }
-QPushButton::pressed
+QPushButton::checked
 {
 Padding-left:3px;
 Padding-top:3px;
@@ -497,13 +499,13 @@ Padding-top:3px;
        <property name="text">
         <string>5</string>
        </property>
-       <attribute name="buttonGroup">
-        <string notr="true">btn_Group</string>
-       </attribute>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="QPushButton" name="pB_6">
+      <widget class="QPushButton" name="pB_num6">
        <property name="minimumSize">
         <size>
          <width>100</width>
@@ -532,7 +534,7 @@ font:30pt &quot;Arial&quot;;
 border:2px groove gray;
 border-radius:15px;
 }
-QPushButton::pressed
+QPushButton::checked
 {
 Padding-left:3px;
 Padding-top:3px;
@@ -542,13 +544,13 @@ Padding-top:3px;
        <property name="text">
         <string>6</string>
        </property>
-       <attribute name="buttonGroup">
-        <string notr="true">btn_Group</string>
-       </attribute>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item row="2" column="0">
-      <widget class="QPushButton" name="pB_7">
+      <widget class="QPushButton" name="pB_num7">
        <property name="minimumSize">
         <size>
          <width>100</width>
@@ -577,7 +579,7 @@ font:30pt &quot;Arial&quot;;
 border:2px groove gray;
 border-radius:15px;
 }
-QPushButton::pressed
+QPushButton::checked
 {
 Padding-left:3px;
 Padding-top:3px;
@@ -587,13 +589,13 @@ Padding-top:3px;
        <property name="text">
         <string>7</string>
        </property>
-       <attribute name="buttonGroup">
-        <string notr="true">btn_Group</string>
-       </attribute>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QPushButton" name="pB_8">
+      <widget class="QPushButton" name="pB_num8">
        <property name="minimumSize">
         <size>
          <width>100</width>
@@ -622,7 +624,7 @@ font:30pt &quot;Arial&quot;;
 border:2px groove gray;
 border-radius:15px;
 }
-QPushButton::pressed
+QPushButton::checked
 {
 Padding-left:3px;
 Padding-top:3px;
@@ -632,13 +634,13 @@ Padding-top:3px;
        <property name="text">
         <string>8</string>
        </property>
-       <attribute name="buttonGroup">
-        <string notr="true">btn_Group</string>
-       </attribute>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item row="2" column="2">
-      <widget class="QPushButton" name="pB_9">
+      <widget class="QPushButton" name="pB_num9">
        <property name="minimumSize">
         <size>
          <width>100</width>
@@ -667,7 +669,7 @@ font:30pt &quot;Arial&quot;;
 border:2px groove gray;
 border-radius:15px;
 }
-QPushButton::pressed
+QPushButton::checked
 {
 Padding-left:3px;
 Padding-top:3px;
@@ -677,9 +679,9 @@ Padding-top:3px;
        <property name="text">
         <string>9</string>
        </property>
-       <attribute name="buttonGroup">
-        <string notr="true">btn_Group</string>
-       </attribute>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item row="3" column="0">
@@ -712,7 +714,7 @@ font: 20pt &quot;禅意雪松体&quot;;
 border:2px groove gray;
 border-radius:15px;
 }
-QPushButton::pressed
+QPushButton::checked
 {
 Padding-left:3px;
 Padding-top:3px;
@@ -721,10 +723,13 @@ Padding-top:3px;
        <property name="text">
         <string>登录</string>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="QPushButton" name="pB_0">
+      <widget class="QPushButton" name="pB_num0">
        <property name="minimumSize">
         <size>
          <width>100</width>
@@ -753,7 +758,7 @@ font:30pt &quot;Arial&quot;;
 border:2px groove gray;
 border-radius:15px;
 }
-QPushButton::pressed
+QPushButton::checked
 {
 Padding-left:3px;
 Padding-top:3px;
@@ -763,9 +768,9 @@ Padding-top:3px;
        <property name="text">
         <string>0</string>
        </property>
-       <attribute name="buttonGroup">
-        <string notr="true">btn_Group</string>
-       </attribute>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item row="3" column="2">
@@ -802,7 +807,7 @@ color: rgb(0, 170, 127);
 border:2px groove gray;
 border-radius:15px;
 }
-QPushButton::pressed
+QPushButton::checked
 {
 Padding-left:3px;
 Padding-top:3px;
@@ -810,6 +815,9 @@ Padding-top:3px;
        </property>
        <property name="text">
         <string>退出</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1020,7 +1028,4 @@ Padding-top:3px;
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
  <connections/>
- <buttongroups>
-  <buttongroup name="btn_Group"/>
- </buttongroups>
 </ui>

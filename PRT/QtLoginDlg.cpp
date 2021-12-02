@@ -8,6 +8,7 @@ extern int g_IUserLevel;
 #include <QBitmap>
 #include <QPainter>
 #include <QMovie>
+#include <QTimer>
 QtLoginDlg::QtLoginDlg(QDialog* parent)
 	: QDialog(parent)
 {
@@ -183,10 +184,33 @@ QtLoginDlg::QtLoginDlg(QDialog* parent)
 		{
 			ui.lE_Password->clear();
 		}});
-	connect(ui.btn_Group, QOverload<QAbstractButton*>::of(&QButtonGroup::buttonClicked),
-		[=](QAbstractButton* button) {ui.lE_Password->setText(ui.lE_Password->text() + button->text()); });
+	//connect(ui.buttonGroup, QOverload<QAbstractButton*>::of(&QButtonGroup::buttonClicked),
+	//	[=](QAbstractButton* button) {ui.lE_Password->setText(ui.lE_Password->text() + button->text()); });
+	//btn property changed,btn should be created again
+	
+	QList<QPushButton*> btnList = this->findChildren<QPushButton*>();
+	for (int i = 0; i < btnList.size(); i++)
+	{
+		connect(btnList[i], SIGNAL(toggled(bool)), this, SLOT(on_Input(bool)));
+	}
+	//connect(ui.buttonGroup, QOverload<QAbstractButton *, bool>::of(&QButtonGroup::buttonToggled),
+	//	[=](QAbstractButton *button, bool checked) {
+	//	if (checked)
+	//	{
+	//		ui.lE_Password->text() + button->text();
+	//		QTimer *tm = new QTimer();
+	//		connect(tm, &QTimer::timeout, this, [=] {
+	//			button->blockSignals(true);
+	//			button->setChecked(false);
+	//			button->blockSignals(false);
+	//			tm->stop();
+	//			delete tm;
+	//		});
+	//		tm->start(100);
+	//	}
+	//});
 	installEventFilter(this);
-	ui.btn_Group->installEventFilter(this);
+	//ui.buttonGroup->installEventFilter(this);
 	ui.cB_ListUser->installEventFilter(this);
 	ui.lE_Password->installEventFilter(this);
 	ui.lE_Password->setFocus();
@@ -197,6 +221,27 @@ QtLoginDlg::QtLoginDlg(QDialog* parent)
 	logo->setScaledContents(true);
 	logo->setAttribute(Qt::WA_TransparentForMouseEvents);
 	logo->move(0, 200);
+}
+void QtLoginDlg::on_Input(bool checked)
+{	
+	QPushButton *btn = (QPushButton*)sender();
+	
+	if (checked)
+	{
+		if (btn->objectName().contains("num"))
+		{
+			ui.lE_Password->setText(ui.lE_Password->text() + btn->text());
+		}
+		QTimer *tm = new QTimer();
+		connect(tm, &QTimer::timeout, this, [=] {
+			btn->blockSignals(true);
+			btn->setChecked(false);
+			btn->blockSignals(false);
+			tm->stop();
+			delete tm;
+		});
+		tm->start(100);
+	}
 }
 bool QtLoginDlg::eventFilter(QObject* obj, QEvent* event)
 {
