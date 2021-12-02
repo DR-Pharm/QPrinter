@@ -12,6 +12,7 @@
 #include <iostream> 
 #include <math.h>
 #include <QDir>
+
 class QtLoginDlg : public QDialog
 {
 	Q_OBJECT

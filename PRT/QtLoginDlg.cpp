@@ -221,6 +221,14 @@ QtLoginDlg::QtLoginDlg(QDialog* parent)
 	logo->setScaledContents(true);
 	logo->setAttribute(Qt::WA_TransparentForMouseEvents);
 	logo->move(0, 200);
+
+	QFile fl("qss.qss");
+	if(fl.open(QFile::ReadOnly))
+	{
+	QString ss = fl.readAll();
+	setStyleSheet(ss);
+	fl.close();
+	}
 }
 void QtLoginDlg::on_Input(bool checked)
 {	
@@ -328,7 +336,7 @@ void QtLoginDlg::onLineeditChanged()
 		QString st = "\
 		QPushButton\
 		{\
-		font-size:23pt;\
+		font-size: 23pt; \
 		border:2px groove gray;\
 		border-radius:15px;\
 		}\
@@ -341,7 +349,7 @@ void QtLoginDlg::onLineeditChanged()
 		QString st = "\
 		QPushButton\
 		{\
-		font-size:26pt;\
+		font-size: 26pt; \
 		border:2px groove gray;\
 		border-radius:15px;\
 		}\
@@ -354,7 +362,7 @@ void QtLoginDlg::onLineeditChanged()
 		QString st = "\
 		QPushButton\
 		{\
-		font-size:29pt;\
+		font-size: 29pt; \
 		border:2px groove gray;\
 		border-radius:15px;\
 		}\
@@ -367,7 +375,7 @@ void QtLoginDlg::onLineeditChanged()
 		QString st = "\
 		QPushButton\
 		{\
-		font-size:29pt;\
+		font-size: 29pt; \
 		background-color: rgba(0, 170, 0,125);\
 		border:2px groove gray;\
 		border-radius:15px;\

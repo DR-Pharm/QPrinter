@@ -198,6 +198,7 @@
     <QtMoc Include="QWaiting.h" />
     <QtMoc Include="QtLoginDlg.h" />
     <QtMoc Include="..\PLCControl\QtPLCControl.h" />
+    <QtMoc Include="MyLabels.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
@@ -205,6 +206,11 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="dr128.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="qss.qss">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
