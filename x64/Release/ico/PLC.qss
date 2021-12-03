@@ -1,0 +1,33 @@
+﻿QPushButton
+{
+border:2px outset  gray;
+border-radius:3px;
+}
+QPushButton::checked
+{
+Padding-left:3px;
+Padding-top:3px;
+}
+QComboBox
+{
+border:2px outset  gray;
+border-radius:3px;
+}
+QComboBox::drop-down
+{
+border-style:solid;
+margin-right:15px;
+}
+QComboBox::down-arrow
+{
+image:url(./ico/125.png);
+}
+QComboBox::down-arrow:on
+{
+padding-top:3px;
+}
+QLineEdit
+{
+border:2px outset  gray;
+border-radius:3px;
+}

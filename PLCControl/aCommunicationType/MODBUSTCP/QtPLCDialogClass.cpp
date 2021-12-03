@@ -25,6 +25,15 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	setAttribute(Qt::WA_AcceptTouchEvents, true);
 
 	((Ui::QtPLCDialogClass*)ui)->setupUi(this);
+
+	QFile fl(AppPath + "/ico/PLC.qss");
+	if (fl.open(QFile::ReadOnly))
+	{
+		QString ss = fl.readAll();
+		setStyleSheet(ss);
+		fl.close();
+	}
+
 	((Ui::QtPLCDialogClass*)ui)->pB_showPrt->setVisible(false);
 	((Ui::QtPLCDialogClass*)ui)->pB_cmdAlogtest->setVisible(false);
 	((Ui::QtPLCDialogClass*)ui)->frame->move(0, 0);
@@ -72,23 +81,33 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	((Ui::QtPLCDialogClass*)ui)->lb_logo->setScaledContents(true);
 	//设置
 
-	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setFixedSize(347, 99);
-	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setStyleSheet("QPushButton{border:0px;}");
+	((Ui::QtPLCDialogClass*)ui)->pB_SetUpcheckable->setFixedSize(347, 99);
+	((Ui::QtPLCDialogClass*)ui)->pB_SetUpcheckable->setStyleSheet("QPushButton{border:0px;}");
 	QPixmap pix;
 	bool ret;
 	if (lg == 0) ret = pix.load(AppPath + "/ico/sznt.png");
 	if (lg == 1) ret = pix.load(AppPath + "/ico/E/sznt.png");
-	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIcon(pix);
-	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIconSize(QSize(347, 99));
-	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->move(15, 10);
+	((Ui::QtPLCDialogClass*)ui)->pB_SetUpcheckable->setIcon(pix);
+	((Ui::QtPLCDialogClass*)ui)->pB_SetUpcheckable->setIconSize(QSize(347, 99));
+	((Ui::QtPLCDialogClass*)ui)->pB_SetUpcheckable->move(15, 10);
 
-	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setFixedSize(170, 140);
-	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setStyleSheet("QPushButton{border:0px;}");
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setFixedSize(170, 140);
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setStyleSheet("\
+		QPushButton\
+		{\
+		border:0px;\
+		}\
+		QPushButton::checked\
+		{\
+		Padding-left:0px;\
+		Padding-top:0px;\
+		}");
+
 	if (lg == 0) pix.load(AppPath + "/ico/data2.png");
 	if (lg == 1) pix.load(AppPath + "/ico/E/data2.png");
-	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIcon(pix);
-	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIconSize(QSize(170, 140));
-	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->move(640, 575);
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setIcon(pix);
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setIconSize(QSize(170, 140));
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->move(640, 575);
 
 	MyPushButton * AlarmResetBtn;
 	if (lg == 0) AlarmResetBtn = new MyPushButton(AppPath + "/ico/bjfwnt.png", AppPath + "/ico/bjfw.png", 347, 99);
@@ -177,6 +196,12 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	connect(this, SIGNAL(TODATACURVE(int,float, float, float, QList<qreal>)), dtCurve, SLOT(dataReceived(int, float, float, float, QList<qreal>)));
 	dtCurve->move(0, 0);*/
 	//dtCurve->setFixedSize(QSize(860, 755));//1280 800
+
+	QList<QPushButton*> btnList = this->findChildren<QPushButton*>();
+	for (int i = 0; i < btnList.size(); i++)
+	{
+		connect(btnList[i], SIGNAL(toggled(bool)), this, SLOT(on_Input(bool)));
+	}
 }
 
 QtPLCDialogClass::~QtPLCDialogClass()
@@ -1011,7 +1036,7 @@ void QtPLCDialogClass::setg_IUserLevel(int index)
 	}
 	else if (g_IUserLevel == 2)
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(false);
+		((Ui::QtPLCDialogClass*)ui)->pB_SetUpcheckable->setEnabled(false);
 	}
 }
 #pragma endregion
@@ -1721,10 +1746,10 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		if (m_str_sendCoils.mid(ActData_enHMU, 1) == "0")
 		{
-			((Ui::QtPLCDialogClass*)ui)->pB_enHMU->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_enHMU->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_enHMU->blockSignals(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_enHMU->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
+			((Ui::QtPLCDialogClass*)ui)->pB_enHMUcheckable->blockSignals(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_enHMUcheckable->setChecked(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_enHMUcheckable->blockSignals(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_enHMUcheckable->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
 			m_str_sendCoils.replace(ActData_enHMU, 1, "1");
 		}
 	}
@@ -1732,10 +1757,10 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		if (m_str_sendCoils.mid(ActData_enHMU, 1) == "1")
 		{
-			((Ui::QtPLCDialogClass*)ui)->pB_enHMU->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_enHMU->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_enHMU->blockSignals(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_enHMU->setStyleSheet("font: bold;font-size:20pt");
+			((Ui::QtPLCDialogClass*)ui)->pB_enHMUcheckable->blockSignals(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_enHMUcheckable->setChecked(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_enHMUcheckable->blockSignals(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_enHMUcheckable->setStyleSheet("font: bold;font-size:20pt");
 			m_str_sendCoils.replace(ActData_enHMU, 1, "0");
 		}
 	}
@@ -1743,10 +1768,10 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		if (m_str_sendCoils.mid(ActData_enTMU, 1) == "0")
 		{
-			((Ui::QtPLCDialogClass*)ui)->pB_enTMU->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_enTMU->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_enTMU->blockSignals(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_enTMU->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
+			((Ui::QtPLCDialogClass*)ui)->pB_enTMUcheckable->blockSignals(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_enTMUcheckable->setChecked(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_enTMUcheckable->blockSignals(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_enTMUcheckable->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
 			m_str_sendCoils.replace(ActData_enTMU, 1, "1");
 		}
 	}
@@ -1754,10 +1779,10 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		if (m_str_sendCoils.mid(ActData_enTMU, 1) == "1")
 		{
-			((Ui::QtPLCDialogClass*)ui)->pB_enTMU->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_enTMU->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_enTMU->blockSignals(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_enTMU->setStyleSheet("font: bold;font-size:20pt");
+			((Ui::QtPLCDialogClass*)ui)->pB_enTMUcheckable->blockSignals(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_enTMUcheckable->setChecked(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_enTMUcheckable->blockSignals(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_enTMUcheckable->setStyleSheet("font: bold;font-size:20pt");
 			m_str_sendCoils.replace(ActData_enTMU, 1, "0");
 		}
 	}
@@ -2126,10 +2151,10 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		if (m_str_sendCoils.mid(Output_CapGet, 1) == "0")
 		{
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGet->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGet->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGet->blockSignals(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGet->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGetcheckable->blockSignals(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGetcheckable->setChecked(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGetcheckable->blockSignals(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGetcheckable->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
 			m_str_sendCoils.replace(Output_CapGet, 1, "1");
 		}
 	}
@@ -2137,10 +2162,10 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		if (m_str_sendCoils.mid(Output_CapGet, 1) == "1")
 		{
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGet->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGet->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGet->blockSignals(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGet->setStyleSheet("font: bold;font-size:20pt");
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGetcheckable->blockSignals(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGetcheckable->setChecked(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGetcheckable->blockSignals(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGetcheckable->setStyleSheet("font: bold;font-size:20pt");
 			m_str_sendCoils.replace(Output_CapGet, 1, "0");
 		}
 	}
@@ -2148,10 +2173,10 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		if (m_str_sendCoils.mid(Output_AlarmOut, 1) == "0")
 		{
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOut->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOut->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOut->blockSignals(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOut->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOutcheckable->blockSignals(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOutcheckable->setChecked(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOutcheckable->blockSignals(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOutcheckable->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
 			m_str_sendCoils.replace(Output_AlarmOut, 1, "1");
 		}
 	}
@@ -2159,10 +2184,10 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		if (m_str_sendCoils.mid(Output_AlarmOut, 1) == "1")
 		{
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOut->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOut->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOut->blockSignals(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOut->setStyleSheet("font: bold;font-size:20pt");
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOutcheckable->blockSignals(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOutcheckable->setChecked(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOutcheckable->blockSignals(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOutcheckable->setStyleSheet("font: bold;font-size:20pt");
 			m_str_sendCoils.replace(Output_AlarmOut, 1, "0");
 		}
 	}
@@ -2202,10 +2227,10 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		if (m_str_sendCoils.mid(Output_YellowAlarmout, 1) == "0")
 		{
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmout->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmout->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmout->blockSignals(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmout->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmoutcheckable->blockSignals(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmoutcheckable->setChecked(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmoutcheckable->blockSignals(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmoutcheckable->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
 			m_str_sendCoils.replace(Output_YellowAlarmout, 1, "1");
 		}
 	}
@@ -2213,10 +2238,10 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		if (m_str_sendCoils.mid(Output_YellowAlarmout, 1) == "1")
 		{
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmout->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmout->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmout->blockSignals(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmout->setStyleSheet("font: bold;font-size:20pt");
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmoutcheckable->blockSignals(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmoutcheckable->setChecked(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmoutcheckable->blockSignals(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmoutcheckable->setStyleSheet("font: bold;font-size:20pt");
 			m_str_sendCoils.replace(Output_YellowAlarmout, 1, "0");
 		}
 	}
@@ -2224,10 +2249,10 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		if (m_str_sendCoils.mid(Output_Baffle, 1) == "0")
 		{
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdBaffle->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdBaffle->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdBaffle->blockSignals(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdBaffle->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdBafflecheckable->blockSignals(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdBafflecheckable->setChecked(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdBafflecheckable->blockSignals(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdBafflecheckable->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
 			m_str_sendCoils.replace(Output_Baffle, 1, "1");
 		}
 	}
@@ -2235,10 +2260,10 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		if (m_str_sendCoils.mid(Output_Baffle, 1) == "1")
 		{
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdBaffle->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdBaffle->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdBaffle->blockSignals(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdBaffle->setStyleSheet("font: bold;font-size:20pt");
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdBafflecheckable->blockSignals(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdBafflecheckable->setChecked(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdBafflecheckable->blockSignals(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdBafflecheckable->setStyleSheet("font: bold;font-size:20pt");
 			m_str_sendCoils.replace(Output_Baffle, 1, "0");
 		}
 	}
@@ -2246,10 +2271,10 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		if (m_str_sendCoils.mid(Output_CapTurnValve, 1) == "0")
 		{
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValve->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValve->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValve->blockSignals(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValve->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValvecheckable->blockSignals(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValvecheckable->setChecked(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValvecheckable->blockSignals(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValvecheckable->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
 			m_str_sendCoils.replace(Output_CapTurnValve, 1, "1");
 		}
 	}
@@ -2257,10 +2282,10 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		if (m_str_sendCoils.mid(Output_CapTurnValve, 1) == "1")
 		{
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValve->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValve->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValve->blockSignals(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValve->setStyleSheet("font: bold;font-size:20pt");
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValvecheckable->blockSignals(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValvecheckable->setChecked(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValvecheckable->blockSignals(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValvecheckable->setStyleSheet("font: bold;font-size:20pt");
 			m_str_sendCoils.replace(Output_CapTurnValve, 1, "0");
 		}
 	}
@@ -2268,10 +2293,10 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		if (m_str_sendCoils.mid(Output_CapThickValve, 1) == "0")
 		{
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValve->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValve->setChecked(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValve->blockSignals(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValve->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValvecheckable->blockSignals(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValvecheckable->setChecked(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValvecheckable->blockSignals(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValvecheckable->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
 			m_str_sendCoils.replace(Output_CapThickValve, 1, "1");
 		}
 	}
@@ -2279,10 +2304,10 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		if (m_str_sendCoils.mid(Output_CapThickValve, 1) == "1")
 		{
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValve->blockSignals(true);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValve->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValve->blockSignals(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValve->setStyleSheet("font: bold;font-size:20pt");
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValvecheckable->blockSignals(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValvecheckable->setChecked(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValvecheckable->blockSignals(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValvecheckable->setStyleSheet("font: bold;font-size:20pt");
 			m_str_sendCoils.replace(Output_CapThickValve, 1, "0");
 		}
 	}
@@ -2679,7 +2704,7 @@ void QtPLCDialogClass::on_lW_data_itemDoubleClicked(QListWidgetItem *item)
 		}
 		return;
 	}
-	((Ui::QtPLCDialogClass*)ui)->pB_inquire->setChecked(false);
+	((Ui::QtPLCDialogClass*)ui)->pB_inquirecheckable->setChecked(false);
 	((Ui::QtPLCDialogClass*)ui)->lE_year1->setText(str.mid(0, 4));
 	((Ui::QtPLCDialogClass*)ui)->lE_month1->setText(str.mid(4, 2));
 	((Ui::QtPLCDialogClass*)ui)->lE_day1->setText(str.mid(6, 2));
@@ -2742,7 +2767,7 @@ void QtPLCDialogClass::initDlg()
 
 void QtPLCDialogClass::setWindowMinimized()
 {
-	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setChecked(false);
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setChecked(false);
 }
 
 int QtPLCDialogClass::showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str)
@@ -4270,7 +4295,26 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 		}
 	}
 }
+void QtPLCDialogClass::on_Input(bool checked)
+{
+	QPushButton *btn = (QPushButton*)sender();
 
+	if (checked)
+	{
+		if (!btn->objectName().contains("checkable"))
+		{
+			QTimer *tm = new QTimer();
+			connect(tm, &QTimer::timeout, this, [=] {
+				btn->blockSignals(true);
+				btn->setChecked(false);
+				btn->blockSignals(false);
+				tm->stop();
+				delete tm;
+			});
+			tm->start(100);
+		}
+	}
+}
 void QtPLCDialogClass::on_gB_update_toggled(bool arg1)
 {
 	if (arg1)
@@ -4325,33 +4369,33 @@ void QtPLCDialogClass::on_pB_showPrt_toggled(bool checked)//
 	emit SHOWPRT(checked);
 }
 
-void QtPLCDialogClass::on_pB_enHMU_toggled(bool checked)//
+void QtPLCDialogClass::on_pB_enHMUcheckable_toggled(bool checked)//
 {
 #ifdef MODBUSTCP
 	m_iDontReadCoilsFlag = 1;
 	m_str_sendCoils.replace(ActData_enHMU, 1, checked ? "1" : "0");
 	if (checked)
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_enHMU->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pB_enHMUcheckable->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
 	}
 	else
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_enHMU->setStyleSheet("font: bold;font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pB_enHMUcheckable->setStyleSheet("font: bold;font-size:20pt");
 	}
 #endif
 }
-void QtPLCDialogClass::on_pB_enTMU_toggled(bool checked)//
+void QtPLCDialogClass::on_pB_enTMUcheckable_toggled(bool checked)//
 {
 #ifdef MODBUSTCP
 	m_iDontReadCoilsFlag = 1;
 	m_str_sendCoils.replace(ActData_enTMU, 1, checked ? "1" : "0");
 	if (checked)
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_enTMU->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pB_enTMUcheckable->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
 	}
 	else
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_enTMU->setStyleSheet("font: bold;font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pB_enTMUcheckable->setStyleSheet("font: bold;font-size:20pt");
 	}
 #endif
 }
@@ -4526,7 +4570,7 @@ void QtPLCDialogClass::on_pB_cmdSwing_clicked()//旋转单工位,1:执行，自�
 	m_socket->Communicate_PLC(&typ, nullptr);
 #endif
 }
-void QtPLCDialogClass::on_pB_inquire_toggled(bool checked)
+void QtPLCDialogClass::on_pB_inquirecheckable_toggled(bool checked)
 {
 	((Ui::QtPLCDialogClass*)ui)->lW_data->setVisible(checked);
 	if (checked)
@@ -4540,6 +4584,11 @@ void QtPLCDialogClass::on_pB_inquire_toggled(bool checked)
 		}
 		QStringList lst = strinqu.split(",");
 		((Ui::QtPLCDialogClass*)ui)->lW_data->addItems(lst);
+		((Ui::QtPLCDialogClass*)ui)->pB_inquirecheckable->setStyleSheet("background: rgb(0,255,0);");
+	}
+	else
+	{
+		((Ui::QtPLCDialogClass*)ui)->pB_inquirecheckable->setStyleSheet("");
 	}
 }
 void QtPLCDialogClass::pB_cmdCounterZero()
@@ -4564,30 +4613,30 @@ void QtPLCDialogClass::on_pB_cmdFeedAmount_clicked()
 }
 //output
 
-void QtPLCDialogClass::on_pB_cmdCapGet_toggled(bool checked)//
+void QtPLCDialogClass::on_pB_cmdCapGetcheckable_toggled(bool checked)//
 {
 	m_iDontReadCoilsFlag = 1;
 	m_str_sendCoils.replace(Output_CapGet, 1, checked ? "1" : "0");
 	if (checked)
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGet->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGetcheckable->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
 	}
 	else
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGet->setStyleSheet("font: bold;font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGetcheckable->setStyleSheet("font: bold;font-size:20pt");
 	}
 }
-void QtPLCDialogClass::on_pB_cmdAlarmOut_toggled(bool checked)//
+void QtPLCDialogClass::on_pB_cmdAlarmOutcheckable_toggled(bool checked)//
 {
 	m_iDontReadCoilsFlag = 1;
 	m_str_sendCoils.replace(Output_AlarmOut, 1, checked ? "1" : "0");
 	if (checked)
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOut->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOutcheckable->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
 	}
 	else
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOut->setStyleSheet("font: bold;font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOutcheckable->setStyleSheet("font: bold;font-size:20pt");
 	}
 }
 void QtPLCDialogClass::on_pB_cmdStopSignal_clicked()//
@@ -4600,56 +4649,56 @@ void QtPLCDialogClass::on_pB_cmdAlarmSignal_clicked()//
 	m_iDontReadCoilsFlag = 1;
 	m_str_sendCoils.replace(Output_AlarmSignal, 1, "1");
 }
-void QtPLCDialogClass::on_pB_cmdYellowAlarmout_toggled(bool checked)//
+void QtPLCDialogClass::on_pB_cmdYellowAlarmoutcheckable_toggled(bool checked)//
 {
 	m_iDontReadCoilsFlag = 1;
 	m_str_sendCoils.replace(Output_YellowAlarmout, 1, checked ? "1" : "0");
 	if (checked)
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmout->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmoutcheckable->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
 	}
 	else
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmout->setStyleSheet("font: bold;font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmoutcheckable->setStyleSheet("font: bold;font-size:20pt");
 	}
 }
-void QtPLCDialogClass::on_pB_cmdBaffle_toggled(bool checked)//
+void QtPLCDialogClass::on_pB_cmdBafflecheckable_toggled(bool checked)//
 {
 	m_iDontReadCoilsFlag = 1;
 	m_str_sendCoils.replace(Output_Baffle, 1, checked ? "1" : "0");
 	if (checked)
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdBaffle->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdBafflecheckable->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
 	}
 	else
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdBaffle->setStyleSheet("font: bold;font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdBafflecheckable->setStyleSheet("font: bold;font-size:20pt");
 	}
 }
-void QtPLCDialogClass::on_pB_cmdCapTurnValve_toggled(bool checked)//
+void QtPLCDialogClass::on_pB_cmdCapTurnValvecheckable_toggled(bool checked)//
 {
 	m_iDontReadCoilsFlag = 1;
 	m_str_sendCoils.replace(Output_CapTurnValve, 1, checked ? "1" : "0");
 	if (checked)
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValve->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValvecheckable->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
 	}
 	else
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValve->setStyleSheet("font: bold;font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValvecheckable->setStyleSheet("font: bold;font-size:20pt");
 	}
 }
-void QtPLCDialogClass::on_pB_cmdCapThickValve_toggled(bool checked)//
+void QtPLCDialogClass::on_pB_cmdCapThickValvecheckable_toggled(bool checked)//
 {
 	m_iDontReadCoilsFlag = 1;
 	m_str_sendCoils.replace(Output_CapThickValve, 1, checked ? "1" : "0");
 	if (checked)
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValve->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValvecheckable->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
 	}
 	else
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValve->setStyleSheet("font: bold;font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValvecheckable->setStyleSheet("font: bold;font-size:20pt");
 	}
 }
 
@@ -5163,7 +5212,7 @@ void QtPLCDialogClass::OnClosingState()
 
 void QtPLCDialogClass::dtClose()
 {
-	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setChecked(false);
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setChecked(false);
 }
 void QtPLCDialogClass::startMovie()
 {
@@ -5193,7 +5242,7 @@ void QtPLCDialogClass::ChangeLanguage()
 
 	((Ui::QtPLCDialogClass*)ui)->gB_update->setTitle(QString::fromLocal8Bit("Auto Update"));
 
-	((Ui::QtPLCDialogClass*)ui)->pB_inquire->setText("Inquire");
+	((Ui::QtPLCDialogClass*)ui)->pB_inquirecheckable->setText("Inquire");
 	((Ui::QtPLCDialogClass*)ui)->label_51->setText("to");
 	((Ui::QtPLCDialogClass*)ui)->label_24->setText("to");
 
@@ -5219,14 +5268,14 @@ void QtPLCDialogClass::ChangeLanguage()
 		((Ui::QtPLCDialogClass*)ui)->label_40->setText("Drop detection");
 		((Ui::QtPLCDialogClass*)ui)->label_46->setText("Zero position of\nhardness test");
 		//((Ui::QtPLCDialogClass*)ui)->pB_cmdReject->setText("Reject");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGet->setText("CapGet");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValve->setText("Shaping cylinder");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValve->setText("Thickness cylinder");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOut->setText("AlarmOut");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapGetcheckable->setText("CapGet");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapTurnValvecheckable->setText("Shaping cylinder");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapThickValvecheckable->setText("Thickness cylinder");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmOutcheckable->setText("AlarmOut");
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdStopSignal->setText("StopSignal");
 		((Ui::QtPLCDialogClass*)ui)->pB_cmdAlarmSignal->setText("AlarmSignal");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmout->setText("YellowAlarmout");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdBaffle->setText("Baffle");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdYellowAlarmoutcheckable->setText("YellowAlarmout");
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdBafflecheckable->setText("Baffle");
 		//((Ui::QtPLCDialogClass*)ui)->label_2->setText("Analog Output");
 
 		//下料旋转
@@ -5260,7 +5309,7 @@ void QtPLCDialogClass::ChangeLanguage()
 		//((Ui::QtPLCDialogClass*)ui)->pB_showPrt->setText("showPrt");
 		//((Ui::QtPLCDialogClass*)ui)->pB_cmdAlogtest->setText("Alogtest");
 		((Ui::QtPLCDialogClass*)ui)->groupBox_12->setTitle("Hardness Testing Unit");
-		((Ui::QtPLCDialogClass*)ui)->pB_enHMU->setText("Enable");
+		((Ui::QtPLCDialogClass*)ui)->pB_enHMUcheckable->setText("Enable");
 		((Ui::QtPLCDialogClass*)ui)->pB_HMUStart->setText("Start");
 		((Ui::QtPLCDialogClass*)ui)->pB_HMUStop->setText("Stop");
 		((Ui::QtPLCDialogClass*)ui)->pB_HMUZero->setText("Zero");
@@ -5282,7 +5331,7 @@ void QtPLCDialogClass::ChangeLanguage()
 		
 
 		((Ui::QtPLCDialogClass*)ui)->groupBox_13->setTitle("Thickness Testing Unit");
-		((Ui::QtPLCDialogClass*)ui)->pB_enTMU->setText("Enable");
+		((Ui::QtPLCDialogClass*)ui)->pB_enTMUcheckable->setText("Enable");
 		((Ui::QtPLCDialogClass*)ui)->pB_TMUStart->setText("Start");
 		((Ui::QtPLCDialogClass*)ui)->pB_TMUStop->setText("Stop");
 		((Ui::QtPLCDialogClass*)ui)->pB_TMUZero->setText("Zero"); 
@@ -5382,7 +5431,7 @@ void QtPLCDialogClass::ChangeLanguage()
 
 }
 
-void QtPLCDialogClass::on_pB_SetUp_toggled(bool checked)//设置
+void QtPLCDialogClass::on_pB_SetUpcheckable_toggled(bool checked)//设置
 {
 	if (checked)
 	{
@@ -5390,10 +5439,10 @@ void QtPLCDialogClass::on_pB_SetUp_toggled(bool checked)//设置
 		QPixmap pix;
 		if (lg == 0) pix.load(AppPath + "/ico/sz.png");
 		if (lg == 1) pix.load(AppPath + "/ico/E/sz.png");
-		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIcon(pix);
-		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIconSize(QSize(347, 99));
+		((Ui::QtPLCDialogClass*)ui)->pB_SetUpcheckable->setIcon(pix);
+		((Ui::QtPLCDialogClass*)ui)->pB_SetUpcheckable->setIconSize(QSize(347, 99));
 		//((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(false);
-		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setChecked(false);
+		((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setChecked(false);
 	}
 	else
 	{
@@ -5401,15 +5450,15 @@ void QtPLCDialogClass::on_pB_SetUp_toggled(bool checked)//设置
 		QPixmap pix;
 		if (lg == 0) pix.load(AppPath + "/ico/sznt.png");
 		if (lg == 1) pix.load(AppPath + "/ico/E/sznt.png");
-		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIcon(pix);
-		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIconSize(QSize(347, 99));
+		((Ui::QtPLCDialogClass*)ui)->pB_SetUpcheckable->setIcon(pix);
+		((Ui::QtPLCDialogClass*)ui)->pB_SetUpcheckable->setIconSize(QSize(347, 99));
 		if (((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText == QString::fromLocal8Bit("设备运行正常~"))
 		{
 			//((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(true);
 		}
 	}
 }
-void QtPLCDialogClass::on_pB_dtDlg_toggled(bool checked)//数据dialog
+void QtPLCDialogClass::on_pB_dtDlgcheckable_toggled(bool checked)//数据dialog
 {
 	if (checked)
 	{
@@ -5417,8 +5466,8 @@ void QtPLCDialogClass::on_pB_dtDlg_toggled(bool checked)//数据dialog
 		QPixmap pix;
 		if (lg == 0)pix.load(AppPath + "/ico/data1.png");
 		if (lg == 1)pix.load(AppPath + "/ico/E/data1.png");
-		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIcon(pix);
-		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIconSize(QSize(170, 140));
+		((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setIcon(pix);
+		((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setIconSize(QSize(170, 140));
 		((Ui::QtPLCDialogClass*)ui)->widget->setVisible(true);
 	}
 	else
@@ -5427,8 +5476,8 @@ void QtPLCDialogClass::on_pB_dtDlg_toggled(bool checked)//数据dialog
 		QPixmap pix;
 		if (lg == 0) pix.load(AppPath + "/ico/data2.png");
 		if (lg == 1) pix.load(AppPath + "/ico/E/data2.png");
-		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIcon(pix);
-		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIconSize(QSize(170, 140));
+		((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setIcon(pix);
+		((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setIconSize(QSize(170, 140));
 		((Ui::QtPLCDialogClass*)ui)->widget->setVisible(false);
 	}
 }
