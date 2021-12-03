@@ -9317,13 +9317,13 @@ font: 26pt &quot;Onyx&quot;;</string>
       <widget class="QPushButton" name="pB_printCurve">
        <property name="minimumSize">
         <size>
-         <width>120</width>
+         <width>160</width>
          <height>40</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>16777215</width>
+         <width>160</width>
          <height>40</height>
         </size>
        </property>
