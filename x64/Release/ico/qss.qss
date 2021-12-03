@@ -1,11 +1,11 @@
 ﻿QWidget
 {
-border:5px groove grey;
+border:3px outset grey;
 border-radius:15px;
 }
 QPushButton
 {
-border:5px groove steelblue;
+border:3px groove steelblue;
 border-radius:15px;
 }
 QPushButton::checked

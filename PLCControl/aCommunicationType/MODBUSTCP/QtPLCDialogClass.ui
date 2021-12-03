@@ -8243,21 +8243,21 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
     </property>
     <property name="geometry">
      <rect>
-      <x>293</x>
+      <x>283</x>
       <y>525</y>
-      <width>70</width>
+      <width>80</width>
       <height>36</height>
      </rect>
     </property>
     <property name="minimumSize">
      <size>
-      <width>70</width>
+      <width>80</width>
       <height>36</height>
      </size>
     </property>
     <property name="maximumSize">
      <size>
-      <width>70</width>
+      <width>80</width>
       <height>36</height>
      </size>
     </property>
@@ -8284,7 +8284,7 @@ font: 26pt &quot;Onyx&quot;;</string>
      <bool>false</bool>
     </property>
     <property name="alignment">
-     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     <set>Qt::AlignCenter</set>
     </property>
     <property name="readOnly">
      <bool>false</bool>
