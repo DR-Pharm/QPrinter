@@ -4575,6 +4575,7 @@ void QtPLCDialogClass::on_pB_inquirecheckable_toggled(bool checked)
 	((Ui::QtPLCDialogClass*)ui)->lW_data->setVisible(checked);
 	if (checked)
 	{
+		((Ui::QtPLCDialogClass*)ui)->pB_inquirecheckable->setStyleSheet("background: rgb(0,255,0);");
 		((Ui::QtPLCDialogClass*)ui)->lW_data->clear();
 		QSettings inq(AppPath + "\\data\\inquire.ini", QSettings::IniFormat);
 		QString strinqu = inq.value("alldt/data", "").toString();
@@ -4584,7 +4585,6 @@ void QtPLCDialogClass::on_pB_inquirecheckable_toggled(bool checked)
 		}
 		QStringList lst = strinqu.split(",");
 		((Ui::QtPLCDialogClass*)ui)->lW_data->addItems(lst);
-		((Ui::QtPLCDialogClass*)ui)->pB_inquirecheckable->setStyleSheet("background: rgb(0,255,0);");
 	}
 	else
 	{
