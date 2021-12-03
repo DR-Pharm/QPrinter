@@ -59,7 +59,7 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>3</number>
    </property>
    <widget class="QWidget" name="tab_PLC_Control">
     <attribute name="title">
@@ -81,7 +81,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -4071,6 +4071,9 @@
           <property name="text">
            <string>写入</string>
           </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
          </widget>
         </item>
         <item row="3" column="0">
@@ -4900,6 +4903,9 @@
           </property>
           <property name="text">
            <string>读取</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -8237,7 +8243,7 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
     </property>
     <property name="geometry">
      <rect>
-      <x>283</x>
+      <x>293</x>
       <y>525</y>
       <width>70</width>
       <height>36</height>

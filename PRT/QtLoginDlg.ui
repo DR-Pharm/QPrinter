@@ -30,6 +30,9 @@
   <property name="windowTitle">
    <string>登录界面</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <spacer name="verticalSpacer">
@@ -64,7 +67,9 @@
      <property name="font">
       <font>
        <family>幼圆</family>
-       <pointsize>28</pointsize>
+       <pointsize>30</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
      </property>
      <property name="text">
@@ -173,7 +178,7 @@
        </property>
        <property name="font">
         <font>
-         <family>Arial</family>
+         <family>Cascadia Code</family>
          <pointsize>26</pointsize>
         </font>
        </property>
@@ -272,7 +277,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>30</pointsize>
+         <pointsize>35</pointsize>
          <weight>50</weight>
          <italic>false</italic>
          <bold>false</bold>
@@ -306,7 +311,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>30</pointsize>
+         <pointsize>35</pointsize>
          <weight>50</weight>
          <italic>false</italic>
          <bold>false</bold>
@@ -337,7 +342,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>30</pointsize>
+         <pointsize>35</pointsize>
          <weight>50</weight>
          <italic>false</italic>
          <bold>false</bold>
@@ -368,7 +373,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>30</pointsize>
+         <pointsize>35</pointsize>
          <weight>50</weight>
          <italic>false</italic>
          <bold>false</bold>
@@ -399,7 +404,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>30</pointsize>
+         <pointsize>35</pointsize>
          <weight>50</weight>
          <italic>false</italic>
          <bold>false</bold>
@@ -430,7 +435,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>30</pointsize>
+         <pointsize>35</pointsize>
          <weight>50</weight>
          <italic>false</italic>
          <bold>false</bold>
@@ -461,7 +466,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>30</pointsize>
+         <pointsize>35</pointsize>
          <weight>50</weight>
          <italic>false</italic>
          <bold>false</bold>
@@ -492,7 +497,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>30</pointsize>
+         <pointsize>35</pointsize>
          <weight>50</weight>
          <italic>false</italic>
          <bold>false</bold>
@@ -523,7 +528,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>30</pointsize>
+         <pointsize>35</pointsize>
          <weight>50</weight>
          <italic>false</italic>
          <bold>false</bold>
@@ -564,7 +569,7 @@
         <string notr="true">QPushButton
 {
 font: 20pt &quot;禅意雪松体&quot;;
-border:2px groove gray;
+border:3px groove grey;
 border-radius:15px;
 }
 QPushButton::checked
@@ -577,6 +582,9 @@ Padding-top:3px;
         <string>登录</string>
        </property>
        <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="flat">
         <bool>true</bool>
        </property>
       </widget>
@@ -598,7 +606,7 @@ Padding-top:3px;
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>30</pointsize>
+         <pointsize>35</pointsize>
          <weight>50</weight>
          <italic>false</italic>
          <bold>false</bold>
@@ -642,8 +650,8 @@ Padding-top:3px;
         <string notr="true">QPushButton
 {
 font: 20pt &quot;禅意雪松体&quot;;
-color: rgb(0, 170, 127);
-border:2px groove gray;
+color: teal;
+border:3px groove grey;
 border-radius:15px;
 }
 QPushButton::checked

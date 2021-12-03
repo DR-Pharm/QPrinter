@@ -1,6 +1,11 @@
-﻿QPushButton
+﻿QWidget
 {
-border:2px groove gray;
+border:5px groove grey;
+border-radius:15px;
+}
+QPushButton
+{
+border:5px groove steelblue;
 border-radius:15px;
 }
 QPushButton::checked
@@ -10,7 +15,7 @@ Padding-top:3px;
 }
 QComboBox
 {
-border:2px groove gray;
+border:3px groove grey;
 border-radius:15px;
 }
 QComboBox::drop-down
@@ -28,6 +33,10 @@ padding-top:3px;
 }
 QLineEdit
 {
-border:2px groove gray;
+border:3px groove grey;
 border-radius:15px;
+}
+QLabel
+{
+border:0px;
 }

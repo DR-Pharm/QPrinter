@@ -30,7 +30,7 @@ QtLoginDlg::QtLoginDlg(QDialog* parent)
 	// 	movie->setScaledSize(QSize(50, 60));
 	// 	ui.label_4->setMovie(movie);
 	// 	movie->start();
-	connect(ui.pB_more, &QPushButton::clicked, [=]() {
+	/*connect(ui.pB_more, &QPushButton::clicked, [=]() {
 		if (ui.pB_more->text()==QString::fromLocal8Bit("︾"))
 		{
 			ui.pB_more->setText(QString::fromLocal8Bit("︽"));
@@ -65,7 +65,7 @@ QtLoginDlg::QtLoginDlg(QDialog* parent)
 			ui.cB_turnOn->setVisible(false);
 			ui.cB_turnOff->setVisible(false);
 		}
-		});
+		});*/
 	ui.cB_style->setVisible(false);
 	ui.cB_turnOn->setVisible(false);
 	ui.cB_turnOff->setVisible(false);
@@ -142,8 +142,8 @@ QtLoginDlg::QtLoginDlg(QDialog* parent)
 	bmp.fill();
 	QPainter p(&bmp);
 	p.setPen(Qt::NoPen);
-	p.setBrush(Qt::black);
-	p.drawRoundedRect(bmp.rect(), 20, 20);
+	p.setBrush(Qt::blue);
+	p.drawRoundedRect(bmp.rect(), 15, 15);
 	setMask(bmp);
 	//👆👆👆
 	char* configpath = new char[256];
@@ -324,7 +324,7 @@ void QtLoginDlg::onLineeditChanged()
 		QPushButton\
 		{\
 		font-size:20pt;\
-		border:2px groove gray;\
+		border:3px groove grey;\
 		border-radius:15px;\
 		}\
 		";
@@ -337,7 +337,7 @@ void QtLoginDlg::onLineeditChanged()
 		QPushButton\
 		{\
 		font-size: 23pt; \
-		border:2px groove gray;\
+		border:3px groove grey;\
 		border-radius:15px;\
 		}\
 		";
@@ -350,7 +350,7 @@ void QtLoginDlg::onLineeditChanged()
 		QPushButton\
 		{\
 		font-size: 26pt; \
-		border:2px groove gray;\
+		border:3px groove grey;\
 		border-radius:15px;\
 		}\
 		";
@@ -363,7 +363,7 @@ void QtLoginDlg::onLineeditChanged()
 		QPushButton\
 		{\
 		font-size: 29pt; \
-		border:2px groove gray;\
+		border:3px groove grey;\
 		border-radius:15px;\
 		}\
 		";
@@ -376,8 +376,8 @@ void QtLoginDlg::onLineeditChanged()
 		QPushButton\
 		{\
 		font-size: 29pt; \
-		background-color: rgba(0, 170, 0,125);\
-		border:2px groove gray;\
+		color: forestgreen;\
+		border:5px groove forestgreen;\
 		border-radius:15px;\
 		}\
 		QPushButton::pressed\
