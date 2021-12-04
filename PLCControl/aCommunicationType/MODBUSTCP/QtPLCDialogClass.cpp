@@ -209,6 +209,8 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	((Ui::QtPLCDialogClass*)ui)->label_62->setVisible(false);
 	((Ui::QtPLCDialogClass*)ui)->lE_MultiCount->setVisible(false);
 	((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedAmount->setVisible(false);
+	((Ui::QtPLCDialogClass*)ui)->pB_enTMUcheckable->setVisible(false);
+	((Ui::QtPLCDialogClass*)ui)->pB_enHMUcheckable->setVisible(false);
 }
 
 QtPLCDialogClass::~QtPLCDialogClass()
@@ -840,12 +842,6 @@ void QtPLCDialogClass::initUI()
 	((Ui::QtPLCDialogClass*)ui)->label_16->setScaledContents(true);
 	((Ui::QtPLCDialogClass*)ui)->label_17->setScaledContents(true);
 	((Ui::QtPLCDialogClass*)ui)->label_48->setScaledContents(true);
-
-	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
-	QString text1 = configIniRead.value("DistanceSetting/AxisFeedRelMovDistance", "").toString();
-	QString text2 = configIniRead.value("DistanceSetting/AxisSwingRelMovDistance", "").toString();
-	((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedRelMovDistance->setText(text1);	//下料电机相对运动距离，单位unit
-	((Ui::QtPLCDialogClass*)ui)->lE_AxisSwingRelMovDistance->setText(text2);//旋转电机相对运动距离，单位unit
 
 	setYearMonthDay();
 }
@@ -1541,6 +1537,14 @@ void QtPLCDialogClass::getPLCHolding(void*data)
 	{
 		float hex_res = hexTofloat(Scale_Result);
 		((Ui::QtPLCDialogClass*)ui)->lE_Scale_Result->setText(QString::number(hex_res));
+	}
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedRelMovDistance->hasFocus())
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedRelMovDistance->setText(QString::number(m_Input_Bufer[axis0_s_rel] + m_Input_Bufer[axis0_s_rel + 1] * 65536));
+	}
+	if (!((Ui::QtPLCDialogClass*)ui)->lE_AxisSwingRelMovDistance->hasFocus())
+	{
+		((Ui::QtPLCDialogClass*)ui)->lE_AxisSwingRelMovDistance->setText(QString::number(m_Input_Bufer[axis1_s_rel] + m_Input_Bufer[axis1_s_rel + 1] * 65536));
 	}
 #endif
 }
@@ -3651,45 +3655,43 @@ void QtPLCDialogClass::on_lE_BatchName_editingFinished()//批号字符串
 
 void QtPLCDialogClass::on_pB_cmdAxisFeedRelMov_clicked()//下料相对运动启动，1:执行，自动复位
 {
-	m_iDontReadCoilsFlag = 1;
-	m_str_sendCoils.replace(axis_fun_axis0_com_rel_pos_start, 1, "1");
-	on_lE_AxisFeedRelMovDistance_editingFinished();
+	QTimer *tm = new QTimer();
+	connect(tm, &QTimer::timeout, this, [=] {
+		m_iDontReadCoilsFlag = 1;
+		m_str_sendCoils.replace(axis_fun_axis0_com_rel_pos_start, 1, "1");
+		tm->stop();
+		delete tm;
+	});
+	tm->start(500);
 }
 void QtPLCDialogClass::on_pB_cmdAxisSwingRelMov_clicked()//旋转相对运动启动，1:执行，自动复位
 {
-	m_iDontReadCoilsFlag = 1;
-	m_str_sendCoils.replace(axis_fun_axis1_com_rel_pos_start, 1, "1"); 
-	on_lE_AxisSwingRelMovDistance_editingFinished();
+	QTimer *tm = new QTimer();
+	connect(tm, &QTimer::timeout, this, [=] {
+		m_iDontReadCoilsFlag = 1;
+		m_str_sendCoils.replace(axis_fun_axis1_com_rel_pos_start, 1, "1");
+		tm->stop();
+		delete tm;
+	});
+	tm->start(500);
 }
 void QtPLCDialogClass::on_lE_AxisFeedRelMovDistance_editingFinished()
 {
-	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
-	/*int i1 = configIniRead.value("DistanceSetting/AxisFeedRelMovDistance", 0).toInt();
-	if (((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedRelMovDistance->text().toInt()!=i1)*/
-	{
-		configIniRead.setValue("DistanceSetting/AxisFeedRelMovDistance", ((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedRelMovDistance->text());//写当前模板
-		m_str_sendRegisters = m_str_registers;
-		m_iDontReadRegistersFlag = 1;
-		QString oldstr = m_str_sendRegisters.mid(axis0_s_rel * 4, 4);
-		int a = ((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedRelMovDistance->text().toInt();
-		QString str = QString("%1").arg(a, 4, 16, QLatin1Char('0'));
-		m_str_sendRegisters.replace(axis0_s_rel * 4, 4, str);
-	}
+	m_str_sendRegisters = m_str_registers;
+	m_iDontReadRegistersFlag = 1;
+	QString oldstr = m_str_sendRegisters.mid(axis0_s_rel * 4, 4);
+	int a = ((Ui::QtPLCDialogClass*)ui)->lE_AxisFeedRelMovDistance->text().toInt();
+	QString str = QString("%1").arg(a, 4, 16, QLatin1Char('0'));
+	m_str_sendRegisters.replace(axis0_s_rel * 4, 4, str);
 }
 void QtPLCDialogClass::on_lE_AxisSwingRelMovDistance_editingFinished()
 {
-	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
-	/*int i2 = configIniRead.value("DistanceSetting/AxisSwingRelMovDistance", 0).toInt();
-	if (((Ui::QtPLCDialogClass*)ui)->lE_AxisSwingRelMovDistance->text().toInt() != i2)*/
-	{
-		configIniRead.setValue("DistanceSetting/AxisSwingRelMovDistance", ((Ui::QtPLCDialogClass*)ui)->lE_AxisSwingRelMovDistance->text());//写当前模板
-		m_str_sendRegisters = m_str_registers;
-		m_iDontReadRegistersFlag = 1;
-		QString oldstr = m_str_sendRegisters.mid(axis1_s_rel * 4, 4);
-		int a = ((Ui::QtPLCDialogClass*)ui)->lE_AxisSwingRelMovDistance->text().toInt();
-		QString str = QString("%1").arg(a, 4, 16, QLatin1Char('0'));
-		m_str_sendRegisters.replace(axis1_s_rel * 4, 4, str);
-	}
+	m_str_sendRegisters = m_str_registers;
+	m_iDontReadRegistersFlag = 1;
+	QString oldstr = m_str_sendRegisters.mid(axis1_s_rel * 4, 4);
+	int a = ((Ui::QtPLCDialogClass*)ui)->lE_AxisSwingRelMovDistance->text().toInt();
+	QString str = QString("%1").arg(a, 4, 16, QLatin1Char('0'));
+	m_str_sendRegisters.replace(axis1_s_rel * 4, 4, str);
 }
 /*void QtPLCDialogClass::on_lE_GroupNo_editingFinished()//当前组号,单位s
 {
