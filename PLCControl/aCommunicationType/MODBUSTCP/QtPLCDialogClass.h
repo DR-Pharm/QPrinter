@@ -259,7 +259,7 @@ public slots:
 	void on_pB_HMUCalibStd_clicked();
 	void on_pB_HMUTurn_clicked();
 	void on_pB_HMUReject_clicked();
-	void on_pB_cmdStart_toggled(bool checked);
+	void on_pB_cmdStartcheckable_toggled(bool checked);
 	void on_pB_TMUStart_clicked();
 	void on_pB_TMUStop_clicked();
 	void on_pB_TMUZero_clicked();

@@ -8104,7 +8104,7 @@ font: 18pt &quot;幼圆&quot;;</string>
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="pB_cmdStart">
+   <widget class="QPushButton" name="pB_cmdStartcheckable">
     <property name="geometry">
      <rect>
       <x>15</x>

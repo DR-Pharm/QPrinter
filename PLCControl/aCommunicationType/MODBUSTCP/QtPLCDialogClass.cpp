@@ -158,14 +158,14 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	memset(dtregisters, 0, REGISTERS*2);
 	//开始
 
-	((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setFixedSize(347, 200);
-	((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setStyleSheet("QPushButton{border:0px;}");
+	((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setFixedSize(347, 200);
+	((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setStyleSheet("QPushButton{border:0px;}");
 	if (lg == 0) ret = pix.load(AppPath + "/ico/start.png");
 	if (lg == 1) ret = pix.load(AppPath + "/ico/E/start.png");
 
-	((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIcon(pix);
-	((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIconSize(QSize(347, 200));
-	((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(false);
+	((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setIcon(pix);
+	((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setIconSize(QSize(347, 200));
+	((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setEnabled(false);
 	((Ui::QtPLCDialogClass*)ui)->lb_Alarm->setStyleSheet("color: rgb(255, 0,0);font-size:20pt");
 	if (lg == 0) ((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("设备未就绪~");
 	if (lg == 1) ((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("Not Ready~");
@@ -732,27 +732,27 @@ void QtPLCDialogClass::initTableWidget()
 void QtPLCDialogClass::initMovie()
 {//创建动态对象
 	{
-		animation1 = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart, "geometry");
+		animation1 = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable, "geometry");
 		//设置动画时间间隔
 		animation1->setDuration(200);
 
 		//起始位置
-		animation1->setStartValue(QRect(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->x(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->y(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->width(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->height()));
+		animation1->setStartValue(QRect(((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->x(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->y(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->width(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->height()));
 		//结束位置
-		animation1->setEndValue(QRect(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->x(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->y() + 10, ((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->width(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->height()));
+		animation1->setEndValue(QRect(((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->x(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->y() + 10, ((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->width(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->height()));
 
 		//设置弹跳曲线
 		animation1->setEasingCurve(QEasingCurve::OutBounce);
 	}
 	{    //创建动态对象
-		animation2 = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart, "geometry");
+		animation2 = new QPropertyAnimation(((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable, "geometry");
 		//设置动画时间间隔
 		animation2->setDuration(200);
 
 		//起始位置
-		animation2->setStartValue(QRect(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->x(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->y() + 10, ((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->width(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->height()));
+		animation2->setStartValue(QRect(((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->x(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->y() + 10, ((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->width(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->height()));
 		//结束位置
-		animation2->setEndValue(QRect(((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->x(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->y(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->width(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->height()));
+		animation2->setEndValue(QRect(((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->x(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->y(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->width(), ((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->height()));
 
 		//设置弹跳曲线
 		animation2->setEasingCurve(QEasingCurve::OutBounce);
@@ -1638,8 +1638,8 @@ void QtPLCDialogClass::getPLCData(void* data)
 			|| m_Coils_Bufer[Alarm31] == 1//剔废盒满
 			)
 		{
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setChecked(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setEnabled(false);
 		}
 		((Ui::QtPLCDialogClass*)ui)->lb_Alarm->setStyleSheet("color: rgb(255,0,0);font-size:20pt");
 		if (m_Coils_Bufer[Alarm1] == 1)
@@ -1685,7 +1685,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 	}
 	else
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(true);
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setEnabled(true);
 		((Ui::QtPLCDialogClass*)ui)->lb_Alarm->setStyleSheet("color: rgb(0, 170, 127);font-size:20pt");
 		if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("设备运行正常~");
 		if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("System normal");
@@ -2528,7 +2528,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 		}
 	}
 
-	if (((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->isChecked())
+	if (((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->isChecked())
 	{
 		if (m_index != m_Input_Bufer[ActData_GroupIndex] && m_Input_Bufer[ActData_GroupIndex] != 0)
 		{
@@ -4468,7 +4468,7 @@ void QtPLCDialogClass::on_pB_HMUReject_clicked()
 	m_str_sendCoils.replace(HMU_cmdReject, 1, "1");
 #endif
 }
-void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
+void QtPLCDialogClass::on_pB_cmdStartcheckable_toggled(bool checked)//启动 停止
 {
 	DataFromPC_typ typ;
 	typ.Telegram_typ = 1;
@@ -4479,7 +4479,7 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 		QPixmap pix;
 		if (lg == 0) pix.load(AppPath + "/ico/stop.png");
 		if (lg == 1) pix.load(AppPath + "/ico/E/stop.png");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIcon(pix);
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setIcon(pix);
 		//((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(false);
 		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(false);
 		ExitBtn->setEnabled(false);
@@ -4491,7 +4491,7 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 		QPixmap pix;
 		if (lg == 0)pix.load(AppPath + "/ico/start.png");
 		if (lg == 1)pix.load(AppPath + "/ico/E/start.png");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIcon(pix);
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setIcon(pix);
 		if (g_IUserLevel != 2)
 		{
 			//((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(true);
@@ -5155,8 +5155,8 @@ void QtPLCDialogClass::onTreeItemChanged(QTreeWidgetItem* item)//利用changed�
 
 void QtPLCDialogClass::OnUnconnectedState()
 {
-	((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setChecked(false);
-	((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(false);
+	((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setChecked(false);
+	((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setEnabled(false);
 	((Ui::QtPLCDialogClass*)ui)->lb_Alarm->setStyleSheet("color: rgb(255, 0,0);font-size:20pt");
 	if (lg == 0)
 	{
