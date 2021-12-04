@@ -135,7 +135,7 @@ private:
 	QString m_gn1;
 	QString m_gn2;
 	int m_index = 0;//socket数
-	int COILS = 106;//字节数
+	int COILS = 108;//字节数
 	int REGISTERS = 162;//个数
 	quint8 *dtcoils;
 	quint16 *dtregisters;

@@ -222,7 +222,7 @@ enum MODBUSTCPCOILS
 	Input_SwingTrigger,    //摆臂位置检测 BOOL
 	Input_TouchCalib,    //启动触摸屏校正 BOOL
 	Input_TurnTrigger,    //翻板位置零位 BOOL
-	
+
 	DTChanged,  //HMI设定更改时间
 	ActData_enHMU,   //硬度检测使能 BOOL
 	ActData_enTMU,   //厚度检测使能 BOOL
@@ -251,8 +251,8 @@ enum MODBUSTCPCOILS
 	FeedDone,    //BOOL
 	CmdAlogtest,   //模拟量测试 BOOL
 	cmdFeedAmount,   //下N粒命令 BOOL
-	
-	
+
+
 	Output_CapGet,       //取料电磁铁    BOOL
 	Output_AlarmOut,       //报警蜂鸣器    BOOL
 	Output_StopSignal,       //停机信号    BOOL
@@ -261,7 +261,7 @@ enum MODBUSTCPCOILS
 	Output_Baffle,       //挡板    BOOL
 	Output_CapTurnValve,       //整形升降气缸    BOOL
 	Output_CapThickValve,       //测厚升降气缸    BOOL
-	
+
 	axis_fun_axis0_com_rel_pos_start,     //落料步进
 	axis_fun_axis0_com_jog_pos,     //落料正向点动
 	axis_fun_axis0_com_jog_neg,     //落料反向点动
@@ -274,7 +274,9 @@ enum MODBUSTCPCOILS
 	axis_fun_axis2_com_jog_neg,     //翻转反转
 	axis_fun_axis2_com_jog_pos,     //翻转正转
 	axis_fun_axis3_com_jog_neg,     //压片反转
-	axis_fun_axis3_com_jog_pos     //压片正转
+	axis_fun_axis3_com_jog_pos,     //压片正转
+	Scale_cmdTire,				//秤清零
+	Scale_cmdCalibExt,     //秤外部校正
 };
 #define			MAX_PULSE_SERVO		2
 #pragma pack(4)
