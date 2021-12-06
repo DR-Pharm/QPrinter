@@ -1020,7 +1020,7 @@ void QtPLCDialogClass::CompareYearMonthDay()
 			}
 			else
 			{
-				if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("符合组号为：(实际共") + QString::number(str2.size()) + QString::fromLocal8Bit("组)\n") + m_gn1 + "-" + m_gn2);
+				if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("符合组号为：(实际共") + QString::number(lst.size()-1) + QString::fromLocal8Bit("组)\n") + m_gn1 + "-" + m_gn2);
 				if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("Matched group number:\n") + m_gn1 + "-" + m_gn2);
 
 				((Ui::QtPLCDialogClass*)ui)->lW_data->setVisible(true);
