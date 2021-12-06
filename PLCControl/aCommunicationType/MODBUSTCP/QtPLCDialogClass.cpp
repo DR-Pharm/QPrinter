@@ -184,9 +184,9 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	((Ui::QtPLCDialogClass*)ui)->widget->setVisible(false);
 	initChartOne();
 	QStringList str1;
-	if (lg == 0) str1 << QString::fromLocal8Bit("重量");
-	if (lg == 1) str1 << QString::fromLocal8Bit("Weight");
-	((Ui::QtPLCDialogClass*)ui)->tableWidget->setColumnCount(1);
+	if (lg == 0) str1 << QString::fromLocal8Bit("重量") << QString::fromLocal8Bit("厚度") << QString::fromLocal8Bit("硬度");
+	if (lg == 1) str1 << "Weight" << "Thickness" << "Hardness";
+	((Ui::QtPLCDialogClass*)ui)->tableWidget->setColumnCount(3);
 	((Ui::QtPLCDialogClass*)ui)->tableWidget->setHorizontalHeaderLabels(str1);//加水平表头 每行加日期结果
 	((Ui::QtPLCDialogClass*)ui)->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);//均分填充表头
 
@@ -964,34 +964,36 @@ void QtPLCDialogClass::CompareYearMonthDay()
 		int itemp = 0;
 		LONGLONG ltemp1;
 		LONGLONG ltemp2;
-		QString key;
 		foreach(QString key, str2)
 		{
 			LONGLONG value = key.toLongLong();
-			lst << timIni.value(key, "0").toString();
-			if (itemp == 0)
+			if (value >= ll1 && value <= ll2)
 			{
-				itemp = 1;
-				ltemp1 = value;
-				ltemp2 = value;
-			}
-			if (ltemp1 > value)
-			{
-				ltemp1 = value;
-			}
-			if (ltemp2 < value)
-			{
-				ltemp2 = value;
-			}
-			if (value >= ll1 && value <= ltemp1)
-			{
-				int finalvalue = timIni.value(key).toInt();  // 直接用 key 获取数据
-				m_gn1 = QString::number(finalvalue);
-			}
-			if (value <= ll2 && value >= ltemp2)
-			{
-				int finalvalue = timIni.value(key).toInt();  // 直接用 key 获取数据
-				m_gn2 = QString::number(finalvalue);
+				lst << timIni.value(key, "0").toString();
+				if (itemp == 0)
+				{
+					itemp = 1;
+					ltemp1 = value;
+					ltemp2 = value;
+				}
+				if (ltemp1 > value)
+				{
+					ltemp1 = value;
+				}
+				if (ltemp2 < value)
+				{
+					ltemp2 = value;
+				}
+				if (value <= ltemp1)
+				{
+					int finalvalue = timIni.value(key).toInt();  // 直接用 key 获取数据
+					m_gn1 = QString::number(finalvalue);
+				}
+				if (value >= ltemp2)
+				{
+					int finalvalue = timIni.value(key).toInt();  // 直接用 key 获取数据
+					m_gn2 = QString::number(finalvalue);
+				}
 			}
 		}
 		timIni.endGroup();
@@ -1001,24 +1003,32 @@ void QtPLCDialogClass::CompareYearMonthDay()
 			if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("不存在符合条件的数据!"));
 			if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("No eligible data!"));
 			((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(false);
+			((Ui::QtPLCDialogClass*)ui)->lW_data->setVisible(false);
+
+			((Ui::QtPLCDialogClass*)ui)->lW_data->clear();
 		}
 		else
 		{
 			if (m_gn1 == m_gn2)
 			{
-				if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("符合组号为：\n") + m_gn1);
-				if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("Matching group number:\n") + m_gn1);
+				if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("符合组号为：(共1组)\n") + m_gn1);
+				if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("Matched group number:\n") + m_gn1);
+
+				((Ui::QtPLCDialogClass*)ui)->lW_data->setVisible(false);
+
+				((Ui::QtPLCDialogClass*)ui)->lW_data->clear();
 			}
 			else
 			{
-				if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("符合组号为：\n") + m_gn1 + "-" + m_gn2);
-				if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("Matching group number:\n") + m_gn1 + "-" + m_gn2);
-				
+				if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("符合组号为：(实际共") + QString::number(str2.size()) + QString::fromLocal8Bit("组)\n") + m_gn1 + "-" + m_gn2);
+				if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("Matched group number:\n") + m_gn1 + "-" + m_gn2);
+
 				((Ui::QtPLCDialogClass*)ui)->lW_data->setVisible(true);
 
 				((Ui::QtPLCDialogClass*)ui)->lW_data->clear();
 
 				((Ui::QtPLCDialogClass*)ui)->lW_data->addItems(lst);
+
 			}
 			((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(true);
 		}
@@ -2735,12 +2745,16 @@ QString QtPLCDialogClass::setYearMonthDay()
 	((Ui::QtPLCDialogClass*)ui)->lE_day1->setText(logDay);
 	QString logHour = QString::number(current_time.time().hour());
 	logHour = logHour.length() < 2 ? ("0" + logHour) : logHour;
-	((Ui::QtPLCDialogClass*)ui)->lE_hour1->setText(logHour);
-	((Ui::QtPLCDialogClass*)ui)->lE_hour2->setText(logHour);
+	/*((Ui::QtPLCDialogClass*)ui)->lE_hour1->setText(logHour);
+	((Ui::QtPLCDialogClass*)ui)->lE_hour2->setText(logHour);*/
+	((Ui::QtPLCDialogClass*)ui)->lE_hour1->setText("00");
+	((Ui::QtPLCDialogClass*)ui)->lE_hour2->setText("23");
 	QString logMinute = QString::number(current_time.time().minute());
 	logMinute = logMinute.length() < 2 ? ("0" + logMinute) : logMinute;
-	((Ui::QtPLCDialogClass*)ui)->lE_minute1->setText(logMinute);
-	((Ui::QtPLCDialogClass*)ui)->lE_minute2->setText(logMinute);
+	/*((Ui::QtPLCDialogClass*)ui)->lE_minute1->setText(logMinute);
+	((Ui::QtPLCDialogClass*)ui)->lE_minute2->setText(logMinute);*/
+	((Ui::QtPLCDialogClass*)ui)->lE_minute1->setText("00");
+	((Ui::QtPLCDialogClass*)ui)->lE_minute2->setText("59");
 	strTime = logYear + "/" //z=a>b?x:y
 		+ logMonth + "/"
 		+ logDay + " "
@@ -5254,7 +5268,7 @@ void QtPLCDialogClass::ChangeLanguage()
 	((Ui::QtPLCDialogClass*)ui)->label_61->setText("Result:");
 	((Ui::QtPLCDialogClass*)ui)->label_35->setText("GroupNum:");
 	((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setText("Copy in"+QString::fromLocal8Bit("↓"));
-	((Ui::QtPLCDialogClass*)ui)->pB_startSearch->setText("Start Search");
+	((Ui::QtPLCDialogClass*)ui)->pB_startSearch->setText("Search");
 	((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setText("Print Data&&Curve");
 	//((Ui::QtPLCDialogClass*)ui)->label_37->setText("to");
 

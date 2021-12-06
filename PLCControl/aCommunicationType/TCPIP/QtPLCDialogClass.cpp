@@ -1492,11 +1492,11 @@ void QtPLCDialogClass::CompareYearMonthDay()
 	if (lg == 0)lst << QString::fromLocal8Bit("符合组号");
 	if (lg == 1)lst << QString::fromLocal8Bit("Matched");
 
-	QString str1= ((Ui::QtPLCDialogClass*)ui)->lE_year1->text()+
-	((Ui::QtPLCDialogClass*)ui)->lE_month1->text()+
-	((Ui::QtPLCDialogClass*)ui)->lE_day1->text()+
-	((Ui::QtPLCDialogClass*)ui)->lE_hour1->text()+
-	((Ui::QtPLCDialogClass*)ui)->lE_minute1->text();
+	QString str1 = ((Ui::QtPLCDialogClass*)ui)->lE_year1->text() +
+		((Ui::QtPLCDialogClass*)ui)->lE_month1->text() +
+		((Ui::QtPLCDialogClass*)ui)->lE_day1->text() +
+		((Ui::QtPLCDialogClass*)ui)->lE_hour1->text() +
+		((Ui::QtPLCDialogClass*)ui)->lE_minute1->text();
 	LONGLONG ll1 = str1.toLongLong();
 
 	QString str2 = ((Ui::QtPLCDialogClass*)ui)->lE_year1->text() +
@@ -1506,17 +1506,17 @@ void QtPLCDialogClass::CompareYearMonthDay()
 		((Ui::QtPLCDialogClass*)ui)->lE_minute2->text();
 	LONGLONG ll2 = str2.toLongLong();
 
-	if (ll1>ll2)
+	if (ll1 > ll2)
 	{
 		if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("条件有误!"));
 		if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("Wrong condition!"));
 		((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(false);
 	}
-	else if(ll1 == ll2)
+	else if (ll1 == ll2)
 	{
 		QSettings timIni(AppPath + "\\data\\time.ini", QSettings::IniFormat);
-		QString str=timIni.value(str1.mid(8) + "/" + str1, "0").toString();
-		if (str=="0")
+		QString str = timIni.value(str1.mid(8) + "/" + str1, "0").toString();
+		if (str == "0")
 		{
 			if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("该时间不存在数据!"));
 			if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("No data exists at this time!"));
@@ -1533,13 +1533,13 @@ void QtPLCDialogClass::CompareYearMonthDay()
 	{
 		m_gn1 = "";
 		m_gn2 = "";
-		QSettings timIni(AppPath + "\\data\\time.ini", QSettings::IniFormat);		
+		QSettings timIni(AppPath + "\\data\\time.ini", QSettings::IniFormat);
 		// 获取一个节点下的key值
-		timIni.beginGroup(str1.mid(0,8));    // 设置查找节点
+		timIni.beginGroup(str1.mid(0, 8));    // 设置查找节点
 		QStringList str2 = timIni.allKeys();    // 获取所有的key 已经排序完成，小到大不许再次排序
 		qSort(str2.begin(), str2.end(), sortImgLists);
 
-		if (str2.size()==0)
+		if (str2.size() == 0)
 		{
 			if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("该时间段不存在数据!"));
 			if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("No data in the time period!"));
@@ -1552,30 +1552,33 @@ void QtPLCDialogClass::CompareYearMonthDay()
 		foreach(QString key, str2)
 		{
 			LONGLONG value = key.toLongLong();
-			lst << timIni.value(key, "0").toString();
-			if (itemp == 0)
+			if (value >= ll1 && value <= ll2)
 			{
-				itemp = 1;
-				ltemp1 = value;
-				ltemp2 = value;
-			}
-			if (ltemp1>value)
-			{
-				ltemp1 = value; 
-			}
-			if (ltemp2 < value)
-			{
-				ltemp2 = value;
-			}
-			if (value>=ll1 && value <= ll2 && value<=ltemp1)
-			{
-				int finalvalue = timIni.value(key).toInt();  // 直接用 key 获取数据
-				m_gn1 = QString::number(finalvalue);
-			}
-			if (value >= ll1 && value <= ll2 && value >= ltemp2)
-			{
-				int finalvalue = timIni.value(key).toInt();  // 直接用 key 获取数据
-				m_gn2 = QString::number(finalvalue);
+				lst << timIni.value(key, "0").toString();
+				if (itemp == 0)
+				{
+					itemp = 1;
+					ltemp1 = value;
+					ltemp2 = value;
+				}
+				if (ltemp1 > value)
+				{
+					ltemp1 = value;
+				}
+				if (ltemp2 < value)
+				{
+					ltemp2 = value;
+				}
+				if (value <= ltemp1)
+				{
+					int finalvalue = timIni.value(key).toInt();  // 直接用 key 获取数据
+					m_gn1 = QString::number(finalvalue);
+				}
+				if (value >= ltemp2)
+				{
+					int finalvalue = timIni.value(key).toInt();  // 直接用 key 获取数据
+					m_gn2 = QString::number(finalvalue);
+				}
 			}
 		}
 		timIni.endGroup();
@@ -1585,6 +1588,9 @@ void QtPLCDialogClass::CompareYearMonthDay()
 			if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("不存在符合条件的数据!"));
 			if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("No eligible data!"));
 			((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(false);
+			((Ui::QtPLCDialogClass*)ui)->lW_data->setVisible(false);
+
+			((Ui::QtPLCDialogClass*)ui)->lW_data->clear();
 		}
 		else
 		{
@@ -1592,10 +1598,14 @@ void QtPLCDialogClass::CompareYearMonthDay()
 			{
 				if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("符合组号为：(共1组)\n") + m_gn1);
 				if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("Matched group number:\n") + m_gn1);
+
+				((Ui::QtPLCDialogClass*)ui)->lW_data->setVisible(false);
+
+				((Ui::QtPLCDialogClass*)ui)->lW_data->clear();
 			}
 			else
 			{
-				if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("符合组号为：(实际共")+QString::number(str2.size())+QString::fromLocal8Bit("组)\n") + m_gn1 + "-" + m_gn2);
+				if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("符合组号为：(实际共") + QString::number(str2.size()) + QString::fromLocal8Bit("组)\n") + m_gn1 + "-" + m_gn2);
 				if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("Matched group number:\n") + m_gn1 + "-" + m_gn2);
 
 				((Ui::QtPLCDialogClass*)ui)->lW_data->setVisible(true);
