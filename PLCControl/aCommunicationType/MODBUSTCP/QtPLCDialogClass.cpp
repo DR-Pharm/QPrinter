@@ -1222,8 +1222,8 @@ void QtPLCDialogClass::getPLCHolding(void*data)
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_GroupSum->hasFocus())
 	{
-		float hex_res = hexTofloat(ActData_GroupSum);
-		((Ui::QtPLCDialogClass*)ui)->lE_GroupSum->setText(QString::number(hex_res));
+		double hex_res = hexToeightbytefloat(ActData_GroupSum);
+		((Ui::QtPLCDialogClass*)ui)->lE_GroupSum->setText(QString::number(hex_res,'f',3));
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_FeedCounter->hasFocus())
 	{
@@ -1333,6 +1333,7 @@ void QtPLCDialogClass::getPLCHolding(void*data)
 	{
 		float hex_res = hexTofloat(TMU_ThicknessResult);
 		((Ui::QtPLCDialogClass*)ui)->lE_ThicknessResult->setText(QString::number(hex_res));
+		
 	}
 
 
@@ -1385,7 +1386,7 @@ void QtPLCDialogClass::getPLCHolding(void*data)
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_HMU_K->hasFocus())
 	{
 		float hex_res = hexTofloat(ActData_HMU_K);
-		((Ui::QtPLCDialogClass*)ui)->lE_HMU_K->setText(QString::number(hex_res));
+		((Ui::QtPLCDialogClass*)ui)->lE_HMU_K->setText(QString::number(hex_res, 'f', 5));
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_TMU_Zero->hasFocus())
 	{
@@ -1572,6 +1573,25 @@ float QtPLCDialogClass::hexTofloat(int i)
 	}
 	int hex_uint = hex_float.toInt(nullptr, 16);
 	float hex_res = *(float*)&hex_uint*k;
+	return hex_res;
+}
+
+double QtPLCDialogClass::hexToeightbytefloat(int i)
+{
+	QString a = QString("%1").arg(m_Input_Bufer[i], 4, 16, QLatin1Char('0'));
+	QString b = QString("%1").arg(m_Input_Bufer[i + 1], 4, 16, QLatin1Char('0'));
+	QString c = QString("%1").arg(m_Input_Bufer[i + 2], 4, 16, QLatin1Char('0'));
+	QString d = QString("%1").arg(m_Input_Bufer[i + 3], 4, 16, QLatin1Char('0'));
+	QString hex_float = d + c + b + a;
+	int k = 1;
+	if (hex_float.mid(0, 1).toLongLong(nullptr, 16) >= 8)
+	{
+		k = -1;
+		QString str = QString::number((hex_float.mid(0, 1).toInt(nullptr, 16) - 8), 16);
+		hex_float = str + hex_float.mid(1);
+	}
+	LONGLONG hex_uint = hex_float.toLongLong(nullptr, 16);
+	double hex_res = *(double*)&hex_uint*k;
 	return hex_res;
 }
 void QtPLCDialogClass::on_WriteHolding()
@@ -2544,9 +2564,34 @@ void QtPLCDialogClass::getPLCData(void* data)
 
 	if (((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->isChecked())
 	{
+		if (m_Coils_Bufer[Output_CapThickValve] == 1 && m_imeasured == 0) m_imeasured = 1;
+		if (m_Coils_Bufer[Output_CapThickValve] == 0 && m_imeasured) m_imeasured2 = 1;
+		if (m_fThickness != hexTofloat(TMU_ThicknessResult)|| m_imeasured2)//thickness
+		{
+			m_imeasured = 0;
+			m_imeasured2 = 0;
+			m_fThickness = hexTofloat(TMU_ThicknessResult);
+			Thicknesslst << QString::number(m_fThickness);
+		}
+		if (m_fHardness != hexTofloat(HMU_ResultForce)|| (m_Input_Bufer[ActData_HardnessChkCnt]!=m_ihardnum&& (m_Input_Bufer[ActData_HardnessChkCnt] != 0)))//Hardness
+		{
+			m_ihardnum = m_Input_Bufer[ActData_HardnessChkCnt];
+			m_fHardness = hexTofloat(HMU_ResultForce);
+			int i = ((Ui::QtPLCDialogClass*)ui)->tableWidget->verticalHeaderItem(0)->text().toInt();
+			for (int k=0;k<i;k++)
+			{
+				int r = i - k - 1;
+				if (((Ui::QtPLCDialogClass*)ui)->tableWidget->item(r, 2)->text()=="-")
+				{
+					((Ui::QtPLCDialogClass*)ui)->tableWidget->setItem(r, 2, new QTableWidgetItem(QString::number(m_fHardness)));
+					((Ui::QtPLCDialogClass*)ui)->tableWidget->item(r, 2)->setFlags(((Ui::QtPLCDialogClass*)ui)->tableWidget->item(r, 2)->flags() & (~Qt::ItemIsEditable));
+					break;
+				}
+			}
+		}
 		if (m_index != m_Input_Bufer[ActData_GroupIndex] && m_Input_Bufer[ActData_GroupIndex] != 0)
 		{
-			sumNo = hexTofloat(ActData_GroupSum) - sumNo;
+			sumNo = hexToeightbytefloat(ActData_GroupSum),'f',3 - sumNo;
 			if (m_row == 0)
 			{
 				mi = sumNo;
@@ -2569,7 +2614,17 @@ void QtPLCDialogClass::getPLCData(void* data)
 			((Ui::QtPLCDialogClass*)ui)->tableWidget->insertRow(0);
 			((Ui::QtPLCDialogClass*)ui)->tableWidget->setVerticalHeaderItem(0, new QTableWidgetItem(QString::number(++m_row)));
 			((Ui::QtPLCDialogClass*)ui)->tableWidget->setItem(0, 0, new QTableWidgetItem(QString::number(sumNo)));
-			((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->setFlags(((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->flags() & (~Qt::ItemIsEditable));
+			((Ui::QtPLCDialogClass*)ui)->tableWidget->setItem(0, 1, new QTableWidgetItem("-"));
+			((Ui::QtPLCDialogClass*)ui)->tableWidget->setItem(0, 2, new QTableWidgetItem("-"));
+			((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->setFlags(((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->flags() & (~Qt::ItemIsEditable));				
+			((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 1)->setFlags(((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 1)->flags() & (~Qt::ItemIsEditable));
+			((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 2)->setFlags(((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 2)->flags() & (~Qt::ItemIsEditable));
+
+			if (Thicknesslst.size() > 0)
+			{
+				((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 1)->setText(Thicknesslst.at(0));
+				Thicknesslst.removeAt(0);
+			}
 			if (sumNo < hexTofloat(ActData_TUnderload) || sumNo > hexTofloat(ActData_TOverload))
 			{
 				((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->setBackground(QBrush(QColor(255, 0, 0)));//red
@@ -2583,7 +2638,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 				((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->setBackground(QBrush(QColor(0, 255, 0)));//green
 			}
 			//((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->setFlags(((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->flags() & (~Qt::ItemIsSelectable));
-			sumNo = hexTofloat(ActData_GroupSum);
+			sumNo = hexToeightbytefloat(ActData_GroupSum),'f',3;
 			m_index = m_Input_Bufer[ActData_GroupIndex];
 
 			if (data_One.size() < 7)
@@ -2706,6 +2761,13 @@ void QtPLCDialogClass::getPLCData(void* data)
 	}
 	else
 	{
+		m_imeasured = 0;
+		m_imeasured2 = 0;
+		m_fThickness = hexTofloat(TMU_ThicknessResult);
+		Thicknesslst.clear();
+		m_fHardness = hexTofloat(HMU_ResultForce); 
+		m_ihardnum = m_Input_Bufer[ActData_HardnessChkCnt];
+
 		data_One.clear();
 		m_row = 0;
 		sumNo = 0;

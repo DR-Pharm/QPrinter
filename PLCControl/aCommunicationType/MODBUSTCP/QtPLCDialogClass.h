@@ -155,6 +155,13 @@ private:
 
 	int m_iAutoUpdateFlag = 0;
 	bool leflag = 0;
+
+	float m_fThickness;
+	QStringList Thicknesslst;
+	float m_fHardness;
+	int m_imeasured = 0; 
+	int m_imeasured2 = 0; 
+	int m_ihardnum = 0;
 public slots:
 	DataFromPC_typ getPCParaData();
 	DataFromPC_typ getPCRunData();
@@ -163,6 +170,7 @@ public slots:
 	void getPLCData(void*); 
 	void getPLCHolding(void*);
 	void on_WriteCoils();
+	double hexToeightbytefloat(int i);
 	void on_WriteHolding();
 	void setg_IUserLevel(int);
 	void on_lE_SysOveride_editingFinished();
