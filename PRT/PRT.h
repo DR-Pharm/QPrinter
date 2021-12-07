@@ -114,7 +114,7 @@ public slots:
 	void on_cB_Average_toggled(bool checked);
 	void on_cB_PrintMode_currentIndexChanged(int index);
 	void on_ToClose();
-	void getVec(QVector<QVector<float>>, QVector<QString>,int, QVector<float> teo,QString strCb, QVector<QString> CustomerName, QVector<QString> MedicineName, QVector<int> lo, QVector<int> hi, QVector<int> pureshell, QVector<int> yld, QVector<int> pres, QVector<int> spd);
+	void getVec(int,QString strCb, int p1,int p2);
 	void SuccessConnect();
 	void ErrorConnect();
 	void EmitReconnect();

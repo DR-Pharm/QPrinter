@@ -70,7 +70,7 @@ void PRT::initPLC()
 	b = connect(dlg, SIGNAL(SHOWPRT(bool)), this, SLOT(showPrt(bool))); 
 	b = connect(dlg, SIGNAL(showWindowOut(QString)), this, SLOT(showWindowOut(QString)));
 	b = connect(dlg, SIGNAL(CLOSESIGNAL()), this, SLOT(on_ToClose()));
-	b = connect(dlg, SIGNAL(TODRAWPICTURE(QVector<QVector<float>>, QVector<QString>,int, QVector<float>,QString, QVector<QString>, QVector<QString>, QVector<int>, QVector<int>, QVector<int>, QVector<int>, QVector<int>, QVector<int>)), this, SLOT(getVec(QVector<QVector<float>>, QVector<QString>,int, QVector<float>,QString, QVector<QString>, QVector<QString>, QVector<int>, QVector<int>, QVector<int>, QVector<int>, QVector<int>, QVector<int>)));
+	b = connect(dlg, SIGNAL(TODRAWPICTURE(int,QString,int,int)), this, SLOT(getVec(int,QString,int,int)));
 	dlg->setParent(ui.widget);
 	dlg->move(0, 0);
 	b = connect(this, SIGNAL(MINI()), m_pPlclib, SLOT(setWinMini()));
@@ -538,7 +538,7 @@ void PRT::on_ToClose()
 	}
 }
 
-void PRT::getVec(QVector<QVector<float>> a, QVector<QString> GN,int mode, QVector<float> teo,QString strCb, QVector<QString> CustomerName, QVector<QString> MedicineName, QVector<int> lo, QVector<int> hi, QVector<int> pureshell, QVector<int> yld, QVector<int> pres, QVector<int> spd)
+void PRT::getVec(int mode,QString strCb, int p1,int p2)
 {
 	if (mode==0)//MODE 0:dataAverage,1:curve
 	{
@@ -554,6 +554,33 @@ void PRT::getVec(QVector<QVector<float>> a, QVector<QString> GN,int mode, QVecto
 	}
 	else if (mode == 1)
 	{
+		QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
+		for (int i = p1; i < p2 + 1; i++)
+		{
+			QString str = configIniRead.value(QString::number(i) + "/data", 0).toString();
+			QVector<float> data_temp;
+			if (str != "0")
+			{
+				QStringList lst = str.split(",");
+				for (int j = 0; j < lst.size(); j++)
+				{
+					float f = lst.at(j).toFloat();
+					data_temp << f;
+					//QMessageBox::about(nullptr, "", QString::number(data_temp.at(i), 'f', 3));
+				}
+				gn << configIniRead.value(QString::number(i) + "/gn", "0").toString();
+				data << data_temp;
+				theory << configIniRead.value(QString::number(i) + "/theory", 1).toFloat();
+				m_CustomerName << configIniRead.value(QString::number(i) + "/CustomerName", "").toString();
+				m_MedicineName << configIniRead.value(QString::number(i) + "/MedicineName", "").toString();
+				m_Low << configIniRead.value(QString::number(i) + "/Low", 0).toInt();
+				m_High << configIniRead.value(QString::number(i) + "/High", 0).toInt();
+				m_PureShell << configIniRead.value(QString::number(i) + "/PureShell", 0).toInt();
+				m_Yield << configIniRead.value(QString::number(i) + "/Yield", 0).toInt();
+				m_Pressure << configIniRead.value(QString::number(i) + "/Pressure", 0).toInt();
+				m_Speed << configIniRead.value(QString::number(i) + "/Speed", 0).toInt();
+			}
+		}
 		on_cB_Curve_toggled(true);
 		ui.cB_Curve->blockSignals(true);
 		ui.cB_Curve->setChecked(true);
@@ -564,23 +591,9 @@ void PRT::getVec(QVector<QVector<float>> a, QVector<QString> GN,int mode, QVecto
 		ui.cB_Average->blockSignals(false);
 		/*m_iDataNum = 1;
 		data.resize(1);*/
-		m_iDataNum = a.size();
+		m_iDataNum = data.size();
 
-		data = a;
-		gn = GN;
-		theory = teo;
-		//data[0] = a;
 		m_cb = strCb;
-
-		m_CustomerName= CustomerName;
-		m_MedicineName= MedicineName;
-		m_Low=lo;
-		m_High=hi;
-		m_PureShell= pureshell;
-
-		m_Yield = yld;
-		m_Pressure = pres;
-		m_Speed = spd;
 
 		on_pB_PrintDirect_clicked();
 		data.clear();

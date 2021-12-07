@@ -2578,84 +2578,31 @@ void QtPLCDialogClass::BeforePrint()
 			return;
 		}
 
-		QVector<float> data_temp;
-		QVector<QVector<float>> dataToDraw;
-
-		QStringList lst = str.split(",");
-		for (int i = 0; i < lst.size(); i++)
+		else
 		{
-			float f = lst.at(i).toFloat();
-			data_temp << f;
-			//QMessageBox::about(nullptr, "", QString::number(data_temp.at(i), 'f', 3));
+			emit TODRAWPICTURE(1, cb, p1, p2);
+			return;
 		}
-		QVector<QString> GroupNumber;
-		GroupNumber << configIniRead.value(QString::number(p1) + "/gn", 0).toString();
-		QVector<float> teo;
-		teo << configIniRead.value(QString::number(p1) + "/theory", 1).toFloat();
-		dataToDraw << data_temp;
-		QVector<QString> CustomerName;
-		CustomerName << configIniRead.value(QString::number(p1) + "/CustomerName", "").toString();
-		QVector<QString> MedicineName;
-		MedicineName << configIniRead.value(QString::number(p1) + "/MedicineName", "").toString();
-		QVector<int> lo;
-		lo << configIniRead.value(QString::number(p1) + "/Low", 0).toInt();
-		QVector<int> hi;
-		hi << configIniRead.value(QString::number(p1) + "/High", 0).toInt();
-		QVector<int> PureShell;
-		PureShell << configIniRead.value(QString::number(p1) + "/PureShell", 0).toInt();
-		QVector<int> yld;
-		yld << configIniRead.value(QString::number(p1) + "/Yield", 0).toInt();
-		QVector<int> pres;
-		pres << configIniRead.value(QString::number(p1) + "/Pressure", 0).toInt();
-		QVector<int> spd;
-		spd << configIniRead.value(QString::number(p1) + "/Speed", 0).toInt();
-		emit TODRAWPICTURE(dataToDraw, GroupNumber, 1, teo, cb, CustomerName, MedicineName, lo,hi,PureShell, yld,pres,spd);
+
 
 	}
 	else
 	{
 		QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
-		QVector<QVector<float>> dataToDraw;
 		QVector<QString> GroupNumber;
-		QVector<float> teo;
-		QVector<QString> CustomerName;
-		QVector<QString> MedicineName;
-		QVector<int> lo;
-		QVector<int> hi;
-		QVector<int> PureShell;
-		QVector<int> yld;
-		QVector<int> pres;
-		QVector<int> spd;
 		for (int i = p1; i < p2 + 1; i++)
 		{
 			QString str = configIniRead.value(QString::number(i) + "/data", 0).toString();
-			QVector<float> data_temp;
 			if (str != "0")
 			{
-				QStringList lst = str.split(",");
-				for (int j = 0; j < lst.size(); j++)
-				{
-					float f = lst.at(j).toFloat();
-					data_temp << f;
-					//QMessageBox::about(nullptr, "", QString::number(data_temp.at(i), 'f', 3));
-				}
 				GroupNumber << configIniRead.value(QString::number(i) + "/gn", "0").toString();
-				dataToDraw << data_temp;
-				teo << configIniRead.value(QString::number(i) + "/theory", 1).toFloat();
-				CustomerName << configIniRead.value(QString::number(i) + "/CustomerName", "").toString();
-				MedicineName << configIniRead.value(QString::number(i) + "/MedicineName", "").toString();
-				lo << configIniRead.value(QString::number(i) + "/Low", 0).toInt();
-				hi << configIniRead.value(QString::number(i) + "/High", 0).toInt();
-				PureShell << configIniRead.value(QString::number(i) + "/PureShell", 0).toInt();
-				yld<< configIniRead.value(QString::number(i) + "/Yield", 0).toInt();
-				pres<< configIniRead.value(QString::number(i) + "/Pressure", 0).toInt();
-				spd<< configIniRead.value(QString::number(i) + "/Speed", 0).toInt();
+				break;
 			}
 		}
 
-		if (dataToDraw.size() > 0)
+		if (GroupNumber.size() > 0)
 		{
-			emit TODRAWPICTURE(dataToDraw, GroupNumber, 1, teo, cb, CustomerName, MedicineName, lo, hi, PureShell, yld, pres, spd);
+			emit TODRAWPICTURE(1, cb, p1, p2);
 		}
 
 		else
