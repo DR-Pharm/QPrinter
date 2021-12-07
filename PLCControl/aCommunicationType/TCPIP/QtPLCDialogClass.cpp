@@ -2604,11 +2604,11 @@ void QtPLCDialogClass::BeforePrint()
 		QVector<int> PureShell;
 		PureShell << configIniRead.value(QString::number(p1) + "/PureShell", 0).toInt();
 		QVector<int> yld;
-		PureShell << configIniRead.value(QString::number(p1) + "/Yield", 0).toInt();
+		yld << configIniRead.value(QString::number(p1) + "/Yield", 0).toInt();
 		QVector<int> pres;
-		PureShell << configIniRead.value(QString::number(p1) + "/Pressure", 0).toInt();
+		pres << configIniRead.value(QString::number(p1) + "/Pressure", 0).toInt();
 		QVector<int> spd;
-		PureShell << configIniRead.value(QString::number(p1) + "/Speed", 0).toInt();
+		spd << configIniRead.value(QString::number(p1) + "/Speed", 0).toInt();
 		emit TODRAWPICTURE(dataToDraw, GroupNumber, 1, teo, cb, CustomerName, MedicineName, lo,hi,PureShell, yld,pres,spd);
 
 	}
