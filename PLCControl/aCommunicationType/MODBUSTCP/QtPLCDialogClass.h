@@ -156,9 +156,8 @@ private:
 	int m_iAutoUpdateFlag = 0;
 	bool leflag = 0;
 
-	float m_fThickness;
 	QStringList Thicknesslst;
-	float m_fHardness;
+
 	int m_imeasured = 0; 
 	int m_imeasured2 = 0; 
 	int m_ihardnum = 0;

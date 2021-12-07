@@ -812,6 +812,12 @@ void QtPLCDialogClass::initUI()
 		((Ui::QtPLCDialogClass*)ui)->label_16->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_16.png"));
 		((Ui::QtPLCDialogClass*)ui)->label_17->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_17.png"));
 		((Ui::QtPLCDialogClass*)ui)->label_48->setPixmap(QPixmap(AppPath + "/ico/fontImage/label_48.png"));
+
+
+		((Ui::QtPLCDialogClass*)ui)->label_55->setPixmap(QPixmap(AppPath + "/ico/fontImage/clhd.png"));
+		((Ui::QtPLCDialogClass*)ui)->label_37->setPixmap(QPixmap(AppPath + "/ico/fontImage/clyd.png"));
+		((Ui::QtPLCDialogClass*)ui)->label_59->setPixmap(QPixmap(AppPath + "/ico/fontImage/clzj.png"));
+		((Ui::QtPLCDialogClass*)ui)->label_23->setPixmap(QPixmap(AppPath + "/ico/fontImage/dqyd.png"));
 	}
 	else if (lg == 1)
 	{
@@ -828,6 +834,11 @@ void QtPLCDialogClass::initUI()
 		((Ui::QtPLCDialogClass*)ui)->label_16->setPixmap(QPixmap(AppPath + "/ico/fontImage/E/label_16.png"));
 		((Ui::QtPLCDialogClass*)ui)->label_17->setPixmap(QPixmap(AppPath + "/ico/fontImage/E/label_17.png"));
 		((Ui::QtPLCDialogClass*)ui)->label_48->setPixmap(QPixmap(AppPath + "/ico/fontImage/E/label_48.png"));
+
+		((Ui::QtPLCDialogClass*)ui)->label_55->setPixmap(QPixmap(AppPath + "/ico/fontImage/E/clhd.png"));
+		((Ui::QtPLCDialogClass*)ui)->label_37->setPixmap(QPixmap(AppPath + "/ico/fontImage/E/clyd.png"));
+		((Ui::QtPLCDialogClass*)ui)->label_59->setPixmap(QPixmap(AppPath + "/ico/fontImage/E/clzj.png"));
+		((Ui::QtPLCDialogClass*)ui)->label_23->setPixmap(QPixmap(AppPath + "/ico/fontImage/E/dqyd.png"));
 	}
 	((Ui::QtPLCDialogClass*)ui)->label_15->setScaledContents(true);
 	((Ui::QtPLCDialogClass*)ui)->label_18->setScaledContents(true);
@@ -842,6 +853,10 @@ void QtPLCDialogClass::initUI()
 	((Ui::QtPLCDialogClass*)ui)->label_16->setScaledContents(true);
 	((Ui::QtPLCDialogClass*)ui)->label_17->setScaledContents(true);
 	((Ui::QtPLCDialogClass*)ui)->label_48->setScaledContents(true);
+	((Ui::QtPLCDialogClass*)ui)->label_55->setScaledContents(true);
+	((Ui::QtPLCDialogClass*)ui)->label_37->setScaledContents(true);
+	((Ui::QtPLCDialogClass*)ui)->label_59->setScaledContents(true);
+	((Ui::QtPLCDialogClass*)ui)->label_23->setScaledContents(true);
 
 	setYearMonthDay();
 }
@@ -2566,24 +2581,22 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		if (m_Coils_Bufer[Output_CapThickValve] == 1 && m_imeasured == 0) m_imeasured = 1;
 		if (m_Coils_Bufer[Output_CapThickValve] == 0 && m_imeasured) m_imeasured2 = 1;
-		if (m_fThickness != hexTofloat(TMU_ThicknessResult)|| m_imeasured2)//thickness
+		if (m_imeasured2)//thickness
 		{
 			m_imeasured = 0;
 			m_imeasured2 = 0;
-			m_fThickness = hexTofloat(TMU_ThicknessResult);
-			Thicknesslst << QString::number(m_fThickness);
+			Thicknesslst << QString::number(hexTofloat(TMU_ThicknessResult));
 		}
-		if (m_fHardness != hexTofloat(HMU_ResultForce)|| (m_Input_Bufer[ActData_HardnessChkCnt]!=m_ihardnum&& (m_Input_Bufer[ActData_HardnessChkCnt] != 0)))//Hardness
+		if ((m_Input_Bufer[ActData_HardnessChkCnt]!=m_ihardnum&& (m_Input_Bufer[ActData_HardnessChkCnt] != 0)))//Hardness
 		{
 			m_ihardnum = m_Input_Bufer[ActData_HardnessChkCnt];
-			m_fHardness = hexTofloat(HMU_ResultForce);
 			int i = ((Ui::QtPLCDialogClass*)ui)->tableWidget->verticalHeaderItem(0)->text().toInt();
 			for (int k=0;k<i;k++)
 			{
 				int r = i - k - 1;
 				if (((Ui::QtPLCDialogClass*)ui)->tableWidget->item(r, 2)->text()=="-")
 				{
-					((Ui::QtPLCDialogClass*)ui)->tableWidget->setItem(r, 2, new QTableWidgetItem(QString::number(m_fHardness)));
+					((Ui::QtPLCDialogClass*)ui)->tableWidget->setItem(r, 2, new QTableWidgetItem(QString::number(hexTofloat(HMU_ResultForce),'f',3)));
 					((Ui::QtPLCDialogClass*)ui)->tableWidget->item(r, 2)->setFlags(((Ui::QtPLCDialogClass*)ui)->tableWidget->item(r, 2)->flags() & (~Qt::ItemIsEditable));
 					break;
 				}
@@ -2763,9 +2776,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		m_imeasured = 0;
 		m_imeasured2 = 0;
-		m_fThickness = hexTofloat(TMU_ThicknessResult);
 		Thicknesslst.clear();
-		m_fHardness = hexTofloat(HMU_ResultForce); 
 		m_ihardnum = m_Input_Bufer[ActData_HardnessChkCnt];
 
 		data_One.clear();
