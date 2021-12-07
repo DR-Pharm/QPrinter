@@ -161,6 +161,7 @@ private:
 	int m_imeasured = 0;
 	int m_iHardmeasured = 0;
 	int m_ihardnum = 0;
+	int m_istartFlag = 0;
 public slots:
 	DataFromPC_typ getPCParaData();
 	DataFromPC_typ getPCRunData();

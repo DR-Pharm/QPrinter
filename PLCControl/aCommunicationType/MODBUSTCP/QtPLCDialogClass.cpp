@@ -1235,11 +1235,18 @@ void QtPLCDialogClass::getPLCHolding(void*data)
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_Finished->setText(QString::number(m_Input_Bufer[GroupDone]));
 	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_GroupSum->hasFocus())
+	
+	double dbhex_res = hexToeightbytefloat(ActData_GroupSum);
+	if (dbhex_res >0)
 	{
-		double hex_res = hexToeightbytefloat(ActData_GroupSum);
-		((Ui::QtPLCDialogClass*)ui)->lE_GroupSum->setText(QString::number(hex_res,'f',3));
+		((Ui::QtPLCDialogClass*)ui)->lE_GroupSum->setText(QString::number(dbhex_res, 'f', 3));
+		((Ui::QtPLCDialogClass*)ui)->lE_GroupAvg->setText(QString::number(hexTofloat(ActData_GroupAvg)));
+		((Ui::QtPLCDialogClass*)ui)->lE_GroupMax->setText(QString::number(hexTofloat(ActData_GroupMax)));
+		((Ui::QtPLCDialogClass*)ui)->lE_GroupMin->setText(QString::number(hexTofloat(ActData_GroupMin)));
+		((Ui::QtPLCDialogClass*)ui)->lE_GroupMaxRatio->setText(QString::number(hexTofloat(ActData_GroupMaxRatio)));
+		((Ui::QtPLCDialogClass*)ui)->lE_GroupMinRatio->setText(QString::number(hexTofloat(ActData_GroupMinRatio)));
 	}
+	
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_FeedCounter->hasFocus())
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_FeedCounter->setText(QString::number(m_Input_Bufer[FeedCounter]));
@@ -1296,31 +1303,7 @@ void QtPLCDialogClass::getPLCHolding(void*data)
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_RejectCount->setText(QString::number(m_Input_Bufer[ActData_RejectCount] + m_Input_Bufer[ActData_RejectCount+1] * 65536));
 	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_GroupAvg->hasFocus())
-	{
-		float hex_res = hexTofloat(ActData_GroupAvg);
-		((Ui::QtPLCDialogClass*)ui)->lE_GroupAvg->setText(QString::number(hex_res));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_GroupMax->hasFocus())
-	{
-		float hex_res = hexTofloat(ActData_GroupMax);
-		((Ui::QtPLCDialogClass*)ui)->lE_GroupMax->setText(QString::number(hex_res));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_GroupMin->hasFocus())
-	{
-		float hex_res = hexTofloat(ActData_GroupMin);
-		((Ui::QtPLCDialogClass*)ui)->lE_GroupMin->setText(QString::number(hex_res));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_GroupMaxRatio->hasFocus())
-	{
-		float hex_res = hexTofloat(ActData_GroupMaxRatio);
-		((Ui::QtPLCDialogClass*)ui)->lE_GroupMaxRatio->setText(QString::number(hex_res));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_GroupMinRatio->hasFocus())
-	{
-		float hex_res = hexTofloat(ActData_GroupMinRatio);
-		((Ui::QtPLCDialogClass*)ui)->lE_GroupMinRatio->setText(QString::number(hex_res));
-	}
+		
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_HardnessChkCnt->hasFocus())
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_HardnessChkCnt->setText(QString::number(m_Input_Bufer[ActData_HardnessChkCnt]));
@@ -1685,8 +1668,8 @@ void QtPLCDialogClass::getPLCData(void* data)
 			|| m_Coils_Bufer[Alarm31] == 1//剔废盒满
 			)
 		{
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setChecked(false);
-			((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setEnabled(false);
+			/*((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setChecked(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setEnabled(false);*/
 		}
 		((Ui::QtPLCDialogClass*)ui)->lb_Alarm->setStyleSheet("color: rgb(255,0,0);font-size:20pt");
 		if (m_Coils_Bufer[Alarm1] == 1)
@@ -1732,7 +1715,10 @@ void QtPLCDialogClass::getPLCData(void* data)
 	}
 	else
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setEnabled(true);
+		if (m_istartFlag==0)
+		{
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setEnabled(true);
+		}
 		((Ui::QtPLCDialogClass*)ui)->lb_Alarm->setStyleSheet("color: rgb(0, 170, 127);font-size:20pt");
 		if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("设备运行正常~");
 		if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("System normal");
@@ -4590,43 +4576,37 @@ void QtPLCDialogClass::on_pB_HMUReject_clicked()
 }
 void QtPLCDialogClass::on_pB_cmdStartcheckable_toggled(bool checked)//启动 停止
 {
-	DataFromPC_typ typ;
-	typ.Telegram_typ = 1;
+
+	m_iDontReadCoilsFlag = 1;
+	m_str_sendCoils.replace(Machine_cmdStart, 2, checked ? "10" : "01");
+	QPixmap pix;
 	if (checked)
 	{
-		data_One.clear();
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setEnabled(false);
+		m_istartFlag = 1;
+		QTimer *tm = new QTimer();
+		connect(tm, &QTimer::timeout, this, [=] {
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setEnabled(true); 
+			m_istartFlag = 0;
+			tm->stop();
+			delete tm;
+		});
+		tm->start(2000);
 
-		QPixmap pix;
+		data_One.clear();
 		if (lg == 0) pix.load(AppPath + "/ico/stop.png");
 		if (lg == 1) pix.load(AppPath + "/ico/E/stop.png");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setIcon(pix);
-		//((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(false);
-		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(false);
 		ExitBtn->setEnabled(false);
-		typ.Machine_Cmd.cmdStart = 1;
-		btnTimer->start(1);
 	}
 	else
 	{
-		QPixmap pix;
 		if (lg == 0)pix.load(AppPath + "/ico/start.png");
 		if (lg == 1)pix.load(AppPath + "/ico/E/start.png");
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setIcon(pix);
-		if (g_IUserLevel != 2)
-		{
-			//((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setEnabled(true);
-		}
-		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(true);
 		ExitBtn->setEnabled(true);
-		typ.Machine_Cmd.cmdStop = 1;
-		btnTimer->start(1);
 	}
-#ifdef MODBUSTCP
-	m_iDontReadCoilsFlag = 1;
-	m_str_sendCoils.replace(Machine_cmdStart, 2, checked ? "10" : "01");
-#else
-	m_socket->Communicate_PLC(&typ, nullptr);
-#endif
+	((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setIcon(pix);
+	((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(false);
+	btnTimer->start(1);
 }
 
 void QtPLCDialogClass::on_pB_TMUStart_clicked()

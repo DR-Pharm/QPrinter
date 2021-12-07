@@ -8354,7 +8354,7 @@ font: 18pt &quot;幼圆&quot;;</string>
    <widget class="QPushButton" name="pB_cmdStartcheckable">
     <property name="geometry">
      <rect>
-      <x>15</x>
+      <x>17</x>
       <y>560</y>
       <width>61</width>
       <height>20</height>
