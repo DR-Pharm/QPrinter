@@ -4391,52 +4391,26 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 			return;
 		}
 
-		QVector<float> data_temp;
-		QVector<QVector<float>> dataToDraw;
-
-		QStringList lst = str.split(",");
-		for (int i = 0; i < lst.size(); i++)
-		{
-			float f = lst.at(i).toFloat();
-			data_temp << f;
-			//QMessageBox::about(nullptr, "", QString::number(data_temp.at(i), 'f', 3));
-		}
-		QVector<QString> GroupNumber;
-		GroupNumber << configIniRead.value(QString::number(p1) + "/gn", 0).toString();
-		QVector<float> teo;
-		teo<< configIniRead.value(QString::number(p1) + "/theory", 1).toFloat();
-		dataToDraw << data_temp;
-		emit TODRAWPICTURE(dataToDraw, GroupNumber, 1,teo);
+		emit TODRAWPICTURE(1,"01",p1,p2);
 		return;
 	}
 	else
 	{
 		QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
-		QVector<QVector<float>> dataToDraw;
 		QVector<QString> GroupNumber;
-		QVector<float> teo;
 		for (int i = p1; i < p2 + 1; i++)
 		{
 			QString str = configIniRead.value(QString::number(i)+"/data" , 0).toString();
-			QVector<float> data_temp;
 			if (str != "0")
 			{
-				QStringList lst = str.split(",");
-				for (int j = 0; j < lst.size(); j++)
-				{
-					float f = lst.at(j).toFloat();
-					data_temp << f;
-					//QMessageBox::about(nullptr, "", QString::number(data_temp.at(i), 'f', 3));
-				}
 				GroupNumber << configIniRead.value(QString::number(i) + "/gn", "0").toString();
-				dataToDraw << data_temp;
-				teo << configIniRead.value(QString::number(i) + "/theory", 1).toFloat();
+				break;
 			}
 		}
 
-		if (dataToDraw.size() > 0)
+		if (GroupNumber.size() > 0)
 		{
-			emit TODRAWPICTURE(dataToDraw, GroupNumber,1,teo);
+			emit TODRAWPICTURE(1, "01", p1, p2);
 		}
 		
 		else

@@ -538,7 +538,7 @@ void PRT::on_ToClose()
 	}
 }
 
-void PRT::getVec(int mode,QString strCb, int p1,int p2)
+void PRT::getVec(int mode,QString strCb, int p1,int p2) //strCb: 0ÇúÏß 1ÊÔ»ú£¬0 ½ºÄÒ 1Æ¬¼Á
 {
 	if (mode==0)//MODE 0:dataAverage,1:curve
 	{
@@ -554,22 +554,46 @@ void PRT::getVec(int mode,QString strCb, int p1,int p2)
 	}
 	else if (mode == 1)
 	{
-		QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
+		QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat); 
+		QString str;
+		QVector<float> data_temp;
+		QStringList lst;
 		for (int i = p1; i < p2 + 1; i++)
 		{
-			QString str = configIniRead.value(QString::number(i) + "/data", 0).toString();
-			QVector<float> data_temp;
+			str = configIniRead.value(QString::number(i) + "/data", 0).toString();			
 			if (str != "0")
 			{
-				QStringList lst = str.split(",");
+				lst = str.split(",");
 				for (int j = 0; j < lst.size(); j++)
 				{
-					float f = lst.at(j).toFloat();
-					data_temp << f;
-					//QMessageBox::about(nullptr, "", QString::number(data_temp.at(i), 'f', 3));
+					data_temp << lst.at(j).toFloat();
 				}
-				gn << configIniRead.value(QString::number(i) + "/gn", "0").toString();
 				data << data_temp;
+
+				QString strThick= configIniRead.value(QString::number(i) + "/thick", 0).toString();
+				if (strThick != "0")
+				{
+					lst = strThick.split(",");
+					for (int j = 0; j < lst.size(); j++)
+					{
+						data_temp << lst.at(j).toFloat();
+					}
+					thickness << data_temp;
+				}
+
+				QString strhard = configIniRead.value(QString::number(i) + "/hard", 0).toString();
+				if (strhard != "0")
+				{
+					lst = strhard.split(",");
+					for (int j = 0; j < lst.size(); j++)
+					{
+						data_temp << lst.at(j).toFloat();
+					}
+					hardness << data_temp;
+				}
+
+
+				gn << configIniRead.value(QString::number(i) + "/gn", "0").toString();
 				theory << configIniRead.value(QString::number(i) + "/theory", 1).toFloat();
 				m_CustomerName << configIniRead.value(QString::number(i) + "/CustomerName", "").toString();
 				m_MedicineName << configIniRead.value(QString::number(i) + "/MedicineName", "").toString();
@@ -599,6 +623,17 @@ void PRT::getVec(int mode,QString strCb, int p1,int p2)
 		data.clear();
 		gn.clear();
 		theory.clear();
+		hardness.clear();
+		thickness.clear();
+		m_CustomerName.clear();
+		m_MedicineName.clear();
+		m_Low.clear();
+		m_High.clear();
+		m_PureShell.clear();
+		m_Yield.clear();
+		m_Pressure.clear();
+		m_Speed.clear();
+
 	}
 	/*else if (mode == 2)
 	{

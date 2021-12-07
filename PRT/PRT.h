@@ -62,6 +62,8 @@ private:
 	Ui::PRTClass ui;
 	//data calculate
 	QVector<QVector<float>>data;
+	QVector<QVector<float>>thickness;
+	QVector<QVector<float>>hardness;
 	QVector<QString> gn;
 	QVector<float> theory;
 	int m_iDataNum;//数据存储数量0135...1#     2468...2#
