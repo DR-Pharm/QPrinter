@@ -1325,30 +1325,28 @@ void QtPLCDialogClass::getPLCHolding(void*data)
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_HardnessChkCnt->setText(QString::number(m_Input_Bufer[ActData_HardnessChkCnt]));
 	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_ResultForce->hasFocus())
 	{
 		float hex_res = hexTofloat(HMU_ResultForce);
 		((Ui::QtPLCDialogClass*)ui)->lE_ResultForce->setText(QString::number(hex_res));
+		((Ui::QtPLCDialogClass*)ui)->lE_ResultForce_2->setText(QString::number(hex_res));
 	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_ResultDiam->hasFocus())
+
 	{
 		float hex_res = hexTofloat(HMU_ResultDiam);
 		((Ui::QtPLCDialogClass*)ui)->lE_ResultDiam->setText(QString::number(hex_res));
+		((Ui::QtPLCDialogClass*)ui)->lE_ResultDiam_2->setText(QString::number(hex_res));
 	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_ActForce->hasFocus())
+
 	{
 		float hex_res = hexTofloat(HMU_ActForce);
 		((Ui::QtPLCDialogClass*)ui)->lE_ActForce->setText(QString::number(hex_res));
+		((Ui::QtPLCDialogClass*)ui)->lE_ActForce_2->setText(QString::number(hex_res));
+
 	}
-	//if (!((Ui::QtPLCDialogClass*)ui)->lE_MachineStep->hasFocus())
-	//{
-	//	((Ui::QtPLCDialogClass*)ui)->lE_MachineStep->setText(QString::number(m_Input_Bufer[Machine_cmdEStop]));
-	//}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_ThicknessResult->hasFocus())
 	{
 		float hex_res = hexTofloat(TMU_ThicknessResult);
 		((Ui::QtPLCDialogClass*)ui)->lE_ThicknessResult->setText(QString::number(hex_res));
-		
+		((Ui::QtPLCDialogClass*)ui)->lE_ThicknessResult_2->setText(QString::number(hex_res));
 	}
 
 
@@ -2579,16 +2577,43 @@ void QtPLCDialogClass::getPLCData(void* data)
 
 	if (((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->isChecked())
 	{
+		//thickness
 		if (m_Coils_Bufer[Output_CapThickValve] == 1 && m_imeasured == 0) m_imeasured = 1;
-		if (m_Coils_Bufer[Output_CapThickValve] == 0 && m_imeasured) m_imeasured2 = 1;
-		if (m_imeasured2)//thickness
+		else if (m_Coils_Bufer[Output_CapThickValve] == 0 && m_imeasured==1)
+		{
+			m_imeasured = 2;
+			QTimer *tm = new QTimer();
+			connect(tm, &QTimer::timeout, this, [=] {
+				m_imeasured = 3;
+				tm->stop();
+				delete tm;
+			});
+			tm->start(500);
+		}
+		else if (m_imeasured==3)
 		{
 			m_imeasured = 0;
-			m_imeasured2 = 0;
 			Thicknesslst << QString::number(hexTofloat(TMU_ThicknessResult));
 		}
-		if ((m_Input_Bufer[ActData_HardnessChkCnt]!=m_ihardnum&& (m_Input_Bufer[ActData_HardnessChkCnt] != 0)))//Hardness
+		//hardness
+		if (m_iHardmeasured==0&&m_Input_Bufer[ActData_HardnessChkCnt] != m_ihardnum && m_Input_Bufer[ActData_HardnessChkCnt] != 0 && m_Coils_Bufer[Input_stCapTurnValve] == 1)//Hardness
 		{
+			m_iHardmeasured = 1;
+		}
+		else if (m_iHardmeasured == 1 && m_Coils_Bufer[Input_stCapTurnValve] == 0)
+		{
+			m_iHardmeasured = 2;
+			QTimer *tm = new QTimer();
+			connect(tm, &QTimer::timeout, this, [=] {
+				m_iHardmeasured = 3;
+				tm->stop();
+				delete tm;
+			});
+			tm->start(500);
+		}
+		else if (m_iHardmeasured == 3)
+		{
+			m_iHardmeasured = 0;
 			m_ihardnum = m_Input_Bufer[ActData_HardnessChkCnt];
 			int i = ((Ui::QtPLCDialogClass*)ui)->tableWidget->verticalHeaderItem(0)->text().toInt();
 			for (int k=0;k<i;k++)
@@ -2602,9 +2627,10 @@ void QtPLCDialogClass::getPLCData(void* data)
 				}
 			}
 		}
+		//weight
 		if (m_index != m_Input_Bufer[ActData_GroupIndex] && m_Input_Bufer[ActData_GroupIndex] != 0)
 		{
-			sumNo = hexToeightbytefloat(ActData_GroupSum),'f',3 - sumNo;
+			sumNo = hexToeightbytefloat(ActData_GroupSum) - sumNo;
 			if (m_row == 0)
 			{
 				mi = sumNo;
@@ -2626,7 +2652,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 
 			((Ui::QtPLCDialogClass*)ui)->tableWidget->insertRow(0);
 			((Ui::QtPLCDialogClass*)ui)->tableWidget->setVerticalHeaderItem(0, new QTableWidgetItem(QString::number(++m_row)));
-			((Ui::QtPLCDialogClass*)ui)->tableWidget->setItem(0, 0, new QTableWidgetItem(QString::number(sumNo)));
+			((Ui::QtPLCDialogClass*)ui)->tableWidget->setItem(0, 0, new QTableWidgetItem(QString::number(sumNo,'f',3)));
 			((Ui::QtPLCDialogClass*)ui)->tableWidget->setItem(0, 1, new QTableWidgetItem("-"));
 			((Ui::QtPLCDialogClass*)ui)->tableWidget->setItem(0, 2, new QTableWidgetItem("-"));
 			((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->setFlags(((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->flags() & (~Qt::ItemIsEditable));				
@@ -2651,7 +2677,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 				((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->setBackground(QBrush(QColor(0, 255, 0)));//green
 			}
 			//((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->setFlags(((Ui::QtPLCDialogClass*)ui)->tableWidget->item(0, 0)->flags() & (~Qt::ItemIsSelectable));
-			sumNo = hexToeightbytefloat(ActData_GroupSum),'f',3;
+			sumNo = hexToeightbytefloat(ActData_GroupSum);
 			m_index = m_Input_Bufer[ActData_GroupIndex];
 
 			if (data_One.size() < 7)
@@ -2750,6 +2776,11 @@ void QtPLCDialogClass::getPLCData(void* data)
 						inq.setValue("alldt/data", str1tmp);
 					}
 				}
+				m_imeasured = 0;
+				m_iHardmeasured = 0;
+				Thicknesslst.clear();
+				m_ihardnum = m_Input_Bufer[ActData_HardnessChkCnt];
+
 				data_One.clear();
 
 				if (((Ui::QtPLCDialogClass*)ui)->gB_update->isChecked() == false)
@@ -2775,7 +2806,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 	else
 	{
 		m_imeasured = 0;
-		m_imeasured2 = 0;
+		m_iHardmeasured = 0;
 		Thicknesslst.clear();
 		m_ihardnum = m_Input_Bufer[ActData_HardnessChkCnt];
 

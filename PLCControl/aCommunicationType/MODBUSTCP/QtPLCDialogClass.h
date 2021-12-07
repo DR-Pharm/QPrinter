@@ -158,8 +158,8 @@ private:
 
 	QStringList Thicknesslst;
 
-	int m_imeasured = 0; 
-	int m_imeasured2 = 0; 
+	int m_imeasured = 0;
+	int m_iHardmeasured = 0;
 	int m_ihardnum = 0;
 public slots:
 	DataFromPC_typ getPCParaData();
