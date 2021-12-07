@@ -2579,7 +2579,8 @@ void QtPLCDialogClass::getPLCData(void* data)
 		else if (m_imeasured==3)
 		{
 			m_imeasured = 0;
-			Thicknesslst << QString::number(hexTofloat(TMU_ThicknessResult));
+			Thicknesslst << QString::number(hexTofloat(TMU_ThicknessResult)); 
+			ThicknessSummary << QString::number(hexTofloat(TMU_ThicknessResult));
 		}
 		//hardness
 		if (m_iHardmeasured==0&&m_Input_Bufer[ActData_HardnessChkCnt] != m_ihardnum && m_Input_Bufer[ActData_HardnessChkCnt] != 0 && m_Coils_Bufer[Input_stCapTurnValve] == 1)//Hardness
@@ -2600,14 +2601,16 @@ void QtPLCDialogClass::getPLCData(void* data)
 		else if (m_iHardmeasured == 3)
 		{
 			m_iHardmeasured = 0;
-			m_ihardnum = m_Input_Bufer[ActData_HardnessChkCnt];
+			m_ihardnum = m_Input_Bufer[ActData_HardnessChkCnt]; 
+			HardnessSummary << QString::number(hexTofloat(HMU_ResultForce));
+
 			int i = ((Ui::QtPLCDialogClass*)ui)->tableWidget->verticalHeaderItem(0)->text().toInt();
 			for (int k=0;k<i;k++)
 			{
 				int r = i - k - 1;
 				if (((Ui::QtPLCDialogClass*)ui)->tableWidget->item(r, 2)->text()=="-")
 				{
-					((Ui::QtPLCDialogClass*)ui)->tableWidget->setItem(r, 2, new QTableWidgetItem(QString::number(hexTofloat(HMU_ResultForce),'f',3)));
+					((Ui::QtPLCDialogClass*)ui)->tableWidget->setItem(r, 2, new QTableWidgetItem(QString::number(hexTofloat(HMU_ResultForce))));
 					((Ui::QtPLCDialogClass*)ui)->tableWidget->item(r, 2)->setFlags(((Ui::QtPLCDialogClass*)ui)->tableWidget->item(r, 2)->flags() & (~Qt::ItemIsEditable));
 					break;
 				}
@@ -2699,6 +2702,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 
 		if (m_Input_Bufer[GroupDone] == 1)
 		{
+			QString numb = QString::number(m_Input_Bufer[ActData_GroupNo] + m_Input_Bufer[ActData_GroupNo + 1] * 65536 - 1);
 			m_row = 0;
 			sumNo = 0;
 			m_index = m_Input_Bufer[ActData_GroupIndex];
@@ -2719,10 +2723,15 @@ void QtPLCDialogClass::getPLCData(void* data)
 				}
 				QString ymdhm = YearMonthDay();
 				QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
-				configIniRead.setValue(QString::number(m_Input_Bufer[ActData_GroupNo]) + "/data", str);
-				QString lkstr = QString::number(m_Input_Bufer[ActData_GroupNo]) + "," + ymdhm + "," + ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text();
-				configIniRead.setValue(QString::number(m_Input_Bufer[ActData_GroupNo]) + "/gn", lkstr);
-				configIniRead.setValue(QString::number(m_Input_Bufer[ActData_GroupNo]) + "/theory", QString::number(m_Input_Bufer[ActData_TDemand], 'f', 3));
+				configIniRead.setValue(numb + "/data", str);
+				QString lkstr = numb + "," + ymdhm + "," + ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text();
+				configIniRead.setValue(numb + "/gn", lkstr);
+				configIniRead.setValue(numb + "/theory", QString::number(hexTofloat(ActData_TDemand),'f',3));
+				
+				str = ThicknessSummary.join(",");
+				configIniRead.setValue(numb + "/thick", str);
+				str = HardnessSummary.join(",");
+				configIniRead.setValue(numb + "/hard", str);
 				/*if (m_iHideprint2 == 0)
 				{
 					configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/CustomerName", m_cn);
@@ -2747,7 +2756,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 				QString str2tmp = ymdhm.remove("/");
 				str2tmp.remove(" ");
 				str2tmp.remove(":");
-				timIni.setValue(str1tmp + "/" + str2tmp, QString::number(m_Input_Bufer[ActData_GroupNo]));
+				timIni.setValue(str1tmp + "/" + str2tmp, numb);
 
 				QSettings inq(AppPath + "\\data\\inquire.ini", QSettings::IniFormat);
 				QString strinqu = inq.value("alldt/data", "").toString();
@@ -2766,6 +2775,8 @@ void QtPLCDialogClass::getPLCData(void* data)
 				m_iHardmeasured = 0;
 				Thicknesslst.clear();
 				m_ihardnum = m_Input_Bufer[ActData_HardnessChkCnt];
+				HardnessSummary.clear();
+				ThicknessSummary.clear();
 
 				data_One.clear();
 
@@ -2775,11 +2786,11 @@ void QtPLCDialogClass::getPLCData(void* data)
 					{
 						if (m_iAutoUpdateFlag == 0)
 						{
-							((Ui::QtPLCDialogClass*)ui)->lE_print1->setText(QString::number(m_Input_Bufer[ActData_GroupNo]));
+							((Ui::QtPLCDialogClass*)ui)->lE_print1->setText(numb);
 							m_iAutoUpdateFlag = 1;
 						}
 						//((Ui::QtPLCDialogClass*)ui)->lE_print1->setText(QString::number(m_data->Status.CapDataDisp.GroupNo - 1));
-						((Ui::QtPLCDialogClass*)ui)->lE_print2->setText(QString::number(m_Input_Bufer[ActData_GroupNo]));
+						((Ui::QtPLCDialogClass*)ui)->lE_print2->setText(numb);
 					}
 				}
 				else
@@ -2794,6 +2805,8 @@ void QtPLCDialogClass::getPLCData(void* data)
 		m_imeasured = 0;
 		m_iHardmeasured = 0;
 		Thicknesslst.clear();
+		HardnessSummary.clear();
+		ThicknessSummary.clear();
 		m_ihardnum = m_Input_Bufer[ActData_HardnessChkCnt];
 
 		data_One.clear();
@@ -3117,6 +3130,7 @@ void QtPLCDialogClass::on_lE_TestInterval_editingFinished()///测试间隔时间
 	m_iDontReadRegistersFlag = 1;
 	QString oldstr = m_str_sendRegisters.mid(ActData_TestInterval * 4, 4);
 	ushort a = ((Ui::QtPLCDialogClass*)ui)->lE_TestInterval->text().toUShort();
+	if (a < 60) a = 60;
 	QString str = QString("%1").arg(a, 4, 16, QLatin1Char('0'));
 	if (oldstr == str)
 	{

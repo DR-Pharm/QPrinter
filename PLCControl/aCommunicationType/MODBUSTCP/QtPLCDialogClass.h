@@ -157,6 +157,8 @@ private:
 	bool leflag = 0;
 
 	QStringList Thicknesslst;
+	QStringList ThicknessSummary;
+	QStringList HardnessSummary;
 
 	int m_imeasured = 0;
 	int m_iHardmeasured = 0;
