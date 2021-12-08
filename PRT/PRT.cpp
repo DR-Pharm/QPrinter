@@ -555,41 +555,41 @@ void PRT::getVec(int mode,QString strCb, int p1,int p2) //strCb: 0ÇúÏß 1ÊÔ»ú£¬0 
 	else if (mode == 1)
 	{
 		QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat); 
-		QString str;
-		QVector<float> data_temp;
-		QStringList lst;
+		
 		for (int i = p1; i < p2 + 1; i++)
 		{
-			str = configIniRead.value(QString::number(i) + "/data", 0).toString();			
+			QString str = configIniRead.value(QString::number(i) + "/data", 0).toString();
 			if (str != "0")
 			{
-				lst = str.split(",");
+				QStringList lst = str.split(",");
+				QVector<float> data_temp;
 				for (int j = 0; j < lst.size(); j++)
 				{
 					data_temp << lst.at(j).toFloat();
 				}
 				data << data_temp;
 
+				QVector<float> data_tempThick;
 				QString strThick= configIniRead.value(QString::number(i) + "/thick", 0).toString();
 				if (strThick != "0")
 				{
-					lst = strThick.split(",");
-					for (int j = 0; j < lst.size(); j++)
+					QStringList lstThick = strThick.split(",");
+					for (int j = 0; j < lstThick.size(); j++)
 					{
-						data_temp << lst.at(j).toFloat();
+						data_tempThick << lstThick.at(j).toFloat();
 					}
-					thickness << data_temp;
+					thickness << data_tempThick;
 				}
-
+				QVector<float> data_tempHard;
 				QString strhard = configIniRead.value(QString::number(i) + "/hard", 0).toString();
 				if (strhard != "0")
 				{
-					lst = strhard.split(",");
-					for (int j = 0; j < lst.size(); j++)
+					QStringList lstHard = strhard.split(",");
+					for (int j = 0; j < lstHard.size(); j++)
 					{
-						data_temp << lst.at(j).toFloat();
+						data_tempHard << lstHard.at(j).toFloat();
 					}
-					hardness << data_temp;
+					hardness << data_tempHard;
 				}
 
 
