@@ -184,7 +184,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	((Ui::QtPLCDialogClass*)ui)->widget->setVisible(false);
 	initChartOne();
 	QStringList str1;
-	if (lg == 0) str1 << QString::fromLocal8Bit("重量") << QString::fromLocal8Bit("厚度") << QString::fromLocal8Bit("硬度");
+	if (lg == 0) str1 << QString::fromLocal8Bit("重量(g)") << QString::fromLocal8Bit("厚度(mm)") << QString::fromLocal8Bit("硬度(Kg)");
 	if (lg == 1) str1 << "Weight" << "Thickness" << "Hardness";
 	((Ui::QtPLCDialogClass*)ui)->tableWidget->setColumnCount(3);
 	((Ui::QtPLCDialogClass*)ui)->tableWidget->setHorizontalHeaderLabels(str1);//加水平表头 每行加日期结果

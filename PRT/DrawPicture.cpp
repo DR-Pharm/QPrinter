@@ -641,7 +641,7 @@ void DrawPicture::createThreeParaRecords(QPixmap *pix,int pagei)
 		painter->setFont(font);
 		painter->drawText(edgeOffset, weightTop + simpleFun, innerW, 60, Qt::AlignCenter, QString::fromLocal8Bit("每粒重量(g)"));
 		painter->drawText(edgeOffset, pixHeight / 2 - 80, innerW, 60, Qt::AlignCenter, QString::fromLocal8Bit("每粒厚度(mm)"));
-		painter->drawText(edgeOffset, pixHeight / 2 - 80 + 60 + weightRowAve * weightRowCount, innerW, 60, Qt::AlignCenter, QString::fromLocal8Bit("每粒硬度(N)"));
+		painter->drawText(edgeOffset, pixHeight / 2 - 80 + 60 + weightRowAve * weightRowCount, innerW, 60, Qt::AlignCenter, QString::fromLocal8Bit("每粒硬度(Kg)"));
 		painter->drawText(edgeOffset, betweenweight + simpleFun, innerW, 60, Qt::AlignCenter, QString::fromLocal8Bit("重量结果"));
 		font.setBold(false);
 		painter->setFont(font);
