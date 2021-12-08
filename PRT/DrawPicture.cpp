@@ -582,14 +582,21 @@ void DrawPicture::createThreeParaRecords(QPixmap *pix,int pagei)
 		for (int i = 1; i < weightRowCount; i++)
 		{
 			lines.append(QLine(QPoint(edgeOffset, weightMiddle + i * weightRowAve + simpleFun), QPoint(rightW, weightMiddle + i * weightRowAve + simpleFun)));
+			lines.append(QLine(QPoint(edgeOffset, pixHeight / 2 - 80 + 60 + i * weightRowAve + simpleFun), QPoint(rightW, pixHeight / 2 - 80 + 60 + i * weightRowAve + simpleFun)));
+			lines.append(QLine(QPoint(edgeOffset, pixHeight / 2 - 80 + 2 * 60 + weightRowAve * weightRowCount + i * weightRowAve + simpleFun), QPoint(rightW, pixHeight / 2 - 80 + 2 * 60 + weightRowAve * weightRowCount + i * weightRowAve + simpleFun)));
 		}
 		for (int i = 1; i < weightColumnCount; i++)
 		{
-			lines.append(QLine(QPoint(edgeOffset + i * weightColumnAve, weightMiddle + simpleFun), QPoint(edgeOffset + i * weightColumnAve, betweenweight + simpleFun)));
+			lines.append(QLine(QPoint(edgeOffset + i * weightColumnAve, weightMiddle + simpleFun), QPoint(edgeOffset + i * weightColumnAve, betweenweight + simpleFun)));			
+			lines.append(QLine(QPoint(edgeOffset + i * weightColumnAve, pixHeight / 2 - 80 + 60), QPoint(edgeOffset + i * weightColumnAve, pixHeight / 2 - 80 + 60 + weightRowAve*weightRowCount + simpleFun)));
+			lines.append(QLine(QPoint(edgeOffset + i * weightColumnAve, pixHeight / 2 - 80 + 2 * 60 + weightRowAve * weightRowCount), QPoint(edgeOffset + i * weightColumnAve, pixHeight / 2 - 80 + 2 * 60 + 2*weightRowAve * weightRowCount)));
+
 		}
 		for (int i = 0; i < weightColumnCount; i++)//order no.
 		{
 			lines.append(QLine(QPoint(edgeOffset + i * weightColumnAve + 60, weightMiddle + simpleFun), QPoint(edgeOffset + i * weightColumnAve + 60, betweenweight + simpleFun)));
+			lines.append(QLine(QPoint(edgeOffset + i * weightColumnAve + 60, pixHeight / 2 - 80 + 60), QPoint(edgeOffset + i * weightColumnAve + 60, pixHeight / 2 - 80 + 60 + weightRowAve * weightRowCount + simpleFun)));
+			lines.append(QLine(QPoint(edgeOffset + i * weightColumnAve + 60, pixHeight / 2 - 80 + 2 * 60 + weightRowAve * weightRowCount), QPoint(edgeOffset + i * weightColumnAve + 60, pixHeight / 2 - 80 + 2 * 60 + 2 * weightRowAve * weightRowCount)));
 		}
 		painter->drawLines(lines);
 		lines.clear();
