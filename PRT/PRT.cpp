@@ -470,7 +470,7 @@ void PRT::on_pB_PrintDirect_clicked()
 	{
 		if (QMessageBox::Yes == showMsgBox("打印确认", "确认打印数据曲线?", "确认", "取消"))
 		{
-			m_drawpicture->setData(data, gn, m_iPrintCurveCount, m_iPrintAveCount, theory,m_CustomerName,m_MedicineName,m_Low,m_High,m_PureShell,m_cb,m_Yield, m_Pressure, m_Speed);
+			m_drawpicture->setData(data, gn, m_iPrintCurveCount, m_iPrintAveCount, theory,m_CustomerName,m_MedicineName,m_Low,m_High,m_PureShell,m_cb,m_Yield, m_Pressure, m_Speed,thickness,hardness);
 			m_drawpicture->drawPic(m_prt);																											 
 		}																																			 
 	}
@@ -479,7 +479,7 @@ void PRT::on_pB_PrintDirect_clicked()
 		if (QMessageBox::Yes == showMsgBox("打印确认", "确认打印试机记录?", "确认", "取消"))
 		{
 			int sz = data.size();
-			m_drawpicture->setData(data, gn, m_iPrintCurveCount, sz, theory, m_CustomerName, m_MedicineName, m_Low, m_High, m_PureShell, m_cb, m_Yield, m_Pressure, m_Speed);
+			m_drawpicture->setData(data, gn, m_iPrintCurveCount, sz, theory, m_CustomerName, m_MedicineName, m_Low, m_High, m_PureShell, m_cb, m_Yield, m_Pressure, m_Speed, thickness, hardness);
 			//wt->show();
 			m_drawpicture->drawPic2(m_prt);
 			//wt->close();
@@ -507,7 +507,7 @@ void PRT::on_pB_Print_clicked()
 	 * 当preview.exec()执行时该信号被触发，
 	 * drawPic(QPrinter *printer)是自定义的槽函数，图像的绘制就在这个函数里。
 	 */
-	m_drawpicture->setData(data,gn, m_iPrintCurveCount, m_iPrintAveCount, theory, m_CustomerName, m_MedicineName, m_Low, m_High, m_PureShell, m_cb, m_Yield, m_Pressure, m_Speed);
+	///*/*/*/*m_drawpicture->setData(data,gn, m_iPrintCurveCount, m_iPrintAveCount, theory, m_CustomerName, m_MedicineName, m_Low, m_High, m_PureShell, m_cb, m_Yield, m_Pressure, m_Speed);*/*/*/*/
 	//wt->setTxt(QString::fromLocal8Bit("打印预览功能正在开启..."));//打印正在进行,请稍等...
 	connect(&preview, SIGNAL(paintRequested(QPrinter*)), this, SLOT(toDraw(QPrinter*)));
 	preview.exec();

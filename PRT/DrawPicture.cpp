@@ -1560,7 +1560,7 @@ void DrawPicture::setAveChecked(bool b)
 	AveChecked = b;
 }
 
-void DrawPicture::setData(QVector<QVector<float>> sourcedata,QVector<QString> gn, int i, int j, QVector<float> f,QVector<QString> CustomerName, QVector<QString> MedicineName, QVector<int> lo, QVector<int> hi, QVector<int> pureshell, QString cb, QVector<int> yed, QVector<int> pre, QVector<int> spd)
+void DrawPicture::setData(QVector<QVector<float>> sourcedata,QVector<QString> gn, int i, int j, QVector<float> f,QVector<QString> CustomerName, QVector<QString> MedicineName, QVector<int> lo, QVector<int> hi, QVector<int> pureshell, QString cb, QVector<int> yed, QVector<int> pre, QVector<int> spd, QVector<QVector<float>>thickness, QVector<QVector<float>>hardness)
 {
 	data = sourcedata;
 	m_gn = gn;
@@ -1580,4 +1580,7 @@ void DrawPicture::setData(QVector<QVector<float>> sourcedata,QVector<QString> gn
 	m_Yield = yed;
 	m_Pressure = pre;
 	m_Speed = spd;
+
+	m_Thickness = thickness;
+	m_Hardness = hardness;
 }

@@ -16,6 +16,9 @@ class DrawPicture : public QObject
 signals:
 	void TOUI(QString);
 private:
+	QVector<QVector<float>> m_Thickness;
+	QVector<QVector<float>> m_Hardness;
+
 	QString m_ptnm;
 	int pixWidth = 2100;
 	int pixHeight = 2970;
@@ -70,7 +73,7 @@ public:
 
 	void setCurveChecked(bool);
 	void setAveChecked(bool);
-	void setData(QVector<QVector<float>> sourcedata, QVector<QString>, int i, int j, QVector<float> f, QVector<QString>, QVector<QString>, QVector<int>, QVector<int>, QVector<int>,QString cb, QVector<int>, QVector<int>, QVector<int>);
+	void setData(QVector<QVector<float>> sourcedata, QVector<QString>, int i, int j, QVector<float> f, QVector<QString>, QVector<QString>, QVector<int>, QVector<int>, QVector<int>,QString cb, QVector<int>, QVector<int>, QVector<int>, QVector<QVector<float>>, QVector<QVector<float>>);
 public slots:
 	void drawPic(QPrinter * pt);
 
