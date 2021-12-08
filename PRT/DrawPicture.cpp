@@ -12,6 +12,87 @@ DrawPicture::DrawPicture(QObject *parent)
 DrawPicture::~DrawPicture()
 {
 }
+void DrawPicture::drawPic3(QPrinter *printer)
+{
+	int prtMode = printer->printRange();
+	int firstPg = printer->fromPage();
+	int endPg = printer->toPage();
+	int allornot;
+	if (prtMode == 0)
+	{
+		allornot = 1;
+	}
+	else
+	{
+		if (firstPg == 0 && endPg == 0)
+		{
+			printer->setFromTo(1, 1);
+			firstPg = 1;
+			endPg = 1;
+		}
+		firstPg -= 1;
+		endPg -= 1;
+		allornot = 0;
+	}
+	painterPixmap.begin(printer);
+		
+	int pages = data.size();
+
+	QVector<QPixmap> pix;
+	pix.resize(pages);
+	QPixmap pixtmp(pixWidth, pixHeight);
+	pixtmp.fill(Qt::white);
+
+	for (int i = 0; i < pix.size(); i++)
+	{
+		QCoreApplication::processEvents();
+		pix[i] = pixtmp;
+	}
+	painterPixmap.setWindow(QRect(0, 0, pix[0].width() + 75, pix[0].height() + 25));
+
+	for (int i = 0; i < pages; i++)
+	{
+		painter->begin(&pix[i]);
+		painter->setRenderHint(QPainter::Antialiasing, true);
+		// 设置画笔颜色、宽度
+		painter->setPen(QPen(QColor(255, 255, 255), 4));
+		// 设置画刷颜色
+		painter->setBrush(QColor(255, 255, 255));
+		QRect rect(0, 0, pixWidth, pixHeight);
+		//整张图设置画刷白底	
+
+		painter->fillRect(rect, QColor(255, 255, 255));
+		painter->drawRect(rect);
+		int tempRow = 0;
+
+		QCoreApplication::processEvents();
+
+
+		caculateData(data, m_gn, 0, 1, m_ftheory);
+		createThreeParaRecords(&pix[i],i);//test
+		
+
+		data.removeFirst();
+		m_gn.removeFirst(); 
+		m_ftheory.removeFirst();
+
+		painter->end();
+		if (allornot == 1 || (allornot == 0 && i >= firstPg && i <= endPg))
+		{
+			QCoreApplication::processEvents();
+			painterPixmap.drawPixmap(0, 0, pix[i]);
+			if (i + 1 < pages)
+			{
+				if ((allornot == 0 && i < endPg) || allornot == 1)
+				{
+					printer->newPage();
+				}
+			}
+		}
+
+	}
+	painterPixmap.end();
+}
 void DrawPicture::drawPic2(QPrinter *printer)
 {
 	int prtMode = printer->printRange();
@@ -282,6 +363,325 @@ void DrawPicture::drawPic(QPrinter *printer)
 
 	//pix[0].save("c:/pt.bmp");
 	painterPixmap.end();
+}
+void DrawPicture::createThreeParaRecords(QPixmap *pix,int pagei)
+{
+	//painter->setRenderHints(QPainter::SmoothPixmapTransform);//消锯齿 
+	painter->begin(pix);
+
+	painter->setRenderHint(QPainter::Antialiasing, true);//反走样
+	//QRect rect(0, 0, pixWidth, pixHeight);
+	//painter->fillRect(rect, Qt::white);
+
+	// 设置画笔颜色、宽度
+	painter->setPen(QPen(QColor(255, 255, 255), 1));
+	// 设置画刷颜色
+	painter->setBrush(QColor(255, 255, 255));
+
+	int edgeOffset = 80;
+	int innerW = pixWidth - 2 * edgeOffset;
+	int inner50percentW = innerW / 2;
+	int innerH = pixHeight - 2 * edgeOffset;
+	int inner50percentH = innerH / 2;
+	int rightW = pixWidth - edgeOffset;
+	int bottomH = pixHeight - edgeOffset;
+	int firstLine = edgeOffset + 60;//大标题下面
+	int secondLine = firstLine + 60;
+	int weightTop = firstLine + 60;
+	int weightMiddle = firstLine + 2 * 60;
+	int weightRowCount = 8;
+	int weightRowAve = 55;
+	int betweenweight = weightMiddle + weightRowAve * weightRowCount;
+	int weightColumnCount = 10;
+	float weightColumnAve = (rightW - edgeOffset)*1.0 / weightColumnCount;//12个格子
+	int weightBottom = betweenweight + 180;
+
+
+	//坐标系
+	int of = 10;//箭头
+	int basePointX = 200;
+	int basePointY = pixHeight / 2 - 150;
+	int XRight = rightW - 150;
+	int dotLineRight = XRight - 75;
+	int YTop = weightBottom + 100;
+	int dotLineUp = YTop + 25;
+
+	//实际绘图内
+	int actualTop = YTop + 50;
+	int actualBottom = basePointY - 50;
+	int actualLeft = basePointX + 50;
+	int actualRight = dotLineRight - 25;
+	int actualWidth = actualRight - actualLeft;
+	int actualHight = actualBottom - actualTop;
+	int YActualLength = actualBottom - actualTop;
+
+	//整张图设置画刷白底	
+	QFont font;
+	font.setPointSize(23);
+	font.setFamily("宋体");
+	//font.setItalic(true);//斜体
+	painter->setFont(font);
+	//painter->fillRect(rect, QColor(255, 255, 255));//maybe a bug
+	//painter->drawRect(rect);
+
+	//画数据部分的线条
+
+
+	painter->setPen(QPen(QColor(0, 0, 0), 3));
+	QVector<QLine> lines;
+
+
+	int totalMachineCount = 0;
+	
+		QStringList lst = m_gn[totalMachineCount].split(",");
+		if (lst.size() < 3)
+		{
+			lst.clear();
+			lst << " " << " " << " ";
+		}
+
+		int simpleFun = inner50percentH * totalMachineCount;
+		lines.append(QLine(QPoint(edgeOffset, edgeOffset), QPoint(rightW, edgeOffset)));//上边
+		lines.append(QLine(QPoint(rightW, edgeOffset), QPoint(rightW, bottomH)));//右边
+		lines.append(QLine(QPoint(edgeOffset, bottomH), QPoint(rightW, bottomH)));//下边
+		lines.append(QLine(QPoint(edgeOffset, edgeOffset), QPoint(edgeOffset, bottomH)));//左边
+		for (int i = 0; i < 3; i++)
+		{
+			lines.append(QLine(QPoint(edgeOffset, firstLine + i * 60 + simpleFun), QPoint(rightW, firstLine + i * 60 + simpleFun)));//名称下边//产品下边//重量栏目下边	
+		}
+		for (int i = 0; i < 4; i++)
+		{
+			if (i != 2)
+			{
+				lines.append(QLine(QPoint(edgeOffset, betweenweight + i * 60 + simpleFun), QPoint(rightW, betweenweight + i * 60 + simpleFun)));//每粒重量下边
+			}
+		}
+		//lines.append(QLine(QPoint(betweenweight, weightTop), QPoint(betweenweight, weightBottom)));//重量分析与每粒重量之间
+		lines.append(QLine(QPoint(edgeOffset, pixHeight / 2 - 80 + simpleFun), QPoint(rightW, pixHeight / 2 - 80 + simpleFun)));//1#操作人签名上侧
+		lines.append(QLine(QPoint(edgeOffset, pixHeight / 2), QPoint(rightW, pixHeight / 2)));//1/2#分割线
+		//lines.append(QLine(QPoint(edgeOffset, bottomH - 80), QPoint(rightW, bottomH -80)));//2#操作人签名上侧
+
+
+		//画坐标系
+
+		lines.append(QLine(QPoint(basePointX, basePointY + simpleFun), QPoint(basePointX, YTop + simpleFun)));//Y
+		lines.append(QLine(QPoint(basePointX - of, YTop + of + simpleFun), QPoint(basePointX, YTop + simpleFun)));
+		lines.append(QLine(QPoint(basePointX + of, YTop + of + simpleFun), QPoint(basePointX, YTop + simpleFun)));
+		lines.append(QLine(QPoint(basePointX, basePointY + simpleFun), QPoint(XRight, basePointY + simpleFun)));//X
+		lines.append(QLine(QPoint(XRight - of, basePointY - of + simpleFun), QPoint(XRight, basePointY + simpleFun)));
+		lines.append(QLine(QPoint(XRight - of, basePointY + of + simpleFun), QPoint(XRight, basePointY + simpleFun)));
+
+		painter->drawLines(lines);
+		lines.clear();
+
+		painter->setPen(QPen(QColor(0, 0, 0), 1, Qt::DashLine));
+
+		lines.append(QLine(QPoint(edgeOffset, pixHeight / 2 + 5), QPoint(rightW, pixHeight / 2 + 5)));//1/2#分割线
+		lines.append(QLine(QPoint(edgeOffset, pixHeight / 2 - 5), QPoint(rightW, pixHeight / 2 - 5)));//1/2#分割线
+		//lines   200,rightW-250 pixHeight/2-825 pixHeight/2-275   250start point
+		painter->drawText(basePointX - 40, basePointY + simpleFun, 50, 50, Qt::AlignVCenter, "0");//0
+		if (data[totalMachineCount].size() > 0)
+		{
+
+			if (m_dmin[totalMachineCount] == m_dmax[totalMachineCount])//min==max
+			{
+				painter->drawText(90, actualTop + actualHight / 2 - 25 + simpleFun, 150, 50, Qt::AlignVCenter, QString::number(m_dmax[totalMachineCount], 'f', 3));//only one
+				lines.append(QLine(QPoint(basePointX - 5, actualTop + actualHight / 2 + simpleFun), QPoint(dotLineRight, actualTop + actualHight / 2 + simpleFun)));//only one
+			}
+			else
+			{
+				painter->drawText(edgeOffset + 10, actualBottom - 25 + simpleFun, 150, 50, Qt::AlignVCenter, QString::number(m_dmin[totalMachineCount], 'f', 3));//MIN
+				painter->drawText(edgeOffset + 10, actualTop - 25 + simpleFun, 150, 50, Qt::AlignVCenter, QString::number(m_dmax[totalMachineCount], 'f', 3));//MAX
+				painter->drawText(edgeOffset + 10, actualBottom - 25 + simpleFun - (m_dave[totalMachineCount] - m_dmin[totalMachineCount]) / (m_dmax[totalMachineCount] - m_dmin[totalMachineCount]) * YActualLength, 150, 50, Qt::AlignVCenter, QString::number(m_dave[totalMachineCount], 'f', 4));//AVE			
+				lines.append(QLine(QPoint(basePointX - 5, actualBottom + simpleFun), QPoint(dotLineRight, basePointY - 50 + simpleFun)));//MIN
+				lines.append(QLine(QPoint(basePointX - 5, actualTop + simpleFun), QPoint(dotLineRight, actualTop + simpleFun)));//MAX
+				lines.append(QLine(QPoint(basePointX - 5, actualBottom + simpleFun - (m_dave[totalMachineCount] - m_dmin[totalMachineCount]) / (m_dmax[totalMachineCount] - m_dmin[totalMachineCount]) * YActualLength), QPoint(dotLineRight, actualBottom + simpleFun - (m_dave[totalMachineCount] - m_dmin[totalMachineCount]) / (m_dmax[totalMachineCount] - m_dmin[totalMachineCount]) * YActualLength)));//AVE
+			}
+			painter->drawText(100, YTop - 50 + simpleFun, 150, 50, Qt::AlignVCenter, QString::fromLocal8Bit("重量(g)"));//重量
+			painter->drawText(XRight, basePointY + simpleFun, 150, 50, Qt::AlignVCenter, QString::fromLocal8Bit("次数"));//粒数
+
+
+			if (data[totalMachineCount].size() > 1)
+			{
+				painter->drawText(actualLeft - 25, basePointY + simpleFun, 50, 50, Qt::AlignCenter, "1");//1
+				painter->drawText(actualRight - 25, basePointY + simpleFun, 50, 50, Qt::AlignCenter, QString::number(data[totalMachineCount].size()));//size()
+				lines.append(QLine(QPoint(basePointX + 50, basePointY + 5 + simpleFun), QPoint(basePointX + 50, dotLineUp + simpleFun)));//1111111111
+				lines.append(QLine(QPoint(dotLineRight - 25, basePointY + 5 + simpleFun), QPoint(dotLineRight - 25, dotLineUp + simpleFun)));//808080808080
+			}
+			else
+			{
+				painter->drawText(actualLeft + actualWidth / 2 - 25, basePointY + simpleFun, 50, 50, Qt::AlignCenter, "1");//1
+				lines.append(QLine(QPoint(actualLeft + actualWidth / 2, basePointY + 5 + simpleFun), QPoint(actualLeft + actualWidth / 2, dotLineUp + simpleFun)));//1111111111
+
+				painter->setPen(QPen(QColor(0, 0, 0), 6));
+				for (int i = 0; i < data[totalMachineCount].size(); i++)
+				{
+					painter->drawPoint(actualLeft + actualWidth / 2, actualTop + actualHight / 2 + simpleFun);
+				}
+				painter->setPen(QPen(QColor(0, 0, 0), 1, Qt::DashLine));
+
+			}
+
+			painter->drawLines(lines);
+			lines.clear();
+
+			if (data[totalMachineCount].size() > 1)
+			{
+				//曲线
+				painter->setPen(QPen(QColor(0, 0, 0), 2));
+
+				for (int i = 0; i < data[totalMachineCount].size() - 1; i++)
+				{
+					if (m_dmin[totalMachineCount] != m_dmax[totalMachineCount])
+					{
+						lines.append(QLine(QPoint(actualLeft + actualWidth * 1.0 / (data[totalMachineCount].size() - 1)*i, actualBottom + simpleFun - (data[totalMachineCount].at(i) - m_dmin[totalMachineCount])*1.0 / (m_dmax[totalMachineCount] - m_dmin[totalMachineCount]) * actualHight), QPoint(actualLeft + actualWidth * 1.0 / (data[totalMachineCount].size() - 1)*(i + 1), actualBottom + simpleFun - (data[totalMachineCount].at(i + 1) - m_dmin[totalMachineCount])*1.0 / (m_dmax[totalMachineCount] - m_dmin[totalMachineCount]) * actualHight)));
+					}
+					else
+					{
+						lines.append(QLine(QPoint(actualLeft, actualTop + actualHight / 2 + simpleFun), QPoint(actualRight, actualTop + actualHight / 2 + simpleFun)));
+					}
+				}
+				painter->setPen(QPen(QColor(0, 0, 0), 6));
+				for (int i = 0; i < data[totalMachineCount].size(); i++)
+				{
+					painter->drawPoint(actualLeft + actualWidth * 1.0 / (data[totalMachineCount].size() - 1)*i, actualBottom + simpleFun - (data[totalMachineCount].at(i) - m_dmin[totalMachineCount])*1.0 / (m_dmax[totalMachineCount] - m_dmin[totalMachineCount]) * actualHight);
+				}
+				painter->setPen(QPen(QColor(0, 0, 0), 2));
+				painter->drawLines(lines);
+				lines.clear();
+			}
+		}
+		painter->setPen(QPen(QColor(0, 0, 0), 1));
+
+		//画打印机和站号
+
+		lines.append(QLine(QPoint(edgeOffset + 250, edgeOffset + simpleFun), QPoint(edgeOffset + 250, firstLine + simpleFun)));//竖线1
+		lines.append(QLine(QPoint(edgeOffset + innerW * 1.0 / 3 * 2, edgeOffset + simpleFun), QPoint(edgeOffset + innerW * 1.0 / 3 * 2, firstLine + simpleFun)));//竖线2
+		lines.append(QLine(QPoint(edgeOffset + 250 + innerW * 1.0 / 3 * 2, edgeOffset + simpleFun), QPoint(edgeOffset + 250 + innerW * 1.0 / 3 * 2, firstLine + simpleFun)));//竖线3
+		//画规格型号
+		for (int i = 0; i < 3; i++)
+		{
+			lines.append(QLine(QPoint(edgeOffset + innerW * 1.0 / 3 * (i + 1), firstLine + simpleFun), QPoint(edgeOffset + innerW * 1.0 / 3 * (i + 1), secondLine + simpleFun)));
+			lines.append(QLine(QPoint(edgeOffset + 250 + innerW * 1.0 / 3 * i, firstLine + simpleFun), QPoint(edgeOffset + 250 + innerW * 1.0 / 3 * i, secondLine + simpleFun)));
+		}
+		//画重量结果
+		for (int i = 0; i < 4; i++)
+		{
+			lines.append(QLine(QPoint(edgeOffset + innerW * 1.0 / 4 * (i + 1), betweenweight + 60 + simpleFun), QPoint(edgeOffset + innerW * 1.0 / 4 * (i + 1), weightBottom + simpleFun)));
+			lines.append(QLine(QPoint(edgeOffset + 225 + innerW * 1.0 / 4 * i, betweenweight + 60 + simpleFun), QPoint(edgeOffset + 225 + innerW * 1.0 / 4 * i, weightBottom + simpleFun)));
+		}
+		lines.append(QLine(QPoint(edgeOffset, betweenweight + 2 * 60 + simpleFun), QPoint(rightW, betweenweight + 2 * 60 + simpleFun)));//每粒重量下边
+		//画每粒重量格
+		for (int i = 1; i < weightRowCount; i++)
+		{
+			lines.append(QLine(QPoint(edgeOffset, weightMiddle + i * weightRowAve + simpleFun), QPoint(rightW, weightMiddle + i * weightRowAve + simpleFun)));
+		}
+		for (int i = 1; i < weightColumnCount; i++)
+		{
+			lines.append(QLine(QPoint(edgeOffset + i * weightColumnAve, weightMiddle + simpleFun), QPoint(edgeOffset + i * weightColumnAve, betweenweight + simpleFun)));
+		}
+		for (int i = 0; i < weightColumnCount; i++)//order no.
+		{
+			lines.append(QLine(QPoint(edgeOffset + i * weightColumnAve + 60, weightMiddle + simpleFun), QPoint(edgeOffset + i * weightColumnAve + 60, betweenweight + simpleFun)));
+		}
+		painter->drawLines(lines);
+		lines.clear();
+
+		painter->setPen(QPen(QColor(0, 0, 0), 3));
+
+
+		//第一部分
+		if (totalMachineCount == 0)
+		{
+			font.setPointSize(20);
+			painter->setFont(font);
+			painter->drawText(100, 0 + simpleFun, innerW, 50, Qt::AlignVCenter, QString::fromLocal8Bit("版权所有:Dr.Pharm"));// ui->lE_unit->text());//单位名称	
+			font.setPointSize(35);
+			font.setBold(true);
+			painter->setFont(font);
+			painter->drawText(0, 0 + simpleFun, pixWidth, 50, Qt::AlignCenter, QString::fromLocal8Bit("抽检报告"));// ui->lE_report->text());//报告名称
+		}
+		font.setPointSize(23);
+		font.setBold(false);
+		painter->setFont(font);
+		int machnum = totalMachineCount + 1;
+		painter->drawText(edgeOffset, edgeOffset + simpleFun, 250, 60, Qt::AlignCenter, QString::fromLocal8Bit("设备型号"));
+		painter->drawText(edgeOffset + 275, edgeOffset + simpleFun, innerW * 1.0 / 2 - 250, 60, Qt::AlignVCenter, m_ptnm);
+		painter->drawText(edgeOffset + innerW * 1.0 / 3 * 2, edgeOffset + simpleFun, 250, 60, Qt::AlignCenter, QString::fromLocal8Bit("组号"));
+
+		painter->drawText(edgeOffset + innerW * 1.0 / 3 * 2 + 275, edgeOffset + simpleFun, edgeOffset + innerW * 1.0 / 3 * 2 - 250, 60, Qt::AlignVCenter, lst.at(0));
+		//第二部分
+
+		painter->drawText(edgeOffset, firstLine + simpleFun, 250, 60, Qt::AlignCenter, QString::fromLocal8Bit("产品名称"));// +ui->lE_means->text());
+		painter->drawText(edgeOffset + 250 + 25, firstLine + simpleFun, innerW * 1.0 / 3 - 250, 60, Qt::AlignVCenter, QString::fromLocal8Bit(""));// +ui->lE_means->text());
+
+		painter->drawText(edgeOffset + innerW * 1.0 / 3, firstLine + simpleFun, 250, 60, Qt::AlignCenter, QString::fromLocal8Bit("产品规格"));// +ui->lE_instrument->text());
+		painter->drawText(edgeOffset + innerW * 1.0 / 3 + 250 + 25, firstLine + simpleFun, innerW * 1.0 / 3 * 2 - 250, 60, Qt::AlignVCenter, QString::fromLocal8Bit(""));// +ui->lE_instrument->text());
+		painter->drawText(edgeOffset + innerW * 1.0 / 3 * 2, firstLine + simpleFun, 250, 60, Qt::AlignCenter, QString::fromLocal8Bit("生产批号"));// +ui->lE_instrument->text());
+		painter->drawText(edgeOffset + innerW * 1.0 / 3 * 2 + 250 + 25, firstLine + simpleFun, innerW * 1.0 - 250, 60, Qt::AlignVCenter, lst.at(2));// +ui->lE_instrument->text());
+		//第三部分
+		font.setBold(true);
+		painter->setFont(font);
+		painter->drawText(edgeOffset, weightTop + simpleFun, innerW, 60, Qt::AlignCenter, QString::fromLocal8Bit("每粒重量(g)"));
+		painter->drawText(edgeOffset, betweenweight + simpleFun, innerW, 60, Qt::AlignCenter, QString::fromLocal8Bit("重量结果"));
+		font.setBold(false);
+		painter->setFont(font);
+		//第四部分 数据
+		//lines.append(QLine(QPoint(edgeOffset + innerW * 1.0 / 4 * i, betweenweight + 60 + simpleFun), QPoint(edgeOffset + innerW * 1.0 / 4 * i, weightBottom + simpleFun)));
+		if (data[totalMachineCount].size() > 0)
+		{
+			painter->drawText(edgeOffset, betweenweight + 60 + simpleFun, 225, 60, Qt::AlignCenter, QString::fromLocal8Bit("次  数"));
+			painter->drawText(edgeOffset + 250, betweenweight + 60 + simpleFun, innerW * 1.0 / 4 - 225, 60, Qt::AlignVCenter, QString::number(data[totalMachineCount].size()));
+			painter->drawText(edgeOffset + innerW * 1.0 / 4 * 1, betweenweight + 60 + simpleFun, 225, 60, Qt::AlignCenter, QString::fromLocal8Bit("总  和 (g)"));
+			painter->drawText(edgeOffset + 250 + innerW * 1.0 / 4 * 1, betweenweight + 60 + simpleFun, innerW * 1.0 / 4 - 225, 60, Qt::AlignVCenter, QString::number(m_dsum[totalMachineCount], 'f', 3));
+			painter->drawText(edgeOffset + innerW * 1.0 / 4 * 2, betweenweight + 60 + simpleFun, 225, 60, Qt::AlignCenter, QString::fromLocal8Bit("平均值 (g)"));
+			painter->drawText(edgeOffset + 250 + innerW * 1.0 / 4 * 2, betweenweight + 60 + simpleFun, innerW * 1.0 / 4 - 225, 60, Qt::AlignVCenter, QString::number(m_dave[totalMachineCount], 'f', 4));
+			painter->drawText(edgeOffset + innerW * 1.0 / 4 * 3, betweenweight + 60 + simpleFun, 225, 60, Qt::AlignCenter, QString::fromLocal8Bit("理论值 (g)"));
+			painter->drawText(edgeOffset + 250 + innerW * 1.0 / 4 * 3, betweenweight + 60 + simpleFun, innerW * 1.0 / 4 - 225, 60, Qt::AlignVCenter, QString::number(m_dtheory[totalMachineCount], 'f', 3));
+			painter->drawText(edgeOffset, betweenweight + 120 + simpleFun, 225, 60, Qt::AlignCenter, QString::fromLocal8Bit("最大值 (g)"));
+			painter->drawText(edgeOffset + 250, betweenweight + 120 + simpleFun, innerW * 1.0 / 4 - 225, 60, Qt::AlignVCenter, QString::number(m_dmax[totalMachineCount], 'f', 3));
+			painter->drawText(edgeOffset + innerW * 1.0 / 4 * 1, betweenweight + 120 + simpleFun, 225, 60, Qt::AlignCenter, QString::fromLocal8Bit("差异值(大)"));
+			painter->drawText(edgeOffset + 250 + innerW * 1.0 / 4 * 1, betweenweight + 120 + simpleFun, innerW * 1.0 / 4 - 225, 60, Qt::AlignVCenter, QString::number(m_dmaxoff[totalMachineCount], 'f', 2) + "%");
+			painter->drawText(edgeOffset + innerW * 1.0 / 4 * 2, betweenweight + 120 + simpleFun, 225, 60, Qt::AlignCenter, QString::fromLocal8Bit("最小值 (g)"));
+			painter->drawText(edgeOffset + 250 + innerW * 1.0 / 4 * 2, betweenweight + 120 + simpleFun, innerW * 1.0 / 4 - 225, 60, Qt::AlignVCenter, QString::number(m_dmin[totalMachineCount], 'f', 3));
+			painter->drawText(edgeOffset + innerW * 1.0 / 4 * 3, betweenweight + 120 + simpleFun, 225, 60, Qt::AlignCenter, QString::fromLocal8Bit("差异值(小)"));
+			painter->drawText(edgeOffset + 250 + innerW * 1.0 / 4 * 3, betweenweight + 120 + simpleFun, innerW * 1.0 / 4 - 225, 60, Qt::AlignVCenter, QString::number(m_dminoff[totalMachineCount], 'f', 2) + "%");
+
+			for (int i = 0; i < data[totalMachineCount].size(); i++) {
+				painter->drawText(edgeOffset + i % weightColumnCount * weightColumnAve, weightMiddle + simpleFun + i / weightColumnCount % weightRowCount * weightRowAve, 60, weightRowAve, Qt::AlignCenter, QString::number(i + 1));
+			}
+			float fsum = 0;
+			for (int i = 0; i < data[totalMachineCount].size(); i++) {
+				painter->drawText(edgeOffset + i % weightColumnCount * weightColumnAve + 70, weightMiddle + simpleFun + i / weightColumnCount % weightRowCount * weightRowAve, weightColumnAve - 60, weightRowAve, Qt::AlignVCenter, QString::number(data[totalMachineCount].at(i), 'f', 3));
+				fsum += data[totalMachineCount].at(i);
+			}
+			QString str;
+			float SD = 0.0;
+			float RSD = 0.0;
+			if (data[totalMachineCount].size() == 1 || m_dave[totalMachineCount] == 0)
+			{
+
+			}
+			else
+			{
+				for (int i = 0; i < data[totalMachineCount].size(); i++)
+				{
+					SD += (data[totalMachineCount].at(i) * 1000 - m_dave[totalMachineCount] * 1000)* (data[totalMachineCount].at(i) * 1000 - m_dave[totalMachineCount] * 1000);
+				}
+				SD = SD / (data[totalMachineCount].size() - 1);
+				SD = sqrt(SD);
+				RSD = SD / (m_dave[totalMachineCount] * 1000) * 100;
+			}
+			str = QString::fromLocal8Bit("RSD = ") + QString::number(RSD, 'f', 2) + "%";
+			painter->drawText(innerW - 300, YTop - 50 + simpleFun, 300, 50, Qt::AlignCenter, str);//重量
+		}
+		//第五部分
+		painter->drawText(50, pixHeight / 2 - 80 + simpleFun, 1900, 80, Qt::AlignCenter, QString::fromLocal8Bit("签字:"));// +ui->lE_code->text());
+
+		painter->drawText(50, pixHeight / 2 - 80 + simpleFun, 3000, 80, Qt::AlignCenter, QString::fromLocal8Bit("日期:") + lst.at(1));
+
+
+	painter->end();
 }
 void DrawPicture::createTestingRecordsOnePage(QPixmap *pix)
 {

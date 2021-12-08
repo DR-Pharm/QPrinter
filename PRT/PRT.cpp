@@ -485,6 +485,17 @@ void PRT::on_pB_PrintDirect_clicked()
 			//wt->close();
 		}
 	}
+	else if (m_cb.mid(0, 1) == "2")
+	{
+		if (QMessageBox::Yes == showMsgBox("打印确认", "确认打印数据曲线?", "确认", "取消"))
+		{
+			int sz = data.size();
+			m_drawpicture->setData(data, gn, m_iPrintCurveCount, sz, theory, m_CustomerName, m_MedicineName, m_Low, m_High, m_PureShell, m_cb, m_Yield, m_Pressure, m_Speed, thickness, hardness);
+			//wt->show();
+			m_drawpicture->drawPic3(m_prt);
+			//wt->close();
+		}
+	}
 
 }
 void PRT::on_pB_Print_clicked()
@@ -538,7 +549,7 @@ void PRT::on_ToClose()
 	}
 }
 
-void PRT::getVec(int mode,QString strCb, int p1,int p2) //strCb: 0曲线 1试机，0 胶囊 1片剂
+void PRT::getVec(int mode,QString strCb, int p1,int p2) //strCb: 0曲线 1试机 2三参数，0 胶囊 1片剂
 {
 	if (mode==0)//MODE 0:dataAverage,1:curve
 	{

@@ -4391,7 +4391,7 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 			return;
 		}
 
-		emit TODRAWPICTURE(1,"01",p1,p2);
+		emit TODRAWPICTURE(1,"21",p1,p2);
 		return;
 	}
 	else
@@ -4410,7 +4410,7 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 
 		if (GroupNumber.size() > 0)
 		{
-			emit TODRAWPICTURE(1, "01", p1, p2);
+			emit TODRAWPICTURE(1, "21", p1, p2);
 		}
 		
 		else

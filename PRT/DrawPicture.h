@@ -61,7 +61,9 @@ private:
 public:
 	DrawPicture(QObject *parent);
 	~DrawPicture();
+	void drawPic3(QPrinter * printer);
 	void drawPic2(QPrinter * printer);
+	void createThreeParaRecords(QPixmap * pix, int pagei);
 	void createTestingRecordsOnePage(QPixmap * pix);
 	void createTestingRecordsOnePage2(QPixmap * pix);
 	QString YearMonthDay();
