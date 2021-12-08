@@ -5530,7 +5530,6 @@ void QtPLCDialogClass::on_pB_SetUpcheckable_toggled(bool checked)//设置
 		if (lg == 1) pix.load(AppPath + "/ico/E/sz.png");
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUpcheckable->setIcon(pix);
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUpcheckable->setIconSize(QSize(347, 99));
-		//((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setEnabled(false);
 		((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setChecked(false);
 	}
 	else

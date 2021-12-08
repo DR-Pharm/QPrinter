@@ -581,8 +581,8 @@ void PRT::getVec(int mode,QString strCb, int p1,int p2) //strCb: 0曲线 1试机 2三
 				data << data_temp;
 
 				QVector<float> data_tempThick;
-				QString strThick= configIniRead.value(QString::number(i) + "/thick", 0).toString();
-				if (strThick != "0")
+				QString strThick= configIniRead.value(QString::number(i) + "/thick", "").toString();
+				//if (strThick != "0")
 				{
 					QStringList lstThick = strThick.split(",");
 					for (int j = 0; j < lstThick.size(); j++)
@@ -592,8 +592,8 @@ void PRT::getVec(int mode,QString strCb, int p1,int p2) //strCb: 0曲线 1试机 2三
 					thickness << data_tempThick;
 				}
 				QVector<float> data_tempHard;
-				QString strhard = configIniRead.value(QString::number(i) + "/hard", 0).toString();
-				if (strhard != "0")
+				QString strhard = configIniRead.value(QString::number(i) + "/hard", "").toString();
+				//if (strhard != "")
 				{
 					QStringList lstHard = strhard.split(",");
 					for (int j = 0; j < lstHard.size(); j++)

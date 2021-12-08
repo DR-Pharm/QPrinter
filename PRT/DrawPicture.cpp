@@ -14,6 +14,7 @@ DrawPicture::~DrawPicture()
 }
 void DrawPicture::drawPic3(QPrinter *printer)
 {
+	m_ptnm = printer->printerName();
 	int prtMode = printer->printRange();
 	int firstPg = printer->fromPage();
 	int endPg = printer->toPage();
@@ -95,6 +96,7 @@ void DrawPicture::drawPic3(QPrinter *printer)
 }
 void DrawPicture::drawPic2(QPrinter *printer)
 {
+	m_ptnm = printer->printerName();
 	int prtMode = printer->printRange();
 	int firstPg = printer->fromPage();
 	int endPg = printer->toPage();
@@ -201,6 +203,7 @@ void DrawPicture::drawPic2(QPrinter *printer)
 }
 void DrawPicture::drawPic(QPrinter *printer)
 {
+	m_ptnm = printer->printerName();
 	//printer->setPrintRange(QPrinter::PageRange);//2
 	//printer->setPrintRange(QPrinter::AllPages);//0
 	int prtMode = printer->printRange();
@@ -666,19 +669,25 @@ void DrawPicture::createThreeParaRecords(QPixmap *pix,int pagei)
 			for (int i = 0; i < data[totalMachineCount].size(); i++) {
 				painter->drawText(edgeOffset + i % weightColumnCount * weightColumnAve, weightMiddle + simpleFun + i / weightColumnCount % weightRowCount * weightRowAve, 60, weightRowAve, Qt::AlignCenter, QString::number(i + 1));
 			}
-			if (m_Thickness.size()>= pagei+1)
+			if (m_Thickness.size()>= 1)
 			{
+				if (m_Thickness[pagei].size()>1||(m_Thickness[pagei].size() == 1 && m_Thickness[pagei].at(0)!=0))
+				{
 				for (int i = 0; i < m_Thickness[pagei].size(); i++) {
 					painter->drawText(edgeOffset + i % weightColumnCount * weightColumnAve, pixHeight / 2 - 80 + 60 + simpleFun + i / weightColumnCount % weightRowCount * weightRowAve, 60, weightRowAve, Qt::AlignCenter, QString::number(i + 1));
 					painter->drawText(edgeOffset + i % weightColumnCount * weightColumnAve + 70, pixHeight / 2 - 80 + 60 + simpleFun + i / weightColumnCount % weightRowCount * weightRowAve, weightColumnAve - 60, weightRowAve, Qt::AlignVCenter, QString::number(m_Thickness[pagei].at(i)));
+				}
 				}
 			}
 
 			if (m_Hardness.size() >= pagei+1)
 			{
-				for (int i = 0; i < m_Hardness[pagei].size(); i++) {
-					painter->drawText(edgeOffset + i % weightColumnCount * weightColumnAve, pixHeight / 2 - 80 + 2 * 60 + weightRowAve * weightRowCount + simpleFun + i / weightColumnCount % weightRowCount * weightRowAve, 60, weightRowAve, Qt::AlignCenter, QString::number(i + 1));
-					painter->drawText(edgeOffset + i % weightColumnCount * weightColumnAve + 70, pixHeight / 2 - 80 + 2 * 60 + weightRowAve * weightRowCount + simpleFun + i / weightColumnCount % weightRowCount * weightRowAve, weightColumnAve - 60, weightRowAve, Qt::AlignVCenter, QString::number(m_Hardness[pagei].at(i)));
+				if (m_Hardness[pagei].size() > 1 || (m_Hardness[pagei].size() == 1 && m_Hardness[pagei].at(0) != 0))
+				{
+					for (int i = 0; i < m_Hardness[pagei].size(); i++) {
+						painter->drawText(edgeOffset + i % weightColumnCount * weightColumnAve, pixHeight / 2 - 80 + 2 * 60 + weightRowAve * weightRowCount + simpleFun + i / weightColumnCount % weightRowCount * weightRowAve, 60, weightRowAve, Qt::AlignCenter, QString::number(i + 1));
+						painter->drawText(edgeOffset + i % weightColumnCount * weightColumnAve + 70, pixHeight / 2 - 80 + 2 * 60 + weightRowAve * weightRowCount + simpleFun + i / weightColumnCount % weightRowCount * weightRowAve, weightColumnAve - 60, weightRowAve, Qt::AlignVCenter, QString::number(m_Hardness[pagei].at(i)));
+					}
 				}
 			}
 			float fsum = 0;
