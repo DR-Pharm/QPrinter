@@ -196,8 +196,8 @@ void PRT::judgeLabelText(int index)
 }
 void PRT::writeIni()
 {
-	num1_Le = 10;// ui.lineEdit->text().toInt();
-	num2_Le_2 = 10;// ui.lineEdit_2->text().toInt();
+	num1_Le = 20;// ui.lineEdit->text().toInt();
+	num2_Le_2 = 20;// ui.lineEdit_2->text().toInt();
 
 	/*ui.lineEdit->setText(QString::number(num1_Le));
 	ui.lineEdit_2->setText(QString::number(num2_Le_2));
