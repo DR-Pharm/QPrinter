@@ -458,7 +458,13 @@ void DrawPicture::createThreeParaRecords(QPixmap *pix,int pagei)
 		}
 		//lines.append(QLine(QPoint(betweenweight, weightTop), QPoint(betweenweight, weightBottom)));//重量分析与每粒重量之间
 		lines.append(QLine(QPoint(edgeOffset, pixHeight / 2 - 80 + simpleFun), QPoint(rightW, pixHeight / 2 - 80 + simpleFun)));//1#操作人签名上侧
-		lines.append(QLine(QPoint(edgeOffset, pixHeight / 2), QPoint(rightW, pixHeight / 2)));//1/2#分割线
+		lines.append(QLine(QPoint(edgeOffset, pixHeight / 2 - 80 + 60), QPoint(rightW, pixHeight / 2 - 80 + 60)));
+		//画厚度格
+		lines.append(QLine(QPoint(edgeOffset, pixHeight / 2 - 80 + 60 + weightRowAve * weightRowCount), QPoint(rightW, pixHeight / 2 - 80 + 60 + weightRowAve * weightRowCount)));
+		lines.append(QLine(QPoint(edgeOffset, pixHeight / 2 - 80 + 2 * 60 + weightRowAve * weightRowCount), QPoint(rightW, pixHeight / 2 - 80 + 2 * 60 + weightRowAve * weightRowCount)));
+		lines.append(QLine(QPoint(edgeOffset, pixHeight / 2 - 80 + 2 * 60 + 2*weightRowAve * weightRowCount), QPoint(rightW, pixHeight / 2 - 80 + 2 * 60 + 2 * weightRowAve * weightRowCount)));
+		//画硬度格及下面
+		//lines.append(QLine(QPoint(edgeOffset, pixHeight / 2), QPoint(rightW, pixHeight / 2)));//1/2#分割线
 		//lines.append(QLine(QPoint(edgeOffset, bottomH - 80), QPoint(rightW, bottomH -80)));//2#操作人签名上侧
 
 
@@ -476,8 +482,8 @@ void DrawPicture::createThreeParaRecords(QPixmap *pix,int pagei)
 
 		painter->setPen(QPen(QColor(0, 0, 0), 1, Qt::DashLine));
 
-		lines.append(QLine(QPoint(edgeOffset, pixHeight / 2 + 5), QPoint(rightW, pixHeight / 2 + 5)));//1/2#分割线
-		lines.append(QLine(QPoint(edgeOffset, pixHeight / 2 - 5), QPoint(rightW, pixHeight / 2 - 5)));//1/2#分割线
+		//lines.append(QLine(QPoint(edgeOffset, pixHeight / 2 + 5), QPoint(rightW, pixHeight / 2 + 5)));//1/2#分割线
+		//lines.append(QLine(QPoint(edgeOffset, pixHeight / 2 - 5), QPoint(rightW, pixHeight / 2 - 5)));//1/2#分割线
 		//lines   200,rightW-250 pixHeight/2-825 pixHeight/2-275   250start point
 		painter->drawText(basePointX - 40, basePointY + simpleFun, 50, 50, Qt::AlignVCenter, "0");//0
 		if (data[totalMachineCount].size() > 0)
@@ -570,8 +576,9 @@ void DrawPicture::createThreeParaRecords(QPixmap *pix,int pagei)
 			lines.append(QLine(QPoint(edgeOffset + innerW * 1.0 / 4 * (i + 1), betweenweight + 60 + simpleFun), QPoint(edgeOffset + innerW * 1.0 / 4 * (i + 1), weightBottom + simpleFun)));
 			lines.append(QLine(QPoint(edgeOffset + 225 + innerW * 1.0 / 4 * i, betweenweight + 60 + simpleFun), QPoint(edgeOffset + 225 + innerW * 1.0 / 4 * i, weightBottom + simpleFun)));
 		}
-		lines.append(QLine(QPoint(edgeOffset, betweenweight + 2 * 60 + simpleFun), QPoint(rightW, betweenweight + 2 * 60 + simpleFun)));//每粒重量下边
+		lines.append(QLine(QPoint(edgeOffset, betweenweight + 2 * 60 + simpleFun), QPoint(rightW, betweenweight + 2 * 60 + simpleFun)));
 		//画每粒重量格
+
 		for (int i = 1; i < weightRowCount; i++)
 		{
 			lines.append(QLine(QPoint(edgeOffset, weightMiddle + i * weightRowAve + simpleFun), QPoint(rightW, weightMiddle + i * weightRowAve + simpleFun)));
@@ -623,6 +630,8 @@ void DrawPicture::createThreeParaRecords(QPixmap *pix,int pagei)
 		font.setBold(true);
 		painter->setFont(font);
 		painter->drawText(edgeOffset, weightTop + simpleFun, innerW, 60, Qt::AlignCenter, QString::fromLocal8Bit("每粒重量(g)"));
+		painter->drawText(edgeOffset, pixHeight / 2 - 80, innerW, 60, Qt::AlignCenter, QString::fromLocal8Bit("每粒厚度(mm)"));
+		painter->drawText(edgeOffset, pixHeight / 2 - 80 + 60 + weightRowAve * weightRowCount, innerW, 60, Qt::AlignCenter, QString::fromLocal8Bit("每粒硬度(N)"));
 		painter->drawText(edgeOffset, betweenweight + simpleFun, innerW, 60, Qt::AlignCenter, QString::fromLocal8Bit("重量结果"));
 		font.setBold(false);
 		painter->setFont(font);
@@ -676,6 +685,7 @@ void DrawPicture::createThreeParaRecords(QPixmap *pix,int pagei)
 			painter->drawText(innerW - 300, YTop - 50 + simpleFun, 300, 50, Qt::AlignCenter, str);//重量
 		}
 		//第五部分
+		simpleFun = inner50percentH * 1;
 		painter->drawText(50, pixHeight / 2 - 80 + simpleFun, 1900, 80, Qt::AlignCenter, QString::fromLocal8Bit("签字:"));// +ui->lE_code->text());
 
 		painter->drawText(50, pixHeight / 2 - 80 + simpleFun, 3000, 80, Qt::AlignCenter, QString::fromLocal8Bit("日期:") + lst.at(1));
