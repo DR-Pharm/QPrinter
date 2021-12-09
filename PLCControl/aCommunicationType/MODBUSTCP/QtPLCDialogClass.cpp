@@ -3370,6 +3370,16 @@ void QtPLCDialogClass::on_lE_RecipeNo_editingFinished()
 	((Ui::QtPLCDialogClass*)ui)->lE_RecipeNo->blockSignals(true);
 	((Ui::QtPLCDialogClass*)ui)->lE_RecipeNo->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_RecipeNo->blockSignals(false);
+
+	QTimer *tm = new QTimer();
+	connect(tm, &QTimer::timeout, this, [=] {
+		m_str_sendRegisters = m_str_registers;
+		m_iDontReadRegistersFlag = 1;
+		m_str_sendRegisters.replace(Recipe_enable * 4, 4, "0001");
+		tm->stop();
+		delete tm;
+	});
+	tm->start(500);
 }
 void QtPLCDialogClass::on_lE_ThickUpperLimit_editingFinished()
 {
