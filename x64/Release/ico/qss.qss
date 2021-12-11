@@ -18,10 +18,11 @@ QComboBox
 border:3px groove white;
 background-color:transparent;
 }
-QComboBox::QAbstractItemView
+QComboBox QAbstractItemView
 {
-selection-background-color:grey;
+section-background-color:grey;
 selection-color:green;
+border:3px outset white;
 }
 QComboBox::drop-down
 {
