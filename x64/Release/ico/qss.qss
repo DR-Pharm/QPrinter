@@ -18,15 +18,19 @@ QComboBox
 border:3px groove white;
 background-color:transparent;
 }
-
+QComboBox::QAbstractItemView
+{
+selection-background-color:grey;
+selection-color:green;
+}
 QComboBox::drop-down
 {
 border-style:solid;
-margin-right:15px;
+margin-right:35px;
 }
 QComboBox::down-arrow
 {
-image:url(./ico/xiangxia.png);
+image:url(./ico/6464.png);
 }
 QComboBox::down-arrow:on
 {
