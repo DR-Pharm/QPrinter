@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>421</width>
-    <height>812</height>
+    <height>715</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -98,46 +98,6 @@
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
-      <spacer name="horizontalSpacer_6">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLabel" name="label">
-       <property name="minimumSize">
-        <size>
-         <width>65</width>
-         <height>60</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>65</width>
-         <height>60</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>幼圆</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>用户</string>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="1">
       <widget class="QLabel" name="label_2">
        <property name="minimumSize">
@@ -161,6 +121,38 @@
         <string>密码</string>
        </property>
       </widget>
+     </item>
+     <item row="0" column="3">
+      <spacer name="horizontalSpacer_7">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="0" column="0">
+      <spacer name="horizontalSpacer_6">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
      </item>
      <item row="0" column="2">
       <widget class="QComboBox" name="cB_ListUser">
@@ -224,39 +216,31 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="3">
-      <spacer name="horizontalSpacer_7">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
+     <item row="0" column="1">
+      <widget class="QLabel" name="label">
+       <property name="minimumSize">
         <size>
-         <width>20</width>
-         <height>20</height>
+         <width>65</width>
+         <height>60</height>
         </size>
        </property>
-      </spacer>
+       <property name="maximumSize">
+        <size>
+         <width>65</width>
+         <height>60</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+        </font>
+       </property>
+       <property name="text">
+        <string>用户</string>
+       </property>
+      </widget>
      </item>
     </layout>
-   </item>
-   <item>
-    <spacer name="verticalSpacer_3">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Fixed</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>8</height>
-      </size>
-     </property>
-    </spacer>
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout_2">
@@ -264,23 +248,23 @@
       <widget class="QPushButton" name="pB_num1">
        <property name="minimumSize">
         <size>
-         <width>100</width>
-         <height>100</height>
+         <width>90</width>
+         <height>90</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>100</width>
-         <height>100</height>
+         <width>90</width>
+         <height>90</height>
         </size>
        </property>
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>35</pointsize>
-         <weight>50</weight>
+         <pointsize>50</pointsize>
+         <weight>75</weight>
          <italic>false</italic>
-         <bold>false</bold>
+         <bold>true</bold>
         </font>
        </property>
        <property name="text">
@@ -290,7 +274,7 @@
         <bool>true</bool>
        </property>
        <property name="flat">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -298,23 +282,23 @@
       <widget class="QPushButton" name="pB_num2">
        <property name="minimumSize">
         <size>
-         <width>100</width>
-         <height>100</height>
+         <width>90</width>
+         <height>90</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>100</width>
-         <height>100</height>
+         <width>90</width>
+         <height>90</height>
         </size>
        </property>
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>35</pointsize>
-         <weight>50</weight>
+         <pointsize>50</pointsize>
+         <weight>75</weight>
          <italic>false</italic>
-         <bold>false</bold>
+         <bold>true</bold>
         </font>
        </property>
        <property name="text">
@@ -323,29 +307,32 @@
        <property name="checkable">
         <bool>true</bool>
        </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item row="0" column="2">
       <widget class="QPushButton" name="pB_num3">
        <property name="minimumSize">
         <size>
-         <width>100</width>
-         <height>100</height>
+         <width>90</width>
+         <height>90</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>100</width>
-         <height>100</height>
+         <width>90</width>
+         <height>90</height>
         </size>
        </property>
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>35</pointsize>
-         <weight>50</weight>
+         <pointsize>50</pointsize>
+         <weight>75</weight>
          <italic>false</italic>
-         <bold>false</bold>
+         <bold>true</bold>
         </font>
        </property>
        <property name="text">
@@ -354,29 +341,32 @@
        <property name="checkable">
         <bool>true</bool>
        </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item row="1" column="0">
       <widget class="QPushButton" name="pB_num4">
        <property name="minimumSize">
         <size>
-         <width>100</width>
-         <height>100</height>
+         <width>90</width>
+         <height>90</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>100</width>
-         <height>100</height>
+         <width>90</width>
+         <height>90</height>
         </size>
        </property>
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>35</pointsize>
-         <weight>50</weight>
+         <pointsize>50</pointsize>
+         <weight>75</weight>
          <italic>false</italic>
-         <bold>false</bold>
+         <bold>true</bold>
         </font>
        </property>
        <property name="text">
@@ -385,29 +375,32 @@
        <property name="checkable">
         <bool>true</bool>
        </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item row="1" column="1">
       <widget class="QPushButton" name="pB_num5">
        <property name="minimumSize">
         <size>
-         <width>100</width>
-         <height>100</height>
+         <width>90</width>
+         <height>90</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>100</width>
-         <height>100</height>
+         <width>90</width>
+         <height>90</height>
         </size>
        </property>
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>35</pointsize>
-         <weight>50</weight>
+         <pointsize>50</pointsize>
+         <weight>75</weight>
          <italic>false</italic>
-         <bold>false</bold>
+         <bold>true</bold>
         </font>
        </property>
        <property name="text">
@@ -416,29 +409,32 @@
        <property name="checkable">
         <bool>true</bool>
        </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item row="1" column="2">
       <widget class="QPushButton" name="pB_num6">
        <property name="minimumSize">
         <size>
-         <width>100</width>
-         <height>100</height>
+         <width>90</width>
+         <height>90</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>100</width>
-         <height>100</height>
+         <width>90</width>
+         <height>90</height>
         </size>
        </property>
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>35</pointsize>
-         <weight>50</weight>
+         <pointsize>50</pointsize>
+         <weight>75</weight>
          <italic>false</italic>
-         <bold>false</bold>
+         <bold>true</bold>
         </font>
        </property>
        <property name="text">
@@ -447,29 +443,32 @@
        <property name="checkable">
         <bool>true</bool>
        </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item row="2" column="0">
       <widget class="QPushButton" name="pB_num7">
        <property name="minimumSize">
         <size>
-         <width>100</width>
-         <height>100</height>
+         <width>90</width>
+         <height>90</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>100</width>
-         <height>100</height>
+         <width>90</width>
+         <height>90</height>
         </size>
        </property>
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>35</pointsize>
-         <weight>50</weight>
+         <pointsize>50</pointsize>
+         <weight>75</weight>
          <italic>false</italic>
-         <bold>false</bold>
+         <bold>true</bold>
         </font>
        </property>
        <property name="text">
@@ -478,29 +477,32 @@
        <property name="checkable">
         <bool>true</bool>
        </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item row="2" column="1">
       <widget class="QPushButton" name="pB_num8">
        <property name="minimumSize">
         <size>
-         <width>100</width>
-         <height>100</height>
+         <width>90</width>
+         <height>90</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>100</width>
-         <height>100</height>
+         <width>90</width>
+         <height>90</height>
         </size>
        </property>
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>35</pointsize>
-         <weight>50</weight>
+         <pointsize>50</pointsize>
+         <weight>75</weight>
          <italic>false</italic>
-         <bold>false</bold>
+         <bold>true</bold>
         </font>
        </property>
        <property name="text">
@@ -509,29 +511,32 @@
        <property name="checkable">
         <bool>true</bool>
        </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item row="2" column="2">
       <widget class="QPushButton" name="pB_num9">
        <property name="minimumSize">
         <size>
-         <width>100</width>
-         <height>100</height>
+         <width>90</width>
+         <height>90</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>100</width>
-         <height>100</height>
+         <width>90</width>
+         <height>90</height>
         </size>
        </property>
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>35</pointsize>
-         <weight>50</weight>
+         <pointsize>50</pointsize>
+         <weight>75</weight>
          <italic>false</italic>
-         <bold>false</bold>
+         <bold>true</bold>
         </font>
        </property>
        <property name="text">
@@ -540,20 +545,23 @@
        <property name="checkable">
         <bool>true</bool>
        </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item row="3" column="0">
       <widget class="QPushButton" name="pB_Login">
        <property name="minimumSize">
         <size>
-         <width>100</width>
-         <height>100</height>
+         <width>90</width>
+         <height>90</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>100</width>
-         <height>100</height>
+         <width>90</width>
+         <height>90</height>
         </size>
        </property>
        <property name="font">
@@ -569,8 +577,8 @@
         <string notr="true">QPushButton
 {
 font: 20pt &quot;禅意雪松体&quot;;
-border:3px groove grey;
-border-radius:15px;
+/*border:3px groove grey;
+border-radius:15px;*/
 }
 QPushButton::checked
 {
@@ -593,23 +601,23 @@ Padding-top:3px;
       <widget class="QPushButton" name="pB_num0">
        <property name="minimumSize">
         <size>
-         <width>100</width>
-         <height>100</height>
+         <width>90</width>
+         <height>90</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>100</width>
-         <height>100</height>
+         <width>90</width>
+         <height>90</height>
         </size>
        </property>
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>35</pointsize>
-         <weight>50</weight>
+         <pointsize>50</pointsize>
+         <weight>75</weight>
          <italic>false</italic>
-         <bold>false</bold>
+         <bold>true</bold>
         </font>
        </property>
        <property name="text">
@@ -618,20 +626,23 @@ Padding-top:3px;
        <property name="checkable">
         <bool>true</bool>
        </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item row="3" column="2">
       <widget class="QPushButton" name="pB_Exit">
        <property name="minimumSize">
         <size>
-         <width>100</width>
-         <height>100</height>
+         <width>90</width>
+         <height>90</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>100</width>
-         <height>100</height>
+         <width>90</width>
+         <height>90</height>
         </size>
        </property>
        <property name="font">
@@ -651,8 +662,8 @@ Padding-top:3px;
 {
 font: 20pt &quot;禅意雪松体&quot;;
 color: teal;
-border:3px groove grey;
-border-radius:15px;
+/*border:3px groove grey;
+border-radius:15px;*/
 }
 QPushButton::checked
 {
@@ -667,7 +678,7 @@ Padding-top:3px;
         <bool>true</bool>
        </property>
        <property name="flat">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -678,10 +689,13 @@ Padding-top:3px;
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Expanding</enum>
+     </property>
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>40</height>
+       <height>20</height>
       </size>
      </property>
     </spacer>
@@ -821,22 +835,6 @@ Padding-top:3px;
         </property>
        </item>
       </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_3">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>1</height>
-        </size>
-       </property>
-      </spacer>
      </item>
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">

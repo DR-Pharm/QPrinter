@@ -17,7 +17,7 @@ QtLoginDlg::QtLoginDlg(QDialog* parent)
 
 	AppPath = qApp->applicationDirPath();//exe所在目录
 
-	this->resize(QSize(421, 690));
+	this->resize(QSize(421, 600));
 	this->setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog);
 	this->setWindowOpacity(0.95);//透明度
 	this->setWindowModality(Qt::ApplicationModal);
@@ -216,11 +216,20 @@ QtLoginDlg::QtLoginDlg(QDialog* parent)
 	ui.lE_Password->setFocus();
 
 	QLabel *logo = new QLabel(this);
-	logo->setFixedSize(this->width(), this->width() * 703 / 1124);
-	logo->setPixmap(AppPath + "/ico/dr.png");
+	logo->setFixedSize(this->width() + 2, this->height() + 2);
+	logo->setPixmap(AppPath + "/ico/biankuang2.png");
 	logo->setScaledContents(true);
 	logo->setAttribute(Qt::WA_TransparentForMouseEvents);
-	logo->move(0, 200);
+	logo->move(-1, -1);
+	logo->lower();
+
+	logo = new QLabel(this);
+	logo->setFixedSize(this->width(), this->height());
+	logo->setPixmap(AppPath + "/ico/hua2.png");
+	logo->setScaledContents(true);
+	logo->setAttribute(Qt::WA_TransparentForMouseEvents);
+	logo->move(0, 0);
+	logo->lower();
 
 	QFile fl(AppPath+"/ico/qss.qss");
 	if(fl.open(QFile::ReadOnly))
@@ -324,8 +333,6 @@ void QtLoginDlg::onLineeditChanged()
 		QPushButton\
 		{\
 		font-size:20pt;\
-		border:3px groove grey;\
-		border-radius:15px;\
 		}\
 		";
 		ui.pB_Login->setStyleSheet(st);//no space before or after -;
@@ -337,8 +344,6 @@ void QtLoginDlg::onLineeditChanged()
 		QPushButton\
 		{\
 		font-size: 23pt; \
-		border:3px groove grey;\
-		border-radius:15px;\
 		}\
 		";
 		ui.pB_Login->setStyleSheet(st);//no space before or after -;
@@ -350,8 +355,6 @@ void QtLoginDlg::onLineeditChanged()
 		QPushButton\
 		{\
 		font-size: 26pt; \
-		border:3px groove grey;\
-		border-radius:15px;\
 		}\
 		";
 		ui.pB_Login->setStyleSheet(st);//no space before or after -;
@@ -363,8 +366,6 @@ void QtLoginDlg::onLineeditChanged()
 		QPushButton\
 		{\
 		font-size: 29pt; \
-		border:3px groove grey;\
-		border-radius:15px;\
 		}\
 		";
 		ui.pB_Login->setStyleSheet(st);//no space before or after -;
@@ -377,8 +378,6 @@ void QtLoginDlg::onLineeditChanged()
 		{\
 		font-size: 29pt; \
 		color: forestgreen;\
-		border:5px groove forestgreen;\
-		border-radius:15px;\
 		}\
 		QPushButton::pressed\
 		{\
