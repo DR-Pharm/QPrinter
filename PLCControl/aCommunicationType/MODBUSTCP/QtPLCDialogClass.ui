@@ -27,19 +27,19 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>849</width>
+     <width>870</width>
      <height>755</height>
     </rect>
    </property>
    <property name="minimumSize">
     <size>
-     <width>849</width>
+     <width>870</width>
      <height>755</height>
     </size>
    </property>
    <property name="maximumSize">
     <size>
-     <width>849</width>
+     <width>870</width>
      <height>755</height>
     </size>
    </property>
@@ -59,7 +59,7 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="tab_PLC_Control">
     <attribute name="title">
@@ -81,7 +81,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>3</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -6873,21 +6873,21 @@ font: 18pt &quot;幼圆&quot;;</string>
   <widget class="QFrame" name="frame">
    <property name="geometry">
     <rect>
-     <x>1250</x>
+     <x>1260</x>
      <y>10</y>
-     <width>847</width>
+     <width>870</width>
      <height>755</height>
     </rect>
    </property>
    <property name="minimumSize">
     <size>
-     <width>847</width>
+     <width>870</width>
      <height>755</height>
     </size>
    </property>
    <property name="maximumSize">
     <size>
-     <width>847</width>
+     <width>870</width>
      <height>755</height>
     </size>
    </property>
@@ -6939,7 +6939,7 @@ font: 18pt &quot;幼圆&quot;;</string>
         <rect>
          <x>10</x>
          <y>37</y>
-         <width>797</width>
+         <width>821</width>
          <height>521</height>
         </rect>
        </property>
@@ -8278,7 +8278,7 @@ font: 18pt &quot;幼圆&quot;;</string>
   <widget class="QFrame" name="frame_20">
    <property name="geometry">
     <rect>
-     <x>858</x>
+     <x>880</x>
      <y>0</y>
      <width>376</width>
      <height>755</height>
@@ -8505,9 +8505,9 @@ font: 26pt &quot;Onyx&quot;;</string>
    <property name="geometry">
     <rect>
      <x>2150</x>
-     <y>10</y>
-     <width>851</width>
-     <height>581</height>
+     <y>0</y>
+     <width>871</width>
+     <height>591</height>
     </rect>
    </property>
    <property name="font">
@@ -8768,7 +8768,7 @@ font: 26pt &quot;Onyx&quot;;</string>
       <x>10</x>
       <y>10</y>
       <width>291</width>
-      <height>561</height>
+      <height>571</height>
      </rect>
     </property>
     <property name="font">
@@ -8789,8 +8789,8 @@ font: 26pt &quot;Onyx&quot;;</string>
      <rect>
       <x>300</x>
       <y>310</y>
-      <width>551</width>
-      <height>271</height>
+      <width>571</width>
+      <height>281</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_One"/>
@@ -8800,7 +8800,7 @@ font: 26pt &quot;Onyx&quot;;</string>
      <rect>
       <x>483</x>
       <y>7</y>
-      <width>361</width>
+      <width>381</width>
       <height>311</height>
      </rect>
     </property>
@@ -9504,7 +9504,7 @@ font: 26pt &quot;Onyx&quot;;</string>
       <x>10</x>
       <y>10</y>
       <width>291</width>
-      <height>561</height>
+      <height>571</height>
      </rect>
     </property>
     <property name="font">

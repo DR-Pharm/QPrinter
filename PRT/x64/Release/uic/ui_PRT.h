@@ -78,9 +78,10 @@ public:
         groupBox_2 = new QGroupBox(centralWidget);
         groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
         horizontalLayout_5 = new QHBoxLayout(groupBox_2);
-        horizontalLayout_5->setSpacing(6);
+        horizontalLayout_5->setSpacing(0);
         horizontalLayout_5->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
+        horizontalLayout_5->setContentsMargins(0, 0, 0, 0);
         widget = new QWidget(groupBox_2);
         widget->setObjectName(QString::fromUtf8("widget"));
         widget->setMinimumSize(QSize(0, 0));
