@@ -86,7 +86,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	if (lg == 1) pix.load(AppPath + "/ico/E/data2.png");
 	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIcon(pix);
 	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIconSize(QSize(170, 140));
-	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->move(640, 575);
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->move(660, 565);
 
 	MyPushButton * AlarmResetBtn;	
 	if (lg == 0) AlarmResetBtn = new MyPushButton(AppPath + "/ico/bjfwnt.png", AppPath + "/ico/bjfw.png", 347, 99);
@@ -603,7 +603,7 @@ void QtPLCDialogClass::initUI()
 		((Ui::QtPLCDialogClass*)ui)->label_72->setVisible(false);
 		((Ui::QtPLCDialogClass*)ui)->pB_printTestingRecords->setVisible(false);
 
-		((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(151);//211 241
+		((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(161);//161 221 251
 		((Ui::QtPLCDialogClass*)ui)->widget_2->move(((Ui::QtPLCDialogClass*)ui)->widget_2->x(), 219);//279 309 
 		((Ui::QtPLCDialogClass*)ui)->widget_2->setFixedHeight(371);//311 281
 	}
@@ -2149,7 +2149,6 @@ void QtPLCDialogClass::on_cB_Feedmode_currentIndexChanged(int index)
 		((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->setVisible(false);
 		((Ui::QtPLCDialogClass*)ui)->label_30->setVisible(false);
 
-		((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(211);//241
 		((Ui::QtPLCDialogClass*)ui)->lb_speed->setVisible(false);
 		((Ui::QtPLCDialogClass*)ui)->lE_speed->setVisible(false);
 		((Ui::QtPLCDialogClass*)ui)->label_speed->setVisible(false);
@@ -2157,7 +2156,7 @@ void QtPLCDialogClass::on_cB_Feedmode_currentIndexChanged(int index)
 		((Ui::QtPLCDialogClass*)ui)->lE_yield->setVisible(false);
 		((Ui::QtPLCDialogClass*)ui)->label_yield->setVisible(false);
 
-		((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(211);//211 241
+		((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(221);//221 251
 		((Ui::QtPLCDialogClass*)ui)->widget_2->move(((Ui::QtPLCDialogClass*)ui)->widget_2->x(), 279);//279 309
 		((Ui::QtPLCDialogClass*)ui)->widget_2->setFixedHeight(311);//311 281
 
@@ -2187,7 +2186,6 @@ void QtPLCDialogClass::on_cB_Feedmode_currentIndexChanged(int index)
 		((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->setVisible(true);
 		((Ui::QtPLCDialogClass*)ui)->label_30->setVisible(true);
 
-		((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(241);
 		((Ui::QtPLCDialogClass*)ui)->lb_speed->setVisible(true);
 		((Ui::QtPLCDialogClass*)ui)->lE_speed->setVisible(true);
 		((Ui::QtPLCDialogClass*)ui)->label_speed->setVisible(true);
@@ -2195,7 +2193,7 @@ void QtPLCDialogClass::on_cB_Feedmode_currentIndexChanged(int index)
 		((Ui::QtPLCDialogClass*)ui)->lE_yield->setVisible(true);
 		((Ui::QtPLCDialogClass*)ui)->label_yield->setVisible(true);
 
-		((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(241);//211 241
+		((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(251);
 		((Ui::QtPLCDialogClass*)ui)->widget_2->move(((Ui::QtPLCDialogClass*)ui)->widget_2->x(), 309);//279 309
 		((Ui::QtPLCDialogClass*)ui)->widget_2->setFixedHeight(281);//311 281
 		if (lg == 0)
@@ -3041,7 +3039,7 @@ void QtPLCDialogClass::ChangeLanguage()
 		}
 		((Ui::QtPLCDialogClass*)ui)->pB_printTestingRecords->setText("Print Testing Records");
 
-		((Ui::QtPLCDialogClass*)ui)->groupBox_11->setTitle("Print");
+		//((Ui::QtPLCDialogClass*)ui)->groupBox_11->setTitle("Print");
 		((Ui::QtPLCDialogClass*)ui)->label_36->setText("Search:");
 		((Ui::QtPLCDialogClass*)ui)->label_61->setText("Result:");
 		((Ui::QtPLCDialogClass*)ui)->label_35->setText("GroupNum:");
