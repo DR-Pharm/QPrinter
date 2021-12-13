@@ -1851,7 +1851,7 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="layoutWidget">
+       <widget class="QWidget" name="layoutWidget11">
         <property name="geometry">
          <rect>
           <x>3</x>
@@ -2573,7 +2573,7 @@
        <property name="lineWidth">
         <number>2</number>
        </property>
-       <widget class="QWidget" name="layoutWidget">
+       <widget class="QWidget" name="layoutWidget22">
         <property name="geometry">
          <rect>
           <x>13</x>
@@ -5831,7 +5831,7 @@ font: 26pt &quot;Onyx&quot;;</string>
     </layout>
    </widget>
   </widget>
-  <widget class="QWidget" name="widget" native="true">
+  <widget class="QWidget" name="widget_cv" native="true">
    <property name="geometry">
     <rect>
      <x>2300</x>

@@ -149,8 +149,8 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	btnTimer = new QTimer();
 	connect(btnTimer, SIGNAL(timeout()), this, SLOT(startMovie()));
 
-	((Ui::QtPLCDialogClass*)ui)->widget->move(0, 0);
-	((Ui::QtPLCDialogClass*)ui)->widget->setVisible(false);
+	((Ui::QtPLCDialogClass*)ui)->widget_cv->move(0, 0);
+	((Ui::QtPLCDialogClass*)ui)->widget_cv->setVisible(false);
 	initChartOne();
 	QStringList str1;
 	if (lg == 0) str1 << QString::fromLocal8Bit("重量");
@@ -3262,7 +3262,7 @@ void QtPLCDialogClass::on_pB_dtDlg_toggled(bool checked)//数据dialog
 		if (lg == 1)pix.load(AppPath + "/ico/E/data1.png");
 		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIcon(pix);
 		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIconSize(QSize(170, 140));
-		((Ui::QtPLCDialogClass*)ui)->widget->setVisible(true);
+		((Ui::QtPLCDialogClass*)ui)->widget_cv->setVisible(true);
 	}
 	else
 	{
@@ -3272,7 +3272,7 @@ void QtPLCDialogClass::on_pB_dtDlg_toggled(bool checked)//数据dialog
 		if (lg == 1) pix.load(AppPath + "/ico/E/data2.png");
 		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIcon(pix);
 		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIconSize(QSize(170, 140));
-		((Ui::QtPLCDialogClass*)ui)->widget->setVisible(false);
+		((Ui::QtPLCDialogClass*)ui)->widget_cv->setVisible(false);
 	}
 }
 void QtPLCDialogClass::dtClose()
