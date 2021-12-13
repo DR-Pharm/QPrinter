@@ -2137,6 +2137,7 @@ void QtPLCDialogClass::on_lE_BatchName_editingFinished()//批号字符串
 }
 void QtPLCDialogClass::on_cB_Feedmode_currentIndexChanged(int index)
 {
+	m_data->ActData.Feedmode = index;//debug use
 	if (index == 0 && m_bFeedModeFlag1 == 0)
 	{
 		m_bFeedModeFlag1 = 1;
