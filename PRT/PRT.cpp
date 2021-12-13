@@ -71,7 +71,7 @@ void PRT::initPLC()
 	b = connect(dlg, SIGNAL(showWindowOut(QString)), this, SLOT(showWindowOut(QString)));
 	b = connect(dlg, SIGNAL(CLOSESIGNAL()), this, SLOT(on_ToClose()));
 	b = connect(dlg, SIGNAL(TODRAWPICTURE(int,QString,int,int)), this, SLOT(getVec(int,QString,int,int)));
-	dlg->setParent(ui.widget);
+	dlg->setParent(ui.centralWidget);
 	dlg->move(0, 0);
 	b = connect(this, SIGNAL(MINI()), m_pPlclib, SLOT(setWinMini()));
 

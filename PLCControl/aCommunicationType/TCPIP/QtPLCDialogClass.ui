@@ -27,20 +27,20 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>870</width>
-     <height>755</height>
+     <width>896</width>
+     <height>800</height>
     </rect>
    </property>
    <property name="minimumSize">
     <size>
-     <width>870</width>
-     <height>755</height>
+     <width>896</width>
+     <height>800</height>
     </size>
    </property>
    <property name="maximumSize">
     <size>
-     <width>870</width>
-     <height>755</height>
+     <width>896</width>
+     <height>800</height>
     </size>
    </property>
    <property name="font">
@@ -81,7 +81,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -1819,8 +1819,8 @@
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>590</y>
-          <width>801</width>
+          <y>660</y>
+          <width>821</width>
           <height>44</height>
          </rect>
         </property>
@@ -1855,8 +1855,8 @@
         <property name="geometry">
          <rect>
           <x>3</x>
-          <y>13</y>
-          <width>811</width>
+          <y>30</y>
+          <width>831</width>
           <height>561</height>
          </rect>
         </property>
@@ -2579,7 +2579,7 @@
           <x>13</x>
           <y>13</y>
           <width>801</width>
-          <height>661</height>
+          <height>721</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout_2">
@@ -3535,7 +3535,7 @@
     <widget class="QGroupBox" name="gB_User">
      <property name="geometry">
       <rect>
-       <x>525</x>
+       <x>545</x>
        <y>65</y>
        <width>291</width>
        <height>491</height>
@@ -3766,8 +3766,8 @@ font: 18pt &quot;幼圆&quot;;</string>
     <widget class="QTabWidget" name="tabWidget_Users">
      <property name="geometry">
       <rect>
-       <x>50</x>
-       <y>40</y>
+       <x>65</x>
+       <y>65</y>
        <width>451</width>
        <height>611</height>
       </rect>
@@ -3794,8 +3794,8 @@ font: 18pt &quot;幼圆&quot;;</string>
      </property>
      <property name="geometry">
       <rect>
-       <x>75</x>
-       <y>275</y>
+       <x>90</x>
+       <y>300</y>
        <width>405</width>
        <height>354</height>
       </rect>
@@ -3932,7 +3932,7 @@ font: 18pt &quot;幼圆&quot;;</string>
     <widget class="QPushButton" name="pB_Users_Delete">
      <property name="geometry">
       <rect>
-       <x>540</x>
+       <x>560</x>
        <y>580</y>
        <width>267</width>
        <height>66</height>
@@ -3963,7 +3963,7 @@ font: 18pt &quot;幼圆&quot;;</string>
    <property name="geometry">
     <rect>
      <x>750</x>
-     <y>800</y>
+     <y>850</y>
      <width>90</width>
      <height>50</height>
     </rect>
@@ -3991,7 +3991,7 @@ font: 18pt &quot;幼圆&quot;;</string>
    <property name="geometry">
     <rect>
      <x>310</x>
-     <y>770</y>
+     <y>870</y>
      <width>847</width>
      <height>182</height>
     </rect>
@@ -4129,22 +4129,22 @@ font: 18pt &quot;幼圆&quot;;</string>
   <widget class="QFrame" name="frame">
    <property name="geometry">
     <rect>
-     <x>1250</x>
-     <y>10</y>
-     <width>870</width>
-     <height>755</height>
+     <x>1300</x>
+     <y>30</y>
+     <width>896</width>
+     <height>800</height>
     </rect>
    </property>
    <property name="minimumSize">
     <size>
-     <width>870</width>
-     <height>755</height>
+     <width>896</width>
+     <height>800</height>
     </size>
    </property>
    <property name="maximumSize">
     <size>
-     <width>870</width>
-     <height>755</height>
+     <width>896</width>
+     <height>800</height>
     </size>
    </property>
    <property name="font">
@@ -4195,8 +4195,8 @@ font: 18pt &quot;幼圆&quot;;</string>
         <rect>
          <x>10</x>
          <y>37</y>
-         <width>821</width>
-         <height>521</height>
+         <width>846</width>
+         <height>561</height>
         </rect>
        </property>
        <property name="font">
@@ -5232,7 +5232,7 @@ font: 18pt &quot;幼圆&quot;;</string>
        <property name="geometry">
         <rect>
          <x>140</x>
-         <y>565</y>
+         <y>605</y>
          <width>501</width>
          <height>151</height>
         </rect>
@@ -5494,7 +5494,7 @@ font: 18pt &quot;幼圆&quot;;</string>
        <property name="geometry">
         <rect>
          <x>5</x>
-         <y>580</y>
+         <y>620</y>
          <width>130</width>
          <height>130</height>
         </rect>
@@ -5528,7 +5528,7 @@ font: 18pt &quot;幼圆&quot;;</string>
        <property name="geometry">
         <rect>
          <x>670</x>
-         <y>580</y>
+         <y>620</y>
          <width>41</width>
          <height>31</height>
         </rect>
@@ -5581,22 +5581,22 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
   <widget class="QFrame" name="frame_20">
    <property name="geometry">
     <rect>
-     <x>878</x>
+     <x>904</x>
      <y>0</y>
      <width>376</width>
-     <height>755</height>
+     <height>800</height>
     </rect>
    </property>
    <property name="minimumSize">
     <size>
      <width>0</width>
-     <height>0</height>
+     <height>800</height>
     </size>
    </property>
    <property name="maximumSize">
     <size>
      <width>7898</width>
-     <height>7788</height>
+     <height>800</height>
     </size>
    </property>
    <property name="autoFillBackground">
@@ -5652,7 +5652,7 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
     <property name="geometry">
      <rect>
       <x>15</x>
-      <y>560</y>
+      <y>600</y>
       <width>81</width>
       <height>51</height>
      </rect>
@@ -5702,7 +5702,7 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
     <property name="geometry">
      <rect>
       <x>6</x>
-      <y>526</y>
+      <y>556</y>
       <width>277</width>
       <height>50</height>
      </rect>
@@ -5748,7 +5748,7 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
     <property name="geometry">
      <rect>
       <x>284</x>
-      <y>524</y>
+      <y>554</y>
       <width>81</width>
       <height>41</height>
      </rect>
@@ -5834,10 +5834,10 @@ font: 26pt &quot;Onyx&quot;;</string>
   <widget class="QWidget" name="widget" native="true">
    <property name="geometry">
     <rect>
-     <x>2150</x>
+     <x>2300</x>
      <y>10</y>
-     <width>875</width>
-     <height>581</height>
+     <width>901</width>
+     <height>621</height>
     </rect>
    </property>
    <property name="font">
@@ -5853,7 +5853,7 @@ font: 26pt &quot;Onyx&quot;;</string>
      <rect>
       <x>130</x>
       <y>10</y>
-      <width>741</width>
+      <width>761</width>
       <height>71</height>
      </rect>
     </property>
@@ -6113,7 +6113,7 @@ font: 26pt &quot;Onyx&quot;;</string>
       <x>10</x>
       <y>10</y>
       <width>111</width>
-      <height>561</height>
+      <height>601</height>
      </rect>
     </property>
     <property name="font">
@@ -6134,7 +6134,7 @@ font: 26pt &quot;Onyx&quot;;</string>
      <rect>
       <x>130</x>
       <y>80</y>
-      <width>741</width>
+      <width>761</width>
       <height>241</height>
      </rect>
     </property>
@@ -7180,7 +7180,7 @@ font: 26pt &quot;Onyx&quot;;</string>
       <x>10</x>
       <y>10</y>
       <width>111</width>
-      <height>561</height>
+      <height>601</height>
      </rect>
     </property>
     <property name="font">
@@ -7202,8 +7202,8 @@ font: 75 17pt &quot;Arial Narrow&quot;;</string>
      <rect>
       <x>110</x>
       <y>309</y>
-      <width>781</width>
-      <height>281</height>
+      <width>801</width>
+      <height>321</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_16">

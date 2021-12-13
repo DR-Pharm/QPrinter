@@ -78,42 +78,44 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	if (lg == 1) ret = pix.load(AppPath + "/ico/E/sznt.png");
 	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIcon(pix);
 	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIconSize(QSize(347, 99));
-	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->move(15, 10);
-
+	int firstbtnY = 20; 
+	int firstbtnX = 15;
+	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->move(firstbtnX, firstbtnY);
+	int offsetBTN = 105;
 	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setFixedSize(170, 140);
 	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setStyleSheet("QPushButton{border:0px;}");
 	if (lg == 0) pix.load(AppPath + "/ico/data2.png");
 	if (lg == 1) pix.load(AppPath + "/ico/E/data2.png");
 	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIcon(pix);
 	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIconSize(QSize(170, 140));
-	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->move(660, 565);
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->move(673, 605);
 
 	MyPushButton * AlarmResetBtn;	
 	if (lg == 0) AlarmResetBtn = new MyPushButton(AppPath + "/ico/bjfwnt.png", AppPath + "/ico/bjfw.png", 347, 99);
 	if (lg == 1) AlarmResetBtn = new MyPushButton(AppPath + "/ico/E/bjfwnt.png", AppPath + "/ico/E/bjfw.png", 347, 99);
 	AlarmResetBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
-	AlarmResetBtn->move(15, 110);
+	AlarmResetBtn->move(firstbtnX, firstbtnY +offsetBTN);
 	connect(AlarmResetBtn, &MyPushButton::clicked, [=]() {
 		on_pB_cmdAlarmReset_clicked(); });
 
 	if (lg == 0) AlarmResetBtn = new MyPushButton(AppPath + "/ico/jsqlnt.png", AppPath + "/ico/jsql.png", 347, 99);
 	if (lg == 1) AlarmResetBtn = new MyPushButton(AppPath + "/ico/E/jsqlnt.png", AppPath + "/ico/E/jsql.png", 347, 99);
 	AlarmResetBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
-	AlarmResetBtn->move(15, 210);
+	AlarmResetBtn->move(firstbtnX, firstbtnY + 2 * offsetBTN);
 	connect(AlarmResetBtn, &MyPushButton::clicked, [=]() {
 		on_pB_cmdCounterZero_clicked(); });
 
 	if (lg == 0) LanguageBtn = new MyPushButton(AppPath + "/ico/languageCNnt.png", AppPath + "/ico/languageCN.png", 347, 99);
 	if (lg == 1) LanguageBtn = new MyPushButton(AppPath + "/ico/E/languageCNnt.png", AppPath + "/ico/E/languageCN.png", 347, 99);
 	LanguageBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
-	LanguageBtn->move(15, 310);
+	LanguageBtn->move(firstbtnX, firstbtnY + 3 * offsetBTN);
 	connect(LanguageBtn, &MyPushButton::clicked, [=]() {
 		on_pB_ChangeLanguage(); });
 
 	if (lg == 0) ExitBtn = new MyPushButton(AppPath + "/ico/exitnt.png", AppPath + "/ico/exit.png", 347, 99);
 	if (lg == 1) ExitBtn = new MyPushButton(AppPath + "/ico/E/exitnt.png", AppPath + "/ico/E/exit.png", 347, 99);
 	ExitBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
-	ExitBtn->move(15, 410);
+	ExitBtn->move(firstbtnX, firstbtnY + 4 * offsetBTN);
 	connect(ExitBtn, &MyPushButton::clicked, [=]() {
 		emit CLOSESIGNAL(); });
 	//AlarmResetBtn = new MyPushButton(AppPath + "/ico/jtnt.png", AppPath + "/ico/jt.png", 347, 99);
@@ -605,7 +607,7 @@ void QtPLCDialogClass::initUI()
 
 		((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(161);//161 221 251
 		((Ui::QtPLCDialogClass*)ui)->widget_2->move(((Ui::QtPLCDialogClass*)ui)->widget_2->x(), 219);//279 309 
-		((Ui::QtPLCDialogClass*)ui)->widget_2->setFixedHeight(371);//311 281
+		((Ui::QtPLCDialogClass*)ui)->widget_2->setFixedHeight(411);//351 321 411
 	}
 	((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(false);
 
@@ -2158,7 +2160,7 @@ void QtPLCDialogClass::on_cB_Feedmode_currentIndexChanged(int index)
 
 		((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(221);//221 251
 		((Ui::QtPLCDialogClass*)ui)->widget_2->move(((Ui::QtPLCDialogClass*)ui)->widget_2->x(), 279);//279 309
-		((Ui::QtPLCDialogClass*)ui)->widget_2->setFixedHeight(311);//311 281
+		((Ui::QtPLCDialogClass*)ui)->widget_2->setFixedHeight(351);//351 321 411
 
 		if (lg == 0)
 		{
@@ -2195,7 +2197,7 @@ void QtPLCDialogClass::on_cB_Feedmode_currentIndexChanged(int index)
 
 		((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(251);
 		((Ui::QtPLCDialogClass*)ui)->widget_2->move(((Ui::QtPLCDialogClass*)ui)->widget_2->x(), 309);//279 309
-		((Ui::QtPLCDialogClass*)ui)->widget_2->setFixedHeight(281);//311 281
+		((Ui::QtPLCDialogClass*)ui)->widget_2->setFixedHeight(321);//351 321 411
 		if (lg == 0)
 		{
 			((Ui::QtPLCDialogClass*)ui)->label_70->setText(QString::fromLocal8Bit("平均压力："));
