@@ -204,7 +204,10 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	QList<QPushButton*> btnList = this->findChildren<QPushButton*>();
 	for (int i = 0; i < btnList.size(); i++)
 	{
-		connect(btnList[i], SIGNAL(toggled(bool)), this, SLOT(on_Input(bool)));
+		if (!btnList[i]->objectName().contains("checkable"))
+		{
+			connect(btnList[i], SIGNAL(toggled(bool)), this, SLOT(on_Input(bool)));
+		}
 	}
 	((Ui::QtPLCDialogClass*)ui)->label_57->setVisible(false);
 	((Ui::QtPLCDialogClass*)ui)->lE_FeedOveride->setVisible(false);
@@ -4441,18 +4444,16 @@ void QtPLCDialogClass::on_Input(bool checked)
 
 	if (checked)
 	{
-		if (!btn->objectName().contains("checkable"))
-		{
-			QTimer *tm = new QTimer();
-			connect(tm, &QTimer::timeout, this, [=] {
-				btn->blockSignals(true);
-				btn->setChecked(false);
-				btn->blockSignals(false);
-				tm->stop();
-				delete tm;
-			});
-			tm->start(100);
-		}
+		QTimer *tm = new QTimer();
+		connect(tm, &QTimer::timeout, this, [=] {
+			btn->blockSignals(true);
+			btn->setChecked(false);
+			btn->blockSignals(false);
+			tm->stop();
+			delete tm;
+		});
+		tm->start(100);
+
 	}
 }
 void QtPLCDialogClass::on_gB_update_toggled(bool arg1)
