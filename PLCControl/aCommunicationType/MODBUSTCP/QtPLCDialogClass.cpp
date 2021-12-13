@@ -89,9 +89,13 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	if (lg == 1) ret = pix.load(AppPath + "/ico/E/sznt.png");
 	((Ui::QtPLCDialogClass*)ui)->pB_SetUpcheckable->setIcon(pix);
 	((Ui::QtPLCDialogClass*)ui)->pB_SetUpcheckable->setIconSize(QSize(347, 99));
-	((Ui::QtPLCDialogClass*)ui)->pB_SetUpcheckable->move(15, 10);
-
-	((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setFixedSize(170, 140);
+	int firstl = 20;
+	int offsetx = 15;
+	int offsety = 105;
+	((Ui::QtPLCDialogClass*)ui)->pB_SetUpcheckable->move(offsetx, firstl);
+	int icszx = 230;
+	int icsxy = 200;
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setFixedSize(icszx, icsxy);
 	((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setStyleSheet("\
 		QPushButton\
 		{\
@@ -106,35 +110,35 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	if (lg == 0) pix.load(AppPath + "/ico/data2.png");
 	if (lg == 1) pix.load(AppPath + "/ico/E/data2.png");
 	((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setIcon(pix);
-	((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setIconSize(QSize(170, 140));
-	((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->move(640, 575);
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setIconSize(QSize(icszx, icsxy));
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->move(650, 580);
 
 	MyPushButton * AlarmResetBtn;
 	if (lg == 0) AlarmResetBtn = new MyPushButton(AppPath + "/ico/bjfwnt.png", AppPath + "/ico/bjfw.png", 347, 99);
 	if (lg == 1) AlarmResetBtn = new MyPushButton(AppPath + "/ico/E/bjfwnt.png", AppPath + "/ico/E/bjfw.png", 347, 99);
 	AlarmResetBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
-	AlarmResetBtn->move(15, 110);
+	AlarmResetBtn->move(offsetx, firstl+offsety);
 	connect(AlarmResetBtn, &MyPushButton::clicked, [=]() {
 		pB_cmdAlarmReset(); });
 
 	if (lg == 0) AlarmResetBtn = new MyPushButton(AppPath + "/ico/jsqlnt.png", AppPath + "/ico/jsql.png", 347, 99);
 	if (lg == 1) AlarmResetBtn = new MyPushButton(AppPath + "/ico/E/jsqlnt.png", AppPath + "/ico/E/jsql.png", 347, 99);
 	AlarmResetBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
-	AlarmResetBtn->move(15, 210);
+	AlarmResetBtn->move(offsetx, firstl + 2 * offsety);
 	connect(AlarmResetBtn, &MyPushButton::clicked, [=]() {
 		pB_cmdCounterZero(); });
 
 	if (lg == 0) LanguageBtn = new MyPushButton(AppPath + "/ico/languageCNnt.png", AppPath + "/ico/languageCN.png", 347, 99);
 	if (lg == 1) LanguageBtn = new MyPushButton(AppPath + "/ico/E/languageCNnt.png", AppPath + "/ico/E/languageCN.png", 347, 99);
 	LanguageBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
-	LanguageBtn->move(15, 310);
+	LanguageBtn->move(offsetx, firstl + 3 * offsety);
 	connect(LanguageBtn, &MyPushButton::clicked, [=]() {
 		pB_ChangeLanguage(); });
 
 	if (lg == 0) ExitBtn = new MyPushButton(AppPath + "/ico/exitnt.png", AppPath + "/ico/exit.png", 347, 99);
 	if (lg == 1) ExitBtn = new MyPushButton(AppPath + "/ico/E/exitnt.png", AppPath + "/ico/E/exit.png", 347, 99);
 	ExitBtn->setParent(((Ui::QtPLCDialogClass*)ui)->frame_20);
-	ExitBtn->move(15, 410);
+	ExitBtn->move(offsetx, firstl + 4 * offsety);
 	connect(ExitBtn, &MyPushButton::clicked, [=]() {
 		emit CLOSESIGNAL(); });
 	//AlarmResetBtn = new MyPushButton(AppPath + "/ico/jtnt.png", AppPath + "/ico/jt.png", 347, 99);
@@ -5565,7 +5569,6 @@ void QtPLCDialogClass::on_pB_dtDlgcheckable_toggled(bool checked)//数据dialog
 		if (lg == 0)pix.load(AppPath + "/ico/data1.png");
 		if (lg == 1)pix.load(AppPath + "/ico/E/data1.png");
 		((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setIcon(pix);
-		((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setIconSize(QSize(170, 140));
 		((Ui::QtPLCDialogClass*)ui)->widget->setVisible(true);
 	}
 	else
@@ -5575,7 +5578,6 @@ void QtPLCDialogClass::on_pB_dtDlgcheckable_toggled(bool checked)//数据dialog
 		if (lg == 0) pix.load(AppPath + "/ico/data2.png");
 		if (lg == 1) pix.load(AppPath + "/ico/E/data2.png");
 		((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setIcon(pix);
-		((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setIconSize(QSize(170, 140));
 		((Ui::QtPLCDialogClass*)ui)->widget->setVisible(false);
 	}
 }
