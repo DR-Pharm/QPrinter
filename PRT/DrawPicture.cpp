@@ -1209,8 +1209,9 @@ void DrawPicture::createTestingRecords(QPixmap *pix,int pagei)
 
 	//画数据部分的线条
 	QVector<QLine> lines;
-	int tbl = edgeOffset + 120;
-	float everyRow = (bottomH - tbl) / 32.0;
+	//int tbl = edgeOffset + 120;
+	int tbl = 2*edgeOffset + 120;
+	float everyRow = (bottomH - tbl) / 34.0;
 	float everyColumn = (rightW - edgeOffset) / 13.0;
 
 		painter->setPen(QPen(QColor(0, 0, 0), 2));
@@ -1224,11 +1225,11 @@ void DrawPicture::createTestingRecords(QPixmap *pix,int pagei)
 		for (int i = 0; i < 3; i++)
 		{
 			lines.append(QLine(QPoint(edgeOffset + everyColumn * (1 + 4 * i), tbl), QPoint(edgeOffset + everyColumn * (1 + 4 * i), bottomH)));//最长
-			lines.append(QLine(QPoint(edgeOffset + everyColumn * (4 * (i + 1) - 1), tbl + everyRow), QPoint(edgeOffset + everyColumn * (4 * (i + 1) - 1), bottomH - 5 * everyRow)));//最短中间
+			lines.append(QLine(QPoint(edgeOffset + everyColumn * (4 * (i + 1) - 1), tbl + everyRow), QPoint(edgeOffset + everyColumn * (4 * (i + 1) - 1), bottomH - 7 * everyRow)));//最短中间
 		}
 		for (int i = 0; i < 6; i++)
 		{
-			lines.append(QLine(QPoint(edgeOffset + everyColumn * (2 * (i+1)), tbl+everyRow), QPoint(edgeOffset + everyColumn * (2 * (1+i)), bottomH-5* everyRow)));//最短两边
+			lines.append(QLine(QPoint(edgeOffset + everyColumn * (2 * (i+1)), tbl+everyRow), QPoint(edgeOffset + everyColumn * (2 * (1+i)), bottomH-7* everyRow)));//最短两边
 		}
 		for (int i = 0; i < 28; i++)
 		{
@@ -1240,9 +1241,8 @@ void DrawPicture::createTestingRecords(QPixmap *pix,int pagei)
 			}
 		}
 		//painter->drawText(edgeOffset, tbl + everyRow * 27, everyColumn, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("带壳"));
-		painter->drawText(edgeOffset, tbl + everyRow * 29, everyColumn, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("去壳"));
-		QString s = QString::number(m_PureShell[pagei*3]) + "mg";
-		painter->drawText(edgeOffset, tbl + everyRow * 30, everyColumn, everyRow, Qt::AlignCenter, s);
+		painter->drawText(edgeOffset, tbl + everyRow * 28, everyColumn, 6 * everyRow, Qt::AlignCenter, QString::fromLocal8Bit("去壳\n")+
+			QString::number(m_PureShell[pagei * 3]) + "mg");
 
 		painter->drawLines(lines);
 		lines.clear();
@@ -1265,12 +1265,20 @@ void DrawPicture::createTestingRecords(QPixmap *pix,int pagei)
 		font.setPointSize(35);
 		painter->setFont(font);
 		painter->drawText(edgeOffset, 0, innerW, 90, Qt::AlignRight | Qt::AlignBottom, QString::fromLocal8Bit("日期：") + YearMonthDay());
-		s = QString::fromLocal8Bit("试机厂家:")+ m_CustomerName[pagei * 3];
-		painter->drawText(edgeOffset, secondLine, innerW / 2, tbl - secondLine, Qt::AlignLeft | Qt::AlignVCenter, s);
-		s = QString::fromLocal8Bit("药品名称:") + m_MedicineName[pagei * 3];
-		painter->drawText(edgeOffset + innerW / 3 + 100, secondLine, innerW / 2, tbl - secondLine, Qt::AlignLeft | Qt::AlignVCenter, s);
-		s = QString::fromLocal8Bit("要求净重范围:") + QString::number(m_Low[pagei * 3])+ "mg - "+ QString::number(m_High[pagei * 3])+"mg";
-		painter->drawText(edgeOffset + 2 * innerW / 3+50, secondLine, innerW / 2, tbl - secondLine, Qt::AlignLeft | Qt::AlignVCenter, s);
+		//s = QString::fromLocal8Bit("试机厂家:")+ m_CustomerName[pagei * 3];
+		//painter->drawText(edgeOffset, secondLine, innerW / 2, tbl - secondLine, Qt::AlignLeft | Qt::AlignVCenter, s);
+		//s = QString::fromLocal8Bit("药品名称:") + m_MedicineName[pagei * 3];
+		//painter->drawText(edgeOffset + innerW / 3 + 100, secondLine, innerW / 2, tbl - secondLine, Qt::AlignLeft | Qt::AlignVCenter, s);
+		//s = QString::fromLocal8Bit("要求装量:") + QString::number(m_Low[pagei * 3]) + QString::fromLocal8Bit("mg(下)-") + QString::number(m_Low[pagei * 3]) + QString::fromLocal8Bit("mg(中)-") + QString::number(m_High[pagei * 3])+ QString::fromLocal8Bit("mg(上)");
+		//painter->drawText(edgeOffset + 2 * innerW / 3+50, secondLine, innerW / 2, tbl - secondLine, Qt::AlignLeft | Qt::AlignVCenter, s);
+		QString s = QString::fromLocal8Bit("试机厂家:") + m_CustomerName[pagei * 3] + 
+			QString::fromLocal8Bit("     药品名称:") + m_MedicineName[pagei * 3];
+		painter->drawText(edgeOffset, secondLine, innerW, tbl - secondLine - edgeOffset, Qt::AlignLeft | Qt::AlignVCenter, s);
+		s=QString::fromLocal8Bit("要求装量:") + QString::number(m_Low[pagei * 3]) + 
+			QString::fromLocal8Bit("mg(下)  ") + QString::number(m_ftheory[pagei * 3]*1000) +
+			QString::fromLocal8Bit("mg(中)  ") + QString::number(m_High[pagei * 3]) + 
+			QString::fromLocal8Bit("mg(上)");
+		painter->drawText(edgeOffset, secondLine+ edgeOffset, innerW, tbl - secondLine- edgeOffset, Qt::AlignLeft |Qt::AlignVCenter, s);
 
 	painter->setBrush(QBrush(Qt::gray, Qt::SolidPattern));//设置画刷形式 
 	for (int k=0;k<3;k++)
@@ -1320,12 +1328,16 @@ void DrawPicture::createTestingRecords(QPixmap *pix,int pagei)
 			SD = sqrt(SD);
 			RSD = SD / fave2*100;
 		}
-		str = QString::fromLocal8Bit("RSD：") + QString::number(RSD, 'f', 2) + "%";
+		str = QString::fromLocal8Bit("偏差+：") + QString::number((imax - m_PureShell[j] - fave2) / fave2 * 100, 'f', 2) + "%";
 		painter->drawText(edgeOffset + everyColumn * (1 + 4 * (k % 3)), tbl + (everyRow * 29), everyColumn * 4, everyRow, Qt::AlignCenter, str);
-		str = QString::fromLocal8Bit("最重：") + QString::number(imax- m_PureShell[j]) + "mg";
+		str = QString::fromLocal8Bit("偏差-：") + QString::number((imin - m_PureShell[j] - fave2) / fave2 * 100, 'f', 2) + "%";
 		painter->drawText(edgeOffset + everyColumn * (1 + 4 * (k % 3)), tbl + (everyRow * 30), everyColumn * 4, everyRow, Qt::AlignCenter, str);
-		str = QString::fromLocal8Bit("最轻：") + QString::number(imin- m_PureShell[j]) + "mg";
+		str = QString::fromLocal8Bit("RSD：") + QString::number(RSD, 'f', 2) + "%";
 		painter->drawText(edgeOffset + everyColumn * (1 + 4 * (k % 3)), tbl + (everyRow * 31), everyColumn * 4, everyRow, Qt::AlignCenter, str);
+		str = QString::fromLocal8Bit("最重：") + QString::number(imax- m_PureShell[j]) + "mg";
+		painter->drawText(edgeOffset + everyColumn * (1 + 4 * (k % 3)), tbl + (everyRow * 32), everyColumn * 4, everyRow, Qt::AlignCenter, str);
+		str = QString::fromLocal8Bit("最轻：") + QString::number(imin- m_PureShell[j]) + "mg";
+		painter->drawText(edgeOffset + everyColumn * (1 + 4 * (k % 3)), tbl + (everyRow * 33), everyColumn * 4, everyRow, Qt::AlignCenter, str);
 
 		QStringList gnum = m_gn[k + pagei * 3].split(",");
 		painter->drawText(edgeOffset + everyColumn * (1 + 4 * (k % 3)), tbl, everyColumn * 4, everyRow, Qt::AlignCenter, QString::fromLocal8Bit("第") + QString::number(k + pagei * 3 + 1) + QString::fromLocal8Bit("次 (ID:") +gnum.at(0) + ")");
