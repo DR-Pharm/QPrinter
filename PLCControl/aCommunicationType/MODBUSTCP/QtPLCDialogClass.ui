@@ -59,7 +59,7 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="tab_PLC_Control">
     <attribute name="title">
@@ -3167,7 +3167,7 @@
         <enum>QFrame::Sunken</enum>
        </property>
        <property name="lineWidth">
-        <number>2</number>
+        <number>1</number>
        </property>
        <layout class="QGridLayout" name="gridLayout_5">
         <property name="leftMargin">
@@ -4900,7 +4900,7 @@
         <enum>QFrame::Sunken</enum>
        </property>
        <property name="lineWidth">
-        <number>2</number>
+        <number>1</number>
        </property>
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="0">
@@ -6909,7 +6909,7 @@ font: 18pt &quot;幼圆&quot;;</string>
     <enum>QFrame::Sunken</enum>
    </property>
    <property name="lineWidth">
-    <number>3</number>
+    <number>1</number>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_6">
     <item>
@@ -6955,10 +6955,10 @@ font: 18pt &quot;幼圆&quot;;</string>
         <enum>QFrame::Box</enum>
        </property>
        <property name="frameShadow">
-        <enum>QFrame::Sunken</enum>
+        <enum>QFrame::Raised</enum>
        </property>
        <property name="lineWidth">
-        <number>3</number>
+        <number>1</number>
        </property>
        <layout class="QGridLayout" name="gridLayout_10">
         <item row="6" column="6">
@@ -8002,7 +8002,7 @@ font: 18pt &quot;幼圆&quot;;</string>
         <enum>QFrame::Sunken</enum>
        </property>
        <property name="lineWidth">
-        <number>3</number>
+        <number>1</number>
        </property>
        <layout class="QGridLayout" name="gridLayout_14">
         <item row="0" column="0">
@@ -8312,7 +8312,7 @@ font: 18pt &quot;幼圆&quot;;</string>
     <enum>QFrame::Sunken</enum>
    </property>
    <property name="lineWidth">
-    <number>3</number>
+    <number>1</number>
    </property>
    <widget class="QPushButton" name="pB_SetUpcheckable">
     <property name="enabled">

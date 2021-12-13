@@ -178,7 +178,7 @@ void PRT::initUI()
 	lbDr = new QLabel(this);
 	lbDr->resize(1280, 800);
 	lbDr->move(0, 0);
-	lbDr->setPixmap(QPixmap(AppPath + "/ico/dr.png"));
+	lbDr->setPixmap(QPixmap(AppPath + "/ico/touming.png"));
 	lbDr->setScaledContents(true);
 	lbDr->setAttribute(Qt::WA_TransparentForMouseEvents);
 }
