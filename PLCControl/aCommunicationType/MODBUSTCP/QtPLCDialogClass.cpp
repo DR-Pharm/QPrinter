@@ -162,13 +162,13 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	memset(dtregisters, 0, REGISTERS*2);
 	//开始
 
-	((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setFixedSize(347, 200);
+	((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setFixedSize(380, 230);
 	((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setStyleSheet("QPushButton{border:0px;}");
 	if (lg == 0) ret = pix.load(AppPath + "/ico/start.png");
 	if (lg == 1) ret = pix.load(AppPath + "/ico/E/start.png");
 
 	((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setIcon(pix);
-	((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setIconSize(QSize(347, 200));
+	((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setIconSize(QSize(380, 230));
 	((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setEnabled(false);
 	((Ui::QtPLCDialogClass*)ui)->lb_Alarm->setStyleSheet("color: rgb(255, 0,0);font-size:20pt");
 	if (lg == 0) ((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("设备未就绪~");
@@ -769,6 +769,7 @@ void QtPLCDialogClass::initMovie()
 }
 void QtPLCDialogClass::initUI()
 {
+	gettime();
 	((Ui::QtPLCDialogClass*)ui)->pB_TMUStop->setVisible(false);
 	((Ui::QtPLCDialogClass*)ui)->pB_HMUZero->setVisible(false);
 	//QRegExp regx("[a-zA-Z0-9_]+$");//正则表达式QRegExp,只允许输入中文、数字、字母、下划线以及空格,[\u4e00 - \u9fa5a - zA - Z0 - 9_] + $
@@ -1289,6 +1290,19 @@ void QtPLCDialogClass::getPLCHolding(void*data)
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_MachineStep->hasFocus())
 	{
 		((Ui::QtPLCDialogClass*)ui)->lE_MachineStep->setText(QString::number(m_Input_Bufer[Machine_step]));
+		if (m_b && m_Input_Bufer[Machine_step]!=0)
+		{
+			m_b = 0;
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->blockSignals(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setChecked(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->blockSignals(false);
+			QPixmap pix;
+			if (lg == 0) pix.load(AppPath + "/ico/stop.png");
+			if (lg == 1) pix.load(AppPath + "/ico/E/stop.png");
+			ExitBtn->setEnabled(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setIcon(pix);
+			((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(false);
+		}
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_PassCount->hasFocus())
 	{
@@ -1616,11 +1630,16 @@ void QtPLCDialogClass::on_WriteCoils()
 	}
 
 }
+QString QtPLCDialogClass::gettime()
+{
+QDateTime time = QDateTime::currentDateTime();
+QString strtm = time.toString("yyyy-MM-dd hh:mm:ss");
+((Ui::QtPLCDialogClass*)ui)->lb_tm->setText(strtm);
+return strtm;
+}
 void QtPLCDialogClass::getPLCData(void* data)
 {
-	QDateTime time = QDateTime::currentDateTime();
-	QString strtm = time.toString("hh:mm:ss");
-	((Ui::QtPLCDialogClass*)ui)->lb_tm->setText(strtm);
+	gettime();
 	if (m_iDontReadCoilsFlag ==1)
 	{
 		return;
@@ -1975,7 +1994,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 	}
 	if (m_Coils_Bufer[TMU_cmdStart] == 1)
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_TMUStart->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pB_TMUStartDelayRelease->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
 		if (m_str_sendCoils.mid(TMU_cmdStart, 1) == "0")
 		{
 			m_str_sendCoils.replace(TMU_cmdStart, 1, "1");
@@ -1983,7 +2002,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 	}
 	else
 	{
-		((Ui::QtPLCDialogClass*)ui)->pB_TMUStart->setStyleSheet("font: bold;font-size:20pt");
+		((Ui::QtPLCDialogClass*)ui)->pB_TMUStartDelayRelease->setStyleSheet("font: bold;font-size:20pt");
 		if (m_str_sendCoils.mid(TMU_cmdStart, 1) == "1")
 		{
 			m_str_sendCoils.replace(TMU_cmdStart, 1, "0");
@@ -4444,15 +4463,26 @@ void QtPLCDialogClass::on_Input(bool checked)
 
 	if (checked)
 	{
+		btn->setEnabled(false);
+		btn->setStyleSheet("background-color:rgb(0,255,0)");
 		QTimer *tm = new QTimer();
 		connect(tm, &QTimer::timeout, this, [=] {
+			btn->setEnabled(true);
+			btn->setStyleSheet("background-color:");
 			btn->blockSignals(true);
 			btn->setChecked(false);
 			btn->blockSignals(false);
 			tm->stop();
 			delete tm;
 		});
-		tm->start(100);
+		if (btn->objectName().contains("pB_TMUStartDelayRelease"))
+		{
+			tm->start(2000);
+		}
+		else
+		{
+			tm->start(100);
+		}
 
 	}
 }
@@ -4612,8 +4642,12 @@ void QtPLCDialogClass::on_pB_cmdStartcheckable_toggled(bool checked)//启动 停
 	btnTimer->start(1);
 }
 
-void QtPLCDialogClass::on_pB_TMUStart_clicked()
+void QtPLCDialogClass::on_pB_TMUStartDelayRelease_toggled(bool checked)
 {
+	if (!checked)
+	{
+		return;
+	}
 #ifdef MODBUSTCP
 	m_iDontReadCoilsFlag = 1;
 	m_str_sendCoils.replace(TMU_cmdStart, 1, "1");
@@ -5436,7 +5470,7 @@ void QtPLCDialogClass::ChangeLanguage()
 
 		((Ui::QtPLCDialogClass*)ui)->groupBox_13->setTitle("Thickness Testing Unit");
 		((Ui::QtPLCDialogClass*)ui)->pB_enTMUcheckable->setText("Enable");
-		((Ui::QtPLCDialogClass*)ui)->pB_TMUStart->setText("Start");
+		((Ui::QtPLCDialogClass*)ui)->pB_TMUStartDelayRelease->setText("Start");
 		((Ui::QtPLCDialogClass*)ui)->pB_TMUStop->setText("Stop");
 		((Ui::QtPLCDialogClass*)ui)->pB_TMUZero->setText("Zero"); 
 		((Ui::QtPLCDialogClass*)ui)->pB_TMUCalib->setText("CalibStd"); 

@@ -62,6 +62,7 @@ public:
 	void CompareYearMonthDay();
 
 
+	QString gettime();
 	QString setYearMonthDay();
 	QString YearMonthDay();
 	float hexTofloat(int i);
@@ -164,6 +165,7 @@ private:
 	int m_iHardmeasured = 0;
 	int m_ihardnum = 0;
 	int m_istartFlag = 0;
+	bool m_b = 1;
 public slots:
 	DataFromPC_typ getPCParaData();
 	DataFromPC_typ getPCRunData();
@@ -270,7 +272,7 @@ public slots:
 	void on_pB_HMUTurn_clicked();
 	void on_pB_HMUReject_clicked();
 	void on_pB_cmdStartcheckable_toggled(bool checked);
-	void on_pB_TMUStart_clicked();
+	void on_pB_TMUStartDelayRelease_toggled(bool checked);
 	void on_pB_TMUStop_clicked();
 	void on_pB_TMUZero_clicked();
 	void on_pB_TMUCalib_clicked();
