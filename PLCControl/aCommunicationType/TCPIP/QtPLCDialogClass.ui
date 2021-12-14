@@ -27,20 +27,20 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>896</width>
-     <height>800</height>
+     <width>904</width>
+     <height>801</height>
     </rect>
    </property>
    <property name="minimumSize">
     <size>
-     <width>896</width>
-     <height>800</height>
+     <width>904</width>
+     <height>801</height>
     </size>
    </property>
    <property name="maximumSize">
     <size>
-     <width>896</width>
-     <height>800</height>
+     <width>904</width>
+     <height>801</height>
     </size>
    </property>
    <property name="font">
@@ -59,7 +59,7 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>3</number>
    </property>
    <widget class="QWidget" name="tab_PLC_Control">
     <attribute name="title">
@@ -81,7 +81,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -1813,14 +1813,14 @@
         <enum>QFrame::Sunken</enum>
        </property>
        <property name="lineWidth">
-        <number>2</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="layoutWidget_2">
         <property name="geometry">
          <rect>
           <x>10</x>
           <y>660</y>
-          <width>821</width>
+          <width>861</width>
           <height>44</height>
          </rect>
         </property>
@@ -1856,7 +1856,7 @@
          <rect>
           <x>3</x>
           <y>30</y>
-          <width>831</width>
+          <width>871</width>
           <height>561</height>
          </rect>
         </property>
@@ -2571,14 +2571,14 @@
         <enum>QFrame::Sunken</enum>
        </property>
        <property name="lineWidth">
-        <number>2</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="layoutWidget22">
         <property name="geometry">
          <rect>
           <x>13</x>
           <y>13</y>
-          <width>801</width>
+          <width>851</width>
           <height>721</height>
          </rect>
         </property>
@@ -3535,7 +3535,7 @@
     <widget class="QGroupBox" name="gB_User">
      <property name="geometry">
       <rect>
-       <x>545</x>
+       <x>565</x>
        <y>65</y>
        <width>291</width>
        <height>491</height>
@@ -3932,7 +3932,7 @@ font: 18pt &quot;幼圆&quot;;</string>
     <widget class="QPushButton" name="pB_Users_Delete">
      <property name="geometry">
       <rect>
-       <x>560</x>
+       <x>580</x>
        <y>580</y>
        <width>267</width>
        <height>66</height>
@@ -4131,20 +4131,20 @@ font: 18pt &quot;幼圆&quot;;</string>
     <rect>
      <x>1300</x>
      <y>30</y>
-     <width>896</width>
-     <height>800</height>
+     <width>904</width>
+     <height>801</height>
     </rect>
    </property>
    <property name="minimumSize">
     <size>
-     <width>896</width>
-     <height>800</height>
+     <width>904</width>
+     <height>801</height>
     </size>
    </property>
    <property name="maximumSize">
     <size>
-     <width>896</width>
-     <height>800</height>
+     <width>904</width>
+     <height>801</height>
     </size>
    </property>
    <property name="font">
@@ -4165,7 +4165,7 @@ font: 18pt &quot;幼圆&quot;;</string>
     <enum>QFrame::Sunken</enum>
    </property>
    <property name="lineWidth">
-    <number>3</number>
+    <number>1</number>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_6">
     <item>
@@ -4214,7 +4214,7 @@ font: 18pt &quot;幼圆&quot;;</string>
         <enum>QFrame::Sunken</enum>
        </property>
        <property name="lineWidth">
-        <number>3</number>
+        <number>1</number>
        </property>
        <layout class="QGridLayout" name="gridLayout_10">
         <item row="1" column="0">
@@ -5244,7 +5244,7 @@ font: 18pt &quot;幼圆&quot;;</string>
         <enum>QFrame::Sunken</enum>
        </property>
        <property name="lineWidth">
-        <number>3</number>
+        <number>1</number>
        </property>
        <widget class="QLabel" name="label_80">
         <property name="geometry">
@@ -5583,20 +5583,20 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
     <rect>
      <x>904</x>
      <y>0</y>
-     <width>376</width>
-     <height>800</height>
+     <width>377</width>
+     <height>801</height>
     </rect>
    </property>
    <property name="minimumSize">
     <size>
-     <width>0</width>
-     <height>800</height>
+     <width>377</width>
+     <height>801</height>
     </size>
    </property>
    <property name="maximumSize">
     <size>
-     <width>7898</width>
-     <height>800</height>
+     <width>377</width>
+     <height>801</height>
     </size>
    </property>
    <property name="autoFillBackground">
@@ -5609,7 +5609,7 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
     <enum>QFrame::Sunken</enum>
    </property>
    <property name="lineWidth">
-    <number>3</number>
+    <number>1</number>
    </property>
    <widget class="QPushButton" name="pB_SetUp">
     <property name="enabled">
@@ -6187,6 +6187,19 @@ font: 26pt &quot;Onyx&quot;;</string>
           <number>0</number>
          </property>
          <item>
+          <spacer name="horizontalSpacer_21">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
           <widget class="QLineEdit" name="lE_year1">
            <property name="enabled">
             <bool>true</bool>
@@ -6227,6 +6240,19 @@ font: 26pt &quot;Onyx&quot;;</string>
           </widget>
          </item>
          <item>
+          <spacer name="horizontalSpacer_14">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
           <widget class="QLabel" name="label_38">
            <property name="font">
             <font>
@@ -6238,6 +6264,19 @@ font: 26pt &quot;Onyx&quot;;</string>
             <string>/</string>
            </property>
           </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_16">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
          </item>
          <item>
           <widget class="QLineEdit" name="lE_month1">
@@ -6280,6 +6319,19 @@ font: 26pt &quot;Onyx&quot;;</string>
           </widget>
          </item>
          <item>
+          <spacer name="horizontalSpacer_23">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
           <widget class="QLabel" name="label_43">
            <property name="font">
             <font>
@@ -6291,6 +6343,19 @@ font: 26pt &quot;Onyx&quot;;</string>
             <string>/</string>
            </property>
           </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_24">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
          </item>
          <item>
           <widget class="QLineEdit" name="lE_day1">
@@ -6331,6 +6396,19 @@ font: 26pt &quot;Onyx&quot;;</string>
             <bool>true</bool>
            </property>
           </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_22">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
          </item>
          <item>
           <widget class="QLabel" name="label_47">
@@ -6434,6 +6512,19 @@ font: 26pt &quot;Onyx&quot;;</string>
           </widget>
          </item>
          <item>
+          <spacer name="horizontalSpacer_28">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
           <widget class="QLabel" name="label_45">
            <property name="font">
             <font>
@@ -6445,6 +6536,19 @@ font: 26pt &quot;Onyx&quot;;</string>
             <string>:</string>
            </property>
           </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_27">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
          </item>
          <item>
           <widget class="QLineEdit" name="lE_minute1">
@@ -6487,7 +6591,7 @@ font: 26pt &quot;Onyx&quot;;</string>
           </widget>
          </item>
          <item>
-          <spacer name="horizontalSpacer_16">
+          <spacer name="horizontalSpacer_26">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -6516,7 +6620,7 @@ font: 26pt &quot;Onyx&quot;;</string>
           </widget>
          </item>
          <item>
-          <spacer name="horizontalSpacer_14">
+          <spacer name="horizontalSpacer_25">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -6569,6 +6673,19 @@ font: 26pt &quot;Onyx&quot;;</string>
           </widget>
          </item>
          <item>
+          <spacer name="horizontalSpacer_29">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
           <widget class="QLabel" name="label_60">
            <property name="font">
             <font>
@@ -6580,6 +6697,19 @@ font: 26pt &quot;Onyx&quot;;</string>
             <string>:</string>
            </property>
           </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_30">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
          </item>
          <item>
           <widget class="QLineEdit" name="lE_minute2">
