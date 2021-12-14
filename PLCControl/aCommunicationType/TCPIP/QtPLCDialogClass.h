@@ -151,6 +151,7 @@ private:
 	int lg = 0;
 	bool leflag = 0;
 	int m_iFeedMode = 23;
+	bool m_b = 1;
 public slots:
 
 	DataFromPC_typ getPCParaData();

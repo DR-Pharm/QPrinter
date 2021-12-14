@@ -903,7 +903,7 @@ void QtPLCDialogClass::initChartOne()
 QString QtPLCDialogClass::gettime()
 {
 	QDateTime time = QDateTime::currentDateTime();
-	QString strtm = time.toString("yyyy-mm-dd hh:mm:ss");
+	QString strtm = time.toString("yyyy-MM-dd hh:mm:ss");
 	((Ui::QtPLCDialogClass*)ui)->lb_tm->setText(strtm);
 	return strtm;
 }
@@ -1201,6 +1201,19 @@ void QtPLCDialogClass::getPLCData(void* data)
 	((Ui::QtPLCDialogClass*)ui)->lE_AxisSwingErrorNo->setText(QString::number(m_data->Status.AxisSwingErrorNo));		//旋转电机错误代码
 	//((Ui::QtPLCDialogClass*)ui)->lE_AxisSwingRelMovDistance->setText(QString::number(m_data->Status.AxisSwingRelMovDistance));//旋转电机相对运动距离，单位unit
 	((Ui::QtPLCDialogClass*)ui)->lE_MachineStep->setText(QString::number(m_data->Status.MachineStep));			//系统运行状态机步骤
+	if (m_b && m_data->Status.MachineStep != 0)
+	{
+		m_b = 0;
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->blockSignals(true);
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setChecked(true);
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->blockSignals(false);
+		QPixmap pix;
+		if (lg == 0) pix.load(AppPath + "/ico/stop.png");
+		if (lg == 1) pix.load(AppPath + "/ico/E/stop.png");
+		ExitBtn->setEnabled(false);
+		((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIcon(pix);
+		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(false);
+	}
 	((Ui::QtPLCDialogClass*)ui)->lE_TimeInterval->setText(QString::number(m_data->Status.TimeInterval, 'f', 2));			//测量实际间隔时间
 	((Ui::QtPLCDialogClass*)ui)->lE_AlarmStatus->setText(QString::number(m_data->Status.AlarmStatus));
 	if (m_data->Status.Alarm[0] >> 0 & 1 == 1)

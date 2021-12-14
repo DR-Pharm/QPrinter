@@ -5701,9 +5701,9 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
    <widget class="TextTicker" name="lb_Alarm">
     <property name="geometry">
      <rect>
-      <x>6</x>
+      <x>10</x>
       <y>550</y>
-      <width>365</width>
+      <width>350</width>
       <height>50</height>
      </rect>
     </property>
@@ -5715,13 +5715,13 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
     </property>
     <property name="minimumSize">
      <size>
-      <width>365</width>
+      <width>350</width>
       <height>50</height>
      </size>
     </property>
     <property name="maximumSize">
      <size>
-      <width>365</width>
+      <width>350</width>
       <height>50</height>
      </size>
     </property>
