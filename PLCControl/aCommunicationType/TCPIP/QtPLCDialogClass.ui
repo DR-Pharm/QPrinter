@@ -5770,8 +5770,8 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
     </property>
     <property name="font">
      <font>
-      <family>Cascadia Code</family>
-      <pointsize>20</pointsize>
+      <family>Onyx</family>
+      <pointsize>26</pointsize>
       <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
