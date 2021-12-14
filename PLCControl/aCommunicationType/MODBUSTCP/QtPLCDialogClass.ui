@@ -28,19 +28,19 @@
      <x>0</x>
      <y>0</y>
      <width>904</width>
-     <height>800</height>
+     <height>801</height>
     </rect>
    </property>
    <property name="minimumSize">
     <size>
      <width>904</width>
-     <height>800</height>
+     <height>801</height>
     </size>
    </property>
    <property name="maximumSize">
     <size>
      <width>904</width>
-     <height>800</height>
+     <height>801</height>
     </size>
    </property>
    <property name="font">
@@ -6876,19 +6876,19 @@ font: 18pt &quot;幼圆&quot;;</string>
      <x>1560</x>
      <y>10</y>
      <width>904</width>
-     <height>800</height>
+     <height>801</height>
     </rect>
    </property>
    <property name="minimumSize">
     <size>
      <width>904</width>
-     <height>800</height>
+     <height>801</height>
     </size>
    </property>
    <property name="maximumSize">
     <size>
      <width>904</width>
-     <height>800</height>
+     <height>801</height>
     </size>
    </property>
    <property name="font">
@@ -8280,20 +8280,20 @@ font: 18pt &quot;幼圆&quot;;</string>
     <rect>
      <x>904</x>
      <y>0</y>
-     <width>376</width>
-     <height>800</height>
+     <width>377</width>
+     <height>801</height>
     </rect>
    </property>
    <property name="minimumSize">
     <size>
-     <width>0</width>
-     <height>800</height>
+     <width>377</width>
+     <height>801</height>
     </size>
    </property>
    <property name="maximumSize">
     <size>
-     <width>7898</width>
-     <height>800</height>
+     <width>377</width>
+     <height>801</height>
     </size>
    </property>
    <property name="font">
