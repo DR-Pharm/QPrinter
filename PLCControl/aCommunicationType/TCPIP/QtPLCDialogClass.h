@@ -62,6 +62,7 @@ public:
 	QString setYearMonthDay();
 	QString YearMonthDay();
 	void SWITCHOSK();//¿ì½Ý¼ü
+	QString gettime();
 private:
 	bool m_bFeedModeFlag1 = 0;
 	bool m_bFeedModeFlag2 = 0;
@@ -156,6 +157,7 @@ public slots:
 	DataFromPC_typ getPCRunData();
 
 	void initChartOne();
+
 
 	void getPLCData(void*);
 

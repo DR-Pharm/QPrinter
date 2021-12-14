@@ -132,12 +132,12 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 		*/
 	//开始
 
-	((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setFixedSize(347, 200);
+	((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setFixedSize(380, 230);
 	((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setStyleSheet("QPushButton{border:0px;}");
 	if (lg == 0) ret = pix.load(AppPath + "/ico/start.png");
 	if (lg == 1) ret = pix.load(AppPath + "/ico/E/start.png");
 	((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIcon(pix);
-	((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIconSize(QSize(347, 200));	
+	((Ui::QtPLCDialogClass*)ui)->pB_cmdStart->setIconSize(QSize(380, 230));
 	((Ui::QtPLCDialogClass*)ui)->lb_Alarm->setStyleSheet("color: rgb(255, 0,0);font-size:20pt");
 	if (lg == 0) ((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("设备未就绪~");
 	if (lg == 1) ((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("Not Ready~");
@@ -525,7 +525,7 @@ void QtPLCDialogClass::initUI()
 	//((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(211);//211 241
 	//((Ui::QtPLCDialogClass*)ui)->widget_2->move(((Ui::QtPLCDialogClass*)ui)->widget_2->x(),279);//279 309 
 	//((Ui::QtPLCDialogClass*)ui)->widget_2->setFixedHeight(311);//311 281
-
+	gettime();
 	QStringList strlst;
 	if (lg == 0) strlst << QString::fromLocal8Bit("胶囊") << QString::fromLocal8Bit("片剂");
 	if (lg == 1) strlst << QString::fromLocal8Bit("Capsule") << QString::fromLocal8Bit("Tablet");
@@ -900,11 +900,16 @@ void QtPLCDialogClass::initChartOne()
 
 	((Ui::QtPLCDialogClass*)ui)->gridLayout_One->addWidget(chartView);
 }
-void QtPLCDialogClass::getPLCData(void* data)
+QString QtPLCDialogClass::gettime()
 {
 	QDateTime time = QDateTime::currentDateTime();
-	QString strtm = time.toString("hh:mm:ss");
+	QString strtm = time.toString("yyyy-mm-dd hh:mm:ss");
 	((Ui::QtPLCDialogClass*)ui)->lb_tm->setText(strtm);
+	return strtm;
+}
+void QtPLCDialogClass::getPLCData(void* data)
+{
+	gettime();
 	memcpy(m_data, (DataToPC_typ*)data, sizeof(DataToPC_typ));//主界面用
 
 	//运行数据
