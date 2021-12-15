@@ -153,6 +153,7 @@ private:
 	int m_iDontReadCoilsFlag = 0;
 	int m_iDontReadRegistersFlag = 0;
 	int lg = 0;
+	QString sp;
 
 	int m_iAutoUpdateFlag = 0;
 	bool leflag = 0;

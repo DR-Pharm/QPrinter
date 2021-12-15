@@ -8,26 +8,50 @@ QPushButton::checked
 Padding-left:3px;
 Padding-top:3px;
 }
+QLineEdit
+{
+border:0px Groove grey;
+border-radius:3px;
+background-color:transparent;
+}
+
 QComboBox
 {
-border:2px outset  gray;
-border-radius:3px;
+border:0px groove white;
+background-color:transparent;
+}
+QComboBox QAbstractItemView
+{
+section-background-color:grey;
+selection-color:green;
+border:3px outset white;
 }
 QComboBox::drop-down
 {
 border-style:solid;
-margin-right:15px;
+margin-right:35px;
 }
 QComboBox::down-arrow
 {
-image:url(./ico/125.png);
+image:url(./ico/6464.png);
 }
 QComboBox::down-arrow:on
 {
 padding-top:3px;
 }
-QLineEdit
+
+QTableWidget
 {
-border:2px outset  gray;
-border-radius:3px;
+background:transparent;
 }
+
+QTreeWidget
+{
+background-color:transparent;
+}
+QTreeWidget::item
+{
+margin-left:13px;
+background:transparent;
+}
+
