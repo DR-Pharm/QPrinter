@@ -59,7 +59,7 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="tab_PLC_Control">
     <attribute name="title">
@@ -8584,17 +8584,6 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
      <string notr="true">font: 12pt &quot;幼圆&quot;;</string>
     </property>
    </widget>
-   <widget class="QWidget" name="gridLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>300</x>
-      <y>310</y>
-      <width>601</width>
-      <height>321</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout_One"/>
-   </widget>
    <widget class="QGroupBox" name="groupBox_11">
     <property name="geometry">
      <rect>
@@ -9361,8 +9350,11 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
       <bold>false</bold>
      </font>
     </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 0);
+     <string notr="true">background-color: transparent;
 font: 75 17pt &quot;Arial Narrow&quot;;</string>
     </property>
    </widget>
@@ -9758,6 +9750,59 @@ background-color:transparent;</string>
      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
    </widget>
+   <widget class="QFrame" name="frame_cv">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>310</y>
+      <width>601</width>
+      <height>321</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border:0px;
+background-color:transparent;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_8">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <layout class="QGridLayout" name="gridLayout_One"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QLabel" name="lb_search">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>30</y>
+      <width>68</width>
+      <height>100</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
    <zorder>label_9</zorder>
    <zorder>label_3</zorder>
    <zorder>lE_GroupMaxRatio</zorder>
@@ -9774,10 +9819,11 @@ background-color:transparent;</string>
    <zorder>lE_GroupSum</zorder>
    <zorder>lE_GroupIndex_2</zorder>
    <zorder>label_29</zorder>
-   <zorder>gridLayoutWidget</zorder>
    <zorder>tableWidget</zorder>
    <zorder>groupBox_11</zorder>
    <zorder>lW_data</zorder>
+   <zorder>frame_cv</zorder>
+   <zorder>lb_search</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

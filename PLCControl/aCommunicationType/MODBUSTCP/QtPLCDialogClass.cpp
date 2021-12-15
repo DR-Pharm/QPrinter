@@ -8,6 +8,7 @@
 #include "Keyboard.h"
 #include <QDesktopWidget>
 #include "windows.h"
+#include <QMovie>
 
 QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	: QDialog(parent)
@@ -251,8 +252,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	lbDr->setScaledContents(true);
 	lbDr->setAttribute(Qt::WA_TransparentForMouseEvents);
 	lbDr->lower();
-
-
+	
 	lbDr = new QLabel(((Ui::QtPLCDialogClass*)ui)->tabWidget);
 	lbDr->resize(1280, 800);
 	lbDr->move(-9, -49);
@@ -261,6 +261,15 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	lbDr->setAttribute(Qt::WA_TransparentForMouseEvents);
 	lbDr->lower();
 
+	
+
+	((Ui::QtPLCDialogClass*)ui)->label_us->setPixmap(AppPath + "/ico/us.png");
+	((Ui::QtPLCDialogClass*)ui)->label_us->setScaledContents(true);
+
+	((Ui::QtPLCDialogClass*)ui)->lb_search->setPixmap(AppPath + "/ico/fangdajing.png");
+	((Ui::QtPLCDialogClass*)ui)->lb_search->setScaledContents(true); 
+	((Ui::QtPLCDialogClass*)ui)->lb_search->setVisible(false);
+
 	lbDr = new QLabel(((Ui::QtPLCDialogClass*)ui)->widget_cv);
 	lbDr->resize(1280, 800);
 	lbDr->move(0, 0);
@@ -268,11 +277,6 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	lbDr->setScaledContents(true);
 	lbDr->setAttribute(Qt::WA_TransparentForMouseEvents);
 	lbDr->lower();
-	
-
-	((Ui::QtPLCDialogClass*)ui)->label_us->setPixmap(AppPath + "/ico/us.png");
-	((Ui::QtPLCDialogClass*)ui)->label_us->setScaledContents(true);
-	
 }
 
 QtPLCDialogClass::~QtPLCDialogClass()
@@ -1093,6 +1097,8 @@ void QtPLCDialogClass::CompareYearMonthDay()
 			if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("No eligible data!"));
 			((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(false);
 			((Ui::QtPLCDialogClass*)ui)->lW_data->setVisible(false);
+			((Ui::QtPLCDialogClass*)ui)->lb_search->setVisible(false);
+			((Ui::QtPLCDialogClass*)ui)->tableWidget->setVisible(true);
 
 			((Ui::QtPLCDialogClass*)ui)->lW_data->clear();
 		}
@@ -1104,6 +1110,8 @@ void QtPLCDialogClass::CompareYearMonthDay()
 				if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("Matched group number:\n") + m_gn1);
 
 				((Ui::QtPLCDialogClass*)ui)->lW_data->setVisible(false);
+				((Ui::QtPLCDialogClass*)ui)->lb_search->setVisible(false);
+				((Ui::QtPLCDialogClass*)ui)->tableWidget->setVisible(true);
 
 				((Ui::QtPLCDialogClass*)ui)->lW_data->clear();
 			}
@@ -1113,6 +1121,8 @@ void QtPLCDialogClass::CompareYearMonthDay()
 				if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("Matched group number:\n") + m_gn1 + "-" + m_gn2);
 
 				((Ui::QtPLCDialogClass*)ui)->lW_data->setVisible(true);
+				((Ui::QtPLCDialogClass*)ui)->lb_search->setVisible(true);
+				((Ui::QtPLCDialogClass*)ui)->tableWidget->setVisible(false);
 
 				((Ui::QtPLCDialogClass*)ui)->lW_data->clear();
 
@@ -2917,6 +2927,8 @@ void QtPLCDialogClass::on_lW_data_itemDoubleClicked(QListWidgetItem *item)
 		if (str == QString::fromLocal8Bit("符合组号") || str == QString::fromLocal8Bit("Matched"))
 		{
 			((Ui::QtPLCDialogClass*)ui)->lW_data->setVisible(false);
+			((Ui::QtPLCDialogClass*)ui)->lb_search->setVisible(false);
+			((Ui::QtPLCDialogClass*)ui)->tableWidget->setVisible(true);
 		}
 		return;
 	}
@@ -4795,6 +4807,8 @@ void QtPLCDialogClass::on_pB_cmdSwing_clicked()//旋转单工位,1:执行，自�
 void QtPLCDialogClass::on_pB_inquirecheckable_toggled(bool checked)
 {
 	((Ui::QtPLCDialogClass*)ui)->lW_data->setVisible(checked);
+	((Ui::QtPLCDialogClass*)ui)->lb_search->setVisible(checked);
+	((Ui::QtPLCDialogClass*)ui)->tableWidget->setVisible(!checked);
 	if (checked)
 	{
 		((Ui::QtPLCDialogClass*)ui)->pB_inquirecheckable->setStyleSheet("background: rgb(0,255,0);");
