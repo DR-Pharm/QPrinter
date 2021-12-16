@@ -152,6 +152,7 @@ private:
 	bool leflag = 0;
 	int m_iFeedMode = 23;
 	bool m_b = 1;
+	QString sp;
 public slots:
 
 	DataFromPC_typ getPCParaData();
@@ -270,7 +271,7 @@ public slots:
 	void on_pB_cmdFeedFive_clicked();
 	void on_pB_cmdFeedShakefive_clicked();
 	void on_pB_SetUp_toggled(bool checked);
-	void on_pB_dtDlg_toggled(bool checked); 
+	void on_pB_dtDlgcheckable_toggled(bool checked);
 	void dtClose();
 	void startMovie();
 

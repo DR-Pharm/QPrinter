@@ -24,6 +24,15 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	ui = new Ui::QtPLCDialogClass();
 
 	((Ui::QtPLCDialogClass*)ui)->setupUi(this);
+
+	QFile fl(AppPath + "/ico/PLC.qss");
+	if (fl.open(QFile::ReadOnly))
+	{
+		QString ss = fl.readAll();
+		setStyleSheet(ss);
+		fl.close();
+	}
+
 	((Ui::QtPLCDialogClass*)ui)->frame->move(0, 0);
 
 	m_data = new DataToPC_typ;
@@ -82,13 +91,26 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	int firstbtnX = 15;
 	((Ui::QtPLCDialogClass*)ui)->pB_SetUp->move(firstbtnX, firstbtnY);
 	int offsetBTN = 105;
-	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setFixedSize(170, 140);
-	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setStyleSheet("QPushButton{border:0px;}");
+	int icszx = 230;
+	int icsxy = 200;
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setFixedSize(icszx, icsxy);
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setStyleSheet("\
+		QPushButton\
+		{\
+		border:0px;\
+		}\
+		QPushButton::checked\
+		{\
+		Padding-left:0px;\
+		Padding-top:0px;\
+		}");
+
 	if (lg == 0) pix.load(AppPath + "/ico/data2.png");
 	if (lg == 1) pix.load(AppPath + "/ico/E/data2.png");
-	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIcon(pix);
-	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIconSize(QSize(170, 140));
-	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->move(673, 605);
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setIcon(pix);
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setIconSize(QSize(icszx, icsxy));
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->move(650, 580);
+
 
 	MyPushButton * AlarmResetBtn;	
 	if (lg == 0) AlarmResetBtn = new MyPushButton(AppPath + "/ico/bjfwnt.png", AppPath + "/ico/bjfw.png", 347, 99);
@@ -169,6 +191,64 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 
 	QSettings WriteIni(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
 	m_iFeedMode = WriteIni.value("ProgramSetting/FeedMode", 23).toInt();
+
+	sp = AppPath + "/ico/beijing2.jpg";
+	QLabel *lbDr = new QLabel(((Ui::QtPLCDialogClass*)ui)->frame);
+	lbDr->resize(1280, 800);
+	lbDr->move(0, 0);
+	lbDr->setPixmap(QPixmap(sp));
+	lbDr->setScaledContents(true);
+	lbDr->setAttribute(Qt::WA_TransparentForMouseEvents);
+	lbDr->lower();
+
+	lbDr = new QLabel(((Ui::QtPLCDialogClass*)ui)->frame_20);
+	lbDr->resize(1280, 800);
+	lbDr->move(-904, 0);
+	lbDr->setPixmap(QPixmap(sp));
+	lbDr->setScaledContents(true);
+	lbDr->setAttribute(Qt::WA_TransparentForMouseEvents);
+	lbDr->lower();
+
+	lbDr = new QLabel(((Ui::QtPLCDialogClass*)ui)->tabWidget_PLC);
+	lbDr->resize(1280, 800);
+	lbDr->move(0, 0);
+	lbDr->setPixmap(QPixmap(sp));
+	lbDr->setScaledContents(true);
+	lbDr->setAttribute(Qt::WA_TransparentForMouseEvents);
+	lbDr->lower();
+
+	lbDr = new QLabel(((Ui::QtPLCDialogClass*)ui)->tabWidget_Users);
+	lbDr->resize(1280, 800);
+	lbDr->move(-10, -60);
+	lbDr->setPixmap(QPixmap(sp));
+	lbDr->setScaledContents(true);
+	lbDr->setAttribute(Qt::WA_TransparentForMouseEvents);
+	lbDr->lower();
+
+	lbDr = new QLabel(((Ui::QtPLCDialogClass*)ui)->tabWidget);
+	lbDr->resize(1280, 800);
+	lbDr->move(-9, -49);
+	lbDr->setPixmap(QPixmap(sp));
+	lbDr->setScaledContents(true);
+	lbDr->setAttribute(Qt::WA_TransparentForMouseEvents);
+	lbDr->lower();
+
+
+
+	((Ui::QtPLCDialogClass*)ui)->label_us->setPixmap(AppPath + "/ico/us.png");
+	((Ui::QtPLCDialogClass*)ui)->label_us->setScaledContents(true);
+
+	((Ui::QtPLCDialogClass*)ui)->lb_search->setPixmap(AppPath + "/ico/fangdajing.png");
+	((Ui::QtPLCDialogClass*)ui)->lb_search->setScaledContents(true);
+	((Ui::QtPLCDialogClass*)ui)->lb_search->setVisible(false);
+
+	lbDr = new QLabel(((Ui::QtPLCDialogClass*)ui)->widget_cv);
+	lbDr->resize(1280, 800);
+	lbDr->move(0, 0);
+	lbDr->setPixmap(QPixmap(sp));
+	lbDr->setScaledContents(true);
+	lbDr->setAttribute(Qt::WA_TransparentForMouseEvents);
+	lbDr->lower();
 }
 
 QtPLCDialogClass::~QtPLCDialogClass()
@@ -244,8 +324,12 @@ void QtPLCDialogClass::initTableOfUserPermission()
 	if (lg == 0)((Ui::QtPLCDialogClass*)ui)->tabWidget_Users->addTab(tab, QString::fromLocal8Bit("用户权限"));//将tab添加到左下角tabwidget boject name:tab_23170685 tttle:23170685
 	if (lg == 1)((Ui::QtPLCDialogClass*)ui)->tabWidget_Users->addTab(tab, QString::fromLocal8Bit("User Permission"));//将tab添加到左下角tabwidget boject name:tab_23170685 tttle:23170685
 	QTableWidget* tableWidget = new QTableWidget(tab);//tab下面加tablewidget
-	tableWidget->setObjectName(QString::fromLocal8Bit("tableWidget_permission"));//tableWidget_23170685
-	tableWidget->setGeometry(QRect(9, 9, tab->height() - 50, tab->width() - 80));//设置widget尺寸 黑边是边界
+	tableWidget->setObjectName(QString::fromLocal8Bit("tableWidget_permission"));//tableWidget_23170685	
+	
+	tableWidget->setGeometry(QRect(9, 9, ((Ui::QtPLCDialogClass*)ui)->tabWidget_Users->width()-21, 200));//设置widget尺寸 黑边是边界
+
+	tableWidget->setFrameShape(QFrame::NoFrame); //设置无边框
+	tableWidget->setShowGrid(false); //设置不显示格子线
 	QStringList strlist;
 	if (lg == 0)strlist << QString::fromLocal8Bit("权限名称") << QString::fromLocal8Bit("权限级别");
 	if (lg == 1)strlist << QString::fromLocal8Bit("Permission") << QString::fromLocal8Bit("Level");
@@ -447,8 +531,13 @@ void QtPLCDialogClass::initTableWidget()
 	tab->setObjectName(QString::fromUtf8("tab_1"));//tab_23170685
 	if (lg == 0)((Ui::QtPLCDialogClass*)ui)->tabWidget_Users->addTab(tab, QString::fromLocal8Bit("自定义用户"));//将tab添加到左下角tabwidget boject name:tab_23170685 tttle:23170685
 	if (lg == 1)((Ui::QtPLCDialogClass*)ui)->tabWidget_Users->addTab(tab, QString::fromLocal8Bit("Users"));//将tab添加到左下角tabwidget boject name:tab_23170685 tttle:23170685
-	tableWidget->setObjectName(QString::fromLocal8Bit("tableWidget_username"));//tableWidget_23170685
-	tableWidget->setGeometry(QRect(9, 9, tab->height() - 50, tab->width() - 80));//设置widget尺寸 黑边是边界
+	tableWidget->setObjectName(QString::fromLocal8Bit("tableWidget_username"));//tableWidget_23170685	
+	
+	tableWidget->setGeometry(QRect(9, 9, ((Ui::QtPLCDialogClass*)ui)->tabWidget_Users->width() - 21, ((Ui::QtPLCDialogClass*)ui)->tabWidget_Users->height() - 80));//设置widget尺寸 黑边是边界
+
+	tableWidget->setFrameShape(QFrame::NoFrame); //设置无边框
+	tableWidget->setShowGrid(false); //设置不显示格子线
+
 	QStringList strlist2;
 	if (lg == 0)strlist2 << QString::fromLocal8Bit("用户名") << QString::fromLocal8Bit("权限级别");
 	if (lg == 1)strlist2 << QString::fromLocal8Bit("User") << QString::fromLocal8Bit("Permission");
@@ -605,7 +694,7 @@ void QtPLCDialogClass::initUI()
 		((Ui::QtPLCDialogClass*)ui)->label_72->setVisible(false);
 		((Ui::QtPLCDialogClass*)ui)->pB_printTestingRecords->setVisible(false);
 
-		((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(161);//161 221 251
+		((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(141);//161 221 251
 		((Ui::QtPLCDialogClass*)ui)->widget_2->move(((Ui::QtPLCDialogClass*)ui)->widget_2->x(), 219);//279 309 
 		((Ui::QtPLCDialogClass*)ui)->widget_2->setFixedHeight(411);//351 321 411
 	}
@@ -1608,7 +1697,9 @@ void QtPLCDialogClass::CompareYearMonthDay()
 			if (lg == 0)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("不存在符合条件的数据!"));
 			if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("No eligible data!"));
 			((Ui::QtPLCDialogClass*)ui)->pB_copyIn->setEnabled(false);
-			((Ui::QtPLCDialogClass*)ui)->lW_data->setVisible(false);
+			((Ui::QtPLCDialogClass*)ui)->lW_data->setVisible(false); 
+			((Ui::QtPLCDialogClass*)ui)->lb_search->setVisible(false);
+			((Ui::QtPLCDialogClass*)ui)->tableWidget->setVisible(true);
 
 			((Ui::QtPLCDialogClass*)ui)->lW_data->clear();
 		}
@@ -1620,6 +1711,8 @@ void QtPLCDialogClass::CompareYearMonthDay()
 				if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("Matched group number:\n") + m_gn1);
 
 				((Ui::QtPLCDialogClass*)ui)->lW_data->setVisible(false);
+				((Ui::QtPLCDialogClass*)ui)->lb_search->setVisible(false);
+				((Ui::QtPLCDialogClass*)ui)->tableWidget->setVisible(true);
 
 				((Ui::QtPLCDialogClass*)ui)->lW_data->clear();
 			}
@@ -1629,6 +1722,8 @@ void QtPLCDialogClass::CompareYearMonthDay()
 				if (lg == 1)((Ui::QtPLCDialogClass*)ui)->lb_searchResult->setText(QString::fromLocal8Bit("Matched group number:\n") + m_gn1 + "-" + m_gn2);
 
 				((Ui::QtPLCDialogClass*)ui)->lW_data->setVisible(true);
+				((Ui::QtPLCDialogClass*)ui)->lb_search->setVisible(true);
+				((Ui::QtPLCDialogClass*)ui)->tableWidget->setVisible(false);
 
 				((Ui::QtPLCDialogClass*)ui)->lW_data->clear();
 
@@ -1700,7 +1795,7 @@ void QtPLCDialogClass::initDlg()
 
 void QtPLCDialogClass::setWindowMinimized()
 {
-	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setChecked(false);
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setChecked(false);
 }
 
 int QtPLCDialogClass::showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str)
@@ -2177,7 +2272,7 @@ void QtPLCDialogClass::on_cB_Feedmode_currentIndexChanged(int index)
 		((Ui::QtPLCDialogClass*)ui)->lE_yield->setVisible(false);
 		((Ui::QtPLCDialogClass*)ui)->label_yield->setVisible(false);
 
-		((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(221);//221 251
+		((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(201);//221 251
 		((Ui::QtPLCDialogClass*)ui)->widget_2->move(((Ui::QtPLCDialogClass*)ui)->widget_2->x(), 279);//279 309
 		((Ui::QtPLCDialogClass*)ui)->widget_2->setFixedHeight(351);//351 321 411
 
@@ -2214,7 +2309,7 @@ void QtPLCDialogClass::on_cB_Feedmode_currentIndexChanged(int index)
 		((Ui::QtPLCDialogClass*)ui)->lE_yield->setVisible(true);
 		((Ui::QtPLCDialogClass*)ui)->label_yield->setVisible(true);
 
-		((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(251);
+		((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(231);
 		((Ui::QtPLCDialogClass*)ui)->widget_2->move(((Ui::QtPLCDialogClass*)ui)->widget_2->x(), 309);//279 309
 		((Ui::QtPLCDialogClass*)ui)->widget_2->setFixedHeight(321);//351 321 411
 		if (lg == 0)
@@ -2512,6 +2607,8 @@ void QtPLCDialogClass::on_lW_data_itemDoubleClicked(QListWidgetItem *item)
 		if (str== QString::fromLocal8Bit("符合组号") ||str == QString::fromLocal8Bit("Matched"))
 		{
 			((Ui::QtPLCDialogClass*)ui)->lW_data->setVisible(false);
+			((Ui::QtPLCDialogClass*)ui)->lb_search->setVisible(false);
+			((Ui::QtPLCDialogClass*)ui)->tableWidget->setVisible(true);
 		}
 		return;
 	}
@@ -2893,6 +2990,8 @@ void QtPLCDialogClass::on_pB_cmdSwing_clicked()//旋转单工位,1:执行，自�
 void QtPLCDialogClass::on_pB_inquire_toggled(bool checked)//
 {
 	((Ui::QtPLCDialogClass*)ui)->lW_data->setVisible(checked);
+	((Ui::QtPLCDialogClass*)ui)->lb_search->setVisible(checked);
+	((Ui::QtPLCDialogClass*)ui)->tableWidget->setVisible(!checked);
 	if (checked)
 	{
 		((Ui::QtPLCDialogClass*)ui)->lW_data->clear();
@@ -2934,6 +3033,8 @@ void QtPLCDialogClass::on_pB_cmdStart_toggled(bool checked)//启动 停止
 	typ.Telegram_typ = 1;
 
 	((Ui::QtPLCDialogClass*)ui)->lW_data->setVisible(false);
+	((Ui::QtPLCDialogClass*)ui)->lb_search->setVisible(false);
+	((Ui::QtPLCDialogClass*)ui)->tableWidget->setVisible(true);
 
 	if (checked)
 	{
@@ -3259,7 +3360,7 @@ void QtPLCDialogClass::on_pB_SetUp_toggled(bool checked)//设置
 		if (lg == 1) pix.load(AppPath + "/ico/E/sz.png");
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIcon(pix);
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIconSize(QSize(347, 99));
-		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setChecked(false);
+		((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setChecked(false);
 	}
 	else
 	{
@@ -3271,7 +3372,7 @@ void QtPLCDialogClass::on_pB_SetUp_toggled(bool checked)//设置
 		((Ui::QtPLCDialogClass*)ui)->pB_SetUp->setIconSize(QSize(347, 99));
 	}
 }
-void QtPLCDialogClass::on_pB_dtDlg_toggled(bool checked)//数据dialog
+void QtPLCDialogClass::on_pB_dtDlgcheckable_toggled(bool checked)//数据dialog
 {
 	if (checked)
 	{
@@ -3279,8 +3380,7 @@ void QtPLCDialogClass::on_pB_dtDlg_toggled(bool checked)//数据dialog
 		QPixmap pix;
 		if (lg == 0)pix.load(AppPath + "/ico/data1.png");
 		if (lg == 1)pix.load(AppPath + "/ico/E/data1.png");
-		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIcon(pix);
-		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIconSize(QSize(170, 140));
+		((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setIcon(pix);
 		((Ui::QtPLCDialogClass*)ui)->widget_cv->setVisible(true);
 	}
 	else
@@ -3289,14 +3389,13 @@ void QtPLCDialogClass::on_pB_dtDlg_toggled(bool checked)//数据dialog
 		QPixmap pix;
 		if (lg == 0) pix.load(AppPath + "/ico/data2.png");
 		if (lg == 1) pix.load(AppPath + "/ico/E/data2.png");
-		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIcon(pix);
-		((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setIconSize(QSize(170, 140));
+		((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setIcon(pix);
 		((Ui::QtPLCDialogClass*)ui)->widget_cv->setVisible(false);
 	}
 }
 void QtPLCDialogClass::dtClose()
 {
-	((Ui::QtPLCDialogClass*)ui)->pB_dtDlg->setChecked(false);
+	((Ui::QtPLCDialogClass*)ui)->pB_dtDlgcheckable->setChecked(false);
 }
 void QtPLCDialogClass::startMovie()
 {
