@@ -153,6 +153,7 @@ private:
 	int m_iFeedMode = 23;
 	bool m_b = 1;
 	QString sp;
+	int m_istartFlag = 0;
 public slots:
 
 	DataFromPC_typ getPCParaData();
@@ -164,6 +165,8 @@ public slots:
 	void getPLCData(void*);
 
 	void on_pB_keyboard_clicked();
+
+	void on_Input(bool checked);
 
 	void setg_IUserLevel(int);
 
@@ -253,12 +256,12 @@ public slots:
 	void on_pB_cmdFeedSingleStop_clicked();
 	void on_pB_cmdSwing_clicked();
 	void on_pB_ChangeLanguage();
-	void on_pB_inquire_toggled(bool checked);
+	void on_pB_inquirecheckable_toggled(bool checked);
 	void on_pB_showPrt_toggled(bool checked);
 
 	void on_gB_update_toggled(bool arg1);
 
-	void on_pB_cmdStart_toggled(bool checked);
+	void on_pB_cmdStartcheckable_toggled(bool checked);
 	void on_pB_cmdAlarmReset_clicked();
 	void on_pB_cmdCounterZero_clicked();
 	void ChangeLanguage();
@@ -270,22 +273,22 @@ public slots:
 	void on_pB_cmdFeedhome_clicked();
 	void on_pB_cmdFeedFive_clicked();
 	void on_pB_cmdFeedShakefive_clicked();
-	void on_pB_SetUp_toggled(bool checked);
+	void on_pB_SetUpcheckable_toggled(bool checked);
 	void on_pB_dtDlgcheckable_toggled(bool checked);
 	void dtClose();
 	void startMovie();
 
-	void on_pb_cmdReject_toggled(bool checked);
-	void on_pb_cmdChannelSwith_toggled(bool checked);
-	void on_pb_cmdVaccum_toggled(bool checked);
-	void on_pb_cmdCapGet_toggled(bool checked);
-	void on_pb_cmdCapGetValve_toggled(bool checked);
-	void on_pb_cmdCapBackValve_toggled(bool checked);
-	void on_pb_cmdAlarmOut_toggled(bool checked);
-	void on_pb_cmdStopSignal_toggled(bool checked);
-	void on_pb_cmdAlarmSignal_toggled(bool checked);
-	void on_pb_cmdYellowAlarmout_toggled(bool checked);
-	void on_pb_cmdBaffle_toggled(bool checked);
+	void on_pb_cmdRejectcheckable_toggled(bool checked);
+	void on_pb_cmdChannelSwithcheckable_toggled(bool checked);
+	void on_pb_cmdVaccumcheckable_toggled(bool checked);
+	void on_pb_cmdCapGetcheckable_toggled(bool checked);
+	void on_pb_cmdCapGetValvecheckable_toggled(bool checked);
+	void on_pb_cmdCapBackValvecheckable_toggled(bool checked);
+	void on_pb_cmdAlarmOutcheckable_toggled(bool checked);
+	void on_pb_cmdStopSignalcheckable_toggled(bool checked);
+	void on_pb_cmdAlarmSignalcheckable_toggled(bool checked);
+	void on_pb_cmdYellowAlarmoutcheckable_toggled(bool checked);
+	void on_pb_cmdBafflecheckable_toggled(bool checked);
 	void on_tabWidget_currentChanged(int index);
 	void on_tabWidget_PLC_currentChanged(int index);
 	void updateCheckPermission(const QString & str);

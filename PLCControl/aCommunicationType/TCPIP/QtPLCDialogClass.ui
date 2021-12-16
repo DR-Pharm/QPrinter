@@ -59,7 +59,7 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab_PLC_Control">
     <attribute name="title">
@@ -88,7 +88,7 @@
         </font>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -328,7 +328,7 @@
             <item>
              <layout class="QGridLayout" name="gridLayout_6">
               <item row="0" column="0">
-               <widget class="QPushButton" name="pb_cmdReject">
+               <widget class="QPushButton" name="pb_cmdRejectcheckable">
                 <property name="minimumSize">
                  <size>
                   <width>250</width>
@@ -358,7 +358,7 @@
                </widget>
               </item>
               <item row="0" column="1">
-               <widget class="QPushButton" name="pb_cmdChannelSwith">
+               <widget class="QPushButton" name="pb_cmdChannelSwithcheckable">
                 <property name="minimumSize">
                  <size>
                   <width>250</width>
@@ -388,7 +388,7 @@
                </widget>
               </item>
               <item row="0" column="2">
-               <widget class="QPushButton" name="pb_cmdVaccum">
+               <widget class="QPushButton" name="pb_cmdVaccumcheckable">
                 <property name="minimumSize">
                  <size>
                   <width>250</width>
@@ -418,7 +418,7 @@
                </widget>
               </item>
               <item row="1" column="0">
-               <widget class="QPushButton" name="pb_cmdCapGet">
+               <widget class="QPushButton" name="pb_cmdCapGetcheckable">
                 <property name="minimumSize">
                  <size>
                   <width>250</width>
@@ -448,7 +448,7 @@
                </widget>
               </item>
               <item row="1" column="1">
-               <widget class="QPushButton" name="pb_cmdCapGetValve">
+               <widget class="QPushButton" name="pb_cmdCapGetValvecheckable">
                 <property name="minimumSize">
                  <size>
                   <width>250</width>
@@ -478,7 +478,7 @@
                </widget>
               </item>
               <item row="1" column="2">
-               <widget class="QPushButton" name="pb_cmdCapBackValve">
+               <widget class="QPushButton" name="pb_cmdCapBackValvecheckable">
                 <property name="minimumSize">
                  <size>
                   <width>250</width>
@@ -508,7 +508,7 @@
                </widget>
               </item>
               <item row="2" column="0">
-               <widget class="QPushButton" name="pb_cmdAlarmOut">
+               <widget class="QPushButton" name="pb_cmdAlarmOutcheckable">
                 <property name="minimumSize">
                  <size>
                   <width>250</width>
@@ -538,7 +538,7 @@
                </widget>
               </item>
               <item row="2" column="1">
-               <widget class="QPushButton" name="pb_cmdStopSignal">
+               <widget class="QPushButton" name="pb_cmdStopSignalcheckable">
                 <property name="minimumSize">
                  <size>
                   <width>250</width>
@@ -568,7 +568,7 @@
                </widget>
               </item>
               <item row="2" column="2">
-               <widget class="QPushButton" name="pb_cmdAlarmSignal">
+               <widget class="QPushButton" name="pb_cmdAlarmSignalcheckable">
                 <property name="minimumSize">
                  <size>
                   <width>250</width>
@@ -598,7 +598,7 @@
                </widget>
               </item>
               <item row="3" column="0">
-               <widget class="QPushButton" name="pb_cmdYellowAlarmout">
+               <widget class="QPushButton" name="pb_cmdYellowAlarmoutcheckable">
                 <property name="minimumSize">
                  <size>
                   <width>250</width>
@@ -628,7 +628,7 @@
                </widget>
               </item>
               <item row="3" column="1">
-               <widget class="QPushButton" name="pb_cmdBaffle">
+               <widget class="QPushButton" name="pb_cmdBafflecheckable">
                 <property name="minimumSize">
                  <size>
                   <width>250</width>
@@ -772,13 +772,13 @@
                 <property name="minimumSize">
                  <size>
                   <width>230</width>
-                  <height>0</height>
+                  <height>42</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
                   <width>230</width>
-                  <height>16777215</height>
+                  <height>42</height>
                  </size>
                 </property>
                 <property name="font">
@@ -851,7 +851,7 @@
               <property name="minimumSize">
                <size>
                 <width>220</width>
-                <height>0</height>
+                <height>44</height>
                </size>
               </property>
               <property name="maximumSize">
@@ -871,6 +871,9 @@
               <property name="text">
                <string>正向连续运动</string>
               </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
             <item row="3" column="0">
@@ -878,7 +881,7 @@
               <property name="minimumSize">
                <size>
                 <width>220</width>
-                <height>0</height>
+                <height>44</height>
                </size>
               </property>
               <property name="maximumSize">
@@ -898,6 +901,9 @@
               <property name="text">
                <string>单粒下料</string>
               </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
             <item row="2" column="2">
@@ -905,7 +911,7 @@
               <property name="minimumSize">
                <size>
                 <width>220</width>
-                <height>0</height>
+                <height>44</height>
                </size>
               </property>
               <property name="maximumSize">
@@ -925,6 +931,9 @@
               <property name="text">
                <string>停止运动</string>
               </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
             <item row="0" column="1">
@@ -932,7 +941,7 @@
               <property name="minimumSize">
                <size>
                 <width>220</width>
-                <height>0</height>
+                <height>44</height>
                </size>
               </property>
               <property name="maximumSize">
@@ -952,6 +961,9 @@
               <property name="text">
                <string>反转点动</string>
               </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
             <item row="3" column="1">
@@ -959,7 +971,7 @@
               <property name="minimumSize">
                <size>
                 <width>220</width>
-                <height>0</height>
+                <height>44</height>
                </size>
               </property>
               <property name="maximumSize">
@@ -979,6 +991,9 @@
               <property name="text">
                <string>单粒下料停止</string>
               </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
             <item row="0" column="0">
@@ -986,7 +1001,7 @@
               <property name="minimumSize">
                <size>
                 <width>220</width>
-                <height>0</height>
+                <height>44</height>
                </size>
               </property>
               <property name="maximumSize">
@@ -1005,6 +1020,9 @@
               </property>
               <property name="text">
                <string>正转点动</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -1046,13 +1064,13 @@
               <property name="minimumSize">
                <size>
                 <width>220</width>
-                <height>0</height>
+                <height>42</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>220</width>
-                <height>16777215</height>
+                <height>42</height>
                </size>
               </property>
               <property name="font">
@@ -1073,7 +1091,7 @@
               <property name="minimumSize">
                <size>
                 <width>220</width>
-                <height>0</height>
+                <height>44</height>
                </size>
               </property>
               <property name="maximumSize">
@@ -1092,6 +1110,9 @@
               </property>
               <property name="text">
                <string>相对运动</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -1117,7 +1138,7 @@
               <property name="minimumSize">
                <size>
                 <width>220</width>
-                <height>0</height>
+                <height>44</height>
                </size>
               </property>
               <property name="maximumSize">
@@ -1137,6 +1158,9 @@
               <property name="text">
                <string>正转点动</string>
               </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
             <item row="0" column="1">
@@ -1144,7 +1168,7 @@
               <property name="minimumSize">
                <size>
                 <width>220</width>
-                <height>0</height>
+                <height>44</height>
                </size>
               </property>
               <property name="maximumSize">
@@ -1164,6 +1188,9 @@
               <property name="text">
                <string>反转点动</string>
               </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
             <item row="2" column="2">
@@ -1171,7 +1198,7 @@
               <property name="minimumSize">
                <size>
                 <width>220</width>
-                <height>0</height>
+                <height>44</height>
                </size>
               </property>
               <property name="maximumSize">
@@ -1191,6 +1218,9 @@
               <property name="text">
                <string>停止运动</string>
               </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
             <item row="2" column="1">
@@ -1198,7 +1228,7 @@
               <property name="minimumSize">
                <size>
                 <width>220</width>
-                <height>0</height>
+                <height>44</height>
                </size>
               </property>
               <property name="maximumSize">
@@ -1218,6 +1248,9 @@
               <property name="text">
                <string>正向连续运动</string>
               </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
             <item row="3" column="0">
@@ -1225,7 +1258,7 @@
               <property name="minimumSize">
                <size>
                 <width>220</width>
-                <height>0</height>
+                <height>44</height>
                </size>
               </property>
               <property name="maximumSize">
@@ -1244,6 +1277,9 @@
               </property>
               <property name="text">
                <string>旋转单工位</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -1282,7 +1318,7 @@
               <property name="minimumSize">
                <size>
                 <width>220</width>
-                <height>0</height>
+                <height>44</height>
                </size>
               </property>
               <property name="maximumSize">
@@ -1302,6 +1338,9 @@
               <property name="text">
                <string>相对运动</string>
               </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
             <item row="1" column="1">
@@ -1312,13 +1351,13 @@
               <property name="minimumSize">
                <size>
                 <width>220</width>
-                <height>0</height>
+                <height>42</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>220</width>
-                <height>16777215</height>
+                <height>42</height>
                </size>
               </property>
               <property name="font">
@@ -1402,13 +1441,13 @@
               <property name="minimumSize">
                <size>
                 <width>150</width>
-                <height>0</height>
+                <height>44</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>220</width>
-                <height>16777215</height>
+                <height>44</height>
                </size>
               </property>
               <property name="font">
@@ -1421,6 +1460,9 @@
               </property>
               <property name="text">
                <string>胶囊落料多粒</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -1460,13 +1502,13 @@
               <property name="minimumSize">
                <size>
                 <width>150</width>
-                <height>0</height>
+                <height>44</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>220</width>
-                <height>16777215</height>
+                <height>44</height>
                </size>
               </property>
               <property name="font">
@@ -1480,6 +1522,9 @@
               <property name="text">
                <string>下料摇摆水平</string>
               </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
             <item row="2" column="0">
@@ -1487,13 +1532,13 @@
               <property name="minimumSize">
                <size>
                 <width>150</width>
-                <height>0</height>
+                <height>44</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>220</width>
-                <height>16777215</height>
+                <height>44</height>
                </size>
               </property>
               <property name="font">
@@ -1506,6 +1551,9 @@
               </property>
               <property name="text">
                <string>下料寻参</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -1588,13 +1636,13 @@
               <property name="minimumSize">
                <size>
                 <width>150</width>
-                <height>0</height>
+                <height>44</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>220</width>
-                <height>16777215</height>
+                <height>44</height>
                </size>
               </property>
               <property name="font">
@@ -1608,6 +1656,9 @@
               <property name="text">
                <string>下料摇摆</string>
               </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
             <item row="0" column="1">
@@ -1615,13 +1666,13 @@
               <property name="minimumSize">
                <size>
                 <width>150</width>
-                <height>0</height>
+                <height>44</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>220</width>
-                <height>16777215</height>
+                <height>44</height>
                </size>
               </property>
               <property name="font">
@@ -1634,6 +1685,9 @@
               </property>
               <property name="text">
                <string>下料摇摆停止</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -1701,13 +1755,13 @@
               <property name="minimumSize">
                <size>
                 <width>150</width>
-                <height>0</height>
+                <height>44</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>220</width>
-                <height>16777215</height>
+                <height>44</height>
                </size>
               </property>
               <property name="font">
@@ -1720,6 +1774,9 @@
               </property>
               <property name="text">
                <string>片剂落料多粒</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -1794,13 +1851,13 @@
                 <property name="minimumSize">
                  <size>
                   <width>220</width>
-                  <height>0</height>
+                  <height>44</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
                   <width>220</width>
-                  <height>16777215</height>
+                  <height>44</height>
                  </size>
                 </property>
                 <property name="font">
@@ -1814,6 +1871,9 @@
                 <property name="text">
                  <string>秤清零</string>
                 </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
                </widget>
               </item>
               <item>
@@ -1821,13 +1881,13 @@
                 <property name="minimumSize">
                  <size>
                   <width>220</width>
-                  <height>0</height>
+                  <height>44</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
                   <width>220</width>
-                  <height>16777215</height>
+                  <height>44</height>
                  </size>
                 </property>
                 <property name="font">
@@ -1840,6 +1900,9 @@
                 </property>
                 <property name="text">
                  <string>秤外部校正</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
@@ -1904,6 +1967,18 @@
         <layout class="QHBoxLayout" name="horizontalLayout_11">
          <item>
           <widget class="QPushButton" name="pB_Read1">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>42</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>42</height>
+            </size>
+           </property>
            <property name="font">
             <font>
              <family>楷体</family>
@@ -1915,10 +1990,25 @@
            <property name="text">
             <string>读取</string>
            </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="pB_Write1">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>42</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>42</height>
+            </size>
+           </property>
            <property name="font">
             <font>
              <family>楷体</family>
@@ -1929,6 +2019,9 @@
            </property>
            <property name="text">
             <string>写入</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -2045,13 +2138,13 @@
            <property name="minimumSize">
             <size>
              <width>80</width>
-             <height>35</height>
+             <height>42</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
              <width>80</width>
-             <height>35</height>
+             <height>42</height>
             </size>
            </property>
            <property name="font">
@@ -2129,13 +2222,13 @@
            <property name="minimumSize">
             <size>
              <width>80</width>
-             <height>35</height>
+             <height>42</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
              <width>80</width>
-             <height>35</height>
+             <height>42</height>
             </size>
            </property>
            <property name="font">
@@ -2160,13 +2253,13 @@
            <property name="minimumSize">
             <size>
              <width>80</width>
-             <height>35</height>
+             <height>42</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
              <width>80</width>
-             <height>35</height>
+             <height>42</height>
             </size>
            </property>
            <property name="font">
@@ -2191,13 +2284,13 @@
            <property name="minimumSize">
             <size>
              <width>80</width>
-             <height>35</height>
+             <height>42</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
              <width>80</width>
-             <height>35</height>
+             <height>42</height>
             </size>
            </property>
            <property name="font">
@@ -2302,13 +2395,13 @@
            <property name="minimumSize">
             <size>
              <width>80</width>
-             <height>35</height>
+             <height>42</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
              <width>80</width>
-             <height>35</height>
+             <height>42</height>
             </size>
            </property>
            <property name="font">
@@ -2333,13 +2426,13 @@
            <property name="minimumSize">
             <size>
              <width>80</width>
-             <height>35</height>
+             <height>42</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
              <width>80</width>
-             <height>35</height>
+             <height>42</height>
             </size>
            </property>
            <property name="font">
@@ -2364,13 +2457,13 @@
            <property name="minimumSize">
             <size>
              <width>80</width>
-             <height>35</height>
+             <height>42</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
              <width>80</width>
-             <height>35</height>
+             <height>42</height>
             </size>
            </property>
            <property name="font">
@@ -2515,13 +2608,13 @@
            <property name="minimumSize">
             <size>
              <width>80</width>
-             <height>35</height>
+             <height>42</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
              <width>80</width>
-             <height>35</height>
+             <height>42</height>
             </size>
            </property>
            <property name="font">
@@ -2586,13 +2679,13 @@
            <property name="minimumSize">
             <size>
              <width>80</width>
-             <height>35</height>
+             <height>42</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
              <width>80</width>
-             <height>35</height>
+             <height>42</height>
             </size>
            </property>
            <property name="font">
@@ -2835,13 +2928,13 @@
            <property name="minimumSize">
             <size>
              <width>140</width>
-             <height>0</height>
+             <height>42</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
              <width>140</width>
-             <height>16777215</height>
+             <height>42</height>
             </size>
            </property>
            <property name="font">
@@ -3301,13 +3394,13 @@
             <property name="minimumSize">
              <size>
               <width>180</width>
-              <height>0</height>
+              <height>42</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
               <width>180</width>
-              <height>16777215</height>
+              <height>42</height>
              </size>
             </property>
            </widget>
@@ -3320,13 +3413,13 @@
             <property name="minimumSize">
              <size>
               <width>180</width>
-              <height>0</height>
+              <height>42</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
               <width>180</width>
-              <height>16777215</height>
+              <height>42</height>
              </size>
             </property>
            </widget>
@@ -3399,13 +3492,13 @@
             <property name="minimumSize">
              <size>
               <width>180</width>
-              <height>0</height>
+              <height>42</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
               <width>180</width>
-              <height>16777215</height>
+              <height>42</height>
              </size>
             </property>
            </widget>
@@ -3418,13 +3511,13 @@
             <property name="minimumSize">
              <size>
               <width>180</width>
-              <height>0</height>
+              <height>42</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
               <width>180</width>
-              <height>16777215</height>
+              <height>42</height>
              </size>
             </property>
            </widget>
@@ -3520,13 +3613,13 @@
             <property name="minimumSize">
              <size>
               <width>220</width>
-              <height>0</height>
+              <height>42</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
               <width>220</width>
-              <height>16777215</height>
+              <height>42</height>
              </size>
             </property>
            </widget>
@@ -3569,13 +3662,13 @@
             <property name="minimumSize">
              <size>
               <width>220</width>
-              <height>0</height>
+              <height>42</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
               <width>220</width>
-              <height>16777215</height>
+              <height>42</height>
              </size>
             </property>
            </widget>
@@ -3699,13 +3792,13 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>36</height>
+          <height>42</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>36</height>
+          <height>42</height>
          </size>
         </property>
         <property name="styleSheet">
@@ -3764,13 +3857,13 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>36</height>
+          <height>42</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>36</height>
+          <height>42</height>
          </size>
         </property>
         <property name="font">
@@ -3823,13 +3916,13 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>36</height>
+          <height>42</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>36</height>
+          <height>42</height>
          </size>
         </property>
         <property name="styleSheet">
@@ -3872,6 +3965,9 @@
         <property name="text">
          <string>添加</string>
         </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
       <item>
@@ -3893,6 +3989,9 @@
         </property>
         <property name="text">
          <string>删除</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -3995,13 +4094,13 @@
           <property name="minimumSize">
            <size>
             <width>200</width>
-            <height>0</height>
+            <height>42</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>36</height>
+            <height>42</height>
            </size>
           </property>
           <property name="font">
@@ -4541,6 +4640,18 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>42</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>42</height>
+           </size>
+          </property>
           <property name="font">
            <font>
             <family>Arial Black</family>
@@ -4695,6 +4806,18 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>42</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>42</height>
+           </size>
+          </property>
           <property name="font">
            <font>
             <family>Arial Black</family>
@@ -4724,6 +4847,18 @@
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>42</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>42</height>
+           </size>
           </property>
           <property name="font">
            <font>
@@ -4852,6 +4987,18 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>42</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>42</height>
+           </size>
+          </property>
           <property name="font">
            <font>
             <family>Arial Black</family>
@@ -4881,6 +5028,18 @@
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>42</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>42</height>
+           </size>
           </property>
           <property name="font">
            <font>
@@ -4912,6 +5071,18 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>42</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>42</height>
+           </size>
+          </property>
           <property name="font">
            <font>
             <family>Arial Black</family>
@@ -4941,6 +5112,18 @@
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>42</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>42</height>
+           </size>
           </property>
           <property name="font">
            <font>
@@ -4972,6 +5155,18 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>42</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>42</height>
+           </size>
+          </property>
           <property name="font">
            <font>
             <family>Arial Black</family>
@@ -5002,6 +5197,18 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>42</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>42</height>
+           </size>
+          </property>
           <property name="font">
            <font>
             <family>Arial Black</family>
@@ -5031,6 +5238,18 @@
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>42</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>42</height>
+           </size>
           </property>
           <property name="font">
            <font>
@@ -5074,7 +5293,7 @@
        <property name="lineWidth">
         <number>1</number>
        </property>
-       <widget class="QWidget" name="layoutWidget">
+       <widget class="QWidget" name="layoutWidget111">
         <property name="geometry">
          <rect>
           <x>16</x>
@@ -5128,13 +5347,13 @@
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>0</height>
+             <height>42</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>234324</height>
+             <height>42</height>
             </size>
            </property>
            <property name="font">
@@ -5161,7 +5380,7 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="layoutWidget">
+       <widget class="QWidget" name="layoutWidget222">
         <property name="geometry">
          <rect>
           <x>16</x>
@@ -5215,13 +5434,13 @@
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>0</height>
+             <height>42</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>12312313</height>
+             <height>42</height>
             </size>
            </property>
            <property name="font">
@@ -5400,7 +5619,7 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
    <property name="lineWidth">
     <number>1</number>
    </property>
-   <widget class="QPushButton" name="pB_SetUp">
+   <widget class="QPushButton" name="pB_SetUpcheckable">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -5437,7 +5656,7 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="pB_cmdStart">
+   <widget class="QPushButton" name="pB_cmdStartcheckable">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -5938,16 +6157,16 @@ background-color:transparent;</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pB_inquire">
+          <widget class="QPushButton" name="pB_inquirecheckable">
            <property name="minimumSize">
             <size>
-             <width>0</width>
+             <width>100</width>
              <height>40</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>16777215</width>
+             <width>100</width>
              <height>40</height>
             </size>
            </property>
@@ -6302,13 +6521,13 @@ background-color:transparent;</string>
       <widget class="QPushButton" name="pB_startSearch">
        <property name="minimumSize">
         <size>
-         <width>0</width>
+         <width>100</width>
          <height>40</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>16777215</width>
+         <width>100</width>
          <height>40</height>
         </size>
        </property>
@@ -6320,6 +6539,9 @@ background-color:transparent;</string>
        </property>
        <property name="text">
         <string>开始搜索</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -6377,6 +6599,9 @@ background-color:transparent;</string>
          <property name="text">
           <string>贴入↓</string>
          </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
       </layout>
@@ -6385,13 +6610,13 @@ background-color:transparent;</string>
       <widget class="QPushButton" name="pB_keyboard">
        <property name="minimumSize">
         <size>
-         <width>0</width>
+         <width>100</width>
          <height>40</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>16777215</width>
+         <width>100</width>
          <height>40</height>
         </size>
        </property>
@@ -6403,6 +6628,9 @@ background-color:transparent;</string>
        </property>
        <property name="text">
         <string>系统键盘</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -6509,13 +6737,13 @@ background-color:transparent;</string>
       <widget class="QPushButton" name="pB_printCurve">
        <property name="minimumSize">
         <size>
-         <width>0</width>
+         <width>100</width>
          <height>40</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>16777215</width>
+         <width>100</width>
          <height>40</height>
         </size>
        </property>
@@ -6528,6 +6756,9 @@ background-color:transparent;</string>
        <property name="text">
         <string>打印数据
 曲线</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -6846,13 +7077,13 @@ background-color:transparent;</string>
       <widget class="QPushButton" name="pB_printTestingRecords">
        <property name="minimumSize">
         <size>
-         <width>0</width>
+         <width>100</width>
          <height>40</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>16777215</width>
+         <width>100</width>
          <height>40</height>
         </size>
        </property>
@@ -6865,6 +7096,9 @@ background-color:transparent;</string>
        <property name="text">
         <string>打印试机
 记录</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
