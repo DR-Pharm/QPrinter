@@ -4707,15 +4707,16 @@ void QtPLCDialogClass::on_pB_cmdStartcheckable_toggled(bool checked)//启动 停
 		if (lg == 0) pix.load(AppPath + "/ico/stop.png");
 		if (lg == 1) pix.load(AppPath + "/ico/E/stop.png");
 		ExitBtn->setEnabled(false);
+		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(false);
 	}
 	else
 	{
 		if (lg == 0)pix.load(AppPath + "/ico/start.png");
 		if (lg == 1)pix.load(AppPath + "/ico/E/start.png");
 		ExitBtn->setEnabled(true);
+		((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(true);
 	}
 	((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setIcon(pix);
-	((Ui::QtPLCDialogClass*)ui)->lE_BatchName->setEnabled(false);
 	btnTimer->start(1);
 }
 
