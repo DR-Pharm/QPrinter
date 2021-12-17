@@ -236,31 +236,13 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	lbDr->setAttribute(Qt::WA_TransparentForMouseEvents);
 	lbDr->lower();
 
-	lbDr = new QLabel(((Ui::QtPLCDialogClass*)ui)->tabWidget_PLC);
+	lbDr = new QLabel(((Ui::QtPLCDialogClass*)ui)->frame_PLC);
 	lbDr->resize(1280, 800);
 	lbDr->move(0, 0);
 	lbDr->setPixmap(QPixmap(sp));
 	lbDr->setScaledContents(true);
 	lbDr->setAttribute(Qt::WA_TransparentForMouseEvents);
 	lbDr->lower();
-
-	lbDr = new QLabel(((Ui::QtPLCDialogClass*)ui)->tabWidget_Users);
-	lbDr->resize(1280, 800);
-	lbDr->move(-10, -60);
-	lbDr->setPixmap(QPixmap(sp));
-	lbDr->setScaledContents(true);
-	lbDr->setAttribute(Qt::WA_TransparentForMouseEvents);
-	lbDr->lower();
-
-	lbDr = new QLabel(((Ui::QtPLCDialogClass*)ui)->tabWidget);
-	lbDr->resize(1280, 800);
-	lbDr->move(-9, -49);
-	lbDr->setPixmap(QPixmap(sp));
-	lbDr->setScaledContents(true);
-	lbDr->setAttribute(Qt::WA_TransparentForMouseEvents);
-	lbDr->lower();
-
-
 
 	((Ui::QtPLCDialogClass*)ui)->label_us->setPixmap(AppPath + "/ico/us.png");
 	((Ui::QtPLCDialogClass*)ui)->label_us->setScaledContents(true);
