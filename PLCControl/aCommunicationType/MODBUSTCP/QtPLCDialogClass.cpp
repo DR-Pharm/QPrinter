@@ -177,8 +177,7 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	//指示灯部分
 	((Ui::QtPLCDialogClass*)ui)->lb_00->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
 	((Ui::QtPLCDialogClass*)ui)->lb_10->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
-	((Ui::QtPLCDialogClass*)ui)->lb_20->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
-	((Ui::QtPLCDialogClass*)ui)->lb_30->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
+	
 	((Ui::QtPLCDialogClass*)ui)->lb_40->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
 	((Ui::QtPLCDialogClass*)ui)->lb_60->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
 
@@ -1827,7 +1826,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 		((Ui::QtPLCDialogClass*)ui)->lb_10->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
 
 	}
-	if (m_Coils_Bufer[Input_stCapThickValve] == 1)
+	/*if (m_Coils_Bufer[Input_stCapThickValve] == 1)
 	{
 		((Ui::QtPLCDialogClass*)ui)->lb_20->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
 	}
@@ -1844,7 +1843,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 	{
 		((Ui::QtPLCDialogClass*)ui)->lb_30->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
 
-	}
+	}*/
 	if (m_Coils_Bufer[Input_SwingTrigger] == 1)
 	{
 		((Ui::QtPLCDialogClass*)ui)->lb_40->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
@@ -5547,9 +5546,9 @@ void QtPLCDialogClass::ChangeLanguage()
 		((Ui::QtPLCDialogClass*)ui)->label_63->setText("FeedDone");
 		((Ui::QtPLCDialogClass*)ui)->groupBox_5->setTitle("ThickRejectCount");
 		//系统参数
-		((Ui::QtPLCDialogClass*)ui)->label_71->setText("Thickness cylinder");
+		//((Ui::QtPLCDialogClass*)ui)->label_71->setText("Thickness cylinder");
 		((Ui::QtPLCDialogClass*)ui)->label_70->setText("Zero position of\nFlap");
-		((Ui::QtPLCDialogClass*)ui)->label_30->setText("Shaping cylinder");
+		//((Ui::QtPLCDialogClass*)ui)->label_30->setText("Shaping cylinder");
 		((Ui::QtPLCDialogClass*)ui)->label_64->setText("Swing arm");
 		((Ui::QtPLCDialogClass*)ui)->pB_Read1->setText("Read");
 		((Ui::QtPLCDialogClass*)ui)->pB_Write1->setText("Write");
