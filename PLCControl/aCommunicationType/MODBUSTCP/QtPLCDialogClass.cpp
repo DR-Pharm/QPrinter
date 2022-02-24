@@ -1453,18 +1453,10 @@ void QtPLCDialogClass::getPLCHolding(void*data)
 		float hex_res = hexTofloat(ActData_InterUnderLoad);
 		((Ui::QtPLCDialogClass*)ui)->lE_InterUnderLoad->setText(QString::number(hex_res));
 	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_HMU_Zero->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_HMU_Zero->setText(QString::number(m_Input_Bufer[ActData_HMU_Zero]));
-	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_HMU_K->hasFocus())
 	{
 		float hex_res = hexTofloat(ActData_HMU_K);
 		((Ui::QtPLCDialogClass*)ui)->lE_HMU_K->setText(QString::number(hex_res, 'f', 5));
-	}
-	if (!((Ui::QtPLCDialogClass*)ui)->lE_TMU_Zero->hasFocus())
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_TMU_Zero->setText(QString::number(m_Input_Bufer[ActData_TMU_Zero]));
 	}
 	if (!((Ui::QtPLCDialogClass*)ui)->lE_TMU_K->hasFocus())
 	{
@@ -3575,24 +3567,7 @@ void QtPLCDialogClass::on_lE_TMU_calibThickness_editingFinished()
 }	
 void QtPLCDialogClass::on_lE_HMU_Zero_editingFinished()
 {
-	m_str_sendRegisters = m_str_registers;
-
-	m_iDontReadRegistersFlag = 1;
-	QString oldstr = m_str_sendRegisters.mid(ActData_HMU_Zero * 4, 4);
-	int a = ((Ui::QtPLCDialogClass*)ui)->lE_HMU_Zero->text().toUShort();
-	QString str = QString("%1").arg(a, 4, 16, QLatin1Char('0'));
-	if (oldstr == str)
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_HMU_Zero->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->lE_HMU_Zero->clearFocus();
-		((Ui::QtPLCDialogClass*)ui)->lE_HMU_Zero->blockSignals(false);
-		return;
-	}
-	m_str_sendRegisters.replace(ActData_HMU_Zero * 4, 4, str);
-
-	((Ui::QtPLCDialogClass*)ui)->lE_HMU_Zero->blockSignals(true);
-	((Ui::QtPLCDialogClass*)ui)->lE_HMU_Zero->clearFocus();
-	((Ui::QtPLCDialogClass*)ui)->lE_HMU_Zero->blockSignals(false);
+	
 }
 
 void QtPLCDialogClass::on_lE_HMU_K_editingFinished()
@@ -3623,24 +3598,7 @@ void QtPLCDialogClass::on_lE_HMU_K_editingFinished()
 }
 void QtPLCDialogClass::on_lE_TMU_Zero_editingFinished()
 {
-	m_str_sendRegisters = m_str_registers;
-
-	m_iDontReadRegistersFlag = 1;
-	QString oldstr = m_str_sendRegisters.mid(ActData_TMU_Zero * 4, 4);
-	int a = ((Ui::QtPLCDialogClass*)ui)->lE_TMU_Zero->text().toUShort();
-	QString str = QString("%1").arg(a, 4, 16, QLatin1Char('0'));
-	if (oldstr == str)
-	{
-		((Ui::QtPLCDialogClass*)ui)->lE_TMU_Zero->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->lE_TMU_Zero->clearFocus();
-		((Ui::QtPLCDialogClass*)ui)->lE_TMU_Zero->blockSignals(false);
-		return;
-	}
-	m_str_sendRegisters.replace(ActData_TMU_Zero * 4, 4, str);
-
-	((Ui::QtPLCDialogClass*)ui)->lE_TMU_Zero->blockSignals(true);
-	((Ui::QtPLCDialogClass*)ui)->lE_TMU_Zero->clearFocus();
-	((Ui::QtPLCDialogClass*)ui)->lE_TMU_Zero->blockSignals(false);
+	
 }
 void QtPLCDialogClass::on_lE_TMU_K_editingFinished()
 {
@@ -5563,8 +5521,8 @@ void QtPLCDialogClass::ChangeLanguage()
 		
 		((Ui::QtPLCDialogClass*)ui)->label_76->setText("SetPillDiam");
 		((Ui::QtPLCDialogClass*)ui)->label_82->setText("HardnessChkNum");
-		((Ui::QtPLCDialogClass*)ui)->label_86->setText("HMU_Zero");
-		((Ui::QtPLCDialogClass*)ui)->label_99->setText("TMU_Zero");
+		/*((Ui::QtPLCDialogClass*)ui)->label_86->setText("HMU_Zero");
+		((Ui::QtPLCDialogClass*)ui)->label_99->setText("TMU_Zero");*/
 		((Ui::QtPLCDialogClass*)ui)->label_107->setText("HMUparaCalibForce");
 		((Ui::QtPLCDialogClass*)ui)->label_72->setText("RecipeNo"); 
 		((Ui::QtPLCDialogClass*)ui)->label_52->setText("GroupSet");
