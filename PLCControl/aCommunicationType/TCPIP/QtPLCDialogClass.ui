@@ -6759,6 +6759,14 @@ background-color:transparent;
                <height>42</height>
               </size>
              </property>
+             <property name="font">
+              <font>
+               <family>宋体</family>
+               <pointsize>20</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
             </widget>
            </item>
            <item row="0" column="1">
@@ -6777,6 +6785,17 @@ background-color:transparent;
                <width>180</width>
                <height>42</height>
               </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>宋体</family>
+               <pointsize>20</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>0</string>
              </property>
             </widget>
            </item>
@@ -6857,6 +6876,14 @@ background-color:transparent;
                <height>42</height>
               </size>
              </property>
+             <property name="font">
+              <font>
+               <family>宋体</family>
+               <pointsize>20</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
             </widget>
            </item>
            <item row="0" column="1">
@@ -6875,6 +6902,14 @@ background-color:transparent;
                <width>180</width>
                <height>42</height>
               </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>宋体</family>
+               <pointsize>20</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
              </property>
             </widget>
            </item>
@@ -6978,6 +7013,14 @@ background-color:transparent;
                <height>42</height>
               </size>
              </property>
+             <property name="font">
+              <font>
+               <family>宋体</family>
+               <pointsize>20</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
             </widget>
            </item>
            <item row="0" column="1">
@@ -7026,6 +7069,14 @@ background-color:transparent;
                <width>220</width>
                <height>42</height>
               </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>宋体</family>
+               <pointsize>20</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
              </property>
             </widget>
            </item>
