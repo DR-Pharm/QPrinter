@@ -1267,17 +1267,91 @@ void QtPLCDialogClass::getPLCData(void* data)
 
 	if (!((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->hasFocus())//0:每组去皮重,1:每次称重去皮重
 	{
-		if (m_iFeedMode<3)
+		/*if (m_iFeedMode<3)
 		{
 			on_cB_Feedmode_currentIndexChanged(m_iFeedMode);
 		}
 		else
 		{
 			on_cB_Feedmode_currentIndexChanged(m_data->ActData.Feedmode);
-		}
+		}*/
 		((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->blockSignals(true);
 		((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->setCurrentIndex(m_data->ActData.Feedmode);
 		((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->blockSignals(false);	
+
+		if (m_data->ActData.Feedmode == 0 && m_bFeedModeFlag1 == 0)
+		{
+			m_bFeedModeFlag1 = 1;
+			m_bFeedModeFlag2 = 0;
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShake->setEnabled(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedshakestop->setEnabled(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedshakelevel->setEnabled(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedhome->setEnabled(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedFive->setEnabled(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShakefive->setEnabled(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapClean->setEnabled(true);
+			((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->setVisible(false);
+			((Ui::QtPLCDialogClass*)ui)->label_30->setVisible(false);
+
+			((Ui::QtPLCDialogClass*)ui)->lb_speed->setVisible(false);
+			((Ui::QtPLCDialogClass*)ui)->lE_speed->setVisible(false);
+			((Ui::QtPLCDialogClass*)ui)->label_speed->setVisible(false);
+			((Ui::QtPLCDialogClass*)ui)->lb_yield->setVisible(false);
+			((Ui::QtPLCDialogClass*)ui)->lE_yield->setVisible(false);
+			((Ui::QtPLCDialogClass*)ui)->label_yield->setVisible(false);
+
+			((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(201);//221 251
+			((Ui::QtPLCDialogClass*)ui)->widget_2->move(((Ui::QtPLCDialogClass*)ui)->widget_2->x(), 279);//279 309
+			((Ui::QtPLCDialogClass*)ui)->widget_2->setFixedHeight(351);//351 321 411
+
+			if (lg == 0)
+			{
+				((Ui::QtPLCDialogClass*)ui)->label_70->setText(QString::fromLocal8Bit("壳    重："));
+			}
+			else
+			{
+				((Ui::QtPLCDialogClass*)ui)->label_70->setText("Shell Weight:");
+
+			}
+			((Ui::QtPLCDialogClass*)ui)->label_71->setText(QString::fromLocal8Bit("mg"));
+			((Ui::QtPLCDialogClass*)ui)->lE_pure->setText(QString::number(m_ps));
+		}
+		else if (m_data->ActData.Feedmode == 1 && m_bFeedModeFlag2 == 0)
+		{
+			m_bFeedModeFlag1 = 0;
+			m_bFeedModeFlag2 = 1;
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShake->setEnabled(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedshakestop->setEnabled(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedshakelevel->setEnabled(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedhome->setEnabled(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedFive->setEnabled(false);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShakefive->setEnabled(true);
+			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapClean->setEnabled(false);
+			((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->setVisible(true);
+			((Ui::QtPLCDialogClass*)ui)->label_30->setVisible(true);
+
+			((Ui::QtPLCDialogClass*)ui)->lb_speed->setVisible(true);
+			((Ui::QtPLCDialogClass*)ui)->lE_speed->setVisible(true);
+			((Ui::QtPLCDialogClass*)ui)->label_speed->setVisible(true);
+			((Ui::QtPLCDialogClass*)ui)->lb_yield->setVisible(true);
+			((Ui::QtPLCDialogClass*)ui)->lE_yield->setVisible(true);
+			((Ui::QtPLCDialogClass*)ui)->label_yield->setVisible(true);
+
+			((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(231);
+			((Ui::QtPLCDialogClass*)ui)->widget_2->move(((Ui::QtPLCDialogClass*)ui)->widget_2->x(), 309);//279 309
+			((Ui::QtPLCDialogClass*)ui)->widget_2->setFixedHeight(321);//351 321 411
+			if (lg == 0)
+			{
+				((Ui::QtPLCDialogClass*)ui)->label_70->setText(QString::fromLocal8Bit("平均压力："));
+			}
+			else
+			{
+				((Ui::QtPLCDialogClass*)ui)->label_70->setText("Pressure:");
+			}
+			((Ui::QtPLCDialogClass*)ui)->label_71->setText(QString::fromLocal8Bit("KN"));
+			((Ui::QtPLCDialogClass*)ui)->lE_pure->setText(QString::number(m_pressure));
+		}
+
 	}																						  //int				Language;				//当前语言，0：中文，1：英文
 	//float			UserAnalogoutput;		//用户模拟量输入
 	//float			Adjustvalue;			//自动调整系数
@@ -2262,94 +2336,16 @@ void QtPLCDialogClass::on_lE_BatchName_editingFinished()//批号字符串
 }
 void QtPLCDialogClass::on_cB_Feedmode_currentIndexChanged(int index)
 {
-
-	QSettings WriteIni(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
-	WriteIni.setValue("ProgramSetting/FeedMode", index);
-	m_iFeedMode = index;
-	m_data->ActData.Feedmode = index;//debug use
-	if (index == 0 && m_bFeedModeFlag1 == 0)
-	{
-		m_bFeedModeFlag1 = 1;
-		m_bFeedModeFlag2 = 0;
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShake->setEnabled(false);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedshakestop->setEnabled(false);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedshakelevel->setEnabled(false);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedhome->setEnabled(false);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedFive->setEnabled(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShakefive->setEnabled(false);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapClean->setEnabled(true);
-		((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->setVisible(false);
-		((Ui::QtPLCDialogClass*)ui)->label_30->setVisible(false);
-
-		((Ui::QtPLCDialogClass*)ui)->lb_speed->setVisible(false);
-		((Ui::QtPLCDialogClass*)ui)->lE_speed->setVisible(false);
-		((Ui::QtPLCDialogClass*)ui)->label_speed->setVisible(false);
-		((Ui::QtPLCDialogClass*)ui)->lb_yield->setVisible(false);
-		((Ui::QtPLCDialogClass*)ui)->lE_yield->setVisible(false);
-		((Ui::QtPLCDialogClass*)ui)->label_yield->setVisible(false);
-
-		((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(201);//221 251
-		((Ui::QtPLCDialogClass*)ui)->widget_2->move(((Ui::QtPLCDialogClass*)ui)->widget_2->x(), 279);//279 309
-		((Ui::QtPLCDialogClass*)ui)->widget_2->setFixedHeight(351);//351 321 411
-
-		if (lg == 0)
-		{
-			((Ui::QtPLCDialogClass*)ui)->label_70->setText(QString::fromLocal8Bit("壳    重："));
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->label_70->setText("Shell Weight:");
-
-		}
-		((Ui::QtPLCDialogClass*)ui)->label_71->setText(QString::fromLocal8Bit("mg"));
-		((Ui::QtPLCDialogClass*)ui)->lE_pure->setText(QString::number(m_ps));
-	}
-	else if (index == 1 && m_bFeedModeFlag2 == 0)
-	{
-		m_bFeedModeFlag1 = 0;
-		m_bFeedModeFlag2 = 1;
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShake->setEnabled(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedshakestop->setEnabled(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedshakelevel->setEnabled(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedhome->setEnabled(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedFive->setEnabled(false);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdFeedShakefive->setEnabled(true);
-		((Ui::QtPLCDialogClass*)ui)->pB_cmdCapClean->setEnabled(false);
-		((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->setVisible(true);
-		((Ui::QtPLCDialogClass*)ui)->label_30->setVisible(true);
-
-		((Ui::QtPLCDialogClass*)ui)->lb_speed->setVisible(true);
-		((Ui::QtPLCDialogClass*)ui)->lE_speed->setVisible(true);
-		((Ui::QtPLCDialogClass*)ui)->label_speed->setVisible(true);
-		((Ui::QtPLCDialogClass*)ui)->lb_yield->setVisible(true);
-		((Ui::QtPLCDialogClass*)ui)->lE_yield->setVisible(true);
-		((Ui::QtPLCDialogClass*)ui)->label_yield->setVisible(true);
-
-		((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(231);
-		((Ui::QtPLCDialogClass*)ui)->widget_2->move(((Ui::QtPLCDialogClass*)ui)->widget_2->x(), 309);//279 309
-		((Ui::QtPLCDialogClass*)ui)->widget_2->setFixedHeight(321);//351 321 411
-		if (lg == 0)
-		{
-			((Ui::QtPLCDialogClass*)ui)->label_70->setText(QString::fromLocal8Bit("平均压力："));
-		}
-		else
-		{
-			((Ui::QtPLCDialogClass*)ui)->label_70->setText("Pressure:");
-		}
-		((Ui::QtPLCDialogClass*)ui)->label_71->setText(QString::fromLocal8Bit("KN"));
-		((Ui::QtPLCDialogClass*)ui)->lE_pure->setText(QString::number(m_pressure));
-	}
-	QString str1 = QString::number(index);
-	QString str2 = QString::number(m_data->ActData.Feedmode);
-	if (str1==str2)
-	{
-		return;
-	}
 	DataFromPC_typ typ;
 	typ = getPCRunData();
 	typ.Telegram_typ = 4;
 	typ.ActData.Feedmode = index;
 	m_socket->Communicate_PLC(&typ, nullptr);
+
+	QSettings WriteIni(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+	WriteIni.setValue("ProgramSetting/FeedMode", index);
+	m_iFeedMode = index;
+
 }
 void QtPLCDialogClass::on_lE_AxisFeedRelMovDistance_editingFinished()
 {
