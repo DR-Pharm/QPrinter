@@ -64,7 +64,7 @@ void PRT::initPLC()
 		tm_ReConnect = new QTimer();
 	}
 	b = connect(tm_ReConnect, SIGNAL(timeout()), this, SLOT(EmitReconnect()));
-	tm_ReConnect->start(10);
+	tm_ReConnect->start(2000);
 
 	wt->setTxt(QString::fromLocal8Bit("正在连接PLC,请稍等..."));
 	b = connect(dlg, SIGNAL(SHOWPRT(bool)), this, SLOT(showPrt(bool))); 
@@ -369,6 +369,10 @@ void PRT::showWindowOut(QString str)
 }
 void PRT::SuccessConnect()
 {
+	tm_ReConnect->stop();
+	delete tm_ReConnect;
+	tm_ReConnect = nullptr;
+
 	wt->close();
 	if (lg == 0)showWindowOut(QString::fromLocal8Bit("PLC连接正常"));
 	if (lg == 1)showWindowOut(QString::fromLocal8Bit("PLC Connect Success"));
@@ -379,6 +383,18 @@ void PRT::SuccessConnect()
 }
 void PRT::ErrorConnect()
 {
+	if (tm_ReConnect == nullptr)
+	{
+		wt->show();
+		tm_ReConnect = new QTimer();
+	}
+	else
+	{
+		return;
+	}
+	bool b = connect(tm_ReConnect, SIGNAL(timeout()), this, SLOT(EmitReconnect()));
+	tm_ReConnect->start(2000);
+	return;
 	wt->close();
 	if (lg == 0)showMsgBox("通讯错误", "连接PLC出错,请修复后重启程序!", "我去查查", "");
 	if (lg == 1)showMsgBox("Communication Error", "Connect PLC timeout,Please fix and restart the software!", "check", "");
@@ -386,10 +402,10 @@ void PRT::ErrorConnect()
 }
 void PRT::EmitReconnect()
 {
-	//wt->show();//remeber to note off
-	tm_ReConnect->stop();
-	delete tm_ReConnect;
-	tm_ReConnect = nullptr;
+	wt->show();//remeber to note off
+	//tm_ReConnect->stop();
+	//delete tm_ReConnect;
+	//tm_ReConnect = nullptr;
 	emit STARTCONNECTPLC();
 }
 #pragma endregion

@@ -129,10 +129,10 @@ bool QtSocket_Class::initialization()//连接初始化
 	{
 #ifdef TCPIP
 		mp_TCPSocket = new QTcpSocket(this);	
-
 		bool b = connect(mp_TCPSocket, SIGNAL(connected()), this, SLOT(OnServer()));
 			 b = connect(mp_TCPSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(onConnectError(QAbstractSocket::SocketError)));
 			b = connect(mp_TCPSocket, SIGNAL(readyRead()), this, SLOT(onReadAllData()));
+		//mp_TCPSocket->waitForReadyRead(3000);
 #else
 		/********************************************
  * 函数名称：Connect_to_modbus(QString IP_address,int Port)
@@ -642,7 +642,7 @@ bool QtSocket_Class::AlarmReset()
 
 void QtSocket_Class::onConnectError(QAbstractSocket::SocketError err)
 {
-
+	emit signal_SOCKETERROR();
 }
 void QtSocket_Class::onBeatSignal()
 {
