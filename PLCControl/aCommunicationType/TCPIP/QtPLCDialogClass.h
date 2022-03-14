@@ -156,6 +156,7 @@ private:
 	int m_istartFlag = 0;
 public slots:
 
+	void ErrorConnect();
 	DataFromPC_typ getPCParaData();
 	DataFromPC_typ getPCRunData();
 

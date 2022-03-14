@@ -853,6 +853,8 @@ void QtPLCDialogClass::SetSocket(QtSocket_Class *sc)
 {
 	m_socket = sc;
 	bool b = connect(m_socket, SIGNAL(signal_FROMPLC(void*)), this, SLOT(getPLCData(void*)));
+	b = connect(m_socket, SIGNAL(signal_SOCKETERROR()), this, SLOT(ErrorConnect()));
+
 	b = connect(m_socket, SIGNAL(statechange_Connected()), this, SLOT(OnConnectedState()));
 	b = connect(m_socket, SIGNAL(statechange_Connecting()), this, SLOT(OnConnectingState()));
 	b = connect(m_socket, SIGNAL(statechange_Unconnected()), this, SLOT(OnUnconnectedState()));
@@ -860,6 +862,12 @@ void QtPLCDialogClass::SetSocket(QtSocket_Class *sc)
 }
 #pragma endregion
 
+void QtPLCDialogClass::ErrorConnect()
+{
+	((Ui::QtPLCDialogClass*)ui)->lb_Alarm->setStyleSheet("color: rgb(255, 0,0);font-size:20pt");
+	if (lg == 0) ((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("设备未就绪~");
+	if (lg == 1) ((Ui::QtPLCDialogClass*)ui)->lb_Alarm->m_showText = QString::fromLocal8Bit("Not Ready~");
+}
 #pragma region data
 DataFromPC_typ QtPLCDialogClass::getPCParaData()//2
 {
