@@ -1300,7 +1300,8 @@ void QtPLCDialogClass::getPLCData(void* data)
 			((Ui::QtPLCDialogClass*)ui)->pB_cmdCapClean->setEnabled(true);
 			((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->setVisible(false);
 			((Ui::QtPLCDialogClass*)ui)->label_30->setVisible(false);
-
+			if (m_iHideprint2==0)
+			{
 			((Ui::QtPLCDialogClass*)ui)->lb_speed->setVisible(false);
 			((Ui::QtPLCDialogClass*)ui)->lE_speed->setVisible(false);
 			((Ui::QtPLCDialogClass*)ui)->label_speed->setVisible(false);
@@ -1308,7 +1309,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 			((Ui::QtPLCDialogClass*)ui)->lE_yield->setVisible(false);
 			((Ui::QtPLCDialogClass*)ui)->label_yield->setVisible(false);
 
-			((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(201);//221 251
+			((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(231);//221 251
 			((Ui::QtPLCDialogClass*)ui)->widget_2->move(((Ui::QtPLCDialogClass*)ui)->widget_2->x(), 279);//279 309
 			((Ui::QtPLCDialogClass*)ui)->widget_2->setFixedHeight(351);//351 321 411
 
@@ -1324,6 +1325,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 			((Ui::QtPLCDialogClass*)ui)->label_71->setText(QString::fromLocal8Bit("mg"));
 			((Ui::QtPLCDialogClass*)ui)->lE_pure->setText(QString::number(m_ps));
 		}
+		}
 		else if (m_data->ActData.Feedmode == 1 && m_bFeedModeFlag2 == 0)
 		{
 			m_bFeedModeFlag1 = 0;
@@ -1338,26 +1340,29 @@ void QtPLCDialogClass::getPLCData(void* data)
 			((Ui::QtPLCDialogClass*)ui)->lE_Feed_shakeoffset->setVisible(true);
 			((Ui::QtPLCDialogClass*)ui)->label_30->setVisible(true);
 
-			((Ui::QtPLCDialogClass*)ui)->lb_speed->setVisible(true);
-			((Ui::QtPLCDialogClass*)ui)->lE_speed->setVisible(true);
-			((Ui::QtPLCDialogClass*)ui)->label_speed->setVisible(true);
-			((Ui::QtPLCDialogClass*)ui)->lb_yield->setVisible(true);
-			((Ui::QtPLCDialogClass*)ui)->lE_yield->setVisible(true);
-			((Ui::QtPLCDialogClass*)ui)->label_yield->setVisible(true);
+			if (m_iHideprint2==0)
+			{
+				((Ui::QtPLCDialogClass*)ui)->lb_speed->setVisible(true);
+				((Ui::QtPLCDialogClass*)ui)->lE_speed->setVisible(true);
+				((Ui::QtPLCDialogClass*)ui)->label_speed->setVisible(true);
+				((Ui::QtPLCDialogClass*)ui)->lb_yield->setVisible(true);
+				((Ui::QtPLCDialogClass*)ui)->lE_yield->setVisible(true);
+				((Ui::QtPLCDialogClass*)ui)->label_yield->setVisible(true);
 
-			((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(231);
-			((Ui::QtPLCDialogClass*)ui)->widget_2->move(((Ui::QtPLCDialogClass*)ui)->widget_2->x(), 309);//279 309
-			((Ui::QtPLCDialogClass*)ui)->widget_2->setFixedHeight(321);//351 321 411
-			if (lg == 0)
-			{
-				((Ui::QtPLCDialogClass*)ui)->label_70->setText(QString::fromLocal8Bit("平均压力："));
+				((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(261);
+				((Ui::QtPLCDialogClass*)ui)->widget_2->move(((Ui::QtPLCDialogClass*)ui)->widget_2->x(), 309);//279 309
+				((Ui::QtPLCDialogClass*)ui)->widget_2->setFixedHeight(321);//351 321 411
+				if (lg == 0)
+				{
+					((Ui::QtPLCDialogClass*)ui)->label_70->setText(QString::fromLocal8Bit("平均压力："));
+				}
+				else
+				{
+					((Ui::QtPLCDialogClass*)ui)->label_70->setText("Pressure:");
+				}
+				((Ui::QtPLCDialogClass*)ui)->label_71->setText(QString::fromLocal8Bit("KN"));
+				((Ui::QtPLCDialogClass*)ui)->lE_pure->setText(QString::number(m_pressure));
 			}
-			else
-			{
-				((Ui::QtPLCDialogClass*)ui)->label_70->setText("Pressure:");
-			}
-			((Ui::QtPLCDialogClass*)ui)->label_71->setText(QString::fromLocal8Bit("KN"));
-			((Ui::QtPLCDialogClass*)ui)->lE_pure->setText(QString::number(m_pressure));
 		}
 
 	}																						  //int				Language;				//当前语言，0：中文，1：英文
@@ -2748,7 +2753,11 @@ void QtPLCDialogClass::BeforePrint()
 
 		else
 		{
-			emit TODRAWPICTURE(1, cb, p1, p2);
+			if (cb.mid(0,1) == "3")
+			{
+				emit showWindowOut(QString::fromLocal8Bit("导出目录：") + m_sTempPathForLeadout);
+			}
+			emit TODRAWPICTURE(1, cb, p1, p2, m_sTempPathForLeadout + "/report.pdf");
 			return;
 		}
 
@@ -2770,7 +2779,11 @@ void QtPLCDialogClass::BeforePrint()
 
 		if (GroupNumber.size() > 0)
 		{
-			emit TODRAWPICTURE(1, cb, p1, p2);
+			if (cb.mid(0, 1) == "3")
+			{
+				emit showWindowOut(QString::fromLocal8Bit("导出目录：") + m_sTempPathForLeadout);
+			}
+			emit TODRAWPICTURE(1, cb, p1, p2, m_sTempPathForLeadout + "/report.pdf");
 		}
 
 		else
@@ -2836,13 +2849,11 @@ void QtPLCDialogClass::on_pB_LeadOut_clicked()//记录
 	getUdisk();
 	if (m_sTempPathForLeadout == "")
 	{
-		emit showWindowOut(QString::fromLocal8Bit("请重新插拔U盘!"));
+		emit showWindowOut(QString::fromLocal8Bit("请插入U盘!"));
 		return;
 	}
 	
-	emit showWindowOut(QString::fromLocal8Bit("导出目录：") + m_sTempPathForLeadout);
 
-	return;
 	if (m_data->ActData.Feedmode == 0)
 	{
 		cb = "0";

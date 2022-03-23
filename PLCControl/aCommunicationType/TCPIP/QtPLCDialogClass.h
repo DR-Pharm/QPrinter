@@ -33,7 +33,7 @@ signals:
 	void GETSTRING(QString);
 	void SHOWPRT(bool);
 	void TODATACURVE(int,float, float, float, QList<qreal>);
-	void TODRAWPICTURE(int,QString,int p1,int p2);//MODE 0:one curve,1:one dataAverage,2:two curve,3:two dataAverage
+	void TODRAWPICTURE(int,QString,int p1,int p2,QString pdfpath);//MODE 0:one curve,1:one dataAverage,2:two curve,3:two dataAverage
 	void showWindowOut(QString str);
 public:
 	QtPLCDialogClass(QDialog *parent = Q_NULLPTR);

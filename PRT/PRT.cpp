@@ -70,6 +70,7 @@ void PRT::initPLC()
 	tm_ReConnect->start(2000);
 
 	wt->setTxt(QString::fromLocal8Bit("正在连接PLC,请稍等..."));
+	wt->show();
 	
 	b = connect(dlg, SIGNAL(SHOWPRT(bool)), this, SLOT(showPrt(bool)));
 	b = connect(dlg, SIGNAL(showWindowOut(QString)), this, SLOT(showWindowOut(QString)));
