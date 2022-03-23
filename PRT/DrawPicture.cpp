@@ -201,15 +201,27 @@ void DrawPicture::drawPic2(QPrinter *printer)
 	}
 	painterPixmap.end();
 }
-void DrawPicture::drawPic(QPrinter *printer)
+void DrawPicture::drawPic(QPrinter *printer,QPdfWriter *wt,int Select)
 {
-	m_ptnm = printer->printerName();
+	int prtMode=0;
+	int firstPg;
+	int endPg; 
+	int allornot;
+	if (Select==0)
+	{
+		m_ptnm = printer->printerName(); 
+		prtMode = printer->printRange();
+		firstPg = printer->fromPage();
+		endPg = printer->toPage();
+	}
+	else
+	{
+		m_ptnm = "PdfWriter";
+	}
 	//printer->setPrintRange(QPrinter::PageRange);//2
 	//printer->setPrintRange(QPrinter::AllPages);//0
-	int prtMode = printer->printRange();
-	int firstPg = printer->fromPage();
-	int endPg = printer->toPage();
-	int allornot;
+	
+	
 	if (prtMode == 0)
 	{
 		allornot = 1;
@@ -226,7 +238,14 @@ void DrawPicture::drawPic(QPrinter *printer)
 		endPg -= 1;
 		allornot = 0;
 	}
-	painterPixmap.begin(printer);
+	if (Select == 0)
+	{
+		painterPixmap.begin(printer);
+	}
+	else
+	{
+		painterPixmap.begin(wt);
+	}
 	int page1;
 	if (m_iPrintCurveCount == 0)
 	{
@@ -296,7 +315,14 @@ void DrawPicture::drawPic(QPrinter *printer)
 				{
 					if ((allornot == 0 && pageValue < endPg) || allornot == 1)
 					{
-						printer->newPage();
+						if (Select==0)
+						{
+							printer->newPage();
+						}
+						else
+						{
+							wt->newPage();
+						}
 					}
 				}
 
@@ -354,7 +380,14 @@ void DrawPicture::drawPic(QPrinter *printer)
 				{
 					if ((allornot == 0 && pageValue < endPg) || allornot == 1)
 					{
-						printer->newPage();
+						if (Select == 0)
+						{
+							printer->newPage();
+						}
+						else
+						{
+							wt->newPage();
+						}
 					}
 				}
 			}

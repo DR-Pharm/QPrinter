@@ -10,6 +10,8 @@
 #include <QCoreApplication>
 #include <QMessageBox>
 #include <QDateTime>
+#include <QPdfWriter>
+
 class DrawPicture : public QObject
 {
 	Q_OBJECT
@@ -77,6 +79,6 @@ public:
 	void setAveChecked(bool);
 	void setData(QVector<QVector<float>> sourcedata, QVector<QString>, int i, int j, QVector<float> f, QVector<QString>, QVector<QString>, QVector<int>, QVector<int>, QVector<int>,QString cb, QVector<int>, QVector<int>, QVector<int>, QVector<QVector<float>>, QVector<QVector<float>>);
 public slots:
-	void drawPic(QPrinter * pt);
+	void drawPic(QPrinter * pt, QPdfWriter *wt, int Select);
 
 };

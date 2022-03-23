@@ -64,6 +64,7 @@ public:
 	bool nativeEvent(const QByteArray & eventType, void * message, long * result);
 	QString YearMonthDay();
 private:
+	QString m_PdfPath;
 	QLabel *lbDr = nullptr;
 	Ui::PRTClass ui;
 	//data calculate
@@ -122,7 +123,7 @@ public slots:
 	void on_cB_Average_toggled(bool checked);
 	void on_cB_PrintMode_currentIndexChanged(int index);
 	void on_ToClose();
-	void getVec(int,QString strCb, int p1,int p2);
+	void getVec(int,QString strCb, int p1,int p2,QString pdfpath);
 	void SuccessConnect();
 	void ErrorConnect();
 	void EmitReconnect();

@@ -1,5 +1,6 @@
 #include "PRT.h"
 #include <QMetaType> 
+#include <QPdfWriter>
 QString g_QSUserName = "hanlinzhineng_123_nengzhilinhan_321";
 int g_IUserLevel;
 
@@ -74,7 +75,7 @@ void PRT::initPLC()
 	b = connect(dlg, SIGNAL(showWindowOut(QString)), this, SLOT(showWindowOut(QString)));
 	//b = connect(this, SIGNAL(TOPLCDLG(QString)), dlg, SLOT(OnGetLeadoutPath(QString)));
 	b = connect(dlg, SIGNAL(CLOSESIGNAL()), this, SLOT(on_ToClose()));
-	b = connect(dlg, SIGNAL(TODRAWPICTURE(int,QString,int,int)), this, SLOT(getVec(int,QString,int,int)));
+	b = connect(dlg, SIGNAL(TODRAWPICTURE(int,QString,int,int,QString)), this, SLOT(getVec(int,QString,int,int,QString)));
 	dlg->setParent(ui.centralWidget);
 	dlg->move(0, 0);
 	b = connect(this, SIGNAL(MINI()), m_pPlclib, SLOT(setWinMini()));
@@ -332,7 +333,8 @@ void PRT::toDraw(QPrinter *p)
 		//dlg.setWindowFlags(Qt::FramelessWindowHint);//设置为对话框风格，并且去掉边框
 		//dlg.setWindowModality(Qt::WindowModal);//设置为模式对话框，同时在构造该对话框时要设置父窗口
 	wt->show();
-	m_drawpicture->drawPic(p);
+	QPdfWriter w("d:/text1.pdf");
+	m_drawpicture->drawPic(p,&w,0);
 	wt->close();
 	wt->setTxt(QString::fromLocal8Bit("打印正在进行,请稍等..."));
 }
@@ -581,13 +583,18 @@ void PRT::on_pB_PrintDirect_clicked()
 	writeIni();
 	if (!caculateCount())return;
 
-	if (m_cb.mid(0, 1) == "0")
+	wt->setTxt(QString::fromLocal8Bit("正在打印,请稍等..."));
+	if (m_cb.mid(0, 1) == "0")//1个参数的
 	{
 		if (QMessageBox::Yes == showMsgBox("打印确认", "确认打印数据曲线?", "确认", "取消"))
 		{
+			wt->show();
 			m_drawpicture->setData(data, gn, m_iPrintCurveCount, m_iPrintAveCount, theory,m_CustomerName,m_MedicineName,m_Low,m_High,m_PureShell,m_cb,m_Yield, m_Pressure, m_Speed,thickness,hardness);
-			m_drawpicture->drawPic(m_prt);																											 
-		}																																			 
+			QPdfWriter w("");
+			m_drawpicture->drawPic(m_prt, &w, 0);
+			wt->close();
+			showWindowOut(QString::fromLocal8Bit("打印完成!"));
+		}	
 	}
 	else if (m_cb.mid(0, 1) == "1")
 	{
@@ -595,33 +602,46 @@ void PRT::on_pB_PrintDirect_clicked()
 		{
 			int sz = data.size();
 			m_drawpicture->setData(data, gn, m_iPrintCurveCount, sz, theory, m_CustomerName, m_MedicineName, m_Low, m_High, m_PureShell, m_cb, m_Yield, m_Pressure, m_Speed, thickness, hardness);
-			//wt->show();
+			wt->show();
 			m_drawpicture->drawPic2(m_prt);
-			//wt->close();
+			wt->close();
+			showWindowOut(QString::fromLocal8Bit("打印完成!"));
 		}
 	}
-	else if (m_cb.mid(0, 1) == "2")
+	else if (m_cb.mid(0, 1) == "2")//多个参数的
 	{
 		if (QMessageBox::Yes == showMsgBox("打印确认", "确认打印数据曲线?", "确认", "取消"))
 		{
 			int sz = data.size();
 			m_drawpicture->setData(data, gn, m_iPrintCurveCount, sz, theory, m_CustomerName, m_MedicineName, m_Low, m_High, m_PureShell, m_cb, m_Yield, m_Pressure, m_Speed, thickness, hardness);
-			//wt->show();
+			wt->show();
 			m_drawpicture->drawPic3(m_prt);
-			//wt->close();
+			wt->close();
+			showWindowOut(QString::fromLocal8Bit("打印完成!"));
 		}
 	}
 
-	else if (m_cb.mid(0, 1) == "3")
+	else if (m_cb.mid(0, 1) == "3")//1个参数的
 	{
 		if (QMessageBox::Yes == showMsgBox("确认", "确认导出数据?", "确认", "取消"))
 		{
-			return;
+			wt->setTxt(QString::fromLocal8Bit("正在导出数据,请稍等..."));
+			wt->show();
 			int sz = data.size();
 			m_drawpicture->setData(data, gn, m_iPrintCurveCount, sz, theory, m_CustomerName, m_MedicineName, m_Low, m_High, m_PureShell, m_cb, m_Yield, m_Pressure, m_Speed, thickness, hardness);
-			//wt->show();
-			m_drawpicture->drawPic3(m_prt);
-			//wt->close();
+			QPdfWriter *pr=new QPdfWriter(m_PdfPath);
+			
+			QString str = m_PdfPath.left(m_PdfPath.lastIndexOf("/"));
+			QDir dir(str);
+			if (!dir.exists())
+			{
+				bool res = dir.mkpath(str);
+			}
+
+			m_drawpicture->drawPic(m_prt,pr,1);
+			delete pr;
+			wt->close();
+			showWindowOut(QString::fromLocal8Bit("数据已导出!"));
 		}
 	}
 
@@ -677,7 +697,7 @@ void PRT::on_ToClose()
 	}
 }
 
-void PRT::getVec(int mode,QString strCb, int p1,int p2) //strCb: 0曲线 1试机 2三参数,3导出，0 胶囊 1片剂
+void PRT::getVec(int mode,QString strCb, int p1,int p2,QString pdfpath) //strCb: 0曲线 1试机 2三参数,3导出，0 胶囊 1片剂
 {
 	if (mode==0)//MODE 0:dataAverage,1:curve
 	{
@@ -757,6 +777,8 @@ void PRT::getVec(int mode,QString strCb, int p1,int p2) //strCb: 0曲线 1试机 2三
 		m_iDataNum = data.size();
 
 		m_cb = strCb;
+
+		m_PdfPath = pdfpath;
 		on_pB_PrintDirect_clicked();
 		
 		data.clear();
