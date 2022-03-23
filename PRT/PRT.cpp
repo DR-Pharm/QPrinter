@@ -49,12 +49,14 @@ PRT::~PRT()
 #pragma region PLC
 void PRT::initPLC()
 {
+	
 	m_pPlclib = new QtPLCControl();//dll
 	lib_PLCThread = new QThread();
 	m_pPlclib->moveToThread(lib_PLCThread);
 	lib_PLCThread->start();
 
-	dlg = (QDialog *)(m_pPlclib->QtCreateDialog(1));
+	dlg = (QDialog *)(m_pPlclib->QtCreateDialog(1)); 
+
 	bool b = connect(this, SIGNAL(STARTCONNECTPLC()), m_pPlclib, SLOT(ConnectPlc()));
 	//emit STARTCONNECTPLC();
 	b = connect(m_pPlclib, SIGNAL(SOCKETERROR()), this, SLOT(ErrorConnect()));
@@ -67,8 +69,10 @@ void PRT::initPLC()
 	tm_ReConnect->start(2000);
 
 	wt->setTxt(QString::fromLocal8Bit("正在连接PLC,请稍等..."));
-	b = connect(dlg, SIGNAL(SHOWPRT(bool)), this, SLOT(showPrt(bool))); 
+	
+	b = connect(dlg, SIGNAL(SHOWPRT(bool)), this, SLOT(showPrt(bool)));
 	b = connect(dlg, SIGNAL(showWindowOut(QString)), this, SLOT(showWindowOut(QString)));
+	//b = connect(this, SIGNAL(TOPLCDLG(QString)), dlg, SLOT(OnGetLeadoutPath(QString)));
 	b = connect(dlg, SIGNAL(CLOSESIGNAL()), this, SLOT(on_ToClose()));
 	b = connect(dlg, SIGNAL(TODRAWPICTURE(int,QString,int,int)), this, SLOT(getVec(int,QString,int,int)));
 	dlg->setParent(ui.centralWidget);
@@ -81,6 +85,87 @@ void PRT::initPLC()
 #pragma endregion
 
 #pragma region data caculate
+
+bool PRT::nativeEvent(const QByteArray & eventType, void * message, long * result)
+{
+	if (eventType == "windows_generic_MSG")
+	{
+
+		bool bResult = false;
+
+		MSG* msg = reinterpret_cast<MSG*>(message);
+
+		PDEV_BROADCAST_HDR lpdb = (PDEV_BROADCAST_HDR)msg->lParam;
+
+		if (msg->message == WM_DEVICECHANGE && msg->wParam >= DBT_DEVICEARRIVAL)
+		{
+			switch (msg->wParam)
+			{
+			case DBT_DEVICEARRIVAL:
+			{
+				PDEV_BROADCAST_VOLUME lpdbv = (PDEV_BROADCAST_VOLUME)lpdb;
+				char i;
+				ULONG lg = lpdbv->dbcv_unitmask;
+				for (i = 0; i < 26; ++i)
+				{
+					if (lg & 0x1)
+						break;
+					lg = lg >> 1;
+				}
+				QString outdisk = (i + 'A');
+				//ui.lineEdit->setText(outdisk);
+				QString m_sTempPathForLeadout = outdisk;
+
+				showWindowOut(QString::fromLocal8Bit("已插入U盘"));
+				emit TOPLCDLG(m_sTempPathForLeadout);
+				break;
+			}
+			case DBT_DEVICEREMOVECOMPLETE:
+			{
+				showWindowOut(QString::fromLocal8Bit("U盘已拔下!"));
+				//ui.lineEdit->setText("EXPORT");
+				QString m_sTempPathForLeadout = "";// AppPath + "/EXPORT";
+				emit TOPLCDLG(m_sTempPathForLeadout);
+				break;
+			}
+
+			default:
+				/*TODO*/
+				bResult = false;
+				break;
+			}
+		}
+
+		return bResult;
+	}
+	else
+	{
+		return QWidget::nativeEvent(eventType, message, result);
+	}
+}
+QString PRT::YearMonthDay()
+{
+	QString strTime;
+	QDateTime current_time = QDateTime::currentDateTime();
+	QString logYear = QString::number(current_time.date().year());
+	logYear = logYear.length() < 4 ? ("0" + logYear) : logYear;
+	QString logMonth = QString::number(current_time.date().month());
+	logMonth = logMonth.length() < 2 ? ("0" + logMonth) : logMonth;
+	QString logDay = QString::number(current_time.date().day());
+	logDay = logDay.length() < 2 ? ("0" + logDay) : logDay;
+	QString logHour = QString::number(current_time.time().hour());
+	logHour = logHour.length() < 2 ? ("0" + logHour) : logHour;
+	QString logMinute = QString::number(current_time.time().minute());
+	logMinute = logMinute.length() < 2 ? ("0" + logMinute) : logMinute;
+	QString logSecond = QString::number(current_time.time().second());
+	logSecond = logSecond.length() < 2 ? ("0" + logSecond) : logSecond;
+	strTime = logYear + "/" //z=a>b?x:y
+		+ logMonth + "/"
+		+ logDay + " "
+		+ logHour + ":"
+		+ logMinute;
+	return strTime;
+}
 void PRT::initData()
 {
 	//m_iDataNum = 2;//到后面设置
@@ -383,6 +468,13 @@ void PRT::SuccessConnect()
 }
 void PRT::ErrorConnect()
 {
+	char *pathvar = getenv("CODERCOMPUTER");//自己电脑上创建的环境变量CODERCOMPUTER 值：coder
+	QString envStr = QString::fromLocal8Bit(pathvar);
+
+	if (envStr == "coder")//第二个参数：自己的电脑跟随软件关闭而关闭的功能无效
+	{
+		return;
+	}
 	if (tm_ReConnect == nullptr)
 	{
 		wt->show();
@@ -402,6 +494,13 @@ void PRT::ErrorConnect()
 }
 void PRT::EmitReconnect()
 {
+	char *pathvar = getenv("CODERCOMPUTER");//自己电脑上创建的环境变量CODERCOMPUTER 值：coder
+	QString envStr = QString::fromLocal8Bit(pathvar);
+
+	if (envStr == "coder")//第二个参数：自己的电脑跟随软件关闭而关闭的功能无效
+	{
+		return;
+	}
 	wt->show();//remeber to note off
 	//tm_ReConnect->stop();
 	//delete tm_ReConnect;
@@ -513,6 +612,19 @@ void PRT::on_pB_PrintDirect_clicked()
 		}
 	}
 
+	else if (m_cb.mid(0, 1) == "3")
+	{
+		if (QMessageBox::Yes == showMsgBox("确认", "确认导出数据?", "确认", "取消"))
+		{
+			return;
+			int sz = data.size();
+			m_drawpicture->setData(data, gn, m_iPrintCurveCount, sz, theory, m_CustomerName, m_MedicineName, m_Low, m_High, m_PureShell, m_cb, m_Yield, m_Pressure, m_Speed, thickness, hardness);
+			//wt->show();
+			m_drawpicture->drawPic3(m_prt);
+			//wt->close();
+		}
+	}
+
 }
 void PRT::on_pB_Print_clicked()
 {
@@ -565,7 +677,7 @@ void PRT::on_ToClose()
 	}
 }
 
-void PRT::getVec(int mode,QString strCb, int p1,int p2) //strCb: 0曲线 1试机 2三参数，0 胶囊 1片剂
+void PRT::getVec(int mode,QString strCb, int p1,int p2) //strCb: 0曲线 1试机 2三参数,3导出，0 胶囊 1片剂
 {
 	if (mode==0)//MODE 0:dataAverage,1:curve
 	{
@@ -645,8 +757,8 @@ void PRT::getVec(int mode,QString strCb, int p1,int p2) //strCb: 0曲线 1试机 2三
 		m_iDataNum = data.size();
 
 		m_cb = strCb;
-
 		on_pB_PrintDirect_clicked();
+		
 		data.clear();
 		gn.clear();
 		theory.clear();

@@ -25,11 +25,15 @@
 #include "QtPLCControl.h"
 #pragma comment(lib,"Qt_PLC_ConnectLIB.lib")
 
+#include <windows.h>
+#include <dbt.h>
+
 #define STYLESHEET "QCheckBox{ background:transparent}QCheckBox::indicator {width: 40px; height: 40px; }QCheckBox::indicator:unchecked{background:url(./240.png)}QCheckBox::indicator:checked{background:url(./140.png)}"
 class PRT : public QMainWindow
 {
     Q_OBJECT
 signals:
+	void TOPLCDLG(QString);
 	void STARTCONNECTPLC();
 	void MINI(); 
 	void SETUSERLEVEL(int);
@@ -57,6 +61,8 @@ public:
 	void SWITCHOSK();
 	//event
 	bool eventFilter(QObject*, QEvent*);
+	bool nativeEvent(const QByteArray & eventType, void * message, long * result);
+	QString YearMonthDay();
 private:
 	QLabel *lbDr = nullptr;
 	Ui::PRTClass ui;
