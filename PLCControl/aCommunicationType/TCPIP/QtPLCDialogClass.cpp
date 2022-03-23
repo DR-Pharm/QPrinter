@@ -1197,7 +1197,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 					}
 				}
 				QString ymdhm = YearMonthDay();
-				QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
+				QSettings configIniRead(AppPath + "\\temp\\data.ini", QSettings::IniFormat);
 				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo)+ "/data", str);
 				QString lkstr = QString::number(m_data->Status.CapDataDisp.GroupNo) + "," + ymdhm + "," + ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text();
 				configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/gn", lkstr);
@@ -1220,7 +1220,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 					configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/Speed", m_speed);
 				}
 
-				QSettings timIni(AppPath + "\\data\\time.ini", QSettings::IniFormat);
+				QSettings timIni(AppPath + "\\temp\\time.ini", QSettings::IniFormat);
 				QString str1tmp = ymdhm.mid(0, 10);
 				str1tmp.remove("/");
 				QString str2tmp = ymdhm.remove("/");
@@ -1228,7 +1228,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 				str2tmp.remove(":");
 				timIni.setValue(str1tmp + "/"+ str2tmp, QString::number(m_data->Status.CapDataDisp.GroupNo));
 
-				QSettings inq(AppPath + "\\data\\inquire.ini", QSettings::IniFormat);
+				QSettings inq(AppPath + "\\temp\\inquire.ini", QSettings::IniFormat);
 				QString strinqu = inq.value("alldt/data", "").toString();
 				if (strinqu.mid(0, 8) != str1tmp)
 				{
@@ -1722,7 +1722,7 @@ void QtPLCDialogClass::CompareYearMonthDay()
 	}
 	else if (ll1 == ll2)
 	{
-		QSettings timIni(AppPath + "\\data\\time.ini", QSettings::IniFormat);
+		QSettings timIni(AppPath + "\\temp\\time.ini", QSettings::IniFormat);
 		QString str = timIni.value(str1.mid(8) + "/" + str1, "0").toString();
 		if (str == "0")
 		{
@@ -1741,7 +1741,7 @@ void QtPLCDialogClass::CompareYearMonthDay()
 	{
 		m_gn1 = "";
 		m_gn2 = "";
-		QSettings timIni(AppPath + "\\data\\time.ini", QSettings::IniFormat);
+		QSettings timIni(AppPath + "\\temp\\time.ini", QSettings::IniFormat);
 		// 获取一个节点下的key值
 		timIni.beginGroup(str1.mid(0, 8));    // 设置查找节点
 		QStringList str2 = timIni.allKeys();    // 获取所有的key 已经排序完成，小到大不许再次排序
@@ -2741,7 +2741,7 @@ void QtPLCDialogClass::BeforePrint()
 	}
 	else if (p1 == p2)
 	{
-		QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
+		QSettings configIniRead(AppPath + "\\temp\\data.ini", QSettings::IniFormat);
 		QString str = configIniRead.value(QString::number(p1) + "/data", 0).toString();
 		if (str == "0")
 		{
@@ -2765,7 +2765,7 @@ void QtPLCDialogClass::BeforePrint()
 	}
 	else
 	{
-		QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
+		QSettings configIniRead(AppPath + "\\temp\\data.ini", QSettings::IniFormat);
 		QVector<QString> GroupNumber;
 		for (int i = p1; i < p2 + 1; i++)
 		{
@@ -3128,7 +3128,7 @@ void QtPLCDialogClass::on_pB_inquirecheckable_toggled(bool checked)//
 	{
 		((Ui::QtPLCDialogClass*)ui)->pB_inquirecheckable->setStyleSheet("background: rgb(0,255,0);");
 		((Ui::QtPLCDialogClass*)ui)->lW_data->clear();
-		QSettings inq(AppPath + "\\data\\inquire.ini", QSettings::IniFormat);
+		QSettings inq(AppPath + "\\temp\\inquire.ini", QSettings::IniFormat);
 		QString strinqu = inq.value("alldt/data", "").toString();
 		if (strinqu=="")
 		{

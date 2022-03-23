@@ -69,8 +69,14 @@ void PRT::initPLC()
 	b = connect(tm_ReConnect, SIGNAL(timeout()), this, SLOT(EmitReconnect()));
 	tm_ReConnect->start(2000);
 
-	wt->setTxt(QString::fromLocal8Bit("正在连接PLC,请稍等..."));
-	wt->show();
+	char *pathvar = getenv("CODERCOMPUTER");//自己电脑上创建的环境变量CODERCOMPUTER 值：coder
+	QString envStr = QString::fromLocal8Bit(pathvar);
+
+	if (envStr != "coder")//第二个参数：自己的电脑跟随软件关闭而关闭的功能无效
+	{
+		wt->setTxt(QString::fromLocal8Bit("正在连接PLC,请稍等..."));
+		wt->show();
+	}
 	
 	b = connect(dlg, SIGNAL(SHOWPRT(bool)), this, SLOT(showPrt(bool)));
 	b = connect(dlg, SIGNAL(showWindowOut(QString)), this, SLOT(showWindowOut(QString)));
@@ -714,7 +720,7 @@ void PRT::getVec(int mode,QString strCb, int p1,int p2,QString pdfpath) //strCb:
 	}
 	else if (mode == 1)
 	{
-		QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat); 
+		QSettings configIniRead(AppPath + "\\temp\\data.ini", QSettings::IniFormat);
 		
 		for (int i = p1; i < p2 + 1; i++)
 		{
