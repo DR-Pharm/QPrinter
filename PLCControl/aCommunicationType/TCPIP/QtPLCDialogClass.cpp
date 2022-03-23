@@ -7,7 +7,7 @@
 #include "mypushbutton.h"
 #include "Keyboard.h"
 #include <QDesktopWidget>
-#include "windows.h"
+#include <dbt.h>
 
 QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	: QDialog(parent)
@@ -703,7 +703,7 @@ void QtPLCDialogClass::initUI()
 		((Ui::QtPLCDialogClass*)ui)->label_72->setVisible(false);
 		((Ui::QtPLCDialogClass*)ui)->pB_printTestingRecords->setVisible(false);
 
-		((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(141);//161 221 251
+		((Ui::QtPLCDialogClass*)ui)->groupBox_11->setFixedHeight(161);//161 221 251
 		((Ui::QtPLCDialogClass*)ui)->widget_2->move(((Ui::QtPLCDialogClass*)ui)->widget_2->x(), 219);//279 309 
 		((Ui::QtPLCDialogClass*)ui)->widget_2->setFixedHeight(411);//351 321 411
 	}
@@ -1857,6 +1857,30 @@ QString QtPLCDialogClass::setYearMonthDay()
 		+ logMinute;
 	return strTime;
 }
+QString QtPLCDialogClass::LEADOUTYMD()
+{
+	QString strTime;
+	QDateTime current_time = QDateTime::currentDateTime();
+	QString logYear = QString::number(current_time.date().year());
+	logYear = logYear.length() < 4 ? ("0" + logYear) : logYear;
+	QString logMonth = QString::number(current_time.date().month());
+	logMonth = logMonth.length() < 2 ? ("0" + logMonth) : logMonth;
+	QString logDay = QString::number(current_time.date().day());
+	logDay = logDay.length() < 2 ? ("0" + logDay) : logDay;
+	QString logHour = QString::number(current_time.time().hour());
+	logHour = logHour.length() < 2 ? ("0" + logHour) : logHour;
+	QString logMinute = QString::number(current_time.time().minute());
+	logMinute = logMinute.length() < 2 ? ("0" + logMinute) : logMinute;
+	QString logSecond = QString::number(current_time.time().second());
+	logSecond = logSecond.length() < 2 ? ("0" + logSecond) : logSecond;
+	strTime = logYear + "_" //z=a>b?x:y
+		+ logMonth + "_"
+		+ logDay + "_"
+		+ logHour + "_"
+		+ logMinute + "_"
+		+ logSecond;
+	return strTime;
+}
 QString QtPLCDialogClass::YearMonthDay()
 {
 	QString strTime;
@@ -1950,6 +1974,14 @@ void QtPLCDialogClass::on_lE_SysOveride_editingFinished()//系统速度，0-1000
 	((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->clearFocus();
 	((Ui::QtPLCDialogClass*)ui)->lE_SysOveride->blockSignals(false);
 
+}
+void QtPLCDialogClass::OnGetLeadoutPath(QString str)
+{
+	m_sTempPathForLeadout = str+"/EXPORT/" +LEADOUTYMD();
+	if (m_sTempPathForLeadout =="/EXPORT/" + LEADOUTYMD())
+	{
+		m_sTempPathForLeadout = "";
+	}
 }
 void QtPLCDialogClass::on_lE_year1_editingFinished()//超重重量,单位g
 {
@@ -2690,7 +2722,7 @@ void QtPLCDialogClass::BeforePrint()
 
 	if (p1 > p2)
 	{
-		if (lg == 0)emit showWindowOut(QString::fromLocal8Bit("无满足条件\n打印数据!"));
+		if (lg == 0)emit showWindowOut(QString::fromLocal8Bit("无满足条件数据!"));
 		if (lg == 1)emit showWindowOut(QString::fromLocal8Bit("No Data!"));
 		((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(true);
 		return;
@@ -2708,7 +2740,7 @@ void QtPLCDialogClass::BeforePrint()
 		QString str = configIniRead.value(QString::number(p1) + "/data", 0).toString();
 		if (str == "0")
 		{
-			if (lg == 0)emit showWindowOut(QString::fromLocal8Bit("无满足条件\n打印数据!"));
+			if (lg == 0)emit showWindowOut(QString::fromLocal8Bit("无满足条件数据!"));
 			if (lg == 1)emit showWindowOut(QString::fromLocal8Bit("No Data!"));
 			((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(true);
 			return;
@@ -2782,9 +2814,49 @@ void QtPLCDialogClass::on_Input(bool checked)
 
 	}
 }
+void QtPLCDialogClass::getUdisk()
+{
+	QString UDiskPath = "";
+	foreach(const QStorageInfo &storage, QStorageInfo::mountedVolumes())
+	{
+		if (storage.isValid() && storage.isReady())
+		{
+			UDiskPath = storage.rootPath();
+			if (UDiskPath!="C:/" && UDiskPath != "Z:/")
+			{
+				m_sTempPathForLeadout = UDiskPath+"EXPORT/"+LEADOUTYMD();
+			}
+		}
+
+	}
+}
+void QtPLCDialogClass::on_pB_LeadOut_clicked()//记录
+{
+
+	getUdisk();
+	if (m_sTempPathForLeadout == "")
+	{
+		emit showWindowOut(QString::fromLocal8Bit("请重新插拔U盘!"));
+		return;
+	}
+	
+	emit showWindowOut(QString::fromLocal8Bit("导出目录：") + m_sTempPathForLeadout);
+
+	return;
+	if (m_data->ActData.Feedmode == 0)
+	{
+		cb = "0";
+	}
+	else
+	{
+		cb = "1";
+	}
+	cb = "3" + cb;
+	BeforePrint();
+}
 void QtPLCDialogClass::on_pB_printTestingRecords_clicked()//记录
 {
-	if (m_data->ActData.Feedmode==0)
+	if (m_data->ActData.Feedmode == 0)
 	{
 		cb = "0";
 	}

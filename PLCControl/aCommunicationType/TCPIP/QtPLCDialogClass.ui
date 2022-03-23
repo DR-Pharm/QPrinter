@@ -1681,9 +1681,9 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
     <property name="geometry">
      <rect>
       <x>130</x>
-      <y>80</y>
+      <y>70</y>
       <width>761</width>
-      <height>231</height>
+      <height>241</height>
      </rect>
     </property>
     <property name="font">
@@ -1702,18 +1702,6 @@ font: 60pt &quot;迷你简菱心&quot;;</string>
      <enum>QFrame::Sunken</enum>
     </property>
     <layout class="QGridLayout" name="gridLayout_15">
-     <property name="leftMargin">
-      <number>5</number>
-     </property>
-     <property name="topMargin">
-      <number>0</number>
-     </property>
-     <property name="rightMargin">
-      <number>5</number>
-     </property>
-     <property name="bottomMargin">
-      <number>5</number>
-     </property>
      <item row="0" column="0">
       <widget class="QLabel" name="label_36">
        <property name="font">
@@ -2478,90 +2466,134 @@ background-color:transparent;</string>
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QGroupBox" name="gB_update">
-       <property name="font">
-        <font>
-         <family>幼圆</family>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="title">
-        <string>自动更新</string>
-       </property>
-       <property name="flat">
-        <bool>true</bool>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-       <property name="checked">
-        <bool>false</bool>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_13">
-        <property name="leftMargin">
-         <number>0</number>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="rightMargin">
-         <number>0</number>
-        </property>
-        <property name="bottomMargin">
-         <number>0</number>
-        </property>
-        <item>
-         <widget class="QLineEdit" name="lE_print1">
-          <property name="enabled">
-           <bool>false</bool>
+      <layout class="QHBoxLayout" name="horizontalLayout_20">
+       <item>
+        <widget class="QGroupBox" name="gB_update">
+         <property name="font">
+          <font>
+           <family>幼圆</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="title">
+          <string>自动更新</string>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_13">
+          <property name="leftMargin">
+           <number>0</number>
           </property>
-          <property name="font">
-           <font>
-            <family>幼圆</family>
-            <pointsize>12</pointsize>
-           </font>
+          <property name="topMargin">
+           <number>0</number>
           </property>
-          <property name="styleSheet">
-           <string notr="true">border:1px Groove grey;
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QLineEdit" name="lE_print1">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>幼圆</family>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border:1px Groove grey;
 background-color:transparent;</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_23">
-          <property name="font">
-           <font>
-            <family>幼圆</family>
-            <pointsize>12</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>至</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="lE_print2">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="font">
-           <font>
-            <family>幼圆</family>
-            <pointsize>12</pointsize>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">border:1px Groove grey;
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_23">
+            <property name="font">
+             <font>
+              <family>幼圆</family>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>至</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="lE_print2">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>幼圆</family>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border:1px Groove grey;
 background-color:transparent;</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pB_LeadOut">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>100</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>幼圆</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>导出</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item row="2" column="2">
       <widget class="QPushButton" name="pB_printCurve">
@@ -2831,6 +2863,9 @@ background-color:transparent;</string>
            <property name="styleSheet">
             <string notr="true">border:1px Groove grey;
 background-color:transparent;</string>
+           </property>
+           <property name="text">
+            <string/>
            </property>
           </widget>
          </item>

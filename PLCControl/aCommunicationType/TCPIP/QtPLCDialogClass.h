@@ -60,10 +60,12 @@ public:
 
 	void BeforePrint();
 	QString setYearMonthDay();
+	QString LEADOUTYMD();
 	QString YearMonthDay();
 	void SWITCHOSK();//¿ì½Ý¼ü
 	QString gettime();
 private:
+	QString m_sTempPathForLeadout="";
 	bool m_bFeedModeFlag1 = 0;
 	bool m_bFeedModeFlag2 = 0;
 	QString m_cn;
@@ -169,9 +171,14 @@ public slots:
 
 	void on_Input(bool checked);
 
+
+	void getUdisk();
+	void on_pB_LeadOut_clicked();
+
 	void setg_IUserLevel(int);
 
 	void on_lE_SysOveride_editingFinished();
+	void OnGetLeadoutPath(QString str);
 	void on_lE_year1_editingFinished();
 	void on_lE_month1_editingFinished();
 	void on_lE_day1_editingFinished();
