@@ -1275,11 +1275,11 @@ void QtPLCDialogClass::getPLCData(void* data)
 
 	if (!((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->hasFocus())//0:每组去皮重,1:每次称重去皮重
 	{
-		/*if (m_iFeedMode<3)
+		if (m_iFeedMode<3)
 		{
-			on_cB_Feedmode_currentIndexChanged(m_iFeedMode);
+			((Ui::QtPLCDialogClass*)ui)->cB_Feedmode->setCurrentIndex(m_iFeedMode);
 		}
-		else
+		/*else
 		{
 			on_cB_Feedmode_currentIndexChanged(m_data->ActData.Feedmode);
 		}*/
