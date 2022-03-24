@@ -12,13 +12,23 @@ DrawPicture::DrawPicture(QObject *parent)
 DrawPicture::~DrawPicture()
 {
 }
-void DrawPicture::drawPic3(QPrinter *printer)
+void DrawPicture::drawPic3(QPrinter *printer, QPdfWriter *wt, int Select)
 {
-	m_ptnm = printer->printerName();
-	int prtMode = printer->printRange();
-	int firstPg = printer->fromPage();
-	int endPg = printer->toPage();
+	int prtMode = 0;
+	int firstPg;
+	int endPg;
 	int allornot;
+	if (Select == 0)
+	{
+		m_ptnm = printer->printerName();
+		prtMode = printer->printRange();
+		firstPg = printer->fromPage();
+		endPg = printer->toPage();
+	}
+	else
+	{
+		m_ptnm = "PdfWriter";
+	}
 	if (prtMode == 0)
 	{
 		allornot = 1;
@@ -35,7 +45,14 @@ void DrawPicture::drawPic3(QPrinter *printer)
 		endPg -= 1;
 		allornot = 0;
 	}
-	painterPixmap.begin(printer);
+	if (Select == 0)
+	{
+		painterPixmap.begin(printer);
+	}
+	else
+	{
+		painterPixmap.begin(wt);
+	}
 		
 	int pages = data.size();
 
@@ -86,7 +103,14 @@ void DrawPicture::drawPic3(QPrinter *printer)
 			{
 				if ((allornot == 0 && i < endPg) || allornot == 1)
 				{
-					printer->newPage();
+					if (Select == 0)
+					{
+						printer->newPage();
+					}
+					else
+					{
+						wt->newPage();
+					}
 				}
 			}
 		}

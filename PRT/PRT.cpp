@@ -477,13 +477,13 @@ void PRT::SuccessConnect()
 }
 void PRT::ErrorConnect()
 {
-	char *pathvar = getenv("CODERCOMPUTER");//自己电脑上创建的环境变量CODERCOMPUTER 值：coder
-	QString envStr = QString::fromLocal8Bit(pathvar);
+	//char *pathvar = getenv("CODERCOMPUTER");//自己电脑上创建的环境变量CODERCOMPUTER 值：coder
+	//QString envStr = QString::fromLocal8Bit(pathvar);
 
-	if (envStr == "coder")//第二个参数：自己的电脑跟随软件关闭而关闭的功能无效
-	{
-		return;
-	}
+	//if (envStr == "coder")//第二个参数：自己的电脑跟随软件关闭而关闭的功能无效
+	//{
+	//	return;
+	//}
 	if (tm_ReConnect == nullptr)
 	{
 		wt->show();
@@ -621,14 +621,15 @@ void PRT::on_pB_PrintDirect_clicked()
 		{
 			int sz = data.size();
 			m_drawpicture->setData(data, gn, m_iPrintCurveCount, sz, theory, m_CustomerName, m_MedicineName, m_Low, m_High, m_PureShell, m_cb, m_Yield, m_Pressure, m_Speed, thickness, hardness);
-			wt->show();
-			m_drawpicture->drawPic3(m_prt);
+			wt->show(); 
+			QPdfWriter w("");
+			m_drawpicture->drawPic3(m_prt,&w,0);
 			wt->close();
 			showWindowOut(QString::fromLocal8Bit("打印完成!"));
 		}
 	}
 
-	else if (m_cb.mid(0, 1) == "3")//1个参数的
+	else if (m_cb.mid(0, 1) == "3")//1个和3个参数的
 	{
 		if (QMessageBox::Yes == showMsgBox("确认", "确认导出数据?", "确认", "取消"))
 		{
@@ -644,8 +645,11 @@ void PRT::on_pB_PrintDirect_clicked()
 			{
 				bool res = dir.mkpath(str);
 			}
-
-			m_drawpicture->drawPic(m_prt,pr,1);
+#ifndef MODBUSTCP
+			m_drawpicture->drawPic(m_prt, pr, 1);
+#else
+			m_drawpicture->drawPic3(m_prt, pr, 1);
+#endif
 			delete pr;
 			wt->close();
 			showWindowOut(QString::fromLocal8Bit("数据已导出!"));

@@ -28,6 +28,8 @@
 #include <windows.h>
 #include <dbt.h>
 
+#include "comm.h"
+
 #define STYLESHEET "QCheckBox{ background:transparent}QCheckBox::indicator {width: 40px; height: 40px; }QCheckBox::indicator:unchecked{background:url(./240.png)}QCheckBox::indicator:checked{background:url(./140.png)}"
 class PRT : public QMainWindow
 {

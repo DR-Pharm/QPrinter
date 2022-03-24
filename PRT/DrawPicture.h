@@ -63,7 +63,7 @@ private:
 public:
 	DrawPicture(QObject *parent);
 	~DrawPicture();
-	void drawPic3(QPrinter * printer);
+	void drawPic3(QPrinter * printer, QPdfWriter *wt, int Select);
 	void drawPic2(QPrinter * printer);
 	void createThreeParaRecords(QPixmap * pix, int pagei);
 	void createTestingRecordsOnePage(QPixmap * pix);
