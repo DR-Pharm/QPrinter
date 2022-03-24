@@ -69,10 +69,10 @@ void PRT::initPLC()
 	b = connect(tm_ReConnect, SIGNAL(timeout()), this, SLOT(EmitReconnect()));
 	tm_ReConnect->start(2000);
 
-	//char *pathvar = getenv("CODERCOMPUTER");//自己电脑上创建的环境变量CODERCOMPUTER 值：coder
-	//QString envStr = QString::fromLocal8Bit(pathvar);
+	char *pathvar = getenv("CODERCOMPUTER");//自己电脑上创建的环境变量CODERCOMPUTER 值：coder
+	QString envStr = QString::fromLocal8Bit(pathvar);
 
-	//if (envStr != "coder")//第二个参数：自己的电脑跟随软件关闭而关闭的功能无效
+	if (envStr != "coder")//第二个参数：自己的电脑跟随软件关闭而关闭的功能无效
 	{
 		wt->setTxt(QString::fromLocal8Bit("正在连接PLC,请稍等..."));
 		wt->show();
@@ -477,13 +477,13 @@ void PRT::SuccessConnect()
 }
 void PRT::ErrorConnect()
 {
-	//char *pathvar = getenv("CODERCOMPUTER");//自己电脑上创建的环境变量CODERCOMPUTER 值：coder
-	//QString envStr = QString::fromLocal8Bit(pathvar);
+	char *pathvar = getenv("CODERCOMPUTER");//自己电脑上创建的环境变量CODERCOMPUTER 值：coder
+	QString envStr = QString::fromLocal8Bit(pathvar);
 
-	//if (envStr == "coder")//第二个参数：自己的电脑跟随软件关闭而关闭的功能无效
-	//{
-	//	return;
-	//}
+	if (envStr == "coder")//第二个参数：自己的电脑跟随软件关闭而关闭的功能无效
+	{
+		return;
+	}
 	if (tm_ReConnect == nullptr)
 	{
 		wt->show();
@@ -503,13 +503,13 @@ void PRT::ErrorConnect()
 }
 void PRT::EmitReconnect()
 {
-	//char *pathvar = getenv("CODERCOMPUTER");//自己电脑上创建的环境变量CODERCOMPUTER 值：coder
-	//QString envStr = QString::fromLocal8Bit(pathvar);
+	char *pathvar = getenv("CODERCOMPUTER");//自己电脑上创建的环境变量CODERCOMPUTER 值：coder
+	QString envStr = QString::fromLocal8Bit(pathvar);
 
-	//if (envStr == "coder")//第二个参数：自己的电脑跟随软件关闭而关闭的功能无效
-	//{
-	//	return;
-	//}
+	if (envStr == "coder")//第二个参数：自己的电脑跟随软件关闭而关闭的功能无效
+	{
+		return;
+	}
 	wt->show();//remeber to note off
 	//tm_ReConnect->stop();
 	//delete tm_ReConnect;

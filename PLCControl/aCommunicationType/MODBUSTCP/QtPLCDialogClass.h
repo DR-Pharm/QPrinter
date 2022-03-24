@@ -34,7 +34,7 @@ signals:
 	void GETSTRING(QString);
 	void SHOWPRT(bool);
 	void TODATACURVE(int,float, float, float, QList<qreal>);
-	void TODRAWPICTURE(int,QString,int,int);//MODE 0:one curve,1:one dataAverage,2:two curve,3:two dataAverage
+	void TODRAWPICTURE(int,QString,int,int,QString);//MODE 0:one curve,1:one dataAverage,2:two curve,3:two dataAverage
 	void showWindowOut(QString str);
 public:
 	QtPLCDialogClass(QDialog *parent = Q_NULLPTR);
@@ -61,12 +61,17 @@ public:
 
 	void CompareYearMonthDay();
 
+	void BeforePrint();
 
+	void getUdisk();
+	QString LEADOUTYMD();
 	QString gettime();
 	QString setYearMonthDay();
 	QString YearMonthDay();
-	float hexTofloat(int i);
+	float hexTofloat(int i); 
 private:
+	QString cb;
+	QString m_sTempPathForLeadout = "";
 	int m_flag = 0;
 	MyPushButton *LanguageBtn;
 	MyPushButton *ExitBtn;
@@ -245,7 +250,6 @@ public slots:
 	void on_pB_startSearch_clicked();
 	void on_pB_copyIn_clicked();
 	void on_pB_printData_clicked();
-	void on_pB_printCurve_clicked();
 	void on_Input(bool checked);
 	void on_pB_Read1_clicked();
 	void on_pB_Write1_clicked();
@@ -312,6 +316,8 @@ public slots:
 	void on_lE_SetUserSecretNum_textChanged(const QString &arg1);
 	void updateParentItem(QTreeWidgetItem* item);
 	void onTreeItemChanged(QTreeWidgetItem * item);
+	void on_pB_printCurve_clicked();
+	void on_pB_LeadOut_clicked();
 	void OnUnconnectedState();
 	void OnShowState(QString str);
 	void OnShowValueCountFlag(int index);

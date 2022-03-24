@@ -1003,7 +1003,7 @@ void QtPLCDialogClass::CompareYearMonthDay()
 	}
 	else if (ll1 == ll2)
 	{
-		QSettings timIni(AppPath + "\\data\\time.ini", QSettings::IniFormat);
+		QSettings timIni(AppPath + "\\temp\\time.ini", QSettings::IniFormat);
 		QString str = timIni.value(str1.mid(8) + "/" + str1, "0").toString();
 		if (str == "0")
 		{
@@ -1022,7 +1022,7 @@ void QtPLCDialogClass::CompareYearMonthDay()
 	{
 		m_gn1 = "";
 		m_gn2 = "";
-		QSettings timIni(AppPath + "\\data\\time.ini", QSettings::IniFormat);
+		QSettings timIni(AppPath + "\\temp\\time.ini", QSettings::IniFormat);
 		// 获取一个节点下的key值
 		timIni.beginGroup(str1.mid(0, 8));    // 设置查找节点
 		QStringList str2 = timIni.allKeys();    // 获取所有的key 已经排序完成，小到大不许再次排序
@@ -1678,6 +1678,46 @@ void QtPLCDialogClass::on_WriteCoils()
 		m_iDontReadCoilsFlag = 0;
 	}
 
+}
+void QtPLCDialogClass::getUdisk()
+{
+	QString UDiskPath = "";
+	foreach(const QStorageInfo &storage, QStorageInfo::mountedVolumes())
+	{
+		if (storage.isValid() && storage.isReady())
+		{
+			UDiskPath = storage.rootPath();
+			if (UDiskPath != "C:/" && UDiskPath != "Z:/")
+			{
+				m_sTempPathForLeadout = UDiskPath + "EXPORT/" + LEADOUTYMD();
+			}
+		}
+
+	}
+}
+QString QtPLCDialogClass::LEADOUTYMD()
+{
+	QString strTime;
+	QDateTime current_time = QDateTime::currentDateTime();
+	QString logYear = QString::number(current_time.date().year());
+	logYear = logYear.length() < 4 ? ("0" + logYear) : logYear;
+	QString logMonth = QString::number(current_time.date().month());
+	logMonth = logMonth.length() < 2 ? ("0" + logMonth) : logMonth;
+	QString logDay = QString::number(current_time.date().day());
+	logDay = logDay.length() < 2 ? ("0" + logDay) : logDay;
+	QString logHour = QString::number(current_time.time().hour());
+	logHour = logHour.length() < 2 ? ("0" + logHour) : logHour;
+	QString logMinute = QString::number(current_time.time().minute());
+	logMinute = logMinute.length() < 2 ? ("0" + logMinute) : logMinute;
+	QString logSecond = QString::number(current_time.time().second());
+	logSecond = logSecond.length() < 2 ? ("0" + logSecond) : logSecond;
+	strTime = logYear + "_" //z=a>b?x:y
+		+ logMonth + "_"
+		+ logDay + "_"
+		+ logHour + "_"
+		+ logMinute + "_"
+		+ logSecond;
+	return strTime;
 }
 QString QtPLCDialogClass::gettime()
 {
@@ -2797,7 +2837,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 					}
 				}
 				QString ymdhm = YearMonthDay();
-				QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
+				QSettings configIniRead(AppPath + "\\temp\\data.ini", QSettings::IniFormat);
 				configIniRead.setValue(numb + "/data", str);
 				QString lkstr = numb + "," + ymdhm + "," + ((Ui::QtPLCDialogClass*)ui)->lE_BatchName->text();
 				configIniRead.setValue(numb + "/gn", lkstr);
@@ -2825,7 +2865,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 					configIniRead.setValue(QString::number(m_data->Status.CapDataDisp.GroupNo) + "/Speed", m_speed);
 				}*/
 
-				QSettings timIni(AppPath + "\\data\\time.ini", QSettings::IniFormat);
+				QSettings timIni(AppPath + "\\temp\\time.ini", QSettings::IniFormat);
 				QString str1tmp = ymdhm.mid(0, 10);
 				str1tmp.remove("/");
 				QString str2tmp = ymdhm.remove("/");
@@ -2833,7 +2873,7 @@ void QtPLCDialogClass::getPLCData(void* data)
 				str2tmp.remove(":");
 				timIni.setValue(str1tmp + "/" + str2tmp, numb);
 
-				QSettings inq(AppPath + "\\data\\inquire.ini", QSettings::IniFormat);
+				QSettings inq(AppPath + "\\temp\\inquire.ini", QSettings::IniFormat);
 				QString strinqu = inq.value("alldt/data", "").toString();
 				if (strinqu.mid(0, 8) != str1tmp)
 				{
@@ -4410,7 +4450,7 @@ void QtPLCDialogClass::on_pB_printData_clicked()//数据
 {
 
 }
-void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
+void QtPLCDialogClass::BeforePrint()//曲线
 {
 	//((Ui::QtPLCDialogClass*)ui)->pB_printData->setEnabled(false);
 	//((Ui::QtPLCDialogClass*)ui)->pB_printCurve->setEnabled(false);
@@ -4434,7 +4474,7 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 	}
 	else if (p1 == p2)
 	{
-		QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
+		QSettings configIniRead(AppPath + "\\temp\\data.ini", QSettings::IniFormat);
 		QString str = configIniRead.value(QString::number(p1) + "/data", 0).toString();
 		if (str == "0")
 		{
@@ -4444,12 +4484,16 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 			return;
 		}
 
-		emit TODRAWPICTURE(1,"21",p1,p2);
+		if (cb.mid(0, 1) == "3")
+		{
+			emit showWindowOut(QString::fromLocal8Bit("导出目录：") + m_sTempPathForLeadout);
+		}
+		emit TODRAWPICTURE(1, cb, p1, p2, m_sTempPathForLeadout + "/report.pdf");
 		return;
 	}
 	else
 	{
-		QSettings configIniRead(AppPath + "\\data\\data.ini", QSettings::IniFormat);
+		QSettings configIniRead(AppPath + "\\temp\\data.ini", QSettings::IniFormat);
 		QVector<QString> GroupNumber;
 		for (int i = p1; i < p2 + 1; i++)
 		{
@@ -4463,7 +4507,12 @@ void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
 
 		if (GroupNumber.size() > 0)
 		{
-			emit TODRAWPICTURE(1, "21", p1, p2);
+			if (cb.mid(0, 1) == "3")
+			{
+				emit showWindowOut(QString::fromLocal8Bit("导出目录：") + m_sTempPathForLeadout);
+			}
+			emit TODRAWPICTURE(1, cb, p1, p2, m_sTempPathForLeadout + "/report.pdf");
+			return;
 		}
 		
 		else
@@ -4753,7 +4802,7 @@ void QtPLCDialogClass::on_pB_inquirecheckable_toggled(bool checked)
 	{
 		((Ui::QtPLCDialogClass*)ui)->pB_inquirecheckable->setStyleSheet("background: rgb(0,255,0);");
 		((Ui::QtPLCDialogClass*)ui)->lW_data->clear();
-		QSettings inq(AppPath + "\\data\\inquire.ini", QSettings::IniFormat);
+		QSettings inq(AppPath + "\\temp\\inquire.ini", QSettings::IniFormat);
 		QString strinqu = inq.value("alldt/data", "").toString();
 		if (strinqu == "")
 		{
@@ -5308,7 +5357,41 @@ void QtPLCDialogClass::onTreeItemChanged(QTreeWidgetItem* item)//利用changed�
 	}
 }
 #pragma endregion
+void QtPLCDialogClass::on_pB_printCurve_clicked()//曲线
+{
+	if (m_data->ActData.Feedmode == 0)
+	{
+		cb = "0";
+	}
+	else
+	{
+		cb = "1";
+	}
+	cb = "0" + cb;
+	BeforePrint();
+}
+void QtPLCDialogClass::on_pB_LeadOut_clicked()//记录
+{
 
+	getUdisk();
+	if (m_sTempPathForLeadout == "")
+	{
+		emit showWindowOut(QString::fromLocal8Bit("请插入U盘!"));
+		return;
+	}
+
+
+	if (m_data->ActData.Feedmode == 0)
+	{
+		cb = "0";
+	}
+	else
+	{
+		cb = "1";
+	}
+	cb = "3" + cb;
+	BeforePrint();
+}
 void QtPLCDialogClass::OnUnconnectedState()
 {
 	((Ui::QtPLCDialogClass*)ui)->pB_cmdStartcheckable->setChecked(false);
