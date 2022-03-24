@@ -29,10 +29,6 @@ class Ui_PRTClass
 {
 public:
     QWidget *centralWidget;
-    QHBoxLayout *horizontalLayout_4;
-    QGroupBox *groupBox_2;
-    QHBoxLayout *horizontalLayout_5;
-    QWidget *widget;
     QGroupBox *groupBox;
     QVBoxLayout *verticalLayout_3;
     QFrame *frame_3;
@@ -71,23 +67,9 @@ public:
         PRTClass->setMaximumSize(QSize(1280, 800));
         centralWidget = new QWidget(PRTClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
-        horizontalLayout_4 = new QHBoxLayout(centralWidget);
-        horizontalLayout_4->setSpacing(6);
-        horizontalLayout_4->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
-        groupBox_2 = new QGroupBox(centralWidget);
-        groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
-        horizontalLayout_5 = new QHBoxLayout(groupBox_2);
-        horizontalLayout_5->setSpacing(6);
-        horizontalLayout_5->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
-        widget = new QWidget(groupBox_2);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setMinimumSize(QSize(0, 0));
-        widget->setMaximumSize(QSize(3434, 3434));
-        groupBox = new QGroupBox(widget);
+        groupBox = new QGroupBox(centralWidget);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setGeometry(QRect(850, 0, 384, 755));
+        groupBox->setGeometry(QRect(70, 20, 384, 755));
         groupBox->setMinimumSize(QSize(384, 755));
         groupBox->setMaximumSize(QSize(384, 755));
         QFont font;
@@ -263,12 +245,6 @@ public:
 
         verticalLayout_3->addWidget(pB_PrintDirect);
 
-
-        horizontalLayout_5->addWidget(widget);
-
-
-        horizontalLayout_4->addWidget(groupBox_2);
-
         PRTClass->setCentralWidget(centralWidget);
 
         retranslateUi(PRTClass);
@@ -279,7 +255,6 @@ public:
     void retranslateUi(QMainWindow *PRTClass)
     {
         PRTClass->setWindowTitle(QCoreApplication::translate("PRTClass", "PRT", nullptr));
-        groupBox_2->setTitle(QString());
         groupBox->setTitle(QCoreApplication::translate("PRTClass", "\346\211\223\345\215\260", nullptr));
         label_4->setText(QCoreApplication::translate("PRTClass", "\346\211\223\345\215\260\346\250\241\345\274\217:", nullptr));
         cB_PrintMode->setItemText(0, QCoreApplication::translate("PRTClass", "\346\211\213\345\212\250", nullptr));

@@ -167,6 +167,7 @@ void QtSocket_Class::onErrorOccurred()
 		ProtocolError,
 		ReplyAbortedError,
 		UnknownError*/
+	int i = 1;
 		/*	if (mp_TCPSocket->error() == QModbusDevice::ReadError)
 			{
 				emit SHOWSTATUS("ReadError");
