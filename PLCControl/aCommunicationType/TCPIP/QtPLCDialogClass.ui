@@ -3479,7 +3479,7 @@ background-color:transparent;
          </font>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="tab">
          <attribute name="title">
@@ -3515,142 +3515,8 @@ background-color:transparent;
             <layout class="QHBoxLayout" name="horizontalLayout_6">
              <item>
               <layout class="QGridLayout" name="gridLayout_11">
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_40">
-                 <property name="minimumSize">
-                  <size>
-                   <width>230</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>230</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>楷体</family>
-                   <pointsize>20</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>胶囊下落检测</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_46">
-                 <property name="minimumSize">
-                  <size>
-                   <width>230</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>230</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>楷体</family>
-                   <pointsize>20</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>胶囊下落检测1</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
                <item row="0" column="1">
                 <widget class="QLabel" name="lb_00">
-                 <property name="minimumSize">
-                  <size>
-                   <width>32</width>
-                   <height>32</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>32</width>
-                   <height>32</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="pixmap">
-                  <pixmap>C:/Users/33741/Desktop/QtConsoleApplication1/QtClassLibrary1/ico/redLed.png</pixmap>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="4">
-                <widget class="QLabel" name="lb_10">
-                 <property name="minimumSize">
-                  <size>
-                   <width>32</width>
-                   <height>32</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>32</width>
-                   <height>32</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="pixmap">
-                  <pixmap>C:/Users/33741/Desktop/QtConsoleApplication1/QtClassLibrary1/ico/redLed.png</pixmap>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="3">
-                <widget class="QLabel" name="label_11">
-                 <property name="minimumSize">
-                  <size>
-                   <width>230</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>230</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>楷体</family>
-                   <pointsize>20</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>摆臂位置检测</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QLabel" name="lb_20">
                  <property name="minimumSize">
                   <size>
                    <width>32</width>
@@ -3683,6 +3549,88 @@ background-color:transparent;
                   </size>
                  </property>
                 </spacer>
+               </item>
+               <item row="0" column="4">
+                <widget class="QLabel" name="lb_10">
+                 <property name="minimumSize">
+                  <size>
+                   <width>32</width>
+                   <height>32</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>32</width>
+                   <height>32</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="pixmap">
+                  <pixmap>C:/Users/33741/Desktop/QtConsoleApplication1/QtClassLibrary1/ico/redLed.png</pixmap>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_40">
+                 <property name="minimumSize">
+                  <size>
+                   <width>230</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>230</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>楷体</family>
+                   <pointsize>20</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>胶囊下落检测</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="3">
+                <widget class="QLabel" name="label_11">
+                 <property name="minimumSize">
+                  <size>
+                   <width>230</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>230</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>楷体</family>
+                   <pointsize>20</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>转盘位置检测</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
                </item>
               </layout>
              </item>
@@ -3778,36 +3726,6 @@ background-color:transparent;
                  </property>
                 </widget>
                </item>
-               <item row="0" column="2">
-                <widget class="QPushButton" name="pb_cmdVaccumcheckable">
-                 <property name="minimumSize">
-                  <size>
-                   <width>250</width>
-                   <height>44</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>127</width>
-                   <height>44</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>楷体</family>
-                   <pointsize>20</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>真空发生器</string>
-                 </property>
-                 <property name="checkable">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
                <item row="1" column="0">
                 <widget class="QPushButton" name="pb_cmdCapGetcheckable">
                  <property name="minimumSize">
@@ -3832,66 +3750,6 @@ background-color:transparent;
                  </property>
                  <property name="text">
                   <string>取料电磁铁</string>
-                 </property>
-                 <property name="checkable">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QPushButton" name="pb_cmdCapGetValvecheckable">
-                 <property name="minimumSize">
-                  <size>
-                   <width>250</width>
-                   <height>44</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>127</width>
-                   <height>44</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>楷体</family>
-                   <pointsize>20</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>取料电磁阀</string>
-                 </property>
-                 <property name="checkable">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="2">
-                <widget class="QPushButton" name="pb_cmdCapBackValvecheckable">
-                 <property name="minimumSize">
-                  <size>
-                   <width>250</width>
-                   <height>44</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>127</width>
-                   <height>44</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>楷体</family>
-                   <pointsize>20</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>回料电磁阀</string>
                  </property>
                  <property name="checkable">
                   <bool>true</bool>
@@ -3928,8 +3786,8 @@ background-color:transparent;
                  </property>
                 </widget>
                </item>
-               <item row="2" column="1">
-                <widget class="QPushButton" name="pb_cmdStopSignalcheckable">
+               <item row="0" column="2">
+                <widget class="QPushButton" name="pb_cmdCapBackValvecheckable">
                  <property name="minimumSize">
                   <size>
                    <width>250</width>
@@ -3951,14 +3809,14 @@ background-color:transparent;
                   </font>
                  </property>
                  <property name="text">
-                  <string>停机信号</string>
+                  <string>回料电磁阀</string>
                  </property>
                  <property name="checkable">
                   <bool>true</bool>
                  </property>
                 </widget>
                </item>
-               <item row="2" column="2">
+               <item row="1" column="2">
                 <widget class="QPushButton" name="pb_cmdAlarmSignalcheckable">
                  <property name="minimumSize">
                   <size>
@@ -3988,67 +3846,7 @@ background-color:transparent;
                  </property>
                 </widget>
                </item>
-               <item row="3" column="0">
-                <widget class="QPushButton" name="pb_cmdYellowAlarmoutcheckable">
-                 <property name="minimumSize">
-                  <size>
-                   <width>250</width>
-                   <height>44</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>127</width>
-                   <height>44</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>楷体</family>
-                   <pointsize>20</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>黄灯报警</string>
-                 </property>
-                 <property name="checkable">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="1">
-                <widget class="QPushButton" name="pb_cmdBafflecheckable">
-                 <property name="minimumSize">
-                  <size>
-                   <width>250</width>
-                   <height>44</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>127</width>
-                   <height>44</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>楷体</family>
-                   <pointsize>20</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>挡    板</string>
-                 </property>
-                 <property name="checkable">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="2">
+               <item row="2" column="2">
                 <widget class="QPushButton" name="pB_cmdCapClean">
                  <property name="minimumSize">
                   <size>
@@ -4072,6 +3870,66 @@ background-color:transparent;
                  </property>
                  <property name="text">
                   <string>清空物料</string>
+                 </property>
+                 <property name="checkable">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QPushButton" name="pb_cmdStopSignalcheckable">
+                 <property name="minimumSize">
+                  <size>
+                   <width>250</width>
+                   <height>44</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>127</width>
+                   <height>44</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>楷体</family>
+                   <pointsize>20</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>停机信号</string>
+                 </property>
+                 <property name="checkable">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QPushButton" name="pb_cmdBafflecheckable">
+                 <property name="minimumSize">
+                  <size>
+                   <width>250</width>
+                   <height>44</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>127</width>
+                   <height>44</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>楷体</family>
+                   <pointsize>20</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>挡    板</string>
                  </property>
                  <property name="checkable">
                   <bool>true</bool>
@@ -5588,7 +5446,7 @@ background-color:transparent;
              <string notr="true"/>
             </property>
             <property name="text">
-             <string>停止位置1 mm</string>
+             <string>下料定位偏移p</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -6058,7 +5916,7 @@ background-color:transparent;
              <string notr="true"/>
             </property>
             <property name="text">
-             <string>停止位置2 mm</string>
+             <string>转盘定位偏移p</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -6830,7 +6688,7 @@ background-color:transparent;
               </font>
              </property>
              <property name="text">
-              <string>0</string>
+              <string/>
              </property>
             </widget>
            </item>

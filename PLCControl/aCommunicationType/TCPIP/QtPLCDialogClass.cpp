@@ -184,7 +184,6 @@ QtPLCDialogClass::QtPLCDialogClass(QDialog *parent)
 	//指示灯部分
 	((Ui::QtPLCDialogClass*)ui)->lb_00->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
 	((Ui::QtPLCDialogClass*)ui)->lb_10->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
-	((Ui::QtPLCDialogClass*)ui)->lb_20->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
 
 	btnTimer = new QTimer();
 	connect(btnTimer, SIGNAL(timeout()), this, SLOT(startMovie()));
@@ -1514,15 +1513,6 @@ void QtPLCDialogClass::getPLCData(void* data)
 
 	}
 
-	if (!m_data->Inputs.FeedTrigger1)
-	{
-		((Ui::QtPLCDialogClass*)ui)->lb_20->setPixmap(QPixmap(AppPath + "/ico/redLed.png"));
-	}
-	else
-	{
-		((Ui::QtPLCDialogClass*)ui)->lb_20->setPixmap(QPixmap(AppPath + "/ico/redGreen.png"));
-
-	}
 #pragma endregion
 	//输出点
 #pragma region output
@@ -1555,20 +1545,6 @@ void QtPLCDialogClass::getPLCData(void* data)
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwithcheckable->setStyleSheet("font: bold;font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwithcheckable->blockSignals(false);
 	}
-	if (m_data->Outputs.Vaccum)//真空发生器
-	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccumcheckable->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccumcheckable->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccumcheckable->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccumcheckable->blockSignals(false);
-	}
-	else
-	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccumcheckable->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccumcheckable->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccumcheckable->setStyleSheet("font: bold;font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccumcheckable->blockSignals(false);
-	}
 	if (m_data->Outputs.CapGet)//取料电磁铁
 	{
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetcheckable->blockSignals(true);
@@ -1582,20 +1558,6 @@ void QtPLCDialogClass::getPLCData(void* data)
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetcheckable->setChecked(false);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetcheckable->setStyleSheet("font: bold;font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetcheckable->blockSignals(false);
-	}
-	if (m_data->Outputs.CapGetValve)//取料电磁阀
-	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValvecheckable->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValvecheckable->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValvecheckable->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValvecheckable->blockSignals(false);
-	}
-	else
-	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValvecheckable->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValvecheckable->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValvecheckable->setStyleSheet("font: bold;font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValvecheckable->blockSignals(false);
 	}
 	if (m_data->Outputs.CapBackValve)//回料电磁阀
 	{
@@ -1652,20 +1614,6 @@ void QtPLCDialogClass::getPLCData(void* data)
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignalcheckable->setChecked(false);
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignalcheckable->setStyleSheet("font: bold;font-size:20pt");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignalcheckable->blockSignals(false);
-	}
-	if (m_data->Outputs.YellowAlarmout)//黄灯报警
-	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmoutcheckable->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmoutcheckable->setChecked(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmoutcheckable->setStyleSheet("font: bold;background: rgb(0,255,0);font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmoutcheckable->blockSignals(false);
-	}
-	else
-	{
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmoutcheckable->blockSignals(true);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmoutcheckable->setChecked(false);
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmoutcheckable->setStyleSheet("font: bold;font-size:20pt");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmoutcheckable->blockSignals(false);
 	}
 	if (m_data->Outputs.Baffle)//挡板
 	{
@@ -3329,17 +3277,13 @@ void QtPLCDialogClass::ChangeLanguage()
 		//输入输出
 		((Ui::QtPLCDialogClass*)ui)->label_40->setText("Capsule Drop");
 		((Ui::QtPLCDialogClass*)ui)->label_11->setText("Swing Arm");
-		((Ui::QtPLCDialogClass*)ui)->label_46->setText("Capsule Drop1");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdRejectcheckable->setText("Reject");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdChannelSwithcheckable->setText("ChannelSwith");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdVaccumcheckable->setText("Vaccum");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetcheckable->setText("CapGet");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapGetValvecheckable->setText("CapGetValve");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdCapBackValvecheckable->setText("CapBackValve");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmOutcheckable->setText("AlarmOut");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdStopSignalcheckable->setText("StopSignal");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdAlarmSignalcheckable->setText("AlarmSignal");
-		((Ui::QtPLCDialogClass*)ui)->pb_cmdYellowAlarmoutcheckable->setText("YellowAlarmout");
 		((Ui::QtPLCDialogClass*)ui)->pb_cmdBafflecheckable->setText("Baffle");
 		((Ui::QtPLCDialogClass*)ui)->label_2->setText("Analog Output");
 
